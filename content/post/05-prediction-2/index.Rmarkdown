@@ -1,5 +1,5 @@
 ---
-title: 'Lab 05'
+title: 'Week 05'
 subtitle: 'Fonts + Tables/Take a Sad Plot & Make it Better'
 summary: Fonts + Tables/Take a Sad Plot & Make it Better
 date: "2018-05-06T00:00:00Z"
