@@ -1,8 +1,8 @@
 ---
 title: 'Week 05'
-subtitle: 'Fonts + Tables/Take a Sad Plot & Make it Better'
-summary: Fonts + Tables/Take a Sad Plot & Make it Better
-date: "2018-05-06T00:00:00Z"
+subtitle: 'Predictions with Mutliple Variables'
+summary: Multiple regression
+date: "2022-03-01"
 featured: false
 draft: false
 

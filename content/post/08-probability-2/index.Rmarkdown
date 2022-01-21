@@ -1,8 +1,8 @@
 ---
-title: 'Lab 11'
-subtitle: 'One Dataset, Visualized 11 Ways'
-summary: One Dataset, Visualized 11 Ways
-date: "2018-05-30T00:00:00Z"
+title: 'Week 8'
+subtitle: 'Probability'
+summary: Fun with probability distributions
+date: "2022-03-22"
 featured: false
 draft: false
 

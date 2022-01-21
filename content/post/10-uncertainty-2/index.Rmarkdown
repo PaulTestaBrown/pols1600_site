@@ -1,8 +1,8 @@
 ---
-title: 'Lab 12'
-subtitle: 'Wrap-up'
-summary: Wrap-up
-date: "2018-06-02T00:00:00Z"
+title: 'Week 10'
+subtitle: 'Statistical Inference'
+summary: Hypothesis testing
+date: "2022-04-12"
 featured: false
 draft: false
 

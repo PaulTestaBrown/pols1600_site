@@ -1,7 +1,7 @@
 ---
 title: 'Week 02: Febuary 8-10, 2022'
 subtitle: 'Experimental Approaches to Causal Inference'
-summary: MoMA Museum Tour
+summary: How random assignment helps us make causal claims
 date: "2022-02-08"
 featured: false
 draft: false
