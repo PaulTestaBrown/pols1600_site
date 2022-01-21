@@ -1,8 +1,8 @@
 ---
-title: 'Lab 03'
-subtitle: 'Colors with Animal Sounds'
+title: 'Week 03'
+subtitle: 'Causation in Observational Studies'
 summary: Colors with Animal Sounds
-date: "2018-04-23T00:00:00Z"
+date: "2022-02-15T00:00:00Z"
 featured: false
 draft: false
 
