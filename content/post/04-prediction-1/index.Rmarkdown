@@ -1,5 +1,5 @@
 ---
-title: 'Lab 04'
+title: 'Week 04'
 subtitle: 'Tidy Data + Distributions'
 summary: Tidy Data + Distributions
 date: "2018-04-30T00:00:00Z"

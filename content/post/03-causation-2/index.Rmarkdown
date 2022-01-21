@@ -1,7 +1,7 @@
 ---
 title: 'Week 03'
 subtitle: 'Causation in Observational Studies'
-summary: Colors with Animal Sounds
+summary: Causation in Observational Studies
 date: "2022-02-15T00:00:00Z"
 featured: false
 draft: false
