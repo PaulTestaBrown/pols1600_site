@@ -2,7 +2,7 @@
 title: 'Lab 02'
 subtitle: 'MoMA Museum Tour'
 summary: MoMA Museum Tour
-date: "2018-04-16T00:00:00Z"
+date: "2022-02-08"
 featured: false
 draft: false
 
