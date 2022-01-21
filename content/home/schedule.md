@@ -30,8 +30,7 @@ subtitle = ""
     publication_type = ""
     author = ""
     exclude_featured = false
-    exclude_past = true
-  
+
 [design]
   # Toggle between the various page layout types.
   #   1 = List
