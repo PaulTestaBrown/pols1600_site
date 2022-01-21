@@ -1,8 +1,8 @@
 ---
-title: 'Lab 12'
+title: 'Week 11'
 subtitle: 'Wrap-up'
 summary: Wrap-up
-date: "2018-06-02T00:00:00Z"
+date: "2022-04-19"
 featured: false
 draft: false
 

@@ -1,8 +1,8 @@
 ---
-title: 'Lab 12'
-subtitle: 'Wrap-up'
-summary: Wrap-up
-date: "2018-06-02T00:00:00Z"
+title: 'Week 9'
+subtitle: 'Statistical Inference'
+summary: Confidence intervals
+date: "2022-04-05"
 featured: false
 draft: false
 

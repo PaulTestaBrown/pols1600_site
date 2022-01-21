@@ -1,8 +1,8 @@
 ---
-title: 'Lab 12'
-subtitle: 'Wrap-up'
-summary: Wrap-up
-date: "2018-06-02T00:00:00Z"
+title: 'Week 12'
+subtitle: 'Explorations'
+summary: Working on your final papers
+date: "2022-04-26"
 featured: false
 draft: false
 
