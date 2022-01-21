@@ -6,7 +6,7 @@ bio: This course will give students a foundation in the principles and practice 
 email: ""
 name: null
 organizations:
-- name: Oregon Health & Science University
+- name: Brown University
   url: https://www.ohsu.edu/
 role: null
 social:
@@ -26,7 +26,4 @@ user_groups:
 ---
 
 <br>
-
-This course will give students a foundation in the principles and practice of data visualization, particularly as applied to scientific and technical data. 
-
-We will have weekly lectures, covering a wide variety of topics including human perception, color theory, principles of visual design, etc. We will also have weekly hands-on laboratory sessions in which students will have the opportunity to put the lecture material into practice. This year, we will be adding additional emphasis on larger issues of scientific communication— after all, that's one of the main reasons we make visualizations! 
+This class is an introduction to applied statistics as practiced in political science. It is computing intensive, and, as such, will enable students to execute basic quantitative analyses of social science data using the linear model with statistical inference arising from re-sampling and permutation based techniques as applied in the R statistical computing language (https://cran.r-project.org/) with RStudio (https://www.rstudio.com/.) By the end of the course, a successful student will be able to find social science data online, download it, analyze it, and write about how the analyses bear on focused social science or policy questions.

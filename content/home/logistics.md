@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 30  # Order that this section will appear.
 
 title = "Logistics"
-subtitle = "We meet twice a week, alternating lectures on Mondays and labs on Wednesdays. Lab sessions will largely use the open-source R and ggplot2 tools."
+subtitle = "We meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio"
 
 # Showcase personal skills or business features.
 # 
@@ -18,18 +18,18 @@ subtitle = "We meet twice a week, alternating lectures on Mondays and labs on We
   icon = "cloud"
   icon_pack = "fas"
   name = "Location"
-  description = "Online, all the time"
+  description = "Smith-Buonanno Hall G13"
   
 [[feature]]
   icon = "play-circle"
   icon_pack = "far"
   name = "Lecture"
-  description = "Mondays, 12:00 – 13:30"  
+  description = "Tuesday, 1:00 – 2:20 PM"  
   
 [[feature]]
   icon = "code"
   icon_pack = "fas"
   name = "Labs"
-  description = "Wednesdays, 12:00 – 13:30"
+  description = "Thursdays, 1:00 – 2:20 PM"
 
 +++
