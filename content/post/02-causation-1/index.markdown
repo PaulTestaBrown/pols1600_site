@@ -1,6 +1,6 @@
 ---
-title: 'Lab 02'
-subtitle: 'MoMA Museum Tour'
+title: 'Week 02: Febuary 8-10, 2022'
+subtitle: 'Experimental Approaches to Causal Inference'
 summary: MoMA Museum Tour
 date: "2022-02-08"
 featured: false
