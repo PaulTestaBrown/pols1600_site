@@ -2,6 +2,7 @@
 title: 'Week 8'
 subtitle: 'Probability'
 summary: Fun with probability distributions
+publishDate: "2022-01-08"
 date: "2022-03-22"
 featured: false
 draft: false

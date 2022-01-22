@@ -1,8 +1,9 @@
 ---
 title: 'Week 03'
 subtitle: 'Causation in Observational Studies'
-summary: Causation in Observational Studies
-date: "2022-02-15T00:00:00Z"
+summary: How to make causal claims when we can't randomize
+publishDate: "2022-01-03"
+date: "2022-02-15"
 featured: false
 draft: false
 

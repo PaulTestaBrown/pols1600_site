@@ -2,6 +2,7 @@
 title: 'Week 12'
 subtitle: 'Explorations'
 summary: Working on your final papers
+publishDate: "2022-01-12"
 date: "2022-04-26"
 featured: false
 draft: false

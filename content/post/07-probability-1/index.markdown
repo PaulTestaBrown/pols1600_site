@@ -1,8 +1,9 @@
 ---
-title: 'Lab 07'
-subtitle: 'Making a share-able site'
-summary: Making a share-able site
-date: "2018-05-20T00:00:00Z"
+title: 'Week 07'
+subtitle: 'Intro to Probability'
+summary: Counting is hard
+publishDate: "2022-01-07"
+date: "2022-03-15"
 featured: false
 draft: false
 

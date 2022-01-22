@@ -2,6 +2,7 @@
 title: 'Week 9'
 subtitle: 'Statistical Inference'
 summary: Confidence intervals
+publishDate: "2022-01-09"
 date: "2022-04-05"
 featured: false
 draft: false

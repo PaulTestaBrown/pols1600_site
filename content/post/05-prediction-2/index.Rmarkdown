@@ -2,6 +2,7 @@
 title: 'Week 05'
 subtitle: 'Predictions with Mutliple Variables'
 summary: Multiple regression
+publishDate: "2022-01-05"
 date: "2022-03-01"
 featured: false
 draft: false

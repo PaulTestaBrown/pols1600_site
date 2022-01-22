@@ -1,8 +1,9 @@
 ---
-title: 'Lab 06'
-subtitle: 'Making slides and websites with R Markdown'
-summary: Making slides and websites with R Markdown
-date: "2018-05-13T00:00:00Z"
+title: 'Week 06'
+subtitle: 'Prediction - Part 3'
+summary: Generalized linear models
+publishDate: "2022-01-06"
+date: "2022-03-08"
 featured: false
 draft: false
 

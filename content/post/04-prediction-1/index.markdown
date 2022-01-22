@@ -1,8 +1,9 @@
 ---
 title: 'Week 04'
-subtitle: 'Tidy Data + Distributions'
-summary: Tidy Data + Distributions
-date: "2022-04-30T00:00:00Z"
+subtitle: 'Prediction Inference'
+summary: Introducing linear models
+publishDate: "2022-01-04"
+date: "2022-02-24"
 featured: false
 draft: false
 

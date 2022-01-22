@@ -1,7 +1,8 @@
 ---
-title: 'Week 02: Febuary 8-10, 2022'
+title: 'Week 02'
 subtitle: 'Experimental Approaches to Causal Inference'
 summary: How random assignment helps us make causal claims
+publishDate: "2022-01-02"
 date: "2022-02-08"
 featured: false
 draft: false

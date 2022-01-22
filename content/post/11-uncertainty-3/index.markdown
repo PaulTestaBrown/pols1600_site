@@ -2,6 +2,7 @@
 title: 'Week 11'
 subtitle: 'Wrap-up'
 summary: Wrap-up
+publishDate: "2022-01-11"
 date: "2022-04-19"
 featured: false
 draft: false
