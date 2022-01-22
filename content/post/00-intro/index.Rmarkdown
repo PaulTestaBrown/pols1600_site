@@ -3,7 +3,7 @@ title: 'Week 00'
 subtitle: 'Welcome to POLS 1600'
 summary: Getting to know each other and the course
 publishDate: "2021-01-01"
-date: "2022-01-27"
+date: "2022-01-21"
 featured: false
 draft: false
 
