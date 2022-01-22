@@ -9,7 +9,7 @@
   publish = "public/"
   HUGO_VERSION = "0.88.1"
   HUGO_ENV = "production"
-  HUGO_ENABLEGITINFO = "true"
+  HUGO_ENABLEGITINFO = "false"
 
 [context.branch-deploy.environment]
   publish = "public/"
