@@ -2,6 +2,7 @@
 title: 'Week 01'
 subtitle: 'Data, Measurement, and Vizulation'
 summary: 'Describing and Visualizing Data in R'
+publishDate: "2022-01-01"
 date: '2022-02-01'
 featured: false
 draft: false
