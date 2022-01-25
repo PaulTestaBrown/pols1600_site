@@ -102,12 +102,12 @@ thead, tfoot, tr:nth-child(even) { background: #eee }
   background-image: url(brown.png);
   background-position: 95% 95%;
   background-size: 100px;
-  background-color: #DEE8F4;
+  background-color: #ffffff;
 }
 
 .inverse h2 {
   line-height: 1.1;
-  font-family: 'Sofia';
+  font-family: 'Crimson Pro';
 }
 
 .inverse .remark-inline-code { 

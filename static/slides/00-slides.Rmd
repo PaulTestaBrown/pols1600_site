@@ -1,0 +1,170 @@
+---
+title: "Welcome to POLS 1600"
+subtitle: "Introductions"
+author: "Paul Testa"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/brown.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: atelier-lakeside-light
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300,
+  fig.align = "center", out.width = "80%", cache = FALSE)
+library(tidyverse)
+library(babynames)
+```
+
+
+## Overview
+
+--
+
+- Goals and Expectations
+
+--
+
+--
+
+- Course Structure
+
+--
+
+--
+
+- Course Policies
+
+--
+
+--
+
+- A Few Fundamental Truths
+
+--
+
+---
+class: middle, center
+
+## Goals and Expectations
+
+---
+
+## What you will learn
+
+You will learn 
+
+--
+
+- how to think like a social scientist
+
+--
+
+--
+
+- how to use data to make descriptive, predictive, and causal claims
+
+--
+
+- how to quantify uncertainty about these claims
+
+--
+
+- how to present, interpret, and critique these claims
+
+---
+## Reasons to take this class
+
+
+--
+1. Empirical Data > \#AlternativeFacts 
+
+--
+
+--
+2. You want to do your own research 
+
+--
+
+--
+3. You want to get a job / go to grad school
+
+--
+
+--
+4. You *have* to 
+
+--
+
+--
+5. For the memes
+
+--
+
+---
+background-image: url("images/00_distracted.jpg")
+background-size: contain
+
+
+
+---
+class: inverse
+background-image: url("https://res.cloudinary.com/uktv/image/upload/v1426611188/ekyiync2zbmgdydizkok.jpg")
+background-size: cover
+background-position: 50% 0%
+
+
+## Great expectations
+
+Come willing to engage with:
+
+- the practice of social science thinking and writing
+- data analysis
+- computer programming
+- mathematics
+
+
+---
+## Requirements
+
+I assume that you will
+
+1. Do the readings
+2. Bring your computers*
+3. Work through classwork
+4. Ask questions
+
+---
+class: center, middle
+
+##  Course structure
+
+---
+
+## Class
+
+- Tuesday: Lecture/Demonstration
+- Thursday: Lab/Exploration
+
+---
+## Class websites
+
+- Notes, Slides, and Labs available here: [pols1600.paultesta.org](https://pols1600.paultesta.org)
+- Assignments uploaded here: [Canvas](https://canvas.brown.edu/courses/1087979)
+
+---
+## Software and computing
+
+- Statistics done using R
+	  + Open source (free) statistical language
+- Through R Studio 
+	  * An integrated development environment for R 
+- Results written up using R Markdown
+	  + Language for combing R code with html Markdown
+	  
+
