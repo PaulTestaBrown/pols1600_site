@@ -25,9 +25,13 @@ image:
 projects: []
 
 links:
+- icon: magic
+  icon_pack: fas
+  name: slides
+  url: /slides/00-slides.html  
 - icon: flask
   icon_pack: fas
-  name: lab
+  name: R tutorial
   url: /labs/00-install_name_plot.html
 ---
 
