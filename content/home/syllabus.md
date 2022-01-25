@@ -8,8 +8,8 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 50 # Order that this section will appear.
 
-title = "Syllabus"
-subtitle = ""
+title = "[Syllabus](https://www.google.com)"
+subtitle = "Key points below. Full syllabus [here](https://www.google.com)"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -29,8 +29,8 @@ subtitle = ""
   # gradient_end = "SkyBlue"
   
   # Background image.
-  image = "headers/Clouds.jpg"  # Name of image in `static/img/`.
-  image_darken = 0.3  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
+  image = "headers/brown.jpg"  # Name of image in `static/img/`.
+  image_darken = 0.5  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
   image_size = "cover"  #  Options are `cover` (default), `contain`, or `actual` size.
   image_position = "center"  # Options include `left`, `center` (default), or `right`.
   image_parallax = true  # Use a fun parallax-like fixed background effect? true/false
@@ -44,24 +44,57 @@ subtitle = ""
 
 [advanced]
  # Custom CSS. 
- css_style = ""
+ css_style = "custom.css"
  
  # CSS class.
  css_class = ""
 +++
 
-## Assignments & Project
 
-There will be regular homework assignments, typically as part of lab sessions. There will also be a final term project; more details about which will be forthcoming.
 
 ## Textbook
 
-We will be drawing material from a wide variety of sources for this course; as such, there is no single, required text book <em>per se</em>. However, we will frequently refer to Nathan Yau's <a href="http://www.powells.com/biblio/1-9781118462195-4"><em>Data Points</em></a>, and highly recommend that anybody taking this class have a copy. Additionally, many lab sessions and some assignments will use exercises from Nathan Yau's <a href="http://www.powells.com/biblio/2-9780470944882-0"><em>Visualize This</em></a>. Tamara Munzer's <a href="http://www.cs.ubc.ca/~tmm/vadbook/"><em>Visualization Analysis and Design</em></a> is also incredibly useful.
+We will use Kosuke Imai's *[Quantitive Social Science: An Introduction](https://qss.princeton.press/)* as our primary textbook. 
+
+## Attendance
+
+You may miss two classes without it having any effect on the attendance portion of your grade. After two absences, each additional absence (without a written note from the University) will reduce your final grade by 1 percent.
+
+## Assignments & Project
+
+- Weekly Labs (done in class) 
+- Weekly Problems sets (done at home)
+- Final Project (done in groups)
+
+
+<div class="fyi">
+All assignments must be uploaded to <a href="https://canvas.brown.edu/courses/1087979">Canvas</a> on the day they are due
+</div>
+
+
+
+## Grades
+
+- 5% Attendance
+- 10% Class participation
+- 10% Weekly problem sets
+- 15% Assignments leading up to your final project
+- 30% Weekly in labs
+- 30% Final project
+
+## Academic Integrity
+
+Any violation of the above statement will be understood as an act of academic dishonesty and will be handled according to the policies detailed in 
+
 
 ## Access Statement
 
-Our program is committed to all students achieving their potential. If you have a disability or think you may have a disability (physical, learning, hearing, vision, psychological) which may need a reasonable accommodation please contact Student Access at (503) 494-0082 or e-mail studentaccess@ohsu.edu to discuss your needs. You can also find more information at http://www.ohsu.edu/student-access. Because accommodations can take time to implement, it is important to have this discussion as soon as possible. All information regarding a student’s disability is kept in accordance with relevant state and federal laws. 
+Any student with a documented disability is welcome to contact me as early in the semester as possible so that we may arrange reasonable accommodations.  As part of this process, please be in touch with Student Accessibility Services by calling 401-863-9588 or [online](http://brown.edu/Student_Services/Office_of_Student_Life/seas/index.html)
 
 ## Equity & Inclusion
 
-Oregon Health & Science University is committed to creating and fostering a learning and working environment based on open communication and mutual respect. If you encounter sexual harassment, sexual misconduct, sexual assault, or discrimination based on race, color, religion, age, national origin or ancestry, veteran or military status, sex, marital status, pregnancy or parenting status, sexual orientation, gender identity, disability or any other protected status please contact the Affirmative Action and Equal Opportunity Department at 503-494-5148 or aaeo@ohsu.edu. Inquiries about Title IX compliance or sex/gender discrimination and harassment may be directed to the OHSU Title IX Coordinator at 503-494-0258 or titleix@ohsu.edu.
+This course is designed to support an inclusive learning environment where diverse perspectives are recognized, respected and seen as a source of strength. It is my intent to provide materials and activities that are respectful of various levels of diversity: mathematical background, previous computing skills, gender, sexuality, disability, age, socioeconomic status, ethnicity, race, and culture. Toward that goal:
+
+- If you have a name and/or set of pronouns that differ from those that appear in your official Brown records, please let me know!
+- If there are things going on outside of class that are affecting your performance in class, please don't hesitate to talk to me or if you'd prefer to speak to some 
+- If you feel like your performance in the class is being impacted by your experiences outside of class, please don't hesitate to come and talk with me. I want to be a resource for you. Remember that you can also submit anonymous feedback (which will lead to me making a general announcement to the class, if necessary to address your concerns). If you prefer to speak with someone outside of the course, Dean Bhattacharyya, Associate Dean of the College for Diversity Programs, is an excellent resource.
