@@ -2,23 +2,24 @@
 authors:
 - admin
 bio: This course will give students a foundation in the principles and practice of
-  data visualization, particularly as applied to scientific and technical data.
+  quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.
 email: ""
 name: null
 organizations:
 - name: Brown University
-  url: https://www.ohsu.edu/
+  url: https://www.brown.edu/
 role: null
 social:
+- icon: chalkboard-teacher
+  icon_pack: fa
+  link: https://canvas.brown.edu/courses/1087979
 - icon: r-project
   icon_pack: fab
-  link: https://rstudio.cloud
-- icon: piazza
-  icon_pack: ai
-  link: https://piazza.com/
+  link: https://www.rstudio.com/
+  description: "Canvas"
 - icon: github
   icon_pack: fab
-  link: https://github.com/apreshill/dataviz-intro
+  link: https://github.com/PaulTestaBrown/pols1600_site
 superuser: true
 user_groups:
 - Researchers
@@ -26,4 +27,4 @@ user_groups:
 ---
 
 <br>
-This class is an introduction to applied statistics as practiced in political science. It is computing intensive, and, as such, will enable students to execute basic quantitative analyses of social science data using the linear model with statistical inference arising from re-sampling and permutation based techniques as applied in the R statistical computing language (https://cran.r-project.org/) with RStudio (https://www.rstudio.com/.) By the end of the course, a successful student will be able to find social science data online, download it, analyze it, and write about how the analyses bear on focused social science or policy questions.
+This course will give students a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.
