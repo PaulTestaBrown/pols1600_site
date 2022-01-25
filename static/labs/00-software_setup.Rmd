@@ -51,25 +51,45 @@ Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St 
 
 - **Download the desktop version of RStudio here:** <https://www.rstudio.com/products/rstudio/download/>
 
-![](images/00_r01.png)
+- Scroll down till you get to something like this
 
-- Scrol0
+![](images/00_r03.png)
+
+- Make sure to move the RStudio.app into your Applications folder
+
+![](images/00_r06.png)
+
 
 # Open R Studio
 
-3. **Open R Studio on your machine.** There are four "panes" which correspond rougly to:
-    - The top left is where you'll right your code (Source/Text Editor). Will appear once you open a file.
+3. **Open R Studio on your machine.** There are four "panes" which correspond roughly to:
+    - The top left is where you'll write your code (Source/Text Editor). Will appear once you open a file.
     - The bottom left is where you'll run your code (Console)
-    - The top right is a list of what you've done (Workspace/Environmnt)
-    - The bottom right is a collection of things we'll go over in class, things like packages plots (Potpourri)
-4. **RStudio will likely ask you to install a bunch of packages on start up. Please do so. Get a coffee or check your email**
+    - The top right is a list of what you've done (Workspace/Environment)
+    - The bottom right is a collection of things we'll go over in class, things like packages plots (Packages/Files/Plots abd nire)
+
+![](images/00_r07.png)
+
+# Install packages
+
+- **RStudio will likely ask you to install a bunch of packages on start up. Please do so. Get a coffee or check your email**
     - R will now install a bunch of pacakges (programs that do specific things). You only have to do this once. 
     - This may take a while and RStudio may ask you to choose a "mirror" (pick any one in the US). It may also give you an error. Don't worry, email me.
+
+## Install devtools
+
+## Install qss
+
+# Create a RMarkdown Document
+
 5. **Click File > New File > R Markdown**
     - Again, R should as you what kind of file you want to make, choose html (the default) and fill in things like the title or author if you want.
+
+## "Knit" your RMarkdown Document
+
 6. **Click the knit button** in the Source/Text editor on the upper left and see what happens
     - In a perfect world, you'll get a nice pretty looking html document
-    - Quite possibly, you'll get some error. That's fine and to be expected when starting up. The goal of having you do this on your own is to try and get to and resolve those barriers as quickly as possible. So don't sweat it too much. We'll take care of things in class on Thursday
+    - Quite possibly, you'll get some error. That's fine and to be expected when starting up. The goal of having you do this on your own is to try and get to and resolve those barriers as quickly as possible. So don't sweat it too much. We'll take care of things in class on Tuesday
     
 
 If things go as planned, you may want to play around with some of these resources for learning:
