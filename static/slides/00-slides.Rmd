@@ -209,9 +209,7 @@ class: center, middle
     
 - Write up in [Markdown](https://www.markdownguide.org/)
 
-![](https://lh3.googleusercontent.com/B49_V41R2GAcczMcRLHnl-79imX_8k1YTuBkBa5OQtjbOvVrj3Rw93Auhtwv60iVoyRNRtWHJVqLtE3WOATu-uBI9Pi6S3yXVbtwFgbPnf8bIQyp8RKpPJhKYGms6DYJ3JoV32Rl6w=w2400)
 
-<a href="https://lh3.googleusercontent.com/B49_V41R2GAcczMcRLHnl-79imX_8k1YTuBkBa5OQtjbOvVrj3Rw93Auhtwv60iVoyRNRtWHJVqLtE3WOATu-uBI9Pi6S3yXVbtwFgbPnf8bIQyp8RKpPJhKYGms6DYJ3JoV32Rl6w=w2400?source=screenshot.guru"> <img src="https://lh3.googleusercontent.com/B49_V41R2GAcczMcRLHnl-79imX_8k1YTuBkBa5OQtjbOvVrj3Rw93Auhtwv60iVoyRNRtWHJVqLtE3WOATu-uBI9Pi6S3yXVbtwFgbPnf8bIQyp8RKpPJhKYGms6DYJ3JoV32Rl6w=w600-h315-p-k" /> </a>
 
 ---
 ## Textbook
@@ -253,73 +251,32 @@ summary(afghan$age)
 ```
 
 ---
+## Additional Readings
 
-## Problem Sets
-
-```{r}
-
-```
-
-
-
-- The text also contains exercises to help you practice concepts from each chapter. In Chapter 1 you'll see the following:
-
-```{r,eval=F}
-if (!require("swirl")){
-  install.packages("swirl")}
-library(swirl)
-install_course_github("kosukeimai", "qss-swirl")
-```
-
-- Typing `swirl()` into your console will then guide you through a series of exercises designed to reinfornce concepts from each chapter
-    - Never put the `swirl()` command in Rmd file...
-    - More on this Friday
-
----
-
-## How to Read Imai
-
-1. Read each chapter with R Studio Open
-2. Run and adapt the code so that you know what's going on
-3. Use the swirl() exercises for review
-4. Work through some of the practice exercises at the end of each chapter.
+- Occasionally, I will provide additional readings, available on both Canvas and pols1600.paultesta.org
 
 
 ---
-## Your First Assignment:
 
-- Download and install R and R Studio by Friday
-    - Email me when you have finished or when you have troubles
-    - Come by 111 Thayer Room 339 on Thursday if need assistance
-- Work through "POLS1600_R_Reference.Rmd" before class on Tuesday
+# Assignments
 
 
 ---
-## Downloading R and R Studio
+## Assignments
 
-By Friday, please go to Canvas, download "POLS1600_SoftwareInstructions.pdf" and follow the steps outlined in that document:
+You have three types of assignments in this course
 
-- Update your operating systems!
-- Download R
-- Download R Studio
-- Open R Studio
-- Execute "install.packages("rmarkdown") in the console
-- Create a New File:
-    - File > New File > R Markdown
-- Click the Knit button (to html) and save the document somewhere
+
+- Labs
+- Problem sets
+- Final Project
+
 
 ---
-## Portals of Discovery
+## Labs
 
-![](images/joyce.jpg)
-
----
-## Errors
-
-- ish happens
-- Seeing red is a good thing
-- We learn by making errors
-
+- Each Thursday we will work in groups to complete an in-class lab
+- The labs are designed to reinforce and extend concepts from lecture using real world data.
 
 ---
 ## Labs
@@ -352,17 +309,68 @@ By Friday, please go to Canvas, download "POLS1600_SoftwareInstructions.pdf" and
 	  + 0% if you did not try
 - Comments/Answers posted immediately after class
 
+
+---
+## Problem Sets
+
+- Coding tutorials to reinforce concepts from lecture and textbook. 
+- Accessed by running
+
+```{r, eval=F}
+learnr::run_tutorial("00-intro", package = "qsslearnr")
+```
+
+- Complete the tutorial. Save output as "LASTNAME_TutorialNumber.pdf"
+- Upload output to Canvas by Friday by 11:59 pm
+- Grades:
+  - 100% any upload
+  - 0% no upload
+
+---
+## Final Project
+
+
+
+---
+## Your First Assignment:
+
+- Download and install R and R Studio
+    - Email meif you have troubles
+    - Troubleshoot by Zoom or in-person (111 Thayer Room 339)
+- Work through "00-software_setup" before next class.
+
+
+---
+class: inverse, middle, center
+background-image: url("https://rosenbach.org/wp-content/uploads/2018/05/joyce-in-field-825x447.jpg")
+background-size: cover
+background-position: 50% 0%
+
+## Portals of Discovery
+
+
+---
+## Errors
+
+- ish happens
+- Seeing red is a good thing
+- We learn by making errors
+
+
+
+
 ---
 ## Final Reports
 
 - Can be on any topic you like
 - More info to come
 - Due dates:
-    - 9/29 Research Topics
-    - 10/13 Data
-    - 11/3 Outline
-    - 12/1 Draft
-    - 12/20 Final Paper
+    - XX/XX Groups assigned
+    - XX/XX Research Topics
+    - XX/XX Data
+    - XX/XX Outline
+    - XX/XX Presentations
+    - XX/XX Final Paper
 
 ---
 # Grading and Other Policies
@@ -370,23 +378,23 @@ By Friday, please go to Canvas, download "POLS1600_SoftwareInstructions.pdf" and
 ---
 ## Grading
 
-![](images/soc.jpg)
+![](https://upload.wikimedia.org/wikipedia/commons/5/59/Greuter_Socrates.jpg)
 
 ---
 ## Grading
 
-![](images/lisa.png)
+![](https://pbs.twimg.com/media/D1oazHVWkAApoCM.jpg)
 
 ---
 ## Grading
 
-![](images/grading.jpg)
+![](http://www.youreduaction.it/wp-content/uploads/2017/11/mozione.jpg)
 
 
 ---
 ## Grading
 
-![](images/socdeath.jpg)
+![](https://upload.wikimedia.org/wikipedia/commons/8/8c/David_-_The_Death_of_Socrates.jpg)
 
 ---
 ## Grading
@@ -407,44 +415,55 @@ By Friday, please go to Canvas, download "POLS1600_SoftwareInstructions.pdf" and
 
 
 ---
+class: inverse, center, middle
+background-image:url("https://media.giphy.com/media/xUOwGpVpFJHewjL1u0/giphy.gif")
+background-size: cover
+background-position: 50% 50%
+
 # Introductions
+
+
 
 ---
 ## Introductions 
-![](images/intro.png)
+ 
 
 
 ---
 ## Two Fundamental Truths
 
-When you google image search "Two Fundamental Truths"
-
-
-
-![](images/truth.png)
 
 ---
 ## Testa's first fundamental truth
 
+---
+background-image:url(https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg)
+background-size:50% 
 
-![](images/emoji.png)
+## Testa's first fundamental truth
+
+
 
 ---
 ## Testa's second fundamental truth
-\pause
+
+
+---
+## Testa's second fundamental truth
+
 ![](images/dwight.jpg)
 
 
 ---
 ## Two kinds of people in this world
-\pause
 
-![](images/candy1.jpg)
+
+![](https://i5.walmartimages.com/asr/ed3b4b7e-a923-4413-b774-750c63189125.f1779c41278636a8ba5887339534f8d7.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF)
 
 ---
 ## What is it that we say we do here
 
-![](images/bobs.jpg)
+![](https://media2.giphy.com/media/U1bCix41cllqYDdSFQ/200.gif)
 
 ---
 ## What does quantitative research do?
@@ -504,8 +523,10 @@ When you google image search "Two Fundamental Truths"
 - Explanations
 - Predictions and Uncertainty
 
---
-"All models are wrong, some models are useful" - George Box
+---
+background-image:url("https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg")
+background-size:cover
+
 
 ---
 ## Two kinds of people in this world
@@ -523,9 +544,11 @@ When you google image search "Two Fundamental Truths"
 - How do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?
 
 ---
-## Your turn
+class: inverse,center, bottom
+background-image:url("https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg")
+background-size:cover
+## But Enough about me
 
-![](images/willy.jpg)
 
 ---
 ## Your turn
@@ -537,5 +560,7 @@ Class survey
 ## Next Week:
 
 - Download and Install R and R studio
-- Work through "POLS1600_R_Reference.Rmd" Thursday
 - Read Chapters 1 (Friday) and start Chapter 3 in Imai
+- Tuesday: Describing and Visualizing Data in R
+- Thursday: Lab
+- Friday: "00-Intro" & 

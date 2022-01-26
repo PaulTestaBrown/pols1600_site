@@ -56,7 +56,6 @@ remotes::install_github("PaulTestaBrown/qsslearnr")
   - Click the ball of yarn with the needle OR:
   - Use the hot keys: Mac: `cmd + shift + k` PC: `crtl + shift + k` 
 
-
   > If you have a question or somethings not working, don't hesitate to ask. Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St Rm 339.
 
 # Download `R`
