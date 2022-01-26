@@ -1,7 +1,7 @@
 ---
 title: 'Week 11'
-subtitle: 'Wrap-up'
-summary: Wrap-up
+subtitle: 'Workshop'
+summary: Course review and workshop on final projects
 publishDate: "2022-01-11"
 date: "2022-04-19"
 featured: false
@@ -13,7 +13,7 @@ draft: false
 # Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
 image:
   placement: 2
-  caption: 'Image credit: [**Susie Ho on Unsplash**](https://unsplash.com/photos/tVyrFo50iiI)'
+  caption: 'Image credit: [**Susie Ho on Unsplash**](https://unsplash.com/photos/O3HV8daFgKw)'
   focal_point: ""
   preview_only: true
 

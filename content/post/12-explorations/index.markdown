@@ -1,7 +1,7 @@
 ---
 title: 'Week 12'
-subtitle: 'Explorations'
-summary: Working on your final papers
+subtitle: 'Presentations'
+summary: Presenting the fruits of your labor
 publishDate: "2022-01-12"
 date: "2022-04-26"
 featured: false
@@ -13,7 +13,7 @@ draft: false
 # Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
 image:
   placement: 2
-  caption: 'Image credit: [**Susie Ho on Unsplash**](https://unsplash.com/photos/tVyrFo50iiI)'
+  caption: 'Image credit: [**Riccardo Annandale on Unsplash**](https://unsplash.com/photos/7e2pe9wjL9M)'
   focal_point: ""
   preview_only: true
 
