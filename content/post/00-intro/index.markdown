@@ -27,12 +27,12 @@ projects: []
 links:
 - icon: magic
   icon_pack: fas
-  name: slides
+  name: Slides
   url: /slides/00-slides.html  
 - icon: flask
   icon_pack: fas
-  name: R tutorial
-  url: /labs/00-install_name_plot.html
+  name: Software setup
+  url: /labs/00-software_setup.html
 ---
 
 Welcome! I'll see you in class on Thursday. 
