@@ -8,8 +8,8 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 50 # Order that this section will appear.
 
-title = "[Syllabus](https://www.google.com)"
-subtitle = "Key points below. Full syllabus [here](https://www.google.com)"
+title = "[Syllabus](files/POLS_1600_syllabus_Spring_2022.pdf)"
+subtitle = "Key points below. Full syllabus [here](files/POLS_1600_syllabus_Spring_2022.pdf)"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -77,15 +77,14 @@ All assignments must be uploaded to <a href="https://canvas.brown.edu/courses/10
 
 - 5% Attendance
 - 10% Class participation
-- 10% Weekly problem sets
-- 15% Assignments leading up to your final project
+- 10% Weekly Tutorials
 - 30% Weekly in labs
-- 30% Final project
+- 20% Assignments leading up to your final project
+- 25% Final project
 
 ## Academic Integrity
 
-Any violation of the above statement will be understood as an act of academic dishonesty and will be handled according to the policies detailed in 
-
+Please review Brown's [Academic Code](https://www.brown.edu/academics/college/degree/policies/academic-code) academic code. Students who submit academic work that uses others’ ideas, words, research, or images without proper attribution and documentation are in violation of the academic code. Infringement of the academic code entails penalties ranging from reprimand to suspension, dismissal, or expulsion from the University.
 
 ## Access Statement
 
@@ -96,5 +95,5 @@ Any student with a documented disability is welcome to contact me as early in th
 This course is designed to support an inclusive learning environment where diverse perspectives are recognized, respected and seen as a source of strength. It is my intent to provide materials and activities that are respectful of various levels of diversity: mathematical background, previous computing skills, gender, sexuality, disability, age, socioeconomic status, ethnicity, race, and culture. Toward that goal:
 
 - If you have a name and/or set of pronouns that differ from those that appear in your official Brown records, please let me know!
-- If there are things going on outside of class that are affecting your performance in class, please don't hesitate to talk to me or if you'd prefer to speak to some 
-- If you feel like your performance in the class is being impacted by your experiences outside of class, please don't hesitate to come and talk with me. I want to be a resource for you. Remember that you can also submit anonymous feedback (which will lead to me making a general announcement to the class, if necessary to address your concerns). If you prefer to speak with someone outside of the course, Dean Bhattacharyya, Associate Dean of the College for Diversity Programs, is an excellent resource.
+- If there are things going on inside or outside of class that are affecting your performance in class, please don't hesitate to talk to me, provide anonymous feedback through our course survey, or [reach out](https://www.brown.edu/academics/college/speak-academic-dean) to one of Brown's Academic Deans.
+
