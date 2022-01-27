@@ -33,6 +33,10 @@ links:
   icon_pack: fas
   name: Software setup
   url: /labs/00-software_setup.html
+- icon: book
+  icon_pack: fas
+  name: QSS Ch01, Ch03
+  url: /files/QSS_ch01_and_ch03.pdf
 ---
 
 - Welcome! I'll see you in class on Thursday. 
