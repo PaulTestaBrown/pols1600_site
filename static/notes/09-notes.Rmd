@@ -1,0 +1,842 @@
+---
+title: "POLS 1600: Probability: Limit Theorems and Maximum Likelihood Estimation"
+date: Updated \today
+always_allow_html: yes
+output: 
+  html_document:
+      toc: yes
+      toc_float: yes
+---
+
+
+
+```{r init,echo=F,message=F}
+# Set repo manually
+options(repos="https://cran.rstudio.com" )
+# look for and install missing packages and load them
+# May need to install DiagrammeR from github
+#devtools::install_github('rich-iannone/DiagrammeRsvg')
+#devtools::install_github('rich-iannone/DiagrammeR')
+
+if (!require("pacman")){ install.packages("pacman") }
+pacman::p_load("mosaic","knitr","tidyverse","Hmisc","weights","ggplot2","devtools","scales","car","gridExtra","xtable","texreg","kableExtra","reshape2","readstata13")
+# svglite doesn't seem to play nice...
+# if(!require("gdtools")){install.packages("gdtools")}
+# if(!require("svglite")){install.packages("svglite")}
+# library(svglite)
+
+# Set global options for knitr
+# Set eval=F to produce just pdf with R code
+# Set eval=T with 
+opts_chunk$set(eval=T,echo=T,message=F,warning=F,cache=T,results="hide")
+
+
+
+```
+
+# Announcements
+
+- Submitting outlines will be optional.
+    - If you'd like more feedback on your projects, submit an updated html by Sunday November 10.
+    - In terms of final grades, you all get that point.
+
+# Overview
+
+In these notes we'll review some material we've already covered:
+
+- Random variables
+- Probability distributions
+
+Take a more detailed look at concepts we've used in this course:
+
+- Expectations
+- Variances
+
+And gain some insights into two limit theorems that are at the heart of statistical inference:
+
+- The Law of Large Numbers
+- The Central Limit Theorem
+
+For the most part, we'll leave proving these theorems to other classes. Our goal is to understand the intuition and implications of these foundational theorems for our work.
+
+Next, we'll take a brief tour of likelihoods and generalized linear models.
+
+
+
+# Review
+
+## Random Variables
+
+A **random variable** is simply a *function* which maps outcomes in the sample space to real numbers.
+
+### Distributions
+
+We often talk about the **distribution** of a random variable, which can be thought of as:
+
+$$
+\text{distribution} = \text{list of possible} \textbf{ values} + \text{associated} \textbf{ probabilities}
+$$
+
+This is not a strict mathematical definition, but is useful for conveying the idea.
+
+If the possible values of a random variables are *discrete* (finite or countably infinite), it is called a *discrete random variable*. If the possible values of a random variables are *continuous*, it is called a *continuous random variable*. 
+
+## Expected Value
+
+A (probability) weighted average of the possible outcomes of a random variable, often labeled $\mu$ 
+
+Discrete:
+
+\[
+\mu_X=E(X)=\sum xp(x) 
+\]
+
+Continuous
+\[
+\mu_X=E(X)=\int_{-\infty}^{\infty}xf(x) dx
+\] 
+
+
+# The Law of Large Numbers
+
+
+## The (Weak) Law of Large Numbers 
+
+Let $X_1, X_2, \dots$ be independent and identically distributed (i.i.d.) random variables with mean $\mu$ and
+variance $\sigma^2$. Then for every $\epsilon>0$,
+
+\[
+p(\left|\frac{X_1+\dots+X_n}{n}-\mu\right| > \epsilon) \to 0 \text{ as }n \to \infty
+\]
+
+> In words: as the sample size increases, the distance of a sample mean from the population mean $\mu$ goes to 0.
+
+
+Consider a **population** of size 100 (say students in an intro course), and taking **samples** that increase in size from 1 to 100. 
+
+When the sample size is small, your sample mean will vary a lot, but as it approaches 100, the sample mean converges to the population mean. 
+
+When your sample is the population you simply get the population value over and over. 
+
+## Simulating the LLN
+
+We saw last class that the expected value of rolling a die, was 3.5.
+
+\[
+E[X] = \Sigma x_ip(X=x_i) = 1/6 * (1+2+3+4+5+6)
+\]
+
+In terms of the LLN, think of our sample size as the number of times we roll a die. 
+
+If we rolled the die just once and took the average of our role, we could get a 1, 2, 3, 4, 5, or 6. which would be pretty far from our expected value of 3.5
+
+If we rolled the die two times and took an average, we could still get an value of 1 or 6 for average, but values closer to our expected value of 3.5, happen more often
+
+```{r, results="markup"}
+table(rowMeans(expand.grid(1:6, 1:6)))
+```
+
+As we increase our sample size (roll the die more times), the LLN says the chance that our sample average is far from the truth ($p(\left|\frac{X_1+\dots+X_n}{n}-\mu\right| > \epsilon)$), get's vanishingly small.
+
+As always, we can use R and functions to simulate this process:
+
+```{r}
+# Create a six-sided die
+die <- 1:6
+
+# Right a function that rolls our die
+roll_fn <- function(n) {
+  # save the value of each roll in a data frame called rolls
+  rolls <- data.frame(rolls = sample(die, size = n, replace = TRUE))
+  # summarize rolls 
+  df <- rolls %>%
+    summarise(
+    # number of rolls
+      n_rolls = n(),
+    # number of times 1 was rolled
+      ones = sum(rolls == 1),
+    # number of times 2 was rolled, etc..
+      twos = sum(rolls == 2),
+      threes = sum(rolls == 3),
+      fours = sum(rolls == 4),
+      fives = sum(rolls == 5),
+      sixes = sum(rolls == 6),
+    
+      # Average of all our rolls
+      average =  mean(rolls),
+      # Absolute difference between averages and rolls
+      abs_error = abs(3.5-average)
+    )
+  # Return summary df
+  df
+}
+```
+
+Then we could use a for-loop to simulate rolling our die once and calculating the average all the way up to rolling our die a 1000 times.
+
+```{r}
+# Holder
+sim_df <- NULL
+
+# Set seed
+set.seed(123)
+
+for(i in 1:1000){
+  sim_df <- rbind(sim_df,
+                  roll_fn(i)
+  )
+}
+```
+
+With only a few rolls, our average bounces around a lot
+
+```{r, results="markup"}
+head(sim_df)
+```
+
+With a lot of rolls, our average is very close to 3.5
+```{r, results="markup"}
+tail(sim_df)
+```
+
+
+Let's visualize see how our average changes with the number of rolls, using `ggplot()`
+
+```{r}
+p <- ggplot(sim_df, aes(n_rolls, average))+
+  geom_line()
+p
+```
+
+Your turn! Plot how the absolute value of the error changes as the number of rolls increases. Does it increase or decrease? How does the rate at which it goes up or down seem to change?
+
+```{r}
+# Write your code here:
+
+```
+
+## ICYI: Proving the Weak LLN
+
+A proof of the LLN is as follows:
+
+First define $U$ such that its a sample mean for sample of size $n$
+
+\[
+U=\frac{X_1+\dots +X_n}{n}
+\]
+
+Then show that the sample mean is an unbiased estimator of the population mean $\mu$
+
+\[
+\begin{align*}
+E[U]&=E[\frac{X_1+\dots +X_n}{n}]=\frac{1}{n}E[X_1+\dots +X_n]\\
+&=\frac{n\mu}{n}=\mu
+\end{align*}
+\]
+With a variance
+
+\[
+\begin{align*}
+Var[U]&=Var[\frac{X_1+\dots +X_n}{n}]=\\
+    &=Var[\frac{X_1}{n}]\dots Var[\frac{+X_n}{n}]\\
+    &\frac{\sigma^2}{n^2}\dots \frac{\sigma^2}{n^2}\\
+    &\frac{n \sigma^2}{n^2}\\
+    &\frac{\sigma^2}{n}\\
+\end{align*}
+\]
+
+That decreases with N.
+
+Then, by [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev%27s_inequality), a theorem specifying, for a given distribution, the maximum fraction of values that can be some distance from that distribution's mean:
+
+\[
+p(\left|U-\mu\right| > \epsilon) \leq \frac{\sigma^2}{n\epsilon^2}
+\]
+
+Which $\to 0$ as $n \to \infty$
+
+# The Central Limit Theorem
+
+So the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the "true" value of the population of mean. 
+
+So if we took a bunch of samples of the same size and calculated the mean of each sample, the distribution of those sample means (the sampling distribution) would be centered around the truth (because the estimator is unbiased). If we increased the size of each sample, the width of the distribution (its variance) would decrease.
+
+The Central Limit Theorem tells us about the shape of that distribution. 
+
+
+## ICYI: Standardization
+
+
+
+Given a R.V. $X$ with mean $\mu$ and standard deviation $\sigma$, we can define a new R.V. $Z$ as the *standardization* of $X$:
+
+\[
+Z=\frac{X-\mu}{\sigma}
+\]
+
+Where Z has $\mu=0$ and $\sigma=1$.
+
+
+Next let's define some variables $S$ and $\bar{X}$ that are the sum and sample mean of $n$ iid draws of $X$
+
+Let $X_1,X_2,\dots,X_n$ be independent and identically distributed r.v. with mean $\mu$ and standard deviation $\sigma$. Define $S_n$ and $\bar{X}_n$ as follows:
+
+\[
+S_n= X_1,X_2,\dots,X_n= \sum_{i=1}^n X_i
+\]
+
+\[
+\bar{X}=\frac{X_1,X_2,\dots,X_n}{n}= \frac{S_n}{n}
+\]
+
+We can show that:
+
+\[
+\begin{alignat*}{3}
+E[S_n]&=n\mu \hspace{2em}Var[S_n]&=n\sigma^2 \hspace{2em} \sigma_S&=\sqrt{n}\sigma\\
+E[\bar{X}_n]&=\mu \hspace{2em}Var[\bar{X}_n]&=\frac{\sigma^2}{n} \hspace{2em}\sigma_{\bar{X}}&=\frac{\sigma}{\sqrt{n}}\\
+\end{alignat*}
+\]
+
+Or that the expected value and variance of the sum is just $n$ times the population parameters (the true values for the distribution). 
+
+Since the mean is just the sum divided by the sample size, the expected value of the mean is equal to the population value (the mean is an unbiased estimator of the truth), and the variance and standard deviations of the mean are decreasing in $n$.
+
+Further, we can define $Z$ to be a function of either $S$ or $\bar{X}$
+
+
+\[
+Z_n=\frac{S_n-n\mu}{\sqrt{n}\sigma}=\frac{\bar{X}_n-\mu}{\sigma/\sqrt{n}}
+\]
+
+Then:
+
+## Central Limit Theorem
+
+For a sufficiently large $n$
+
+\[
+\begin{alignat*}{3}
+\bar{X_n}&\approx N(\mu,\sigma^2/n) \bar{S_n}&\approx N(n\mu,n\sigma^2) 
+\bar{Z_n}&\approx N(0,1) 
+\end{alignat*}
+\]
+
+- The distribution of means from almost any distribution is approximately normal (converges in distribution), but with a smaller variance ($\sigma^2/n$)
+- Proof: Several ways, some using moments, but requires a little more math than is required for this course
+
+Why is this result so important? Well lots of our questions come of the form, how does a typical value of Y vary with X. We may not know the true underlying distribution of Y, but we can often approximate the distribution of a typical value of Y ($E[Y]$) using a normal distribution. 
+
+## Simulating the CLT
+
+For almost any distribution, the distribution of means from a sample of that distribution will converge to some Normal distribution. 
+
+The following chunks of code show how the distribution of a 1000 sample means from the following distributions:
+
+- Normal
+- Uniform
+- Binomial
+- $\chi^2$
+
+All converge to Normal distributions as the sample size increases from 1 to 512. The rate of that convergence differs roughly as a function of how "not Normal" the underlying the distribution is. If the underlying distribution is far from Normal (if it's skewed or has multiple modes), the convergence is slower and the sample size has to be bigger. 
+
+Since we often don't know the "true" distribution that generated our distribution, we may wish to be cautious in assuming that our sample size is "sufficiently large" to justify using a normal approximation for the sampling distribution of something like the mean.
+
+Finally, the last set of simulations shows a case where the CLT does not hold. Specifically, a [Cauchy distribution](https://en.wikipedia.org/wiki/Cauchy_distribution) has undefined expected values and variances. As such the CLT theorem never "kicks in" 
+
+
+## Distribution of 1000 sample means from Normal Distribution as N increases
+
+```{r,echo=F}
+t <- proc.time()
+# The variable:
+# How many samples we're going to draw on each step
+n <- c(1:31, 2^(5:9)) # Sample size
+p <- .5 # binomial probability
+sd <- 2 # normal standard definition
+pmf <- c("normal", "uniform", "binomial")[1] # Change this parameter to get other distribution
+
+# Parameters
+nosim <- 1000 # number of simulation in each step
+m <- sapply(n , function(n) { # sapply is just a for()
+    
+    x <- if(pmf=="normal") {
+            rnorm(nosim * n, sd=sd)
+        } else if(pmf=="uniform") {
+            sample(1:6, nosim * n, replace=T)
+        } else if(pmf=="binomial") {
+            sample(0:1, nosim * n, replace=TRUE, prob=c(p, 1-p))
+        }
+    
+    apply(matrix(x, nosim), 1, mean)
+})
+colnames(m) <- n # n is my main variable, I have to attach it as data label
+bins <- unlist(lapply(apply(m, 2, unique), length))
+
+# melt is a function from reshape2 package. It will get the matrix or data.frame column names and put them in a collumn repeated several times linked to its correspondent value.
+# I can put the parameters and variables in the same line as my simulation values and one simulation per unique parameter combination. It's easier to subset them.
+# It's called tidy data. It's wonderful. It's a very good standard to handle with Big Data.
+x <- melt(m)
+names(x) <- c("simulation", "sampleSize", "mean")
+x$simulation <- factor(x$simulation)
+x$sampleSize <- factor(x$sampleSize)
+
+print(t - proc.time())
+
+g <- ggplot(x, aes(mean, y=..density.., colour=sampleSize, fill=sampleSize)) +
+#      geom_bar(binwidth=.01) +
+     geom_density() + # Density lines
+     facet_wrap(~sampleSize) + # Broke in a matrix of chart
+     scale_y_continuous(labels=function(x) paste0(format(round(x), nsmall=0), "%")) +
+#      ggtitle("Central Limit Theorem of a uniform distribution\nTested with different sample sizes") +
+     theme_bw() +
+     theme(legend.title=element_blank()) +
+     theme(legend.position="none")
+g
+```
+
+
+## Distribution of 1000 sample means from Discrete Uniform Distribution as N increases
+
+```{r,echo=F}
+t <- proc.time()
+# The variable:
+# How many samples we're going to draw on each step
+n <- c(1:31, 2^(5:9)) # Sample size
+p <- .5 # binomial probability
+sd <- 2 # normal standard definition
+pmf <- c("normal", "uniform", "binomial")[2] # Change this parameter to get other distribution
+
+# Parameters
+nosim <- 1000 # number of simulation in each step
+m <- sapply(n , function(n) { # sapply is just a for()
+    
+    x <- if(pmf=="normal") {
+            rnorm(nosim * n, sd=sd)
+        } else if(pmf=="uniform") {
+            sample(1:6, nosim * n, replace=T)
+        } else if(pmf=="binomial") {
+            sample(0:1, nosim * n, replace=TRUE, prob=c(p, 1-p))
+        }
+    
+    apply(matrix(x, nosim), 1, mean)
+})
+colnames(m) <- n # n is my main variable, I have to attach it as data label
+bins <- unlist(lapply(apply(m, 2, unique), length))
+
+# melt is a function from reshape2 package. It will get the matrix or data.frame column names and put them in a collumn repeated several times linked to its correspondent value.
+# I can put the parameters and variables in the same line as my simulation values and one simulation per unique parameter combination. It's easier to subset them.
+# It's called tidy data. It's wonderful. It's a very good standard to handle with Big Data.
+x <- melt(m)
+names(x) <- c("simulation", "sampleSize", "mean")
+x$simulation <- factor(x$simulation)
+x$sampleSize <- factor(x$sampleSize)
+
+print(t - proc.time())
+
+g <- ggplot(x, aes(mean, y=..density.., colour=sampleSize, fill=sampleSize)) +
+#      geom_bar(binwidth=.01) +
+     geom_density() + # Density lines
+     facet_wrap(~sampleSize) + # Broke in a matrix of chart
+     scale_y_continuous(labels=function(x) paste0(format(round(x), nsmall=0), "%")) +
+#      ggtitle("Central Limit Theorem of a uniform distribution\nTested with different sample sizes") +
+     theme_bw() +
+     theme(legend.title=element_blank()) +
+     theme(legend.position="none")
+g
+```
+
+## Distribution of 1000 sample means from Binomial Distribution as N increases
+
+```{r,echo=F}
+t <- proc.time()
+# The variable:
+# How many samples we're going to draw on each step
+n <- c(1:31, 2^(5:9)) # Sample size
+p <- .5 # binomial probability
+sd <- 2 # normal standard definition
+pmf <- c("normal", "uniform", "binomial")[3] # Change this parameter to get other distribution
+
+# Parameters
+nosim <- 1000 # number of simulation in each step
+m <- sapply(n , function(n) { # sapply is just a for()
+    
+    x <- if(pmf=="normal") {
+            rnorm(nosim * n, sd=sd)
+        } else if(pmf=="uniform") {
+            sample(1:6, nosim * n, replace=T)
+        } else if(pmf=="binomial") {
+            sample(0:1, nosim * n, replace=TRUE, prob=c(p, 1-p))
+        }
+    
+    apply(matrix(x, nosim), 1, mean)
+})
+colnames(m) <- n # n is my main variable, I have to attach it as data label
+bins <- unlist(lapply(apply(m, 2, unique), length))
+
+# melt is a function from reshape2 package. It will get the matrix or data.frame column names and put them in a collumn repeated several times linked to its correspondent value.
+# I can put the parameters and variables in the same line as my simulation values and one simulation per unique parameter combination. It's easier to subset them.
+# It's called tidy data. It's wonderful. It's a very good standard to handle with Big Data.
+x <- melt(m)
+names(x) <- c("simulation", "sampleSize", "mean")
+x$simulation <- factor(x$simulation)
+x$sampleSize <- factor(x$sampleSize)
+
+print(t - proc.time())
+
+g <- ggplot(x, aes(mean, y=..density.., colour=sampleSize, fill=sampleSize)) +
+#      geom_bar(binwidth=.01) +
+     geom_density() + # Density lines
+     facet_wrap(~sampleSize) + # Broke in a matrix of chart
+     scale_y_continuous(labels=function(x) paste0(format(round(x), nsmall=0), "%")) +
+#      ggtitle("Central Limit Theorem of a uniform distribution\nTested with different sample sizes") +
+     theme_bw() +
+     theme(legend.title=element_blank()) +
+     theme(legend.position="none")
+g
+```
+
+
+## Distribution of 1000 sample means from $\chi^2$ Distribution as N increases
+
+```{r,echo=F}
+t <- proc.time()
+# The variable:
+# How many samples we're going to draw on each step
+n <- c(1:31, 2^(8:12)) # Sample size
+p <- .5 # binomial probability
+sd <- 2 # normal standard definition
+pmf <- c("normal", "uniform", "binomial","cauchy","chisq")[5] # Change this parameter to get other distribution
+
+# Parameters
+nosim <- 1000 # number of simulation in each step
+m <- sapply(n , function(n) { # sapply is just a for()
+    
+    x <- if(pmf=="normal") {
+            rnorm(nosim * n, sd=sd)
+        } else if(pmf=="uniform") {
+            sample(1:6, nosim * n, replace=T)
+        } else if(pmf=="binomial") {
+            sample(0:1, nosim * n, replace=TRUE, prob=c(p, 1-p))
+        } else if(pmf=="cauchy") {
+            rcauchy(nosim * n,0,0.5)
+        } else if(pmf=="chisq") {
+            rchisq(nosim * n,n-1)
+        } 
+    
+    apply(matrix(x, nosim), 1, mean)
+})
+colnames(m) <- n # n is my main variable, I have to attach it as data label
+bins <- unlist(lapply(apply(m, 2, unique), length))
+
+# melt is a function from reshape2 package. It will get the matrix or data.frame column names and put them in a collumn repeated several times linked to its correspondent value.
+# I can put the parameters and variables in the same line as my simulation values and one simulation per unique parameter combination. It's easier to subset them.
+# It's called tidy data. It's wonderful. It's a very good standard to handle with Big Data.
+x <- melt(m)
+names(x) <- c("simulation", "sampleSize", "mean")
+x$simulation <- factor(x$simulation)
+x$sampleSize <- factor(x$sampleSize)
+
+print(t - proc.time())
+
+g <- ggplot(x, aes(mean, y=..density.., colour=sampleSize, fill=sampleSize)) +
+#      geom_bar(binwidth=.01) +
+     geom_density() + # Density lines
+     facet_wrap(~sampleSize,scales="free") + # Broke in a matrix of chart
+     scale_y_continuous(labels=function(x) paste0(format(round(x), nsmall=0), "%")) +
+#      ggtitle("Central Limit Theorem of a uniform distribution\nTested with different sample sizes") +
+     theme_bw() +
+     theme(legend.title=element_blank()) +
+     theme(legend.position="none")
+suppressMessages(print(g))
+```
+
+## Distribution of 1000 sample means from Cauchy Distribution as N increases
+
+```{r,echo=F}
+t <- proc.time()
+# The variable:
+# How many samples we're going to draw on each step
+n <- c(1:31, 2^(8:12)) # Sample size
+p <- .5 # binomial probability
+sd <- 2 # normal standard definition
+pmf <- c("normal", "uniform", "binomial","cauchy","chisq")[4] # Change this parameter to get other distribution
+
+# Parameters
+nosim <- 1000 # number of simulation in each step
+m <- sapply(n , function(n) { # sapply is just a for()
+    
+    x <- if(pmf=="normal") {
+            rnorm(nosim * n, sd=sd)
+        } else if(pmf=="uniform") {
+            sample(1:6, nosim * n, replace=T)
+        } else if(pmf=="binomial") {
+            sample(0:1, nosim * n, replace=TRUE, prob=c(p, 1-p))
+        } else if(pmf=="cauchy") {
+            rcauchy(nosim * n,0,0.5)
+        } else if(pmf=="chisq") {
+            rchisq(nosim * n,n-1)
+        } 
+    
+    apply(matrix(x, nosim), 1, mean)
+})
+colnames(m) <- n # n is my main variable, I have to attach it as data label
+bins <- unlist(lapply(apply(m, 2, unique), length))
+
+# melt is a function from reshape2 package. It will get the matrix or data.frame column names and put them in a collumn repeated several times linked to its correspondent value.
+# I can put the parameters and variables in the same line as my simulation values and one simulation per unique parameter combination. It's easier to subset them.
+# It's called tidy data. It's wonderful. It's a very good standard to handle with Big Data.
+x <- melt(m)
+names(x) <- c("simulation", "sampleSize", "mean")
+x$simulation <- factor(x$simulation)
+x$sampleSize <- factor(x$sampleSize)
+
+print(t - proc.time())
+
+g <- ggplot(x, aes(mean, y=..density.., colour=sampleSize, fill=sampleSize)) +
+#      geom_bar(binwidth=.01) +
+     geom_density() + # Density lines
+     facet_wrap(~sampleSize,scales="free") + # Broke in a matrix of chart
+     scale_y_continuous(labels=function(x) paste0(format(round(x), nsmall=0), "%")) +
+#      ggtitle("Central Limit Theorem of a uniform distribution\nTested with different sample sizes") +
+     theme_bw() +
+     theme(legend.title=element_blank()) +
+     theme(legend.position="none")
+g    
+```
+
+# Maximum Likelihood Estimation
+
+
+The LLN and CLT lie behind many important proofs and theorems in statistics such as **maximum likelihood estimation (MLE)**
+
+Broadly, MLE seeks to find parameters $\theta$ for model of some data generating process (i.e. a probability distribution), that are most probable (i.e. maximize the likelihood) given some data.
+
+Formally, consider $n$ iid random variables $X_1, X_2, \ldots X_n$. We can then write their **likelihood** as
+
+\[
+\mathcal{L}(\theta \mid x_1, x_2, \ldots x_n) = \prod_{i = i}^n f(x_i; \theta)
+\]
+
+where $f(x_i; \theta)$ is the density (or mass) function of random variable $X_i$ evaluated at $x_i$ with parameter $\theta$.
+
+MLE tries to find $\hat{\theta}_{MLE}$ that maximizes $\mathcal{L}(\theta \mid X)$
+
+MLE Estimators are 
+
+- **Functionally Invariant** (The "Plug in Principle")
+    - If $\hat{\theta}$ is the MLE of $\theta$ than then the MLE of some function of $\theta$, $f(\theta)$ is $f(\hat\theta_{MLE})$
+    - If we have the MLE of the variance, the square root of this will give us the MLE of the standard deviation
+- **Consistent** (by the LLN)
+  - $\hat\theta_{MLE}$ collapses to a spike over $\theta$ as $n \to \infty$
+- **Asympotically Normal**
+  - A $n \to \infty$ the sampling distribution of $\hat\theta_{MLE}$ becomes Normally distributed
+  - Makes calculating quantities for inference easy
+- **Asympotically Efficient**
+  - As $n \to \infty$, $\hat\theta_{MLE}$ tends to be the estimator with the lowest error
+  
+A rigorous discussion of these topics is beyond the scope of this course. In class we'll make two points:
+
+- MLE is useful for modeling data generated from a variety of distributions
+- OLS provides a linear estimate to the conditional mean function
+- If the conditional mean function is linear and the errors are normally distributed, OLS is the MLE.
+- What if the conditional mean function is non-linear?
+- Sometimes we can transform the mean function so that it is linear, and estimate a generalized linear model (GLM) using MLE
+- We need to use MLE, because unlike OLS, there typically isn't an analytic solution. Instead we need to use calculus to find values of our estimates that maximize some likelihood function.
+  - Using a GLM often produces more "reasonable" estimates, and can make more efficient use of the data, although there are many cases where a linear estimate to conditional mean function works just fine (or better)
+
+## MLE and Generalized Linear Models
+
+We can think some variable $y$ as having a distribution $f$ that contains both a stochastic (random) and systematic components
+
+\[
+\begin{aligned}
+\text{Stochastic:    }&& y \sim f(\mu,\alpha)\\
+\text{Systematic:    }&&\mu = g(X\beta)
+\end{aligned}
+\]
+
+In the past we've described the process of modeling $y$ using a linear regression:
+
+\[
+y = \beta_0 + \beta_1 x + \epsilon
+\]
+
+and with multiple predictors:
+
+\[
+y = X\beta + \epsilon
+\]
+
+We haven't really talked about the distribution of $\epsilon$, in part because OLS doesn't require any distributional assumptions to be unbiased.
+
+But if we assumed $\epsilon$ are normally distributed, with mean 0 and variance $\sigma^2$
+
+\[
+\epsilon \sim f_\mathcal{N}(0,\sigma^2)
+\]
+
+Then we could write our model for $y$ as follows:
+
+\[
+y \sim f_{\mathcal{N}}(\mu,\sigma^2)\\
+\mu = X\beta
+\]
+
+Where the systematic component of why is modeled by $X\beta$ (i.e. g() is the identity function), with errors that are Normally distributed. 
+
+The $\beta$s that OLS estimates turn out to be the same values that would get by maximizing the likelihood of this function, given our data, $X$, assuming normally distributed errors.
+
+**But what if our outcome doesn't follow a normal distribution?**
+
+Say for example, we have a binary outcome,that we think follows a Bernoulli distribution with $\pi$ probability of success. 
+
+We could model the *systematic* portion of this using the logit transform as our function, $g()$
+
+
+\[
+y \sim f_{Bern}(\pi)\\
+\pi = \frac{1}{1+\exp(-{X\beta})}
+\]
+
+Again, we could estimate $\beta$ using the MLE to fit a logistic regression.
+
+Or if we had a count variable, we might use a Poisson distribution:
+
+\[
+y \sim f_{Pois}(\lambda)\\
+\lambda = \exp(X\beta)
+\]
+
+Again estimating $\beta$ using MLE.
+
+In this class, we'll let R handle mechanics of actually fitting these models,
+and instead focus on interpreting their substantive differences
+
+
+## OLS vs Logistic Regression
+
+
+One situation where we'd use MLE is the case of binary responses variable coded using $0$ and $1$. 
+
+In practice, these $0$ and $1$s will code for two classes such as yes/no, cat/dog, sick/healthy, etc.
+
+How should we model this relationship?
+
+We could use OLS to produce a linear estimate of the conditional mean function ($\text{E}[Y \mid {\bf X} = {\bf x}]$), by finding $\beta$s that minimize the sum of squared errors
+
+Or
+
+We could use a logistic regression, to produce a linear estimate of the "log-odds" of the conditional mean function of our binary variable by finding $\beta$s that maximize the likelihood of this function.
+
+We'll get more practice with this in lab.
+
+For now, let's focus on on a general illustration
+
+
+To investigate, let's simulate data from the following model:
+
+\[
+\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = -2 + 3 x
+\]
+
+We'll codify this into a function:
+
+```{r}
+sim_logistic_data = function(sample_size = 25, beta_0 = -2, beta_1 = 3) {
+  x = rnorm(n = sample_size)
+  eta = beta_0 + beta_1 * x
+  p = 1 / (1 + exp(-eta))
+  y = rbinom(n = sample_size, size = 1, prob = p)
+  data.frame(y, x)
+}
+```
+
+And use it to generate some data
+
+```{r}
+set.seed(1)
+example_data = sim_logistic_data()
+head(example_data)
+```
+
+After simulating a dataset, we'll then fit both ordinary linear regression and logistic regression.
+
+
+```{r}
+# ordinary linear regression
+fit_lm  = lm(y ~ x, data = example_data)
+# logistic regression
+fit_glm = glm(y ~ x, data = example_data, family = binomial)
+```
+
+Notice that the syntax is extremely similar. What's changed?
+
+- `lm()` has become `glm()`
+- We've added `family = binomial` argument
+
+
+Making predictions with an object of type  `glm` is slightly different than making predictions after fitting with `lm()`. In the case of logistic regression, with `family = binomial`, we have:
+
+| `type`             | Returned |
+|--------------------|----------|
+| `"link"` [default] | $\hat{\eta}({\bf x}) = \log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right)$ |
+| `"response"`       | $\hat{p}({\bf x})$                                                                     |
+
+That is, `type = "link"` will get you the log odds, while `type = "response"` will return $P[Y = 1 \mid {\bf X} = {\bf x}]$ for each observation.
+
+```{r}
+plot(y ~ x, data = example_data, 
+     pch = 20, ylab = "Estimated Probability", 
+     main = "Ordinary vs Logistic Regression")
+abline(fit_lm, col = "darkorange")
+curve(predict(fit_glm, data.frame(x), type = "response"), 
+      add = TRUE, col = "dodgerblue", lty = 2)
+legend("topleft", c("Ordinary", "Logistic", "Data"), lty = c(1, 2, 0), 
+       pch = c(NA, NA, 20), lwd = 2, col = c("darkorange", "dodgerblue", "black"))
+```
+
+Since we only have a single predictor variable, we are able to graphically show this situation. First, note that the data, is plotted using black dots. The response `y` only takes values `0` and `1`.
+
+Next, we need to discuss the two added lines to the plot. The first, the solid orange line, is the fitted ordinary linear regression. The dashed blue curve is the estimated logistic regression. 
+
+It is helpful to realize that we are not plotting an estimate of $Y$ for either. (Sometimes it might seem that way with ordinary linear regression, but that isn't what is happening.) 
+
+For both, we are plotting $\hat{\text{E}}[Y \mid {\bf X} = {\bf x}]$, the estimated mean, which for a binary response happens to be an estimate of $P[Y = 1 \mid {\bf X} = {\bf x}]$.
+
+We immediately see why ordinary linear regression is not a good idea. While it is estimating the mean, we see that it produces estimates that are less than 0! (And in other situations could produce estimates greater than 1!) 
+
+If the mean is a probability, we don't want probabilities less than 0 or greater than 1.
+
+Enter logistic regression. Since the output of the inverse logit function is restricted to be between 0 and 1, our estimates make much more sense as probabilities. Let's look at our estimated coefficients. (With a lot of rounding, for simplicity.)
+
+```{r}
+round(coef(fit_glm), 1)
+```
+
+Our estimated model is then:
+
+\[
+\log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right) = -2.3 + 3.7 x
+\]
+
+Because we're not directly estimating the mean, but instead a function of the mean, we need to be careful with our interpretation of $\hat{\beta}_1 = 3.7$. 
+
+This means that, for a one unit increase in $x$, the log odds change (in this case increase) by $3.7$. Also, since $\hat{\beta}_1$ is positive, as we increase $x$ we also increase $p({\bf x})$. To see how much, we have to consider the inverse logistic function.
+
+For example, we have:
+
+\[
+\hat{P}[Y = 1 \mid X = -0.5] = \frac{e^{-2.3 + 3.7 \cdot (-0.5)}}{1 + e^{-2.3 + 3.7 \cdot (-0.5)}} \approx 0.016
+\]
+
+\[
+\hat{P}[Y = 1 \mid X = 0] = \frac{e^{-2.3 + 3.7 \cdot (0)}}{1 + e^{-2.3 + 3.7 \cdot (0)}} \approx 0.09112296
+\]
+
+\[
+\hat{P}[Y = 1 \mid X = 1] = \frac{e^{-2.3 + 3.7 \cdot (1)}}{1 + e^{-2.3 + 3.7 \cdot (1)}} \approx 0.8021839
+\]
+
+
+

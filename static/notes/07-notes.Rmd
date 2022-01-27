@@ -1,0 +1,319 @@
+---
+title: "POLS 1600: Interpreting and Evaluating Linear Models"
+date: Updated '`r format(Sys.Date(), "%B %d, %Y")`'
+always_allow_html: yes
+output: 
+    html_document:
+        toc: yes
+---
+
+
+```{r init,echo=F, message=F,results=F}
+## Easy way to look for and install missing packages and load them
+if (!require("pacman")){ install.packages("pacman") }
+pacman::p_load("knitr","mosaic","plyr","ggplot2","foreign","texreg","scales")
+
+## Set some default options R Markdown
+opts_chunk$set(tidy=F,echo=TRUE,results='markup',strip.white=TRUE,cache=FALSE,highlight=TRUE,width.cutoff=132,size='footnotesize',message=FALSE,warning=TRUE,comment=NA)
+
+# Default options in R
+options(digits=4,width=100,scipen=8)
+
+```
+
+
+# Overview
+
+## Review
+
+- Last week we covered the basics of multiple regression and how to interpret models with different types of predictors
+    - We saw that the simple models with indicators for groups provided predictions that were the same as the conditional means in those groups
+    - For models with numeric predictors, the model produced a linear approximation to those conditional means, choosing coefficients that minimized the sum of squared residuals
+    - We interpeted coefficients as telling us how the model's prediction for some outcome changed with a change in some predictor, after adjusting for the variation explained by other predictors in our model.
+    - Finally, we also saw how to fit models that tested conditional hypotheses by interacting variables in our model. We saw that for an interaction between a continuous and dichotomous variable our model was essentially providing a slope for two lines. 
+
+## Today
+
+- Today we'll get some practice 
+    - Producing predictions from models 
+    - Evaluating model fit
+
+
+# Producing Predicted Values from our Models
+
+Once you've fit a model, producing predicted values are is simple as plugging numbers into an equation and evaluating the results^[Quantifying the uncertainty of those predictions is a little more complicated, but more on that to come.]
+
+Let's load the data from last week:
+
+```{r}
+#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+wd <- "." # Change if needed
+setwd(wd)
+load("pkdf.rda")
+
+```
+
+Remove some conflicts with missing data
+```{r}
+pk.good <- na.omit(pkdf)
+```
+
+And fit a simple model, that allows the relationship between the length of wars and refugees to vary based on whether there were UN peacekeepers, "controlling for" the number of dead in each conflict and the year the conflict started.
+
+
+```{r}
+m1 <- lm(ridp~ wardur*UNpk+dead+war_start_year, pk.good)
+# Extract coefficients for equation below
+betas <- round(coef(m1),2)
+
+m1$model
+model.matrix(m1)
+```
+
+
+As we saw last time, we can format these results in a pretty table:
+
+```{r, results="asis"}
+htmlreg(m1)
+```
+
+Where each row corresponds to coefficient for a predictor in the following linear model:
+
+
+\[
+\text{ridp} = `r betas[1]` 
++ `r betas[2]` \times \text{War Duration}
++ `r betas[3]` \times \text{UN peacekeeprs}
++ `r betas[4]` \times \text{Total dead}
++ `r betas[5]` \times \text{Year War Started}
++ `r betas[6]` \times \text{War Duration}\times\text{UN peacekeeprs}
+\]
+
+Which is all fine and good, but a little hard to interpet. Take the intercept in the model. Are their some conflicts which reduce the number of refugees in the world? No, remember the intercept is the model's prediction when everything else in the model is set to zero. In this case it would be the number refugees for wars starting in year 0 A.D./C.E. 
+
+Predictions outside the range of observed data are called **extrapolations.** Predictions between observable datas are called **interpolations.**  Both require some thought on care.
+
+## Creating a dataframe for predictions.
+
+In models where we have multiple predictors, it's useful to see how our model's predictions change as one predictor varies, while the others are held constant at meaningful values (typically their means or modal values). To do this, we'll create a **prediction data frame**, that varies the duration of the war and whether there were UN peacekeepers, holding, the number of deaths and start date of conflict constant at their sample means:
+
+```{r}
+# Create prediction data frame for m1
+pred.df <- expand.grid(
+  wardur = seq(from = min(pk.good$wardur, na.rm=T), 
+               to = mean(pk.good$wardur, na.rm=T) + sd(pk.good$wardur, na.rm=T),
+               length.out = 20),
+  UNpk = c(0,1),
+  dead = mean(pk.good$dead,na.rm=T),
+  war_start_year = mean(pk.good$war_start_year,na.rm=T)
+  
+  
+)
+
+head(pred.df)
+tail(pred.df)
+```
+
+We'll also add a variable for labelling to be used later
+
+```{r}
+# Label variable
+pred.df$Peacekeeping <- ifelse(pred.df$UNpk == 1, "UN pk", "No UN pk")
+```
+
+Next we plug our prediction data frame into our model to produce predicted values, and save those values as a new variable called `fit`
+
+```{r}
+pred.df$fit <- predict(m1, newdata = pred.df)
+```
+
+What did predict do?
+
+Well it took this equation defined by the coefficients in  `m1`, and plugged the values from each row of `pred.df` into the equation to get a predicted or fitted value.
+
+\[
+\text{ridp} = `r betas[1]` 
++ `r betas[2]` \times \text{War Duration}
++ `r betas[3]` \times \text{UN peacekeeprs}
++ `r betas[4]` \times \text{Total dead}
++ `r betas[5]` \times \text{Year War Started}
++ `r betas[6]` \times \text{War Duration}\times\text{UN peacekeeprs}
+\]
+
+
+Let's do this once by hand:
+
+```{r}
+pred.df$fit[1]
+betas <- coef(m1)
+
+# Once by hand
+
+betas[1]+
+betas[2]*pred.df[1,1]+
+betas[3]*pred.df[1,2]+
+betas[4]*pred.df[1,3]+
+betas[5]*pred.df[1,4]+
+betas[6]*pred.df[1,1]*pred.df[1,2]
+```
+
+Then we'll write a loop to go through all the values
+
+```{r}
+# Looping over all the values in pred.df
+the_fits_1 <- c()
+
+for(i in 1:nrow(pred.df)){
+  the_fits_1[i] <- betas[1]+
+betas[2]*pred.df[i,1]+
+betas[3]*pred.df[i,2]+
+betas[4]*pred.df[i,3]+
+betas[5]*pred.df[i,4]+
+betas[6]*pred.df[i,1]*pred.df[i,2]
+}
+
+```
+
+
+Our we could use a little matrix algebra:
+
+```{r}
+# Using matrix algebra
+
+X <-  as.matrix(cbind(1,pred.df[,1:4],pred.df[,1]*pred.df[,2]))
+the_fits_2 <- X%*%betas
+```
+
+To get the same results
+
+```{r}
+# All give you the same predictions
+head(
+cbind(
+  pred.df$fit,
+  the_fits_1,
+  the_fits_2
+))
+
+
+```
+
+
+
+## Plotting Predicted Values
+
+Now that we have a prediction data frame with fitted values, we can plot the values 
+
+```{r}
+# Generate plot
+p <- ggplot(pred.df,
+       aes(x=wardur, y=fit, col = factor(UNpk))
+       )+
+  geom_line()
+
+# Look at plot
+p
+  
+# Update plot with labels
+
+p <- p + labs(
+  title="Predicted number of refugees by length of conflict for conflicts with and without UN peacekeepers",
+  y = "Predicted # of Refugees",
+  x = "Length of conlict in years"
+)+scale_y_continuous(labels = scales::comma)
+
+# Look at updated plot
+p
+
+
+# Add points from full data set
+pk.good$Peacekeeping <- ifelse(pk.good$UNpk == 1, "UN pk", "No UN pk")
+p <- p + geom_point(data=pk.good,aes(wardur,ridp, col=Peacekeeping),size=.1)
+p
+```
+
+So for shorter wars the UN intervention is associated with a higher number of refugees. Perhaps short wars that produce a lot of refugees generated international attention, leading to UN intervention (perhaps leading to shorter durations -- causality is difficult to establish). For a war one-standard deviation above the average duration, the model predicts that that conflicts with and without UN peacekeepers will have almost identical numbers of refugees.
+
+## Summary
+
+Basic steps:
+
+1. Fit model
+2. Produce prediction data frame, varying some predictor(s), holding others constant
+3. Use prediction data frame to obtain predicted values from model
+4. Plot predicted values
+
+Takeaways:
+
+- Predicted values are just the model's prediction for the outcome, when you plug in values for the predictors
+    - Often you're interested in how the outcome changes with one particular variable, so hold other variables (covariates) constant at typical values. 
+- Sometimes those predictions are meaningful. Sometimes their misleading
+    - Intercepts are rarely meaningful by themselves
+- Plot the predicted values over a reasonable range of your predictor
+    - +/- one standard deviation from the mean is a good rule of thumb)
+- Be wary of "kitchen sink" models 
+    -hard to interpret, likely overfit the data.
+
+
+# Evaluating Our Model's Predictions
+
+## Models partion variance
+
+$$
+\begin{aligned}
+\textrm{Total} &= \textrm{Explained} + \textrm{Unexplained} \\
+\textrm{Observed} &= \textrm{Prediected Value} + \textrm{Residual}\\
+\textrm{Y} &= \hat{Y} + \hat{\epsilon}
+\end{aligned}
+$$
+
+## R-Squared
+
+A simple way of quantifying this relationship is to calcuate a model's "R-squared" "$R^2$", which is simply
+
+\[
+R^2 = \frac{\text{variance(fitted model values)}}{ \text{variance(response values )}}
+\]
+
+First let's write a function to calcuate this quantity:
+
+```{r}
+my_rsq <- function(the_mod){
+  # inputs:
+  # the_mod: a linear model
+  # 1. Get fitted values
+  fit <- fitted(the_mod)
+  # 2. Get outcome variable
+  y <- model.frame(the_mod)[,1] # Always the first variable in model.frame
+  r_sq <- var(fit)/var(y)
+  return(r_sq)
+}
+
+```
+
+And apply it to the model we fit above
+
+```{r}
+my_rsq(m1)
+# Double check, should be same as:
+summary(m1)$r.squared
+```
+
+Now let's compare to some smaller models with only the interaction terms between duration and UN peacekeeping
+
+```{r}
+m1_1 <- lm(ridp~wardur*UNpk,pk.good)
+m1_2 <- lm(ridp~dead + war_start_year,pk.good)
+
+my_rsq(m1)
+my_rsq(m1_1)
+my_rsq(m1_2)
+
+```
+
+Since both models `m1_1` and `m1_2` contain a subset of the coefficients in model `m1` we call them **nested** models. Nested models are directly comparable, in the sense that we can say model `m1` explains `r scales::percent(my_rsq(m1) - my_rsq(m1_1))` more of the variation in refugees than model `m1_1`, and similarly, `m1` explains `r scales::percent(my_rsq(m1) - my_rsq(m1_2))` more of the variation in refugees than model `m1_2` Comparing models with different coefficients is more complciated.
+
+
+As we'll see, $R^2$ is at best a useful heuristic and we sometimes use the information contained in $R^2$ (Namely the SSR) to compare nested models. But as we'll see on Thursday, focusing soley on a model's $R^2$ can be misleading.
+
+

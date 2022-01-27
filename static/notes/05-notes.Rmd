@@ -1,0 +1,764 @@
+---
+title: "POLS 1600: Week 4: Prediction with Linear Models"
+date: Updated \today
+always_allow_html: yes
+output: 
+    html_document:
+        number_sections: no
+        toc: yes
+        toc_float: yes
+---
+
+# Overview {-}
+
+## Last week
+
+Last week we explored how to make causal claims from observational data. Common across various strategies was an attempt to say, conditional on some feature or assumption that the thing we're interested in was "as-if" randomly assigned.
+
+
+
+## This class
+
+We'll begin by reviewing last weeks lab, where we explored how the claim that line that determined German occupation and Vichy government was as good as randomly assigned. Hopefully, We saw that the claim seem implausible for the entire sample of communes but more plausible for communes close to the line, which were more similar on observable covariates.
+
+However, when we dug a little further, it seemed like the "effects" of different types of rule seemed to differ significantly across the four departments in the sample, leading us to wonder a bit more about whether this design really approximated the "experimental ideal"
+
+In doing so, we developed tools for estimating conditional means through sub-classification via logical indexing, we could estimate the mean of some outcome conditional on some variable or set of variables (i.e. being in the north within 10 miles of the demarcation line)
+
+
+In this class, we'll develop the intuition behind these models using relatively simple "bivariate" or two variable comparisons. Specifically we'll cover the following topics:
+
+- Prediction
+    - What is a model?
+    - What does it mean to say a model is unbiased?
+- Conditional means and OLS Regression
+    - What is a conditional mean?
+    - What does it mean to say OLS provides a linear approximation of the conditional mean function?
+- Mechanics of OLS
+    - What does it mean to minimize the sum of squared residuals
+    - How do we substantively interpret the coefficients of OLS?
+
+# Prediction
+
+- So far, we've talked a lot about causation, and hopefully, we've seen that conditions in which we can make causal claims are rare and valued.
+- Today, we'll change focus, and talk about **prediction**
+- We'll start simple, developing a language and set of tools that can be generalized to more complex situations and questions
+
+## What is a model?
+
+- Models are a description of the world
+    - Seek to partition variance into explained (model predictions) and unexplained (residuals)
+- Models are functions
+    - Describe a relationship between an output (response/dependent variable) and input(s) (explanatory/independent variables)
+
+## Dependent and Indpendent Variables
+
+- **Dependent Variables** The thing we're trying to explain
+- Also called: outcome, response, or left hand side variables
+- Typically denoted by $y$ or $Y$ or $y_i$ 
+- **Independent Variables** The thing(s) we think explain variation in our outcome
+- Also called: explanatory, predictor, or right hand side variables
+- Typically denoted with some variation of $X$
+
+
+
+## Models partition variance
+
+\[
+\begin{aligned}
+\textrm{Total} &= \textrm{Explained} + \textrm{Unexplained} \\
+\textrm{Observed} &= \textrm{Predicted Value} + \textrm{Residual}\\
+\textrm{Y} &= \hat{Y} + \hat{\epsilon}
+
+\end{aligned}
+\]
+
+## Prediction Error
+
+Prediction error is simply the difference between the actual (observed) outcome ($Y$) and the predicted outcome ($\hat{Y}$)
+
+\[
+\hat{\epsilon}=Y-\hat{Y}
+\]
+
+## Bias
+
+Bias is the expected value of the prediction error ($E[\hat{\epsilon}]$). We could write a simple function to calculate bias as follows:
+
+```{r}
+bias_fn<-function(y,yhat){mean(y-yhat,na.rm=T)}
+```
+
+
+We say a prediction is unbiased if the expected value of the prediction error is 0 ($E[\hat{\epsilon}]=0$).
+
+Intuitively, this means that, on average, are prediction is neither systematically too high, nor too low, relative to the typical value of our outcome. 
+
+## Root Mean Squared Error (RMSE)
+
+RMSE is a useful concept for quantifying the typical or average error of the prediction. 
+
+- First we calculate the error (difference between observed and predicted) for each observation
+- We square the error so that we treat positive and negative errors equally
+- Then we take the mean of these squared errors to get a typical value
+- And finally we take square root of this value to put it back in the units of variable of interest.
+
+Mathematically, RMSE is
+
+\[
+RMSE = \sqrt{\frac{1}{n} \sum \hat{\epsilon_i}^2 } = \sqrt{\frac{1}{n} \sum (Y_i-\hat{Y_i})^2 }
+\]
+
+In R code:
+
+```{r}
+rmse_fn <- function(y,yhat){sqrt(mean((y-yhat)^2,na.rm=T))}
+```
+
+
+To help illustrate these concepts, let's load a subset of data from the 2016 National Elections Study (NES) survey 
+
+
+```{r}
+load(url("https://raw.github.com/PTesta/POLS_1600/master/nes16.rda"))
+```
+
+And look at what we did
+
+```{r}
+head(nes16)
+```
+
+## Example: Predicting Age with different statistics:
+
+Suppose we wanted to know the typical value of $age$ for respondents in the 2016 NES. Recall from previous classes we have several measures of centrality, or what a typical value of some variable might be:
+
+- median
+- mode
+- mean
+
+Let's calculate the bias and RMSE associated with each for our prediction of $age$ 
+
+First, we'll calculate the predictions ($\hat{Y}$)
+
+```{r}
+# Median
+age_med<-median(nes16$age,na.rm=T)
+age_med
+# Mode
+age_mode<-as.numeric(names(sort(table(nes16$age),decreasing = T)[1]))
+age_mode
+# Mean
+age_mn<-mean(nes16$age,na.rm=T)
+age_mn
+
+
+```
+
+
+Now, let's calculate the bias of these functions using the function we created above
+
+```{r}
+# Calculate bias for each prediction
+bias_med <-bias_fn(nes16$age,age_med)
+bias_mode <- bias_fn(nes16$age,age_mode)
+bias_mn <- bias_fn(nes16$age,age_mn)
+# Put in object "biases" with labels and sort by size of bias
+biases <- sort(c(Median = bias_med, Mode = bias_mode, Mean = bias_mn))
+# Barplot
+barplot(biases,main = "Bias of Mean, Median and Mode for\nPredicting Age in 2016 NES")
+```
+
+So the mode, looks a like a pretty bad, or biased predictor, the median has some bias, and the mean (by definition) is an unbiased. That is, if $\hat{Y}=\bar{Y}$ 
+
+\[
+E[\hat{\epsilon}] = E[Y - \hat{Y}]= E[Y]-E[\hat{Y}] = \bar{Y} - \bar{Y} = 0
+\]
+
+However, if we looked at the RMSE (the typical prediction error), we'd see that the mean and median are pretty close
+
+```{r}
+rmse_med <-rmse_fn(nes16$age,age_med)
+rmse_mode <- rmse_fn(nes16$age,age_mode)
+rmse_mn <- rmse_fn(nes16$age,age_mn)
+# Put in object "rmsees" with labels and sort by size of rmse
+rmses <- sort(c(Median = rmse_med, Mode = rmse_mode, Mean = rmse_mn))
+# Barplot
+barplot(rmses,main = "rmse of Mean, Median and Mode for\nPredicting Age in 2016 NES")
+```
+
+
+Differing by only `r round(rmse_mn - rmse_med,3)` years in these data. Most of the time, the models we fit will make predictions that approximate the conditional mean of some outcome (i.e. the mean of Y conditional on X). Sometimes, however, it's useful to make predictions for the conditional median (or some other quantile).
+
+
+
+# Conditional Expecations and OLS Regression
+
+Conditional expectations are our way of incorporating what we know about the world to improve our predictions. That is, how does our prediction of Y change conditional on the values of some additional predictor/information X.
+
+Suppose in addition to knowing the age of our respondents, we also knew whether they believed the benefits of vaccines outweighed the potential risks
+
+\[
+Age \sim Vaccines
+\]
+
+Note: nothing about this relationship implies causation. We're simply interested in explaining variation in some outcome ($Y$, here $Age$) with some predictor(s) ($X$, here $Vaccines$)
+
+## Age and belief in the benefit of vaccines
+
+Just as we used the sample mean as an unbiased estimate of expected value of age, we can use separate sample means (sub-classification via logical indexing) to provide  unbiased estimates of the expected value of age conditional on vaccine beliefs
+
+\[
+E[Age|Vaccines=Good]=\frac{1}{n_{good}}\sum Age_{i,|Vac=good}
+\]
+
+In R:
+
+```{r}
+age_mn_vac_good<-round(mean(nes16$age[nes16$vaccines==1],na.rm=T),3)
+age_mn_vac_good
+```
+
+\[
+E[Age|Vaccines=Bad]=\frac{1}{n_{bad}}\sum Age_{i,|Vac=bad}
+\]
+
+```{r}
+
+age_mn_vac_bad<-round(mean(nes16$age[nes16$vaccines==0],na.rm=T),3)
+age_mn_vac_bad
+```
+
+So on average, people who believe the benefits of vaccines outweigh the costs, tend to be older by about `r age_mn_vac_good-age_mn_vac_bad` years.
+
+Now consider the output of the following:
+
+```{r}
+m1 <- lm(age~vaccines, data = nes16,na.action = "na.exclude")
+m1
+# Extract and round  coefficients
+beta0 <- round(coef(m1)[1],3)
+beta1 <- round(coef(m1)[2],3)
+
+```
+
+Formally, we've asked R fit the following model:
+
+\[
+age = \beta_0 +\beta_1 \times vaccines +\epsilon_i
+\]
+
+Specifically, we've asked R to model Age as a function of some constant $\beta_0$ plus some coefficient $\beta_1$ times a variable capturing people's beliefs about vaccines ($vaccines=1$ if they believe benefits outweigh costs, 0 otherwise) and some error (reflecting the fact that there's a lot about people's ages unexplained by their belief in vaccines)
+
+R produces estimates of these parameters:
+
+\[
+\hat{age} = \hat{\beta_0} +\hat{\beta_1} \times vaccines + \hat{\epsilon_i}
+\]
+
+Specifically:
+
+\[
+\hat{age_i} = `r beta0` + `r beta1` \times vaccines_i + \hat{\epsilon_i}
+\]
+
+That is, R has said modeling age conditional Vaccine beliefs, it's best prediction of person's age for people who are skeptical of the value of vaccines ($vaccinces=0$) is
+
+\[
+\begin{align*}
+\hat{age_i} = `r beta0` + `r beta1` \times 0 \\
+= `r beta0` = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Bad]
+\end{align*}
+\]
+
+And for people who believe vaccines are good ($vaccinces=1$):
+
+\[
+\begin{align*}
+\hat{age_i} = `r beta0` + `r beta1` \times 1 \\
+= `r beta0 +beta1` = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Good]
+\end{align*}
+\]
+
+So for this simple model, R's `lm()` function says the best prediction of person's age knowing their beliefs about vaccines are the means conditional on their beliefs about vaccines
+
+```{r}
+age_mn_vac_bad 
+beta0
+age_mn_vac_bad == beta0
+age_mn_vac_good 
+beta0 + beta1
+
+```
+
+We can visualize what's going on by plotting beliefs on the x axis and age on the y. The black line corresponds to the overall mean. The red diamond corresponds to the average age of people who are skeptical of vaccines, and the blue circle corresponds to the age among people who believe the benefits outweigh the costs. The grey line connects the two dots with the line defined by an intercept ($\beta_0$) and a slope ($\beta_1$) from `lm()`
+
+```{r}
+plot(age~vaccines,nes16,xlab="Vaccines")
+points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
+points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
+abline(h=age_mn,col="black")
+abline(lm(age~vaccines,nes16),col="grey")
+```
+
+Let's clean up the plot a little
+
+```{r}
+plot(age~jitter(vaccines),nes16,xaxt="n",xlab="Vaccines")
+axis(1,at = c(0,1),labels=c("Gee, I don't know","Science!"))
+points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
+points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
+abline(h=age_mn,col="black")
+abline(lm(age~vaccines,nes16),col="grey")
+```
+
+Note that both the unconditional and conditional means provide "unbiased" estimates
+
+```{r,echo=T}
+round(bias_fn(nes16$age,age_mn),5)
+round(bias_fn(nes16$age,predict(m1,na.action = "na.exclude")),5)
+```
+
+But the conditional estimate has a smaller RMSE. That is, knowing something about people's beliefs about vaccines, improves our prediction of their age.
+
+```{r}
+round(rmse_fn(nes16$age,age_mn),2)
+round(rmse_fn(nes16$age,predict(m1,na.action = "na.exclude")),2)
+
+```
+
+
+# Mechanics of OLS Regression
+
+## How did choose the coefficients that define the grey line?
+
+
+We used a procedure, Ordinary Least Squares regression, that choose and intercept ($\beta_0$) and slope ($\beta_1$) to minimize the Sum of Squared Residuals ($\sum \hat{\epsilon}^2$). 
+
+
+## Minimizing the sum of squared residuals
+
+\[
+\hat{Y_i}=\beta_0+\beta_1 X_{1,i} + \hat{\epsilon_i}
+\]
+
+\[
+\hat{\epsilon_i}=Y_i-\hat{Y_i}=(Y_i-(\beta_0+\beta_1 X_{1,i}))
+\]
+
+OLS chooses $\beta_0$ and $\beta_1$ to minimize $\sum \epsilon^2$, the Sum of Squared Residuals (SSR)
+
+\[
+\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
+\]
+
+## Why minimize $\sum{\hat{\epsilon_i}^2}$
+
+
+Substantively, by minimizing the sum of squared residuals, we're trying to minimize the distance between our models predictions and the observed data.
+
+Suppose the true relationship between y and x is:
+
+\[
+y~1+2x + \epsilon
+\]
+
+If we simulated some data where this was true:
+
+```{r}
+set.seed(123)
+x <- rnorm(20)
+y <- 1 + 2*x + rnorm(20)
+m0 <- lm(y~x)
+m0
+```
+
+The least squares fitting criteria does a decent job recovering those true values^[And in expectation as $N\to \infty$ the estimates would converge on the true values)]. It does so by trying to minimize the distance (grey segments) between the model's predictions (black line) and the observed values (open dots)
+
+
+```{r}
+# Residual: Distance between predicted and observed
+e <- resid(m0)
+# Predicted (or fitted values)
+yhat <- predict(m0)
+# Same as plugging each value of x into equation
+yhat1 <- coef(m0)[1] + coef(m0)[2]*x
+all.equal(yhat,yhat)
+
+plot(x,y)
+abline(m0)
+segments(x,y,x,yhat,col="grey",lwd=1)
+```
+
+Had we chosen some other line (intercept and slope) 
+
+```{r}
+yhat2 <- 1+1*x
+e2 <- y - yhat2
+plot(x,y)
+abline(1,1,col="red")
+segments(x,y,x,yhat2,col="red",lwd=2)
+abline(m0)
+segments(x,y,x,yhat,col="blue",lwd=1)
+```
+
+
+Our predictions would be worse (i.e. our residuals would be higher)
+
+```{r}
+mean(e)
+mean(e2)
+```
+
+
+Furthermore, in addition to being unbiased (mean 0), the residuals from OLS are uncorrelated with the predictors and predictions in our model
+
+```{r}
+round(cor(e,x),2)
+round(cor(e,yhat),2)
+round(cor(e2,x),2)
+round(cor(e2,yhat2),2)
+```
+
+
+Why not $\sum{\hat{\epsilon_i}}$
+
+- Any line that passes through $\bar{Y}$ and $\bar{X}$ will satisfy this criteria
+
+Why not $\sum{|\hat{\epsilon_i}|}$
+
+- Sometimes we do! For example in quantile regression...
+
+
+# The Math behind OLS Regression
+
+To understand what's going on under the hood, you need a broad understanding of some basic calculus. The notes below provide a brief review of some basic calculus to show how to calculate by hand the coefficient for simple bivariate (Y modeled by X) model. We'll probably skip over this in class. The key takeaway is that if you do the math, you'll find that coefficient that minimizes the SSR is:
+
+\[
+\begin{aligned}
+\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
+\end{aligned}
+\]
+
+## A Brief Review of Derivatives
+
+
+A derivative of $f$ at $x$ is its rate of change at $x$
+
+- For a line: the slope
+- For a curve: the slope of a line tangent to the curve
+
+You'll see too notations for derivatives:
+
+1. Leibniz notation:
+
+\[
+\frac{df}{dx}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{(x+h)-x}
+\]
+
+2. Lagrange: $f^{\prime}(x)$
+
+
+
+## Derivatives
+
+Derivative of a constant
+
+\[
+f^{\prime}(c)=0
+\]
+
+Derivative of a line f(x)=2x
+
+\[
+f^{\prime}(x)=2
+\]
+
+Chain rule: y= f(g(x)). The derivative of y with respect to x is
+
+\[
+\frac{d}{dx}(f(g(x)))=f^{\prime}(g(x))g^{\prime}(x)
+\]
+
+The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
+
+## Finding Local Minimums
+
+Local minimum:
+
+\[
+f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
+\]
+
+## Partial Derivatives
+
+Let $f$ be a function of the variables $(X_1, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
+
+\[
+\begin{align*}
+\frac{\partial f(X_1, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(X_1, \dots X_i+h \dots, X_n)-f(X_1, \dots X_i \dots, X_n)}{h}
+\end{align*}
+\]
+
+## Minimizing the sum of squared errors
+
+Our model
+
+\[
+Y_i =\beta_0+\beta_1X_{1,i}+\epsilon_i
+\]
+
+Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
+
+\[
+\begin{alignat*}{1}
+\sum \hat{\epsilon_i}^2 &= \sum (Y_i-\beta_0-\beta_1 X_{1,i})^2
+\end{alignat*}
+\]
+
+We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
+
+\[
+\begin{alignat*}{1}
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})=0\\
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}=0
+\end{alignat*}
+\]
+
+First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
+
+\[
+\begin{alignat*}{1}
+0 &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})\\
+\sum \beta_0 &= \sum Y_i - \sum \beta_1 X_{1,i}\\
+N \beta_0 &= \sum Y_i -\sum \beta_1 X_{1,i}\\
+\beta_0 &= \frac{\sum Y_i}{N} - \frac{\beta_1 \sum X_{1,i}}{N}\\
+\beta_0 &= \bar{Y} - \beta_1 \bar{X_{1}}
+\end{alignat*}
+\]
+
+
+Now, we can solve for $\beta_1$ plugging in $\beta_0$.
+
+\[
+\begin{alignat*}{1}
+0 &= -2\sum [(Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}]\\
+0 &= \sum [Y_iX_i-(\bar{Y} - \beta_1 \bar{X_{1}})X_{1,i}-\beta_1 X_{1,i}^2]\\
+0 &= \sum [Y_iX_i-\bar{Y}X_{1,i} + \beta_1 \bar{X_{1}}X_{1,i}-\beta_1 X_{1,i}^2]
+\end{alignat*}
+\]
+
+Now we'll rearrange some terms and pull out an $X_{1,i}$ to get
+
+\[
+\begin{alignat*}{1}
+0 &= \sum [(Y_i -\bar{Y} + \beta_1 \bar{X_{1}}-\beta_1 X_{1,i})X_{1,i}]
+\end{alignat*}
+\]
+
+Dividing both sides by $X_{1,i}$ and distributing the summation, we can isolate $\beta_1$
+\[
+\begin{alignat*}{1}
+\beta_1 \sum (X_{1,i}-\bar{X_1}) &= \sum (Y_i -\bar{Y})
+\end{alignat*}
+\]
+
+Dividing by $\sum (X_{1,i}-\bar{X_1})$ to get
+
+\[
+\begin{alignat*}{1}
+\beta_1  &= \frac{\sum (Y_i -\bar{Y})}{\sum (X_{1,i}-\bar{X_1})}
+\end{alignat*}
+\]
+
+Finally, by multiplying by $\frac{(X_{1,i}-\bar{X_1})}{(X_{1,i}-\bar{X_1})}$ we get
+
+\[
+\begin{alignat*}{1}
+\beta_1  &= \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}
+\end{alignat*}
+\]
+
+Which has a nice interpretation: 
+
+\[
+\begin{aligned}
+\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
+\end{aligned}
+\]
+
+So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat! 
+
+
+Let's calculate the simple regression coefficients for age predicted by vaccine beliefs
+
+```{r,echo=T}
+wrk<-na.omit(nes16[,c("age","vaccines")])
+# Variance Covariance of age and vaccines
+vcov1<-var(wrk)
+vcov1
+# Means
+age_mn<-mean(wrk$age)
+vac_mn<-mean(wrk$vaccines)
+beta1<-vcov1[1,2]/vcov1[2,2]
+beta0<-age_mn-beta1*vac_mn
+```
+
+
+And compare them to `R`'s `lm()` function
+
+```{r,echo=T}
+c(beta0,beta1)
+coef(lm(age~vaccines,data=wrk))
+```
+
+
+# Interpreting Regression Coefficients
+
+So far, we've seen that for a simple case, with a dichotomous (0-1) predictor, our simple linear regression provided us with a model that returned the conditional means in each group. 
+
+Suppose instead of vaccine beliefs, we were interested in how age varied with ideology, where ideology is a measured on a seven-point scale where 1=strong liberal and 7=strong conservative
+
+We could again calculate the conditional expectation for each level of ideology, from
+
+\[
+E[Age|Ideology=1]=\frac{1}{N_{ideo=1}}\sum Age_{i|ideo=1}
+\]
+
+To
+
+\[
+E[Age|Ideology=7]=\frac{1}{N_{ideo=7}}\sum Age_{i|ideo=7}
+\]
+
+Or....
+
+We could model age as a  linear function of ideology 
+
+\[
+Age_i=\beta_0+\beta_1\times Ideology_i+\epsilon_i
+\]
+
+First, let's compare the results of those two approaches, before getting into the details of estimation
+
+```{r}
+# Means of Age, conditional on ideolog (E[age |ideology])
+age_mn_ideo <- with(nes16, tapply(age,ideology,mean,na.rm=T))
+
+# Linear approximation to conditional mean
+m2 <- lm(age ~ ideology, nes16,na.action = "na.exclude")
+
+age_mn_ideo
+m2
+
+# Calculate by hand
+
+wrk<-na.omit(nes16[,c("age","ideology")])
+# Variance Covariance of age and ideology
+vcov1<-var(wrk)
+vcov1
+# Means
+age_mn<-mean(wrk$age)
+ideo_mn<-mean(wrk$ideology)
+beta1<-vcov1[1,2]/vcov1[2,2]
+beta0<-age_mn-beta1*ideo_mn
+beta0
+beta1
+coef(m2)
+```
+
+And let's visualize these predictions to understand what's going. The red symbols below correspond to the average age of respondents conditional on their ideology. The grey line corresponds to a **linear approximation of these conditional means** with coefficients obtained by minimizing the sum of squared residuals. Sometimes the predictions of this linear approximation are too high, other times they're too low, but on average the error is 0 (by design).
+
+Substantively, it tells us that on average, people who identify more strongly as conservatives tend to be older. How much older? Well, for each unit increase in ideology, our model predicts average age will be higher by `r round(beta1,2)` years.
+
+
+```{r}
+with(nes16,plot(jitter(ideology),age,pch=18,cex=.5,xlim=c(0,7)))
+# Condtional means
+points(1:7,with(nes16,tapply(age,ideology,mean,na.rm=T)),col="red",pch=1:7,cex=1.5)
+# Linear approximation to the conditional mean function
+abline(lm(age~ideology,nes16),col="grey")
+```
+
+When is this linear approximation a good prediction? Well, generally when the underlying conditional mean function is linear. In the relationship above, a linear trend seems reasonable. The less linear the conditional expectation function is, the less suitable a linear approximation.
+
+Note, that we can recover the conditional means, by fitting a "saturated" model, that is by giving R a model with a predictor for each level of variable of interest. 
+
+```{r}
+m3 <- lm(age ~ factor(ideology), nes16, na.action = "na.exclude")
+coef(m3)
+```
+
+
+By default, R drops the first level of a factor, and uses it as a reference category. So the intercept in this model corresponds to the average age among strong liberals 
+
+```{r}
+# Intercept is mean in excluded category
+coef(m3)[1]
+# Here the mean among strong liberals
+age_mn_ideo[1]
+```
+
+And the coefficients for each model tell you the difference in average ages between strong liberals and other ideological identifications, which when added to the average among strong liberals, gives you the mean in that group:
+
+
+```{r}
+round(coef(m3),2)
+# Average among liberals (ideology = 2)
+coef(m3)[1]+coef(m3)[2]
+age_mn_ideo[2]
+
+# Avearge age from coefficeints in m3
+round(c(coef(m3)[1],coef(m3)[1]+coef(m3)[-1]),2)
+# Same as conditional means
+round(age_mn_ideo,2)
+
+# Removing the intercept, and R returns means for each group
+m4 <- lm(age ~ factor(ideology) - 1, nes16,na.action = "na.exclude")
+m4
+round(age_mn_ideo,2)
+
+# Compare RMSE of linear trend
+rmse_fn(nes16$age, predict(m2))
+# To saturated models
+rmse_fn(nes16$age, predict(m3))
+rmse_fn(nes16$age, predict(m4))
+
+
+```
+
+Mathematically, the difference between treating ideology as a linear predictor of age and estimating the means of age conditional on ideology is the difference between fitting:
+
+```{r}
+# Ideology is a linear predictor of age
+head(model.matrix(m2))
+
+# Estimating means of age conditional on ideology
+head(model.matrix(m3))
+```
+
+
+Which we'll talk more about next week when we get to multiple regression.
+
+# WYNK {-}
+
+- Prediction involves error (difference between what we observe and what we predict)
+- One way of evaluating our predictions is to consider the bias of a predictor. 
+- Often we want predictors that are unbiased, but as we will see, this is not the only criteria we care about
+- Means are good (unbiased) estimators, but are not the only tool in our tool kit.
+- OLS regression provides a linear approximation to a conditional mean function
+- For binary predictors (0-1 variables) and saturate models the predictions from a simple OLS regression ARE the conditional means
+- For continuous variables, the predictions are linear approximations to the means
+    - The intercept corresponds to the model's prediction when the predictor is 0
+    - The coefficient tells you how the prediction changes given a unit change in your predictor.
+- OLS obtains these coefficients by minimizing the some of squared residuals
+- The intercept in a simple regression $\beta_0$ corresponds to:
+
+\[
+\beta_0 = \bar{Y} - \beta_1 \bar{X}
+\]
+- The slope $\beta_1$ corresponds to:
+
+\[
+\beta_1 = \frac{Cov(X,Y)}{Var(X)}
+\]

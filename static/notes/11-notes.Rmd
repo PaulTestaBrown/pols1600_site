@@ -1,0 +1,706 @@
+---
+title: "POLS 1600: Uncertainty: Hypothesis Testing"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+always_allow_html: yes
+output: 
+  html_document:
+      toc: true
+      toc_float: true
+---
+
+
+```{r init,echo=F,message=F}
+# Set repo manually
+options(repos="https://cran.rstudio.com" )
+
+# Load required packages
+if (!require("pacman")){ install.packages("pacman") }
+pacman::p_load("tidyverse","mosaic","knitr","Hmisc","weights","ggplot2","devtools","scales","car","gridExtra","xtable","texreg","kableExtra","reshape2","readstata13")
+
+# Set markdown options
+opts_chunk$set(eval=T,echo=T,message=F,warning=F,cache=T)
+
+
+
+```
+
+# Overview 
+
+## Announcements:
+
+- Schedule meetings!
+
+
+## Today:
+
+**Review:**
+
+- What is a sampling distribution?
+- What is a standard error?
+- What is a confidence interval?
+
+**Today**
+
+- What is a hypothesis test?
+    - What is a test statistic?
+    - What is a null hypothesis?
+    - What is a p-value
+    - What is the relationship between hypothesis testing and confidence intervals?
+
+# Review
+
+## What is a sampling distribution?
+
+- A distribution of values we would have observed upon repeated sampling
+- Bootstrapping (sampling from a sample) approximates the width of the sampling distribution
+
+## What is a standard error?
+
+- Standard deviation of the sampling distribution
+    - Describes the width or range of plausible observations we would see.
+    - Decreases as the sample size increases
+
+## What is a confidence interval
+
+- Coverage interval for a sampling distribution
+    - "A confidence interval is a way of expressing the precision or repeatability of a statistic, how much variation would likely be present across the possible different random samples from the population"
+
+- Three components:
+    - Point Estimate (i.e. a mean, or coefficient)
+    - Confidence Level (Often 95 percent by convention)
+    - Margin of Error (+/- some range (typically 2*SD for 95 percent CI))
+
+## Example: Who questions the benefits of vaccines?
+
+```{r}
+# Load data
+load(url("https://raw.github.com/PTesta/POLS_1600/master/nes16.rda"))
+# Fit Model
+lm1<-lm(vaccines~pid3cat,nes16)
+# Look at coefficients from model
+coef(lm1)
+```
+
+## How confident are we in these coefficients?
+
+- How different could they have been in another sample? 
+- Over repeated samples how much variation could we expect?
+
+## Bootstrapped re-sampling distribution
+
+Key idea is to simulate sampling distribution by sampling **with replacement** from our sample
+
+```{r}
+# Generate bootstrapped sampling distribution
+lm1.bs<-do(1000)*coef(lm(vaccines~pid3cat,sample(nes16,replace=T)))
+# Each column is a sampling distribution for the coefficient
+# Apply the sd() function to each column to get the standard error for the coefficient
+lm1.se<-apply(lm1.bs[,1:3],2,sd)
+# Calculate confidence intervals using +/- 2 times standard error
+lm1.ci<-cbind(ll=c(coef(lm1)-lm1.se*1.96),ul=c(coef(lm1)+lm1.se*1.96))
+
+```
+
+We can present our bootstrapped confidence intervals in a pretty table:
+
+```{r}
+# Present results as a table:
+kable(cbind(beta=coef(lm1),se=lm1.se,lm1.ci))
+```
+
+And compare to the results using large-sample statistical theory
+
+```{r}
+lm1.se.ls <- summary(lm1)$coef[,2]
+lm1.ci.ls <- cbind(ll=confint(lm1)[,1],ul=confint(lm1)[,2])
+kable(cbind(beta=coef(lm1),se=lm1.se.ls,lm1.ci.ls))
+
+```
+
+With a large sample like the NES, the results are generally similar (our simulation based approach produce similar estimates to those from large sample theory). 
+
+
+
+We can visualize the sampling distribution of the intercept of our model as follows:
+
+
+```{r}
+plot(density(lm1.bs[,1]))
+# Estimate from each resample
+rug(lm1.bs[,1])
+# Estimate
+abline(v=coef(lm1)[1])
+# Confidence interval
+segments(lm1.ci[1,1],
+         1,
+         lm1.ci[1,2],
+         1
+         )
+```
+
+## Interpreting Confidence Intervals
+
+- Are we 95% confident that the "true" value of the republican coefficient is `r round(coef(lm1)[3],3)`?
+    - Why not?
+- The confidence is about the interval
+- Anything within the interval is a plausible
+- Key decision rule is often does the interval include zero
+
+
+# Hypothesis Testing
+
+
+## What is a hypothesis test
+
+- A formal way of assessing statistical evidence. Combines
+    - **Deductive reasoning** (distribution of a test statistic, if the a null hypothesis were true )
+    - **Inductive reasoning** (based on the test statistic we observed, how likely is it that we would observe it if the null were true?)
+
+
+## What is a test statistic?
+
+- A way of summarizing data
+    - difference of means
+    - coefficients from a linear model
+    - R^2
+
+## What is a null hypothesis?
+
+- A statement about the world
+    - Only interesting if we reject it
+    - Produces a distribution
+    - Typically something like "X has no effect on Y"
+    - Never accept the null can only reject
+
+## What is a p-value?
+
+- How likely is it that would observe the test statistic that we did, if the null hypothesis were true?
+
+## How do we do hypothesis testing?
+
+1. Calculate the test statistic
+2. Simulate the null distribution (the distribution of the test statistic conditional on given hypothesis)
+3. Compare the test statistic to the distribution assuming the null were true
+    - If it's in the tails, very unlikely that we would observe what we did
+4. Calculate p-value
+    - Quantify how often we would see test statistics as big or bigger
+    - Two-side tests: how often do we see test statics as big or bigger in absolute value as our observed test statistic
+    - One-side test: how often do we see test statistics as extreme as our observed statistic in a particular direction (i.e. only consider test statistics that were as postie or larger than our observed test statistic)
+5. Reject or fail to reject/retain our hypothesis based on some threshold of statistical significance (e.g. p < 0.05)
+
+
+## Outcomes of Tests
+
+There are basically two results of a hypothesis test: we can reject or fail to reject a hypothesis test.
+
+**We never "accept" a hypothesis**, since there are, in theory, an infinite number of other hypotheses we could have tested.
+
+Our decision can produce four outcomes and two types of error:
+
+|                | Reject $H_0$ | Fail to Reject $H_0$ |
+|----------------|--------------|----------------------|
+| $H_0$ is true  | False Positive | Correct!             |
+| $H_0$ is false | Correct!     | False Negative        |
+
+Suppose we chose to reject a hypothesis if our p-value was less than 0.05. 
+
+What we're saying is that we're willing to falsely reject our hypothesis 5 times out of 100. 
+
+Typically we want to minimize this false positive rate (Type 1 error), but there's a trade off. Reducing Type 1 error means, we're more likely to make a type 2 error -- failing to reject when our null is false.
+
+
+
+# Applications
+
+## Example: Hypothesis testing from a linear model
+
+
+## Step 1 calculate the test statistic for Republican and Independent Variables
+
+Here we'll use the coefficient estimated from each model as our test statistic. 
+
+```{r}
+lm1<-lm(vaccines~pid3cat,nes16)
+test.statInd<-coef(lm1)[2]
+test.statRep<-coef(lm1)[3]
+
+plot(jitter(nes16$pid), jitter(nes16$ideology))
+
+
+tmp <- data.frame(
+  x = rnorm(100)
+)%>%
+  mutate(
+    y = x + rnorm(100,0,.1)
+  )
+
+with(tmp, plot(x,shuffle(y)))
+lm(shuffle(y)~x,tmp)
+```
+
+## Step 2 Simulate the null distribution for our test statistic
+
+- First we need to specify a hypothesis. The most common hypothesis is a **null hypothesis** of no effect. 
+
+In the present context, this hypothesis implies that partisanship has no relationship to attitudes about vaccines. 
+
+If that were the case than the coefficient on each variable in our model should be zero. ($H_0: \beta=0$)
+
+To simulate a world in which our null hypothesis is true we'll use the shuffle command (sampling **without replacement**) to randomly re-order our outcome. 
+
+Below is the result of 3 iterations of this process
+
+```{r}
+set.seed(12345)
+# 1st shuffle 
+coef(lm(shuffle(vaccines)~pid3cat,nes16))
+# 2nd shuffle 
+coef(lm(shuffle(vaccines)~pid3cat,nes16))
+# 3rd shuffle 
+coef(lm(shuffle(vaccines)~pid3cat,nes16))
+```
+
+- The fist time, the coefficient on Independents was slightly positive, the second time it was slightly negative, and the third it was slightly positive.
+
+- If we were to repeat this process a number of times, we could generate the distribution of our *test statistics under the null*, that is the range of values we would see in a world where our hypothesis of no relationship were true
+
+- Let's do that for Independents and Republicans separately
+
+```{r,message=F}
+nullInd<-do(1000)*coef(lm(shuffle(vaccines)~pid3cat,nes16))[2] # Just the coefficient for Independents
+nullRep<-do(1000)*coef(lm(shuffle(vaccines)~pid3cat,nes16))[3] # Just the coefficient for Republicans
+
+```
+
+## Step 3 Compare the observed to the null
+
+- Now we have a distribution of values we could have seen if our hypothesis were true
+- Let's plot them, using the plot command, and add a tick mark showing the value of actual coefficient we saw
+
+```{r}
+plot(density(nullInd$pid3catInd),xlim=c(-.3,.1))
+rug(test.statInd,ticksize=.1,lwd=3)
+
+```
+
+- So the coefficient we actually observed seems like a big outlier compared to what we would have observed in a world where the truth was zero.
+
+## Step 4 Calculate a  p-value
+
+- In fact, how often did we see coefficients as big in absolute value as the coefficient we got for independents in our 1000 simulations?
+
+```{r}
+# Ind
+sum(abs(nullInd$pid3catInd)>abs(test.statInd))/length(nullInd$pid3catInd)
+```
+
+- OK so out of 1000 simulations, we never saw a coefficient that likely. So it seems pretty unlikely that our data would produce the coefficient we saw if the true coefficient were 0. 
+
+```{r}
+# Rep
+sum(abs(nullRep$pid3catRep)>test.statRep)/length(nullRep$pid3catRep)
+```
+
+- In contrast, we saw coefficients as big as the coefficient we observed on the Republican indicator fairly frequently (About 75 percent of the time)
+
+## What's a p-value?
+
+We've just calculated p-values for two coefficients in our model. What's a p-value?
+
+- A p-value is a conditional probability that tells us how likely it is
+(the probability part) that we would see the statistic we calculated
+from our data, if our proposed hypothesis were true (the conditional
+part).
+
+
+# Hypothesis Testing using a Large-Sample Approximations to the Null Distribution
+
+
+Suppose rather then the raw coefficients from our linear model, we used a "standardized" test statistic
+
+\[
+t= \frac{\hat\beta-\beta}{\widehat{SE}_{\hat{\beta}}} \sim \text{Students's } t \text{ with } n-k \text{ degrees of freedom}
+\]
+
+Where $\hat\beta$ is our estimated coefficient, $\beta$ is our hypothesized "true" coefficient (e.g. $\beta=0$) and $\widehat{SE}_{\hat{\beta}}$ is the estimated standard error of our coefficient.
+
+William Gosset, writing under the pseudonym *Student*, showed that this statistic follows a [t distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution), whose shape is determined by the degrees of freedom. 
+
+So rather than having to simulate a distribution with our computers, we can use statistical theory to approximate the distribution our statistic would follow under null.
+
+
+## Step 1 calculate the test statistic for Republican and Independent Variables
+
+Here we'll use the standardized coefficient, first doing the calculations by hand, and then letting R's summary function have all the fun.
+
+```{r}
+# t-stat by hand
+test.statInd<-coef(lm1)[2]/sqrt(diag(vcov(lm1))[2]) # beta/SE
+# same as t-stat from summary
+test.statRep<-summary(lm1)$coef[3,3] # Let R do it for us
+
+```
+
+## Step 2 Simulate the null distribution for our test statistic
+
+- Next We'll simulate the null distributions of this statistic as well to compare simulation based approaches (what we did before) to what asymptotic theory predicts
+
+```{r,message=F}
+set.seed(12345)
+# We'll extract the t-stat callculated by the summary function 
+# using $coef[2,3] for Independents and $coef[3,3] for republicans
+nullInd<-do(2000)*summary(lm(shuffle(vaccines)~pid3cat,nes16))$coef[2,3]
+nullRep<-do(2000)*summary(lm(shuffle(vaccines)~pid3cat,nes16))$coef[3,3]
+
+
+
+```
+
+
+## Step 3 Compare the observed to the null: Independents
+
+- We'll plot the density of the simulated null distribution in grey
+- Then we'll add the black curve which represents the theoretical distribution of our test-statistic estimated for a model with this many degrees of freedom (the number of observations minus the number of coefficients in the model)
+
+```{r}
+
+plot(density(nullInd$result),xlim=c(-9,4),col="grey")
+
+curve(dt(x,df = lm1$df.residual),add=T)
+
+rug(nullInd$result,ticksize=.1,lwd=2,col="grey")
+
+rug(test.statInd,ticksize=.1,lwd=3,col="red")
+
+```
+
+## Step 3 Compare the observed to the null: Republicans
+
+And do the same thing using Republicans
+
+```{r,echo=F}
+
+plot(density(nullRep$result),xlim=c(-4,4),col="grey")
+
+curve(dt(x,df = lm1$df.residual),add=T)
+
+rug(nullRep$result,ticksize=.1,lwd=2,col="grey")
+
+rug(test.statRep,ticksize=.1,lwd=3,col="red")
+
+```
+
+
+## Step 4 Calculate a p-value, using t-distribution
+
+Finally let's see the p-value from the t-distribution using the `pt()` function
+
+
+```{r}
+
+2*pt(test.statInd,df = lm1$df.residual)# Ind
+
+2*pt(test.statRep,df = lm1$df.residual,lower.tail = F)# Rep
+round(summary(lm1)$coef,3)
+```
+
+## Step 4 Calculate a p-value, using null distribution
+
+And compare that to what our simulations tell us
+
+```{r}
+sum(abs(nullInd$result)>abs(test.statInd))/length(nullInd$result)
+sum(abs(nullRep$result)>abs(test.statRep))/length(nullRep$result)
+mean(abs(nullRep$result)>abs(test.statRep))
+```
+
+
+# Visualizing p-values
+
+A p-value is a conditional probability. 
+
+Under the null, we would expect our t-stats (regression coefficients divided by their standard errors) to follow the following distribution
+
+```{r}
+p.pdf.t<-ggplot(data.frame(x=seq(-4,4,by=0.01)), aes(x)) + stat_function(fun = dt, args =list(df=lm1$df.residual))
+
+```
+
+In our model, we observed the following test-statistic for the coefficient on Republicans
+
+```{r}
+p.pdf.t + geom_vline(xintercept = test.statRep,col="red")
+```
+
+For a "two sided test", we think we could have observed statistics as far from 0 in either the positive or negative direction
+
+
+```{r}
+p.pdf.t + geom_vline(xintercept = test.statRep,col="red")+ 
+  geom_vline(xintercept = -test.statRep,col="red",linetype="dashed")
+```
+
+Our p-value quantifies the probability of seeing test statistics as large or larger in absolute value if our null were true. Visually this probability corresponds to the shaded area under the curve:
+
+
+```{r}
+
+# For shading
+t_shade <- function(the_df, x,l=-3,r=0){
+y <- dt(x,df=the_df)
+y[x < l | x > r] <- NA
+return(y)
+}
+
+p.pdf.t + geom_vline(xintercept = test.statRep,col="red")+ 
+  geom_vline(xintercept = -test.statRep,col="red",linetype="dashed")+
+    stat_function(data=data.frame(x=c(test.statRep,4)), fun = t_shade, 
+                args =list(the_df=lm1$df.residual,
+                           r=4,
+                           l=test.statRep
+                           ), geom = 'area', col="red",fill = 'red', alpha = 0.2)+
+  stat_function(data=data.frame(x=c(-3,-test.statRep)), fun = t_shade, 
+                args =list(the_df=lm1$df.residual,
+                           l=-4,
+                           r=-test.statRep
+                           ), geom = 'area', col="red",fill = 'red', alpha = 0.2)
+
+
+```
+
+
+Which we can calculate from the pdf of a t-distribution:
+
+```{r}
+# Area above the test statistic
+pt(test.statRep,lm1$df.residual,lower.tail = F)
+# p-value
+2*pt(test.statRep,lm1$df.residual,lower.tail = F)
+# Same as 
+summary(lm1)$coef[3,]
+```
+
+
+# Testing a sharp null of no effect
+
+Consider an experiment where we pick 8 cities comparable in size and media market, randomly assign four to place paid ads in major daily newspapers encouraging voters to vote in the next election. Can we conduct inference on such a small sample?
+
+Yes! Provided we're willing to test a a very specific hypothesis, namely, a sharp null of no effect.
+
+
+
+## 0. Posit a Sharp Null of No Effect
+
+We'll start by positing a sharp null hypothesis of no effect.  
+
+Our assumption is that our treatment will have no effect on turnout, and so the potential outcomes (Y(1),Y(0)) are the same
+
+\[
+Y_i(1)=Y_i(0) \text{ for all } i
+\]
+
+And the individual treatment effects are 0
+
+\[
+\tau_i=Y_i(1)-Y_i(0)=0 \text{ for all } i
+\]
+
+As are the average treatment effects which we can estimate with a difference of means (our test-statistic for this example)
+
+## 1. Calculate a test statistic
+
+Now let's simulate some data to illustrate what we might see in one trial
+
+```{r,echo=F,results='asis'}
+set.seed(123)
+# Full schedule of potential outcomes (unobserved)
+godtab<-matrix(NA,8,3)
+# Y(1) Treated
+godtab[,1]<-round(50+runif(8,-2,10),2)
+# Y(0) Control
+godtab[,2]<-round(50+runif(8,-2,4),2)
+# Y(1)-Y(0)
+godtab[,3]<-godtab[,1]-godtab[,2]
+colnames(godtab)<-c("Y(1)","Y(0)","Y(1)-Y(0)")
+
+tab_god<-rbind(godtab,colMeans(godtab))
+rownames(tab_god)<-c(1:8,"Average")
+
+# What we actually observe in one trial
+tab_obs<-godtab
+treated<-c(1,3,5,8)
+control<-c(2,4,6,7)
+tab_obs[,3]<-"?"
+tab_obs[treated,2]<-"?"
+tab_obs[control,1]<-"?"
+mus<-round(c(mean(godtab[treated,1]),
+            mean(godtab[control,2]),
+            mean(godtab[treated,1])-
+            mean(godtab[control,2])
+            ),2)
+tab_obs<-rbind(tab_obs,mus)
+rownames(tab_obs)<-c(1:8,"Average")
+kable(tab_obs)
+```
+
+So how likely is it that we would have seen a difference of means of 5.21 between our treated and control cities, if the true effect of our intervention were 0?
+
+## 2. Simulate the null distribution
+
+Under a sharp null, we assume
+
+\[
+Y_i(1)=Y_i(0) \to \tau_i=0 \; \forall \; i
+\]
+
+And so we can fill in those question marks with their observed values
+
+```{r,echo=F,results="asis"}
+tab_null<-tab_obs
+colnames(tab_null)[3]<-"D"
+tab_null[treated,2]<-paste("(",tab_null[treated,1],")",sep="")
+tab_null[control,1]<-paste("(",tab_null[control,2],")",sep="")
+tab_null[treated,3]<-1
+tab_null[control,3]<-0
+tab_null[9,1:2]<-mean(c(godtab[treated,1],godtab[control,2]))
+tab_null[9,3]<-""
+kable(tab_null)
+```
+
+Since we've assumed treatment has no effect, we can calculate the values of our test statistic under different realizations of treatment. Specifically, there are `r choose(8,4)` ways to choose 4 cities out 8 to assign treatment to. For example, instead of:
+
+```{r}
+tab_obs1<-tab_obs
+colnames(tab_obs1)[3]<-"D"
+tab_obs1[treated,3]<-1
+tab_obs1[control,3]<-0
+
+kable(tab_obs1)
+
+```
+
+We could have observed, the opposite. That is, under the sharp null, the potential outcomes of treated and control are the same regardless of their treatment status. All of the cities that were actually treated could have been assigned to control, and all of the cities that were assigned to control could have been treated. Their potential outcomes are assumed to be the same, and so one possible test statistic we could have observed under the null is -5.21.
+
+```{r}
+tab_obs2<-tab_obs
+tab_obs2[treated,2]<-tab_obs2[treated,1]
+tab_obs2[control,1]<-tab_obs2[control,2]
+tab_obs2[treated,1]<-"?"
+tab_obs2[control,2]<-"?"
+colnames(tab_obs2)[3]<-"D"
+tab_obs2[treated,3]<-0
+tab_obs2[control,3]<-1
+tab_obs2[9,1:2]<-tab_obs2[9,2:1]
+tab_obs2[9,3]<- paste("-",tab_obs2[9,3],sep="")
+kable(tab_obs2)
+
+```
+
+ 
+To simulate all the possible test statistics we could have observed we first create a matrix $\Omega$ that contains all 70 combinations of treated (D=1) and control (D=0).
+
+```{r}
+
+Y<-c(51.5, 50.7, 52.9, 50.7, 59.3, 51.4, 48.6, 58.7)
+D<-c(1,0,1,0,1,0,0,1)
+omega<-do(1000)*sample(D,8,replace=F)
+omega<-unique(omega)
+omega<-data.frame(t(omega))
+dim(omega)
+
+```
+
+Now we let's calculate our observed test statistic $\hat{\tau}$
+
+```{r}
+tau_hat<-coef(lm(Y~D))["D"] 
+## Under the Sharp Null, What We Assume
+```
+
+
+And compare it to the possible test statistics we could have observed if our null were true and 
+
+```{r}
+tau_dist<-NA
+for(i in 1:dim(omega)[2]){
+tau_dist[i]<-mean(Y[omega[,i]==1])-mean(Y[omega[,i]==0])
+}
+```
+
+Let's plot the distribution of test statistics, where the black bars correspondent to frequency we observe a difference of means of that value and the red bars highlight the test statistics as big or bigger than what we observe
+
+```{r}
+plot(table(tau_dist),col=ifelse(abs(as.numeric(names(table(tau_dist))))>=tau_hat,"red","black"))
+
+```
+
+Only 2 times out of 70 do we see an effect as big or bigger than `r tau_hat` in absolute value, corresponding to a p-value of $2/70=`r round(2/70,4)`$
+
+In contrast, if we had assumed the test-statistics would follow a t-distribution, we would have gotten a p-value of
+
+```{r}
+t.test(Y~D)$p.value
+```
+
+You've just conducted design-based inference, that is, inference justified by the logic of your design, rather than an appeal to statistical theory. 
+
+One reason we like such an approach is that it may enable us to draw valid inference in situations like our newspaper experiment where we have relatively small samples who's null distributions are not well approximated by what large-sample statistical theory tells us they should be.
+
+
+# The relationship between hypothesis testing and confidence intervals
+
+Suppose we wanted to test a hypothesis other than 0.
+
+If we assume a constant additive effect, then we can again fill in our schedule of potential outcomes adding the hypothesized effect to treated units
+
+
+```{r}
+# Simulate constant additive effect
+add_effect<-function(null,newD){
+    newY<-Y+(newD*null)
+    coef(lm(newY~newD))["newD"]
+}
+
+```
+
+Now we'll we'll write some helper functions to extract p-values for this example
+
+```{r}
+get_pval<-function(null_hyp){
+    dnull<-sapply(omega,function(x){add_effect(null=null_hyp,newD=x)})
+    thepge<-mean(zapsmall(dnull)>=zapsmall(tau_hat))
+    theple<-mean(zapsmall(dnull)<=zapsmall(tau_hat))
+    theptwosided<-2*min(thepge,theple)
+    return(c(h=null_hyp,ple=theple,pge=thepge,ptwo=theptwosided))
+}
+```
+
+And then apply these functions to get p values for multiple hypothesized effects
+
+```{r}
+somehyp<-seq(-2,15,by=.25)
+theps_n<-sapply(somehyp,function(null){get_pval(null_hyp=null)})
+theps_n<-data.frame(t(theps_n))
+
+```
+
+Now let's plot the hypothesized effect on the x access, and the (two-sided) p-values on the y axis, Suppose we were to collect all the hypotheses we failed to reject at p<0.05 and colored them blue. These a range of plausible constant additive effects consistent with our data. Another word for a range of plausible effects is a confidence interval.
+
+
+```{r}
+with(theps_n,plot(h,ptwo,ylab="p-value",xlab="Hypothesis",pch=20,col=ifelse(ptwo>0.05,"blue","red")))
+abline(h=0.05)
+abline(v=0.25)
+abline(v=10.25)
+
+```
+
+Some closing thoughts:
+
+- p-values get a bad wrap, in part because social scientists often misuse or misinterpret them.
+- Many academic journals prefer confidence intervals, but interval estimation and hypothesis testing are both quantifying the same underlying uncertainty (i.e. a confidence interval is a collection of hypothesis tests we'd fail to reject at some threshold)
+- Being able to invert a hypothesis test allows us to construct intervals for a wider range of statistics to answer a broader range of questions.
+- Still, the tendency to engage in "star-gazing," (cooking our regressions to produce p-values less than 0.05) leads to bad science.
+- Treat p-values as one component of your interpretation of a model. They're a useful heuristic, and the ability to construct intervals by inverting hypothesis tests helps us answer a broader range of questions (i.e. cases where it's not clear what the sampling distribution should be)
+
+

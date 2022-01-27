@@ -1,0 +1,371 @@
+---
+title: 'Week 2: Causation'
+author: "Paul Testa"
+date: "9/16/2019"
+output: 
+  ioslides_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Overview
+
+## Plan for today:
+
+- Review from last class
+- The fundamental problem of causal inference
+- A statistical solution to this problem
+- How to estimate causal effects with sample means
+- Broockman and Kalla (2016)
+
+# Review
+
+## Last week:
+
+- Measurement matters
+- Different ways to know your data
+- Correlation does not equal causation
+
+## Standard Operating Procedure going forward
+
+- Weekends: Read text and notes
+- Tuesdays & Thursdays: Get labs ready to run
+- Wednesdays & Fridays: Crush labs, review comments
+
+# Review
+
+## Last Class
+
+Carly asked an interesting question:
+
+How could a categorical variable like our procedural measure of democracy have a standard deviation?
+
+## Bernoulli variable
+
+- Categorical variables that have only two categories can be thought of as Bernoulli random variables, where we assign a value of 1 to one category and 0 to the other category
+
+\[
+  f(x) =
+    \left\{
+        \begin{array}{cc}
+                p & \mathrm{if\ } x=1 \\
+                1-p & \mathrm{if\ } x=0 \\
+        \end{array} 
+    \right.
+\]
+
+- Where p is the probability that x takes a value of 1 and 1-p is the probability that x takes a values of 0.
+- Example: Represent outcomes of a coin flip. Heads = 1, Tails = 0
+
+## Expected value 
+
+The exxpected value of any variable is a (probability) weighted average of the possible outcomes of that random variable, often labeled $\mu$ 
+
+Discrete:
+
+\[
+\mu_X=E(X)=\sum xp(x) 
+\]
+
+## Expected value of Bernoulli variable
+
+\[
+\mu_X = 1*Pr(X=1) + 0*Pr(X=0) 
+\]
+\[
+\mu_X = 1*p + 0*(1-p)
+\]
+\[
+\mu_X = p
+\]
+
+## Variance
+
+If $X$ has a finite mean $E[X]=\mu$, the $E[(X-\mu)^2]$ is finite and called the variance of $X$ which we write as $\sigma^2$ or $Var[X]$.
+
+Note:
+\[
+\begin{align*}
+\sigma^2=E[(X-\mu)^2]&=E[(X^2-2\mu X+\mu^2)]\\
+&= E[X^2]-2\mu E[X]+\mu^2\\
+&= E[X^2]-2\mu^2+\mu^2\\
+&= E[X^2]-\mu^2\\
+&= E[X^2]-E[X]^2
+\end{align*}
+\]
+
+## Variance of a Bernoulli Variable
+
+First, find $E[X^2]$
+
+\[
+E[X^2] = \Pr(X=1)\cdot 1^2 + \Pr(X=0)\cdot 0^2 = p \cdot 1^2 + q\cdot 0^2 = p
+\]
+
+## Variance of a Bernoulli Variable
+
+Recall that $Var[X] = E[X^2]-E[X]^2$
+
+\[
+Var[X] = p - p^2 = p(1-p)
+\]
+
+## Standard Devaiation
+
+A standard deviation is just the square root of the variance
+
+\[
+\sigma=\sqrt{Var[X]}
+\]
+
+The standard deviation is measured in the same units as the original variable
+
+## Variance of Procedural Measure of Democracy
+
+```{r}
+load("qog1.rda")
+qog1$dem_01 <- qog1$chga_demo
+# Mean
+p <- mean(qog1$dem_01, na.rm=T)
+p
+# Variance 
+var(qog1$dem_01, na.rm=T)
+p*(1-p)
+# SD
+sd(qog1$dem_01, na.rm=T)
+sqrt(p*(1-p))
+```
+
+
+# The fundamental problem of causal inference
+
+## The headache example
+
+![](http://memecrunch.com/meme/3NSE/headache/image.jpg)
+
+## Counterfactural reasoning
+
+- Implicit in all causal reasoning is a statement about counterfactuals
+- How would the world look (Y) if something (D) had or had not occurred?
+- Some counterfactuals are easier to imagine than others
+    - What's the effect of democracy on war?
+    - What's the effect of being encouraged to vote?
+    - What's the effect of foreign aid on development?
+    - What's the effect of gender on civic participation?
+
+## Individual causal effects
+
+The individual causal effect $\tau_i$ of some treatment $d_i$ on some observation $i$ is 
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+The **fundamental problem of causal inference** is that we only ever see one potential outcome for an individual, and so it's **impossible to know** the causal effect of some intervention for that individual
+
+# A statistical solution to the FPoCI
+
+## A statistical solution to the FPoCI
+    
+Two parts:
+
+Rather than individual causal effects:
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+Focus on average causal effects
+
+- \[
+E[\tau_i] = \overbrace{E[Y_i(1) - Y_i(0)]}^{\text{Average of a difference}} = \overbrace{E[Y_i(1)] - E[Y_i(0)]}^{\text{Difference of Averages}}
+\]
+
+When does the difference of averages provide us with a good estimate of the average difference?
+
+## The hospital example
+
+![](https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9cca7e7dc857d95ffe.jpg)
+
+## The hospital example
+
+Want to know the effect of going to the hospital on people
+who are sick (need to go the hospital)
+
+\[
+\text{What we want} = E[Y(1|D=1) - Y(0|D=1)]
+\]
+
+\[
+\text{What we want} = E[Y(\text{Hospital}|\text{Sick}) - Y(\text{No Hospital}|\text{Sick})]
+\]
+
+## The hospital example
+
+
+Instead we might end up comparing outcomes among the sick and non-sick
+
+\[
+\text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]
+\]
+
+## Selection bias
+
+The hospital example illustrates the problem of selection bias
+
+\[
+\widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
+\underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}
+\]
+
+- When is selection bias 0? 
+    - When E[Y(0)|D=1] = E[Y(0)|D=0]
+- When does, E[Y(0)|D=1] = {E[Y(0)|D=0]? 
+    - If D has been randomly assigned
+    
+## (P)review: Independence
+
+
+In probability, two events A and B are said to be *indpendent* if and only if the joint probability is equal to the product of the marginal probabilities
+
+\[
+A \unicode{x2AEB} B \iff Pr(A \cap B) = Pr(A)\cdot Pr(B)
+\]
+
+If random variables $X$ and $Y$ are $\unicode{x2AEB}$ then:
+
+\[
+E[XY]=E[X]\cdot E[Y]
+\]
+
+And the $E[Y|X]=E[Y]$ \pause
+
+
+## The role of randomization
+
+- Assume that in Soviet Russia, hospital visits you, and these visits are randomly determined. 
+- Then it is plausible to claim that one's treatment status is independent of one's potential outcomes as well as any other factor (observed ($X$) or unobserved ($U$)) that might be associated with these outcomes:
+
+\[
+Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
+\]
+
+# Estimating the sample average treatment effect (SATE)
+
+## The sample average treatment effect
+
+We  define the **Sample Average Treatment Effect** as 
+\[
+SATE=E[\tau_i]=E[Y_i(1) - Y_i(0)]
+\]
+\[
+=E[Y_i(1)] - E[Y_i(0)]
+\]
+\[
+=\frac{1}{N}\sum[Y_i(1)]-\frac{1}{N}\sum[Y_i(0)]
+\]
+\[
+=\frac{1}{N}\sum_{i=i}^{n} [ Y_i(1) - Y_i(0)]\equiv SATE
+\]
+
+## Estimating the SATE
+
+If we had a sample of $N$ observations, $m$ of which are assigned to treatment and $N-m$ to control
+
+\[
+\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}
+\]
+
+## A brief example
+
+Suppose we wanted to know the effect of a non-partisan ad in a newspaper that encouraged people to vote
+
+We have limited resources to test this question, and so we decide to select a sample of 8 cities and *randomly* choose 4 of those cities to place ads in local newspapers.
+
+## GOTV
+
+If we could observe both sets potential outcomes we could identify the individual level casual effects
+
+## GOTV
+
+```{r,echo=F,results="asis",warning=F,message=F}
+library(knitr)
+library(kableExtra)
+set.seed(123)
+godtab<-matrix(NA,8,3)
+godtab[,2]<-round(50+runif(8,-2,4),2)
+taus<-c(3,0,5,-1,0,6,3,1)
+godtab[,1]<-godtab[,2]+taus
+godtab[,3]<-godtab[,1]-godtab[,2]
+colnames(godtab)<-c("Y(1)","Y(0)","Y(1)-Y(0)")
+tab_god<-rbind(godtab,colMeans(godtab))
+rownames(tab_god)<-c(1:8,"Average")
+kable(tab_god,digits = 3,)%>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font=10) #%>%
+  #scroll_box(width = "100%", height = "200px")
+
+```
+
+## What we might see from one experiment
+
+```{r,results="asis"}
+tab_obs<-godtab
+treated<-c(1,3,5,8)
+control<-c(2,4,6,7)
+tab_obs[,3]<-"?"
+tab_obs[treated,2]<-"?"
+tab_obs[control,1]<-"?"
+mus<-round(c(mean(godtab[treated,1]),
+            mean(godtab[control,2]),
+            mean(godtab[treated,1])-
+            mean(godtab[control,2])
+            ),2)
+mus[3]<-"?"
+tab_obs<-rbind(tab_obs,mus)
+rownames(tab_obs)<-c(1:8,"Average")
+kable(tab_obs)%>%
+  kable_styling(bootstrap_options = c("striped", "hover"), font=10)
+
+```
+
+## Estimating SATE from experiment
+
+\[
+E[Y_i(1)|D_i=1]=1/4\cdot(`r paste(tab_god[treated,1],collapse="+")`)=
+`r mean(tab_god[treated,1])`
+\]
+
+\[
+E[Y_i(0)|D_i=0]=1/4\cdot(`r paste(tab_god[control,2],collapse="+")`)=
+`r mean(tab_god[control,2])`
+\]
+
+\[
+\widehat{SATE}=E[\tau_i|D=d_i]=`r mean(tab_god[treated,1])` - `r mean(tab_god[control,2])`=
+`r mean(tab_god[treated,1])- mean(tab_god[control,2])`
+\]
+
+# Broockman and Kalla (2016)
+
+## Research Question
+
+How do we change people's minds?
+
+## Study Design
+
+A placebo-controlled field experiment
+
+1. Recruited from voter files to complete a baseline survey
+2. Among those who complete the survey, half are assigned to receive an intervention  and half are assigned to receive a placebo 
+3. Only some are actually home or open the door when the canvassers knock. 
+4. These people are then recruited to participate in a series of surveys 3 days, 3 weeks, 6 weeks, and 3 months after the initial intervention.
+
