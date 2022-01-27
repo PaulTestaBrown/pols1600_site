@@ -30,7 +30,7 @@ To do that we'll use  [R, a free and open-source software environment for statis
 
 Below are some steps to get you set up so that we can get started next class.
 
-## TLRD {-}
+## TLDR {-}
 
 If you're pressed for time here's the short version of what you should do before next class.
 
