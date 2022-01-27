@@ -1,8 +1,8 @@
 ---
 title: 'Week 01'
-subtitle: 'Data, Measurement, and Vizulation'
-summary: 'Describing and Visualizing Data in R'
-publishDate: "2022-01-01"
+subtitle: 'Data and Measurement'
+summary: 'How do we describe the world around us?'
+publishDate: "2021-12-31"
 date: '2022-02-01'
 featured: false
 draft: false
@@ -13,7 +13,7 @@ draft: false
 # Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
 image:
   placement: 2
-  caption: 'Image credit: [**Beyond Meat on Unsplash**](https://unsplash.com/photos/ib5iJHRD5PY)'
+  caption: 'Image credit: [**Dan-Cristian Pădureț on Unsplash**](https://unsplash.com/photos/ib5iJHRD5PY)'
   focal_point: ""
   preview_only: true
 
@@ -25,17 +25,17 @@ image:
 projects: []
 
 links:
-- icon: flask
-  icon_pack: fas
-  name: lab
-  url: /labs/01-eda_hot_dogs.html
+# - icon: flask
+#   icon_pack: fas
+#   name: lab
+#   url: /labs/01-eda_hot_dogs.html
 - icon: magic
   icon_pack: fas
-  name: slides
-  url: /slides/01-slides.html
+  name: Notes
+  url: /Notes/01-notes.html
 ---
 
-
+- Levels of measurement; Measures of central tendency and dispersion; Loading and manipulating data in R
 
 
 ## Additional Readings

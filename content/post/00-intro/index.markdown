@@ -3,7 +3,7 @@ title: 'Week 00'
 subtitle: 'Welcome to POLS 1600'
 summary: Getting to know each other and the course
 publishDate: "2021-01-01"
-date: "2022-01-21"
+date: "2022-01-27"
 featured: false
 draft: false
 
@@ -13,7 +13,7 @@ draft: false
 # Focal point options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
 image:
   placement: 2
-  caption: 'Image credit: [**Shitota Yuri on Unsplash**](https://unsplash.com/photos/p0hDztR46cw)'
+  caption: 'Image credit: [**NOAA on Unsplash**](https://unsplash.com/photos/po_CDivElTI)'
   focal_point: ""
   preview_only: true
 
@@ -35,4 +35,6 @@ links:
   url: /labs/00-software_setup.html
 ---
 
-Welcome! I'll see you in class on Thursday. 
+- Welcome! I'll see you in class on Thursday. 
+
+- Tune in via Zoom: https://brown.zoom.us/j/97039852954
