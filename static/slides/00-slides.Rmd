@@ -21,6 +21,9 @@ library(tidyverse)
 library(babynames)
 ```
 
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
 
 ## Overview
 
