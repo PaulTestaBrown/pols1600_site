@@ -78,33 +78,122 @@ You will learn
 - how to present, interpret, and critique these claims
 
 ---
+
 ## Reasons to take this class
 
 
+.left[
+
+1. You want to change the world
+]
 --
-1. Empirical Data > \#AlternativeFacts 
+.pull-left[
+![](https://i.kym-cdn.com/entries/icons/facebook/000/000/015/oreally.jpg)
+]
+--
+.pull-right[
+![](https://i.pinimg.com/736x/73/0d/57/730d570926e83b6cbd70b6f1cf028e77--animal-hats-google-search.jpg)
+]
+
+---
+background-image:url("images/nyt.png")
+background-size:contain
+
+---
+background-image:url("images/pnas-1.png")
+background-size:contain
+
+---
+background-image:url("images/pnas-2.png")
+background-size:cover
+
+---
+
+## Why is this study important?
+
+--
+- Findings provide evidence of benefits of social spending/universal basic income
 
 --
 
+## Why should we believe these results
+
 --
-2. You want to do your own research 
+- Because it's in the *Times*?
+
+--
+- Because the authors are professors at *good* schools?
+
+
+- Because of how the study was done!
+
+--
+  - **Random assignment** provides a reasoned basis for inference
+  - Creates informative **counter-factual comparisons**
+  - **Pre-registered hypotheses** ensure that we're not cherry-picking results
+
+
+---
+## Why might we be skeptical of these results?
+
+- How strong are the effects?
+  - Is a fifth of a standard deviation a lot?
+- Why do we care about brain waves?
+- What's the mechanism?
+- How confident are we that these results couldn't have happened just by chance
+
+---
+## Why might we be skeptical of these results?
+
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/pnas-3.png")
+```
+
+
+---
+## Why might we be skeptical of these results?
+
+![](https://statmodeling.stat.columbia.edu/wp-content/uploads/2022/01/Rplot01.png)
+Source: [Andrew Gelman](https://statmodeling.stat.columbia.edu/)
+
+---
+## Why might we be skeptical of these results?
+
+
+![](https://statmodeling.stat.columbia.edu/wp-content/uploads/2022/01/Rplot04.png)
+Source: [Andrew Gelman](https://statmodeling.stat.columbia.edu/)
+
+---
+## Reasons to take this class
+
+--
+- You want to change the world
+
+  - Data, design, and analysis are incredliby powerful tools
+  - You want to understand their strengths and limits
 
 --
 
---
-3. You want to get a job / go to grad school
+- You want to be a better consumer of data and knowledge
 
 --
 
---
-4. You *have* to 
+- You want to be a better consumer of data and knowledge
+
 
 --
 
---
-5. For the memes
+- You want to get a job / go to grad school
 
 --
+
+- You *have* to 
+
+--
+
+- You're just in it for the memes
+
+
 
 ---
 background-image: url("images/00_distracted.jpg")
@@ -127,20 +216,13 @@ Come willing to engage with:
 - social science
 
 --
---
-
 - data 
 
---
---
 
-
+--
 - programming
 
 --
---
-
-
 - math
 
 
@@ -197,6 +279,8 @@ class: center, middle
 
 ---
 ## R Studio
+
+
 
 ![](../labs/images/00_r07.png)
 
@@ -271,7 +355,7 @@ You have three types of assignments in this course
 
 
 - Labs
-- Problem sets
+- Tutorials
 - Final Project
 
 
@@ -284,32 +368,38 @@ You have three types of assignments in this course
 ---
 ## Labs
 
-![](images/cw1.pdf)
+
+
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/cw1.png")
+```
+
+
+
+---
+## Labs
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/cw3.png")
+```
+
+
+
 
 ---
 ## Labs
 
-![](images/cw3.png)
-
-
----
-## Labs
-
-![](images/cw2.png)
-
----
-## Labs
-
-- Each month, starting next week, assigned to group of 3. 
-	- At least one of you has to bring a laptop class
-- Log on to the Canvas, download the classwork
-- Open R Studio
-- All files submitted as .Rmd or .htmls by the end of class
-- No late work
+- Weeks 1 and 2 we'll work collectively
+- Weeks 3 on, you'll be assigned to small groups
+- Each week:
+  - Log on to the Canvas, download the lab .Rmd file
+  - Open R Studio
+  - Knit the Rmd file to get ready to work
+  - Complete the lab
+  - Upload html file to Canvas by the end of class
 - One question randomly graded
-	  + 100% if correct
-	  + 85% if incorrect, but you tried
-	  + 0% if you did not try
+	 + 100% if correct
+	 + 85% if incorrect, but you tried
+	 + 0% if you did not try/absent for the lab
 - Comments/Answers posted immediately after class
 
 
@@ -368,12 +458,13 @@ background-position: 50% 0%
 - Can be on any topic you like
 - More info to come
 - Due dates:
-    - XX/XX Groups assigned
-    - XX/XX Research Topics
-    - XX/XX Data
-    - XX/XX Outline
-    - XX/XX Presentations
-    - XX/XX Final Paper
+    - Week 2 Groups assigned
+    - Week 3 Research Topics
+    - Week 6 Data Proposal
+    - Week 8 Data Explorations
+    - Week 11 Drafts
+    - Week 12 Presentations
+    - Week 13 Final Paper
 
 ---
 # Grading and Other Policies
@@ -404,10 +495,10 @@ background-position: 50% 0%
 
 - 5% Attendance
 - 10% Class involvement and participation
-- 40% Labs
-- 5% Assignments
-- 5% Draft
-- 35% Final papers
+- 10% Tutorials
+- 30% Labs
+- 20% Assignments for final paper
+- 20% Final paper
 
 ---
 ## Course policies
@@ -477,7 +568,11 @@ background-size:50%
 ---
 ## Descriptions
 
-![](images/stops.png)
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/stops.png")
+```
+
+
 
 
 ---
@@ -489,12 +584,22 @@ background-size:50%
 ---
 ## Explanations
 
-![](images/csf.png)
+
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/csf.png")
+```
+
+
+
 
 ---
 ## Explanations
 
-![](images/idotvod.pdf)
+```{r,echo=F,out.width=600}
+knitr::include_graphics("images/idotvod.png")
+```
+
+
 
 ---
 ## What does quantitative research do?
@@ -506,18 +611,34 @@ background-size:50%
 ---
 ## Predictions and Uncertainty
 
-![](images/stops1.png)
+
+```{r,echo=F,out.width=500}
+knitr::include_graphics("images/stops1.png")
+```
+
+
 
 
 ---
 ## Predictions and Uncertainty
 
-![](images/neighbor.png)
+
+```{r,echo=F,out.width=400}
+knitr::include_graphics("images/neighbor.png")
+```
+
+
+
 
 ---
 ## Predictions and Uncertainty
 
-![](images/stops2.png)
+
+```{r,echo=F,out.width=450}
+knitr::include_graphics("images/stops2.png")
+```
+
+
 
 ---
 ## What does quantitative research do?
@@ -544,7 +665,9 @@ background-size:cover
 ---
 ## My research
 
+- I study American Poltical Behavior with focus on poltics of race and criminal justice
 - How do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?
+- How can we use methodological tools to better answer these questions? 
 
 ---
 class: inverse,center, bottom
@@ -554,16 +677,19 @@ background-size:cover
 
 
 ---
-## Your turn
+## Class survey
 
-Class survey
+Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_894f6tk58C2nj2C) to take a brief survey that will help me structure the class going forward.
 
 
 ---
 ## Next Week:
 
-- Download and Install R and R studio
-- Read Chapters 1 (Friday) and start Chapter 3 in Imai
-- Tuesday: Describing and Visualizing Data in R
-- Thursday: Lab
-- Friday: "00-Intro" & 
+- Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_894f6tk58C2nj2C)
+- [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software_setup.html)
+- Read Chapters 1 (Friday) and start Chapter 3 in QSS
+- Tuesday: Lecature: Describing Data in R
+- Thursday: Lab: Exploring COVID-19 data in the US
+- Friday: Submit Tutorials: "00-intro" & "01-measurement"
+  - Only time you'll have two tutorials due (Ok to submit late)
+
