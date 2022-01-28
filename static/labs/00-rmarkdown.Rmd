@@ -1,0 +1,515 @@
+---
+title: 'Getting started with R'
+author: "Paul Testa"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, comment = NA, warnings = FALSE, errors = FALSE, messages = FALSE, tidy = FALSE)
+```
+
+```{r load-packages, include = FALSE}
+library(tidyverse)
+library(babynames)
+```
+
+
+
+---
+## 1. Open a .Rmd file
+
+.pull-left[
+- Open an existing file, OR 
+- Create a new file file by:
+  
+  - File > New File > R Markdown
+  
+  - Clicking ![](images/newfile) in the top left 
+]
+
+.pull-right[
+```{r, echo=F}
+knitr::include_graphics("../labs/images/00_rmd_file.png")
+```
+
+```{r, echo=F}
+knitr::include_graphics("../labs/images/00_rmd_icon.png")
+```
+
+]
+
+
+---
+## 2. Choose your output
+
+.pull-left[
+
+- For the most part we'll work with HTML files
+
+- Eventually you'll make presentations
+
+- Maybe we'll make PDFs
+  - Need to install LaTeX which is its own thing...
+]
+
+.pull-right[
+
+```{r, echo=F}
+knitr::include_graphics("../labs/images/00_rmd.png")
+```
+
+]
+
+
+---
+
+## 3. Update the YAML
+
+.pull-left[
+
+- YAML stands for "YAML Ain't Markup Language"
+
+- Begins and ends with `---`
+
+- Encodes properties of your document like:
+  - `title:`
+  - `author:`
+  - `date:`
+  - `output:`
+  - And much, much more 
+- Tab indents matter
+
+- **Most of the time I'll set up the YAML for you**
+
+- Sometimes I'll ask you to change "Your Name" to, well, your name.
+]
+
+.pull-right[
+
+A typical defaul YAML might look like this
+
+
+    ---
+    title: Untitled
+    author: Your Name
+    date: February 2, 2022
+    output: html_document
+    ---
+
+]
+
+---
+## 3. Update the YAML
+
+.pull-left[
+
+- YAML stands for "YAML Ain't Markup Language"
+
+- Begins and ends with `---`
+
+- Encodes properties of your document like:
+  - `title:`
+  - `author:`
+  - `date:`
+  - `output:`
+  - And much, much more 
+- Tab indents matter
+
+- **Most of the time I'll set up the YAML for you**
+
+- Sometimes I'll ask you to change "Your Name" to, well, your name.
+]
+
+.pull-right[
+
+The YAML for these Slides
+
+
+    ---
+    title: "Week 02:"
+    subtitle: "Describing Data in R"
+    author: "Paul Testa"
+    output:
+      xaringan::moon_reader:
+        css: ["default", "css/brown.css"]
+        lib_dir: libs
+        nature:
+          ratio: '16:9'
+          highlightStyle: atelier-lakeside-light
+          highlightLines: true
+          countIncrementalSlides: false
+    ---
+
+]
+
+---
+## 3. Write text in Markdown
+
+- You'll write your thoughts and an answers in the white space of the .Rmd file using Markdown
+- Markdown lets you do a lot of things like:
+  - \# create headers
+      - \# is a level 1 header
+      - \#\# is a level 2 header, and so on 
+  - Wrapping text in \* formats it:
+      - One \* will *italicsize*
+      - Two \* will **bold**
+  - Embed links using `[text](url)`
+  - Embed images using `![](image url)`
+  - Create indented lists by starting a line with a `-` 
+  - Create numbered lists by starting a line with a `1.`
+  - And lots, lots, more.
+
+<https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf>
+
+
+
+
+
+---
+
+## 4. Embed your code in code chunks
+
+
+
+
+.pull-left[
+
+- In your text, you'll embed code chunks that run R code
+
+- Every chucnk begins with ` ```{r} `
+  - This is called the chunck header
+  - The '````{r}` tells your computer you want to run R code
+
+- Every chunk ends with ` ``` ` on its own line
+  - This tells your computer you're done with that chunk of code
+  
+- Create new code chunks by:
+  - using the keyboard shortcut Ctrl + Alt + I (OS X: Cmd + Option + I)
+  - the Add Chunk ![](https://d33wubrfki0l68.cloudfront.net/b8b19518e688e3ca1390e0a1588916f04908d33f/8a4dc/images/notebook-insert-chunk.png) command in the editor toolbar
+]
+
+.right-left[
+
+<!-- ````markdown -->
+<!-- `r ''````{r} -->
+<!-- # Here's an example of a code chunk -->
+
+<!-- # Anything afer a # is a comment -->
+
+<!-- 2+2 # Comments can come after code -->
+<!-- ``` -->
+<!-- ```` -->
+
+]
+
+---
+
+## Code Chunk Headers
+
+We can modify the code chunk header to do things like:
+
+- Give it a name `````{r mychunk}`
+- Set options that control what is done with the chunk.
+- There are many [options]( https://yihui.name/knitr/options). A few that we will use:
+  - `eval` when `eval=T` R runs the code, `eval=F` R does not run the code
+  - `echo` when `echo=T` R shows the code in the document `echo=F`, R does not show the code
+  - `results` the default is `results=markup`, `results=hide` will hide the results, `results=asis` will print as is
+
+
+---
+## Code Chunk Options
+
+.pull-left[
+
+]
+
+
+
+
+---
+## 5. Knit your document
+
+-pull-left[
+
+]
+
+
+
+# Overview {-}
+
+In this course, we'll learn research methods by actually working with data to conduct empirical analysis. 
+
+To do that we'll use  [R, a free and open-source software environment for statistical computing and graphics.](https://www.r-project.org) the graphical user interface [R Studio](https://www.rstudio.com/). 
+
+Below are some steps to get you set up so that we can get started next class.
+
+## TLDR {-}
+
+If you're pressed for time here's the short version of what you should do before next class.
+
+1. Download [R](https://cran.r-project.org/)
+2. Download [R Studio](https://www.rstudio.com/products/rstudio/download/)
+3. Open R Studio on your computer
+4. Install some packages for the course
+
+Specifically copy and paste the following into the console in R Studio and hit enter:
+
+```{r, eval=F}
+install.packages("devtools")
+install.packages("remotes")
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+remotes::install_github("rstudio/learnr")
+remotes::install_github("rstudio-education/gradethis")
+remotes::install_github("PaulTestaBrown/qsslearnr")
+```
+
+5. Create an R Markdown File (.Rmd) in R Studio
+  - File > New File > R Markdown
+6. Knit this R Markdown File into an html file. 
+  - Click the ball of yarn with the needle OR:
+  - Use the hot keys: Mac: `cmd + shift + k` PC: `crtl + shift + k` 
+
+  > If you have a question or somethings not working, don't hesitate to ask. Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St Rm 339.
+
+# Download `R`
+
+- **Download R here:** <https://cran.r-project.org/>
+  - Make sure your operating systems are up to date.
+    - Mac: at least macOS 10.13 (High Sierra) (Latest:  macOS Monterey 12.1 )
+    - PC: It should work on most versions you have installed
+
+![](images/00_r01.png)
+- Just click yes, on everything the installer asks
+
+![](images/00_r02.png)
+
+
+
+# Download RStudio  
+
+- **Download the desktop version of RStudio here:** <https://www.rstudio.com/products/rstudio/download/>
+
+- Scroll down till you get to something like this
+
+![](images/00_r03.png)
+
+- If you're on a Mac, make sure to **move the RStudio.app into your Applications** folder
+
+![](images/00_r06.png)
+
+
+# Open R Studio
+
+- Open your applications folder/start menu and **Open R Studio on your computer.** 
+- There are four "panes" in R Studio corresponding to:
+    - **Source/Text Editor** in the top left is where you'll write your code. Note: This will probably appear minimized when you first open RStudio
+    - **Console** in the bottom left  where you'll run your R code 
+    - **Workspace/Environment** in the top right is a list of what you've done
+    - **Files/Plots/Packages/Help/Viewer** The bottom right is a collection of panels we'll go over in class. 
+
+![](images/00_r07.png)
+
+# Install packages
+
+- **RStudio will likely ask you to install a bunch of packages on start up. Please do so. Get a coffee or check your email**
+    - R will now install a bunch of packages (programs that do specific things). You only have to do this once. 
+    - This may take a while and RStudio may ask you to choose a "mirror" (pick any one in the US). It may also give you an error. Don't worry, email me.
+
+## Install the `devtools` and  `remotes` packages
+
+The version of R that you just downloaded is considered base R, which provides you with good but basic statistical computing and graphics powers. 
+
+To get the most out of R, you'll need to install add-on packages, which are user-written to extend/expand your R capabilities. 
+
+Packages can live in one of two places:
+
+* They may be carefully curated by CRAN (which involves a thorough submission and review process), and thus are easy install using `install.packages("name_of_package", dependencies = TRUE)`. 
+* Alternatively, they may be available via the software sharing platform GitHub. 
+
+To download these packages, you first need to install the `devtools` and `remotes` packages.
+
+```{r devtools, eval = FALSE}
+install.packages("devtools")
+install.packages("remotes")
+```
+
+Place your cursor in the console (lower left panel), and copy and paste each line of code above. After you've pasted a line, hit `Enter/Return` and R will execute (run) that line of code. So type:
+
+  > install.packages("devtools")
+  
+Hit enter.
+
+Then type
+
+  > install.packages("remotes") 
+  
+And hit enter again. 
+
+Each time, R will likely spit out some cryptic <span style="color: red;">red text </span> as installs the packages. 
+
+When it's done, R will you should see a line with a single `>` in the console.
+
+You should be able to see the newly installed packages by scrolling through or searching the `Packages` pane on the bottom left
+
+![](images/00_packages.png)
+
+
+
+## Install Packages for Course
+
+Now we'll use the `intall_github()` function from the `remotes` package, to install some packages we'll use for this course.
+
+Again, copy and paste each line of code into your console, and hit `Enter/Return` to run that code.
+
+```{r, eval=F}
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+remotes::install_github("rstudio/learnr")
+remotes::install_github("rstudio-education/gradethis")
+remotes::install_github("PaulTestaBrown/qsslearnr")
+```
+
+We'll go over this during our next meeting so don't worry if this doesn't work
+
+
+In particular, we'll be using a version of Matthew Blackwell's [`qsslearnr`](https://github.com/mattblackwell/qsslearnr) as problem sets for this course.
+
+You can see the available problem sets by running the following code in your console:
+
+```{r, eval = F}
+learnr::run_tutorial(package = "qsslearnr")
+```
+
+And start a tutorial by running:
+
+```{r, eval = F}
+learnr::run_tutorial("00-intro", package = "qsslearnr")
+```
+
+To try and explain in words what this code is doing:
+
+ - `learnr::run_tutorial(` Says use the `run_tutorial()` from the `learnr` package
+ - `"00-intro"` tells `run_tutorial()` to run the `"00-intro"` tutorial
+ - `package = "qsslearnr"` tells `run_tutorial()` to look for this tutorial in the `qsslearnr` package.
+
+If you run this code, you should see the following tutorial show up in the upper right panel:
+
+![](images/00_qss_ps.png)
+
+## Optional: Adding a Tutorial Panel
+
+You can also add a "Tutorial" panel to R Studio.
+
+- Click on "Tools > Global Options" 
+  - Alternatively you can use the hotkey combination `cmd + ,` on a Mac `cntrl + ,` ... No Shortcut for PC :( 
+
+![](images/00_global.png)
+
+- Select the `Pain Layout` tab. In the upper right of the four pains, check the box next to `Tutorial`
+- You may need to close and re-open R Studio. When you do, in the upper right tab you should see:
+
+![](images/00_option_tutorial.png)
+
+
+## Optional: Adjusting R Markdown Display Options
+
+This is just personal perference, but while we're changin some global options, I'd recommend
+
+1. Click on `RMarkdown
+2. Set "Show In Document Outline" to `All Sections and Chunks
+3. Uncheck the box that says "Show Output in line for all R Markdown Documents"
+
+![](images/00_opt_rmarkdown.png)
+
+## Optional: Don't Save R History 
+
+Finally, in the `R General` tab, I'd strongly recommend unchecking the box that says "Always save R History"
+
+![](images/00_rdata.png)
+
+** Be sure to click OK** when you're done updating these settings.
+
+
+# Create Your First R Markdown Document
+
+
+- Finally, create a R Markdown document (.Rmd) by clicking **Click File > New File > R Markdown**
+
+R Markdown is a file format that allows us to combine `R` code -- which we use to do our statistical analysis -- with [Markdown](https://www.markdownguide.org/) -- a lightweight markup language that can turn plain text into all sorts of formats (.pdf, .doc, .html)
+
+We will do all of our work using .Rmd files so it's good to get some practice. Also, the first time you create a file, R Studio typically has to install some stuff that can take a long time.
+
+![](images/00_rmd_file.png)
+
+- You can also do this by clicking on the new file icon `r icons::fontawesome("file", style = "regular")` in the upper left
+
+![](images/00_rmd_icon.png)
+
+
+
+- R should ask you what kind of file you want to make, choose html (the default) and fill in things like the title or author if you want.
+
+![](images/00_rmd.png)
+
+
+# "Knit" your R Markdown Document to create HTML file
+
+-**Click the knit button** in the Source/Text editor on the upper left and see what happens
+
+
+![](images/00_rmd_knit.png)
+
+- In a perfect world, you'll get a nice pretty looking html document
+
+![](images/00_rmd_output.png)
+On you're machine, R turned your `FILENAME.Rmd` (I named mine `Test.Rmd`) into `FILNENAME.html`. 
+
+![](images/00_files.png)
+
+Under the hood, it ran some software that ran your R code (stuff in the grey) and combined it with the markdown text (stuff in the white), to produce the final html file. If you click on that file, it will open in your web browser
+
+![](images/00_rmd_browser.png)
+
+# Summary {-}
+
+This guide has tried to help you get the software we'll be using for this course set up. If everything's gone as planned, you should have:
+
+1. Downloaded R
+2. Downloaded R Studio
+3. Installed some packages
+4. Maybe changed some options in R Studio
+5. Created and compiled your first document using R Markdown
+
+Bravo! Seriously, this stuff isn't easy, and I really appreciate the time you put in. It will make our subsequent classes more smoothly.
+
+Of course, everything rarely goes as planned. If you got an error or things don't work out. Don't worry. This literally always happens for a multitude of reasons. I promise we'll take care of things in our next class.
+
+
+##Additional References {-}
+ 
+
+If you simply can't wait to get started, you might explore some of the following
+
+ **R:** 
+
+- <http://r4ds.had.co.nz/> R for data science. A great reference for much of what we'll be doing in the course
+- <https://cran.r-project.org/doc/manuals/R-intro.pdf> A bit dense
+- <http://www.cyclismo.org/tutorial/R/> Nice intro
+- <http://swirlstats.com/> Same
+- <http://www.burns-stat.com/pages/Tutor/R_inferno.pdf> More programmy
+
+**R Markdown:**
+
+- <http://rmarkdown.rstudio.com/lesson-1.html> Skip to the cheatsheets
+
+**General:**
+
+- <http://www.google.com> Seriously, if you have a problem or error, chances are someone else has. 
+- <http://stackoverflow.com/questions/tagged/r> Programming specific
+- <http://stats.stackexchange.com/> Stats specific

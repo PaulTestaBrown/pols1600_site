@@ -37,7 +37,13 @@ If you're pressed for time here's the short version of what you should do before
 1. Download [R](https://cran.r-project.org/)
 2. Download [R Studio](https://www.rstudio.com/products/rstudio/download/)
 3. Open R Studio on your computer
-4. Install some packages for the course
+4. Create an R Markdown File (.Rmd) in R Studio
+  - File > New File > R Markdown
+  - Install the requested packages (`rmarkdown`)
+5. Knit this R Markdown File into an html file. 
+  - Click the ball of yarn with the needle OR:
+  - Use the hot keys: Mac: `cmd + shift + k` PC: `crtl + shift + k` 
+6. Install some additional packages for the course
 
 Specifically copy and paste the following into the console in R Studio and hit enter:
 
@@ -50,11 +56,15 @@ remotes::install_github("rstudio-education/gradethis")
 remotes::install_github("PaulTestaBrown/qsslearnr")
 ```
 
-5. Create an R Markdown File (.Rmd) in R Studio
-  - File > New File > R Markdown
-6. Knit this R Markdown File into an html file. 
-  - Click the ball of yarn with the needle OR:
-  - Use the hot keys: Mac: `cmd + shift + k` PC: `crtl + shift + k` 
+You'll need to have the package `rmarkdown` installed for 
+
+```{r}
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+
+```
+
+To work, so make sure you open your first .Rmd file first (this will automatically prompt your to install `rmarkdown`)
+
 
   > If you have a question or somethings not working, don't hesitate to ask. Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St Rm 339.
 
@@ -95,6 +105,50 @@ remotes::install_github("PaulTestaBrown/qsslearnr")
     - **Files/Plots/Packages/Help/Viewer** The bottom right is a collection of panels we'll go over in class. 
 
 ![](images/00_r07.png)
+
+
+
+# Create Your First R Markdown Document
+
+
+- Next, create a R Markdown document (.Rmd) by clicking **Click File > New File > R Markdown**
+
+
+R Markdown is a file format that allows us to combine `R` code -- which we use to do our statistical analysis -- with [Markdown](https://www.markdownguide.org/) -- a lightweight markup language that can turn plain text into all sorts of formats (.pdf, .doc, .html)
+
+
+![](images/00_rmd_file.png)
+
+- You can also do this by clicking on the new file icon `r icons::fontawesome("file", style = "regular")` in the upper left
+
+![](images/00_rmd_icon.png)
+
+- R Studio will likely give you a pop up telling you you need to install additional packages, `rmarkdown` and some packages `rmarkdown` needs. Please do so
+
+## Install the `rmarkdown` package
+
+- Once `rmarkdown` is intalled, R Studio should ask you what kind of file you want to make, choose html (the default) and fill in things like the title or author if you want.
+
+![](images/00_rmd.png)
+
+
+# "Knit" your R Markdown Document to create HTML file
+
+-**Click the knit button** in the Source/Text editor on the upper left and see what happens
+
+
+![](images/00_rmd_knit.png)
+
+- In a perfect world, you'll get a nice pretty looking html document
+
+![](images/00_rmd_output.png)
+On you're machine, R turned your `FILENAME.Rmd` (I named mine `Test.Rmd`) into `FILNENAME.html`. 
+
+![](images/00_files.png)
+
+Under the hood, it ran some software that ran your R code (stuff in the grey) and combined it with the markdown text (stuff in the white), to produce the final html file. If you click on that file, it will open in your web browser
+
+![](images/00_rmd_browser.png)
 
 # Install packages
 
@@ -216,55 +270,15 @@ Finally, in the `R General` tab, I'd strongly recommend unchecking the box that 
 ** Be sure to click OK** when you're done updating these settings.
 
 
-# Create Your First R Markdown Document
-
-
-- Finally, create a R Markdown document (.Rmd) by clicking **Click File > New File > R Markdown**
-
-R Markdown is a file format that allows us to combine `R` code -- which we use to do our statistical analysis -- with [Markdown](https://www.markdownguide.org/) -- a lightweight markup language that can turn plain text into all sorts of formats (.pdf, .doc, .html)
-
-We will do all of our work using .Rmd files so it's good to get some practice. Also, the first time you create a file, R Studio typically has to install some stuff that can take a long time.
-
-![](images/00_rmd_file.png)
-
-- You can also do this by clicking on the new file icon `r icons::fontawesome("file", style = "regular")` in the upper left
-
-![](images/00_rmd_icon.png)
-
-
-
-- R should ask you what kind of file you want to make, choose html (the default) and fill in things like the title or author if you want.
-
-![](images/00_rmd.png)
-
-
-# "Knit" your R Markdown Document to create HTML file
-
--**Click the knit button** in the Source/Text editor on the upper left and see what happens
-
-
-![](images/00_rmd_knit.png)
-
-- In a perfect world, you'll get a nice pretty looking html document
-
-![](images/00_rmd_output.png)
-On you're machine, R turned your `FILENAME.Rmd` (I named mine `Test.Rmd`) into `FILNENAME.html`. 
-
-![](images/00_files.png)
-
-Under the hood, it ran some software that ran your R code (stuff in the grey) and combined it with the markdown text (stuff in the white), to produce the final html file. If you click on that file, it will open in your web browser
-
-![](images/00_rmd_browser.png)
-
 # Summary {-}
 
 This guide has tried to help you get the software we'll be using for this course set up. If everything's gone as planned, you should have:
 
 1. Downloaded R
 2. Downloaded R Studio
-3. Installed some packages
-4. Maybe changed some options in R Studio
-5. Created and compiled your first document using R Markdown
+3. Created and compiled your first document using R Markdown
+4. Installed some packages
+5. Maybe changed some options in R Studio
 
 Bravo! Seriously, this stuff isn't easy, and I really appreciate the time you put in. It will make our subsequent classes more smoothly.
 

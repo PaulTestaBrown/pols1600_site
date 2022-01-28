@@ -7,6 +7,7 @@ output:
     css: ["default", "css/brown.css"]
     lib_dir: libs
     nature:
+      ratio: '16:9'
       highlightStyle: atelier-lakeside-light
       highlightLines: true
       countIncrementalSlides: false
@@ -24,8 +25,16 @@ library("tidyverse")
 xaringanExtra::use_tile_view()
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
 
----
 class: inverse, center, middle
 # Overview
 
@@ -33,8 +42,10 @@ class: inverse, center, middle
 ## General Plan
 
 - Review
+  - Feedback
+  - Questions
 - Lecture consists of a mix of:
-  - Concepts
+  - Topics and concepts
   - Exercises
 - Summary
 
@@ -43,7 +54,7 @@ class: inverse, center, middle
 
 
 ---
-## Concepts
+## Topics
 
 - Working with R Markdown files
 
@@ -83,34 +94,432 @@ class: inverse, center, middle
 ---
 class: inverse, center, middle
 
-# Key Concept
 
-## Comment
+---
+class: inverse, center, middle
+# Working with R Markdown files
+
+## YAML + Markdown + R -> Render -> Output
+
+---
+# R Markdown Workflow
+
+1. Open a .Rmd
+2. Choose your output
+3. Update the YAML
+3. Write text in Markdown
+4. Embed your code in code chunks
+5. Render your document using `knitr` to knit your code and markdown into output
+
+Cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
 
 
 ---
-## Point 1
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: contain
+
+
+# Excerise 1. Create an R Markdown File
 
 
 ---
-## Code Slide
+## Tips for working in R Markdown
 
-.left-column[
-```{r,echo=T,eval=F}
-2+2
-```
-
-
-]
-
-.right-column[
-```{r,eval=T}
-plot(1:10,1:10)
-```
-
-]
+- YAML controls output
+- Format text using Markdown syntax
+- Write code in chunks
+- Control output of code chunks with options.
+- Knit your documents to produce output.
 
 ---
 class: inverse, center, middle
 
-# Key Concept
+# Basic Programming in R
+
+---
+## The Basics of R
+
+- R is an interpreter (>)
+
+- Everything that exists is an object
+
+- Everything that happens is a result of a function
+
+- Packages make R great
+
+---
+## R is an interpreter (>)
+
+--
+
+Enter commands line-by-line in the console
+
+--
+
+* The `>` means R is a ready for a command
+
+--
+
+* The `+` means your last command isn't complete
+
+--
+
+  - If you get stuck with a `+` use your escape key!
+
+--
+
+* Send commands from your R script (.Rmd or .R file) to the console:
+
+  - `cntrl + Enter` (PC) |  `cmd + Return` (Mac) -> run current line
+  - `cntrl + shift + Enter` (PC) |  `cmd + shift  + Return` (Mac) -> run all code in current chunk
+  
+
+
+---
+# Everything that exists in R is an object
+
+- The number 5 is an object in R
+```{r}
+5
+```
+
+- We can assign the object 5, the name x, using the assignment operator `<-`+
+
+```{r}
+x <- 5 # Read this as "x gets 5"
+```
+
+- Now if we tell R to show us x, we'll get
+
+```{r}
+x
+print(x)
+```
+
+---
+## Data come in different types
+
+.pull-left[
+* Numeric (2 subtypes)
+    - Integers (`1, 50`)
+    - Double (`1.5, 50.25`, `?double`)
+* Character (`"hello"`)
+* Factor (`grade = "A" | grade = "B"`)
+* Logical (`TRUE | FALSE`)
+
+```{r}
+# Create some data
+y <- 6L # Integer
+only_two_types_of_people <- TRUE # Logical
+me <- "Paul"
+grades = factor(c("A","B","C"))
+```
+
+]
+
+.pull-right[
+```{r}
+
+
+# What type are they
+class(x)
+class(y)
+class(only_two_types_of_people)
+class(me)
+class(grades)
+```
+]
+
+---
+## Data come in different "shapes" and "sizes"
+
+Name | "Size" | Type of Data  | R code
+-----|-------------|------|-----
+scalar | 1 | numeric, character, factor, logical |  `x <- 5` 
+vector | N elements: `length(x)` |all the same  |` v <- c(1, 2, T, "false")`
+matrix | N rows by columns K: `dim(x)` | all the same |` m <- matrix(y,2,2)`
+array |  N row by K column by J dimensions: `dim(x)` |all the same  | `a <- array(m,c(2,2,3))`
+data frames |  N row by K column matrix | can be different | `d <-data.frame(x=x, y=y)`
+tibbles |  N row by K column matrix | can be different | `d <-tibble(x=x, y=y)`
+lists |  can vary | can be different | `l <-list(x,y,m,a,d)`
+
+--
+- We will mostly work with `data.frames` and `tibbles` (a data.frame with added bells and whistles)
+
+
+---
+background-image: url(https://miro.medium.com/max/1400/0*MgEQsDgZZ7fJcdhZ.png)
+background-size: cover
+class: top, right
+
+#### Source: [Gaurav Tiwari](https://medium.com/@tiwarigaurav2512/r-data-types-847fffb01d5b)
+
+---
+## Everything that happens in R is the result of a function
+
+- You've already seen and used some R functions
+  - the `<-` is the assignement operator that assigns 
+  - `c()` is the combine function that combines elements together
+  - `install.packages()` installs packages
+  - `library()` loads packages you've installed so you can use functions and data that are part of that package
+- Three sources of functions:
+  - base R `<-; mean(x); library("package_name")`
+  - packages `remotes::intall_github("user/repository")`
+  - You `my_function <- function(x){x^2}`
+  
+---
+## Functions are like recipes
+
+They have
+
+.pull-left[
+- names
+
+- ingredients (inputs)
+
+- steps that tell you what to do with the ingredients (statements/code)
+
+- tasty results from applying those steps to given ingredients (outputs)
+]
+
+.pull-right[
+```{r}
+can_x_kick_it <- function(x){
+  # Determine if x can kick it
+  # If x in A Tribe Called Quest
+  if(x %in% c("Q-Tip","Phife Dawg",
+              "Ali Shaheed Muhammad", 
+              "Jarobi White")){
+    return("Yes you can")
+  }else{
+    return("Before this, did you really know what live was?")
+  }
+
+}
+can_x_kick_it("Q-Tip")
+can_x_kick_it("Paul")
+```
+
+
+]
+
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/Nf8vX5K7AHcAg/giphy.gif")
+background-size: cover
+
+
+
+
+
+# Excerise 2. Explore objects and functions in base `R`
+
+---
+## R is a Calculator 
+
+In the .Rmd file you created for this class
+
+1. Delete the template  (everything below the YAML Header)
+2. Create a new code chunk (cmd/cntrl + shift + I)
+3. Copy the following into your code chunk and interpret the results:
+
+```{r, eval = F}
+# Create objects
+x <- 5
+y <- T
+z <- 1:5
+
+# Look at objects
+x
+y
+z
+
+# Manipulate objects
+x*x
+y+x
+x^z
+
+```
+
+
+--- 
+## Different Types of Objects in R
+
+.pull-left[
+- Run the following code
+- Print the objects in R's console
+]
+
+.pull-right[
+```{r}
+
+v <- c(1, 2, T, "false") # Vector
+m <- matrix(y, nrow = 2, ncol = 2) # Matrix
+a <- array(m, c(2, 2, 3)) # Array
+d <- data.frame(x = x, y = y) # Dataframe
+t <- tibble(x = x, y = y) # Tibble
+l <- list(x, y, m, a, d, t) # List
+
+```
+]
+
+---
+class: inverse, center, middle
+background-image: url("https://i.imgflip.com/4cfn5i.jpg")
+background-size: contain
+
+
+---
+## Coding in R
+
+- We use functions to manipulate objects in R
+- Class/type/mode of objects matters
+- Use \# to comment your code
+- Give objects meaningful names
+- Use consistent naming conventions:
+  - snake_case
+  - CamelCase
+  - SpONgeBObCaSE (don't do this)
+
+
+
+# Setting up your work space
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+---
+## Getting set up to work in R
+
+1. Set your working directory to the source file location
+  - Session > Set working Directory > Source File Location
+  - Make sure your document is saved in folder with the other files (data) you'll need
+
+---
+## Getting set up to work in R
+
+1.  Set your working directory to the source file location
+
+--
+
+2. Load (and, if needed, install) R packages that you will be using
+  - Install packages once with `install.packages("package_name")`
+  - Load packages to use during your work session with `library("package_name")`
+  - Periodically check for updates in package panel on the lower right
+  
+---
+## Getting set up to work in R
+
+1. Set your working directory to the source file location
+
+2. Load (and, if needed, install) R packages that you will be using
+
+-- 
+
+3. Change any global options
+  - I'll typically do this for you
+  - Useful for controlling how code or figures are displayed
+
+--
+
+4. Load the data you're going to be using 
+    
+---
+class: inverse, center, middle
+
+# Loading data into R
+
+---
+## Loading data into R
+
+There are three ways to load data.
+
+- Load a pre-existing dataset
+  - `data("dataset")` will load the dataset named "dataset"
+  - `data()` will list all datasets
+- Load a .Rdata/.rda file using `load("dataset.rda")`
+- Read data of a different format (.csv, .dta, .spss) into R using specific functions
+  - We will use functions from the `haven` and `readr` packages to read data from the web and stored locally on your computer
+  
+```{r,eval=F}
+# Reading data from a webiste
+df_web <- readr::read_csv("https://pols1600.paultesta.org/files/data.rda")
+# Reading data from your computer
+df_local <- haven::read_dta("~/Desktop/pols1600/lab/data.rda")
+```
+
+
+
+
+
+# Excerise 3. Installing packages and reading data
+
+
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+
+## Installing the `tidyverse` and `COVID19` packages
+
+Let's install the `tidyverse` and `COVID19`.
+
+Copy and paste the following into your console
+
+```{r}
+install.packages(c("tidyverse","COVID19"))
+```
+
+
+
+---
+class: inverse, center, middle
+# Looking at your data
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+# Excerise 4. Exploring Covid-19 Data
+
+---
+class: inverse, center, middle
+# Cleaning and transforming your data
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+# Excerise 5. Welcome to the tidyverse
+
+---
+class: inverse, center, middle
+# Describing what's typical of your data
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+# Excerise 6. Measures of central tendency
+
+---
+class: inverse, center, middle
+# Describing how your data vary
+
+---
+class: inverse, center, middle
+background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-size: cover
+
+# Excerise 7. Measures of dispersion
+

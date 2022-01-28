@@ -1,0 +1,116 @@
+---
+title: "Week 02:"
+subtitle: "Describing Data in R"
+author: "Paul Testa"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/brown.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: atelier-lakeside-light
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300,
+  fig.align = "center", out.width = "80%", cache = FALSE)
+library("tidyverse")
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+
+---
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Review
+- Lecture consists of a mix of:
+  - Topics and concepts
+  - Exercises
+- Summary
+
+---
+## Review
+
+
+---
+## Topics
+
+- Working with R Markdown files
+
+- Basic Programming in R
+
+- Setting up your work space
+
+- Loading data into R
+
+- Looking at your data
+
+- Cleaning and transforming your data
+
+- Describing what's typical of your data
+
+- Describing how your data vary
+
+---
+## Exercises
+
+1. Create an R Markdown File
+
+2. Explore objects and functions in base `R`
+
+3. Install the COVID19 package
+
+4. Load data on COVID19 
+
+5. Inspect the data
+
+6. Welcome to the tidyverse
+
+7. Measures of central tendency
+
+8. Measures of dispersion
+
+---
+class: inverse, center, middle
+
+# Key Concept
+
+## Comment
+
+
+---
+## Point 1
+
+
+---
+## Code Slide
+
+.left-column[
+```{r,echo=T,eval=F}
+2+2
+```
+
+
+]
+
+.right-column[
+```{r,eval=T}
+plot(1:10,1:10)
+```
+
+]
+
+---
+class: inverse, center, middle
+
+# Key Concept
