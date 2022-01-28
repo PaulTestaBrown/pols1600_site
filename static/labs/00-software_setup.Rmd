@@ -63,7 +63,7 @@ remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 
 ```
 
-To work, so make sure you open your first .Rmd file first (this will automatically prompt your to install `rmarkdown`)
+To work, so make sure you open your first .Rmd file first (this will automatically prompt you to install the `rmarkdown` package)
 
 
   > If you have a question or somethings not working, don't hesitate to ask. Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St Rm 339.
