@@ -312,6 +312,10 @@ class: top, right
   - `c()` is the combine function that combines elements together
   - `install.packages()` installs packages
   - `library()` loads packages you've installed so you can use functions and data that are part of that package
+- Three sources of functions:
+  - base R `&lt;-; mean(x); library("package_name")`
+  - packages `remotes::intall_github("user/repository")`
+  - You `my_function &lt;- function(x){x^2}`
   
 ---
 ## Functions are like recipes
@@ -406,18 +410,18 @@ x^z
 
 .pull-left[
 - Run the following code
-
+- Print the objects in R's console
 ]
 
 .pull-right[
 
 ```r
-v &lt;- c(1, 2, T, "false")
-m &lt;- matrix(y, nrow = 2, ncol = 2)
-a &lt;- array(m, c(2, 2, 3))
-d &lt;- data.frame(x = x, y = y)
-t &lt;- tibble(x = x, y = y)
-l &lt;- list(x, y, m, a, d, t)
+v &lt;- c(1, 2, T, "false") # Vector
+m &lt;- matrix(y, nrow = 2, ncol = 2) # Matrix
+a &lt;- array(m, c(2, 2, 3)) # Array
+d &lt;- data.frame(x = x, y = y) # Dataframe
+t &lt;- tibble(x = x, y = y) # Tibble
+l &lt;- list(x, y, m, a, d, t) # List
 ```
 ]
 
@@ -426,6 +430,21 @@ class: inverse, center, middle
 background-image: url("https://i.imgflip.com/4cfn5i.jpg")
 background-size: contain
 
+
+---
+## Coding in R
+
+- We use functions to manipulate objects in R
+- Class/type/mode of objects matters
+- Use \# to comment your code
+- Give objects meaningful names
+- Use consistent naming conventions:
+  - snake_case
+  - CamelCase
+  - SpONgeBObCaSE (don't do this)
+
+
+
 # Setting up your work space
 
 ---
@@ -433,18 +452,134 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 3. Install the COVID19 package
+---
+## Getting set up to work in R
+
+1. Set your working directory to the source file location
+  - Session &gt; Set working Directory &gt; Source File Location
+  - Make sure your document is saved in folder with the other files (data) you'll need
 
 ---
+## Getting set up to work in R
+
+1.  Set your working directory to the source file location
+
+--
+
+2. Load (and, if needed, install) R packages that you will be using
+  - Install packages once with `install.packages("package_name")`
+  - Load packages to use during your work session with `library("package_name")`
+  - Periodically check for updates in package panel on the lower right
+  
+---
+## Getting set up to work in R
+
+1. Set your working directory to the source file location
+
+2. Load (and, if needed, install) R packages that you will be using
+
+-- 
+
+3. Change any global options
+  - I'll typically do this for you
+  - Useful for controlling how code or figures are displayed
+
+--
+
+4. Load the data you're going to be using 
+    
+---
 class: inverse, center, middle
+
 # Loading data into R
+
+---
+## Loading data into R
+
+There are three ways to load data.
+
+- Load a pre-existing dataset
+  - `data("dataset")` will load the dataset named "dataset"
+  - `data()` will list all datasets
+- Load a .Rdata/.rda file using `load("dataset.rda")`
+- Read data of a different format (.csv, .dta, .spss) into R using specific functions
+  - We will use functions from the `haven` and `readr` packages to read data from the web and stored locally on your computer
+  
+
+```r
+# Reading data from a webiste
+df_web &lt;- readr::read_csv("https://pols1600.paultesta.org/files/data.rda")
+# Reading data from your computer
+df_local &lt;- haven::read_dta("~/Desktop/pols1600/lab/data.rda")
+```
+
+
+
+
+
+# Excerise 3. Installing packages and reading data
+
+
 
 ---
 class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 4. Load data on COVID19 
+
+## Installing the `tidyverse` and `COVID19` packages
+
+Let's install the `tidyverse` and `COVID19`.
+
+Copy and paste the following into your console
+
+
+```r
+install.packages(c("tidyverse","COVID19"))
+```
+
+Again, you only have to install a package once. To use the functions and data from the package
+
+
+```r
+library(tidyverse)
+library(COVID19)
+```
+
+---
+class: inverse, middle, center
+
+&lt;img src="https://www.tidyverse.org/images/hex-tidyverse.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+## The `tidyverse` package ecosystem
+
+https://www.tidyverse.org
+
+---
+class: inverse, middle, center
+
+
+
+&lt;img src="https://www.tidyverse.org/images/hex-tidyverse.png" width="25%" style="display: block; margin: auto;" /&gt;
+
+
+
+*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
+
+
+
+
+```r
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+See packages included here: https://www.tidyverse.org/packages/
+
+
+---
+
+
 
 ---
 class: inverse, center, middle
@@ -455,7 +590,7 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 5. Inspect the data
+# Excerise 4. Exploring Covid-19 Data
 
 ---
 class: inverse, center, middle
@@ -466,7 +601,7 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 6. Welcome to the tidyverse
+# Excerise 5. Welcome to the tidyverse
 
 ---
 class: inverse, center, middle
@@ -477,7 +612,7 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 7. Measures of central tendency
+# Excerise 6. Measures of central tendency
 
 ---
 class: inverse, center, middle
@@ -488,7 +623,7 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 8. Measures of dispersion
+# Excerise 7. Measures of dispersion
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

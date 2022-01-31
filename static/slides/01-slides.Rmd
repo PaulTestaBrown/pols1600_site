@@ -473,9 +473,52 @@ Let's install the `tidyverse` and `COVID19`.
 
 Copy and paste the following into your console
 
-```{r}
+```{r, eval=F}
 install.packages(c("tidyverse","COVID19"))
 ```
+
+Again, you only have to install a package once. To use the functions and data from the package
+
+```{r}
+library(tidyverse)
+library(COVID19)
+```
+
+---
+class: inverse, middle, center
+
+```{r out.width = '50%', echo = FALSE}
+knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
+```
+
+## The `tidyverse` package ecosystem
+
+https://www.tidyverse.org
+
+---
+class: inverse, middle, center
+
+
+
+```{r out.width = '25%', echo = FALSE}
+knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
+```
+
+
+
+*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
+
+
+
+```{r eval = FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+See packages included here: https://www.tidyverse.org/packages/
+
+
+---
 
 
 
