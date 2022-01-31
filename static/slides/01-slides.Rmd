@@ -54,6 +54,13 @@ class: inverse, center, middle
 
 
 ---
+## Goals
+
+Today we'll explore COVID-19 data in the U.S.
+
+- We'll try to answer to one question. On average, were new cases lower in states that had stay at home orders
+
+---
 ## Topics
 
 - Working with R Markdown files
@@ -79,9 +86,9 @@ class: inverse, center, middle
 
 2. Explore objects and functions in base `R`
 
-3. Install the COVID19 package
+3. Install the `tidyverse` and `COVID19` packages
 
-4. Load data on COVID19 
+4. Load data on `COVID19`
 
 5. Inspect the data
 
@@ -97,12 +104,13 @@ class: inverse, center, middle
 
 ---
 class: inverse, center, middle
+# 💡
 # Working with R Markdown files
 
 ## YAML + Markdown + R -> Render -> Output
 
 ---
-# R Markdown Workflow
+## R Markdown Workflow
 
 1. Open a .Rmd
 2. Choose your output
@@ -121,7 +129,8 @@ background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gi
 background-size: contain
 
 
-# Excerise 1. Create an R Markdown File
+# 💪  
+# 1. Create an R Markdown File
 
 
 ---
@@ -135,7 +144,7 @@ background-size: contain
 
 ---
 class: inverse, center, middle
-
+# 💡
 # Basic Programming in R
 
 ---
@@ -174,11 +183,132 @@ Enter commands line-by-line in the console
 
   - `cntrl + Enter` (PC) |  `cmd + Return` (Mac) -> run current line
   - `cntrl + shift + Enter` (PC) |  `cmd + shift  + Return` (Mac) -> run all code in current chunk
-  
 
 
 ---
-# Everything that exists in R is an object
+## R is a Calculator
+
+
+```{r include = FALSE}
+math_table <- tibble::tribble(
+  ~Operator, ~Description, ~Usage,
+  "+", "addition", "x + y",
+  "-", "subtraction", "x - y",
+  "*", "multiplication", "x * y",
+  "/", "division", "x / y",
+  "^", "raised to the power of", "x ^ y",
+  "abs", "absolute value", "abs(x)",
+  "%/%", "integer division", "x %/% y",
+  "%%", "remainder after division", "x %% y"
+)
+```
+
+
+```{r echo = FALSE, results = 'asis'}
+knitr::kable(math_table, format = "html")
+```
+
+```{r}
+5 %/% 2 # 2 goes into 5 two times with...
+5 %% 2 # 1 left over
+```
+
+---
+
+## R is logical
+
+
+```{r include = FALSE}
+logic_table <- tibble::tribble(
+  ~Operator, ~Description, ~Usage,
+  "&", "and", "x & y",
+  "|", "or", "x | y",
+  "xor", "exactly x or y", "xor(x, y)",
+  "!", "not", "!x"
+)
+```
+
+.pull-left[
+
+```{r echo = FALSE, results = 'asis'}
+knitr::kable(logic_table, format = "html")
+```
+]
+
+.pull-right[
+```{r}
+x <- T; y <- F
+
+x == T
+x == T & y == T
+x == T | y == T
+!x
+```
+
+]
+
+---
+## logical vs exclusive OR
+
+- `|` is inclusive, so `x|y` means
+  - x is true or
+  - y is true or
+  - both x and y are true
+- `xor` is exclusive so `xor(x,y)` means
+  - x is true or
+  - y is true
+  - but not both
+  
+```{r}
+x <- c(0,1,0,1)
+y <- c(0,0,1,1)
+boolean_or <- x | y # R treats 1 as T and 0 as F
+exclusive_or <- xor(x,y)
+tibble(x,y,boolean_or,exclusive_or)
+```
+
+---
+## R can make comparisons
+
+
+```{r include = FALSE}
+comp_table <- tibble::tribble(
+  ~Operator, ~Description, ~Usage,
+  "<", "less than", "x < y",
+  "<=", "less than or equal to", "x <= y",
+  ">", "greater than", "x > y",
+  ">=", "greater than or equal to", "x >= y",
+  "==", "exactly equal to", "x == y",
+  "!=", "not equal to", "x != y",
+  "%in%", "group membership*", "x %in% y",
+  "is.na", "is missing", "is.na(x)",
+  "!is.na", "is not missing", "!is.na(x)"
+)
+```
+
+
+```{r echo = FALSE, results = 'asis'}
+knitr::kable(comp_table, format = "html")
+```
+
+*(shortcut to using `|` repeatedly with `==`)
+
+
+---
+## When we'll use logic and comparison in R
+
+Logic and comparisons are useful for:
+
+- Probability
+  - What's the probability that state adopts (`A==1`) a mask mandate if Biden won its Electoral College votes `Pr(A==1 | B==1)`
+- Subsetting the data
+  - We only want to look at states Biden won Electoral College vote (select only states where `A==1`)
+- Transforming data / creating new variables
+  - We want to create an indicator of states that Biden won which also adopted mask mandates (`A== 1 & B == 1`)
+
+
+---
+## Everything that exists in R is an object
 
 - The number 5 is an object in R
 ```{r}
@@ -256,14 +386,40 @@ class: top, right
 
 #### Source: [Gaurav Tiwari](https://medium.com/@tiwarigaurav2512/r-data-types-847fffb01d5b)
 
+
+---
+## Why data types and structures matter
+
+- R treats different data types differently
+  - This can be a source of error and opportunity
+- For example, we can use:
+  - `vectors` to store values to select variables or label plots
+```{r}
+my_vars <- c("variable_name1","variable_name2")
+```
+  - `matrices` to do math
+```{r}
+M1 <- M2 <- matrix(1:4,2,2)
+M1 %*% M2
+```
+  - `data.frames/tibbles` to store and manipulate data
+  - `lists` to store complex outputs, like say the results of estimating six slightly different models
+
+For now, just know that these differences exist and matter.
+
+
 ---
 ## Everything that happens in R is the result of a function
 
 - You've already seen and used some R functions
-  - the `<-` is the assignement operator that assigns 
+  - the `<-` is the assignement operator that assigns a value to a name
   - `c()` is the combine function that combines elements together
   - `install.packages()` installs packages
   - `library()` loads packages you've installed so you can use functions and data that are part of that package
+  
+---
+## Three sources of functions
+
 - Three sources of functions:
   - base R `<-; mean(x); library("package_name")`
   - packages `remotes::intall_github("user/repository")`
@@ -307,6 +463,14 @@ can_x_kick_it("Paul")
 
 
 ---
+## When we'll use functions
+
+- All the time ("Everything that happens in R is the result of a function")
+- Most of the time we'll use functions that are part of `base` R or some package we've installed and loaded
+- Later, we'll start to write our own functions
+  - This is particularly useful when you find yourself copying and pasting the same code over and over.
+
+---
 class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/Nf8vX5K7AHcAg/giphy.gif")
 background-size: cover
@@ -315,10 +479,11 @@ background-size: cover
 
 
 
-# Excerise 2. Explore objects and functions in base `R`
+# 💪 
+# 2. Explore objects and functions in base `R`
 
 ---
-## R is a Calculator 
+## Excerise 2: Create some simple objects
 
 In the .Rmd file you created for this class
 
@@ -346,10 +511,12 @@ x^z
 
 
 --- 
-## Different Types of Objects in R
+## Excerise 2: Create some more complex objects
+
 
 .pull-left[
 - Run the following code
+  - If you have the slides open, there should be an icon you can hover over to copy all the code.
 - Print the objects in R's console
 ]
 
@@ -366,14 +533,11 @@ l <- list(x, y, m, a, d, t) # List
 ```
 ]
 
----
-class: inverse, center, middle
-background-image: url("https://i.imgflip.com/4cfn5i.jpg")
-background-size: contain
+
 
 
 ---
-## Coding in R
+## Summary Coding in R
 
 - We use functions to manipulate objects in R
 - Class/type/mode of objects matters
@@ -386,19 +550,20 @@ background-size: contain
 
 
 
-# Setting up your work space
+
 
 ---
 class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
-background-size: cover
-
+# 💡
+# Setting up your work space
 ---
 ## Getting set up to work in R
 
+Each time you start a project in R, you will want to:
+
 1. Set your working directory to the source file location
-  - Session > Set working Directory > Source File Location
-  - Make sure your document is saved in folder with the other files (data) you'll need
+  - Session > Set Working Directory > Source File Location
+  - Make sure your document is saved in folder with the other files (e.g. data) you'll need
 
 ---
 ## Getting set up to work in R
@@ -419,11 +584,34 @@ background-size: cover
 
 2. Load (and, if needed, install) R packages that you will be using
 
--- 
+--
 
-3. Change any global options
+3. Change any "global" options you want
   - I'll typically do this for you
   - Useful for controlling how code or figures are displayed
+
+```{r}
+  
+# Options for these slides
+knitr::opts_chunk$set(
+  warning = FALSE,       # Don't display warnings
+  message = FALSE,       # Don't display messages
+  comment = NA,          # No prefix before line of text
+  dpi = 300,             # Figure resolution
+  fig.align = "center",  # Figure alignment
+  out.width = "80%",     # Figure width
+  cache = FALSE          # Don't cache code chunks
+  )
+```
+
+---
+## Getting set up to work in R
+
+1. Set your working directory to the source file location
+
+2. Load (and, if needed, install) R packages that you will be using
+
+3. Change any "global" options you want
 
 --
 
@@ -431,8 +619,10 @@ background-size: cover
     
 ---
 class: inverse, center, middle
-
+# 💡
 # Loading data into R
+
+
 
 ---
 ## Loading data into R
@@ -442,6 +632,7 @@ There are three ways to load data.
 - Load a pre-existing dataset
   - `data("dataset")` will load the dataset named "dataset"
   - `data()` will list all datasets
+  - Useful for tutorials, working through examples/help
 - Load a .Rdata/.rda file using `load("dataset.rda")`
 - Read data of a different format (.csv, .dta, .spss) into R using specific functions
   - We will use functions from the `haven` and `readr` packages to read data from the web and stored locally on your computer
@@ -454,30 +645,31 @@ df_local <- haven::read_dta("~/Desktop/pols1600/lab/data.rda")
 ```
 
 
-
-
-
-# Excerise 3. Installing packages and reading data
-
-
-
 ---
 class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
-background-size: cover
+background-image: url("https://img.resized.co/siliconrepublic/eyJkYXRhIjoie1widXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE0XFxcLzEyXFxcLzIwMTUwMVxcXC9kYXRhLXNjaWVudGlzdC1tZW1lLW1haW4uanBnXCIsXCJ3aWR0aFwiOjExMDAsXCJoZWlnaHRcIjo2MDAsXCJkZWZhdWx0XCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE0XFxcLzEyXFxcLzIwMTMwMlxcXC9wdXp6bGUuanBnXCIsXCJvcHRpb25zXCI6W119IiwiaGFzaCI6IjAyOWY4N2RkNTVkMDYyMmQ4NzJiOWIwZjVmYWYxM2I1YzdjOWVkYmUifQ==/data-scientist-meme-main.jpg")
+background-size:cover
 
+# 💪 
+# 3. Installing packages and reading data
 
+---
 ## Installing the `tidyverse` and `COVID19` packages
 
 Let's install the `tidyverse` and `COVID19`.
 
-Copy and paste the following into your console
+- Create a new code chunk
+- Label it `libraries`
+- Copy and paste the following into your console
 
-```{r, eval=F}
+```{r, eval=F} 
 install.packages(c("tidyverse","COVID19"))
 ```
 
-Again, you only have to install a package once. To use the functions and data from the package
+## Loading the `tidyverse` and `COVID19` packages
+
+
+- Type the following into your code chunk:
 
 ```{r}
 library(tidyverse)
@@ -485,67 +677,284 @@ library(COVID19)
 ```
 
 ---
-class: inverse, middle, center
+## Loading state-level data
 
-```{r out.width = '50%', echo = FALSE}
-knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
+.pull-left[
+Now we can use the `covid19()` to read in data about COVID19 in the US
+
+To do so we'll suppy three arguments:
+
+- `country = US` tells the function we want data for the US
+- `level = 2` tells the function we want state-level data
+- `verbose = F` tells the function not to print other stuff
+]
+.pull-right[
+```{r}
+covid <- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+    
+)
 ```
-
-## The `tidyverse` package ecosystem
-
-https://www.tidyverse.org
-
----
-class: inverse, middle, center
-
-
-
-```{r out.width = '25%', echo = FALSE}
-knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
-```
-
-
-
-*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
-
-
-
-```{r eval = FALSE}
-install.packages("tidyverse")
-library(tidyverse)
-```
-
-See packages included here: https://www.tidyverse.org/packages/
-
-
----
-
-
+]
 
 ---
 class: inverse, center, middle
+
+# 💡
 # Looking at your data
 
+
+---
+## High Level Overviews
+
+Anytime you load data into R, try some combination of the following to get a high-level overview of the data
+
+- `dim(data)` gives you the dimensions (\# of rows and columns)
+- `View(data)` opens data in a separate pane
+- `print(data); data` will display a truncated view of data in your console
+- `glimpse(data)` will show a transposed (switch columns and rows) version of data with information on variable type
+- `head(data)` shows you the first 5 rows
+- `tail(data)` shows you the last 5 rows
+- `glimpse(data)`
+- `data$variable` extracts `variable` from `data`
+- `table(data$variable)` creates a frequency table
+  - Good for categorical data
+- `summary(data$variable)` summary statistics
+  - Good for numeric data
+
+---
+## High Level Overview allow you to
+
+These HLOs allow you to
+
+- Describe the structure of your data:
+  - How many observations (rows)
+  - How many variables (columns)
+- Describe the *unit of analysis*
+  - What does a row in your data correspond to
+- Indetify the class and type of variables (columns)
+  - Numeric, categorical, logical
+  - Is there missing data (`NA`s)
+
+---
+class: inverse, center, middle
+background-image: url("https://media.makeameme.org/created/data-dataeverywhere.jpg")
+background-size:contain
+# 💪 
+# 4. Exploring Covid-19 Data
+
+---
+## Exploring Covid-19 Data
+
+1. Create a new chunk
+2. Label it explore_data
+3. Type the following
+
+```{r, eval=F}
+
+dim(covid)
+head(covid)
+glimpse(covid)
+table(covid$administrative_area_level_2)
+covid$confirmed
+summary(covid$confirmed)
+table(covid$stay_home_restrictions)
+
+```
+
+---
+## Answer the following
+
+
+- How many observations are there (rows)
+- How many variables (columns)
+- What's the unit of analysis?
+  -In words, how would you describe what a row in your data set corresponds to?
+- Are there any missing values for `confirmed`
+- Range of values can `stay_home_restrictions` take
+
+
+---
+## Answer the following
+
+.pull-left[
+- How many observations are there (rows)
+```{r}
+dim(covid)[1]
+```
+
+- How many variables (columns)
+
+```{r}
+dim(covid)[2]
+```
+
+
+
+
+]
+.pull-right[
+- What's the unit of analysis? A "'State'-Date"
+
+```{r}
+covid %>%
+  select("date","administrative_area_level_2")%>%
+  slice(1:2)
+
+```
+
+]
+
+---
+## Answer the following
+
+
+- Is there missing data in `confirmed`
+
+```{r}
+summary(covid$confirmed)[7]
+table(is.na(covid$confirmed))
+sum(is.na(covid$confirmed))
+```
+
+- What values can `stay_home_restrictions` take
+```{r}
+table(covid$stay_home_restrictions)
+```
+
+---
+## Summary
+
+We used:
+- `dim()` to get a sense of the size of our data
+- `View()/glimpse/print()` helped us describe the structure (State-Date)
+- `summary()` and `table()` to get a quick sense of some variables
+  - What's up with the negative values of `stay_home_restrictions`
+  - https://covid19datahub.io/articles/docs.html
+- The index operator `[]` to select values we wanted
+- We used the `%>%` operator to chain together functions to help us look at the data
+
+---
+class: inverse, center, middle
+# 💡
+# Data Wrangling in the Tidyverse
+
+---
+## Tidy Data
+
+---
+## The Tidyverse
+
+---
+## The Tidyverse
+
+```{r}
+```
+
+
+---
+## The %>% pipe
+
+
+
+---
+## 
+
+
 ---
 class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 4. Exploring Covid-19 Data
+# Excerise 5. Data Wrangling with the Tidyverse
+
+---
+## Creating new variables
+
+```{r, eval=F}
+dim(covid)
+
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories )
+
+length(unique(covid_us$administrative_area_level_2))
+
+covid_us %>%
+  mutate(
+    state = administrative_area_level_2,
+    year-m= lubridate::ym(lubridate::ymd(date))
+  ) %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases/population *100000,
+    face_masks = case_when(
+      #facial_coverings < 0 ~ NA_character_,
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+      
+    ) %>% factor(.,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    )
+  ) -> covid_us
+library(lubridate)
+year(lubridate::ymd(covid_us$date))
+year(covid_us$date)
+month(covid_us$date)
+table(abs(covid_us$facial_coverings),useNA = "ifany")
+table(covid_us$face_masks,useNA="ifany")
+table(covid_us$new_cases < 0)
+covid_us%>%
+  group_by(face_masks) %>%
+  summarise(
+    new_cases = mean(new_cases_pc,na.rm=T)
+  )
+
+covid_us%>%
+  filter(date > "2021-8-01",
+         date < "2021-9-01") %>%
+  group_by(face_masks) %>%
+  summarise(
+    n_obs = n(),
+    new_cases = mean(new_cases_pc,na.rm=T)
+  )
+
+covid_us %>%
+  group_by(date,face_masks)%>%
+  summarise(
+    n = n()
+  ) %>%
+  ggplot(aes(date,n, col=face_masks))+
+  geom_bar(stat="identity")
+covid_us %>%
+  filter(date > "2021-01-01",
+         date < "2021-02-01",
+         state == "Florida")%>%
+  select(date,confirmed)
+ 
+
+```
+
 
 ---
 class: inverse, center, middle
-# Cleaning and transforming your data
-
----
-class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
-background-size: cover
-
-# Excerise 5. Welcome to the tidyverse
-
----
-class: inverse, center, middle
+# 💡
 # Describing what's typical of your data
 
 ---
@@ -553,10 +962,28 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
+```{r}
+summary_table <- tibble::tribble(
+  ~Description, ~Usage,
+  "sum", "sum(x)",
+  "minimum", "min(x)",
+  "maximum", "max(x)",
+  "range", "range(x)",
+  "mean", "mean(x)",
+  "median", "median(x)",
+  "percentile", "quantile(x)",
+   "variance", "var(x)",
+  "standard deviation", "sd(x)",
+  "rank", "rank(x)"
+)
+```
+
+
 # Excerise 6. Measures of central tendency
 
 ---
 class: inverse, center, middle
+# 💡
 # Describing how your data vary
 
 ---
@@ -564,5 +991,12 @@ class: inverse, center, middle
 background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
 background-size: cover
 
-# Excerise 7. Measures of dispersion
+# Excerise 7. Measures of Dispersion
+
+```{r}
+table(covid$facial_coverings)
+
+
+
+```
 
