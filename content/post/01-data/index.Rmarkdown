@@ -29,6 +29,10 @@ links:
 #   icon_pack: fas
 #   name: lab
 #   url: /labs/01-eda_hot_dogs.html
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/01-slides.html 
 - icon: magic
   icon_pack: fas
   name: Notes

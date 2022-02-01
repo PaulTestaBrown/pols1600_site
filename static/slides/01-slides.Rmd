@@ -36,6 +36,8 @@ htmltools::tagList(
 ```
 
 class: inverse, center, middle
+background-image:url("https://admission.brown.edu/sites/g/files/dprerj526/files/styles/ultrawide_med/public/2020-06/Hosted-Virtual-Campus-Tour-banner-larger.jpg?h=298f6650&itok=55wGTeb3")
+background-size:cover
 # Overview
 
 ---
@@ -50,18 +52,177 @@ class: inverse, center, middle
 - Summary
 
 ---
-## Review
+## Slides
+
+- Follow along here: https://pols1600.paultesta.org/slides/01-slides.html
+- Type the letter `o` to get an overview to help you navigate.
+
+
+---
+background-image:url("https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg")
+background-size:contain
+
+---
+## You've committed a murder
+
+```{r,include=F}
+library(tidyverse)
+library(labelled)
+
+# For working live
+# df <- haven::read_spss("static/files/survey_00.sav")
+# For rendering
+df <- haven::read_spss("../files/survey_00.sav")
+
+df%>%
+  mutate(
+    Murder = to_factor(murder)
+  )%>%
+  ggplot(aes(Murder, fill=Murder))+
+  geom_bar()+
+  geom_text(stat='count', aes(label=..count..), hjust=-0.25)+
+  coord_flip()+
+  theme_bw()+
+  labs(
+    y="Count",
+    x="",
+    fill = "Tell",
+    title = "Who would you tell"
+  )
+
+```
+
+
+---
+## Why?
+
+```{r}
+set.seed(123456)
+df[sample(1:19,3),c("murder","murder_why")]
+```
+
+---
+##  Why do you ask?
+
+It's cousin Nick's fault...
+
+--
+- I think it's a funny question that reveals interesting things about our relationships with our parents
+
+--
+
+- What assumptions are we making when we ask this question?
+
+--
+  - You're not a murderer
+--
+  - You don't know someone who's committed a murder or been murdered
+--
+  - You've got a mom and dad
+
+--
+
+- How might we make this question better?
+--
+  - Use a screener question
+      - "Would you feel comfortable..."
+  - "Pipe" in responses from a prior question
+      - "Who are two people who raised you..."
+
+--
+
+**What questions we ask and how we ask them matters**
+
+---
+## Hopes and Dreams, Fears and Worries
+
+.pull-left[
+**What are we excited about**
+
+- Engaging with social science
+- Learning statistics and math
+- Learning to code
+]
+
+--
+.pull-right[
+**What are we worried about**
+
+- Engaging with social science
+- Learning statistics and math
+- Learning to code
+]
+
+---
+### What will we do?
+
+.pull-left[
+**Me**
+
+- Try to make the material as clear as possible
+- Provide lots of opportunities for practice
+- Provide detailed and timely feedback
+- Be available through office hours and email
+]
+
+--
+.pull-right[
+**You**
+
+- Do the reading, come class, ask questions
+- Engage with labs and tutorials with a "growth mindset"
+- Ask questions throughout
+- Come to office hours!
+]
+
+---
+class: inverse,center
+background-image:url("https://media2.giphy.com/media/ZCNjymWszyazkph0z2/200.webp?cid=ecf05e47l0nwxqty4s1m0l4bn43cpkl6wapqcbipk1a4otyt&rid=200.webp&ct=g")
+background-size: cover
+
+---
+class: inverse,bottom,center
+background-image:url("https://media.giphy.com/media/KQER23aFnrfSU/giphy.gif")
+background-size: cover
+# Menza Menz
+
+
+---
+## Testa's 50-50 rule
+
+- When I was in your shoes...
+
+--
+  - **COME TO CLASS**
+--
+- When I was in grad school I often felt like I understood only 50% of what was taught
+
+--
+- As I took more classes, I realized that actually understood only about 50% of that initial 50%
+
+--
+- That's your target. 
+- Don't worry about getting everything right
+- Focus on getting better each class
+
+
+
 
 
 ---
 ## Goals
 
-Today we'll explore COVID-19 data in the U.S.
+Today we'll explore COVID-19 data in the U.S. We'll try to answer to one question. 
 
-- We'll try to answer to one question. On average, were new cases lower in states that had stay at home orders
+> On average, did states that adopted mask mandates have lower rates of new cases?
+
+--
+
+Seems simple right?
 
 ---
 ## Topics
+
 
 - Working with R Markdown files
 
@@ -75,9 +236,7 @@ Today we'll explore COVID-19 data in the U.S.
 
 - Cleaning and transforming your data
 
-- Describing what's typical of your data
-
-- Describing how your data vary
+- Describing typical values and variation in your data
 
 ---
 ## Exercises
@@ -92,14 +251,10 @@ Today we'll explore COVID-19 data in the U.S.
 
 5. Inspect the data
 
-6. Welcome to the tidyverse
+6. Transforming data with the tidyverse
 
-7. Measures of central tendency
+7. Describing our data
 
-8. Measures of dispersion
-
----
-class: inverse, center, middle
 
 
 ---
@@ -689,7 +844,7 @@ To do so we'll suppy three arguments:
 - `verbose = F` tells the function not to print other stuff
 ]
 .pull-right[
-```{r}
+```{r,cache=T}
 covid <- COVID19::covid19(
   country = "US",
   level = 2,
