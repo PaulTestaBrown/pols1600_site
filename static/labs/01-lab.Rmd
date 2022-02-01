@@ -1,0 +1,39 @@
+---
+title: 'Lab 01 - Exploring data on COVID-19 in the U.S.'
+author: "Your Name HERE"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, comment = NA, warnings = FALSE, errors = FALSE, messages = FALSE, tidy = FALSE)
+```
+
+# Overview {-}
+
+Today we will pick up from where we left off in class, exploring 
+
+Review
+
+- installing packages
+- loading libraries
+- loading data
+- cleaning and recoding data
+- subsetting and manipulating data
+- describing typical values and variation in data
+
+
+# Getting set up
+
+1. Save this document in a folder for the class
+2. Knit the document
+3. Install the `lubridate
+
+
+
