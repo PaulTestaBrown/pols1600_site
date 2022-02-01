@@ -44,25 +44,102 @@ background-size:cover
 ## General Plan
 
 - Review
+
   - Feedback
+
   - Questions
+
 - Lecture consists of a mix of:
+
   - Topics and concepts
+
   - Exercises
+
 - Summary
 
 ---
 ## Slides
 
 - Follow along here: https://pols1600.paultesta.org/slides/01-slides.html
+
 - Type the letter `o` to get an overview to help you navigate.
+
 - We have a LOT to cover today
   - We'll take time to focus on what you **need** to know
   - Other things we'll cover more quicky
   - These are things that will be **good** to know *eventually*
+
 - We'll review this material again on Thursday and our first "lab" will be a joint excercise
 
 Several slides and tables borrow heavily from notes provide by the amazing [Allison Hill](https://www.apreshill.com/)
+
+
+---
+##  Waitlist
+
+- Let me know after Thursday's lab if you're still interested in taking the course
+- Roughly 12 spots open
+
+---
+## Working in R and R Studio
+
+- Hopefully you all have installed R and R Studio: https://pols1600.paultesta.org/labs/00-software_setup.html
+- If you're having issues, don't worry, see me after class and we'll get it sorted.
+
+---
+## Loading data from QSS
+
+Once you've done the following:
+
+
+```{r, eval=F}
+install.packages("devtools")
+install.packages("remotes")
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+```
+
+
+Anywhere the text loads data:
+
+```{r, eval=F}
+afghan <- read.csv("afgahn.csv")
+```
+
+You can do 
+```{r}
+library("qss")
+data("afghan")
+summary(afghan$age)
+```
+
+---
+## Tutorials
+
+Once you've done the following
+
+```{r,eval=F}
+remotes::install_github("rstudio/learnr")
+remotes::install_github("rstudio-education/gradethis")
+remotes::install_github("PaulTestaBrown/qsslearnr")
+```
+
+You can see the available problem sets by running the following code in your console:
+
+```{r}
+learnr::run_tutorial(package = "qsslearnr")
+```
+
+---
+## Tutorials
+
+
+And start a specific tutorial by running:
+
+```{r, eval=F}
+learnr::run_tutorial("00-intro", package = "qsslearnr")
+```
+
+
 
 
 ---
@@ -654,7 +731,7 @@ background-size: cover
 # 2. Explore objects and functions in base `R`
 
 ---
-## Excerise 2: Create some simple objects
+## Create some simple objects
 
 In the .Rmd file you created for this class
 
@@ -681,8 +758,8 @@ x^z
 ```
 
 
---- 
-## Excerise 2: Create some more complex objects
+---
+## Create some more complex objects
 
 
 .pull-left[
@@ -818,7 +895,7 @@ df_local <- haven::read_dta("~/Desktop/pols1600/lab/data.rda")
 
 ---
 class: inverse, center, middle
-background-image: url("https://img.resized.co/siliconrepublic/eyJkYXRhIjoie1widXJsXCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE0XFxcLzEyXFxcLzIwMTUwMVxcXC9kYXRhLXNjaWVudGlzdC1tZW1lLW1haW4uanBnXCIsXCJ3aWR0aFwiOjExMDAsXCJoZWlnaHRcIjo2MDAsXCJkZWZhdWx0XCI6XCJodHRwczpcXFwvXFxcL3d3dy5zaWxpY29ucmVwdWJsaWMuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE0XFxcLzEyXFxcLzIwMTMwMlxcXC9wdXp6bGUuanBnXCIsXCJvcHRpb25zXCI6W119IiwiaGFzaCI6IjAyOWY4N2RkNTVkMDYyMmQ4NzJiOWIwZjVmYWYxM2I1YzdjOWVkYmUifQ==/data-scientist-meme-main.jpg")
+background-image: url("https://miro.medium.com/max/612/1*GS0ohg3qm14E4Ya7fljicw.jpeg")
 background-size:cover
 
 # 💪 
@@ -987,7 +1064,6 @@ covid %>%
 ```{r}
 summary(covid$confirmed)[7]
 table(is.na(covid$confirmed))
-sum(is.na(covid$confirmed))
 ```
 
 - What values can `stay_home_restrictions` take
@@ -1278,7 +1354,7 @@ When social scientists talk about descriptive inference, we're trying to summari
 
 Here are some common ways of summarzing  data and how to calculate them with `R`
 
-```{r}
+```{r, echo=F}
 summary_table <- tibble::tribble(
   ~Description, ~Usage,
   "sum", "sum(x)",
@@ -1298,6 +1374,7 @@ summary_table <- tibble::tribble(
 knitr::kable(summary_table, format = "html")
 ```
 
+All of these functions have an argument called `na.rm=F`. If your data have missing values, you'll need to set `na.rm=F` (e.g. `mean(x, na.rm=T)`) 
 
 ---
 class:inverse,center, middle
