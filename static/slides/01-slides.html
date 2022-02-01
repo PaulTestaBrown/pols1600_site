@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week 02:</title>
+    <title>Week 01:</title>
     <meta charset="utf-8" />
     <meta name="author" content="Paul Testa" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -20,7 +20,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Week 02:
+# Week 01:
 ## Describing Data in R
 ### Paul Testa
 
@@ -172,11 +172,11 @@ df[sample(1:19,3),c("murder","murder_why")]
 
 ```
 # A tibble: 3 × 2
-     murder murder_why                                                          
-  &lt;dbl+lbl&gt; &lt;chr&gt;                                                               
-1   2 [Dad] He’s more chill.                                                    
-2   2 [Dad] Not sure, just instinctive                                          
-3   2 [Dad] Though spilling the beans to him would be more difficult than with …
+     murder murder_why                                                                                               
+  &lt;dbl+lbl&gt; &lt;chr&gt;                                                                                                    
+1   2 [Dad] He’s more chill.                                                                                         
+2   2 [Dad] Not sure, just instinctive                                                                               
+3   2 [Dad] Though spilling the beans to him would be more difficult than with Mom, Dad has power tools and would be…
 ```
 
 ---
@@ -193,15 +193,19 @@ It's cousin Nick's fault...
 
 --
   - You're not a murderer
+
 --
   - You don't know someone who's committed a murder or been murdered
+
 --
   - You've got a mom and dad
 
 --
 
 - How might we make this question better?
+
 --
+
   - Use a screener question
       - "Would you feel comfortable..."
   - "Pipe" in responses from a prior question
@@ -254,10 +258,10 @@ It's cousin Nick's fault...
 ]
 
 ---
-class: inverse,center
+class: inverse,center, bottom
 background-image:url("https://media2.giphy.com/media/ZCNjymWszyazkph0z2/200.webp?cid=ecf05e47l0nwxqty4s1m0l4bn43cpkl6wapqcbipk1a4otyt&amp;rid=200.webp&amp;ct=g")
 background-size: cover
-
+# How you doin
 ---
 class: inverse,bottom,center
 background-image:url("https://media.giphy.com/media/KQER23aFnrfSU/giphy.gif")
@@ -297,6 +301,8 @@ Today we'll explore COVID-19 data in the U.S. We'll try to answer to one questio
 --
 
 Seems simple right?
+
+
 
 ---
 ## Topics
@@ -727,7 +733,7 @@ print(x)
 ---
 ## Data come in different types
 
-&lt;img src="http://r4ds.had.co.nz/diagrams/data-structures-overview.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="http://r4ds.had.co.nz/diagrams/data-structures-overview.png" width="500" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1618,9 +1624,11 @@ When social scientists talk about descriptive inference, we're trying to summari
 --
 - What's a typical value
   - "Measures of central tendency"
+
 --
 - How do our data vary around typical values
   - "Measures of dispersion"
+
 --
 - How does variation in one variable relate to variation in another
   - "Measures of association"
@@ -1628,9 +1636,9 @@ When social scientists talk about descriptive inference, we're trying to summari
 
 
 ---
-## Using R to Summarize data
+## Using R to Summarize Data
 
-Here are some common ways of summarzing  data and how to calculate them with `R`
+Here are some common ways of summarizing  data and how to calculate them with `R`
 
 
 
@@ -1704,8 +1712,11 @@ We're finally ready to answer that simple question we began class with
 To do so use  the following functions
 
 - `filter()` and `is.na()`to only look at cases where we have data on face mask requirements
+
 - `mean()` to calculate the average number of new cases
+
 - `group_by()` to calculate this mean separately for each level of face mask policy
+
 - `summarize()` to summarize our results
 
 ---
@@ -1728,8 +1739,11 @@ covid_us %&gt;%
 ## Face Masks and New Covid-19 Cases (per 100k)
 
 .pull-left[
+
 - What should we conclude?
+
 - What's wrong with this simple comparison?
+
 - What's a better comparison? (Thursday)
 
 ]
@@ -1798,7 +1812,7 @@ Hopefully you learned something about the following:
 
   - If you're on the waitlist and still want to take the class, let me know
 
-- Friday: Tutorials 1 and 3 due on canvas
+- Friday: Tutorials 1 and 3 due on Canvas
 
 
 
