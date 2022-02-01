@@ -56,6 +56,13 @@ background-size:cover
 
 - Follow along here: https://pols1600.paultesta.org/slides/01-slides.html
 - Type the letter `o` to get an overview to help you navigate.
+- We have a LOT to cover today
+  - We'll take time to focus on what you **need** to know
+  - Other things we'll cover more quicky
+  - These are things that will be **good** to know *eventually*
+- We'll review this material again on Thursday and our first "lab" will be a joint excercise
+
+Several slides and tables borrow heavily from notes provide by the amazing [Allison Hill](https://www.apreshill.com/)
 
 
 ---
@@ -245,15 +252,15 @@ Seems simple right?
 
 2. Explore objects and functions in base `R`
 
-3. Install the `tidyverse` and `COVID19` packages
+3. Install the `tidyverse` and `COVID19` packages and reading data in R
 
-4. Load data on `COVID19`
+4. Exploring Covid-19 Data
 
-5. Inspect the data
+5. Transforming our data with the tidyverse
 
-6. Transforming data with the tidyverse
+6. Describing our data
 
-7. Describing our data
+
 
 
 
@@ -271,8 +278,8 @@ class: inverse, center, middle
 2. Choose your output
 3. Update the YAML
 3. Write text in Markdown
-4. Embed your code in code chunks
-5. Render your document using `knitr` to knit your code and markdown into output
+4. Embed your R code in code chunks
+5. Render your document using `knitr` to knit your code and markdown into chosen output
 
 Cheatsheet: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
 
@@ -307,9 +314,9 @@ class: inverse, center, middle
 
 - R is an interpreter (>)
 
-- Everything that exists is an object
+- "Everything that exists in R is an object"
 
-- Everything that happens is a result of a function
+- "Everything that happens in R is the result of a function"
 
 - Packages make R great
 
@@ -482,6 +489,15 @@ x <- 5 # Read this as "x gets 5"
 x
 print(x)
 ```
+
+---
+## Data come in different types
+
+```{r echo = FALSE}
+knitr::include_graphics("http://r4ds.had.co.nz/diagrams/data-structures-overview.png")
+```
+
+
 
 ---
 ## Data come in different types
@@ -806,7 +822,7 @@ background-image: url("https://img.resized.co/siliconrepublic/eyJkYXRhIjoie1widX
 background-size:cover
 
 # 💪 
-# 3. Installing packages and reading data
+# 3. Installing packages and reading data in R
 
 ---
 ## Installing the `tidyverse` and `COVID19` packages
@@ -997,40 +1013,145 @@ class: inverse, center, middle
 # Data Wrangling in the Tidyverse
 
 ---
+class: inverse, middle, center
+# The Tidyverse
+
+
+```{r out.width = '25%', echo = FALSE}
+knitr::include_graphics("https://www.tidyverse.org/images/hex-tidyverse.png")
+```
+
+
+*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."*
+
+
+---
+## The Tidyverse: What we'll learn today
+
+- What is tidy data
+- How to use the pipe `%>%` to make our code more intuitive
+- In our exercise we will see how to use the following from the `dplyr` package:
+  - `filter()` to filter rows in our data
+  - `mutate()` to create new columns in our data
+  - `case_when` to create new columns in our data based on existing columns
+  - `group_by` to apply functions by a grouping variable
+  - `summarize` to summarize the results of a function
+
+---
 ## Tidy Data
 
----
-## The Tidyverse
+Tidy data is a standard way of mapping the meaning of a dataset to its structure. 
+
+A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In tidy data:
+
+- Every column is a variable.
+
+- Every row is an observation.
+
+- Every cell is a single value.
+
+[More](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 
 ---
-## The Tidyverse
+class: center, middle, inverse
 
-```{r}
+# `%>%`
+
+## The pipe
+
+*"dataframe first, dataframe once"*
+
+--
+
+```{r eval = FALSE}
+library(dplyr)
+```
+
+
+--
+
+RStudio Keyboard Shortcuts:
+
+OSX: `CMD` + `SHIFT` + `M`
+
+Else: `CTRL` + `SHIFT` + `M`
+
+---
+class: middle
+
+*Nesting* a dataframe inside a function is hard to read.
+
+```{r,eval=F}
+slice(covid, 1)
+```
+
+--
+
+Here, the "sentence" starts with a <font color="#ED1941">verb</font>.
+
+--
+
+<hr>
+
+*Piping* a dataframe into a function lets you read L to R
+
+```{r,eval=F}
+covid %>% slice(1)
+```
+
+--
+
+Now, the "sentence" starts with a <font color="#ED1941">noun</font>.
+
+
+
+---
+class: middle
+
+Sequences of functions make you read *inside out*
+
+```{r,eval=F}
+slice(filter(covid, administrative_area_level_2 == "Rhode Island"), 1)
+```
+
+--
+
+<hr>
+
+Chaining functions together lets you read *L to R*
+
+```{r,eval=F}
+covid %>% 
+  filter(administrative_area_level_2 == "Rhode Island") %>% 
+  slice(1)
 ```
 
 
 ---
-## The %>% pipe
-
-
-
----
-## 
-
-
----
 class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
+background-image: url("https://hms.harvard.edu/sites/default/files/media/DNA%20large.jpg")
 background-size: cover
-
-# Excerise 5. Data Wrangling with the Tidyverse
+# 💪 
+# Excerise 5. Wrangling with the Tidyverse
 
 ---
-## Creating new variables
+## Tasks
 
-```{r, eval=F}
-dim(covid)
+- Subset our Covid data to include only the 50 states + DC
+  - `filter()`
+- Create two new variables that capture the \# of new cases and face mask policy in place
+  - `mutate()` with `case_when()`
 
+---
+## Subseting our data
+
+1. Create a vector of the territories we **don't** want
+2. Use the `filter()` command to "filter" out these territories
+
+---
+## 1. Create a vector of the territories we **don't** want
+
+```{r}
 territories <- c(
   "American Samoa",
   "Guam",
@@ -1038,23 +1159,81 @@ territories <- c(
   "Puerto Rico",
   "Virgin Islands"
   )
+```
 
+---
+# 2. Use the `filter()` command to "filter" out these territories
+
+```{r}
 covid_us <- covid %>%
   filter(!administrative_area_level_2 %in% territories )
 
-length(unique(covid_us$administrative_area_level_2))
+dim(covid)
+dim(covid_us)
+```
 
+---
+
+The command:
+
+```{r, eval=F}
+# filter(!administrative_area_level_2 %in% territories )
+```
+
+Filters data based on the logical statement:
+
+```{r, eval=F}
+# !administrative_area_level_2 %in% territories
+```
+
+Without the `!`, 
+
+```{r, eval=F}
+# administrative_area_level_2 %in% territories
+```
+
+Tells us which observations are from U.S. territories. The `!` "negates" this logical comparison
+
+```{r, eval=F}
+# !administrative_area_level_2 %in% territories
+```
+
+So it tells us which observations are *not* U.S. territories.
+
+---
+## Creating new variables with `mutate()`
+
+.pull-left[
+- Copy `administrative_area_level_2` into new variable `state
+- Group by state
+- Calculate the number of new cases
+- Scale this number per 100,00 citizens
+]
+.pull-right[
+```{r}
+dim(covid_us)
 covid_us %>%
   mutate(
     state = administrative_area_level_2,
-    year-m= lubridate::ym(lubridate::ymd(date))
   ) %>%
   dplyr::group_by(state) %>%
   mutate(
     new_cases = confirmed - lag(confirmed),
-    new_cases_pc = new_cases/population *100000,
+    new_cases_pc = new_cases/population *100000
+    ) -> covid_us
+dim(covid_us)
+
+```
+]
+
+---
+## Creating new variables with `mutate()` and `case_when()`
+
+
+```{r}
+covid_us %>%
+  mutate(
     face_masks = case_when(
-      #facial_coverings < 0 ~ NA_character_,
       facial_coverings == 0 ~ "No policy",
       abs(facial_coverings) == 1 ~ "Recommended",
       abs(facial_coverings) == 2 ~ "Some requirements",
@@ -1068,41 +1247,6 @@ covid_us %>%
                  "Required all times")
     )
   ) -> covid_us
-library(lubridate)
-year(lubridate::ymd(covid_us$date))
-year(covid_us$date)
-month(covid_us$date)
-table(abs(covid_us$facial_coverings),useNA = "ifany")
-table(covid_us$face_masks,useNA="ifany")
-table(covid_us$new_cases < 0)
-covid_us%>%
-  group_by(face_masks) %>%
-  summarise(
-    new_cases = mean(new_cases_pc,na.rm=T)
-  )
-
-covid_us%>%
-  filter(date > "2021-8-01",
-         date < "2021-9-01") %>%
-  group_by(face_masks) %>%
-  summarise(
-    n_obs = n(),
-    new_cases = mean(new_cases_pc,na.rm=T)
-  )
-
-covid_us %>%
-  group_by(date,face_masks)%>%
-  summarise(
-    n = n()
-  ) %>%
-  ggplot(aes(date,n, col=face_masks))+
-  geom_bar(stat="identity")
-covid_us %>%
-  filter(date > "2021-01-01",
-         date < "2021-02-01",
-         state == "Florida")%>%
-  select(date,confirmed)
- 
 
 ```
 
@@ -1110,12 +1254,29 @@ covid_us %>%
 ---
 class: inverse, center, middle
 # 💡
-# Describing what's typical of your data
+# Describing typical values and variation in your data
 
 ---
-class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
-background-size: cover
+## Descriptive Inference
+
+When social scientists talk about descriptive inference, we're trying to summarize our data and make claims about what's *typical* of our data
+
+--
+- What's a typical value
+  - "Measures of central tendency"
+--
+- How do our data vary around typical values
+  - "Measures of dispersion"
+--
+- How does variation in one variable relate to variation in another
+  - "Measures of association"
+
+
+
+---
+## Using R to Summarize data
+
+Here are some common ways of summarzing  data and how to calculate them with `R`
 
 ```{r}
 summary_table <- tibble::tribble(
@@ -1133,25 +1294,97 @@ summary_table <- tibble::tribble(
 )
 ```
 
+```{r echo = FALSE, results = 'asis'}
+knitr::kable(summary_table, format = "html")
+```
 
-# Excerise 6. Measures of central tendency
-
----
-class: inverse, center, middle
-# 💡
-# Describing how your data vary
 
 ---
-class: inverse, center, middle
-background-image: url("https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif")
-background-size: cover
+class:inverse,center, middle
+background-image:url("https://i.pinimg.com/originals/83/5c/33/835c33d22fd2ae61cbf0c14545524d54.jpg")
+background-size:cover
+# 💪
+# 6. Describing our data
 
-# Excerise 7. Measures of Dispersion
+---
+## Describing our data
+
+We're finally ready to answer that simple question we began class with
+
+> On average, did states that adopted mask mandates have lower rates of new cases?
+
+To do so use  the following functions
+
+- `filter()` and `is.na()`to only look at cases where we have data on face mask requirements
+- `mean()` to calculate the average number of new cases
+- `group_by()` to calculate this mean separately for each level of face mask policy
+- `summarize()` to summarize our results
+
+---
+## Face Masks and New Covid-19 Cases (per 100k)
 
 ```{r}
-table(covid$facial_coverings)
-
-
+covid_us %>%
+  filter(!is.na(face_masks))%>%
+  group_by(face_masks)%>%
+  summarize(
+    `Average No. of New Cases` = round(mean(new_cases_pc, na.rm=T),2)
+  )%>%
+  rename(
+    "Face Mask Policy" = face_masks
+  ) -> face_mask_summary
 
 ```
+
+---
+## Face Masks and New Covid-19 Cases (per 100k)
+
+.pull-left[
+- What should we conclude?
+- What's wrong with this simple comparison?
+- What's a better comparison? (Thursday)
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, results = 'asis'}
+knitr::kable(face_mask_summary, format = "html")
+```
+
+]
+
+---
+background-image:url(https://memegenerator.net/img/instances/84491541.jpg)
+background-size:contain
+
+---
+# Summary
+
+- We covered A LOT
+- It's ok to feel overwhelmed
+  - But please don't suffer in silence
+- Don't worry if everything didn't make sense.
+  - Eventually it will, but this takes time and practice
+
+---
+# Summary
+
+Hopefully you learned something about the following:
+
+- How to create .Rmd files and run code in R
+- How to install and use packages in R
+- How to load, view, and describe data
+
+---
+# Next
+
+- Thursday Lab: Further explorations of COVID-19 data
+
+  - If you're on the waitlist and still want to take the class, let me know
+
+- Friday: Tutorials 1 and 3 due on canvas
+
+
+
 
