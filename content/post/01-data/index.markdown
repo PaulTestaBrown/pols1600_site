@@ -25,14 +25,18 @@ image:
 projects: []
 
 links:
-- icon: flask
-  icon_pack: fas
-  name: lab
-  url: /labs/01-lab.Rmd
 - icon: desktop
   icon_pack: fas
   name: Slides
   url: /slides/01-slides.html 
+- icon: flask
+  icon_pack: fas
+  name: lab
+  url: /labs/01-lab.Rmd
+# - icon: flask
+#   icon_pack: fas
+#   name: Comments
+#   url: /labs/01-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes
