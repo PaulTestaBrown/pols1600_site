@@ -31,12 +31,12 @@ links:
   url: /slides/01-slides.html 
 - icon: flask
   icon_pack: fas
-  name: lab
+  name: Lab
   url: /labs/01-lab.Rmd
-# - icon: flask
-#   icon_pack: fas
-#   name: Comments
-#   url: /labs/01-lab-comments.html
+- icon: flask
+  icon_pack: fas
+  name: Lab Comments
+  url: /labs/01-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

@@ -737,7 +737,8 @@ cases_by_month_and_policy %>%
     x= year_month,
     y = new_cases_pc,
     col=face_masks))+
-  geom_point()+coord_flip()
+  geom_point()+
+  coord_flip()
 ```
 
 So this figure graphically displays the data `cases_by_month_and_policy` 
