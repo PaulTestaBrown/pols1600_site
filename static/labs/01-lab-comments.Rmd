@@ -76,7 +76,14 @@ The `DT` package allows us to display data tables in a searchable format in our 
   - `lubridate`
   - `DT`
 
+```{r packages}
 
+library(tidyverse)
+library(COVID19)
+library(lubridate)
+library(DT)
+
+```
 
 
 # Download the COVID19 Data for U.S. 
@@ -86,7 +93,11 @@ Open up the [slides](https://pols1600.paultesta.org/slides/01-slides.html#81) fr
 ```{r covid}
 # Download the COVID-19 data
 
-
+covid <- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
 
 
 ```
@@ -94,7 +105,7 @@ Open up the [slides](https://pols1600.paultesta.org/slides/01-slides.html#81) fr
 
 # Replicate the data cleaning and recoding from class
 
-Specifically please do the following, uncommenting the code and replacing the `???` with the appropriate terms
+Specifically please do the following:
 
 1. Create a object called `territories` that is a vector containing the names of U.S. territories
   - Use `<-` and `c()` ([slides](https://pols1600.paultesta.org/slides/01-slides#107))
@@ -112,44 +123,44 @@ Specifically please do the following, uncommenting the code and replacing the `?
 ```{r recode}
 # ---- 1. Create territories object
 
-# territories <- c(
-#   "American Samoa",
-#   "Guam",
-#   "Northern Mariana Islands",
-#   "Puerto Rico",
-#   "Virgin Islands"
-#   )
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
 
 # ---- 2. Create covid_us data frame
 
-# covid_us <- covid %>%
-#   filter(???)
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)
 
 # ---- 3-5. Recode variables in covid_us
 
-# covid_us %>%
-#   mutate(
-#     state = ???
-#   ) %>%
-#   dplyr::group_by(???) %>%
-#   mutate(
-#     new_cases = ??? - lag(???),
-#     new_cases_pc = ??? / ??? *100000
-#     ) %>%
-#   mutate(
-#     face_masks = case_when(
-#       ??? == 0 ~ "No policy",
-#       abs(???) == 1 ~ "Recommended",
-#       abs(???) == 2 ~ "Some requirements",
-#       abs(???) == 3 ~ "Required shared places",
-#       abs(???) == 4 ~ "Required all times",
-#     ) %>% factor(.,
-#       levels = c("No policy","Recommended",
-#                  "Some requirements",
-#                  "Required shared places",
-#                  "Required all times")
-#     ) 
-#     ) -> ???
+covid_us %>%
+  mutate(
+    state = administrative_area_level_2,
+  ) %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) %>%
+  mutate(
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ) %>% factor(.,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -> covid_us
 
 ```
 
@@ -161,6 +172,10 @@ Uncomment the following code and replace the generic terms `data`, `variable1`, 
 # table(data$variable1, data$variable2, useNA="ifany")
 ```
 
+
+```{r crosstab_sol}
+table(covid_us$face_masks, covid_us$facial_coverings,useNA="ifany")
+```
 
 
 You've just created a "crosstab" a frequency table showing the joint distribution of two variables.
@@ -177,13 +192,13 @@ Finally, let's create a few more variables called `year_month` from the `date` v
 Highlight the commented code below from `# covid_us %>%` to `#   ) -> covid_us` and press `shift + cmd + C` on a mac or `shift + ctrl + C` on PC to uncomment the code. 
 
 ```{r dates}
-# covid_us %>%
-#   mutate(
-#     year = year(date),
-#     month = month(date),
-#     year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
-#     percent_vaccinated = people_fully_vaccinated/population*100  
-#     ) -> covid_us
+covid_us %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> covid_us
 ```
 
 
@@ -212,36 +227,37 @@ Let's get some practice using the `filter()`, `select()` `group_by()` and `summa
 ## Uncomment and run the code below, 
 
 ```{r negvals}
-# covid_us %>%
-#   filter(facial_coverings == -4) %>%
-#   select(date, state) %>%
-#   group_by(state) %>%
-#   summarize(
-#     n = n(),
-#     earliest_date = min(date),
-#     latest_date = max(date),
-#   )%>%
-#   arrange(earliest_date)
+covid_us %>%
+  filter(facial_coverings == -4) %>%
+  select(date, state) %>%
+  group_by(state) %>%
+  summarize(
+    n = n(),
+    earliest_date = min(date),
+    latest_date = max(date),
+  )%>%
+  arrange(earliest_date)
 ```
 
 ## Please explain in words your best understanding of what each line of code is doing:
 
-- `covid_us %>%` 
-- `filter(facial_coverings == -4) %>%` 
-- `select(date, state) %>%` 
-- `group_by(state) %>%` 
-- `summarize(` 
-- `n = n(),` 
-- `earliest_date = min(date),` 
-- `latest_date = max(date),` 
-- `)%>%` 
-- `arrange(earliest_date)` 
+- `covid_us %>%` tells R that every line of code after will use `covid_us` dataframe
+- `filter(facial_coverings == -4) %>%` tells R to filter out only the rows where the facial coverings variable equals -4
+- `select(date, state) %>%` tells R to select the columns named `date` and `state`
+- `group_by(state) %>%` tells R that subsequent commands should be done separately for each unique value of `state`
+- `summarize(` tells R we want to summarize the output of susequent commands
+- `n = n(),` tells R to count the number of observations (state-dates) for each state that had a value of -4 on the `facial_coverings` variable
+- `earliest_date = min(date),` tells R to report the earliest date that each state had a value of -4
+- `latest_date = max(date),` tells R to report the last date that each state had a value of -4
+- `)%>%` tells R we're finished with the `summarize()` function
+- `arrange(earliest_date)` arranges the data in asscending order from earliest to latest start date
 
 You may find this [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) useful and you can find a more detailed discussion [here](https://r4ds.had.co.nz/transform.html)
 
 
-### Substantively, what does the previous chunk of code tell us?
+Substantively, what does the previous chunk of code tell us?
 
+- So there are five states that had -4 on the facial covering variable: Illinois, Maryland, Massachusetts, Montana, and South Carolina. Illinois was the first state where this code appears, and it appears present in 156 observations while Montana was the last adopting a policy code -4 on March 25, 2021
 
 <div class="blue">
 
@@ -282,14 +298,14 @@ il_facemasks
 
 ## Again, explain in words, what the components of this code are doing:
 
-- `oxford_us %>%` 
-- `mutate(date = ymd(Date))%>%` 
-- `filter(RegionName == "Illinois",` 
--  `       date > "2020-08-01", ` 
--  `       date < "2021-01-01",` 
--  `        !is.na(H6_Notes)) %>%` 
--  `select(date,starts_with("H6_")) -> il_facemasks` 
-- `il_facemasks` 
+- `oxford_us %>%` Tells R to use the Oxford policy data
+- `mutate(date = ymd(Date))%>%` Creates a `date` variable of class `date` from the original `Date` variable (which was class `numeric`) 
+- `filter(RegionName == "Illinois",` subsets the data to just Illinois 
+-  `       date > "2020-08-01", ` filters out dates before August 1, 2020
+-  `       date < "2021-01-01",` filters out observations with dates after  January 1,2021
+-  `        !is.na(H6_Notes)) %>%` filters out observations without notes (which appear in the data when policy changes)
+-  `select(date,starts_with("H6_")) -> il_facemasks` Selects just the date and notes variables and saves them to an object called `il_facemasks`
+- `il_facemasks` prints the obejct in the console
 
 Let's take a look at the `H6_Notes` variable for 2020-09-18
 
@@ -305,7 +321,9 @@ Now update the code to select `H6_Notes` variable for 2020-10-01
 
 ## What have we learned about our variables measuring `face_mask` policy
 
+In Illinois, the -4's seem to correspond to more stringent mask policies implemented in Chicago relative to the rest of the state. So by collapsing negative and positive values of  `facial_coverings` to construct our `face_mask` variable, we're probably over stating the extent the extensiveness of policies in effect.
 
+So we should be cautious in how we interpret our collapsed variable, `face_mask`. Perhaps we could construct another variable that distinguished state-level policies from more localized policies, or we could only look at cases where there was a uniform state policy.
 
 # Explore R's functions for generating summary statistics
 
@@ -335,7 +353,7 @@ For now, please calculate the mean (average) number of new cases per 100,000 res
 
 
 ```{r mean}
-
+mean(covid_us$new_cases_pc, na.rm=T)
 ```
 
 Last class, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a **conditional mean** the mean of some variable, conditional on some other variable taking a specific value.
@@ -355,24 +373,25 @@ E[\text{New Cases} | \text{Policy = "recommended"}]
 In code, we could accomplish this manually, using the index operator:
 
 ```{r conmean1}
-# mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)
+mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)
 
 ```
 
-#### How would we calculate the conditional mean of `new_cases_pc` when `face_masks` equals "Recommended"
+#### How would we calculate the conditional mean of `new_cases_pc` when `face_masks` equals "Recommend"
 
 ```{r conmean2}
+mean(covid_us$new_cases_pc[covid_us$face_masks == "Recommended"], na.rm=T)
 
 ```
 
 By using `group_by()` with `summarise()` we can accomplish this more quickly:
 
 ```{r conmeangroup}
-# covid_us%>%
-#   group_by(face_masks)%>%
-#   summarise(
-#     new_cases_pc = mean(new_cases_pc, na.rm=T)
-#   )
+covid_us%>%
+  group_by(face_masks)%>%
+  summarise(
+    new_cases_pc = mean(new_cases_pc, na.rm=T)
+  )
 ```
 
 
@@ -398,9 +417,10 @@ Which might look like Greek to you, which is fine. Just think of it as the middl
 
 
 ```{r median}
-
+median(covid_us$new_cases_pc, na.rm=T)
 ```
 
+Interesting the median is much lower than the mean. If we were to look at a histogram of our data (more on that next week; think of it as a graphical representation of a frequency table), we see that the `new_cases_pc` has a "long tail" or is skewed to the right. Most of the values are close to 0, but there are few cases that are extreme outliers.
 
 
 <div class="blue">
@@ -408,6 +428,10 @@ Which might look like Greek to you, which is fine. Just think of it as the middl
 > Medians are less influenced by outliers than means
 
 </div>
+
+```{r hist}
+hist(covid_us$new_cases_pc, breaks = 100)
+```
 
 
 
@@ -421,7 +445,7 @@ Modes are useful for describing what's typical of "nominal" or categorical data 
 To calculate the mode of our `face_masks` variable, wrap the output of `table()` with the `sort()` function
 
 ```{r mode}
-# sort(table(covid_us$face_masks))
+sort(table(covid_us$face_masks))
 ```
 
 For numeric data, modes correspond to the peak of a variable's density function (more on this later in the class). 
@@ -454,13 +478,20 @@ The range of a variable is simply it's minimum and maximum value
 
 
 ```{r range}
-
+range(covid_us$new_cases_pc,na.rm = T)
+min(covid_us$new_cases_pc,na.rm = T)
+max(covid_us$new_cases_pc,na.rm = T)
 ```
 
 #### What states on what dates observed these minimum and maximum values?
 
 ```{r staterange}
-
+covid_us %>%
+  filter(
+    new_cases_pc < -188 |
+    new_cases_pc > 1500
+  )%>%
+  select(state, date,new_cases_pc)
 
 ```
 
@@ -482,7 +513,7 @@ In R we calculate the $p$-th percentile using the `quantile()` setting the `prob
 
 
 ```{r quantile}
-
+quantile(covid_us$new_cases_pc, probs = c(.25,.75), na.rm=T)
 ```
 
 
@@ -503,10 +534,17 @@ The variance in a given sample is calculated by taking the average of the sum of
 - $\sum_{i=1}$ sums up all the differences
 - $\frac{1}{n-1}$ is like taking the average of these differences (we divide by $n-1$ instead of $n$ for [statistical reasons](https://web.ma.utexas.edu/users/mks/M358KInstr/SampleSDPf.pdf) that we'll return two when we talk about estimation)
 
-#### Use the `var()` function to calculate the variance of the `new_cases_pc` variable.
+Use the `var()` function to calculate the variance of the `new_cases_pc` variable.
 
 ```{r var}
+var(covid_us$new_cases_pc,na.rm=T)
 
+# Calculate by hand
+
+sum(
+  (covid_us$new_cases_pc - mean(covid_us$new_cases_pc,na.rm=T))^2, 
+  na.rm=T
+  )/(sum(!is.na(covid_us$new_cases_pc))-1)
 
 ```
 
@@ -526,10 +564,10 @@ Standard deviations are easier to interpet because their units are the same as v
 
 Think of them as a measure of the typical amount of variation for variable.
 
-#### let's use the `sd()` function to calculate the standard deviation of the `new_cases_pc` variable
+Again, let's use the `sd()` function to calculate the standard deviation of the `new_cases_pc` variable
 
 ```{r sd}
-
+sd(covid_us$new_cases_pc,na.rm=T)
 ```
 
 
@@ -554,7 +592,7 @@ cov(x,y)=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})
 #### Please calculate the covariance between the percent of state's population that is fully vaccinated (`percent_vaccinated`) and `new_cases_pc` using the `var()` function
 
 ```{r covar}
-
+var(covid_us$new_cases_pc,covid_us$percent_vaccinated,na.rm = T)
 ```
 
 
@@ -577,6 +615,7 @@ But don't sweat the formulas too much. I'm just contractually obligated to show 
 You'll need to set the argument `use="complete.obs`
 
 ```{r cor}
+cor(covid_us$percent_vaccinated, covid_us$new_cases_pc, use = "complete.obs")
 
 ```
 
@@ -587,14 +626,14 @@ Hmm... That seems a little strange. What if we calculated the correlation betwee
 
 ```{r cormonth}
 
-# covid_us %>%
-#   filter(year > 2020)%>%
-#   ungroup() %>%
-#   group_by(year,month)%>%
-#   summarise(
-#     mn_per_vax = mean(percent_vaccinated, na.rm=T),
-#     cor = cor(new_cases_pc, percent_vaccinated, use = "complete.obs")
-#   )
+covid_us %>%
+  filter(year > 2020)%>%
+  ungroup() %>%
+  group_by(year,month)%>%
+  summarise(
+    mn_per_vax = mean(percent_vaccinated, na.rm=T),
+    cor = cor(new_cases_pc, percent_vaccinated, use = "complete.obs")
+  )
 
 
 ```
@@ -607,28 +646,59 @@ Let's return to the question of the average number of new Covid-19 cases (per 10
 We ended our previous class with this result:
 
 ```{r facemasks}
-# covid_us %>%
-#   filter(!is.na(face_masks))%>%
-#   group_by(face_masks)%>%
-#   summarize(
-#     new_cases_pc = round(mean(new_cases_pc, na.rm=T),2)
-#   ) -> face_mask_summary
-# face_mask_summary
+covid_us %>%
+  filter(!is.na(face_masks))%>%
+  group_by(face_masks)%>%
+  summarize(
+    new_cases_pc = round(mean(new_cases_pc, na.rm=T),2)
+  ) -> face_mask_summary
+face_mask_summary
 ```
 
 
 ## What do these averages really tell us?
 
+Probably not that much. Different Face mask policies are implemented at different times in the pandemic. For example, by 2021, almost all states have some requirements. Comparing the average for new cases in states with no policy to states with full requirements, is comparing the state of world in early 2020 to the state of the world in late 2020 to mid 2021. But lots of things differ between these periods. Other policies are also going into effect, new variants are emerging.
+
+In short, those simple conditional means across the full data don't really provide an apples to apples comparison.
+
+```{r fmplots}
+covid_us%>%
+  group_by(date,face_masks)%>%
+  summarise(
+    n = n()
+  )%>%
+  filter(date >= "2020-03-01")%>%
+  ggplot(aes(date,n,fill=face_masks))+
+  geom_bar(stat="identity")
+
+covid_us%>%
+  group_by(date,face_masks)%>%
+  summarise(
+    new_cases = sum(new_cases)
+  )%>%
+  filter(date >= "2020-03-01")%>%
+  ggplot(aes(date,new_cases))+
+  geom_smooth()
+
+```
 
 
 ## Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data
 
 If we limit our comparison to a more narrow time period, say one month in one year, we're making a fairer comparison between states that are likely facing more similar conditions/challenges.
 
+So when we compare states in September 2020, we see that rates of new cases tend to be much higher in states with only recommend face mask policies compared to states with at least some requirements.
 
 
 ```{r facemasks1month}
-
+covid_us %>%
+  filter(!is.na(face_masks))%>%
+  filter(year_month == "2020-09")%>%
+  group_by(face_masks) %>%
+  summarise(
+    new_cases_pc = mean(new_cases_pc,na.rm=T)
+  )
 ```
 
 
@@ -638,15 +708,22 @@ If we limit our comparison to a more narrow time period, say one month in one ye
 - Save the output of summarize into an object called `cases_by_month_and_policy`
 
 ```{r casemonths}
-
+covid_us %>%
+  filter(!is.na(face_masks))%>%
+  group_by(year_month,face_masks) %>%
+  summarise(
+    n = length(unique(state)),
+    new_cases_pc = round(mean(new_cases_pc,na.rm=T)),
+    total_cases = round(mean(confirmed,na.rm=T))
+  ) -> cases_by_month_and_policy
 ```
 
 
 ### Uncomment the code below to display `cases_by_month_and_policy` in a searchable table
 
 ```{r dt}
-# DT::datatable(cases_by_month_and_policy,
-#               filter = "top")
+DT::datatable(cases_by_month_and_policy,
+              filter = "top")
 ```
 
 
@@ -655,12 +732,12 @@ If we limit our comparison to a more narrow time period, say one month in one ye
 What does this figure tell us?
 
 ```{r fmfig}
-# cases_by_month_and_policy %>%
-#   ggplot(aes(
-#     x= year_month,
-#     y = new_cases_pc,
-#     col=face_masks))+
-#   geom_point()+coord_flip()
+cases_by_month_and_policy %>%
+  ggplot(aes(
+    x= year_month,
+    y = new_cases_pc,
+    col=face_masks))+
+  geom_point()+coord_flip()
 ```
 
 So this figure graphically displays the data `cases_by_month_and_policy` 
@@ -708,8 +785,6 @@ If there are particular parts of the lab where we went too fast, or things didn'
 When you encounter a problem you can solve, send me an email, or ask your friends, or doctor Google. I guarantee you, someone else has had a similar question or problem. 
 
 The only dumb question in this course is a question you don't ask!
-
-Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870520?module_item_id=10762389)
 
 Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_1Gq9SnUONBIEIhE)
 

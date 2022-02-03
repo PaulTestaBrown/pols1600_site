@@ -25,10 +25,10 @@ image:
 projects: []
 
 links:
-# - icon: flask
-#   icon_pack: fas
-#   name: lab
-#   url: /labs/01-eda_hot_dogs.html
+- icon: flask
+  icon_pack: fas
+  name: lab
+  url: /labs/01-lab.Rmd
 - icon: desktop
   icon_pack: fas
   name: Slides
