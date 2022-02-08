@@ -291,7 +291,6 @@ background-size:cover
 # Feedback
 
 ---
-## What we've liked
 
 ```{r,echo=F}
 # For working live
@@ -308,9 +307,8 @@ DT::datatable(df %>%
 
 
 ---
-## What we haven't liked
 
-```{r, echo=F, out.height='80%'}
+```{r, echo=F, out.height='60%'}
 DT::datatable(df %>% 
                 select(dislike))
 ```
@@ -319,7 +317,7 @@ DT::datatable(df %>%
 ---
 
 
-```{r, echo=F}
+```{r, echo=F, out.height='80%'}
 df %>%
   mutate(
     Playlist = str_wrap(forcats::as_factor(trip),20)
@@ -379,7 +377,7 @@ df %>% #<< Raw data
 ---
 ## 3. Make a basic plot
 
-```{r ,echo=F}
+```{r ,echo=F,out.height='80%'}
 df %>% #<< Raw data
   mutate(
     Playlist =forcats::as_factor(trip)
@@ -411,7 +409,7 @@ df %>%
 ---
 ## 4.1 Tinker with data
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,out.height='80%'}
 df %>%
   mutate(
     Playlist =str_wrap(forcats::as_factor(trip),20)
@@ -441,7 +439,7 @@ df %>%
 ---
 ## 4.2 Tinker with scales
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,out.height='80%'}
 df %>%
   mutate(
     Playlist =str_wrap(forcats::as_factor(trip),20)
@@ -473,7 +471,7 @@ df %>%
 ---
 ## 4.3 Tinker with coordinates
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,out.height='80%'}
 df %>%
   mutate(
     Playlist =str_wrap(forcats::as_factor(trip),20)
@@ -508,7 +506,7 @@ df %>%
 ---
 ## 4.4 Tinker with labels
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,out.height='80%'}
 df %>%
   mutate(
     Playlist =str_wrap(forcats::as_factor(trip),20)
@@ -546,7 +544,7 @@ df %>%
 ---
 ## 4.4 Tinker with theme
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,out.height='80%'}
 df %>%
   mutate(
     Playlist =str_wrap(forcats::as_factor(trip),20)
