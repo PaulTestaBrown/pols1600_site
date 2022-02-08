@@ -56,20 +56,15 @@ class: inverse, center, middle
 ## Today
 
 - Setup
+- Data Visualization and the grammar of graphics
+- Feedback
 - Review
-  - Feedback
   - Troubleshooting errors
   - Data Wrangling in R
-  - Descriptive Statistics
-- Data Visualization
-  - The Grammar of Graphics
-- Producing Figures in Base R
-  - Visualizing distributions
-  - Visualizing relationships
 - Summary
 
 ---
-## Thursday
+## Thursday: More lecture than lab
 
 - Review
   - Data Visualization
@@ -90,10 +85,11 @@ class: inverse, center, middle
 ---
 ## Core Concepts
 
-- How to troubleshoot errors (review)
-- How to explore and transform data (review)
 - A grammar for understanding graphics (new)
 - 5 basic plots in R (new)
+- How to troubleshoot errors (review)
+- How to explore and transform data (review)
+
 
 ---
 background-image:url(https://spoke-api-media.s3-us-west-2.amazonaws.com/spoke-api/prod/pictures/21_12_34_29_12_2020_movie_pic.jpg)
@@ -237,8 +233,10 @@ Take a look at how the [BBC](https://medium.com/bbc-visual-and-data-journalism/h
 
 Today, we will
 
-- Produce basic figures n  that describe
-- Introduce a `grammar of graphics`
+- Learn about basic plots to describe
+  - Univariate distributions
+  - Bivariate relations
+- Introduce the `grammar of graphics`
 - Learn how to apply this grammar with `ggplot`
 
 
@@ -741,8 +739,23 @@ GGally::ggpairs(eval_df)
 ---
 # Summary
 
--
+- Data visualization helps us explore our data and communicate results
+- Good data visualization requires lots of data transformations
+- The grammar of graphics provides a framework for thinking how to translate data in graphics
+- We can display distributions using
+  - histograms
+  - density plots
+  - boxplots
+  - barplots
+- We can describe relationships using
+  - scatter plots
+- And much more!
 
+---
+class: bottom,center
+background-image:url(http://nowiknow.com/wp-content/uploads/home-kit-kat-bar-break-1024x575.png)
+background-size:cover
+# Let's take a brief break
 
 ---
 # Review
@@ -1806,10 +1819,6 @@ plot(x,y)
 ]
 
 
----
-class: bottom,center
-background-image:url(http://nowiknow.com/wp-content/uploads/home-kit-kat-bar-break-1024x575.png)
-background-size:cover
-# Let's take a brief break
+
 
 
