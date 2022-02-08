@@ -35,34 +35,68 @@ class: center, middle, inverse, title-slide
 
 
 
+
 ---
+background-image: url("https://scontent-lga3-2.xx.fbcdn.net/v/t1.6435-9/37921549_422082921647443_3300610361849282560_n.jpg?_nc_cat=110&amp;ccb=1-5&amp;_nc_sid=e3f864&amp;_nc_eui2=AeHyVjbRWA57U_p3xsoku058nOTeFOsG5mKc5N4U6wbmYsss7QXmxM6f1k6xEJyGnhI&amp;_nc_ohc=85K100sjKxMAX8Cefh-&amp;_nc_oc=AQkmFfA4-nsiYsb22TICWQc5TzpF5zn9QtJqVC77NzK0q5i2SZRDqSYlRKOFzjqCH-U&amp;_nc_ht=scontent-lga3-2.xx&amp;oh=00_AT_LrNXKJ8t-qBq_Z6W9pCRVwO8Sl11aGTQZX8_yRWZYNg&amp;oe=6226CB72")
+background-size:cover
 class: inverse, center, middle
 # Overview
 
+&lt;style&gt;
+
+.source {
+  margin: 5;
+  position: absolute;
+  top: 95%;
+  left: 10%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+&lt;/style&gt;
+
 ---
-## General Plan
+## Today
 
 - Setup
 - Review
+  - Feedback
   - Troubleshooting errors
   - Data Wrangling in R
   - Descriptive Statistics
-- Data Visualization 
+- Data Visualization
+  - The Grammar of Graphics
 - Producing Figures in Base R
   - Visualizing distributions
   - Visualizing relationships
+- Summary
+
+---
+## Thursday
+
+- Review
+  - Data Visualization
+  - The Grammar of Graphics
 - Basic figures with `ggplot`
+  - data
   - aesthetics
   - geoms
 - Adjusting figures with `ggplot`
-  - labels
-  - scales
   - facets
+  - statistics
+  - coordinates
   - themes
 - Advanced figures with `ggplot`
   - Combining figures with `patchwork`
   - Creating maps with `ggmap`
-- Summary
+
+---
+## Core Concepts
+
+- How to troubleshoot errors (review)
+- How to explore and transform data (review)
+- A grammar for understanding graphics (new)
+- 5 basic plots in R (new)
 
 ---
 background-image:url(https://spoke-api-media.s3-us-west-2.amazonaws.com/spoke-api/prod/pictures/21_12_34_29_12_2020_movie_pic.jpg)
@@ -71,7 +105,7 @@ background-size:contain
 ---
 ## Data and Libraries
 
-Today, we'll use the following libraries.
+This week we'll use the following libraries.
 
 
 ```r
@@ -80,10 +114,11 @@ the_packages &lt;- c(
   "tinytex", "kableExtra",
   
   ## Tidyverse
-  "tidyverse","lubridate",
+  "tidyverse","lubridate", "forcats", "haven","labelled",
   
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes","ggpubr",
+  "GGally",
   
   # Data 
   "COVID19","maps","DT"
@@ -92,8 +127,8 @@ the_packages
 ```
 
 ```
- [1] "tinytex"    "kableExtra" "tidyverse"  "lubridate"  "ggmap"      "ggrepel"    "ggridges"   "ggthemes"  
- [9] "ggpubr"     "COVID19"    "maps"       "DT"        
+ [1] "tinytex"    "kableExtra" "tidyverse"  "lubridate"  "forcats"    "haven"      "labelled"   "ggmap"     
+ [9] "ggrepel"    "ggridges"   "ggthemes"   "ggpubr"     "GGally"     "COVID19"    "maps"       "DT"        
 ```
 
 Please run the code above on your machines.
@@ -141,16 +176,38 @@ ipak(the_packages)
 ```
 
 ```
-   tinytex kableExtra  tidyverse  lubridate      ggmap    ggrepel   ggridges   ggthemes     ggpubr    COVID19 
+   tinytex kableExtra  tidyverse  lubridate    forcats      haven   labelled      ggmap    ggrepel   ggridges 
       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
-      maps         DT 
-      TRUE       TRUE 
+  ggthemes     ggpubr     GGally    COVID19       maps         DT 
+      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
 ```
 
 
 - `R` may ask you to install a package's dependencies (other packages your your package needs). Try entering the number `1` into your console
-- `R` may tell you need to restart `R` try saying yes. If it doesn't start downloading, say no
+- `R` may tell you need to restart `R` Try saying yes. If it doesn't start downloading, say no
 - `R` may then ask if you want to compile some packages from source. Type `Y` into your console. If this doesn't work, try again, but this time type `N` when asked
+
+--
+
+Installing packages can be a pain, but it's generally temporary.
+
+---
+## pdfs of Tutorials
+
+- To produce a pdf, R needs a version of `\(\LaTeX\)` installed.
+
+- Try the following:
+
+
+```r
+tinytex::install_tinytex()
+```
+
+- This may work on some computers, but not others.
+  - Producing pdfs is nice, but not strictly necessary
+  - Come see me when you have time and we'll get it sorted. 
+
+- For now, just export the html file and upload that to canvas
 
 
 
@@ -170,7 +227,461 @@ covid &lt;- COVID19::covid19(
 ```
 
 --
-While that runs, let's do some review
+While that runs, let's talk about the grammar 
+
+---
+class:inverse,center, middle
+# 💡
+# The grammar of grapics 
+  
+
+---
+## The Grammar of Graphics
+
+Inspired by [Wilkinson (2005)](https://link.springer.com/book/10.1007/0-387-28695-0)
+
+&gt; A statistical graphic is a mapping of `data` variables to `aes` thetic attributes of `geom` etric objects.
+
+At a minimum, a graphic contains three core components:
+
+- `data:` the dataset containing the variables of interest.
+- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
+[Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
+
+---
+background-image:url(https://miro.medium.com/max/1400/1*ZdQ9wFwaA214ABiib7AygQ.png)
+background-size:contain
+## Seven Layers of Graphics
+
+  
+ 
+  
+.source[
+[Kesari (2018)](https://gkesari.medium.com/my-talk-on-grammar-of-graphics-the-secret-sauce-of-powerful-data-stories-3da618cf1bbf)
+]
+
+---
+## The grammar of graphics in R
+
+In R, we'll implement this grammar of graphics using the `ggplot` package
+
+- Let's take a look at your feedback to last week's survey and see how we can visualize some of the in formation you provided
+
+---
+class: inverse, center, middle
+background-image:url(https://www.wikihow.com/images/thumb/9/9e/Create-Guitar-Feedback-Step-6-Version-2.jpg/v4-460px-Create-Guitar-Feedback-Step-6-Version-2.jpg)
+background-size:cover
+
+# Feedback
+
+---
+## What we've liked
+
+
+
+<div id="htmlwidget-54a20b622f9d4356ba46" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-54a20b622f9d4356ba46">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["The textbook was very useful. The exercises are going to be incredibly helpful for getting some hands-on experience before using the concepts for assignments.","I liked learning how to read what the code is doing","I really enjoyed getting back into coding and feeling the satisfaction of making things work! It's also cool to see how we can make the code make data easier/more accessible to us. Currently stuck on the lab, but I think that will be a lot easier in person when I am able to ask questions of you/classmates","I liked learning about how to make the barplot and histogram in the tutorial.  The Lab was also really cool today because it used the Covid data and extracting specific numbers was really quick with the commands.","I like how you remind the class that its expected to not understand everything thats going on. I found the keyboard shortcuts useful as well.","I appreciated having the blank spaces in otherwise filled out code.  It was a good way to get me to think through stuff without having to start from square one on the code.","I thought it was nice using real data. I thought you explained things well.","I liked the example used in the lab and in class. I thought it was a very interesting application of R","I really like starting coding"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>like<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+---
+## What we haven't liked
+
+<div id="htmlwidget-be7b0983745ce751f25f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-be7b0983745ce751f25f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],["The lab was very confusing for me mostly because I was lost in all of the syntax. Not just R syntax but I struggled to keep track of all of the different data file names, object names, variable names, etc. I will probably need to go back through the slides and get a better feel for how the data is organized before I try the lab exercises again.","It was confusing to follow along with the lab on Zoom","Hard to gauge fully because participating from Zoom was definitely an added challenge!!","I think I am still trying to navigate the language of R so I don't always remember specific commands on hand and then I have to either go through the textbook or dig through the slides to find it.  It is still taking me a bit of time but I am slowly getting the hang of it.","I don't really understand what’s going on most of the time, and I am frustrated by the fact that I don’t understand what the purpose of the code is. Being on zoom makes everything harder as well, especially having to have so many windows open at once.","All of it.  It was an excruciatingly painful class.  I kept getting errors, and nothing seemed to work.  I wanted to throw my laptop at the wall at the end of it.  I kept feeling like I was falling behind and unable to catch back up.","I thought we were a little crunched for time.","The fact that class went over time was challenging for me since I have another class right after on the other side of campus. There was also a lot of information in a short amount of time","A lot of new information to take it which made it difficult at times."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>dislike<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Building that figure
+
+1. Look at the raw data
+2. Recode the raw data
+3. Make a basic plot, telling R the data, aesthetics, geometries, and statistics I want it to plot
+4. Tinker with the data and plot's scales, coordinates, labels and theme to make the figure look better
+
+
+---
+## 1. Look at the raw data
+
+
+```r
+df$trip
+```
+
+```
+&lt;labelled&lt;double&gt;[9]&gt;: You're on a road trip with friends. Who controls the music?
+[1] 1 2 2 1 1 2 1 2 3
+
+Labels:
+ value
+     1
+     2
+     3
+                                                                                                                               label
+                                                                                                                    The driver, duh.
+                                                                                                           The front seat, of course
+ That jerk in the back who you don't even know but seems to have really strong feelings about Billy Joel's "Only the good die young"
+```
+
+---
+## 2. Recode the raw data
+
+
+```r
+df %&gt;%
+  mutate(
+*   Playist = forcats::as_factor(trip)
+ )%&gt;%
+  select(Playist)
+```
+
+```
+# A tibble: 9 × 1
+  Playist                                                                       
+  &lt;fct&gt;                                                                         
+1 "The driver, duh."                                                            
+2 "The front seat, of course"                                                   
+3 "The front seat, of course"                                                   
+4 "The driver, duh."                                                            
+5 "The driver, duh."                                                            
+6 "The front seat, of course"                                                   
+7 "The driver, duh."                                                            
+8 "The front seat, of course"                                                   
+9 "That jerk in the back who you don't even know but seems to have really stron…
+```
+
+---
+## 3. Make a basic plot
+
+
+```r
+df %&gt;% #&lt;&lt; Raw data
+  mutate(
+    Playlist =forcats::as_factor(trip)
+  ) %&gt;% # Transformed data
+  ggplot(aes(x = Playlist, # Aesthetics
+             fill = Playlist))+
+  geom_bar( # Geometry
+    stat = "count" # Statistic
+    )
+```
+
+---
+## 3. Make a basic plot
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-10-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## 4.1 Tinker with data
+
+
+
+```r
+df %&gt;%
+  mutate(
+*    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")
+```
+
+
+---
+## 4.1 Tinker with data
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-12-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## 4.2 Tinker with scales
+
+
+
+```r
+df %&gt;%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+* scale_fill_brewer()
+```
+
+
+---
+## 4.2 Tinker with scales
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-14-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+---
+## 4.3 Tinker with coordinates
+
+
+
+```r
+df %&gt;%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+* coord_flip()
+```
+
+
+---
+## 4.3 Tinker with coordinates
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## 4.4 Tinker with labels
+
+
+
+```r
+df %&gt;%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+  coord_flip() +
+* labs(title = "Who controls the playlist on a roadtrip")
+```
+
+
+---
+## 4.4 Tinker with labels
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-18-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## 4.4 Tinker with labels
+
+
+
+```r
+df %&gt;%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist)) +
+  geom_bar(stat = "count") +
+  scale_fill_brewer() +
+  coord_flip() +
+  labs(title = "Who controls the playlist on a roadtrip") +
+* theme_bw()
+```
+
+
+---
+## 4.4 Tinker with theme
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+---
+## The final code
+
+```r
+df %&gt;%
+  mutate(
+    Playlist = str_wrap(forcats::as_factor(trip),20)
+  ) %&gt;%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  coord_flip()+
+  scale_fill_brewer()+
+  labs(title = "Who controls the playlist on a roadtrip")+
+  theme_bw()
+```
+
+
+---
+# How we're doing
+
+
+```r
+df %&gt;%
+  select(starts_with("eval"))%&gt;%
+  mutate(
+    Instructor = eval_1,
+    Lectures = eval_2,
+    Labs = eval_3,
+    Tutorials = eval_4,
+    `QSS textbook` = eval_5,
+    `Course website` = eval_6,
+     Canvas = eval_7
+  )%&gt;%
+  select(-starts_with("eval")) -&gt; eval_df
+```
+
+---
+# How we're doing
+
+
+```r
+DT::datatable(eval_df)
+```
+
+<div id="htmlwidget-24294d65e0bc0e709a84" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-24294d65e0bc0e709a84">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9"],[70,91,100,64,94,77,75,100,100],[39,3,88,75,32,9,75,83,78],[50,10,88,86,42,50,51,73,91],[79,15,90,86,40,35,51,83,72],[50,67,99,73,71,84,38,100,100],[50,70,87,68,97,49,56,96,95],[50,25,97,68,50,25,74,83,89]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Instructor<\/th>\n      <th>Lectures<\/th>\n      <th>Labs<\/th>\n      <th>Tutorials<\/th>\n      <th>QSS textbook<\/th>\n      <th>Course website<\/th>\n      <th>Canvas<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+# Visualizing how we're doing
+
+- Three ways to visualize a univariate distribution
+  - Histograms
+  - Boxplots
+  - Density plots
+  - Barplots (for categorical data)
+- Simple way to display a bivariate relationship
+  - Scatter plots
+
+
+---
+# How I'm doing with a Histogram
+
+
+```r
+eval_df %&gt;%
+  ggplot(aes(Instructor))+
+  geom_histogram()
+```
+
+---
+# How I'm doing with a Histogram
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+---
+# How I'm doing with a Boxplot
+
+
+```r
+eval_df %&gt;%
+  ggplot(aes(Instructor))+
+  geom_boxplot()
+```
+
+---
+# How I'm doing with a Boxplot
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-27-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+---
+# How I'm doing with a density plot
+
+
+```r
+eval_df %&gt;%
+  ggplot(aes(Instructor))+
+  geom_density()+
+  geom_rug()
+```
+
+---
+# How I'm doing with a density plot
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-29-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+---
+# Overall distribution of evaluations
+
+
+```r
+eval_df %&gt;%
+  gather(
+    key = "Evaluation",
+    value = "Score"
+  ) -&gt; plot_df
+plot_df
+```
+
+```
+# A tibble: 63 × 2
+   Evaluation Score
+   &lt;chr&gt;      &lt;dbl&gt;
+ 1 Instructor    70
+ 2 Instructor    91
+ 3 Instructor   100
+ 4 Instructor    64
+ 5 Instructor    94
+ 6 Instructor    77
+ 7 Instructor    75
+ 8 Instructor   100
+ 9 Instructor   100
+10 Lectures      39
+# … with 53 more rows
+```
+
+
+---
+# Overall distribution of evaluations
+
+
+
+```r
+plot_df %&gt;%
+  ggplot(aes(Score,Evaluation))+
+  geom_density_ridges()
+```
+
+---
+# Overall distribution of evaluations
+
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-32-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Course webiste vs Canvas
+
+
+```r
+eval_df %&gt;%
+  ggplot(aes(`Course website`, Canvas))+
+  geom_point()+
+  geom_smooth(method = "lm")
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-33-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Putting it all together
+
+
+```r
+GGally::ggpairs(eval_df)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
 
 ---
 # Review
@@ -181,6 +692,7 @@ While that runs, let's do some review
 
 
 ---
+class:center
 # 🔍
 # Troubleshooting errors
 
@@ -212,18 +724,38 @@ More discussion [here](https://github.com/noamross/zero-dependency-problems/blob
 ## Common Syntactic Errors
 
 - Unmatched parentheses or brackets
-- Misspelled name 
+
+- Misspelled a name 
+
 - Forgot a comma
+
 - Forgot to install a package or load a library
+
 - Forgot to set the working directory/path to a file you want R to use.
+
 - Tried to select a column or row that doesn't exist
 
+
+---
+## Fixing Syntactic Errors
+
+- R Studio's script editor will show a red circle with a white x in next to a line of code it thinks has an error in it.
+
+- Have someone else look at your code (Fresh eyes, [paired programming](https://en.wikipedia.org/wiki/Pair_programming))
+
+- Copy and paste the "general part" of error message into Google.
+
+- Knit your document after each completed code chunk
+  - This will run the code from top to bottom, and stop when it encounters an error
+  - Try commenting out the whole chunk, and then uncommenting successive lines of code 
+
+- Be patient. Don't be hard are yourself. Remember, errors are portals of discovery.
 
 ---
 ## Semantic Errors
 
 - Your code runs, but doesn't produce what you expected.
-- Less common, but can be harder to identify and fix
+- Less common;  can be harder to identify and fix
 - One example: Two packages have a function with the same name that do different things
 
 
@@ -235,7 +767,7 @@ More discussion [here](https://github.com/noamross/zero-dependency-problems/blob
 ---
 ## Semantic Errors
 
-- General solution:
+- Some general solutions/practices to avoid semantic errors:
   - Specify the package and the function you want: `package_name::function_name()`
   - Write helpful comments in your code.
   - Include "sanity" checks in your code. 
@@ -265,15 +797,18 @@ background-size:contain
 ## Why do we need to wrangle data
 
 - Rarely, if ever, do we get data in the exact format we need.
+
 - Instead, before we can get to work, we need to re-shape, re-arrange, and/or reformat our data.
+
 - Sometimes we call this process:
-  - Data cleaning, or recoding
+  - Data cleaning, recoding
   - Data wrangling
   - Data carpentry
+
 - The end goal is the same: make messy data tidy
 
 ---
-## Tidy data:
+## Tidy data
 
 - Every column is a variable.
 
@@ -817,7 +1352,7 @@ table(covid_us$facial_coverings)
 ```
 
    -4    -3    -2    -1     0     1     2     3     4 
-  421  5264  5442    97  2513  2752 10848  8580   622 
+  421  5264  5445    97  2513  2752 10851  8580   622 
 ```
 
 Where negative values correspond to the most stringent policy in effect in a targeted geographic area (rather than the whole state)
@@ -950,7 +1485,7 @@ table(covid_us$face_masks,covid_us$face_masks_baseR)
                          No policy Recommended Some requirements Required shared places Required all times
   No policy                   2513           0                 0                      0                  0
   Recommended                    0        2849                 0                      0                  0
-  Some requirements              0           0             16290                      0                  0
+  Some requirements              0           0             16296                      0                  0
   Required shared places         0           0                 0                  13844                  0
   Required all times             0           0                 0                      0               1043
 ```
@@ -1190,7 +1725,7 @@ mean(covid_us$new_cases_pc, na.rm=T)
 ```
 
 ```
-[1] 33.08426
+[1] 33.20571
 ```
 
 ---
@@ -1250,7 +1785,7 @@ covid_us%&gt;%
 3 Some requirements             41.7 
 4 Required shared places        30.0 
 5 Required all times            32.0 
-6 &lt;NA&gt;                          92.3 
+6 &lt;NA&gt;                          94.6 
 ```
 
 
@@ -1282,7 +1817,7 @@ median(covid_us$new_cases_pc, na.rm=T)
 ```
 
 ```
-[1] 14.06912
+[1] 14.10355
 ```
 
 
@@ -1298,7 +1833,7 @@ mean(covid_us$new_cases_pc, na.rm=T)
 ```
 
 ```
-[1] 33.08426
+[1] 33.20571
 ```
 
 ```r
@@ -1306,7 +1841,7 @@ median(covid_us$new_cases_pc, na.rm=T)
 ```
 
 ```
-[1] 14.06912
+[1] 14.10355
 ```
 
 Which one is a better summary of what's typical?
@@ -1315,7 +1850,7 @@ Which one is a better summary of what's typical?
 ---
 If we were to look at a histogram of our data (more on that today), we see that the `new_cases_pc` has a "long tail" or is skewed to the right. Most of the values are close to 0, but there are few cases that are extreme outliers.
 
-&lt;img src="02-slides_files/figure-html/hist-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/hist-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1338,8 +1873,10 @@ sort(table(covid_us$face_masks))
 
 ```
 
-    Required all times              No policy            Recommended Required shared places      Some requirements 
-                  1043                   2513                   2849                  13844                  16290 
+    Required all times              No policy            Recommended 
+                  1043                   2513                   2849 
+Required shared places      Some requirements 
+                 13844                  16296 
 ```
 
 ---
@@ -1349,7 +1886,7 @@ For numeric data, modes correspond to the peak of a variable's density function 
 
 You can get a sense of the relationship between, means, median's and modes from this helpful figure from [Wikipedia](https://en.wikipedia.org/wiki/Mode_(statistics)):
 
-&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" width="200" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" width="200" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1447,7 +1984,7 @@ quantile(covid_us$new_cases_pc, probs = c(.25,.75), na.rm=T)
 
 ```
       25%       75% 
- 4.025779 36.565368 
+ 4.030745 36.697633 
 ```
 
 
@@ -1478,7 +2015,7 @@ var(covid_us$new_cases_pc,na.rm=T)
 ```
 
 ```
-[1] 4310.212
+[1] 4328.978
 ```
 
 ```r
@@ -1491,7 +2028,7 @@ sum(
 ```
 
 ```
-[1] 4310.212
+[1] 4328.978
 ```
 
 
@@ -1518,7 +2055,7 @@ sd(covid_us$new_cases_pc,na.rm=T)
 ```
 
 ```
-[1] 65.65221
+[1] 65.79497
 ```
 
 ---
@@ -1553,7 +2090,7 @@ var(covid_us$new_cases_pc,covid_us$percent_vaccinated,na.rm = T)
 ```
 
 ```
-[1] 260.4928
+[1] 263.7108
 ```
 
 
@@ -1587,7 +2124,7 @@ cor(covid_us$percent_vaccinated, covid_us$new_cases_pc, use = "complete.obs")
 ```
 
 ```
-[1] 0.1413067
+[1] 0.1427753
 ```
 
 Hmm... That seems a little strange. What if we calculated the correlation between vaccination rates and new cases separately for each month in 2021
@@ -1615,8 +2152,8 @@ covid_us %&gt;%
 DT::datatable(monthly_vax_case_correlations)
 ```
 
-<div id="htmlwidget-584076c1fc24c58d802e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-584076c1fc24c58d802e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],[2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022],[1,2,3,4,5,6,7,8,9,10,11,12,1,2],[0.96,5.9,14.55,27.85,40.3,46.7,49.53,51.7,54.64,56.95,58.46,60.56,62.07,62.76],[-0.3,-0.3,0.02,0.06,-0.11,-0.21,-0.29,-0.33,-0.29,-0.15,0.03,0.22,0.01,-0.22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>mn_per_vax<\/th>\n      <th>cor<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-72f33403abbbc6fbe8e4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72f33403abbbc6fbe8e4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],[2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022],[1,2,3,4,5,6,7,8,9,10,11,12,1,2],[0.96,5.9,14.55,27.85,40.3,46.7,49.53,51.7,54.64,56.95,58.46,60.56,62.07,62.76],[-0.3,-0.3,0.02,0.06,-0.11,-0.21,-0.29,-0.33,-0.29,-0.15,0.03,0.22,0.01,-0.21]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>mn_per_vax<\/th>\n      <th>cor<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -1659,7 +2196,7 @@ cor(x,y)
 plot(x,y)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-30-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-63-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1716,7 +2253,7 @@ class:inverse,center, middle
     - histogram `hist(data$x)`
     - kernel density plot `plot(density(data$x))`
     - boxplot `boxplot(data$x)`
-    - barplot
+    - barplot `barplot(table(data$x))
 - The relationship between two variables
     - scatter plots
 
@@ -1728,7 +2265,7 @@ class:inverse,center, middle
 hist(covid_us$new_cases_pc)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-31-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-64-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1739,7 +2276,7 @@ hist(covid_us$new_cases_pc)
 hist(covid_us$new_cases_pc, breaks = 100)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-32-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-65-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1751,7 +2288,7 @@ hist(covid_us$new_cases_pc, breaks = 100)
 plot(density(covid_us$new_cases_pc,na.rm=T))
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-33-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-66-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1762,7 +2299,7 @@ plot(density(covid_us$new_cases_pc,na.rm=T))
 boxplot(covid_us$new_cases_pc)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-34-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-67-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1773,7 +2310,7 @@ boxplot(covid_us$new_cases_pc)
 boxplot(new_cases_pc ~ face_masks, data = covid_us)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-35-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-68-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1787,7 +2324,7 @@ boxplot(new_cases_pc ~ face_masks,
         ylim=c(0,500))
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-36-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-69-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1799,7 +2336,7 @@ boxplot(new_cases_pc ~ face_masks,
 barplot(table(covid_us$face_masks))
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-37-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-70-1.png" width="400px" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1810,7 +2347,7 @@ barplot(table(covid_us$face_masks))
 barplot(sort(table(covid_us$face_masks)), las = 2)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-38-1.png" width="80%" height="400" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-71-1.png" width="80%" height="400" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1822,7 +2359,7 @@ barplot(sort(table(covid_us$face_masks)),
         las = 1,cex.names = .5)
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-39-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-72-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1836,7 +2373,7 @@ plot(covid_us$percent_vaccinated,
      )
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-40-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-73-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1858,7 +2395,7 @@ abline(m1)
 ```
 ]
 .pull-right[
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-42-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-75-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1872,7 +2409,7 @@ plot(covid_us$percent_vaccinated,
      )
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-43-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-76-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1886,29 +2423,10 @@ plot(covid_us$confirmed,
      )
 ```
 
-&lt;img src="02-slides_files/figure-html/unnamed-chunk-44-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-77-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
 
 
 
----
-class:inverse,center, middle
-# 💡
-# Basic figures with `ggplot`
-  
-  - aesthetics
-  - geoms
-
----
-## The Grammar of Graphics
-In short, the grammar tells us that:
-
-A statistical graphic is a mapping of data variables to aesthetic attributes of geometric objects.
-
-Specifically, we can break a graphic into the following three essential components:
-
-data: the dataset containing the variables of interest.
-geom: the geometric object in question. This refers to the type of object we can observe in a plot. For example: points, lines, and bars.
-aes: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
 
 ---
 class:inverse,center, middle

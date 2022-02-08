@@ -2,6 +2,10 @@
 title: "Week 02:"
 subtitle: "Visualizing Data in R"
 author: "Paul Testa"
+reveal_options:
+  width: 100%
+  height: 100%
+  margin: 0.1
 output:
   xaringan::moon_reader:
     css: ["default", "css/brown.css"]
@@ -10,6 +14,7 @@ output:
       highlightStyle: atelier-lakeside-light
       highlightLines: true
       countIncrementalSlides: false
+
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +23,7 @@ knitr::opts_chunk$set(
   warning = FALSE, 
   message = FALSE, 
   comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%",out.height = "80%", 
+  fig.align = "center", out.width = "80%",out.height = "400px", 
   cache = TRUE)
 ```
 
@@ -27,34 +32,68 @@ xaringanExtra::use_tile_view()
 ```
 
 
+
 ---
+background-image: url("https://scontent-lga3-2.xx.fbcdn.net/v/t1.6435-9/37921549_422082921647443_3300610361849282560_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=e3f864&_nc_eui2=AeHyVjbRWA57U_p3xsoku058nOTeFOsG5mKc5N4U6wbmYsss7QXmxM6f1k6xEJyGnhI&_nc_ohc=85K100sjKxMAX8Cefh-&_nc_oc=AQkmFfA4-nsiYsb22TICWQc5TzpF5zn9QtJqVC77NzK0q5i2SZRDqSYlRKOFzjqCH-U&_nc_ht=scontent-lga3-2.xx&oh=00_AT_LrNXKJ8t-qBq_Z6W9pCRVwO8Sl11aGTQZX8_yRWZYNg&oe=6226CB72")
+background-size:cover
 class: inverse, center, middle
 # Overview
 
+<style>
+
+.source {
+  margin: 5;
+  position: absolute;
+  top: 95%;
+  left: 10%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
 ---
-## General Plan
+## Today
 
 - Setup
 - Review
+  - Feedback
   - Troubleshooting errors
   - Data Wrangling in R
   - Descriptive Statistics
-- Data Visualization 
+- Data Visualization
+  - The Grammar of Graphics
 - Producing Figures in Base R
   - Visualizing distributions
   - Visualizing relationships
+- Summary
+
+---
+## Thursday
+
+- Review
+  - Data Visualization
+  - The Grammar of Graphics
 - Basic figures with `ggplot`
+  - data
   - aesthetics
   - geoms
 - Adjusting figures with `ggplot`
-  - labels
-  - scales
   - facets
+  - statistics
+  - coordinates
   - themes
 - Advanced figures with `ggplot`
   - Combining figures with `patchwork`
   - Creating maps with `ggmap`
-- Summary
+
+---
+## Core Concepts
+
+- How to troubleshoot errors (review)
+- How to explore and transform data (review)
+- A grammar for understanding graphics (new)
+- 5 basic plots in R (new)
 
 ---
 background-image:url(https://spoke-api-media.s3-us-west-2.amazonaws.com/spoke-api/prod/pictures/21_12_34_29_12_2020_movie_pic.jpg)
@@ -63,7 +102,7 @@ background-size:contain
 ---
 ## Data and Libraries
 
-Today, we'll use the following libraries.
+This week we'll use the following libraries.
 
 ```{r packages, cache=F}
 the_packages <- c(
@@ -71,10 +110,11 @@ the_packages <- c(
   "tinytex", "kableExtra",
   
   ## Tidyverse
-  "tidyverse","lubridate",
+  "tidyverse","lubridate", "forcats", "haven","labelled",
   
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes","ggpubr",
+  "GGally",
   
   # Data 
   "COVID19","maps","DT"
@@ -126,8 +166,29 @@ ipak(the_packages)
 
 
 - `R` may ask you to install a package's dependencies (other packages your your package needs). Try entering the number `1` into your console
-- `R` may tell you need to restart `R` try saying yes. If it doesn't start downloading, say no
+- `R` may tell you need to restart `R` Try saying yes. If it doesn't start downloading, say no
 - `R` may then ask if you want to compile some packages from source. Type `Y` into your console. If this doesn't work, try again, but this time type `N` when asked
+
+--
+
+Installing packages can be a pain, but it's generally temporary.
+
+---
+## pdfs of Tutorials
+
+- To produce a pdf, R needs a version of $\LaTeX$ installed.
+
+- Try the following:
+
+```{r, eval=F}
+tinytex::install_tinytex()
+```
+
+- This may work on some computers, but not others.
+  - Producing pdfs is nice, but not strictly necessary
+  - Come see me when you have time and we'll get it sorted. 
+
+- For now, just export the html file and upload that to canvas
 
 
 
@@ -146,7 +207,542 @@ covid <- COVID19::covid19(
 ```
 
 --
-While that runs, let's do some review
+While that runs, let's talk about data visualization and the grammar of graphics
+
+---
+class:inverse,center, middle
+# 💡
+#  Data Visualization 
+
+
+---
+class: center, middle
+
+--
+> "The simple graph has brought more information to the data analyst’s mind than any other device." - John Tukey
+
+--
+
+> "A picture's worth a thousand words" - Paul Testa
+
+---
+##  Data Visualization 
+
+Data visualization is an incredibly valuable tool that helps us to
+
+- Explore data, uncovering new relationships, as well as potential problems
+- Communicate our results clearly and precisely
+
+Take a look at how the [BBC](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) uses R to produce its graphics
+
+Today, we will
+
+- Produce basic figures n  that describe
+- Introduce a `grammar of graphics`
+- Learn how to apply this grammar with `ggplot`
+
+
+
+
+
+---
+class:inverse,center, middle
+# 💡
+# The grammar of grapics 
+  
+
+---
+## The Grammar of Graphics
+
+Inspired by [Wilkinson (2005)](https://link.springer.com/book/10.1007/0-387-28695-0)
+
+> A statistical graphic is a mapping of `data` variables to `aes` thetic attributes of `geom` etric objects.
+
+At a minimum, a graphic contains three core components:
+
+- `data:` the dataset containing the variables of interest.
+- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
+[Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
+
+---
+background-image:url(https://miro.medium.com/max/1400/1*ZdQ9wFwaA214ABiib7AygQ.png)
+background-size:contain
+## Seven Layers of Graphics
+
+  
+ 
+  
+.source[
+[Kesari (2018)](https://gkesari.medium.com/my-talk-on-grammar-of-graphics-the-secret-sauce-of-powerful-data-stories-3da618cf1bbf)
+]
+
+---
+## The grammar of graphics in R
+
+In R, we'll implement this grammar of graphics using the `ggplot` package
+
+- Let's take a look at your feedback to last week's survey and see how we can visualize some of the in formation you provided
+
+---
+class: inverse, center, middle
+background-image:url(https://www.wikihow.com/images/thumb/9/9e/Create-Guitar-Feedback-Step-6-Version-2.jpg/v4-460px-Create-Guitar-Feedback-Step-6-Version-2.jpg)
+background-size:cover
+
+# Feedback
+
+---
+## What we've liked
+
+```{r,echo=F}
+# For working live
+#df <- haven::read_spss("static/files/wk01.sav")
+# For rendering
+df <- haven::read_spss("../files/wk01.sav")
+```
+
+```{r, echo=F, out.height='80%'}
+DT::datatable(df %>% 
+                select(like))
+```
+
+
+
+---
+## What we haven't liked
+
+```{r, echo=F, out.height='80%'}
+DT::datatable(df %>% 
+                select(dislike))
+```
+
+
+---
+
+
+```{r, echo=F}
+df %>%
+  mutate(
+    Playlist = str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+  coord_flip()+
+  labs(title = "Who controls the playlist")+
+  theme_bw()
+```
+
+
+---
+## Building that figure
+
+1. Look at the raw data
+2. Recode the raw data
+3. Make a basic plot, telling R the data, aesthetics, geometries, and statistics I want it to plot
+4. Tinker with the data and plot's scales, coordinates, labels and theme to make the figure look better
+
+
+---
+## 1. Look at the raw data
+
+```{r}
+df$trip
+```
+
+---
+## 2. Recode the raw data
+
+```{r}
+df %>%
+  mutate(
+    Playist = forcats::as_factor(trip) #<<
+ )%>%
+  select(Playist)
+```
+
+---
+## 3. Make a basic plot
+
+```{r ,eval=F}
+df %>% #<< Raw data
+  mutate(
+    Playlist =forcats::as_factor(trip)
+  ) %>% # Transformed data
+  ggplot(aes(x = Playlist, # Aesthetics
+             fill = Playlist))+
+  geom_bar( # Geometry
+    stat = "count" # Statistic
+    )
+```
+
+---
+## 3. Make a basic plot
+
+```{r ,echo=F}
+df %>% #<< Raw data
+  mutate(
+    Playlist =forcats::as_factor(trip)
+  ) %>% # Transformed data
+  ggplot(aes(x = Playlist, # Aesthetics
+             fill = Playlist))+
+  geom_bar( # Geometry
+    stat = "count" # Statistic
+    )
+```
+
+
+
+---
+## 4.1 Tinker with data
+
+
+```{r, eval=F}
+df %>%
+  mutate(
+*    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")
+```
+
+
+---
+## 4.1 Tinker with data
+
+```{r, echo=FALSE}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")
+```
+
+
+---
+## 4.2 Tinker with scales
+
+
+```{r, eval=F}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer() #<<
+```
+
+
+---
+## 4.2 Tinker with scales
+
+```{r, echo=FALSE}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()
+
+```
+
+---
+## 4.3 Tinker with coordinates
+
+
+```{r, eval=F}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+  coord_flip() #<<
+```
+
+
+---
+## 4.3 Tinker with coordinates
+
+```{r, echo=FALSE}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+  coord_flip()
+
+```
+
+
+---
+## 4.4 Tinker with labels
+
+
+```{r, eval=F}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  scale_fill_brewer()+
+  coord_flip() +
+  labs(title = "Who controls the playlist on a roadtrip")#<<
+```
+
+
+---
+## 4.4 Tinker with labels
+
+```{r, echo=FALSE}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist)) +
+  geom_bar(stat = "count") +
+  scale_fill_brewer() +
+  coord_flip() +
+  labs(title = "Who controls the playlist on a roadtrip")
+
+
+```
+
+
+---
+## 4.4 Tinker with labels
+
+
+```{r, eval=F}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist)) +
+  geom_bar(stat = "count") +
+  scale_fill_brewer() +
+  coord_flip() +
+  labs(title = "Who controls the playlist on a roadtrip") +
+  theme_bw() #<<
+```
+
+
+---
+## 4.4 Tinker with theme
+
+```{r, echo=FALSE}
+df %>%
+  mutate(
+    Playlist =str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count") +
+  scale_fill_brewer()+
+  coord_flip()+
+  labs(title = "Who controls the playlist on a roadtrip")+
+  theme_bw()
+
+
+```
+
+---
+## The final code
+```{r, echo=T, eval=F}
+df %>%
+  mutate(
+    Playlist = str_wrap(forcats::as_factor(trip),20)
+  ) %>%
+  ggplot(aes(x = Playlist,
+             fill = Playlist))+
+  geom_bar(stat = "count")+
+  coord_flip()+
+  scale_fill_brewer()+
+  labs(title = "Who controls the playlist on a roadtrip")+
+  theme_bw()
+```
+
+
+---
+# How we're doing
+
+```{r}
+df %>%
+  select(starts_with("eval"))%>%
+  mutate(
+    Instructor = eval_1,
+    Lectures = eval_2,
+    Labs = eval_3,
+    Tutorials = eval_4,
+    `QSS textbook` = eval_5,
+    `Course website` = eval_6,
+     Canvas = eval_7
+  )%>%
+  select(-starts_with("eval")) -> eval_df
+```
+
+---
+# How we're doing
+
+```{r, out.height='80%'}
+DT::datatable(eval_df)
+```
+
+
+---
+# Visualizing how we're doing
+
+- Three ways to visualize a univariate distribution
+  - Histograms
+  - Boxplots
+  - Density plots
+  - Barplots (for categorical data)
+- Simple way to display a bivariate relationship
+  - Scatter plots
+
+
+---
+# How I'm doing with a Histogram
+
+```{r, eval=F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_histogram()
+```
+
+---
+# How I'm doing with a Histogram
+
+```{r, echo=F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_histogram()
+```
+
+---
+# How I'm doing with a Boxplot
+
+```{r, eval=F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_boxplot()
+```
+
+---
+# How I'm doing with a Boxplot
+
+```{r, echo=F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_boxplot()
+```
+
+---
+# How I'm doing with a density plot
+
+```{r, eval = F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_density()+
+  geom_rug()
+```
+
+---
+# How I'm doing with a density plot
+
+```{r, echo = F}
+eval_df %>%
+  ggplot(aes(Instructor))+
+  geom_density()+
+  geom_rug()
+```
+
+---
+# Overall distribution of evaluations
+
+```{r}
+eval_df %>%
+  gather(
+    key = "Evaluation",
+    value = "Score"
+  ) -> plot_df
+plot_df
+```
+
+
+---
+# Overall distribution of evaluations
+
+
+```{r, eval=F}
+plot_df %>%
+  ggplot(aes(Score,Evaluation))+
+  geom_density_ridges()
+```
+
+---
+# Overall distribution of evaluations
+
+
+```{r, echo=F}
+plot_df %>%
+  ggplot(aes(Score,Evaluation))+
+  geom_density_ridges()
+```
+
+
+---
+# Course webiste vs Canvas
+
+```{r, eval=F}
+eval_df %>%
+  ggplot(aes(`Course website`, Canvas))+
+  geom_point()+
+  geom_smooth(method = "lm")
+```
+
+---
+# Course webiste vs Canvas
+
+```{r, echo=F}
+eval_df %>%
+  ggplot(aes(`Course website`, Canvas))+
+  geom_point()+
+  geom_smooth(method = "lm")
+```
+
+
+
+---
+# Putting it all together
+
+```{r}
+GGally::ggpairs(eval_df)
+```
+
+---
+# Summary
+
+-
+
 
 ---
 # Review
@@ -157,6 +753,7 @@ While that runs, let's do some review
 
 
 ---
+class:center
 # 🔍
 # Troubleshooting errors
 
@@ -188,18 +785,38 @@ More discussion [here](https://github.com/noamross/zero-dependency-problems/blob
 ## Common Syntactic Errors
 
 - Unmatched parentheses or brackets
-- Misspelled name 
+
+- Misspelled a name 
+
 - Forgot a comma
+
 - Forgot to install a package or load a library
+
 - Forgot to set the working directory/path to a file you want R to use.
+
 - Tried to select a column or row that doesn't exist
 
+
+---
+## Fixing Syntactic Errors
+
+- R Studio's script editor will show a red circle with a white x in next to a line of code it thinks has an error in it.
+
+- Have someone else look at your code (Fresh eyes, [paired programming](https://en.wikipedia.org/wiki/Pair_programming))
+
+- Copy and paste the "general part" of error message into Google.
+
+- Knit your document after each completed code chunk
+  - This will run the code from top to bottom, and stop when it encounters an error
+  - Try commenting out the whole chunk, and then uncommenting successive lines of code 
+
+- Be patient. Don't be hard are yourself. Remember, errors are portals of discovery.
 
 ---
 ## Semantic Errors
 
 - Your code runs, but doesn't produce what you expected.
-- Less common, but can be harder to identify and fix
+- Less common;  can be harder to identify and fix
 - One example: Two packages have a function with the same name that do different things
 
 ```{r}
@@ -210,7 +827,7 @@ More discussion [here](https://github.com/noamross/zero-dependency-problems/blob
 ---
 ## Semantic Errors
 
-- General solution:
+- Some general solutions/practices to avoid semantic errors:
   - Specify the package and the function you want: `package_name::function_name()`
   - Write helpful comments in your code.
   - Include "sanity" checks in your code. 
@@ -239,15 +856,18 @@ background-size:contain
 ## Why do we need to wrangle data
 
 - Rarely, if ever, do we get data in the exact format we need.
+
 - Instead, before we can get to work, we need to re-shape, re-arrange, and/or reformat our data.
+
 - Sometimes we call this process:
-  - Data cleaning, or recoding
+  - Data cleaning, recoding
   - Data wrangling
   - Data carpentry
+
 - The end goal is the same: make messy data tidy
 
 ---
-## Tidy data:
+## Tidy data
 
 - Every column is a variable.
 
@@ -1191,242 +1811,5 @@ class: bottom,center
 background-image:url(http://nowiknow.com/wp-content/uploads/home-kit-kat-bar-break-1024x575.png)
 background-size:cover
 # Let's take a brief break
-
----
-class:inverse,center, middle
-# 💡
-#  Data Visualization 
-
-
----
-class: center, middle
-
---
-> "The simple graph has brought more information to the data analyst’s mind than any other device." - John Tukey
-
---
-
-> "A picture's worth a thousand words" - Paul Testa
-
----
-##  Data Visualization 
-
-Data visualization is an incredibly valuable tool that helps us to
-
-- Explore data, uncovering new relationships, as well as potential problems
-- Communicate our results clearly and precisely
-
-Take a look at how the [BBC](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) uses R to produce its graphics
-
-Today, we will
-
-- Produce basic figures in R that describe
-- Introduce a `grammar of graphics`
-- Learn how to apply this grammar with `ggplot`
-
-
-
-
----
-class:inverse,center, middle
-# 💡
-# Producing Figures in Base R
-
----
-## Producing Figures in Base R
-
-- The distribution of single variables
-    - histogram `hist(data$x)`
-    - kernel density plot `plot(density(data$x))`
-    - boxplot `boxplot(data$x)`
-    - barplot
-- The relationship between two variables
-    - scatter plots
-
----
-## Histogram
-
-```{r,out.width='400px'}
-hist(covid_us$new_cases_pc)
-```
-
-
----
-## Histogram
-
-```{r, out.width='400px'}
-hist(covid_us$new_cases_pc, breaks = 100)
-```
-
-
----
-## Kernel density plot
-
-
-```{r, out.width='400px'}
-plot(density(covid_us$new_cases_pc,na.rm=T))
-```
-
-
----
-## Box and whiskers plot (Or just Boxplot)
-
-```{r, out.width='400px'}
-boxplot(covid_us$new_cases_pc)
-```
-
-
----
-## Box and whiskers plot by face mask policy
-
-```{r, out.width='400px'}
-boxplot(new_cases_pc ~ face_masks, data = covid_us)
-```
-
-
----
-## Box and whiskers plot by face mask policy (cutting the axis off)
-
-```{r, out.width='400px'}
-boxplot(new_cases_pc ~ face_masks, 
-        data = covid_us,
-        cex.axis = .5,
-        ylim=c(0,500))
-```
-
-
-
----
-## Barplot
-
-```{r, out.width='400px'}
-barplot(table(covid_us$face_masks))
-```
-
-
----
-## Barplot
-
-```{r, out.height=400}
-barplot(sort(table(covid_us$face_masks)), las = 2)
-```
-
-
----
-## A slighty better barplot
-
-```{r, out.height='400px'}
-barplot(sort(table(covid_us$face_masks)), 
-        las = 1,cex.names = .5)
-```
-
-
-
----
-## Scatter plot: Percent Vaccinated vs New Cases
-
-```{r,out.height='400px'}
-plot(covid_us$percent_vaccinated,
-     covid_us$deaths
-     )
-```
-
-
----
-## Scatter plot: Percent Vaccinated vs New Cases on September 30, 2021
-
-.pull-left[
-```{r,eval=F, out.height='400px'}
-with(covid_us[covid_us$date == "2021-9-30",],
-plot(percent_vaccinated,
-     new_cases_pc
-     )
-)
-m1 <- lm(new_cases_pc ~ percent_vaccinated,
-         covid_us,
-         subset = date == "2021-9-30"
-         )
-abline(m1)
-
-```
-]
-.pull-right[
-```{r,echo=F,out.height='400px'}
-with(covid_us[covid_us$date == "2021-9-30",],
-plot(percent_vaccinated,
-     new_cases_pc
-     )
-)
-m1 <- lm(new_cases_pc ~ percent_vaccinated,
-         covid_us,
-         subset = date == "2021-9-30"
-         )
-abline(m1)
-
-```
-
-]
-
----
-## Scatter plot: Percent Vaccinated vs New Cases
-
-```{r,out.height='400px'}
-plot(covid_us$percent_vaccinated,
-     covid_us$deaths
-     )
-```
-
-
-
----
-## Scatter plot: Total Confirmed Cases vs Deaths
-
-```{r, out.height='400px'}
-plot(covid_us$confirmed,
-     covid_us$deaths
-     )
-```
-
-
-
----
-class:inverse,center, middle
-# 💡
-# Basic figures with `ggplot`
-  
-  - aesthetics
-  - geoms
-
----
-## The Grammar of Graphics
-In short, the grammar tells us that:
-
-A statistical graphic is a mapping of data variables to aesthetic attributes of geometric objects.
-
-Specifically, we can break a graphic into the following three essential components:
-
-data: the dataset containing the variables of interest.
-geom: the geometric object in question. This refers to the type of object we can observe in a plot. For example: points, lines, and bars.
-aes: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
-
----
-class:inverse,center, middle
-# 💡
-# Adjusting figures with `ggplot`
-  - labels
-  - scales
-  - facets
-  - themes
-
-
-
----
-class:inverse,center, middle
-# 💡
-# Advanced figures with `ggplot`
-  - Combining figures with `patchwork`
-  - Creating maps with `ggmap`
-
-
 
 
