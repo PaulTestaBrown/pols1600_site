@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 02:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 02:
+## Visualizing Data in R
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Setup
+- Review
+  - Troubleshooting errors
+  - Data Wrangling in R
+  - Descriptive Statistics
+- Data Visualization 
+- Producing Figures in Base R
+  - Visualizing distributions
+  - Visualizing relationships
+- Basic figures with `ggplot`
+  - aesthetics
+  - geoms
+- Adjusting figures with `ggplot`
+  - labels
+  - scales
+  - facets
+  - themes
+- Advanced figures with `ggplot`
+  - Combining figures with `patchwork`
+  - Creating maps with `ggmap`
+- Summary
+
+---
+background-image:url(https://spoke-api-media.s3-us-west-2.amazonaws.com/spoke-api/prod/pictures/21_12_34_29_12_2020_movie_pic.jpg)
+background-size:contain
+
+---
+## Data and Libraries
+
+Today, we'll use the following libraries.
+
+
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "tinytex", "kableExtra",
+  
+  ## Tidyverse
+  "tidyverse","lubridate",
+  
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes","ggpubr",
+  
+  # Data 
+  "COVID19","maps","DT"
+)
+the_packages
+```
+
+```
+ [1] "tinytex"    "kableExtra" "tidyverse"  "lubridate"  "ggmap"      "ggrepel"    "ggridges"   "ggthemes"  
+ [9] "ggpubr"     "COVID19"    "maps"       "DT"        
+```
+
+Please run the code above on your machines.
+
+---
+## Installing and loading new packages
+
+Next we'll create a function called `ipak` (thanks [Steven](https://gist.github.com/stevenworthington/3178163)) which:
+
+- Takes a list of packages (`pkg`)
+- Checks to see if these packages are installed
+- Installs any new packages
+- Loads all the packages so we can use them
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+Again, run this code on your machines
+
+---
+## Installing and loading new packages
+
+Finally, let's use `ipak` to install and load `the_packages`
+
+What should we replace `some_function` and `some_input` with to do this?
+
+
+```r
+some_function(some_input)
+```
+
+
+--
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   tinytex kableExtra  tidyverse  lubridate      ggmap    ggrepel   ggridges   ggthemes     ggpubr    COVID19 
+      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
+      maps         DT 
+      TRUE       TRUE 
+```
+
+
+- `R` may ask you to install a package's dependencies (other packages your your package needs). Try entering the number `1` into your console
+- `R` may tell you need to restart `R` try saying yes. If it doesn't start downloading, say no
+- `R` may then ask if you want to compile some packages from source. Type `Y` into your console. If this doesn't work, try again, but this time type `N` when asked
+
+
+
+---
+## Loading the Covid-19 Data
+
+Let's load the Covid-19 data we worked with last week:
+
+
+```r
+covid &lt;- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+    
+)
+```
+
+--
+While that runs, let's do some review
+
+---
+# Review
+
+- Troubleshooting errors
+- Data wrangling with R
+- Descriptive Statistics
+
+
+---
+# 🔍
+# Troubleshooting errors
+
+![](https://imgs.xkcd.com/comics/wisdom_of_the_ancients.png)
+
+[XKCD](https://xkcd.com/979)
+---
+## Two kinds of errors:
+
+--
+
+- **Syntactic**
+  - R doesn't understand how to run your code
+  - Most common, easy to fix (eventually...)
+
+--
+
+- **Semantic**
+  - R runs your code but doesn't give you the expected result
+  - Less common, harder to fix
+
+--
+
+Most errors happen because R is looking for something that isn't there.
+
+More discussion [here](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md) and [here](https://blog.revolutionanalytics.com/2015/03/the-most-common-r-error-messages.html)
+
+---
+## Common Syntactic Errors
+
+- Unmatched parentheses or brackets
+- Misspelled name 
+- Forgot a comma
+- Forgot to install a package or load a library
+- Forgot to set the working directory/path to a file you want R to use.
+- Tried to select a column or row that doesn't exist
+
+
+---
+## Semantic Errors
+
+- Your code runs, but doesn't produce what you expected.
+- Less common, but can be harder to identify and fix
+- One example: Two packages have a function with the same name that do different things
+
+
+```r
+# dplyr::summarize
+# Hmisc::summarize
+```
+
+---
+## Semantic Errors
+
+- General solution:
+  - Specify the package and the function you want: `package_name::function_name()`
+  - Write helpful comments in your code.
+  - Include "sanity" checks in your code. 
+  - If a function should produce an output that's a data.frame, check to see if it is a data frame
+  
+
+```r
+# Here's some pseudo code:
+
+# I expect my_function produces a data frame
+x &lt;- my_function(y) 
+
+# Check to see if x is a data frame
+# If x is not a data frame, return an Error
+stopifnot(is.data.frame(x))
+```
+
+---
+class: inverse, center, middle
+background-image:url(https://miro.medium.com/max/800/0*TXDoF8j-D3LuGbHP.jpg)
+background-size:contain
+# 🔍
+# Data wrangling in R
+
+
+---
+## Why do we need to wrangle data
+
+- Rarely, if ever, do we get data in the exact format we need.
+- Instead, before we can get to work, we need to re-shape, re-arrange, and/or reformat our data.
+- Sometimes we call this process:
+  - Data cleaning, or recoding
+  - Data wrangling
+  - Data carpentry
+- The end goal is the same: make messy data tidy
+
+---
+## Tidy data:
+
+- Every column is a variable.
+
+- Every row is an observation.
+
+- Every cell is a single value.
+
+---
+## Tools for transforming our data
+
+Last week we used the following functions:
+
+- `read_csv()` and `data()` to read and load data in R
+
+- logical operators like `&amp;`, `|`, `%in%` `==`, `!=`, `&gt;`,`&gt;=`,`&lt;`,`&lt;=` to make comparisons
+
+- the pipe command `%&gt;%` to "pipe" the output of one function into another
+
+- `filter()` to pick observations (rows) by their values
+
+- `arrange()` to reorder rows
+
+- `select()` to pick variables by their names
+
+- `mutate()` and `case_when()` command to create new variables in our data set
+
+- `summarise()` to collapse many values to a single value (like a mean or median)
+
+- `group_by()` to apply functions like `mutate()` and `summarise()` on a group-by-group basis
+
+---
+## Common functions for transforming data
+
+All of these "verb" functions from the `dplyr` package (e.g. `filter()`,`mutate()`) follow a similar format:
+
+1. Their first argument is a data frame
+2. The subsequent arguments tell R what to do with the data frame, using the variable names (without quotes)
+3. The output is a new data frame
+
+[More](https://r4ds.had.co.nz/transform.html)
+
+---
+background-image:url("https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2444.png")
+# You trying to get the `%&gt;%`?
+
+---
+## The pipe command `%&gt;%`
+
+- The pipe command is way of "chaining" lines of code together, piping the results of one `tidyverse` function into the next function.
+
+- The pipe command works, because these functions always expect a data frame as their first argument, and always produce a data frame as their output.
+
+---
+## Wrangling the Covid-19 data
+
+To work with the Covid-19 data we did the following:
+
+- Subset the data to exclude US Territories
+- Created new variables from existing variables in the data
+
+---
+## Wrangling the Covid-19 data
+
+
+Specifically, we did the following:
+
+1. Created an object called `territories` that is a vector containing the names of U.S. territories
+2. Created a new dataframe, called `covid_us`, by filtering out observations from the U.S. territories
+3. Created a `state` variable that is a copy of the `administrative_area_level_2` 
+4. Created a variable called `new_cases` from the `confirmed`. Create a variable called `new_cases_pc` that is the number of new Covid-19 cases per 100,000 citizens
+5. Created a variable called `face_masks` from the `facial_coverings` variable. ([slides](hhttps://pols1600.paultesta.org/slides/01-slides#111))
+
+Let's take some time to make sure we understand everything that was happening.
+
+---
+## Created an object called `territories` 
+
+
+
+```r
+# ---- 1. Create territories object
+
+territories &lt;- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+```
+
+The territories object is useful because it let's ask R is an observation from a U.S. territory or not
+
+---
+## Created a new dataframe, called `covid_us`
+
+- Below, we use the `filter()` command to select only the rows where the `administrative_area_level_2` is not (`!`) in (`%in%`) the `territories` object
+- `covid_us` is a subset of the `covid` data.frame with only observations from the 50 States and the District of Columbia
+
+
+```r
+# ---- 2. Create covid_us data frame
+# How many rows and columns in covid
+dim(covid)
+```
+
+```
+[1] 40497    47
+```
+
+```r
+# Filter out obs from US territories
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)
+
+# covid_us should have fewer rows than covid
+dim(covid_us)
+```
+
+```
+[1] 37001    47
+```
+
+---
+## Created a new dataframe, called `covid_us`
+
+- We use the `dim()` function to check and make sure that `covid_us` has fewer rows than `covid`
+
+
+```r
+# ---- 2. Create covid_us data frame
+# How many rows and columns in covid
+dim(covid)
+```
+
+```
+[1] 40497    47
+```
+
+```r
+# Filter out obs from US territories
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)
+
+# covid_us should have fewer rows than covid
+dim(covid_us)
+```
+
+```
+[1] 37001    47
+```
+
+
+---
+## Created a variable called `state`
+
+Next we create a new variable called `state`, that is simply a copy of the `administrative_area_level_2` variable, using the `mutate()` function
+
+Note that mutate doesn't save the output. It just returns a data frame:
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+```
+         id       date confirmed deaths recovered tests vaccines people_vaccinated people_fully_vaccinated hosp icu
+1  121cd66e 2020-01-01        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+2  121cd66e 2020-01-02        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+3  121cd66e 2020-01-03        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+4  121cd66e 2020-01-04        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+5  121cd66e 2020-01-05        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+6  121cd66e 2020-01-06        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+7  121cd66e 2020-01-07        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+8  121cd66e 2020-01-08        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+9  121cd66e 2020-01-09        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+10 121cd66e 2020-01-10        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+11 121cd66e 2020-01-11        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+12 121cd66e 2020-01-12        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+13 121cd66e 2020-01-13        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+14 121cd66e 2020-01-14        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+15 121cd66e 2020-01-15        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+16 121cd66e 2020-01-16        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+17 121cd66e 2020-01-17        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+18 121cd66e 2020-01-18        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+19 121cd66e 2020-01-19        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+20 121cd66e 2020-01-20        NA     NA        NA    NA       NA                NA                      NA   NA  NA
+   vent school_closing workplace_closing cancel_events gatherings_restrictions transport_closing
+1    NA              0                 0             0                       0                 0
+2    NA              0                 0             0                       0                 0
+3    NA              0                 0             0                       0                 0
+4    NA              0                 0             0                       0                 0
+5    NA              0                 0             0                       0                 0
+6    NA              0                 0             0                       0                 0
+7    NA              0                 0             0                       0                 0
+8    NA              0                 0             0                       0                 0
+9    NA              0                 0             0                       0                 0
+10   NA              0                 0             0                       0                 0
+11   NA              0                 0             0                       0                 0
+12   NA              0                 0             0                       0                 0
+13   NA              0                 0             0                       0                 0
+14   NA              0                 0             0                       0                 0
+15   NA              0                 0             0                       0                 0
+16   NA              0                 0             0                       0                 0
+17   NA              0                 0             0                       0                 0
+18   NA              0                 0             0                       0                 0
+19   NA              0                 0             0                       0                 0
+20   NA              0                 0             0                       0                 0
+   stay_home_restrictions internal_movement_restrictions international_movement_restrictions information_campaigns
+1                       0                              0                                   0                     0
+2                       0                              0                                   0                     0
+3                       0                              0                                   0                     0
+4                       0                              0                                   0                     0
+5                       0                              0                                   0                     0
+6                       0                              0                                   0                     0
+7                       0                              0                                   0                     0
+8                       0                              0                                   0                     0
+9                       0                              0                                   0                     0
+10                      0                              0                                   0                     0
+11                      0                              0                                   0                     0
+12                      0                              0                                   0                     0
+13                      0                              0                                   0                     0
+14                      0                              0                                   0                     0
+15                      0                              0                                   0                     0
+16                      0                              0                                   0                     0
+17                      0                              0                                   0                     0
+18                      0                              0                                   0                     0
+19                      0                              0                                   0                     0
+20                      0                              0                                   0                     0
+   testing_policy contact_tracing facial_coverings vaccination_policy elderly_people_protection
+1               0               0                0                  0                         0
+2               0               0                0                  0                         0
+3               0               0                0                  0                         0
+4               0               0                0                  0                         0
+5               0               0                0                  0                         0
+6               0               0                0                  0                         0
+7               0               0                0                  0                         0
+8               0               0                0                  0                         0
+9               0               0                0                  0                         0
+10              0               0                0                  0                         0
+11              0               0                0                  0                         0
+12              0               0                0                  0                         0
+13              0               0                0                  0                         0
+14              0               0                0                  0                         0
+15              0               0                0                  0                         0
+16              0               0                0                  0                         0
+17              0               0                0                  0                         0
+18              0               0                0                  0                         0
+19              0               0                0                  0                         0
+20              1               0                0                  0                         0
+   government_response_index stringency_index containment_health_index economic_support_index
+1                       0.00                0                     0.00                      0
+2                       0.00                0                     0.00                      0
+3                       0.00                0                     0.00                      0
+4                       0.00                0                     0.00                      0
+5                       0.00                0                     0.00                      0
+6                       0.00                0                     0.00                      0
+7                       0.00                0                     0.00                      0
+8                       0.00                0                     0.00                      0
+9                       0.00                0                     0.00                      0
+10                      0.00                0                     0.00                      0
+11                      0.00                0                     0.00                      0
+12                      0.00                0                     0.00                      0
+13                      0.00                0                     0.00                      0
+14                      0.00                0                     0.00                      0
+15                      0.00                0                     0.00                      0
+16                      0.00                0                     0.00                      0
+17                      0.00                0                     0.00                      0
+18                      0.00                0                     0.00                      0
+19                      0.00                0                     0.00                      0
+20                      2.08                0                     2.38                      0
+   administrative_area_level administrative_area_level_1 administrative_area_level_2 administrative_area_level_3
+1                          2               United States                   Minnesota                        &lt;NA&gt;
+2                          2               United States                   Minnesota                        &lt;NA&gt;
+3                          2               United States                   Minnesota                        &lt;NA&gt;
+4                          2               United States                   Minnesota                        &lt;NA&gt;
+5                          2               United States                   Minnesota                        &lt;NA&gt;
+6                          2               United States                   Minnesota                        &lt;NA&gt;
+7                          2               United States                   Minnesota                        &lt;NA&gt;
+8                          2               United States                   Minnesota                        &lt;NA&gt;
+9                          2               United States                   Minnesota                        &lt;NA&gt;
+10                         2               United States                   Minnesota                        &lt;NA&gt;
+11                         2               United States                   Minnesota                        &lt;NA&gt;
+12                         2               United States                   Minnesota                        &lt;NA&gt;
+13                         2               United States                   Minnesota                        &lt;NA&gt;
+14                         2               United States                   Minnesota                        &lt;NA&gt;
+15                         2               United States                   Minnesota                        &lt;NA&gt;
+16                         2               United States                   Minnesota                        &lt;NA&gt;
+17                         2               United States                   Minnesota                        &lt;NA&gt;
+18                         2               United States                   Minnesota                        &lt;NA&gt;
+19                         2               United States                   Minnesota                        &lt;NA&gt;
+20                         2               United States                   Minnesota                        &lt;NA&gt;
+   latitude longitude population iso_alpha_3 iso_alpha_2 iso_numeric iso_currency key_local
+1  46.44342 -94.50243    5639632         USA          US         840          USD        27
+2  46.44342 -94.50243    5639632         USA          US         840          USD        27
+3  46.44342 -94.50243    5639632         USA          US         840          USD        27
+4  46.44342 -94.50243    5639632         USA          US         840          USD        27
+5  46.44342 -94.50243    5639632         USA          US         840          USD        27
+6  46.44342 -94.50243    5639632         USA          US         840          USD        27
+7  46.44342 -94.50243    5639632         USA          US         840          USD        27
+8  46.44342 -94.50243    5639632         USA          US         840          USD        27
+9  46.44342 -94.50243    5639632         USA          US         840          USD        27
+10 46.44342 -94.50243    5639632         USA          US         840          USD        27
+11 46.44342 -94.50243    5639632         USA          US         840          USD        27
+12 46.44342 -94.50243    5639632         USA          US         840          USD        27
+13 46.44342 -94.50243    5639632         USA          US         840          USD        27
+14 46.44342 -94.50243    5639632         USA          US         840          USD        27
+15 46.44342 -94.50243    5639632         USA          US         840          USD        27
+16 46.44342 -94.50243    5639632         USA          US         840          USD        27
+17 46.44342 -94.50243    5639632         USA          US         840          USD        27
+18 46.44342 -94.50243    5639632         USA          US         840          USD        27
+19 46.44342 -94.50243    5639632         USA          US         840          USD        27
+20 46.44342 -94.50243    5639632         USA          US         840          USD        27
+           key_google_mobility key_apple_mobility key_jhu_csse key_nuts key_gadm     state
+1  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+2  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+3  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+4  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+5  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+6  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+7  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+8  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+9  ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+10 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+11 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+12 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+13 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+14 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+15 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+16 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+17 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+18 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+19 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+20 ChIJmwt4YJpbWE0RD6L-EJvJogI          Minnesota         US27       NA USA.24_1 Minnesota
+ [ reached 'max' / getOption("max.print") -- omitted 36981 rows ]
+```
+
+
+---
+## Created a variable called `state`
+
+We need to save the output of `mutate()` function back into an object
+
+
+```r
+dim(covid_us)
+```
+
+```
+[1] 37001    47
+```
+
+```r
+covid_us %&gt;%
+  mutate(
+    state = administrative_area_level_2
+  ) -&gt; covid_us
+dim(covid_us)
+```
+
+```
+[1] 37001    48
+```
+
+```r
+names(covid_us)[48]
+```
+
+```
+[1] "state"
+```
+
+---
+## Created a variable called `state`
+
+Now there's a new column in `covid_us` called `state`, that we can access by calling `covid_us$state`
+
+
+```r
+covid_us$state[1:5] # Just show first 5 observations
+```
+
+```
+[1] "Minnesota" "Minnesota" "Minnesota" "Minnesota" "Minnesota"
+```
+
+We could have done the same thing in "Base" R
+
+
+```r
+covid_us$state &lt;- covid_us$administrative_area_level_2
+```
+
+Why didn't we?
+
+--
+- Consistent preference for `tidyverse` &gt; `base R`
+- Saves time when recoding lots of variables
+- `mutate()` plays nicely with functions like `group_by()`
+
+
+---
+## Create a variable called `new_cases` from the `confirmed` variable
+
+The `confirmed` variable contains a running total of confirmed cases in a given state on a given day. 
+
+We want to create a new variable that is just the number of new cases for a given day, by taking the current total, and subtracting the prior day's total.
+
+We want to do this separately, for each state.
+
+
+```r
+covid_us %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_cases = confirmed - lag(confirmed)
+  ) -&gt; covid_us
+```
+
+---
+## Create a variable called `new_cases` from the `confirmed` variable
+
+The code below helps us see what's happening inside our mutate function, when we group by `state`
+
+
+```r
+covid_us %&gt;%
+  filter(date &gt;= "2020-04-01" &amp; date &lt; "2020-04-07")%&gt;%
+  group_by(state) %&gt;%
+  select(state, date, confirmed)%&gt;%
+  mutate(
+    confirmed_lag1 = lag(confirmed),
+    new_cases = confirmed - lag(confirmed)
+  )
+```
+
+```
+# A tibble: 306 × 5
+# Groups:   state [51]
+   state      date       confirmed confirmed_lag1 new_cases
+   &lt;chr&gt;      &lt;date&gt;         &lt;int&gt;          &lt;int&gt;     &lt;int&gt;
+ 1 Minnesota  2020-04-01       689             NA        NA
+ 2 Minnesota  2020-04-02       742            689        53
+ 3 Minnesota  2020-04-03       789            742        47
+ 4 Minnesota  2020-04-04       865            789        76
+ 5 Minnesota  2020-04-05       935            865        70
+ 6 Minnesota  2020-04-06       986            935        51
+ 7 California 2020-04-01      9857             NA        NA
+ 8 California 2020-04-02     11190           9857      1333
+ 9 California 2020-04-03     12569          11190      1379
+10 California 2020-04-04     13796          12569      1227
+# … with 296 more rows
+```
+
+
+---
+## Create a variable called `new_cases` from the `confirmed` variable
+
+If we hadn't grouped by state, we might calculate the difference between MN and CA
+
+
+```r
+covid_us %&gt;%
+  filter(date &gt;= "2020-04-01" &amp; date &lt; "2020-04-07")%&gt;%
+  ungroup() %&gt;%
+  select(state, date, confirmed)%&gt;%
+  mutate(
+    confirmed_lag1 = lag(confirmed),
+    new_cases = confirmed - lag(confirmed)
+  )
+```
+
+```
+# A tibble: 306 × 5
+   state      date       confirmed confirmed_lag1 new_cases
+   &lt;chr&gt;      &lt;date&gt;         &lt;int&gt;          &lt;int&gt;     &lt;int&gt;
+ 1 Minnesota  2020-04-01       689             NA        NA
+ 2 Minnesota  2020-04-02       742            689        53
+ 3 Minnesota  2020-04-03       789            742        47
+ 4 Minnesota  2020-04-04       865            789        76
+ 5 Minnesota  2020-04-05       935            865        70
+ 6 Minnesota  2020-04-06       986            935        51
+ 7 California 2020-04-01      9857            986      8871
+ 8 California 2020-04-02     11190           9857      1333
+ 9 California 2020-04-03     12569          11190      1379
+10 California 2020-04-04     13796          12569      1227
+# … with 296 more rows
+```
+
+
+---
+## Create a variable called `new_cases_pc` 
+
+- Next we scale our `new_cases` variable by the `population` of each state so that it captures the number of new cases per 100,000 residents.
+- Note the `,` after `new_cases = confirmed - lag(confirmed),`
+  - This tells `mutate()` we're ready to create a new variable
+- See how the number of columns `dim(covid_us)` reports keeps increasing.
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    state = administrative_area_level_2,
+  ) %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) -&gt;covid_us
+dim(covid_us)
+```
+
+```
+[1] 37001    50
+```
+
+---
+## Created a variable called `face_masks`
+
+Finally, we want to create a new variable called `face_masks` from the `facial_coverings` variable.
+
+---
+## Created a variable called `face_masks`
+
+Recall, that the `facial_coverings` variable took on range of substantive values from 0 to 4
+
+- 0 - No policy
+- 1 - Recommended
+- 2 - Required in some specified shared/public spaces outside the home with other people present, or some situations when social distancing not possible
+- 3 - Required in all shared/public spaces outside the home with other people present or all situations when social distancing not possible
+- 4 - Required outside the home at all times regardless of location or presence of other people
+
+
+```r
+table(covid_us$facial_coverings)
+```
+
+```
+
+   -4    -3    -2    -1     0     1     2     3     4 
+  421  5264  5442    97  2513  2752 10848  8580   622 
+```
+
+Where negative values correspond to the most stringent policy in effect in a targeted geographic area (rather than the whole state)
+
+
+---
+## Created a variable called `face_masks`
+
+To transform `facial_coverings` into `face_masks`, we want to do the following:
+
+- Treat positive and negative values the same
+- Give numeric values of `facial_coverings` meaningful character labels in  `face_masks`
+- Treat these labels as factor, to convey the increasing stringency of the policy
+
+To do this, we'll use the `case_when()` function
+
+---
+## Created a variable called `face_masks`
+
+
+
+```r
+covid_us %&gt;%
+mutate(
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ) %&gt;% factor(.,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Created a variable called `face_masks`
+
+To understand what that last chunk of code did, it's helpful to look at the two variables
+
+
+```r
+covid_us%&gt;%
+  filter(state == "Illinois", date &gt; "2020-9-28") %&gt;%
+  select(facial_coverings, face_masks)
+```
+
+```
+# A tibble: 497 × 3
+# Groups:   state [1]
+   state    facial_coverings face_masks        
+   &lt;chr&gt;               &lt;int&gt; &lt;fct&gt;             
+ 1 Illinois                2 Some requirements 
+ 2 Illinois                2 Some requirements 
+ 3 Illinois               -4 Required all times
+ 4 Illinois               -4 Required all times
+ 5 Illinois               -4 Required all times
+ 6 Illinois               -4 Required all times
+ 7 Illinois               -4 Required all times
+ 8 Illinois               -4 Required all times
+ 9 Illinois               -4 Required all times
+10 Illinois               -4 Required all times
+# … with 487 more rows
+```
+
+
+---
+## Created a variable called `face_masks`
+
+Again we could have done this in `base` R 
+
+
+```r
+covid_us$face_masks_baseR &lt;- NA
+covid_us$face_masks_baseR[covid_us$facial_coverings ==0] &lt;- "No policy"
+covid_us$face_masks_baseR[abs(covid_us$facial_coverings)==1] &lt;- "Recommended"
+covid_us$face_masks_baseR[abs(covid_us$facial_coverings)==2] &lt;-  "Some requirements"
+covid_us$face_masks_baseR[abs(covid_us$facial_coverings)==3] &lt;- "Required shared places"
+covid_us$face_masks_baseR[abs(covid_us$facial_coverings)==4] &lt;- "Required all times"
+```
+
+---
+## Created a variable called `face_masks`
+
+Again we could have done this in `base` R 
+
+
+
+```r
+covid_us$face_masks_baseR &lt;- factor(covid_us$face_masks_baseR,
+                                 levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")   
+                                    )
+
+all.equal(covid_us$face_masks,covid_us$face_masks_baseR)
+```
+
+```
+[1] TRUE
+```
+
+---
+## Created a variable called `face_masks`
+
+And gotten the same result
+
+
+```r
+all.equal(covid_us$face_masks,covid_us$face_masks_baseR)
+```
+
+```
+[1] TRUE
+```
+
+
+```r
+# Compare tidy (rows) to base R (columns)
+table(covid_us$face_masks,covid_us$face_masks_baseR)
+```
+
+```
+                        
+                         No policy Recommended Some requirements Required shared places Required all times
+  No policy                   2513           0                 0                      0                  0
+  Recommended                    0        2849                 0                      0                  0
+  Some requirements              0           0             16290                      0                  0
+  Required shared places         0           0                 0                  13844                  0
+  Required all times             0           0                 0                      0               1043
+```
+
+
+
+---
+The full code looked something like this:
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    state = administrative_area_level_2,
+  ) %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) %&gt;%
+  mutate(
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ) %&gt;% factor(.,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Further Recoding
+
+In last week's lab, we also added the following
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -&gt; covid_us
+```
+
+---
+## Working with dates
+
+R treat's dates differently
+
+
+```r
+covid_us$date[1:3]
+```
+
+```
+[1] "2020-01-01" "2020-01-02" "2020-01-03"
+```
+
+```r
+class(covid_us$date)
+```
+
+```
+[1] "Date"
+```
+
+If R knows a variable is a date, we can extract components of that date, using functions from the `lubridate` package
+
+
+```r
+year(covid_us$date[1:3])
+```
+
+```
+[1] 2020 2020 2020
+```
+
+```r
+month(covid_us$date[1:3])
+```
+
+```
+[1] 1 1 1
+```
+
+---
+## The `str_pad()` and `paste()` function
+
+- The `str_pad()` function lets us 'pad' strings so that they're all the same width
+
+
+```r
+month(covid_us$date[1:3])
+```
+
+```
+[1] 1 1 1
+```
+
+```r
+str_pad(month(covid_us$date[1:3]), width=2, pad = 0)
+```
+
+```
+[1] "01" "01" "01"
+```
+
+- The `paste` function lets us paste objects together.
+
+
+```r
+paste(year(covid_us$date[1:3]),
+      str_pad(month(covid_us$date[1:3]), width=2, pad = 0),
+      sep = "-"
+      )
+```
+
+```
+[1] "2020-01" "2020-01" "2020-01"
+```
+
+
+---
+## Concept check
+
+Suppose you want to do the following, what function or functions would you use:
+
+- Read data into `R`
+- Look at the data to get a high level overview of its structure
+- Subset the data to include just obersvations with certain values
+- Select specific columns from data
+- Add new columns to the data
+- Summarize multiple values by collapsing them into a single value
+- Doing some function group-by-group?
+
+
+---
+## Concept check
+
+Suppose you want to do the following, what function or functions would you use:
+
+- Read data into `R`
+  - `read_xxx()` (tidy), `read.xxx()` (base)
+- Look at the data to get a high level overview of its structure
+  - `head()`, `tail()`, `glimpse()`, `table()`, `summary()`, `View()`
+- Subset the data to include just obersvations with certain values
+  - `data %&gt;% filter(x &gt; 0)`, `data[data$x &gt; 0]`, `subset(data, x &gt; 0)`
+- Select specific columns from data
+  - `data$variable`, `data %&gt;% select(variable1, variable2)`, `data[,c("x1","x2")]`
+- Add new columns to the data
+  - `data %&gt;% mutate(x = y/10)` `data$x &lt;- data$y/10`
+- Summarize multiple values by collapsing them into a single value
+  - `data %&gt;% summarise(x_mn = mean(x, na.rm=T))`
+- Doing some function group-by-group?
+  - `data %&gt;% group_by(g) %&gt;% summarise(x_mn = mean(x, na.rm=T))`
+
+
+---
+## Concept check
+
+Should you know exactly how to do all of this? 
+
+--
+
+**NO! Of course not. For Pete's sake, Paul, It's only the second week**
+
+--
+
+Will you learn how to do much of this?
+
+--
+
+**Maybe, but I'm feeling pretty overwhelmed...**
+
+--
+
+How will you learn how do these things?
+
+--
+
+
+**With lots of practice, patience, and repetition motivated by a sense that these skills will help 
+me learn about things I care about**
+
+---
+## Advice on learning how to code
+
+- It takes lots of practice and lots of errors
+- Only dumb question is one you don't ask
+- Google, Stack Exchange are your friends
+- Try writing out in comments what you want to do in code
+- Learn to recognize patterns in the questions/tasks I give you:
+  - Copy and paste code I give
+  - Change one thing
+  - Fix the error
+  - Adapt code from class to do a similar thing
+- Learning to code is much less painful when you have a reason to do it
+  - I'll try to use interesting data, but please let me know if there are questions or data you'd like us to explore
+
+---
+class: bottom, center
+background-image:url(https://memegenerator.net/img/instances/42703430.jpg)
+
+# 🔍
+# Descriptive Statistics
+
+---
+## Measures of Central Tendency
+
+Measures of central tendency describe what a typical value of some variable. In this course, we'll use three measures of what's typical:
+
+- mean
+- median
+- mode
+
+---
+## Mean
+
+One of the most frequent measures of central tendency we'll use in this course is a mean or average.
+
+Suppose we have `\(n\)` observations of some variable `\(x\)`. We'll define the sample mean of `\(x\)` as `\(\bar{x}\)` ("x bar), and calculate it by adding up all the values of x
+
+`$$\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$$`
+
+
+
+```r
+mean(covid_us$new_cases_pc, na.rm=T)
+```
+
+```
+[1] 33.08426
+```
+
+---
+## Conditional Means
+
+Last wee, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a **conditional mean** the mean of some variable, conditional on some other variable taking a specific value.
+
+Formally, you'll often see this written in terms of **Expected Values**: Something like
+
+`$$E[Y|X=x]$$`
+
+Or to make it more concrete:
+
+`$$E[\text{New Cases} | \text{Policy = "Recommended"}]$$`
+
+---
+## Conditional Means
+
+
+In R, we could calculate:
+
+
+`$$E[\text{New Cases} | \text{Policy = "Recommended"}]$$`
+
+
+
+```r
+mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)
+```
+
+```
+[1] 1.808998
+```
+
+Where the `[]` index operator selects only the observations of `covid_us$new_cases_pc` where `covid_us$face_masks` is equal to "No policy" 
+
+---
+## Calculating Multiple Conditional Means
+
+By using `group_by()` with `summarise()` we can calculate multiple conditional means
+
+
+```r
+covid_us%&gt;%
+  group_by(face_masks)%&gt;%
+  summarise(
+    new_cases_pc = mean(new_cases_pc, na.rm=T)
+  )
+```
+
+```
+# A tibble: 6 × 2
+  face_masks             new_cases_pc
+  &lt;fct&gt;                         &lt;dbl&gt;
+1 No policy                      1.81
+2 Recommended                    8.08
+3 Some requirements             41.7 
+4 Required shared places        30.0 
+5 Required all times            32.0 
+6 &lt;NA&gt;                          92.3 
+```
+
+
+---
+### Median
+
+
+The median is another measure of what's typical for variables that take numeric values
+
+Imagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value
+
+The median would be the value in the exact middle of that sequence, also known as the 50th percentile.
+
+---
+### Median
+
+Formally, we can define that median as:
+
+
+`$$M_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx=\int_{x_i}^\infty f_x(X)dx=1/2$$`
+
+Which might look like Greek to you, which is fine. Just think of it as the middle value.
+
+In R:
+
+
+```r
+median(covid_us$new_cases_pc, na.rm=T)
+```
+
+```
+[1] 14.06912
+```
+
+
+
+---
+### Medians and Means
+
+Note the median is much lower than the mean. 
+
+
+```r
+mean(covid_us$new_cases_pc, na.rm=T)
+```
+
+```
+[1] 33.08426
+```
+
+```r
+median(covid_us$new_cases_pc, na.rm=T)
+```
+
+```
+[1] 14.06912
+```
+
+Which one is a better summary of what's typical?
+
+
+---
+If we were to look at a histogram of our data (more on that today), we see that the `new_cases_pc` has a "long tail" or is skewed to the right. Most of the values are close to 0, but there are few cases that are extreme outliers.
+
+&lt;img src="02-slides_files/figure-html/hist-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+### Modes
+
+Conceptually, a mode describes the most frequent outcome. 
+
+Modes are useful for describing what's typical of "nominal" or categorical data like our measure of face mask policy. 
+
+---
+### Modes
+
+To calculate the mode of our `face_masks` variable, wrap the output of `table()` with the `sort()` function
+
+
+```r
+sort(table(covid_us$face_masks))
+```
+
+```
+
+    Required all times              No policy            Recommended Required shared places      Some requirements 
+                  1043                   2513                   2849                  13844                  16290 
+```
+
+---
+### Modes
+
+For numeric data, modes correspond to the peak of a variable's density function (more on this later in the class). 
+
+You can get a sense of the relationship between, means, median's and modes from this helpful figure from [Wikipedia](https://en.wikipedia.org/wiki/Mode_(statistics)):
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" width="200" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Measures of Dispersion
+
+Measures of dispersion describe how much the data "vary." Let's discuss the following ways we can summarize how our data vary:
+
+- range
+- percentile range
+- variance
+- standard deviation
+
+---
+### Range
+
+The range of a variable is simply it's minimum and maximum value
+
+
+```r
+range(covid_us$new_cases_pc,na.rm = T)
+```
+
+```
+[1] -188.6931 1531.8669
+```
+
+```r
+min(covid_us$new_cases_pc,na.rm = T)
+```
+
+```
+[1] -188.6931
+```
+
+```r
+max(covid_us$new_cases_pc,na.rm = T)
+```
+
+```
+[1] 1531.867
+```
+
+---
+## What states on what dates observed these minimum and maximum values?
+
+.left-column[
+
+- FL looks like a clerical error in reporting
+
+- RI looks like Omicron
+]
+
+
+.right-column[
+
+```r
+covid_us %&gt;%
+  filter(
+    new_cases_pc &lt; -188 |
+    new_cases_pc &gt; 1500
+  )%&gt;%
+  select(state, date,new_cases_pc)
+```
+
+```
+# A tibble: 2 × 3
+# Groups:   state [2]
+  state        date       new_cases_pc
+  &lt;chr&gt;        &lt;date&gt;            &lt;dbl&gt;
+1 Florida      2021-06-04        -189.
+2 Rhode Island 2022-01-04        1532.
+```
+]
+
+---
+### Percentiles Ranges
+
+The `\(p\)`-th percentile is the value of the observation such that 100\*p percent of the data are to the left and 100-100\*p are two the right.
+
+`$$p_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx= p; \int_{x_i}^\infty f_x(X)dx=1-p$$`
+
+
+The median is just the 50th percentile
+
+---
+### Percentiles Ranges
+
+In R we calculate the `\(p\)`-th percentile using the `quantile()` setting the `probs` argument to the `\(p/100\)` percentile that we we want.
+
+
+
+```r
+quantile(covid_us$new_cases_pc, probs = c(.25,.75), na.rm=T)
+```
+
+```
+      25%       75% 
+ 4.025779 36.565368 
+```
+
+
+The 25th and 75th percentile define the "Interquartile Range" where 50 percent of the observations lie within this range, and 50 percent lie outside the range.
+
+---
+### Variance
+
+Variance describes how much observations of a given measure vary around that measure's mean.
+
+The variance in a given sample is calculated by taking the average of the sum of squared deviations (i.e. differences) around a measure's mean.
+
+`$$\sigma^2_x=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2$$`
+
+- `\(x_i-\bar{x}\)` is the deviation of each observation from the overall mean
+- `\((x_i-\bar{x})^2\)` squaring this ensures that we treat positive and negative deviations the same when calculating the overall variance
+- `\(\sum_{i=1}\)` sums up all the differences
+- `\(\frac{1}{n-1}\)` is like taking the average of these differences (we divide by `\(n-1\)` instead of `\(n\)` for [statistical reasons](https://web.ma.utexas.edu/users/mks/M358KInstr/SampleSDPf.pdf) that we'll return two when we talk about estimation)
+
+---
+### Variance
+
+We can use the `var()` function to calculate the variance of the `new_cases_pc` variable.
+
+
+```r
+var(covid_us$new_cases_pc,na.rm=T)
+```
+
+```
+[1] 4310.212
+```
+
+```r
+# Calculate by hand
+
+sum(
+  (covid_us$new_cases_pc - mean(covid_us$new_cases_pc,na.rm=T))^2, 
+  na.rm=T
+  )/(sum(!is.na(covid_us$new_cases_pc))-1)
+```
+
+```
+[1] 4310.212
+```
+
+
+Variance will be important for thinking about uncertainty and inference (e.g. how might our estimate have been different)
+
+---
+### Standard Deviations
+
+
+A standard deviation is simply the square root of variable's variance. 
+
+
+`$$\sigma_x=\sqrt{\sigma^2_x}=\sqrt{\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2}$$`
+
+Standard deviations are easier to interpet because their units are the same as variable. 
+
+Think of them as a measure of the typical amount of variation for variable.
+
+Again, let's use the `sd()` function to calculate the standard deviation of the `new_cases_pc` variable
+
+
+```r
+sd(covid_us$new_cases_pc,na.rm=T)
+```
+
+```
+[1] 65.65221
+```
+
+---
+## Measures of Association
+
+Measures of association describe how variables relate to each other.
+
+- Covariance
+- Correlation
+
+---
+### Covariance
+
+Covariance describes how two variables "co-vary". 
+
+When `\(x\)` is above its mean, `\(y\)` also tends to be above it's mean, these variables have a positive covariance. 
+
+If when `\(x\)` tends to be high, `\(y\)` tends to be low, these variables have a negative variance
+
+---
+### Covariance
+
+Formally, the sample covariance of two variables can written as follows:
+
+`$$cov(x,y)=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})$$`
+
+The covariance between the percent of state's population that is fully vaccinated (`percent_vaccinated`) and `new_cases_pc` is:
+
+
+```r
+var(covid_us$new_cases_pc,covid_us$percent_vaccinated,na.rm = T)
+```
+
+```
+[1] 260.4928
+```
+
+
+---
+background-image:url("https://c.tenor.com/unFf-IWvWuEAAAAC/doesnt-look-like-anything-to-me-westworld.gif")
+background-size:contain
+
+---
+### Correlation
+
+Like variances, covariances don't really have intrinsic meaning, since x and y can be measured on very different scales.
+
+The correlation between two variables takes their covariance and scales this by the standard deviation of each variable, creating a measure that can range from -1 (perfect negative correlation) to 1 perfect positive correlation.
+
+---
+### Correlation
+Again, we can write this formally
+
+`$$\rho_{x,y} = \frac{cov(x,y)}{\sigma_x,\sigma_y}$$`
+
+---
+### Correlation
+
+We can calculate the correlation between vaccination rates and new cases using the `cor()` function
+
+You'll need to set the argument `use="complete.obs`
+
+
+```r
+cor(covid_us$percent_vaccinated, covid_us$new_cases_pc, use = "complete.obs")
+```
+
+```
+[1] 0.1413067
+```
+
+Hmm... That seems a little strange. What if we calculated the correlation between vaccination rates and new cases separately for each month in 2021
+
+---
+### Correlation
+
+
+```r
+covid_us %&gt;%
+  filter(year &gt; 2020)%&gt;%
+  ungroup() %&gt;%
+  group_by(year,month)%&gt;%
+  summarise(
+    mn_per_vax = round(mean(percent_vaccinated, na.rm=T),2),
+    cor = round(cor(new_cases_pc, percent_vaccinated, use = "complete.obs"),2)
+  ) -&gt; monthly_vax_case_correlations
+```
+
+
+---
+## Monthly Correlation between Vaccination Rates and New Cases
+
+```r
+DT::datatable(monthly_vax_case_correlations)
+```
+
+<div id="htmlwidget-584076c1fc24c58d802e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-584076c1fc24c58d802e">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],[2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2021,2022,2022],[1,2,3,4,5,6,7,8,9,10,11,12,1,2],[0.96,5.9,14.55,27.85,40.3,46.7,49.53,51.7,54.64,56.95,58.46,60.56,62.07,62.76],[-0.3,-0.3,0.02,0.06,-0.11,-0.21,-0.29,-0.33,-0.29,-0.15,0.03,0.22,0.01,-0.22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>mn_per_vax<\/th>\n      <th>cor<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## Concept Check
+
+Descriptive statistics tell us what's typical of our data:
+
+- What's a typical value
+  - mean, median mode
+- What's a typical amount of variation
+  - ranges, percentile ranges, variance, standard deviation
+- How does one variable typically change as another variable changes
+  - covariance and correlations
+
+---
+## Correlation does not equal causation
+
+
+.pull-left[
+- I think I'm contractually obliged to repeat this to you. 
+- Next week, we'll provide a precise definition of causation
+- For now consider the following:
+  - Y is clearly related to x, but has a correlation of 0
+
+
+```r
+x &lt;- -10:10
+y &lt;- abs(x)
+cor(x,y)
+```
+
+```
+[1] 0
+```
+]
+
+.pull-right[
+
+```r
+plot(x,y)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-30-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+class: bottom,center
+background-image:url(http://nowiknow.com/wp-content/uploads/home-kit-kat-bar-break-1024x575.png)
+background-size:cover
+# Let's take a brief break
+
+---
+class:inverse,center, middle
+# 💡
+#  Data Visualization 
+
+
+---
+class: center, middle
+
+--
+&gt; "The simple graph has brought more information to the data analyst’s mind than any other device." - John Tukey
+
+--
+
+&gt; "A picture's worth a thousand words" - Paul Testa
+
+---
+##  Data Visualization 
+
+Data visualization is an incredibly valuable tool that helps us to
+
+- Explore data, uncovering new relationships, as well as potential problems
+- Communicate our results clearly and precisely
+
+Take a look at how the [BBC](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) uses R to produce its graphics
+
+Today, we will
+
+- Produce basic figures in R that describe
+- Introduce a `grammar of graphics`
+- Learn how to apply this grammar with `ggplot`
+
+
+
+
+---
+class:inverse,center, middle
+# 💡
+# Producing Figures in Base R
+
+---
+## Producing Figures in Base R
+
+- The distribution of single variables
+    - histogram `hist(data$x)`
+    - kernel density plot `plot(density(data$x))`
+    - boxplot `boxplot(data$x)`
+    - barplot
+- The relationship between two variables
+    - scatter plots
+
+---
+## Histogram
+
+
+```r
+hist(covid_us$new_cases_pc)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-31-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Histogram
+
+
+```r
+hist(covid_us$new_cases_pc, breaks = 100)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-32-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Kernel density plot
+
+
+
+```r
+plot(density(covid_us$new_cases_pc,na.rm=T))
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-33-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Box and whiskers plot (Or just Boxplot)
+
+
+```r
+boxplot(covid_us$new_cases_pc)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-34-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Box and whiskers plot by face mask policy
+
+
+```r
+boxplot(new_cases_pc ~ face_masks, data = covid_us)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-35-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Box and whiskers plot by face mask policy (cutting the axis off)
+
+
+```r
+boxplot(new_cases_pc ~ face_masks, 
+        data = covid_us,
+        cex.axis = .5,
+        ylim=c(0,500))
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-36-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## Barplot
+
+
+```r
+barplot(table(covid_us$face_masks))
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-37-1.png" width="400px" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Barplot
+
+
+```r
+barplot(sort(table(covid_us$face_masks)), las = 2)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-38-1.png" width="80%" height="400" style="display: block; margin: auto;" /&gt;
+
+
+---
+## A slighty better barplot
+
+
+```r
+barplot(sort(table(covid_us$face_masks)), 
+        las = 1,cex.names = .5)
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-39-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## Scatter plot: Percent Vaccinated vs New Cases
+
+
+```r
+plot(covid_us$percent_vaccinated,
+     covid_us$deaths
+     )
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-40-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Scatter plot: Percent Vaccinated vs New Cases on September 30, 2021
+
+.pull-left[
+
+```r
+with(covid_us[covid_us$date == "2021-9-30",],
+plot(percent_vaccinated,
+     new_cases_pc
+     )
+)
+m1 &lt;- lm(new_cases_pc ~ percent_vaccinated,
+         covid_us,
+         subset = date == "2021-9-30"
+         )
+abline(m1)
+```
+]
+.pull-right[
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-42-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## Scatter plot: Percent Vaccinated vs New Cases
+
+
+```r
+plot(covid_us$percent_vaccinated,
+     covid_us$deaths
+     )
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-43-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## Scatter plot: Total Confirmed Cases vs Deaths
+
+
+```r
+plot(covid_us$confirmed,
+     covid_us$deaths
+     )
+```
+
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-44-1.png" width="80%" height="400px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class:inverse,center, middle
+# 💡
+# Basic figures with `ggplot`
+  
+  - aesthetics
+  - geoms
+
+---
+## The Grammar of Graphics
+In short, the grammar tells us that:
+
+A statistical graphic is a mapping of data variables to aesthetic attributes of geometric objects.
+
+Specifically, we can break a graphic into the following three essential components:
+
+data: the dataset containing the variables of interest.
+geom: the geometric object in question. This refers to the type of object we can observe in a plot. For example: points, lines, and bars.
+aes: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+
+---
+class:inverse,center, middle
+# 💡
+# Adjusting figures with `ggplot`
+  - labels
+  - scales
+  - facets
+  - themes
+
+
+
+---
+class:inverse,center, middle
+# 💡
+# Advanced figures with `ggplot`
+  - Combining figures with `patchwork`
+  - Creating maps with `ggmap`
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
