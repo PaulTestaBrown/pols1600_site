@@ -36,7 +36,7 @@ subtitle = "We meet twice a week, alternating lectures on Tuesdays and labs on T
   icon = "video"
   icon_pack = "fas"
   name = "Zoom"
-  description = "Classes simulcast on Zoom"
+  description = "Click to join via Zoom"
   url: "https://brown.zoom.us/j/97039852954"
 
 +++
