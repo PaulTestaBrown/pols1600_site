@@ -31,5 +31,12 @@ subtitle = "We meet twice a week, alternating lectures on Tuesdays and labs on T
   icon_pack = "fas"
   name = "Labs"
   description = "Thursdays, 1:00 – 2:20 PM"
+  
+[[feature]]
+  icon = "video"
+  icon_pack = "fas"
+  name = "Zoom"
+  description = "Classes simulcast on Zoom"
+  url: "https://brown.zoom.us/j/97039852954"
 
 +++
