@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: book-open
+  icon_pack: fas
+  name: "Broockman and Kalla (2016)"
+  url: /files/readings/broockman_kalla_2016.pdf
 - icon: magic
   icon_pack: fas
   name: Notes
