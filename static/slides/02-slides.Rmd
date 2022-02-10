@@ -31,6 +31,15 @@ knitr::opts_chunk$set(
 xaringanExtra::use_tile_view()
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
 
 
 ---
@@ -113,7 +122,7 @@ the_packages <- c(
   "GGally",
   
   # Data 
-  "COVID19","maps","DT"
+  "COVID19","maps","mapdata","DT"
 )
 the_packages
 ```

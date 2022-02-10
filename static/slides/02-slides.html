@@ -8,6 +8,12 @@
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
     <script src="libs/datatables-binding/datatables.js"></script>
@@ -28,6 +34,7 @@ class: center, middle, inverse, title-slide
 ### Paul Testa
 
 ---
+
 
 
 
@@ -117,7 +124,7 @@ the_packages &lt;- c(
   "GGally",
   
   # Data 
-  "COVID19","maps","DT"
+  "COVID19","maps","mapdata","DT"
 )
 the_packages
 ```
@@ -126,7 +133,7 @@ the_packages
  [1] "tinytex"    "kableExtra" "tidyverse"  "lubridate"  "forcats"   
  [6] "haven"      "labelled"   "ggmap"      "ggrepel"    "ggridges"  
 [11] "ggthemes"   "ggpubr"     "GGally"     "COVID19"    "maps"      
-[16] "DT"        
+[16] "mapdata"    "DT"        
 ```
 
 Please run the code above on your machines.
@@ -178,8 +185,8 @@ ipak(the_packages)
       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
      ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally    COVID19 
       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
-      maps         DT 
-      TRUE       TRUE 
+      maps    mapdata         DT 
+      TRUE       TRUE       TRUE 
 ```
 
 
