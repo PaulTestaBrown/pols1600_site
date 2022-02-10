@@ -33,7 +33,7 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/02-lab.Rmd
-- icon: flask
+- icon: lightbulb
   icon_pack: fas
   name: Lab Comments
   url: /labs/02-lab-comments.html
