@@ -1,0 +1,218 @@
+---
+title: "Week 02:"
+subtitle: "Casual Infrence in Experimental Designs"
+author: "Paul Testa"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/brown.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: atelier-lakeside-light
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300,
+  fig.align = "center", out.width = "80%", cache = FALSE)
+library("tidyverse")
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+
+
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Review
+- Lecture consists of a mix of:
+  - Topics and concepts
+  - Exercises
+- Summary
+
+---
+## Review
+
+- Data wrangling
+- Data visualization
+
+
+---
+# 🔍
+# Recoding categorical data in R
+
+---
+## Topics
+
+- Causal inference
+
+- Causal Identification
+
+- A potential outcomes framework causal inference
+
+- A statistical solution to the fundamental problem causal inference
+
+- How to estimate causal effects 
+
+
+---
+## Exercises
+
+1. What kinds questions have causal interpretations?
+
+2. Estimating an average treatment effect with the `resume` data
+
+3. Exploring the data for Broockman and Kalla 2016
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Causal Inference
+## *Causal claims imply counterfactual comparisons*
+
+---
+## What does causation mean to you?
+
+
+
+
+
+
+---
+## Causal claims imply counterfactual comparisons
+
+
+---
+class: inverse, center, middle
+# 💡
+# Causal Identification
+## *What assumptions do we need to make for a causal claim to be credible*
+
+
+---
+## Observational vs Experimental Designs
+
+---
+class: inverse, center, middle
+# 💡
+# A Potential Outcomes Framework for Causal Inference
+## The fundamental problem of causal inference is that, for an individual unit, we only observe one of potentially many potential outcomes $\to$ Individual causal effects are unidentified
+
+
+---
+class: inverse, center, middle
+# 💡
+# The fundamental problem of causal inference
+
+---
+class: inverse, center, middle
+# 💡
+# A statistical solution to the fundamental problem
+
+---
+class: inverse, center, middle
+# 💡
+# Randomization as a reasoned basis for inference
+
+
+---
+class: center, middle
+# 💪  
+# What kinds questions have causal interpretations?
+
+---
+class: center, middle
+# 💪  
+# Estimating an average treatment effect with the `resume` data
+
+```{r}
+library(qss)
+library(tidyverse)
+data("resume")
+
+
+
+```
+
+```{r}
+dim(resume)
+head(resume)
+```
+
+```{r}
+resume %>%
+  group_by(sex, race) %>%
+  summarize(
+    Y = mean(call)
+  )
+
+resume %>%
+  group_by(sex) %>%
+  summarize(
+    Y = mean(call)
+  )
+
+resume %>%
+  filter(!firstname %in% c("Kristen","Carrie","Brad","Jay"))%>%
+  group_by(sex) %>%
+  summarize(
+    Y =  mean(call[race =="white"]) - mean(call[race =="black"])
+  )
+
+resume %>%
+  group_by(race) %>%
+  summarize(
+    Y = mean(call)
+  )
+
+resume %>%
+  group_by(race, sex,firstname)%>%
+  summarize(
+    Y = mean(call),
+    n = n()
+  )%>%
+  arrange(desc(Y)) %>%
+  mutate(
+    firstname = forcats::fct_reorder(firstname,Y)
+  )%>%
+  ggplot(aes(Y, firstname,col=race, size=n))+
+  geom_point() + 
+  facet_grid(sex~.,scales = "free_y")
+```
+
+
+```{r}
+
+```
+
+
+
+
+
+
+---
+class: center, middle
+# 💪  
+# Exploring the data for Broockman and Kalla 2016
+
+
