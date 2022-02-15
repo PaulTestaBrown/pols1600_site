@@ -638,21 +638,21 @@ We'll talk about lots of types of bias throughout this course.
 
 Formally, we'll say an estimate, `\(\hat{\theta}\)` (theta hat) is an unbiased estimator of a parameter, `\(\theta\)` (theta) if:
 
-\[
+$$
 E[\hat{\theta}] = \theta
-\]
+$$
 
 Bias or error, `\(\epsilon\)`, is the difference between our estimate and the truth
 
-\[
+$$
 \epsilon = \hat{\theta} -\theta
-\]
+$$
 
 An estimator is unbiased if, on average, the errors equal 0
 
-\[
+$$
 E[\epsilon] = E[\hat{\theta} -\theta] = 0
-\]
+$$
 
 ---
 ## The bias versus the variance of an estimate
@@ -767,9 +767,9 @@ $$
 
 The individual causal effect `\(\tau_i\)` of some treatment `\(d_i\)` on some observation `\(i\)` is 
 
-\[
+$$
 \tau_i \equiv Y_i(1) - Y_i(0)
-\]
+$$
 
 - The **fundamental problem of causal inference** is that we only ever see one potential outcome for an individual, and so it's **impossible to know** the causal effect of some intervention for that individual
 
@@ -817,9 +817,9 @@ class: inverse, center, middle
 
 That an individual causal effect `\(\tau_i\)`, is defined as:
 
-\[
+$$
 \tau_i \equiv Y_i(1) - Y_i(0)
-\]
+$$
 
 The problem is that for any one individual, we only observe `\(Y_i(1)\)`  or `\(Y_i(0)\)`, but never both.
 
@@ -830,15 +830,15 @@ The problem is that for any one individual, we only observe `\(Y_i(1)\)`  or `\(
     
 Rather than individual causal effects:
 
-\[
+$$
 \tau_i \equiv Y_i(1) - Y_i(0)
-\]
+$$
 
 Focus on average causal effects
 
-- \[
+$$
 E[\tau_i] = \overbrace{E[Y_i(1) - Y_i(0)]}^{\text{Average of a difference}} = \overbrace{E[Y_i(1)] - E[Y_i(0)]}^{\text{Difference of Averages}}
-\]
+$$
 
 When does the difference of averages provide us with a good estimate of the average difference?
 
