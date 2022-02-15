@@ -79,7 +79,7 @@ DT::datatable(df %>%
 ```
 
 
---- 
+---
 ## What do we dislike
 
 
