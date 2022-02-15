@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/03-slides.html
 - icon: book-open
   icon_pack: fas
   name: "Broockman and Kalla (2016)"
