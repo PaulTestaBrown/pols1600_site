@@ -852,40 +852,48 @@ knitr::include_graphics("https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9
 
 &lt;img src="https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9cca7e7dc857d95ffe.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 
-
+---
 ## The hospital example
 
 Want to know the effect of going to the hospital on people need to go to the hospital
 
-\[
+$$
 \text{What we want} = E[Y(1|D=1) - Y(0|D=1)]
-\]
+$$
 
-\[
+$$
+
 \text{What we want} = E[\text{Mortality}(\text{Hospital}|\text{Sick}) - \text{Mortality}(\text{No Hospital}|\text{Sick})]
-\]
+$$
 
+---
 ## The hospital example
 
 
 Instead we might end up comparing outcomes among the sick and non-sick
 
-\[
+$$
+
 \text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]
-\]
+$$
 
-\[
+
+$$
+
 \text{What we estimate} = E[\text{Mortality}(\text{Hospital})] - E[\text{Mortality}(\text{No Hospital})]
-\]
+$$
 
+---
 ## Selection bias
 
 The hospital example illustrates the general problem of selection bias
 
-\[
+$$
+
 \widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
 \underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}
-\]
+$$
+
 
 - When is selection bias 0? 
     - When E[Y(0)|D=1] = E[Y(0)|D=0]
