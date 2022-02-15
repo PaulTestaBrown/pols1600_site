@@ -1,6 +1,6 @@
 ---
 title: "Week 03:"
-subtitle: "Casual Infrence in Experimental Designs"
+subtitle: "Casual Inference in Experimental Designs"
 author: "Paul Testa"
 output:
   xaringan::moon_reader:
@@ -14,9 +14,11 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+options(blogdown.knit.on_save = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = TRUE)
+  fig.align = "center", out.width = "80%",
+  cache = TRUE)
 library("tidyverse")
 ```
 
@@ -44,10 +46,11 @@ class: inverse, center, middle
 
 - Feedback
 - Review
-- Lecture consists of a mix of:
-  - Topics and concepts
-  - Exercises
-- Summary
+- Lecture:
+  - Causal inference
+  - Notations to describe causal claims
+  - Causal Identification
+  - Causal Identification in experimental designs
 
 ---
 class: inverse, center, middle
@@ -70,11 +73,14 @@ df %>%
 ---
 ## What do we like
 
-```{r, echo=F, out.height='80%'}
+```{r, echo=F, out.height='90%'}
 DT::datatable(df %>% 
                 select(Likes),
-              fillContainer = T,
-              height = 1000
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
               )
 ```
 
@@ -83,11 +89,14 @@ DT::datatable(df %>%
 ## What do we dislike
 
 
-```{r, echo=F, out.height='80%'}
+```{r, echo=F}
 DT::datatable(df %>% 
                 select(Dislikes),
-               fillContainer = T,
-              height = 1000
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
               )
 ```
 
@@ -150,8 +159,11 @@ background-size:cover
 ```{r, echo=F, out.height='80%'}
 DT::datatable(df %>% 
                 select(Streaming),
-              fillContainer = T,
-              height = 1000
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
               )
 ```
 
@@ -168,6 +180,8 @@ DT::datatable(df %>%
 ## Setup
 
 Every time you work in R
+
+- Save your file to your course or project folder
 
 - Set your working directory
 
@@ -220,11 +234,11 @@ the_packages <- c(
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", 
   "ggthemes", "ggpubr", "GGally",
-  "dagitty", "ggdag", #<< New Packages
+  "dagitty", "ggdag", #<<
   
   # Data 
   "COVID19","maps","mapdata",
-  "qss"
+  "qss" #<<
 )
 ```
 
@@ -310,10 +324,23 @@ knitr::opts_chunk$set(
   message = FALSE, 
   comment = NA, 
   dpi = 300, fig.align = "center", out.width = "80%", 
-  cache = FALSE) # <<
+  cache = FALSE) #<<
 ```
 
+---
+## Cacheing
 
+- Sometimes I will turn [cacheing](https://bookdown.org/yihui/rmarkdown-cookbook/cache.html) on (`cache=TRUE`)
+
+- When you knit with cache-ing, R saves the output of each codechunk 
+
+- The next time you knit, if the code in a code chunk hasn't changed, R just loads the saved output from the previous session, rather than re-running the code.
+
+- This is useful when [a chunk of code takes a long time to run](https://bookdown.org/yihui/rmarkdown-cookbook/cache.html)
+
+- This can potentially create errors, if you change something in one code chunk, but subsequent code are unchanged and load older versions of your code, that don't have the thing you changed.
+
+- If this happens, try turning off the cacheing  (`cache=F`) and rerunning your code. If your code works, can turn cache-ing back on.
 
 ---
 ## Data transformations
@@ -322,6 +349,7 @@ knitr::opts_chunk$set(
 You want to:
 
 - Load some data
+- Combine multiple functions
 - Look at your data
 - Recode your data
 - Transform your data
@@ -454,7 +482,7 @@ mutate(
 
 Let's take a (pseudo) random slice of our data:
 
-```{r}
+```{r, highlight.output=c(4,8,9)}
 set.seed(123)
 covid_us %>%
   select(date, state, facial_coverings, face_masks)%>%
@@ -603,22 +631,32 @@ In this course, we will use two forms of notation to describe our causal claims.
 ## Directed Acyclic Graphs
 
 - Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
-  - **Directed** Arrows $\to$ describe a direct causal effect ($Y_i(d) \neq Y_i(d^\prime)$)
-  - No arrow = no effect ($Y_i(d) = Y_i(d^\prime)$)
+
+  - **Directed** Arrows $\to$ describe a direct causal effect 
+
+  - Arrow from $D\to Y$ means $Y_i(d) \neq Y_i(d^\prime)$ "The outcome ( $Y$) for person $i$ when D happens ( $Y_i(d)$ ) is different than the the outcome when $D$ doesn't happen ( $Y_i(d^\prime)$ )
+
+  - No arrow = no effect ( $Y_i(d) = Y_i(d^\prime)$ )
+
   - **Acyclic:** No cycles. A variable can't cause itself
+
 - Used by Pearl ([2009](http://bayes.cs.ucla.edu/jp_home.html), [2017](http://bayes.cs.ucla.edu/jp_home.html)) to describe and assess causal structural models
 
 
-> Basically, they're math's fancy pants version of flow chart
+> Basically, they're math's fancy pants version of a flow chart
 
 ---
 ## Why we use Directed Acyclic Graphs
 
 - Directed Acyclic Graphs are flexible ways of representing complex relationships
+
 - They're great for illustrating sources of potential bias in our models:
+
 - Two types of bias we'll talk about today:
-  - Confounder bias: Bias that exists because two variables have a common cause
-  - Collider bias: Bias we create when we condition on a common consequence
+
+  - **Confounder bias:** Bias that exists because two variables have a *common cause*
+
+  - **Collider bias:** Bias we create when we condition on a *common consequence*
 
 
 ---
@@ -626,7 +664,7 @@ In this course, we will use two forms of notation to describe our causal claims.
 
 We'll talk about lots of types of bias throughout this course.
 
-Formally, we'll say an estimate, $\hat{\theta}$ (theta hat) is an unbiased estimator of a parameter, $\theta$ (theta) if:
+Formally, we'll say an estimate, $\hat{\theta}$ ("theta hat") is an unbiased estimator of a parameter, $\theta$ ("theta") if:
 
 $$
 E[\hat{\theta}] = \theta
@@ -645,9 +683,9 @@ E[\epsilon] = E[\hat{\theta} -\theta] = 0
 $$
 
 ---
-## The bias versus the variance of an estimate
+## Bias vs. variance 
 
-```{r, echo=F}
+```{r, echo=F, out.height="80%"}
 knitr::include_graphics("https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/images/bias_variance/bullseye.png")
 ```
 
@@ -662,13 +700,16 @@ knitr::include_graphics("http://scott.fortmann-roe.com/docs/docs/BiasVariance/bi
 ## Drawing DAGs in R
 
 - Let's draw some dags to consider some simple examples:
-  - Does drinking coffee cause lung cancer? (Confunding bias)
+
+  - Does drinking coffee cause lung cancer? (Confounding bias)
+
   - Does chicken pox cause influenza? (Collider bias)
+
 - Nice examples of DAGs from [ggdag](https://ggdag.malco.io/index.html)
 
 
 ---
-## Confounding = Common Causes
+### Confounding = Common Causes
 
 ```{r, echo=F}
 confounder_triangle(x = "Coffee", y = "Lung Cancer", z = "Smoking") %>% 
@@ -679,7 +720,7 @@ confounder_triangle(x = "Coffee", y = "Lung Cancer", z = "Smoking") %>%
 ```
 
 ---
-## Controlling for a confounding variable
+### Controlling for a confounding variable
 
 ```{r, echo=F}
 
@@ -690,7 +731,7 @@ confounder_triangle(x = "Coffee", y = "Lung Cancer", z = "Smoking") %>%
 ```
 
 ---
-## Colliders = Common Consequence
+### Colliders = Common Consequence
 
 ```{r, echo=F}
 fever_dag <- collider_triangle(x = "Influenza", 
@@ -702,7 +743,7 @@ ggdag(fever_dag, text = FALSE, use_labels = "label")+
 ```
 
 ---
-## Don't Condition on a Collider
+### Don't Condition on a Collider
 
 ```{r, echo=F}
 ggdag_dseparated(fever_dag, text = FALSE, use_labels = "label")+
@@ -710,7 +751,7 @@ ggdag_dseparated(fever_dag, text = FALSE, use_labels = "label")+
 ```
 
 ---
-## Don't Condition on a Collider
+### Don't Condition on a Collider
 
 ```{r, echo=F}
 ggdag_dconnected(fever_dag, controlling_for = "m",text = FALSE, use_labels = "label")+
@@ -721,15 +762,20 @@ ggdag_dconnected(fever_dag, controlling_for = "m",text = FALSE, use_labels = "la
 ## Potential Outcomes
 
 - DAGs are great for representing a wide array of relationships
+
 - Doing [causal inference with DAGs](https://mixtape.scunning.com/dag.html) is a bit beyond the scope of this class
+
 - Instead, we'll typically talk about causal claims using the logic of potential outcomes to describe the counterfactual comparisons we want to make.
-- Do this, we'll need to get comfortable with some basic notation.
+
+- To do this, we'll need to get comfortable with some basic notation.
 
 ---
 ## Some general notes on notation
 
 - Notation can seem scary, overwhelming, confusing. 
+
 - Notation can be incredibly helpful for communicating precisely and clearly
+
 - Our goal is to demistify notation
 
 ---
@@ -741,50 +787,77 @@ ggdag_dconnected(fever_dag, controlling_for = "m",text = FALSE, use_labels = "la
 - $S$: sample of size $n$ from population $U$
 
 ---
-## General Notation: Variables
+## General Notation: Outcome Variables
 
 - $Y_i$: Observed outcome from unit $i$
+  - $Y_i$ might be whether persion $i$, call them Paul has Covid while $Y_j$ would be whether person $j$, call them Aleks has Covid
+
+---
+## General Notation: Treatment Variables
+
 - $D_i$: An indicator for the receipt of treatment. $D_i$ = 1 if treated, $D_i$ = 0 if untreated,
-  - Generalizes to multiple treatments
+  - $D_i = 0$ means Paul got the placebo in a vaccine trial
+  - $D_i = 1$ means Paul got the vaccine
+  - Generalizes to multiple treatments $D \in \{0,1,2,3, \dots\}$
+
 - $Z_i$: An indicator for the assignment of treatment. $Z_i$ = 1 if assigned to treatment, $Z_i$ = 0 if assigned to control,
+  - $Z_i = 1$ means Paul was assigned to receive the vaccine. Whether Paul got the vaccine depends on $D_i$
+
+---
+## General Notation: Observed and Unobserved Covariates
+
 - $X_i$ pre-treatment covariates.
+  - $X_i$ might be Paul's age, or gender, or partisan affiliation
+  
 - $U_i$ unobserved potential confounds
+  - $_i$ might be something we didn't or can't measure like Paul's genome or general crankiness 
 
 ---
 ## General Notation: Expected Values
 
-- The $E[Y]$ reads as "the expected value of Y" and is defined as a probability weighted average based on the uncoditional probability of Y ($f(y)$)
+- The $E[Y]$ reads as "the expected value of Y" and is defined as a probability weighted average based on the uncoditional probability of Y ( $f(y)$ )
 
 $$
 \operatorname{E}[Y] = \int_{-\infty}^\infty y f(y)\, dy.
 $$
 
-The $E[Y|X=x]$ reads as "the expected value of Y conditional on the value of X" and is defined as a probability weighted average of Y based on the conditional probability of Y given X ($y f_{Y|X}(y|x)$)
+
+---
+## General Notation: Conditional Expectations
+
+The $E[Y|X=x]$ reads as "the expected value of Y conditional on the value of X" and is defined as a probability weighted average of Y based on the conditional probability of Y given X ( $y f_{Y|X}(y|x)$ )
 
 $$
-\operatorname{E} (Y | X=x) =  \int_{-\infty}^\infty y f_{Y|X}(y|x) \mathrm{d}y
+\operatorname{E}[Y \vert X=x] = \int_{-\infty}^\infty y f (y\vert x) \, dy.
 $$
+
 
 ---
 ## General Notation: Expected Values
 
 - Don't worry about the math in this course.
+
 - We'll talk more expected values during our discussion of probability
+
 - For now, just think of $E[Y]$ and $E[Y|X=x]$ as a theoretical averages which we can estimate from the empirical means in our data (`mean(data$y)`, `mean(data$y[data$x == 1]`))
 
 ---
 ## Potential Outcomes Notation:
 
-- Potentiall outcomes notation is a way of describing counterfactuals
+- Potential outcomes notation is a way of describing counterfactuals
+
 - $Y_i(d)$ is the value of the outcome if $D_i$ was $d$
+  
   - $Y_i(1)$ is the vote share of Rep. Smith when they support \#MeToo
+  
   - $Y_i(0)$ is the vote share of Rep. Smith when they do not support \#MeToo.
+
 - Potential outcomes are fixed, but we only observe one (of many) potential outcomes $\to$ *Fundamental Problem of Causal Infernece*
 
 ---
-## *Fundamental Problem of Causal Infernece*
+## Fundamental Problem of Causal Infernece
 
-The individual causal effect $\tau_i$ of some treatment $d_i$ on some observation $i$ is 
+The individual causal effect (ICE), $\tau_i$, of some treatment $d_i$ on some observation $i$ is 
 
 $$
 \tau_i \equiv Y_i(1) - Y_i(0)
@@ -808,7 +881,10 @@ class: inverse, center, middle
 
 - A quantity of interest is *identified* if, with infinite data it can only take one value
 
-- Mathematically, we'll sometimes say a coefficient in a an equation is unidentified if we have more predictors than observations, or some of predictors are really just linear transformations of other predictors.
+- Mathematically, we'll sometimes say a coefficient in an equation is unidentified if 
+
+  - We have more predictors than observations, or 
+  - Some of predictors are linear combinations of other predictors.
 
 ---
 ## Causal Identification
@@ -823,6 +899,7 @@ class: inverse, center, middle
 ## Observational vs Experimental Designs
 
 - **Experimental designs** are studies in which a causal variable of interest, the *treatement*, is manipulated by the researcher to examine its causal effects on some *outcome* of interest
+
 - **Observational designs** are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)
 
 
@@ -864,7 +941,7 @@ When does the difference of averages provide us with a good estimate of the aver
 ---
 ## The hospital example
 
-```{r}
+```{r, echo=F}
 knitr::include_graphics("https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9cca7e7dc857d95ffe.jpg")
 ```
 
@@ -878,7 +955,6 @@ $$
 $$
 
 $$
-
 \text{What we want} = E[\text{Mortality}(\text{Hospital}|\text{Sick}) - \text{Mortality}(\text{No Hospital}|\text{Sick})]
 $$
 
@@ -889,13 +965,11 @@ $$
 Instead we might end up comparing outcomes among the sick and non-sick
 
 $$
-
 \text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]
 $$
 
 
 $$
-
 \text{What we estimate} = E[\text{Mortality}(\text{Hospital})] - E[\text{Mortality}(\text{No Hospital})]
 $$
 
@@ -905,44 +979,56 @@ $$
 The hospital example illustrates the general problem of selection bias
 
 $$
-
 \widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
 \underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}
 $$
 
+- The bold quantities are things we can **observe** (estimate)
+- $E[Y(0)|D=1]$ is a an unobservable counterfactual. 
+- It's the average health outcomes of people who went to the hospital $(D=1)$ if they hadn't $(Y(0)|D=1)$
 
-- When is selection bias 0? 
-    - When E[Y(0)|D=1] = E[Y(0)|D=0]
-- When does, E[Y(0)|D=1] = {E[Y(0)|D=0]? 
-    - If D has been randomly assigned
+---
+## Selection bias
+
+- Adding and subtracting $E[Y(0)|D=1]$ thing doesn't change the equation but it allows us to write what we can estimate in terms of two quantities:
+
+- The **Average Treatment Effect on the Treated:** $\mathbf{E[Y(1)|D=1]} - E[Y(0)|D=1]$
+  - This is what we **want to know** if we want to make causal claims about the effect of health care
+
+- **Selection Bias:** $E[Y(0)|D=1] - \mathbf{E[Y(0)|D=0]}$, 
+    - This is the difference in health outcomes between healthy folks who didn't go to the hospital $(Y(0)|D=0)$ and sick folks who went to the hopsital had they not gone $(Y(0)|D=1)$
+    - This what **confounds our causal claims** if we just compare outcomes among people who went to the hopsital and people who didn't
+    - Selection bias equals 0 if $E[Y(0)|D=1] = \mathbf{E[Y(0)|D=0]}$
+    - $E[Y(0)|D=1] = \mathbf{E[Y(0)|D=0]}$ if **D has been randomly assigned**
 
 ---
 ## Random Assignment "Solves" the Problem of Selection Bias
 
-Randomly assigning treatments creates *statistical independence* between treatment ($D$) and potential outcomes ($Y(1),Y(0)$) as well as any observed ($X$) or unobserved confounders ($U$):
+Randomly assigning treatments creates *statistical independence* $(\unicode{x2AEB})$ between treatment ( $D$ ) and potential outcomes ( $Y(1),Y(0)$ ) as well as any observed ( $X$ ) or unobserved confounders ( $U$ ):
 
-\[
+$$
 Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
-\]
+$$
 
 ---
 ## Random Assignment "Solves" the Problem of Selection Bias
 
-When treatment has been randomly assigned, what we can observe ($E[Y_i|D=0], E[Y_i|D=1]$), provides good (unbiased) estimates of theoretical quantities we want observe
+When treatment has been randomly assigned, what we can observe ( $E[Y_i|D=0], E[Y_i|D=1]$ ), provides good (unbiased) estimates of theoretical quantities we want observe
 
-\[
+$$
 E[Y_i|D=0] = E[Y_i(0)|D=0] = E[Y_i(0)] = E[Y_i(0)|D=1]
-\]
-\[
+$$
+
+$$
 E[Y_i|D=1] = E[Y_i(1)|D=1] = E[Y_i(1)] = E[Y_i(1)|D=0]
-\]
+$$
 
 ---
 ## Estimating an Average Treatment Effect
 
 If we treatment as been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:
 
-\[
+$$
 \begin{align*}
 E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
 \text{among treated}\\ \text{units}}}
@@ -950,7 +1036,7 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{
 \text{among control}\\ \text{units}}}\\
 &= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
 \end{align*}
-\]
+$$
 
 That is, the ATE is causally identified by the difference of means estimator in an experimental design
 
@@ -977,6 +1063,7 @@ Causal identification for an experiment, requires very few assumptions:
 
 - This type of clean counterfactual comparison is what people mean when they talk about an *experimental ideal*
 
+---
 ## No Causation without Manipulation?
 
 - "No causation without manipulation" - [Holland (1986)](https://www.jstor.org/stable/2289064)
