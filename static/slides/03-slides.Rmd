@@ -1,5 +1,5 @@
 ---
-title: "Week 02:"
+title: "Week 03:"
 subtitle: "Casual Infrence in Experimental Designs"
 author: "Paul Testa"
 output:
@@ -42,6 +42,7 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Feedback
 - Review
 - Lecture consists of a mix of:
   - Topics and concepts
@@ -49,8 +50,30 @@ class: inverse, center, middle
 - Summary
 
 ---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
+background-size:contain
+
+# Feedback
+
+```{r, echo=F, message=F}
+df 
+```
+
+---
+## What do we like
+
+--- 
+## What do we dislike
+
+
+# What are we streaming
+
+
+---
 ## Review
 
+- Set up
 - Data wrangling
 - Data visualization
 
@@ -58,15 +81,36 @@ class: inverse, center, middle
 ## Data transformations
 
 
-You want to do:
+You want to:
 
-- 
-- 
-- 
-- 
-- 
-- 
+- Load some data
+- Look at your data
+- Recode your data
+- Transform your data
 
+---
+## Data transformations
+
+.pull-left[
+You want to:
+
+- Load some data
+- Combine multiple functions
+- Look at your data
+- Recode your data
+- Transform your data
+]
+
+.pull-right[
+You could use
+
+- `read_*` functions
+- `%>%` the "pipe" operator
+- `glimpse()` `head()`, `filter()`, `select()`, `arrange()`
+- `mutate()`, `case_when()`, `ifelse()`
+- `summarize()`, `group_by()`
+
+]
 
 ---
 ## Data visualization
@@ -76,6 +120,7 @@ A basic graphic requires at minimum:
 - `data:` the dataset containing the variables of interest.
 - `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
 - `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
 ---
 ## Data visualization
 
@@ -93,16 +138,25 @@ Basic graphics are made even better with:
 # 🔍
 # Recoding categorical data in R
 
+Let's clarify what's going on with that recoding of the `face_masks` variable
+
+
+---
+# 💪
+
+
 ---
 ## Topics
 
 - Causal inference
 
+- Notations to describe causal claims
+  - Potential Outcomes
+  - Directed Acyclic Graphs
+
 - Causal Identification
-
-- A potential outcomes framework causal inference
-
-- A statistical solution to the fundamental problem causal inference
+  - Experimental designs (this week)
+  - Observational designs (next week)
 
 - How to estimate causal effects 
 
@@ -125,26 +179,182 @@ class: inverse, center, middle
 ## *Causal claims imply counterfactual comparisons*
 
 ---
+## Causal claims imply counterfactual comparisons
+
+  
+- Causal claims imply claims about counterfactuals
+  - What would have happened if we were to change some aspect of the world?
+
+--
+
+- What's the counter factual for these claims:  
+  - Foreign aid increases develop
+  - Wikileaks cost Hillary Clinton the 2016 election
+  - Democracies don't fight wars with other democracies
+  - Universal Pre-K improves child development
+
+
+---
 ## Casual claims are are all around us
 
 .pull-left[
+```{r, echo=F}
+knitr::include_graphics("https://images-na.ssl-images-amazon.com/images/I/A1qhBebbu6L.jpg")
+```
 
 ]
 
+--
+
 .pull-right[
+
+```{r, echo=F}
+knitr::include_graphics("https://press.uchicago.edu/.imaging/mte/ucp/medium/dam/ucp/books/jacket/978/02/26/11/9780226112374.jpg/jcr:content/9780226112374.jpg")
+```
+
 
 ]
 
 ---
 ## Casual claims are are all around us
 
+What are some questions that interest you?
+
+What are the counterfactual comparisons they imply?
 
 
 
 
 ---
-## Causal claims imply counterfactual comparisons
+class: inverse, center, middle
+# 💡
+# Notations to describe causal claims
 
+---
+
+In this course, we will use two forms of notation to describe our causal claims.
+
+- Directed Acyclic Graphs
+- Potential Outcomes Notation
+
+---
+## Directed Acyclic Graphs
+
+- Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
+  - **Directed** Arrows $\to$ describe a direct causal effect ($Y_i(d) \neq Y_i(d^\prime)$)
+  - No arrow = no effect ($Y_i(d) = Y_i(d^\prime)$)
+  - **Acyclic:** No cycles. A variable can't cause itself
+- Used by Pearl ([2009](http://bayes.cs.ucla.edu/jp_home.html), [2017](http://bayes.cs.ucla.edu/jp_home.html)) to describe and assess causal structural models
+
+
+---
+## Drawing DAGs in R
+
+- Nice examples from [ggdag](https://ggdag.malco.io/index.html)
+
+```{r}
+library(tidyverse)
+library(dagitty)
+library(ggdag)
+```
+
+---
+## Confounding = Common Causes
+
+```{r}
+confounder_triangle(x = "Coffee", y = "Lung Cancer", z = "Smoking") %>% 
+  ggdag_dconnected(text = FALSE, use_labels = "label")+
+  theme_void()
+  
+
+```
+
+---
+## Controlling for a confounding variable
+
+```{r}
+
+confounder_triangle(x = "Coffee", y = "Lung Cancer", z = "Smoking") %>% 
+  ggdag_drelationship(controlling_for = "z",text = FALSE, use_labels = "label")+
+  theme_void()
+
+```
+
+---
+## Colliders = Common Consequence
+
+```{r}
+library(ggdag)
+library(tidyverse)
+fever_dag <- collider_triangle(x = "Influenza", 
+                  y = "Chicken Pox", 
+                  m = "Fever") 
+
+ggdag(fever_dag, text = FALSE, use_labels = "label")+
+  theme_void()
+```
+
+---
+## Don't Condition on a Collider
+
+```{r}
+ggdag_dseparated(fever_dag, text = FALSE, use_labels = "label")+
+  theme_void()
+```
+
+---
+## Don't Condition on a Collider
+
+```{r}
+ggdag_dconnected(fever_dag, controlling_for = "m",text = FALSE, use_labels = "label")+
+  theme_void()
+```
+
+
+---
+## Some general notes on notation
+
+- Notation can seem scary, overwhelming, confusing. 
+- Notation can be incredibly helpful for communicating precisely and clearly
+- Our goal is to demistify notation
+
+---
+## General Notation: Populations and Samples
+
+- $U$: Population of units:
+  - Finite population $U = {1,2,3,\dots,N}$
+  - Infinite super population $U = {1,2,3,\dots,\infty}$
+- $S$: sample of size $n$ from population $U$
+
+---
+## General Notation: Variables
+
+- $Y_i$: Observed outcome from unit $i$
+- $D_i$: An indicator for the receipt of treatment. $D_i$ = 1 if treated, $D_i$ = 0 if untreated,
+  - Generalizes to multiple treatments
+- $Z_i$: An indicator for the assignment of treatment. $Z_i$ = 1 if assigned to treatment, $Z_i$ = 0 if assigned to control,
+- $X_i$ pre-treatment covariates.
+- $U_i$ unobserved potential confounds
+
+---
+## Potential Outcomes Notation:
+
+- A way of describing counterfactuals
+- $Y_i(d)$ is the value of the outcome if $D_i$ was $d$
+  - $Y_i(1)$ is the vote share of Rep. Smith when they support \#MeToo
+  - $Y_i(0)$ is the vote share of Rep. Smith when they do not support \#MeToo.
+- Potential outcomes are fixed, but we only observe one (of many) potential outcomes $\to$ *Fundamental Problem of Causal Infernece*
+
+## Individual causal effects
+
+The individual causal effect $\tau_i$ of some treatment $d_i$ on some observation $i$ is 
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+- The **fundamental problem of causal inference** is that we only ever see one potential outcome for an individual, and so it's **impossible to know** the causal effect of some intervention for that individual
+- The ICE is unidentified
 
 ---
 class: inverse, center, middle
@@ -152,14 +362,43 @@ class: inverse, center, middle
 # Causal Identification
 ## *What assumptions do we need to make for a causal claim to be credible*
 
+---
+## Identification
+
+- Identification refers to what we can learn from the data available
+- A quantity of interest is *identified* if, with infinite data it can only take one value
+
+---
+## Causal Identification
+
+- **Casual Identification** refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)
+- **What's  Your Casual Identification Strategy:** What are the assumptions that make your research design credible?
+- Identification > Estimation
+
+
+## Individual causal effects
+
+The individual causal effect $\tau_i$ of some treatment $d_i$ on some observation $i$ is 
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+- The **fundamental problem of causal inference** is that we only ever see one potential outcome for an individual, and so it's **impossible to know** the causal effect of some intervention for that individual
+- The ICE is unidentified
 
 ---
 ## Observational vs Experimental Designs
+
+Imai:
+
+
 
 ---
 class: inverse, center, middle
 # 💡
 # A Potential Outcomes Framework for Causal Inference
+
 ## The fundamental problem of causal inference is that, for an individual unit, we only observe one of potentially many potential outcomes $\to$ Individual causal effects are unidentified
 
 ---
@@ -262,4 +501,19 @@ class: center, middle
 # 💪  
 # Exploring the data for Broockman and Kalla 2016
 
+---
+# Broockman and Kalla (2016)
+
+## Research Question
+
+How do we change people's minds?
+
+## Study Design
+
+A placebo-controlled field experiment
+
+1. Recruited from voter files to complete a baseline survey
+2. Among those who complete the survey, half are assigned to receive an intervention  and half are assigned to receive a placebo 
+3. Only some are actually home or open the door when the canvassers knock. 
+4. These people are then recruited to participate in a series of surveys 3 days, 3 weeks, 6 weeks, and 3 months after the initial intervention.
 
