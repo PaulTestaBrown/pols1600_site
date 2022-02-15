@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 03:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 03:
+## Casual Infrence in Experimental Designs
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Feedback
+- Review
+- Lecture consists of a mix of:
+  - Topics and concepts
+  - Exercises
+- Summary
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
+background-size:contain
+
+# Feedback
+
+
+
+---
+## What do we like
+
+<div id="htmlwidget-bf04cded3f8a21492f25" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf04cded3f8a21492f25">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["I liked lecture. It was fun and all the slides are organized so they make sense.","I thought the lab this week was much more helpful. I liked having time on our own to explore the data/code but then coming back to work on it together","I liked that the lab was based on one small goal because there was so much within that one goal that I was able to learn from (instead of being lost in the sauce with a larger set of different goals)","I liked the lecture and watching as the data in last weeks survey was turned into an easy to read graph.","I have really enjoyed learning about the specific functions for coding the graphs and how we can manipulate the different features of graphs like the colors, layout, etc.","I enjoyed looking at different types of graphs (especially the pretty, high tech ones) and appreciated how different style graphs can give different types of information/suit certain types of data better","I enjoyed the lab! I thought it was pretty fun.","I definitely liked the switch to a \"figure out which chunk and what to do here\" rather than having to sort out the code myself.  I felt like I got to do the useful thing rather than the nitty gritty thing.","I really liked getting to be in the classroom and working through the lab as a class and with a partner. It made me realize what I didn't fully know/understand and gave me an opportunity to work on that. Creating data visuals is fun, and I like imagining how that could be used on a larger scale","I thought the lab was interesting, though it was rather confusing. It was nice to see how all the code connected to make the image.","I enjoyed the lectures (in the sense that they were informative and helpful). I found the tutorials helpful.","I liked learning about what each part of the code does in lecture.","The walk through of the process of making a particular chart","Really enjoying learning how to visualize data! Can't wait to make all sorts of wonky charts and graphs"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+
+--- 
+## What do we dislike
+
+
+<div id="htmlwidget-901d9a5a3baa8fa15014" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-901d9a5a3baa8fa15014">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["The lab was really confusing at first. I feel like there weren't enough information on it for me to be able to start working and feel like I was moving in the right direction. I also just feel like I never wouldn't have been able to do it without all the help I got.","I would have liked to see something new with the lab rather than working on the exact same graph (I'm sure new stuff is coming)","I found the end of chapter 3 to be very confusing","I don’t feel as if I am getting the logic behind the code, especially in the labs and I am instead focused on making sure I don’t fall behind or struggling to resolve problems in the code.","I think the lab was still a bit confusing.  I am really trying to absorb as much as I can but I still do not know what a lot of the specific commands mean.","Our classroom doesn’t have windows. Which makes me sad. And the lighting isn't great either.","The lecture moved kind of fast, but it wasn't too bad, I could still keep up","I didn't feel nearly as frustrated this week after wanting to throw my laptop last week.  I actually wish I had longer to work on the lab with my partner before we did the whole thing as a class, because I felt like we were making progress where I wasn't last week.  Also, I do think that a group of four will be better than pairs for a lab next time.","There is a lot to understand/work with/keep track of in terms of the code we know and have learned, how it works, where to start. At first when we were getting started with the lab I was like oh gosh... I literally have no idea what is going on right now.","I thought we went a little too fast with the lab. At times, I had difficulty making sure what the next step was.","Sometimes, it feels like we are presented with a bit too much information at once to manage in one class session. Often, we end up very rushed towards the end for class because of this. This is especially true for both of the labs that we have had so far. I think I would benefit more and retain more information if there was less to information to process in one sitting.","The labs. Always feel like a baptism by fire.","N/A","Still wrapping my head around the syntax (why is this here? Why is that there? Why isn't this here? etc.) but with practice I'll get used to it"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+---
+# What are we watching
+
+.pull-left[
+
+&lt;img src="https://flxt.tmsimg.com/assets/p16805962_b_h9_aa.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right[
+&lt;img src="https://www.denofgeek.com/wp-content/uploads/2021/11/AOT_Original-KV_Logo_Copyright.jpg?resize=724,1024" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# What we say we're listening to?
+
+
+.pull-left[
+
+&lt;img src="https://assets.simpleviewinc.com/simpleview/image/fetch/c_limit,q_75,w_1200/https://assets.simpleviewinc.com/simpleview/image/upload/crm/desmoines/RKS_DVC_09042020-121-3-_DA0CDDDA-5056-A36A-0696A139DE8F91EE_da0ead9f-5056-a36a-0633632ae182c9c9.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+&lt;img src="https://www.euphoriazine.com/wp-content/uploads/2020/08/02-Galimatias-070-1598390291-scaled.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: inverse
+background-image:url(https://media.giphy.com/media/3o6gg2VslsUCY1rcLS/giphy.gif)
+background-size:cover
+
+# What we're actually listening to
+
+---
+# What we're streaming
+
+<div id="htmlwidget-b21f731335e033f93493" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b21f731335e033f93493">{"x":{"filter":"none","vertical":false,"fillContainer":true,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],["I've been watching Euphoria on Sunday thats about it.","Not really, been too busy :(","Galimatias, Renaissance Boy","Denial (movie), The Beatles’ White Album, Rainbow Kitten Surprise (band), The Gilded Age (tv show)","The Netflix docuseries \"Dirty Money\" is so good I have been watching it because I'm in isolation for covid.","https://www.youtube.com/watch?app=desktop&amp;v=oCZbXdgwr_4&amp;feature=youtu.be&amp;utm_source=Hesperios+Master&amp;utm_campaign=6e74de87ee-EMAIL_CAMPAIGN_2019_11_11_08_55_COPY_01&amp;utm_medium=email&amp;utm_term=0_2c9de0eb64-6e74de87ee-371286286&amp;mc_cid=6e74de87ee&amp;mc_eid=d9c73e67b9","Murderville on netflix!","Basic, but this past week's Euphoria episode was pretty awesome.  Would recommend.","My Spotify (controversial I know, some people really love Apple Music) has been killing it lately. My Discover Weekly had multiple songs I actually love. A couple new (to the world and to me) Rex Orange County Songs (KEEP IT UP, Edition). Discovered a new band called \"Sure Sure\" and a new Avett Brothers song 'Untitled #4' that I love","Not really, unfortunately.","Just finished the Book of Boba Fett. It was alright. If you like Star Wars you will probably enjoy it. I am also currently watching both Demon Slayer and the last season of Attack on Titan. Both very good.","The Jurassic Park 20th Anniversary soundtrack…","I mostly listen to podcasts. Wooden Overcoats is very good and is in its 4th season.","Currently caught up with Attack on Titan (10/10 would recommend if you're into anime) but also been listening to a lot of the Free Nationals/Anderson .Paak, and recently found a great song: MANGO (feat. Adeline) by Kamuu"]],"container":"<table class=\"display fill-container\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Streaming<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## Review
+
+- Set up
+- Data wrangling
+- Data visualization
+
+
+---
+## Setup
+
+Every time you work in R
+
+- Set your working directory
+
+- Load, and if needed, install packages
+
+- Maybe change some global options in your .Rmd file
+
+---
+## Setting your working directory:
+
+- My default code for setting a working directory is:
+
+
+```r
+# Set working directory
+wd &lt;- "." # Change to file path on your computer
+setwd(wd)
+```
+
+- This is really just a reminder to someone else using my code that they need to have their working directories set up correctly
+
+- R Studio sets the working directory automatically, when you knit the file
+
+- When I work on a file, I set the working directory manually
+
+
+
+---
+## Setting your working directory when working "Live"
+
+&lt;img src="https://statisticsglobe.com/wp-content/uploads/2020/03/figure-2-set-working-directory-to-source-file-location-manually.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+## Packages for today
+
+
+
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "kableExtra","DT",
+  
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", 
+  "haven", "labelled",
+  
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", 
+  "ggthemes", "ggpubr", "GGally",
+  "dagitty", "ggdag", #&lt;&lt; New Packages
+  
+  # Data 
+  "COVID19","maps","mapdata",
+  "qss"
+)
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+kableExtra         DT  tidyverse  lubridate    forcats      haven   labelled 
+      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
+     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally    dagitty 
+      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE 
+     ggdag    COVID19       maps    mapdata        qss 
+      TRUE       TRUE       TRUE       TRUE       TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load the Covid-19 Data
+
+---
+## Load the Covid-19 Data
+
+
+```r
+covid &lt;- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+
+---
+## Filter the Covid-19 Data to include Just US States
+
+
+```r
+# Vector containing of US territories
+territories &lt;- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)%&gt;%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+
+---
+## Setting global options
+
+- Lets you control the default behavior of R and R Markdown
+  - Do you want to print warnings when you knit?
+  - How big should your figures be
+- I'll typically set these for you
+
+---
+## The global options for these slides
+
+
+
+
+```r
+options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE, 
+  comment = NA, 
+  dpi = 300, fig.align = "center", out.width = "80%", 
+  cache = FALSE) # &lt;&lt;
+```
+
+
+
+---
+## Data transformations
+
+
+You want to:
+
+- Load some data
+- Look at your data
+- Recode your data
+- Transform your data
+
+---
+## Data transformations
+
+.pull-left[
+You want to:
+
+- Load some data
+- Combine multiple functions
+- Look at your data
+- Recode your data
+- Transform your data
+]
+
+.pull-right[
+You could use
+
+- `read_*` functions
+- `%&gt;%` the "pipe" operator
+- `glimpse()` `head()`, `filter()`, `select()`, `arrange()`
+- `mutate()`, `case_when()`, `ifelse()`
+- `summarize()`, `group_by()`
+
+]
+
+
+---
+# 🔍
+# Recoding categorical data in R
+
+Let's clarify what's going on when we create the `face_masks` variable from the `facial_coverings` variable
+
+- Why are we doing this
+- What does `mutate()` do
+- What does `case_when()` do
+- What does `factor()` do
+
+---
+## Why are we doing this?
+
+When we looked at the raw data, `facial_coverings` was a numeric variable with both positive and negative values
+
+
+```r
+table(covid_us$facial_coverings)
+```
+
+```
+
+   -4    -3    -2    -1     0     1     2     3     4 
+  421  5274  5572    97  2513  2752 11060  8608   622 
+```
+
+---
+## Why are we doing this?
+
+Substantively, the absolute value of these numeric values correspond to increasingly restrictive face mask policies:
+
+- 0 - No policy
+- 1 - Recommended
+- 2 - Required in some specified shared/public spaces outside the home with other people present, or some situations when social distancing not possible
+- 3 - Required in all shared/public spaces outside the home with other people present or all situations when social distancing not possible
+- 4 - Required outside the home at all times regardless of location or presence of other people
+
+With negative values denoting "best guesses" of the policy in effect for most people in a state
+  - Example: Illinois is coded as a negative 4 when Chicago adopts a stringent face mask policy
+
+---
+## Why are we doing this?
+
+- The numbers for these policies reflect an *ordinal* ranking:
+  - No policy is less restrictive than Recommendations is less restrictive than requirements ...
+- Beyond this ordering, the numbers themselves don't convey any additional meaning:
+  - A partial requirement (2) is not "twice as restrictive" as a recommendation (1).
+- How to treat statewide policies (positive numbers) vs mixed regimes (negative) is tricky
+  - Ideally, we'd use more granular data (e.g. counties)
+  - In practice, we'll collapse this distinction in our code
+  - As social scientists, we'd then want explore how our results change using alternative coding rules
+- By converting the numeric `facial_coverings` variable into the categorical, ordered factor `face_masks` we get a variable that:
+  - Has meaningful labels
+  - Retains the subtantive ordering of policies
+
+---
+## Creating the `face_masks` variable
+
+Here's the snippet of code I've given you in the past:
+
+
+```r
+covid_us %&gt;%
+mutate(
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ) %&gt;% factor(.,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Creating the `face_masks` variable
+
+Here's a slightly clearer way of doing the same thing
+
+
+```r
+covid_us %&gt;%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Understanding what `case_when()` does
+
+Let's take a (pseudo) random slice of our data:
+
+
+```r
+set.seed(123)
+covid_us %&gt;%
+  select(date, state, facial_coverings, face_masks)%&gt;%
+  slice(sample(1:dim(covid_us)[1], size=10, replace = F))
+```
+
+```
+         date                state facial_coverings             face_masks
+1  2022-02-08              Wyoming                2      Some requirements
+2  2021-09-13 District of Columbia                2      Some requirements
+3  2021-02-10 District of Columbia                3 Required shared places
+4  2021-06-24              Wyoming                2      Some requirements
+5  2020-03-10              Vermont                0              No policy
+6  2021-07-31                 Ohio                2      Some requirements
+7  2020-07-02                 Utah               -3 Required shared places
+8  2021-03-29          Mississippi               -3 Required shared places
+9  2022-01-04             Nebraska                2      Some requirements
+10 2021-10-14            Louisiana                2      Some requirements
+```
+
+---
+## Understanding all that other stuff did
+
+.pull-left[
+- `set.seed(123)` sets the "seed" that your computer uses to generate pseudo random numbers
+- `select()` selects just the `date`, `state`, `facial_coverings`, and `face_masks` columns from the data
+- `slice()` selects a slice of rows from the data
+- `sample()` takes random sample from the sequence of numbers 1 to 40,889 (`dim(covid_us)`) of size 10, without replacement (no duplicates), which `slice()` interprets as the rows you want to select
+
+]
+
+.pull-right[
+
+
+```r
+set.seed(123)
+covid_us %&gt;%
+  select(date, state, facial_coverings, face_masks)%&gt;%
+  slice(sample(1:dim(covid_us)[1], size=10, replace = F))
+```
+
+]
+
+---
+## Data visualization
+
+A basic graphic requires at minimum:
+
+- `data:` the dataset containing the variables of interest.
+- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
+---
+## Data visualization
+
+Basic graphics are made even better with:
+
+- `facets`
+- `statistics`
+- `coordinates`
+- `themes`
+
+
+
+
+
+---
+## Topics
+
+- Causal inference
+
+- Notations to describe causal claims
+  - Potential Outcomes
+  - Directed Acyclic Graphs
+
+- Causal Identification
+  - Experimental designs (this week)
+  - Observational designs (next week)
+
+- Causal Identification in Experimental Designs
+  - How random assignment creates credible counter factual comparisons
+
+
+---
+## Exercises
+
+1. What kinds questions have causal interpretations?
+
+2. Estimating an average treatment effect with the `resume` data
+
+3. Exploring the data for Broockman and Kalla 2016
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Causal Inference
+## *Causal claims imply counterfactual comparisons*
+
+---
+## Causal claims imply counterfactual comparisons
+
+  
+- Causal claims imply claims about counterfactuals
+  - What would have happened if we were to change some aspect of the world?
+
+--
+
+- What's the counter factual for these claims:  
+  - Foreign aid increases develop
+  - Wikileaks cost Hillary Clinton the 2016 election
+  - Democracies don't fight wars with other democracies
+  - Universal Pre-K improves child development
+
+
+---
+## Casual claims are are all around us
+
+.pull-left[
+&lt;img src="https://images-na.ssl-images-amazon.com/images/I/A1qhBebbu6L.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="https://press.uchicago.edu/.imaging/mte/ucp/medium/dam/ucp/books/jacket/978/02/26/11/9780226112374.jpg/jcr:content/9780226112374.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+## Casual claims are are all around us
+
+What are some questions that interest you?
+
+What are the counterfactual comparisons they imply?
+
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Notations to describe causal claims
+
+---
+
+In this course, we will use two forms of notation to describe our causal claims.
+
+- Directed Acyclic Graphs
+- Potential Outcomes Notation
+
+---
+## Directed Acyclic Graphs
+
+- Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
+  - **Directed** Arrows `\(\to\)` describe a direct causal effect ($Y_i(d) \neq Y_i(d^\prime)$)
+  - No arrow = no effect ($Y_i(d) = Y_i(d^\prime)$)
+  - **Acyclic:** No cycles. A variable can't cause itself
+- Used by Pearl ([2009](http://bayes.cs.ucla.edu/jp_home.html), [2017](http://bayes.cs.ucla.edu/jp_home.html)) to describe and assess causal structural models
+
+
+&gt; Basically, they're math's fancy pants version of flow chart
+
+---
+## Why we use Directed Acyclic Graphs
+
+- Directed Acyclic Graphs are flexible ways of representing complex relationships
+- They're great for illustrating sources of potential bias in our models:
+- Two types of bias we'll talk about today:
+  - Confounder bias: Bias that exists because two variables have a common cause
+  - Collider bias: Bias we create when we condition on a common consequence
+
+
+---
+## What do we mean by bias
+
+We'll talk about lots of types of bias throughout this course.
+
+Formally, we'll say an estimate, `\(\hat{\theta}\)` (theta hat) is an unbiased estimator of a parameter, `\(\theta\)` (theta) if:
+
+\[
+E[\hat{\theta}] = \theta
+\]
+
+Bias or error, `\(\epsilon\)`, is the difference between our estimate and the truth
+
+\[
+\epsilon = \hat{\theta} -\theta
+\]
+
+An estimator is unbiased if, on average, the errors equal 0
+
+\[
+E[\epsilon] = E[\hat{\theta} -\theta] = 0
+\]
+
+---
+## The bias versus the variance of an estimate
+
+&lt;img src="https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/images/bias_variance/bullseye.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## The Bias-Variance Tradeoff
+
+&lt;img src="http://scott.fortmann-roe.com/docs/docs/BiasVariance/biasvariance.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Drawing DAGs in R
+
+- Let's draw some dags to consider some simple examples:
+  - Does drinking coffee cause lung cancer? (Confunding bias)
+  - Does chicken pox cause influenza? (Collider bias)
+- Nice examples of DAGs from [ggdag](https://ggdag.malco.io/index.html)
+
+
+---
+## Confounding = Common Causes
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Controlling for a confounding variable
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Colliders = Common Consequence
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Don't Condition on a Collider
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Don't Condition on a Collider
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-26-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Potential Outcomes
+
+- DAGs are great for representing a wide array of relationships
+- Doing [causal inference with DAGs](https://mixtape.scunning.com/dag.html) is a bit beyond the scope of this class
+- Instead, we'll typically talk about causal claims using the logic of potential outcomes to describe the counterfactual comparisons we want to make.
+- Do this, we'll need to get comfortable with some basic notation.
+
+---
+## Some general notes on notation
+
+- Notation can seem scary, overwhelming, confusing. 
+- Notation can be incredibly helpful for communicating precisely and clearly
+- Our goal is to demistify notation
+
+---
+## General Notation: Populations and Samples
+
+- `\(U\)`: Population of units:
+  - Finite population `\(U = {1,2,3,\dots,N}\)`
+  - Infinite super population `\(U = {1,2,3,\dots,\infty}\)`
+- `\(S\)`: sample of size `\(n\)` from population `\(U\)`
+
+---
+## General Notation: Variables
+
+- `\(Y_i\)`: Observed outcome from unit `\(i\)`
+- `\(D_i\)`: An indicator for the receipt of treatment. `\(D_i\)` = 1 if treated, `\(D_i\)` = 0 if untreated,
+  - Generalizes to multiple treatments
+- `\(Z_i\)`: An indicator for the assignment of treatment. `\(Z_i\)` = 1 if assigned to treatment, `\(Z_i\)` = 0 if assigned to control,
+- `\(X_i\)` pre-treatment covariates.
+- `\(U_i\)` unobserved potential confounds
+
+---
+## General Notation: Expected Values
+
+- The `\(E[Y]\)` reads as "the expected value of Y" and is defined as a probability weighted average based on the uncoditional probability of Y ($f(y)$)
+
+$$
+\operatorname{E}[Y] = \int_{-\infty}^\infty y f(y)\, dy.
+$$
+
+The `\(E[Y|X=x]\)` reads as "the expected value of Y conditional on the value of X" and is defined as a probability weighted average of Y based on the conditional probability of Y given X ($y f_{Y|X}(y|x)$)
+
+$$
+\operatorname{E} (Y | X=x) =  \int_{-\infty}^\infty y f_{Y|X}(y|x) \mathrm{d}y
+$$
+
+---
+## General Notation: Expected Values
+
+- Don't worry about the math in this course.
+- We'll talk more expected values during our discussion of probability
+- For now, just think of `\(E[Y]\)` and `\(E[Y|X=x]\)` as a theoretical averages which we can estimate from the empirical means in our data (`mean(data$y)`, `mean(data$y[data$x == 1]`))
+
+---
+## Potential Outcomes Notation:
+
+- Potentiall outcomes notation is a way of describing counterfactuals
+- `\(Y_i(d)\)` is the value of the outcome if `\(D_i\)` was `\(d\)`
+  - `\(Y_i(1)\)` is the vote share of Rep. Smith when they support \#MeToo
+  - `\(Y_i(0)\)` is the vote share of Rep. Smith when they do not support \#MeToo.
+- Potential outcomes are fixed, but we only observe one (of many) potential outcomes `\(\to\)` *Fundamental Problem of Causal Infernece*
+
+---
+## *Fundamental Problem of Causal Infernece*
+
+The individual causal effect `\(\tau_i\)` of some treatment `\(d_i\)` on some observation `\(i\)` is 
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+- The **fundamental problem of causal inference** is that we only ever see one potential outcome for an individual, and so it's **impossible to know** the causal effect of some intervention for that individual
+
+- The ICE is unidentified
+
+---
+class: inverse, center, middle
+# 💡
+# Causal Identification
+## *What assumptions do we need to make for a causal claim to be credible*
+
+---
+## Identification
+
+- Identification refers to what we can learn from the data available
+
+
+- A quantity of interest is *identified* if, with infinite data it can only take one value
+
+- Mathematically, we'll sometimes say a coefficient in a an equation is unidentified if we have more predictors than observations, or some of predictors are really just linear transformations of other predictors.
+
+---
+## Causal Identification
+
+- **Casual Identification** refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)
+
+- **What's  Your Casual Identification Strategy:** What are the assumptions that make your research design credible?
+
+- Identification &gt; Estimation
+
+---
+## Observational vs Experimental Designs
+
+- **Experimental designs** are studies in which a causal variable of interest, the *treatement*, is manipulated by the researcher to examine its causal effects on some *outcome* of interest
+- **Observational designs** are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)
+
+
+---
+class: inverse, center, middle
+# 💡
+# Causal Identification in Experimental Designs
+
+---
+## The FPoCI is a problem of missing data
+
+That an individual causal effect `\(\tau_i\)`, is defined as:
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+The problem is that for any one individual, we only observe `\(Y_i(1)\)`  or `\(Y_i(0)\)`, but never both.
+
+
+
+---
+## A statistical solution to the FPoCI
+    
+Rather than individual causal effects:
+
+\[
+\tau_i \equiv Y_i(1) - Y_i(0)
+\]
+
+Focus on average causal effects
+
+- \[
+E[\tau_i] = \overbrace{E[Y_i(1) - Y_i(0)]}^{\text{Average of a difference}} = \overbrace{E[Y_i(1)] - E[Y_i(0)]}^{\text{Difference of Averages}}
+\]
+
+When does the difference of averages provide us with a good estimate of the average difference?
+
+---
+## The hospital example
+
+
+```r
+knitr::include_graphics("https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9cca7e7dc857d95ffe.jpg")
+```
+
+&lt;img src="https://i.pinimg.com/originals/1d/1e/dd/1d1eddaa79918e9cca7e7dc857d95ffe.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+## The hospital example
+
+Want to know the effect of going to the hospital on people need to go to the hospital
+
+\[
+\text{What we want} = E[Y(1|D=1) - Y(0|D=1)]
+\]
+
+\[
+\text{What we want} = E[\text{Mortality}(\text{Hospital}|\text{Sick}) - \text{Mortality}(\text{No Hospital}|\text{Sick})]
+\]
+
+## The hospital example
+
+
+Instead we might end up comparing outcomes among the sick and non-sick
+
+\[
+\text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]
+\]
+
+\[
+\text{What we estimate} = E[\text{Mortality}(\text{Hospital})] - E[\text{Mortality}(\text{No Hospital})]
+\]
+
+## Selection bias
+
+The hospital example illustrates the general problem of selection bias
+
+\[
+\widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
+\underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}
+\]
+
+- When is selection bias 0? 
+    - When E[Y(0)|D=1] = E[Y(0)|D=0]
+- When does, E[Y(0)|D=1] = {E[Y(0)|D=0]? 
+    - If D has been randomly assigned
+
+---
+## Random Assignment "Solves" the Problem of Selection Bias
+
+Randomly assigning treatments creates *statistical independence* between treatment ($D$) and potential outcomes ($Y(1),Y(0)$) as well as any observed ($X$) or unobserved confounders ($U$):
+
+\[
+Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
+\]
+
+---
+## Random Assignment "Solves" the Problem of Selection Bias
+
+When treatment has been randomly assigned, what we can observe ($E[Y_i|D=0], E[Y_i|D=1]$), provides good (unbiased) estimates of theoretical quantities we want observe
+
+\[
+E[Y_i|D=0] = E[Y_i(0)|D=0] = E[Y_i(0)] = E[Y_i(0)|D=1]
+\]
+\[
+E[Y_i|D=1] = E[Y_i(1)|D=1] = E[Y_i(1)] = E[Y_i(1)|D=0]
+\]
+
+---
+## Estimating an Average Treatment Effect
+
+If we treatment as been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:
+
+\[
+`\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&amp;= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}`
+\]
+
+That is, the ATE is causally identified by the difference of means estimator in an experimental design
+
+---
+## Causal Identification with Experimental Designs
+
+Causal identification for an experiment, requires very few assumptions:
+
+- **Independence** (Satisfied by Randomization)
+  - `\(Y(1), Y(0),X,U, \perp D\)`
+- **SUTVA** Stable Unit Treatment Value Assumption (Depends on features of the design)
+  - No interference between units `\(Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)\)`
+  - No hidden values of the treatment/Variation in the treatment 
+
+
+---
+## Random Assignment creates testable implications
+
+- If treatment has been randomly assigned, we would expect that there should be few differences between **pre-treatment covariates** in our treatment and control groups.
+
+- That is, on average, the only the thing that should differ between these groups is that one group got the treatment and one group did not.
+
+- If the treatment had an effect, than we can credibly claim that that effect was due to the presence or absence of the treatment, and not some alternative explanation.
+
+- This type of clean counterfactual comparison is what people mean when they talk about an *experimental ideal*
+
+## No Causation without Manipulation?
+
+- "No causation without manipulation" - [Holland (1986)](https://www.jstor.org/stable/2289064)
+- Causal effects are well defined when we can imagine manipulating (changing) the value of `\(D_i\)` and only `\(D_i\)`
+- But what about the "effects" of things like:
+  - Race
+  - Sex
+  - Democracy
+- Studying the effects of these factors requires strong theory and clever design [Sen and Wasow (2016)](https://scholar.harvard.edu/files/msen/files/race_causality.pdf)
+
+
+
+
+---
+class: inverse, center, middle
+# 💪  
+# Estimating an average treatment effect with the `resume` data
+
+---
+## The Resume Experiment (p. 33)
+
+Let's take a look at the resume experiment from your text book and compare some of Imai's code to its `tidyverse` equivalent
+
+
+```r
+# make sure qss package is loaded
+library(qss)
+data("resume")
+```
+
+---
+## High level Overview (p. 34)
+
+
+```r
+dim(resume)
+```
+
+```
+[1] 4870    4
+```
+
+```r
+head(resume)
+```
+
+```
+  firstname    sex  race call
+1   Allison female white    0
+2   Kristen female white    0
+3   Lakisha female black    0
+4   Latonya female black    0
+5    Carrie female white    0
+6       Jay   male white    0
+```
+
+---
+## High level Overview (p. 34)
+
+
+```r
+summary(resume)
+```
+
+```
+  firstname             sex                race                call        
+ Length:4870        Length:4870        Length:4870        Min.   :0.00000  
+ Class :character   Class :character   Class :character   1st Qu.:0.00000  
+ Mode  :character   Mode  :character   Mode  :character   Median :0.00000  
+                                                          Mean   :0.08049  
+                                                          3rd Qu.:0.00000  
+                                                          Max.   :1.00000  
+```
+
+
+---
+## Cross Tabs
+
+
+```r
+race.call.tab &lt;- table(race = resume$race,
+                       call = resume$call)
+race.call.tab
+```
+
+```
+       call
+race       0    1
+  black 2278  157
+  white 2200  235
+```
+
+```r
+addmargins(race.call.tab)
+```
+
+```
+       call
+race       0    1  Sum
+  black 2278  157 2435
+  white 2200  235 2435
+  Sum   4478  392 4870
+```
+
+---
+## Tidy cross tab
+
+
+```r
+resume %&gt;%
+  group_by(race, call)%&gt;%
+  summarise(
+    n = n()
+  )%&gt;%
+  pivot_wider(names_from = call, values_from = n)
+```
+
+```
+# A tibble: 2 × 3
+# Groups:   race [2]
+  race    `0`   `1`
+  &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+1 black  2278   157
+2 white  2200   235
+```
+
+---
+## Calculating Call Back Rates
+
+
+```r
+# Overall
+sum(race.call.tab[,2])/nrow(resume)
+```
+
+```
+[1] 0.08049281
+```
+
+```r
+# Black names
+cb_bl &lt;- sum(race.call.tab[1,2])/sum(race.call.tab[1,])
+# White Names
+cb_wh &lt;- sum(race.call.tab[2,2])/sum(race.call.tab[2,])
+
+# ATE
+cb_wh - cb_bl
+```
+
+```
+[1] 0.03203285
+```
+
+---
+## Calculating Call Back Rates with group_by()
+
+
+```r
+resume %&gt;%
+  group_by(race)%&gt;%
+  summarise(
+    call_back = mean(call)
+  )
+```
+
+```
+# A tibble: 2 × 2
+  race  call_back
+  &lt;chr&gt;     &lt;dbl&gt;
+1 black    0.0645
+2 white    0.0965
+```
+
+
+
+
+---
+## Factor variables in Base R
+
+
+```r
+resume$type &lt;- NA
+resume$type[resume$race == "black" &amp; resume$sex == "female"] &lt;- "BlackFemale"
+resume$type[resume$race == "black" &amp; resume$sex == "male"] &lt;- "BlackMale"
+resume$type[resume$race == "white" &amp; resume$sex == "female"] &lt;- "WhiteFemale"
+resume$type[resume$race == "white" &amp; resume$sex == "male"] &lt;- "WhiteMale"
+```
+
+---
+## Factor variables in Tidy R
+
+
+```r
+resume %&gt;%
+  mutate(
+    type_tidy = case_when(
+      race == "black" &amp; sex == "female" ~ "BlackFemale",
+      race == "black" &amp; sex == "male" ~ "BlackMale",
+      race == "white" &amp; sex == "female" ~ "WhiteFemale",
+      race == "white" &amp; sex == "male" ~ "WhiteMale"
+    )
+  ) -&gt; resume
+```
+
+---
+## Comparing approaches
+
+
+```r
+table(base= resume$type, tidy= resume$type_tidy)
+```
+
+```
+             tidy
+base          BlackFemale BlackMale WhiteFemale WhiteMale
+  BlackFemale        1886         0           0         0
+  BlackMale             0       549           0         0
+  WhiteFemale           0         0        1860         0
+  WhiteMale             0         0           0       575
+```
+
+
+
+---
+## Visualizing Call Back Rates by Name
+
+
+```r
+resume %&gt;%
+  group_by(race, sex,firstname)%&gt;%
+  summarize(
+    Y = mean(call),
+    n = n()
+  )%&gt;%
+  arrange(desc(Y)) %&gt;%
+  mutate(
+    firstname = forcats::fct_reorder(firstname,Y)
+  )%&gt;%
+  ggplot(aes(Y, firstname,col=race, size=n))+
+  geom_point() + 
+  facet_grid(sex~.,scales = "free_y")
+```
+
+
+---
+## Visualizing Call Back Rates by Name
+
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-39-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class:inverse, center, middle
+# 💪  
+# Exploring the data for Broockman and Kalla 2016
+
+---
+# Reading Academic Papers
+
+- Reading academic papers is a skill and takes practice. 
+- You should aim to answer the following:
+  - What's the research question?
+  - What's the theoretical framework?
+  - What's the empirical design?
+  - What's are the main results?
+
+---
+## Broockman and Kalla (2016)
+
+- What's the research question?
+- What's the theoretical framework?
+- What's the empirical design?
+- What's are the main results?
+
+
+---
+## Study Design :A placebo-controlled field experiment
+
+1. Recruited from voter files to complete a baseline survey
+2. Among those who complete the survey, half are assigned to receive an intervention  and half are assigned to receive a placebo 
+3. Only some are actually home or open the door when the canvassers knock. 
+4. These people are then recruited to participate in a series of surveys 3 days, 3 weeks, 6 weeks, and 3 months after the initial intervention.
+
+---
+## Data for Thursday
+
+Let's load the data from the orginal study
+
+
+```r
+load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
+```
+
+
+
+---
+## Codebook
+
+- `completed_baseline` whether someone completed the baseline survey ("Survey") or not ("No Survey")
+- `treatment_assigned` what intervention someone who completed the baseline survey was assigned two (treatment= "Trans-Equality", placebo = "Recycling")
+- `answered_door` whether someone answered the door ("Yes") or not ("No") when a canvasser came to their door
+- `treatment_group` the treatment assignments of those who answered the door (treatment= "Trans-Equality", placebo = "Recycling")
+- `vf_age` the age of the person in years
+- `vf_female` the respondent's sex (female = 1, male = 0)
+- `vf_democrat` whether the person was a registered Democract (Democrat=1, 0 otherwise)
+- `vf_white` whether the person was white (White=1, 0 otherwise)
+- `vf_vg_12` whether the person voted in the 2012 general election (voted = 1, 0 otherwise)
+
+
+---
+## HLO
+
+
+```r
+glimpse(df)
+```
+
+```
+Rows: 68,378
+Columns: 30
+$ id                    &lt;int&gt; 60291, 52944, 27568, 41146, 17510, 46368, 60340,…
+$ contacted             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ completed_baseline    &lt;chr&gt; "No Survey", "No Survey", "No Survey", "No Surve…
+$ treatment_assigned    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ answered_door         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ treatment_group       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ respondent_t0         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ respondent_t1         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ respondent_t2         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ respondent_t3         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ respondent_t4         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ vf_age                &lt;dbl&gt; 23.00000, 38.00000, 48.00000, 49.20192, 49.20192…
+$ vf_female             &lt;dbl&gt; 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, …
+$ vf_democrat           &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, …
+$ vf_white              &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
+$ vf_vg_12              &lt;dbl&gt; 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, …
+$ therm_trans_t0        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ therm_trans_t1        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ therm_trans_t2        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ therm_trans_t3        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ therm_trans_t4        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ trans.tolerance.dv.t0 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ trans.tolerance.dv.t1 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ trans.tolerance.dv.t2 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ trans.tolerance.dv.t3 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ trans.tolerance.dv.t4 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ treat_ind             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ treatment_delivered   &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ exp_actual_convo      &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "", "", …
+$ age_is_na             &lt;lgl&gt; FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TR…
+```
+
+
+---
+## Study Design
+
+
+```r
+table(df$completed_baseline)
+```
+
+```
+
+No Survey    Survey 
+    66553      1825 
+```
+
+```r
+table(df$treatment_assigned)
+```
+
+```
+
+     Recycling Trans-Equality 
+           913            912 
+```
+
+```r
+table(df$answered_door)
+```
+
+```
+
+  No  Yes 
+1324  501 
+```
+
+```r
+table(df$treatment_group)
+```
+
+```
+
+     Recycling Trans-Equality 
+           255            246 
+```
+
+
+
+---
+## Assessing balance in covariates
+
+
+```r
+df %&gt;%
+  filter(completed_baseline == "Survey") %&gt;%
+  select(treatment_assigned,starts_with("vf_"))%&gt;%
+  group_by(treatment_assigned)%&gt;%
+  summarise(across(starts_with("vf_"), mean))-&gt;pretreatment_balance
+```
+
+---
+## Assessing balance in covariates
+
+
+```r
+pretreatment_balance
+```
+
+```
+# A tibble: 2 × 6
+  treatment_assigned vf_age vf_female vf_democrat vf_white vf_vg_12
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 Recycling            46.3     0.593       0.463    0.209    0.757
+2 Trans-Equality       47.7     0.582       0.488    0.217    0.719
+```
+
+---
+## Assessing balance in covariates
+
+
+```r
+pretreatment_balance %&gt;%
+  gather(.,key = covariate, value = value, -treatment_assigned) %&gt;%
+  spread(treatment_assigned, value) %&gt;%
+  mutate(
+    Difference = `Trans-Equality` - Recycling
+  )
+```
+
+```
+# A tibble: 5 × 4
+  covariate   Recycling `Trans-Equality` Difference
+  &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+1 vf_age         46.3             47.7      1.40   
+2 vf_democrat     0.463            0.488    0.0246 
+3 vf_female       0.593            0.582   -0.0103 
+4 vf_vg_12        0.757            0.719   -0.0375 
+5 vf_white        0.209            0.217    0.00790
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
