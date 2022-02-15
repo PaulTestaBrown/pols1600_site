@@ -92,6 +92,16 @@ DT::datatable(df %>%
 ```
 
 ---
+## Learning to code:
+
+- Thinking programattically
+  - Chunk big problems into concrete tasks
+- Use R Markdown to organize your code
+- Learn to troubleshoot errors
+- Don't be afraid to FAAFO
+  
+
+---
 # What are we watching
 
 .pull-left[
