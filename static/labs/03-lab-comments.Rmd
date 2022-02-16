@@ -1,0 +1,321 @@
+---
+title: 'Lab 03 - Replicating Broockman and Kalla (2016)'
+author: "Your Name HERE"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, 
+                      comment = NA, 
+                      warnings = FALSE, 
+                      errors = FALSE, 
+                      messages = FALSE, 
+                      cache = TRUE,
+                      tidy = FALSE)
+```
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+
+
+
+# Overview {-}
+
+
+
+
+
+# Please knit this .Rmd file {-}
+
+For every lab:
+
+- Download the file
+- Save it in your course folder
+- Knit the document
+- Open the html file in your browser (Easier to read)
+- Knit the document again after completing a section or chunk (Error checking)
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870521?module_item_id=10762395){target="_blank"}.
+
+
+# Set up your workspace
+
+```{r}
+library(tidyverse)
+```
+
+
+##  Load the replication data
+
+```{r}
+load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
+```
+
+
+# Provide a high level overview of the data
+
+In the code chunk below, please write code to answer
+
+```{r}
+
+```
+
+
+The following questions:
+
+1. What's the unit of analysis
+2. How many registered voters completed the baseline survey?
+3. How many treatment conditions are their? 
+4. How many participants were assigned to each condition?
+5. How many participants answered the door when a canvasser came?
+6. How many participants received the treatment?
+
+
+# Describe the distribution of your 
+
+
+# Subset the data
+
+```{r}
+df_treat <- df %>%
+  filter(!is.na(treatment_group))
+```
+
+# Calculate the Pre-Treatment Difference
+
+```{r}
+df_treat %>%
+  summarise(
+    baseline = 0,
+    treat = mean(therm_trans_t0[treatment_group == "Trans-Equality"]),
+    control = mean(therm_trans_t0[treatment_group == "Recycling"]),
+    ate =  mean(therm_trans_t0[treatment_group == "Trans-Equality"]) - mean(therm_trans_t0[treatment_group == "Recycling"])
+  )
+```
+
+
+# Calculate the Average Treatment Effect
+
+## Baseline
+
+```{r}
+df_treat %>%
+  summarise(
+    days = 0,
+    treat = mean(therm_trans_t0[treatment_group == "Trans-Equality"]),
+    control = mean(therm_trans_t0[treatment_group == "Recycling"]),
+    ate =  mean(therm_trans_t0[treatment_group == "Trans-Equality"]) - mean(therm_trans_t0[treatment_group == "Recycling"])
+  ) -> ate0
+```
+
+
+
+
+## 3 Days
+
+```{r}
+df_treat %>%
+  summarise(
+    days = 3,
+    treat = mean(therm_trans_t1[treatment_group == "Trans-Equality"], na.rm=T),
+    control = mean(therm_trans_t1[treatment_group == "Recycling"], na.rm=T),
+    ate =  mean(therm_trans_t1[treatment_group == "Trans-Equality"], na.rm=T) -
+      mean(therm_trans_t1[treatment_group == "Recycling"], na.rm=T)
+  ) -> ate1
+```
+
+
+## 21 Days
+
+```{r}
+df_treat %>%
+  summarise(
+    days = 21,
+    treat = mean(therm_trans_t2[treatment_group == "Trans-Equality"], na.rm=T),
+    control = mean(therm_trans_t2[treatment_group == "Recycling"], na.rm=T),
+    ate =  mean(therm_trans_t2[treatment_group == "Trans-Equality"], na.rm=T) -
+      mean(therm_trans_t2[treatment_group == "Recycling"], na.rm=T)
+  ) -> ate2
+```
+
+
+
+## 42 Days
+
+```{r}
+df_treat %>%
+  summarise(
+    days = 42,
+    treat = mean(therm_trans_t3[treatment_group == "Trans-Equality"], na.rm=T),
+    control = mean(therm_trans_t3[treatment_group == "Recycling"], na.rm=T),
+    ate =  mean(therm_trans_t3[treatment_group == "Trans-Equality"], na.rm=T) -
+      mean(therm_trans_t3[treatment_group == "Recycling"], na.rm=T)
+  ) -> ate3
+```
+
+
+## 90 Days
+
+```{r}
+df_treat %>%
+  summarise(
+    days = 90,
+    treat = mean(therm_trans_t4[treatment_group == "Trans-Equality"], na.rm=T),
+    control = mean(therm_trans_t4[treatment_group == "Recycling"], na.rm=T),
+    ate =  mean(therm_trans_t4[treatment_group == "Trans-Equality"], na.rm=T) -
+      mean(therm_trans_t4[treatment_group == "Recycling"], na.rm=T)
+  ) -> ate4
+```
+
+
+
+# Combine the average treatment effects
+
+```{r}
+
+ate_df <- bind_rows(
+  ate0, 
+  ate1,
+  ate2,
+  ate3,
+  ate4
+)
+
+```
+
+
+# Plot the avearge treatment effects
+
+```{r}
+ate_df %>%
+  ggplot(aes(days, ate))+
+  geom_point()+
+  geom_line()
+```
+
+
+# Revise your figure
+
+
+
+# How big are these differences?
+
+
+```{r}
+diff_function <- function(dat, var){
+  treat <- mean(dat[dat$treatment_group == "Trans-Equality",var], na.rm=T)
+  control <- mean(dat[dat$treatment_group == "Recycling",var], na.rm=T)
+  ate <- treat - control
+  results <- c(
+    treat = treat, 
+    control = control, 
+    ate = ate
+    )
+  return(results)
+
+}
+
+
+table(df$treatment_group)
+as.data.frame(t(diff_function(df_treat, "trans.tolerance.dv.t1")))
+df_treat%>%
+  ggplot(aes(trans.tolerance.dv.t3,col=treatment_group))+
+  geom_density()
+diff_function(sample_n(df_treat, size = nrow(df_treat),
+                       replace = T), 
+              "therm_trans_t4"
+              )
+
+
+tmp <- data.frame(t(replicate(10,
+          diff_function(sample_n(df_treat, size = nrow(df_treat),
+                       replace = T), 
+              "therm_trans_t4"
+              ),
+          simplify = "data.frame"
+          )))
+class(tmp$ate)
+
+# Simulate differences
+
+simulate_differences_fn <- function(nsims=100, df, v){
+  ate <- data.frame(t(diff_function(dat = df, var = v)))
+  sims <- data.frame(t(
+    replicate(n = nsims,
+          diff_function(dat = sample_n(df, size = nrow(df),
+                       replace = T), 
+                       var = v
+                       ),
+          simplify = "data.frame"
+          )
+    ))
+  ate$ll <- quantile(sims$ate, prob = .025)
+  ate$ul <- quantile(sims$ate, prob = .975)
+  return(ate)
+}
+
+# Baseline
+ate0 <- simulate_differences_fn(1000, df_treat, "therm_trans_t0")
+ate1 <- simulate_differences_fn(1000, df_treat, "therm_trans_t1")
+ate2 <- simulate_differences_fn(1000, df_treat, "therm_trans_t2")
+ate3 <- simulate_differences_fn(1000, df_treat, "therm_trans_t3")
+ate4 <- simulate_differences_fn(1000, df_treat, "therm_trans_t4")
+
+ate0$days <- 0
+ate1$days <- 3
+ate2$days <- 21
+ate3$days <- 42
+ate4$days <- 90
+
+ate_df <- bind_rows(
+  ate0, 
+  ate1,
+  ate2,
+  ate3,
+  ate4
+)
+
+
+
+ate_df %>%
+  ggplot(aes(days, ate))+
+  geom_point()+
+  geom_linerange(aes(ymin=ll,ymax=ul))
+
+```
+
+
+```{r}
+df_treat$trans.tolerance.dv.t0
+ate0 <- simulate_differences_fn(1000, df_treat, "trans.tolerance.dv.t0")
+ate1 <- simulate_differences_fn(1000, df_treat, "trans.tolerance.dv.t1")
+ate2 <- simulate_differences_fn(1000, df_treat, "trans.tolerance.dv.t2")
+ate3 <- simulate_differences_fn(1000, df_treat, "trans.tolerance.dv.t3")
+ate4 <- simulate_differences_fn(1000, df_treat, "trans.tolerance.dv.t4")
+
+ate0$days <- 0
+ate1$days <- 3
+ate2$days <- 21
+ate3$days <- 42
+ate4$days <- 90
+
+
+ate_df <- bind_rows(
+  ate0, 
+  ate1,
+  ate2,
+  ate3,
+  ate4
+)
+```
+
+
+
+

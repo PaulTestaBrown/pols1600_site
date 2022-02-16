@@ -1221,7 +1221,7 @@ resume %>%
 
 
 ---
-## Visualizing Call Back Rates by Name
+
 
 
 ```{r, echo = F}
