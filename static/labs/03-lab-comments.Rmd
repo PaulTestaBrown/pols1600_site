@@ -455,11 +455,11 @@ Using the code from the previous section as a guide, calculate the difference in
 
 To accomplish this you will need to do the following:
 
-- add a `filter(!is.na(treatement_assigned))%>%` after `df%>%` to filter out subjects who didn't not complete the baseline.
-- Replace `completed_baseline` with `treatement_assigned` in the code
+- add a `filter(!is.na(treatment_assigned))%>%` after `df%>%` to filter out subjects who didn't not complete the baseline.
+- Replace `completed_baseline` with `treatment_assigned` in the code
 - In the `mutate()` function, change:
   - `Diff_Survey` to `Diff_Treatment`
-  - the values `No Survey` to `Recyclying` and `Survey` to `Trans-Equality`
+  - the values `Survey` to `Recycling` and `No Survey` to `Trans-Equality`
 - Change `-> cov_baseline` to `-> cov_treatment`
 
 ```{r baltreat}
@@ -469,16 +469,19 @@ df %>%
   filter(!is.na(treatment_assigned)) %>%
   # Calculate means for voter file variables
   summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  gather(key = "Covariate", 
-         value = "Mean", 
-         -treatment_assigned) %>%
-  # Put No Survey and Survey means in separate columns
-  spread(key = treatment_assigned, value = Mean)%>%
+  pivot_longer(
+    cols = starts_with("vf_"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )%>%
   # Calculate difference
   mutate(
-    Diff_Treatment = `Trans-Equality` - Recycling
-  ) -> cov_treat
+    Diff_Treat = `Trans-Equality` - Recycling
+    )-> cov_treat
 
 cov_balance <- cov_balance %>% 
   left_join(cov_treat,
@@ -570,29 +573,35 @@ Using the code from the previous sections as a template,
 
 - Add a `filter(!is.na(treatment_group))%>%` after `df%>%` to filter out subjects who didn't receive the treatment.^[Recall that only some people who completed the baseline and were assigned to receive the treatment actually answered the door when canvassers came knocking.]
 - Change `summarise(across(starts_with("vf_"), mean))%>%` code to select variables that start with `therm_trans`
+- Change the `cols` argument in `pivot_longer()` to select the columns that start with `therm_trans`
 - Everywhere you see `treatment_assigned` in the code replace it with `treatement_group` 
 - In the `mutate()` function, change:
   - `Diff_Treatment` to `ATE`
-  - Add the following line `Days = c(0,3,21,42,90)` to create a column called Days (*make sure to put a comma after `ATE = `Trans-Equality` - Recycling,` )
+  - Add the following line `Days = c(0,3,21,42,90)` to create a column called Days (*make sure to put a comma after `ATE = `Trans-Equality`  - Recycling,` ). Be sure to wrap ``Trans-Equality`` in backticks ` before and after the phrase
 - Change `-> cov_treatment` to `ate_df`
 
 ```{r ate}
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
-  group_by(treatment_group) %>%
-  filter(!is.na(treatment_group)) %>%
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
   # Calculate means for voter file variables
   summarise(across(starts_with("therm_trans"), mean, na.rm=T))%>%
-  gather(key = "Outcome", 
-         value = "Mean", 
-         -treatment_group) %>%
-  # Put No Survey and Survey means in separate columns
-  spread(key = treatment_group, value = Mean)%>%
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )%>%
   # Calculate difference
   mutate(
     ATE = `Trans-Equality` - Recycling,
     Days = c(0,3,21,42,90)
-  ) -> ate_df
+    )-> ate_df
+
 ate_df
 ```
 
