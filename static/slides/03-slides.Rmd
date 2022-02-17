@@ -234,7 +234,7 @@ the_packages <- c(
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", 
   "ggthemes", "ggpubr", "GGally",
-  "dagitty", "ggdag", #<<
+  "scales", "dagitty", "ggdag", #<<
   
   # Data 
   "COVID19","maps","mapdata",

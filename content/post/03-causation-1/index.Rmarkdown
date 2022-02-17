@@ -33,6 +33,14 @@ links:
   icon_pack: fas
   name: "Broockman and Kalla (2016)"
   url: /files/readings/broockman_kalla_2016.pdf
+- icon: flask
+  icon_pack: fas
+  name: Lab
+  url: /labs/03-lab.Rmd
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/03-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes
