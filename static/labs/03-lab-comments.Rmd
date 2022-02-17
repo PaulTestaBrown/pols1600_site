@@ -63,7 +63,7 @@ Here are your assigned groups for the semester.
 
 ```{r groups, echo=F}
 groups_df <- tibble::tibble(
-  `Group 1` = c("Maria Sofia Pena", "Lily Secondorf", 
+  `Group 1` = c("Maria Sofia Pena", "Lily Seckondorf", 
                 "Sam Swartz","Ben Pollard"),
   `Group 2` = c("Ryan Jaquez Melo", "Charles Key",
                 "Katherine Beggs","Samuel Clark"),  
