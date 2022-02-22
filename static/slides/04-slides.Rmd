@@ -1,0 +1,316 @@
+---
+title: "Week 04:"
+subtitle: "Casual Inference in Observational Designs"
+author: "Paul Testa"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/brown.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: atelier-lakeside-light
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+options(blogdown.knit.on_save = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+  comment = NA, dpi = 300,
+  fig.align = "center", out.width = "80%",
+  cache = TRUE)
+
+
+
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+
+
+class: inverse, center, middle
+background-image:url(https://images.gnwcdn.com/2021/articles/2021-11-02-21-59/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg/EG11/resize/1200x-1/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg)
+background-size:cover
+
+# Overview
+
+---
+## General Plan
+
+- Feedback
+- Review
+  - Causal Inference
+- Experimental vs Observational Designs
+- Four types of observational designs:
+  - Regression
+  - Difference in Difference
+  - Regression Discontinuity
+  - Instrumental Variables
+
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
+background-size:contain
+
+# Feedback
+
+```{r, echo=F, message=F}
+df <- haven::read_spss("../files/data/wk03.sav")
+df$creature
+df %>%
+  mutate(
+    Reincarnation = reincarnation,
+    Why = creature,
+  ) -> df
+```
+
+---
+## What did we like
+
+--
+
+- We liked the lab (or liked it better)
+  - Working in groups 
+  - Extensive notes
+  - Reasonable pacing 
+  - Real world data
+  - Mix of substantive and technical questions
+
+---
+## What did we like
+
+```{r, echo=F, out.height='90%'}
+DT::datatable(df %>% 
+                select(Likes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
+              )
+```
+
+
+---
+## What did we dislike
+
+
+
+---
+## What did we dislike
+
+- Labs still feel rushed (at the end)
+- When code breaks it can be hard to fix
+- Lecture was a bit confusing/long
+- The space
+
+
+```{r, echo=F}
+DT::datatable(df %>% 
+                select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
+              )
+```
+
+---
+## Would we be better off reading shakespeare
+
+- Thinking programattically
+  - Chunk big problems into concrete tasks
+- Use R Markdown to organize your code
+- Learn to troubleshoot errors
+- Don't be afraid to FAAFO
+  
+---
+## You're about to be reincarnated
+
+
+---
+# 🔍
+# Causal Inference
+
+---
+## Causal inference is about counterfactual comparisons
+
+---
+## Representing causal claims
+
+- Directed Acyclic Graphs
+  - Useful for conceptual mapping
+- Potential Outcomes
+
+## A Common 
+
+- Two ways to represent causal claims
+  - DAGs
+  - Potential outcomes
+- Fundamental Problem of Causal Inference
+  - For an individual, we only observe one of potential many potential outcomes.
+- Causal Identification: What do we need to assume for your causal claim to be credible
+- Randomization offers a solution to the fundamental problem
+
+- Causal inference is about counterfactual comparisons
+- Two ways to represent causal claims
+  - DAGs
+  - Potential outcomes
+- Fundamental Problem of Causal Inference
+  - For an individual, we only observe one of potential many potential outcomes.
+- Causal Identification: What do we need to assume for your causal claim to be credible
+- Randomization offers a solution to the fundamental problem
+
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+---
+## Loading data from the census
+
+---
+## Loading data from Harvard's data verse
+
+
+---
+## Packages for today
+
+
+```{r packages, cache=F}
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT",
+  
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag",
+  
+  # Data 
+  "COVID19","maps","mapdata","qss",
+  "tidycensus", "dataverse", #<<
+  
+  # Analysis
+  "DeclareDesign", "easystats" #<<
+)
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+```{r ipak}
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+```
+
+---
+## Load packages for today
+
+```{r}
+ipak(the_packages)
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+---
+## Load the Covid-19 Data
+
+```{r covid}
+covid <- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+
+---
+## Load Data on the 2020 Election
+
+
+---
+## Load Data on State Income from the Census
+
+
+---
+## Merge election data into Covid data
+
+---
+## Merge census data into Covid data
+
+
+---
+class: inverse, center, middle
+# 💡
+# Casual Inference in Experimental and Observational Designs
+
+---
+## Experimental and Observational Designs
+
+---
+## Internal vs External Validity
+
+
+---
+## The Experimental Ideal
+
+---
+## Conditional Independence
+
+---
+## Four Common types of Observational 
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/71lsG3fCaOL._SL1200_.jpg")
+background-size:cover
+# Break
+
+---
+class: inverse, center, middle
+# 💡 Selection on Observables
+
+---
+class: inverse, center, middle
+# 💡 Difference in Differences
+
+
+---
+class: inverse, center, middle
+# 💡 Regression Discontinuity Design
+
+
+---
+class: inverse, center, middle
+# 💡 Instrumental Variables
+
+
+
