@@ -279,8 +279,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>This lab <strong>must</strong> contain the names of the group members in attendance.</p>
 <p>If you are attending remotely, you will submit your labs individually.</p>
 <p>Here are your assigned groups for the semester.</p>
-<div id="htmlwidget-b368aa5d4dd67003cedb" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b368aa5d4dd67003cedb">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Maria Sofia Pena","Lily Seckondorf","Sam Swartz","Ben Pollard"],["Ryan Jaquez Melo","Charles Key","Katherine Beggs","Samuel Clark"],["Fausto Rojas","Zoey Katzive","Hunter Keneley","Anne Lord"],["Annette Lee","Sara Shipon","Zachary Potts","Lucas Aquayo-Garber"],["Zeke Hertz","Ruqiya Egal","Zoe Magley","Logan Danker"],["Christopher Pool","Laura David","Kevin Moclair",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group 1<\/th>\n      <th>Group 2<\/th>\n      <th>Group 3<\/th>\n      <th>Group 4<\/th>\n      <th>Group 5<\/th>\n      <th>Group 6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-aa0c0dcb1621e7420221" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aa0c0dcb1621e7420221">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["Maria Sofia Pena","Lily Seckondorf","Sam Swartz","Ben Pollard"],["Ryan Jaquez Melo","Charles Key","Katherine Beggs","Samuel Clark"],["Fausto Rojas","Zoey Katzive","Hunter Keneley","Anne Lord"],["Annette Lee","Sara Shipon","Zachary Potts","Lucas Aquayo-Garber"],["Zeke Hertz","Ruqiya Egal","Zoe Magley","Logan Danker"],["Christopher Pool","Laura David","Kevin Moclair",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group 1<\/th>\n      <th>Group 2<\/th>\n      <th>Group 3<\/th>\n      <th>Group 4<\/th>\n      <th>Group 5<\/th>\n      <th>Group 6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="goals" class="section level1 unnumbered">
 <h1 class="unnumbered">Goals</h1>
@@ -564,7 +564,7 @@ cov_balance</code></pre>
 <li>In the <code>mutate()</code> function, change:
 <ul>
 <li><code>Diff_Survey</code> to <code>Diff_Treatment</code></li>
-<li>the values <code>No Survey</code> to <code>Recyclying</code> and <code>Survey</code> to <code>Trans-Equality</code></li>
+<li>the values <code>No Survey</code> to <code>Trans-Equality</code> and <code>Survey</code> to <code>Recycling</code></li>
 </ul></li>
 <li>Change <code>-&gt; cov_baseline</code> to <code>-&gt; cov_treatment</code></li>
 </ul>
@@ -579,11 +579,12 @@ cov_balance</code></pre>
 <ul>
 <li>Add a <code>filter(!is.na(treatment_group))%&gt;%</code> after <code>df%&gt;%</code> to filter out subjects who didn’t receive the treatment.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
 <li>Change <code>summarise(across(starts_with(&quot;vf_&quot;), mean))%&gt;%</code> code to select variables that start with <code>therm_trans</code></li>
+<li>Change the <code>cols</code> argument in <code>pivot_longer()</code> to select the columns that start with <code>therm_trans</code></li>
 <li>Everywhere you see <code>treatment_assigned</code> in the code replace it with <code>treatement_group</code></li>
 <li>In the <code>mutate()</code> function, change:
 <ul>
 <li><code>Diff_Treatment</code> to <code>ATE</code></li>
-<li>Add the following line <code>Days = c(0,3,21,42,90)</code> to create a column called Days (*make sure to put a comma after <code>ATE =</code>Trans-Equality<code>- Recycling,</code> )</li>
+<li>Add the following line <code>Days = c(0,3,21,42,90)</code> to create a column called Days (*make sure to put a comma after <code>ATE =</code>Trans-Equality<code>- Recycling,</code> ) Be sure to wrap <code>Trans-Equality</code> in backticks ` before and after the phrase</li>
 </ul></li>
 <li>Change <code>-&gt; cov_treatment</code> to <code>ate_df</code></li>
 </ul>

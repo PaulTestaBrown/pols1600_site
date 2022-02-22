@@ -346,7 +346,7 @@ To accomplish this you will need to do the following:
 - Replace `completed_baseline` with `treatement_assigned` in the code
 - In the `mutate()` function, change:
   - `Diff_Survey` to `Diff_Treatment`
-  - the values `No Survey` to `Recyclying` and `Survey` to `Trans-Equality`
+  - the values `No Survey` to `Trans-Equality` and `Survey` to `Recycling`
 - Change `-> cov_baseline` to `-> cov_treatment`
 
 ```{r baltreat}
@@ -363,10 +363,11 @@ Using the code from the previous sections as a template,
 
 - Add a `filter(!is.na(treatment_group))%>%` after `df%>%` to filter out subjects who didn't receive the treatment.^[Recall that only some people who completed the baseline and were assigned to receive the treatment actually answered the door when canvassers came knocking.]
 - Change `summarise(across(starts_with("vf_"), mean))%>%` code to select variables that start with `therm_trans`
+- Change the `cols` argument in `pivot_longer()` to select the columns that start with `therm_trans`
 - Everywhere you see `treatment_assigned` in the code replace it with `treatement_group` 
 - In the `mutate()` function, change:
   - `Diff_Treatment` to `ATE`
-  - Add the following line `Days = c(0,3,21,42,90)` to create a column called Days (*make sure to put a comma after `ATE = `Trans-Equality` - Recycling,` )
+  - Add the following line `Days = c(0,3,21,42,90)` to create a column called Days (*make sure to put a comma after `ATE = `Trans-Equality` - Recycling,` )  Be sure to wrap ``Trans-Equality`` in backticks ` before and after the phrase
 - Change `-> cov_treatment` to `ate_df`
 
 ```{r ate}
