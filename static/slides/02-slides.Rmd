@@ -170,7 +170,7 @@ ipak(the_packages)
 ```
 
 
-- `R` may ask you to install a package's dependencies (other packages your your package needs). Try entering the number `1` into your console
+- `R` may ask you to install a package's dependencies (other packages  your package needs). Try entering the number `1` into your console
 - `R` may tell you need to restart `R` Try saying yes. If it doesn't start downloading, say no
 - `R` may then ask if you want to compile some packages from source. Type `Y` into your console. If this doesn't work, try again, but this time type `N` when asked
 
