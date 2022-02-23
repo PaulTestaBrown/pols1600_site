@@ -20,15 +20,16 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE,
   fig.align = "center", out.width = "80%",
   cache = TRUE)
 
+# Run setup
+# <<packages>>
+# <<ipak>>
+# <<loadpackages>>
 
+# ---- Slides ----
 
-```
-
-```{r xaringan-tile-view, echo=FALSE}
+## Tileview
 xaringanExtra::use_tile_view()
-```
-
-```{r xaringanExtra-clipboard, echo=FALSE}
+# Clipboard
 htmltools::tagList(
   xaringanExtra::use_clipboard(
     button_text = "<i class=\"fa fa-clipboard\"></i>",
@@ -38,161 +39,7 @@ htmltools::tagList(
 )
 ```
 
-
-
-class: inverse, center, middle
-background-image:url(https://images.gnwcdn.com/2021/articles/2021-11-02-21-59/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg/EG11/resize/1200x-1/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg)
-background-size:cover
-
-# Overview
-
----
-## General Plan
-
-- Feedback
-- Review
-  - Causal Inference
-- Experimental vs Observational Designs
-- Four types of observational designs:
-  - Regression
-  - Difference in Difference
-  - Regression Discontinuity
-  - Instrumental Variables
-
-
----
-class: inverse, center, middle
-background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
-background-size:contain
-
-# Feedback
-
-```{r, echo=F, message=F}
-df <- haven::read_spss("../files/data/wk03.sav")
-df$creature
-df %>%
-  mutate(
-    Reincarnation = reincarnation,
-    Why = creature,
-  ) -> df
-```
-
----
-## What did we like
-
---
-
-- We liked the lab (or liked it better)
-  - Working in groups 
-  - Extensive notes
-  - Reasonable pacing 
-  - Real world data
-  - Mix of substantive and technical questions
-
----
-## What did we like
-
-```{r, echo=F, out.height='90%'}
-DT::datatable(df %>% 
-                select(Likes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 4
-              )
-              )
-```
-
-
----
-## What did we dislike
-
-
-
----
-## What did we dislike
-
-- Labs still feel rushed (at the end)
-- When code breaks it can be hard to fix
-- Lecture was a bit confusing/long
-- The space
-
-
-```{r, echo=F}
-DT::datatable(df %>% 
-                select(Dislikes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 4
-              )
-              )
-```
-
----
-## Would we be better off reading shakespeare
-
-- Thinking programattically
-  - Chunk big problems into concrete tasks
-- Use R Markdown to organize your code
-- Learn to troubleshoot errors
-- Don't be afraid to FAAFO
-  
----
-## You're about to be reincarnated
-
-
----
-# 🔍
-# Causal Inference
-
----
-## Causal inference is about counterfactual comparisons
-
----
-## Representing causal claims
-
-- Directed Acyclic Graphs
-  - Useful for conceptual mapping
-- Potential Outcomes
-
-## A Common 
-
-- Two ways to represent causal claims
-  - DAGs
-  - Potential outcomes
-- Fundamental Problem of Causal Inference
-  - For an individual, we only observe one of potential many potential outcomes.
-- Causal Identification: What do we need to assume for your causal claim to be credible
-- Randomization offers a solution to the fundamental problem
-
-- Causal inference is about counterfactual comparisons
-- Two ways to represent causal claims
-  - DAGs
-  - Potential outcomes
-- Fundamental Problem of Causal Inference
-  - For an individual, we only observe one of potential many potential outcomes.
-- Causal Identification: What do we need to assume for your causal claim to be credible
-- Randomization offers a solution to the fundamental problem
-
-# 💪
-## Get set up to work
-
----
-## New packages
-
----
-## Loading data from the census
-
----
-## Loading data from Harvard's data verse
-
-
----
-## Packages for today
-
-
-```{r packages, cache=F}
+```{r pacakges, include=F}
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT",
@@ -213,11 +60,7 @@ the_packages <- c(
 )
 ```
 
----
-## Define a function to load (and if needed install) packages
-
-
-```{r ipak}
+```{r ipak, include=F}
 ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
     if (length(new.pkg)) 
@@ -227,11 +70,77 @@ ipak <- function(pkg){
 
 ```
 
+
+```{r loadpackages, include=F}
+ipak(the_packages)
+```
+
+
+class: inverse, center, middle
+background-image:url(https://images.gnwcdn.com/2021/articles/2021-11-02-21-59/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg/EG11/resize/1200x-1/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg)
+background-size:cover
+
+# Overview
+
+---
+## General Plan
+
+- Setup
+  - Packages
+  - Data
+- Feedback
+- Review
+  - Statistical programming
+  - Descriptive statistics
+  - Data visualization
+  - Causal inference
+- Experimental vs Observational Designs
+- Four types of observational designs:
+  - Covariate Adjustment (Regression)
+  - Difference in Difference
+  - Regression Discontinuity
+  - Instrumental Variables
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+```{r, eval=FALSE}
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+
+```
+
+
+
+---
+## Packages for today
+
+
+```{r, ref.label=c("packages")}
+
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+```{r, ref.label="ipak"}
+```
+
 ---
 ## Load packages for today
 
-```{r}
-ipak(the_packages)
+```{r ref.label="loadpackages"}
 ```
 
 
@@ -251,20 +160,1017 @@ covid <- COVID19::covid19(
 )
 ```
 
+---
+## Transform Covid-19 Data
+
+```{r covidus}
+# Vector containing of US territories
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)%>%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
 
 ---
-## Load Data on the 2020 Election
+## New Cases
+
+
+```{r newcases}
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) -> covid_us
+```
+
+---
+## Facemask Policy
+
+```{r}
+covid_us %>%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -> covid_us
+```
+
+---
+## Dates
+
+```{r dates}
+covid_us %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> covid_us
+```
 
 
 ---
-## Load Data on State Income from the Census
+## Load Data on Presidential Elections
 
+```{r}
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df <- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+```
+
+---
+## HLO of Presidential Elections Data
+
+```{r}
+glimpse(pres_df)
+```
+
+---
+## Transform Data to get just 2020 Electoin
+
+```{r}
+pres_df %>%
+  mutate(
+    state = str_to_title(state)
+  ) %>%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020) %>%
+  select(state, year, party_simplified, candidatevotes, totalvotes
+         ) %>%
+  spread(party_simplified,candidatevotes) %>%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")
+
+  ) -> pres2020_df
+```
+
+
+---
+## Load Data on Median State Income from the Census
+
+```{r}
+acs_income <- get_acs(geography = "state", 
+              variables = c(medincome = "B19013_001"), 
+              year = 2019)
+```
+
+---
+## HLO: Census Data 
+
+```{r}
+glimpse(acs_income)
+```
+
+
+---
+## Tidy Census Data
+
+```{r}
+acs_income %>%
+  mutate(
+    state = NAME,
+    median_income = estimate
+  ) -> acs_income
+```
+
+
+---
+## Merge election data and covid data into single `df`
+
+.pull-left[
+- We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()` 
+
+- Always check the matches in your joining variable (i.e. `state`)
+
+- Below we see that our recoding of state to title case in created a mismatch
+]
+
+.pull-right[
+```{r}
+# Should be 51
+sum(pres2020_df$state %in% covid_us$state)
+# Find the mismatch:
+pres2020_df$state[!pres2020_df$state %in% covid_us$state]
+# Fix
+pres2020_df$state[pres2020_df$state == "District Of Columbia"] <- "District of Columbia"
+# Problem Solved
+sum(pres2020_df$state %in% covid_us$state)
+
+```
+]
 
 ---
 ## Merge election data into Covid data
 
+```{r}
+dim(covid_us)
+dim(pres2020_df)
+df <- covid_us %>% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(df) # Same number of rows as covid_us w/ 7 additional columns
+```
+
+
 ---
 ## Merge census data into Covid data
+
+```{r}
+# Should be 51
+dim(df)
+dim(acs_income)
+df <- df %>% left_join(
+  acs_income,
+  by = c("state" = "state")
+)
+dim(df)  # Same number of rows as covid_us w/ 6 additional columns
+
+```
+
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
+background-size:contain
+# 📢
+## Feedback
+
+```{r, echo=F, message=F}
+df <- haven::read_spss("../files/data/wk03.sav")
+df %>%
+  mutate(
+    Reincarnation = reincarnation,
+    Why = creature,
+  ) -> df
+```
+
+---
+## What we liked
+
+--
+
+- We liked the lab (or liked it better)
+
+- Working in groups 
+
+- Extensive notes
+
+- Reasonable pacing 
+
+- Real world data
+
+- Mix of substantive and technical questions
+
+---
+## What we liked
+
+```{r likes, echo=F, out.height='90%'}
+DT::datatable(df %>% 
+                select(Likes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
+              )
+```
+
+
+---
+## What we disliked
+
+--
+
+- Labs still feel rushed (at the end)
+
+- When code breaks it can be hard to fix
+
+- Lecture was a bit confusing/long
+
+- The space
+
+---
+## What we disliked
+
+```{r dislikes, echo=F}
+DT::datatable(df %>% 
+                select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
+
+---
+## How I read these comments
+
+**Likes**
+
+- What's working? What interests you? What can I try to do more of
+
+--
+
+**Dislikes**
+
+- What's the issue?
+  - Specific
+  - General
+
+- What's the cause?
+
+- What can I do to help?
+
+- What can I expect you to do
+
+
+---
+
+> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+---
+## What's the issue?
+
+
+
+.pull-left[
+- General problem
+- Done the readings but still feeling lost
+
+]
+
+.pull-right[
+> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+
+---
+## What's the cause
+
+
+
+.pull-left[
+My intuition:
+
+- I'm trying to do to much in lectures and labs
+
+- Lack of correspondence between lecture, labs, and textbook 
+
+- Feeling overwhelmed can obscure how much you actually know
+
+]
+
+.pull-right[
+> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+---
+## How can I help?
+
+.pull-left[
+
+- Review
+
+- Revise
+
+- Reaffirm
+
+
+]
+
+.pull-right[
+> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+---
+## Review: What have we covered
+
+ 
+- Statistical Programming
+
+- Descriptive statistics
+
+- Data visualization as tool for descriptive inference
+
+- Causal inference in experimental designs
+
+
+---
+## Review: Where have we covered
+
+-- 
+
+- Statistical Programming
+  - All the Slides (💪 sections) and Labs
+  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#72){target="blank"} on Data Wrangling
+  - QSS: Chapter 1.3, Chapter 2.2
+  - [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/){target="_blank"}
+    - [Transforming](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
+    - [Reshaping](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf){target="_blank"}
+    - 
+--
+
+- Descriptive statistics
+
+  - [Slides 01](https://pols1600.paultesta.org/slides/01-slides.html#112){target="_blank"}, [Lab 01](https://pols1600.paultesta.org/labs/01-lab-comments.html#8_Explore_R%E2%80%99s_functions_for_generating_summary_statistics){target="_blank"}
+  - QSS: Chapter 2.6, Chapter 3,6, Exercises 1.5,
+
+--
+
+- Data visualization as tool for descriptive inference
+  
+  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#16){target="_blank"}, [Lab 02](https://pols1600.paultesta.org/labs/02-lab-comments.html#Outline_the_steps_you_will_need_to_complete_this_process){target="_blank"}
+  - QSS: Chapter 1.3, Chapter 2.2, Chapter 3.3, 3.6
+  - [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"} cheat sheet
+
+--
+
+- Causal inference in experimental designs
+  
+  - [Slides 03](https://pols1600.paultesta.org/slides/03-slides.html#39){target="_blank"}, [Lab 03](https://pols1600.paultesta.org/labs/03-lab-comments.html#8_Calculate_the_Average_Treatment_Effect){target="_blank"}
+  - QSS: Chapter 2.3, 2.4
+
+
+---
+## Review: What have we covered
+
+ 
+- Statistical Programming
+
+- Descriptive statistics
+
+- Data visualization as tool for descriptive inference
+
+- Causal inference in experimental designs
+
+--
+
+So what should you know right now?
+
+
+---
+## What you don't need to know
+
+- I view QSS as a supplement to the course. 
+
+- Similar topical structure, but if we don't talk about it in class, it's not something you need to know for the course:
+
+  - Q-Q plots
+  - K-means clustering
+  - `swirl()`
+ 
+- If there are specific sections of QSS that are particularly confusing, let me know!
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Statistical Programming
+
+---
+##  Mapping Concepts to Code
+
+```{r,echo=F}
+sp_df <- tibble(
+  Skill = c("Setup R",
+            "Load data",
+            "Get HLO of data",
+            "Transform data",
+            "Reshape data",
+            "Summarize data numerically",
+            "Summarize data graphically"),
+  `Common Commands` = c("library(), ipak()",
+               "read_csv(), load()",
+               "df$x, glimpse(), table(), summary()",
+               "<-, mutate(), ifelse(), case_when()",
+               "pivot_longer(), left_join()",
+               "mean(), median(), summarise(), group_by()",
+               "ggplot(), aes(), geom_")
+)
+
+kable(sp_df, 
+      caption = "You're learning how to map conceptual tasks to commands in R",
+      caption.above=T)
+
+```
+
+---
+##  Mapping Concepts to Code
+
+- Takes time and practice
+
+- Don't be afraid to FAAFO
+
+- Don't worry about memorizing everything. 
+
+- Statistical programming is necessary to actually **do** empirical research
+
+- Learning to code will eventually help us understand statistical concepts.
+
+
+
+---
+class: inverse, middle, center
+# 🔍
+## Descriptive statistics
+
+
+---
+## Descriptive statistics
+
+--
+- Descriptive statistics help us describe what's typical of our data
+
+--
+- What's a typical value in our data
+  - [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+  - [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+  - [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+
+--
+- How much do our data vary?
+  - [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion){target="_blank"}
+  - [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion){target="_blank"}
+
+--
+- As one variable changes how does another change?
+  - [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association){target="_blank"}
+  - [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association){target="_blank"}
+
+--
+- Descriptive statistics are:
+  - Diagnostic
+  - Generative
+
+
+---
+## Descriptive statistics: Levels of understanding
+
+- Conceptual
+
+- Practical
+
+- Definitional
+
+- Theoretical
+
+---
+## Descriptive statistics: Levels of understanding
+
+- **Conceptual**
+
+- **Practical**
+
+- Definitional
+
+- Theoretical
+
+
+---
+## Mean: Conceptual
+
+A mean is:
+  
+- A common and important measure of central tendency (what's typical)
+
+- We can think of it as the balancing point of a distribution
+
+- It's the arithmetic average 
+
+- A conditional mean is the average of one variable $X$, when some other variable, $Z$ takes a value $z$
+
+  - Think about the average height in our class (unconditional mean) vs the average height among men and women (conditional means)
+
+
+---
+## Mean as a balancing point
+
+
+![](https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg)
+
+[Source](https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html){target="_blank"}
+
+---
+## Mean: Practical
+
+There are lots of ways to calculate means in `R`
+
+- The simplest is to use the `mean()` function
+  
+  - If our data have missing values, we need to to tell `R` to remove them 
+  
+```{r,eval=F}
+mean(df$x, na.rm=T)
+```
+  
+  - To calculate a conditional mean we could 
+
+```{r,eval=F}
+mean(df$x[df$z == 1], na.rm=T)
+```
+  
+- If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
+
+```{r, eval=F}
+df %>% 
+  group_by(z)%>%
+  summarise(
+    x = mean(x, na.rm=T)
+  )
+```
+
+
+---
+## Mean: Definitional
+
+Formally, we can define the arithmetic mean of $x$ as $\bar{x}$:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
+$$
+
+In words, this formula says, to calculate the average of x, we sum up all the values of $x_i$ from observation $i=1$ to $i=n$ and then divide by the total number of observations $n$
+
+
+---
+## Mean: Definitional
+
+- In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
+
+- But being comfortable with "the math" is important and useful, particularly when we want to prove certain properties or theorems
+
+- Definitional knowledge is a prerequisite for understanding more theoretical claims.
+
+---
+## Mean: Theoretical
+
+Suppose I asked you to show that the sum of deviations from a mean equals 0?
+
+$$
+\text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
+$$
+---
+## Mean: Theoretical
+
+Knowing the definition of an arithmetic mean, we could write: 
+
+\[
+\begin{aligned}
+\text{Note:} & \sum_{i=1}^n (x_i -\bar{x}) \\
+             &= \sum_{i=1}^n x_i - \sum_{i=1}^n\bar{x} & \text{Distribute Summation}\\
+              &= \sum_{i=1}^n x_i - n\bar{x} & \text{Summing a constant, } \bar{x}\\
+              &= \sum_{i=1}^n x_i - n\times \left ( \frac{1}{n} \sum_{i=1}^n{x_i}\right ) & \text{Definition of } \bar{x}\\
+              &= \sum_{i=1}^n x_i - \sum_{i=1}^n{x_i} & n \times \frac{1}{n}=1\\
+              &= 0             
+\end{aligned}
+\]
+
+---
+## Mean: Theoretical
+
+Why do we care?
+
+
+- This is a useful property of means that will reappear throughout the course
+
+- If I asked you to predict a random person's height in this class, the mean would have the lowest "mean squared error" (MSE $=\frac{1}{n}\sum (x_i - \hat{x_i})^2)$ 
+
+
+---
+## Mean: Theoretical
+
+Occasionally, read or here me say  say things like:
+
+> The sample mean is an unbiased estimator of the population mean
+
+In a statistics class, we would take time to prove this.
+
+
+---
+## The sample mean is an unbiased estimator of the population mean
+
+Claim:
+
+Let $x_1, x_2, \dots x_n$ form a random sample from a population with mean $\mu$ and variance $\sigma^2$
+
+Then:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n x_i\right )
+$$
+
+is an unbiased estimator of $\mu$
+
+$$
+E[\bar{x}] = \mu
+$$
+
+---
+## The sample mean is an unbiased estimator of the population mean
+
+
+Proof:
+
+$$
+\begin{aligned}
+E\left [\bar{x} \right] &= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \right] & \text{Definition of } \bar{x} \\
+&= \frac{1}{n} \sum_{i=1}^nE\left [ x_i \right]  & \text{Linearity of Expectations} \\
+&= \frac{1}{n} \sum_{i=1}^n \mu  & E[x_i] = \mu \\
+&= \frac{n}{n}  \mu  & \sum_{i=1}^n \mu = n\mu \\
+&= \mu  & \blacksquare \\
+
+\end{aligned}
+$$
+
+
+---
+## Levels of understanding
+
+In this course, we tend to emphasize the 
+
+- **Conceptual**
+
+- **Practical**
+
+Over
+
+- Definitional
+
+- Theoretical
+
+
+In an intro statistics class, the ordering might be reverse.
+
+Trade offs:
+
+- Pro: We actually get to *work with data* and *do empirical research* much sooner
+- Cons: We substitute intuitive understandings for more rigorous proofs
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Data visualization
+
+
+---
+## Data visualization as a tool for descriptive inference
+
+A statistical graphic is a mapping of `data` variables to `aes` thetic attributes of `geom` etric objects.
+
+At a minimum, a graphic contains three core components:
+
+- `data:` the dataset containing the variables of interest.
+- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
+[Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
+
+---
+## You're about to be reincarnated: HLO
+
+```{r}
+df$reincarnation
+
+table(df$reincarnation)
+```
+
+
+---
+## You're about to be reincarnated: Basic Plot
+
+```{r}
+df %>%
+  ggplot(aes(x = reincarnation, 
+             fill = reincarnation))+
+  geom_bar(
+    stat = "count"
+  )
+```
+
+
+---
+##  Use a factor to label and order responses
+
+```{r}
+df %>%
+  mutate(
+    # Turn numeric values into factor labels 
+    Reincarnation = forcats::as_factor(reincarnation),
+    # Order factor in decreasing frequency of levels
+    Reincarnation = forcats::fct_infreq(Reincarnation),
+    # Reverse order so levels are increasing in frequency
+    Reincarnation = forcats::fct_rev(Reincarnation)
+  ) -> df
+
+```
+
+---
+## Check recoding
+
+```{r}
+table(recode= df$Reincarnation, original = df$reincarnation)
+```
+
+
+---
+##  You're about to be reincarnated: Revised plot
+
+```{r, eval=F}
+df %>%
+  ggplot(aes(x = Reincarnation, 
+             fill = Reincarnation))+
+  geom_bar(
+    stat = "count"
+  )+
+  scale_x_discrete(drop=FALSE)+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  theme_classic()
+
+```
+
+---
+
+```{r, echo=F}
+df %>%
+  ggplot(aes(x = Reincarnation, 
+             fill = Reincarnation))+
+  geom_bar(
+    stat = "count"
+  )+
+  scale_x_discrete(drop=FALSE)+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  theme_classic()
+
+```
+
+---
+## What creature and why?
+
+
+```{r creatures, echo=F}
+DT::datatable(df %>% 
+                select(Reincarnation,creature),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
+
+
+
+
+---
+## You're about to be reincarnated: Add some labels
+
+```{r}
+df %>%
+  mutate(
+    # Create numeric id
+    id = 1:n(),
+    # Create a label with 3 answers and NA elsewhere
+    Why = case_when(
+      id == 1 ~ str_wrap(creature[1],30),
+      id == 2 ~ str_wrap(creature[2],30),
+      id == 6 ~ str_wrap(creature[6],30),
+      TRUE ~ NA_character_
+
+    )
+
+  ) -> df
+
+```
+
+---
+```{r}
+DT::datatable(df %>% 
+                select(Why,creature),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
+
+
+
+---
+## You're about to be reincarnated: Final Plot
+
+```{r, echo=T, eval=F}
+fig1 <- df %>%
+  group_by(Reincarnation)%>% #<<
+  summarise( #<<
+    Count = n(), #<<
+    Why = na.omit(unique(Why)) #<< 
+  )%>%
+  ggplot(aes(x = Reincarnation, y = Count,
+             fill = Reincarnation, label=Why))+
+  geom_bar(stat = "identity")+ #<<
+  geom_label_repel(fill="white",nudge_y = 1, hjust = "left",size=3,
+                    arrow = arrow(length = unit(0.015, "npc")))+ #<<
+  scale_x_discrete(drop=FALSE)+
+  scale_y_continuous(breaks = c(0,2,4,6,8,10),expand = expansion(add =c(0,6)))+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  labs(x = "",y="",title="You're about to be reincarnated.\nWhat do you want to come back as?")+
+  theme_classic()
+```
+
+---
+## Calclutaing totals before plotting:
+
+- To add unique labels, we first calculated the totals by hand with `group_by(Reincarnation)` and `summarise( Count = n())`
+- There's only one unique `Why` for each level of `Reincarnation`
+
+```{r}
+df %>%
+  group_by(Reincarnation)%>%
+  summarise(
+    Count = n(),
+    Why = na.omit(unique(Why))
+  )
+```
+
+
+---
+
+```{r, echo=F}
+fig1 <- df %>%
+  group_by(Reincarnation)%>% #<<
+  summarise( #<<
+    Count = n(), #<<
+    Why = na.omit(unique(Why)) #<< 
+  )%>%
+  ggplot(aes(x = Reincarnation, y = Count,
+             fill = Reincarnation, label=Why))+
+  geom_bar(stat = "identity")+ #<<
+  geom_label_repel(fill="white",nudge_y = 1, hjust = "left",size=3,
+                    arrow = arrow(length = unit(0.015, "npc")))+ #<<
+  scale_x_discrete(drop=FALSE)+
+  scale_y_continuous(breaks = c(0,2,4,6,8,10),expand = expansion(add =c(0,6)))+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  labs(x = "",y="",title="You're about to be reincarnated.\nWhat do you want to come back as?")+
+  theme_classic()
+
+fig1
+```
+
+
+---
+## Data visualization is an iterative process
+
+- Data visualization is an iterative process
+
+- Good data viz of require lots of data transformations
+
+- Start with a minimum working example and build from there
+
+- Don't let the perfect be the enemy of the good enough.
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Causal inference
+
+
+---
+## Causal inference is about counterfactual comparisons
+
+- Causal inference is about counterfactual comparisons
+- Two ways to represent causal claims
+  - DAGs
+  - Potential outcomes
+- Fundamental Problem of Causal Inference
+  - For an individual, we only observe one of potential many potential outcomes.
+- Causal Identification: What do we need to assume for your causal claim to be credible
+- Randomization offers a solution to the fundamental problem
+
+---
+## What's the counterfactual?
+
+> Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here. 
+
+> More concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. 
+
+> In sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity."
+
+
+---
+## What's the counterfactual?
+
+> Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. **Would the world be a better place if everyone learned how to code?** I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here. 
+
+> More concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. 
+
+> In sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity."
+
+---
+## Would the world be a better place if everyone learned how to code?
+
+--
+- How should we define/measure human flourishing?
+
+--
+- What are some counterfactuals  we might make?
+  - Everyone learns to code:
+  - You learning to code:
+  - Learning to code vs reading Shakespeare
+
+--
+- Why might these comparisons be misleading?
+  - CS concentrators to POLS concentrators
+  - POLS 1600 takers to POLS 0500
+
+--
+- How could we assess the "effects" of POLS 1600?
+
+
+
+
+
+
+
 
 
 ---
@@ -275,18 +1181,117 @@ class: inverse, center, middle
 ---
 ## Experimental and Observational Designs
 
+- **Experimental designs** are studies in which a causal variable of interest, the *treatement*, is manipulated by the researcher to examine its causal effects on some *outcome* of interest
+  - **Randomized Controlled Trial** (RCTs) each unit is **randomly** assigned to a treatment(s) or control group
+- **Observational designs** are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)
+
+---
+## Causal Identification
+
+- **Casual Identification** refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)
+
+- **What's  Your Casual Identification Strategy:** What are the assumptions that make your research design credible?
+
+- Identification > Estimation
+
+---
+## Causal Identification with Experimental Designs
+
+Causal identification for an experiment, requires very few assumptions:
+
+- **Independence** (Satisfied by Randomization)
+  - $Y(1), Y(0),X,U, \perp D$
+- **SUTVA** Stable Unit Treatment Value Assumption (Depends on features of the design)
+  - No interference between units $Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)$
+  - No hidden values of the treatment/Variation in the treatment 
+
+
+
 ---
 ## Internal vs External Validity
+
+
+- **Internal validity** the extent to which causal assumptions are satisfied in a study
+
+- **External validity** the extent to which conclusions can be generalized beyond a particular study
+
+---
+## Internal vs External Validity
+
+Experimental designs are said to have high **internal** validity, but may lack **external** validity
+
+  - [The college sophomore problem](https://psycnet.apa.org/doiLanding?doi=10.1037%2F0022-3514.51.3.515){target="_blank"}
+  - [The weirdest people in the world](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17){target="_blank"}
+
+
+---
+## Causal Identification in Observational Designs
+
+- In an *observational study* the researcher does not control the treatment assignment
+- No guarantee that treatment (D=1) and control groups (D=0) are comparable (That is that we're comparing like with like)
+- Instead, we have justify our claims by theory and assumption rather than direct manipulation
+
+---
+## Conditional Independence (ignorability)
+
+If treatment is not randomly assigned then:
+
+$$
+Y_i(1),Y_i(0) \text{ is not} \perp D_i
+$$
+
+
+However, in some situations, it may be plausible to claim that *conditional* on some variable(s) $X$, the distribution of potential outcomes $Y$ is the same (independent) across levels of treatment $D$ (**conditional ignorability**)
+
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+- Conditional on a some covariate(s) $X_i$ our treatment is **as-if randomized**
+
+---
+## As-if randomized
+
+![](https://media.makeameme.org/created/dx-59c7bd.jpg)
+
+
+---
+## Causal Identification in Observational Designs
+
+- The claim that treatment is as-if randomized requires further justification in the theory and design of your study
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+- While we can't "prove" this assumption, we typically can test some observable implications of this claim, specifically, things like testing for covariate balance like we did in [lab 03](https://pols1600.paultesta.org/labs/03-lab-comments.html#7_Examine_the_difference_in_covariates_between_those_assigned_to_each_treatment_condition_in_the_study){taget="_blank"} 
 
 
 ---
 ## The Experimental Ideal
 
----
-## Conditional Independence
+> “The planner of an observational study should always ask himself: How
+would the study be conducted if it were possible to do it by controlled
+experimentation” (Cochran 1965)
+
+- What would you have to randomly assign to answer your question as posed?
+
+- Is it feasible to imagine changing just the treatment and nothing else? 
+
+  - If yes, maybe we should do an experiment
+
+  - If not, maybe we should rethink our question and/or adbopt an observational design 
 
 ---
-## Four Common types of Observational 
+## Four Common types of Observational Designs
+
+Next we'll consider of type of observational designs:
+
+  - Covariate Adjustment (Regression)
+  - Difference in Difference
+  - Regression Discontinuity
+  - Instrumental Variables
 
 ---
 class: inverse, center, middle
@@ -296,11 +1301,260 @@ background-size:cover
 
 ---
 class: inverse, center, middle
-# 💡 Selection on Observables
+# 💡  Covariate Adjustment
+
+---
+##  Covariate Adjustment
+
+Covariate adjustment refers a broad class of procedures that try to make a comparison more credible by adjusting or controlling for some other potentially confounding factor.
+
+
+---
+## Ice Cream and Violent Crime
+  
+```{r}
+knitr::include_graphics("https://community.oerproject.com/resized-image/__size/500x0/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-05/Project-X-Annoucement-Blog-2.jpg")
+```
+
+
+---
+##  Methods for covariate adjustment
+
+- Subclassification
+  - Pro: Simple, no assumptions about model
+  - Con: Limited to one or two variables
+- Matching (Semi/less parametric approaches)
+  - Balance on multiple covariates
+  - Still only guarantees balance on observed covariates
+- Regression (Parametric/model-based approaches)
+    - Easy to implement and interpret
+    - Assumes you have the correct statistical model...
+
+---
+##  Subclassification
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+
+---
+## Smoking
+
+---
+##  Propensity Score Matching 
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |p(X_i)
+$$
+
+Where
+
+$$
+p(X_i) = Pr(D=1 | X)
+$$
+
+---
+## Regression
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+And assumptions about the "functional form": 
+
+$$
+Y = \beta_0 + \tau D + X\beta + \epsilon
+$$
+
+
+---
+##  Methods for covariate adjustment
+
+- Subclassification
+  - Pro: Simple, no assumptions about model
+  - Con: Limited to one or two variables
+- Matching (Semi/less parametric approaches)
+  - Balance on multiple covariates
+  - Still only guarantees balance on observed covariates
+- Regression (Parametric/model-based approaches)
+    - Easy to implement and interpret
+    - Assumes you have the correct statistical model...
+
+
+
 
 ---
 class: inverse, center, middle
 # 💡 Difference in Differences
+
+--
+# The Basic Logic of DiD
+
+[Cunningham](https://mixtape.scunning.com/difference-in-differences.html) provides a nice discussion of the canonical difference in difference design used by John Snow (the physician, not the snack), to explore the origins of the Cholera epidempic. To briefly review, in the 1800s, cholera was thought to be transmitted through the air. Failing to find evidence for this theory, Snow set upon an alternative explanation, that cholera was transmitted through living organisms in water. 
+
+To provide a evidence for this hypothesis, he leveraged a sort of natural experiment, in which one water company in London moved its pipes further upstream (reducing contamination), while other companies kept their pumps in the same location. 
+
+Why is this a credible design?
+
+
+Let's adopt a little notation to help us think about the logic of this design in causal terms:
+
+- D: treatment indicator, 1 for treated units, 0 for control units
+- T: period indicator, 1 if post treatment, 0 if pre-treatment.
+- $Y_{d}(t)$ the potential outcome of unit $i$ 
+  - $Y_1i(t)$ the potential outcome of unit $i$ when treated between the two periods 
+  - $Y_0i(t)$ the potential outcome of unit $i$ when control between the two periods 
+
+The individual causal effect for unit i at time t is:
+
+\[
+\tau_{it} = Y_{1i}(t) − Y_{0i}(t)
+\]
+
+What we observe is 
+
+\[
+Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)
+\]
+
+$D$ only equals 1, when $T$ equals 1, so we never observe $Y_0i(1)$ for the treated units. In words, we don't know what their outcome would have been in the second period, had they not been treated.
+
+Our goal is to estimate the the effect of treatment on treated:
+
+
+\[
+\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]
+\]
+
+We we can observe is:
+
+|               | Post-Period (T=1)  | Pre-Period (T=0)  |
+|---------------|--------------------|-------------------|
+| Treated $D_{i}=1$  | $E[Y_{1i}(1)|D_i = 1]$  | $E[Y_{0i}(0)|D_i = 1]$ |
+| Control $D_i=0$  | $E[Y_{0i}(1)|D_i = 0]$  | $E[Y_{0i}(0)|D_i = 0]$ |
+
+Because potential outcomes notation is abstract, let's consider a modified description of the Snow's cholera death data from Cunningham:
+
+```{r}
+snow <- tibble(Company = c("Lambeth (D=1)", "Southwark and Vauxhall (D=0"),
+               `1854 (T=1)` = c(19,147),
+               `1849 (T=0)` = c(85,135)
+               )
+
+knitr::kable(snow)
+
+```
+
+
+Recall, our goal is to estimate the effect of the the treatment on the treated:
+
+\[
+\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]
+\]
+
+Let's conisder some strategies Snow could take to estimate this quantity:
+
+## Before vs after comparisons:
+
+Snow could have compared $E[Yi(1)|Di = 1] − E[Yi(0)|Di = 1]$, concluding that moving the pumps upstream led to 66 fewer cholera deaths. 
+
+This comparison assumes that $E[Y_{0i}(1)|D_i = 1]= E[Y_{0i}(0)|D_i = 1]$, or in words, that Lambeth residents pre-treatment outcomes in 1849 are a good proxy for what their outcomes would have been in 1954 with out treatment ($E[Y_{0i}(1)|D_i = 1]$).
+
+Of course, a skeptic might argue that lots of things changed between 1849 and 1854, not just the location of the pumps, but other factors that could cause choler deaths to decline.
+
+
+## Treatment-Control comparisons in the Post Period.
+
+Alternatively, Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), conlcuding that the change in pump locations led to 128 fewer deaths.
+
+Here the assumption is that $E[Y_{0i}(1)|D_i = 1]= E[Y_{0i}(1)|D_i = 0]$, or in words, that the outcomes in S&V in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved ($E[Y_{0i}(1)|D_i = 1]$)
+
+Again, our annoying skeptic, would argue that their are lots of other factors that make Lambeth different from S&V that could also explain these differences.
+
+
+## Difference in Differences
+
+To address these concerns, Lambeth employed what we now call a difference-in-differences design, 
+
+There are two, equivalent ways to view this design. 
+
+\[
+\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}
+\]
+
+- Difference 1: Average change between Treated and Control  in Post Period
+- Difference 2: Average change between Treated and Control  in Pre Period
+
+Which is equivalent to:
+
+\[
+\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}
+\]
+
+
+- Difference 1: Average change between Treated over time
+- Difference 2: Average change between Control over time
+
+You'll see the DiD design represented both ways, but they produce the same result:
+
+\[
+\tau_{ATT} = (19-147) - (85-135) = -78
+\]
+
+\[
+\tau_{ATT} = (19-85) - (147-135) = -78
+\]
+
+
+The key assumption in this design is what's known as the parallel trends assumption: $E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]$ represented graphically below by the green line
+
+```{r}
+
+snow_g <- tibble(
+  Period = c(0,0,3,3,0,3),
+  Treatment = c(0,1,0, 1,1,1),
+  Line = c(1,1,1,1,2,2),
+  Company = c("S&V","Lambeth","S&V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
+  Deaths = c(135,85,147,19,85,97)
+)
+
+snow_g %>%
+  ggplot(aes(Period,Deaths,col = Company))+
+  geom_point()+
+  geom_line()+
+  geom_segment(aes(x=3.1,xend=3.1,y=19,yend=147), linetype = 2, col= "gray")+
+  annotate(geom="text",x = 3.3,y=125, label = "1",hjust=.5)+
+  geom_segment(aes(x=3.2,xend=3.2,y=19,yend=97), linetype = 2,col="gray")+
+  annotate(geom="text",x = 3.3,y=55, label = "3",hjust=-.5)+
+  geom_segment(aes(x=-.1,xend=-.1,y=85,yend=135), linetype = 2,col="gray")+
+  annotate(geom="text",x = -.1,y=120, label = "2",hjust=1.5)+
+  xlim(-2,6)+
+  scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
+  theme_bw()
+
+
+```
+
+Where:
+
+1. $E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]$
+2. $E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]$
+3. $E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]$
+
+## Summary
+
+By taking the difference of difference we accomplish two things:
+
+- Taking the pre-post difference removes any fixed differences between the units
+- Then taking the difference between treated and control differences removes any common differences over time
+
 
 
 ---

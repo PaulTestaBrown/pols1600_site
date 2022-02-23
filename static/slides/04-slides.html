@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 04:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 04:
+## Casual Inference in Observational Designs
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+background-image:url(https://images.gnwcdn.com/2021/articles/2021-11-02-21-59/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg/EG11/resize/1200x-1/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg)
+background-size:cover
+
+# Overview
+
+---
+## General Plan
+
+- Setup
+  - Packages
+  - Data
+- Feedback
+- Review
+  - Statistical programming
+  - Descriptive statistics
+  - Data visualization
+  - Causal inference
+- Experimental vs Observational Designs
+- Four types of observational designs:
+  - Covariate Adjustment (Regression)
+  - Difference in Difference
+  - Regression Discontinuity
+  - Instrumental Variables
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+
+```r
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+```
+
+
+
+---
+## Packages for today
+
+
+
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT     tidyverse     lubridate       forcats 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        haven      labelled         ggmap       ggrepel      ggridges 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggthemes        ggpubr        GGally        scales       dagitty 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        ggdag       COVID19          maps       mapdata           qss 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+   tidycensus     dataverse DeclareDesign     easystats 
+         TRUE          TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+---
+## Load the Covid-19 Data
+
+
+```r
+covid &lt;- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+---
+## Transform Covid-19 Data
+
+
+```r
+# Vector containing of US territories
+territories &lt;- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)%&gt;%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+---
+## New Cases
+
+
+
+```r
+covid_us %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) -&gt; covid_us
+```
+
+---
+## Facemask Policy
+
+
+```r
+covid_us %&gt;%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Dates
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -&gt; covid_us
+```
+
+
+---
+## Load Data on Presidential Elections
+
+
+```r
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df &lt;- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+```
+
+---
+## HLO of Presidential Elections Data
+
+
+```r
+glimpse(pres_df)
+```
+
+```
+Rows: 4,287
+Columns: 15
+$ year             &lt;dbl&gt; 1976, 1976, 1976, 1976, 1976, 1976, 1976, 1976, 1976,…
+$ state            &lt;chr&gt; "ALABAMA", "ALABAMA", "ALABAMA", "ALABAMA", "ALABAMA"…
+$ state_po         &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AK", "AK",…
+$ state_fips       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4,…
+$ state_cen        &lt;dbl&gt; 63, 63, 63, 63, 63, 63, 63, 94, 94, 94, 94, 86, 86, 8…
+$ state_ic         &lt;dbl&gt; 41, 41, 41, 41, 41, 41, 41, 81, 81, 81, 81, 61, 61, 6…
+$ office           &lt;chr&gt; "US PRESIDENT", "US PRESIDENT", "US PRESIDENT", "US P…
+$ candidate        &lt;chr&gt; "CARTER, JIMMY", "FORD, GERALD", "MADDOX, LESTER", "B…
+$ party_detailed   &lt;chr&gt; "DEMOCRAT", "REPUBLICAN", "AMERICAN INDEPENDENT PARTY…
+$ writein          &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE…
+$ candidatevotes   &lt;dbl&gt; 659170, 504070, 9198, 6669, 1954, 1481, 308, 71555, 4…
+$ totalvotes       &lt;dbl&gt; 1182850, 1182850, 1182850, 1182850, 1182850, 1182850,…
+$ version          &lt;dbl&gt; 20210113, 20210113, 20210113, 20210113, 20210113, 202…
+$ notes            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ party_simplified &lt;chr&gt; "DEMOCRAT", "REPUBLICAN", "OTHER", "OTHER", "OTHER", …
+```
+
+---
+## Transform Data to get just 2020 Electoin
+
+
+```r
+pres_df %&gt;%
+  mutate(
+    state = str_to_title(state)
+  ) %&gt;%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%&gt;%
+  filter(year == 2020) %&gt;%
+  select(state, year, party_simplified, candidatevotes, totalvotes
+         ) %&gt;%
+  spread(party_simplified,candidatevotes) %&gt;%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")
+
+  ) -&gt; pres2020_df
+```
+
+
+---
+## Load Data on Median State Income from the Census
+
+
+```r
+acs_income &lt;- get_acs(geography = "state", 
+              variables = c(medincome = "B19013_001"), 
+              year = 2019)
+```
+
+---
+## HLO: Census Data 
+
+
+```r
+glimpse(acs_income)
+```
+
+```
+Rows: 52
+Columns: 5
+$ GEOID    &lt;chr&gt; "01", "02", "04", "05", "06", "08", "09", "10", "11", "12", "…
+$ NAME     &lt;chr&gt; "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Co…
+$ variable &lt;chr&gt; "medincome", "medincome", "medincome", "medincome", "medincom…
+$ estimate &lt;dbl&gt; 50536, 77640, 58945, 47597, 75235, 72331, 78444, 68287, 86420…
+$ moe      &lt;dbl&gt; 304, 1015, 266, 328, 232, 370, 553, 696, 1008, 220, 294, 780,…
+```
+
+
+---
+## Tidy Census Data
+
+
+```r
+acs_income %&gt;%
+  mutate(
+    state = NAME,
+    median_income = estimate
+  ) -&gt; acs_income
+```
+
+
+---
+## Merge election data and covid data into single `df`
+
+.pull-left[
+- We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()` 
+
+- Always check the matches in your joining variable (i.e. `state`)
+
+- Below we see that our recoding of state to title case in created a mismatch
+]
+
+.pull-right[
+
+```r
+# Should be 51
+sum(pres2020_df$state %in% covid_us$state)
+```
+
+```
+[1] 50
+```
+
+```r
+# Find the mismatch:
+pres2020_df$state[!pres2020_df$state %in% covid_us$state]
+```
+
+```
+[1] "District Of Columbia"
+```
+
+```r
+# Fix
+pres2020_df$state[pres2020_df$state == "District Of Columbia"] &lt;- "District of Columbia"
+# Problem Solved
+sum(pres2020_df$state %in% covid_us$state)
+```
+
+```
+[1] 51
+```
+]
+
+---
+## Merge election data into Covid data
+
+
+```r
+dim(covid_us)
+```
+
+```
+[1] 37715    55
+```
+
+```r
+dim(pres2020_df)
+```
+
+```
+[1] 51  8
+```
+
+```r
+df &lt;- covid_us %&gt;% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(df) # Same number of rows as covid_us w/ 7 additional columns
+```
+
+```
+[1] 37715    62
+```
+
+
+---
+## Merge census data into Covid data
+
+
+```r
+# Should be 51
+dim(df)
+```
+
+```
+[1] 37715    62
+```
+
+```r
+dim(acs_income)
+```
+
+```
+[1] 52  7
+```
+
+```r
+df &lt;- df %&gt;% left_join(
+  acs_income,
+  by = c("state" = "state")
+)
+dim(df)  # Same number of rows as covid_us w/ 6 additional columns
+```
+
+```
+[1] 37715    68
+```
+
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/51vs7dtZnZL._AC_.jpg")
+background-size:contain
+# 📢
+## Feedback
+
+
+
+---
+## What we liked
+
+--
+
+- We liked the lab (or liked it better)
+
+- Working in groups 
+
+- Extensive notes
+
+- Reasonable pacing 
+
+- Real world data
+
+- Mix of substantive and technical questions
+
+---
+## What we liked
+
+<div id="htmlwidget-1be82defa4fa87af38da" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1be82defa4fa87af38da">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["I liked working in lab groups and understanding where the data is coming from","I liked that we got time to work on the lab in groups and then came together as a class and discussed our progress","The extensive notes/explanations included in the documents we used\nWorking through the steps of coding something specific as a class","I thought the subject we were investigating was interesting. I like the mix of descriptive questions and questions which we had to answer with code.","The mutate function has been pretty useful so far.","I really enjoyed how the lab instructions were laid out in a way that allowed us to ~practice~ writing the code ourselves, while also ensuring we didn't get too lost in the sauce.","I like working in groups.","I really enjoyed the lab this week - I thought it was fun and very well paced. Specifically, I liked how each question was allotted a certain amount of time, and that we touched base as a class between questions.","The lab went much better than last week! really felt like I was learning a lot this week","I really enjoyed reading about the study we used in this week's lab. The content was interesting and it was great to learn something new. Also because I learned a lot from the lab today and synthesize why being able to manipulate source data is so helpful in better understanding and accessing the outcomes of a study.","Honestly class this week was a little bit confusing, but I thought going over last week's material briefly was very useful and provided a good segue into this week's material."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## What we disliked
+
+--
+
+- Labs still feel rushed (at the end)
+
+- When code breaks it can be hard to fix
+
+- Lecture was a bit confusing/long
+
+- The space
+
+---
+## What we disliked
+
+<div id="htmlwidget-7b8227a434f6443cb569" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b8227a434f6443cb569">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["The end of labs feel a little rushed and I get lost in the more complicated last steps. Also, the lecture had a lot of big math-y words.","N/A","I think it'd be useful to do summaries of what we learned that day at the end of class. It might be difficult to do, though, when we're crunched for time.","Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here.  \n\nMore concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. \n\nIn sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.","I'm not sure if this is possible but releasing the labs earlier (even maybe the night before) would be cool so I can familiarize myself with the steps.  When I get to class I always feel like I am a bit behind because I am just trying to figure out what to do.","The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.","I feel like once the code fails in one place there is no point in moving on until you fix it, so then I have to choose between falling behind or having functional code","On Tuesday, I found it difficult to sit for the lecture without a break halfway through. I think a 3-5 minute break on days like Tuesday when most of the class is lecture would be helpful.","I thought the classroom were in and the way we were all sitting during the lab was not very inducive of collaborative work. It was really hard to hear my group mates and focus since its such a small space. Not sure if anything can be done about that.\nAlso, would it be possible to set up Canvas so that it registers when our groupmates have submitted the lab. I have other classes that have put me in a \"group\" with others on Canvas and it submitted my work for them and vice versa","I think that lecture was a little bit confusing jumping between QSS and class content but honestly I think that's just getting into the flow of it","The more complicated formulae we've looked at this week have been on the difficult end - more clarification on how practically we're going to use them could be useful."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+## How I read these comments
+
+**Likes**
+
+- What's working? What interests you? What can I try to do more of
+
+--
+
+**Dislikes**
+
+- What's the issue?
+  - Specific
+  - General
+
+- What's the cause?
+
+- What can I do to help?
+
+- What can I expect you to do
+
+
+---
+
+&gt; The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+---
+## What's the issue?
+
+
+
+.pull-left[
+- General problem
+- Done the readings but still feeling lost
+
+]
+
+.pull-right[
+&gt; The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+
+---
+## What's the cause
+
+
+
+.pull-left[
+My intuition:
+
+- I'm trying to do to much in lectures and labs
+
+- Lack of correspondence between lecture, labs, and textbook 
+
+- Feeling overwhelmed can obscure how much you actually know
+
+]
+
+.pull-right[
+&gt; The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+---
+## How can I help?
+
+.pull-left[
+
+- Review
+
+- Revise
+
+- Reaffirm
+
+
+]
+
+.pull-right[
+&gt; The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
+
+]
+
+---
+## Review: What have we covered
+
+ 
+- Statistical Programming
+
+- Descriptive statistics
+
+- Data visualization as tool for descriptive inference
+
+- Causal inference in experimental designs
+
+
+---
+## Review: Where have we covered
+
+-- 
+
+- Statistical Programming
+  - All the Slides (💪 sections) and Labs
+  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#72){target="blank"} on Data Wrangling
+  - QSS: Chapter 1.3, Chapter 2.2
+  - [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/){target="_blank"}
+    - [Transforming](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
+    - [Reshaping](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf){target="_blank"}
+    - 
+--
+
+- Descriptive statistics
+
+  - [Slides 01](https://pols1600.paultesta.org/slides/01-slides.html#112){target="_blank"}, [Lab 01](https://pols1600.paultesta.org/labs/01-lab-comments.html#8_Explore_R%E2%80%99s_functions_for_generating_summary_statistics){target="_blank"}
+  - QSS: Chapter 2.6, Chapter 3,6, Exercises 1.5,
+
+--
+
+- Data visualization as tool for descriptive inference
+  
+  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#16){target="_blank"}, [Lab 02](https://pols1600.paultesta.org/labs/02-lab-comments.html#Outline_the_steps_you_will_need_to_complete_this_process){target="_blank"}
+  - QSS: Chapter 1.3, Chapter 2.2, Chapter 3.3, 3.6
+  - [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"} cheat sheet
+
+--
+
+- Causal inference in experimental designs
+  
+  - [Slides 03](https://pols1600.paultesta.org/slides/03-slides.html#39){target="_blank"}, [Lab 03](https://pols1600.paultesta.org/labs/03-lab-comments.html#8_Calculate_the_Average_Treatment_Effect){target="_blank"}
+  - QSS: Chapter 2.3, 2.4
+
+
+---
+## Review: What have we covered
+
+ 
+- Statistical Programming
+
+- Descriptive statistics
+
+- Data visualization as tool for descriptive inference
+
+- Causal inference in experimental designs
+
+--
+
+So what should you know right now?
+
+
+---
+## What you don't need to know
+
+- I view QSS as a supplement to the course. 
+
+- Similar topical structure, but if we don't talk about it in class, it's not something you need to know for the course:
+
+  - Q-Q plots
+  - K-means clustering
+  - `swirl()`
+ 
+- If there are specific sections of QSS that are particularly confusing, let me know!
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Statistical Programming
+
+---
+##  Mapping Concepts to Code
+
+&lt;table&gt;
+&lt;caption&gt;You're learning how to map conceptual tasks to commands in R&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Skill &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Common Commands &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Setup R &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; library(), ipak() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Load data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; read_csv(), load() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Get HLO of data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; df$x, glimpse(), table(), summary() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Transform data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;-, mutate(), ifelse(), case_when() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Reshape data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; pivot_longer(), left_join() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Summarize data numerically &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mean(), median(), summarise(), group_by() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Summarize data graphically &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ggplot(), aes(), geom_ &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+##  Mapping Concepts to Code
+
+- Takes time and practice
+
+- Don't be afraid to FAAFO
+
+- Don't worry about memorizing everything. 
+
+- Statistical programming is necessary to actually **do** empirical research
+
+- Learning to code will eventually help us understand statistical concepts.
+
+
+
+---
+class: inverse, middle, center
+# 🔍
+## Descriptive statistics
+
+
+---
+## Descriptive statistics
+
+--
+- Descriptive statistics help us describe what's typical of our data
+
+--
+- What's a typical value in our data
+  - [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+  - [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+  - [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency){target="_blank"}
+
+--
+- How much do our data vary?
+  - [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion){target="_blank"}
+  - [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion){target="_blank"}
+
+--
+- As one variable changes how does another change?
+  - [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association){target="_blank"}
+  - [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association){target="_blank"}
+
+--
+- Descriptive statistics are:
+  - Diagnostic
+  - Generative
+
+
+---
+## Descriptive statistics: Levels of understanding
+
+- Conceptual
+
+- Practical
+
+- Definitional
+
+- Theoretical
+
+---
+## Descriptive statistics: Levels of understanding
+
+- **Conceptual**
+
+- **Practical**
+
+- Definitional
+
+- Theoretical
+
+
+---
+## Mean: Conceptual
+
+A mean is:
+  
+- A common and important measure of central tendency (what's typical)
+
+- We can think of it as the balancing point of a distribution
+
+- It's the arithmetic average 
+
+- A conditional mean is the average of one variable `\(X\)`, when some other variable, `\(Z\)` takes a value `\(z\)`
+
+  - Think about the average height in our class (unconditional mean) vs the average height among men and women (conditional means)
+
+
+---
+## Mean as a balancing point
+
+
+![](https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg)
+
+[Source](https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html){target="_blank"}
+
+---
+## Mean: Practical
+
+There are lots of ways to calculate means in `R`
+
+- The simplest is to use the `mean()` function
+  
+  - If our data have missing values, we need to to tell `R` to remove them 
+  
+
+```r
+mean(df$x, na.rm=T)
+```
+  
+  - To calculate a conditional mean we could 
+
+
+```r
+mean(df$x[df$z == 1], na.rm=T)
+```
+  
+- If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
+
+
+```r
+df %&gt;% 
+  group_by(z)%&gt;%
+  summarise(
+    x = mean(x, na.rm=T)
+  )
+```
+
+
+---
+## Mean: Definitional
+
+Formally, we can define the arithmetic mean of `\(x\)` as `\(\bar{x}\)`:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
+$$
+
+In words, this formula says, to calculate the average of x, we sum up all the values of `\(x_i\)` from observation `\(i=1\)` to `\(i=n\)` and then divide by the total number of observations `\(n\)`
+
+
+---
+## Mean: Definitional
+
+- In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
+
+- But being comfortable with "the math" is important and useful, particularly when we want to prove certain properties or theorems
+
+- Definitional knowledge is a prerequisite for understanding more theoretical claims.
+
+---
+## Mean: Theoretical
+
+Suppose I asked you to show that the sum of deviations from a mean equals 0?
+
+$$
+\text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
+$$
+---
+## Mean: Theoretical
+
+Knowing the definition of an arithmetic mean, we could write: 
+
+\[
+`\begin{aligned}
+\text{Note:} &amp; \sum_{i=1}^n (x_i -\bar{x}) \\
+             &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n\bar{x} &amp; \text{Distribute Summation}\\
+              &amp;= \sum_{i=1}^n x_i - n\bar{x} &amp; \text{Summing a constant, } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - n\times \left ( \frac{1}{n} \sum_{i=1}^n{x_i}\right ) &amp; \text{Definition of } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n{x_i} &amp; n \times \frac{1}{n}=1\\
+              &amp;= 0             
+\end{aligned}`
+\]
+
+---
+## Mean: Theoretical
+
+Why do we care?
+
+
+- This is a useful property of means that will reappear throughout the course
+
+- If I asked you to predict a random person's height in this class, the mean would have the lowest "mean squared error" (MSE `\(=\frac{1}{n}\sum (x_i - \hat{x_i})^2)\)` 
+
+
+---
+## Mean: Theoretical
+
+Occasionally, read or here me say  say things like:
+
+&gt; The sample mean is an unbiased estimator of the population mean
+
+In a statistics class, we would take time to prove this.
+
+
+---
+## The sample mean is an unbiased estimator of the population mean
+
+Claim:
+
+Let `\(x_1, x_2, \dots x_n\)` form a random sample from a population with mean `\(\mu\)` and variance `\(\sigma^2\)`
+
+Then:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n x_i\right )
+$$
+
+is an unbiased estimator of `\(\mu\)`
+
+$$
+E[\bar{x}] = \mu
+$$
+
+---
+## The sample mean is an unbiased estimator of the population mean
+
+
+Proof:
+
+$$
+`\begin{aligned}
+E\left [\bar{x} \right] &amp;= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \right] &amp; \text{Definition of } \bar{x} \\
+&amp;= \frac{1}{n} \sum_{i=1}^nE\left [ x_i \right]  &amp; \text{Linearity of Expectations} \\
+&amp;= \frac{1}{n} \sum_{i=1}^n \mu  &amp; E[x_i] = \mu \\
+&amp;= \frac{n}{n}  \mu  &amp; \sum_{i=1}^n \mu = n\mu \\
+&amp;= \mu  &amp; \blacksquare \\
+
+\end{aligned}`
+$$
+
+
+---
+## Levels of understanding
+
+In this course, we tend to emphasize the 
+
+- **Conceptual**
+
+- **Practical**
+
+Over
+
+- Definitional
+
+- Theoretical
+
+
+In an intro statistics class, the ordering might be reverse.
+
+Trade offs:
+
+- Pro: We actually get to *work with data* and *do empirical research* much sooner
+- Cons: We substitute intuitive understandings for more rigorous proofs
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Data visualization
+
+
+---
+## Data visualization as a tool for descriptive inference
+
+A statistical graphic is a mapping of `data` variables to `aes` thetic attributes of `geom` etric objects.
+
+At a minimum, a graphic contains three core components:
+
+- `data:` the dataset containing the variables of interest.
+- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+
+[Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
+
+---
+## You're about to be reincarnated: HLO
+
+
+```r
+df$reincarnation
+```
+
+```
+&lt;labelled&lt;double&gt;[11]&gt;: You're about to be reincarnated. Would you like to come back as a
+ [1] 1 3 2 2 3 2 3 1 3 2 2
+
+Labels:
+ value                                    label
+     1     Land-dweller (like a lion or lizard)
+     2   Air-dweller (like a bird or butterfly)
+     3      Sea-dweller (like a fish or kraken)
+     4       Dirt-dweller (like a plant or ant)
+     5 Single-celled organism (like a protozoa)
+```
+
+```r
+table(df$reincarnation)
+```
+
+```
+
+1 2 3 
+2 5 4 
+```
+
+
+---
+## You're about to be reincarnated: Basic Plot
+
+
+```r
+df %&gt;%
+  ggplot(aes(x = reincarnation, 
+             fill = reincarnation))+
+  geom_bar(
+    stat = "count"
+  )
+```
+
+&lt;img src="04-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+##  Use a factor to label and order responses
+
+
+```r
+df %&gt;%
+  mutate(
+    # Turn numeric values into factor labels 
+    Reincarnation = forcats::as_factor(reincarnation),
+    # Order factor in decreasing frequency of levels
+    Reincarnation = forcats::fct_infreq(Reincarnation),
+    # Reverse order so levels are increasing in frequency
+    Reincarnation = forcats::fct_rev(Reincarnation)
+  ) -&gt; df
+```
+
+---
+## Check recoding
+
+
+```r
+table(recode= df$Reincarnation, original = df$reincarnation)
+```
+
+```
+                                          original
+recode                                     1 2 3
+  Single-celled organism (like a protozoa) 0 0 0
+  Dirt-dweller (like a plant or ant)       0 0 0
+  Land-dweller (like a lion or lizard)     2 0 0
+  Sea-dweller (like a fish or kraken)      0 0 4
+  Air-dweller (like a bird or butterfly)   0 5 0
+```
+
+
+---
+##  You're about to be reincarnated: Revised plot
+
+
+```r
+df %&gt;%
+  ggplot(aes(x = Reincarnation, 
+             fill = Reincarnation))+
+  geom_bar(
+    stat = "count"
+  )+
+  scale_x_discrete(drop=FALSE)+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  theme_classic()
+```
+
+---
+
+&lt;img src="04-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## What creature and why?
+
+
+<div id="htmlwidget-3c49eabdc4c8bfa840f6" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c49eabdc4c8bfa840f6">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["Land-dweller (like a lion or lizard)","Sea-dweller (like a fish or kraken)","Air-dweller (like a bird or butterfly)","Air-dweller (like a bird or butterfly)","Sea-dweller (like a fish or kraken)","Air-dweller (like a bird or butterfly)","Sea-dweller (like a fish or kraken)","Land-dweller (like a lion or lizard)","Sea-dweller (like a fish or kraken)","Air-dweller (like a bird or butterfly)","Air-dweller (like a bird or butterfly)"],["horse because they have cool hair and can run around in meadows","A dolphin because they're majestic","A bird that is elusive and hard to find/capture, whether because it lives in remote areas or is nocturnal. Why? Flying is fun, and there is lower risk of me being hunted or brought back to a zoo!","Who doesn't want to fly, man?","A dolphin because I love the ocean and swimming fast would be fun","A goose. I could find friendship in my gaggle, have a low potential for divorce (they mate for life), and get to see the moon up close and personal when I migrate.","Blue whale 🐋","I'd actually like to be an animal that goes between land and water, like a walrus!","Manatee specifically because I really admire them and their lifestyle but I would take any fish because they have a good vibe","Water makes me feel like I am suffocating. I have always wanted to be able to fly. When I meditate, sometimes I pretend I am a bird soaring over myself and the world I am in now. So coming back as a bird would be cool. Plus, life is simpler. I could camp out by my mom's bird feeders and enjoy myself.","A falcon or albatross, depends on the vibes."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Reincarnation<\/th>\n      <th>creature<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+---
+## You're about to be reincarnated: Add some labels
+
+
+```r
+df %&gt;%
+  mutate(
+    # Create numeric id
+    id = 1:n(),
+    # Create a label with 3 answers and NA elsewhere
+    Why = case_when(
+      id == 1 ~ str_wrap(creature[1],30),
+      id == 2 ~ str_wrap(creature[2],30),
+      id == 6 ~ str_wrap(creature[6],30),
+      TRUE ~ NA_character_
+
+    )
+
+  ) -&gt; df
+```
+
+---
+
+```r
+DT::datatable(df %&gt;% 
+                select(Why,creature),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
+
+<div id="htmlwidget-1be82defa4fa87af38da" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1be82defa4fa87af38da">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["horse because they have cool\nhair and can run around in\nmeadows","A dolphin because they're\nmajestic",null,null,null,"A goose. I could find\nfriendship in my gaggle, have\na low potential for divorce\n(they mate for life), and get\nto see the moon up close and\npersonal when I migrate.",null,null,null,null,null],["horse because they have cool hair and can run around in meadows","A dolphin because they're majestic","A bird that is elusive and hard to find/capture, whether because it lives in remote areas or is nocturnal. Why? Flying is fun, and there is lower risk of me being hunted or brought back to a zoo!","Who doesn't want to fly, man?","A dolphin because I love the ocean and swimming fast would be fun","A goose. I could find friendship in my gaggle, have a low potential for divorce (they mate for life), and get to see the moon up close and personal when I migrate.","Blue whale 🐋","I'd actually like to be an animal that goes between land and water, like a walrus!","Manatee specifically because I really admire them and their lifestyle but I would take any fish because they have a good vibe","Water makes me feel like I am suffocating. I have always wanted to be able to fly. When I meditate, sometimes I pretend I am a bird soaring over myself and the world I am in now. So coming back as a bird would be cool. Plus, life is simpler. I could camp out by my mom's bird feeders and enjoy myself.","A falcon or albatross, depends on the vibes."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Why<\/th>\n      <th>creature<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+---
+## You're about to be reincarnated: Final Plot
+
+
+```r
+fig1 &lt;- df %&gt;%
+* group_by(Reincarnation)%&gt;%
+* summarise(
+*   Count = n(),
+*   Why = na.omit(unique(Why))
+  )%&gt;%
+  ggplot(aes(x = Reincarnation, y = Count,
+             fill = Reincarnation, label=Why))+
+* geom_bar(stat = "identity")+
+  geom_label_repel(fill="white",nudge_y = 1, hjust = "left",size=3,
+*                   arrow = arrow(length = unit(0.015, "npc")))+
+  scale_x_discrete(drop=FALSE)+
+  scale_y_continuous(breaks = c(0,2,4,6,8,10),expand = expansion(add =c(0,6)))+
+  scale_fill_discrete(drop=FALSE, guide="none")+
+  coord_flip()+
+  labs(x = "",y="",title="You're about to be reincarnated.\nWhat do you want to come back as?")+
+  theme_classic()
+```
+
+---
+## Calclutaing totals before plotting:
+
+- To add unique labels, we first calculated the totals by hand with `group_by(Reincarnation)` and `summarise( Count = n())`
+- There's only one unique `Why` for each level of `Reincarnation`
+
+
+```r
+df %&gt;%
+  group_by(Reincarnation)%&gt;%
+  summarise(
+    Count = n(),
+    Why = na.omit(unique(Why))
+  )
+```
+
+```
+# A tibble: 3 × 3
+  Reincarnation                          Count Why                              
+  &lt;fct&gt;                                  &lt;int&gt; &lt;chr&gt;                            
+1 Land-dweller (like a lion or lizard)       2 "horse because they have cool\nh…
+2 Sea-dweller (like a fish or kraken)        4 "A dolphin because they're\nmaje…
+3 Air-dweller (like a bird or butterfly)     5 "A goose. I could find\nfriendsh…
+```
+
+
+---
+
+&lt;img src="04-slides_files/figure-html/unnamed-chunk-30-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Data visualization is an iterative process
+
+- Data visualization is an iterative process
+
+- Good data viz of require lots of data transformations
+
+- Start with a minimum working example and build from there
+
+- Don't let the perfect be the enemy of the good enough.
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Causal inference
+
+
+---
+## Causal inference is about counterfactual comparisons
+
+- Causal inference is about counterfactual comparisons
+- Two ways to represent causal claims
+  - DAGs
+  - Potential outcomes
+- Fundamental Problem of Causal Inference
+  - For an individual, we only observe one of potential many potential outcomes.
+- Causal Identification: What do we need to assume for your causal claim to be credible
+- Randomization offers a solution to the fundamental problem
+
+---
+## What's the counterfactual?
+
+&gt; Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here. 
+
+&gt; More concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. 
+
+&gt; In sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity."
+
+
+---
+## What's the counterfactual?
+
+&gt; Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. **Would the world be a better place if everyone learned how to code?** I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here. 
+
+&gt; More concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. 
+
+&gt; In sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity."
+
+---
+## Would the world be a better place if everyone learned how to code?
+
+--
+- How should we define/measure human flourishing?
+
+--
+- What are some counterfactuals  we might make?
+  - Everyone learns to code:
+  - You learning to code:
+  - Learning to code vs reading Shakespeare
+
+--
+- Why might these comparisons be misleading?
+  - CS concentrators to POLS concentrators
+  - POLS 1600 takers to POLS 0500
+
+--
+- How could we assess the "effects" of POLS 1600?
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Casual Inference in Experimental and Observational Designs
+
+---
+## Experimental and Observational Designs
+
+- **Experimental designs** are studies in which a causal variable of interest, the *treatement*, is manipulated by the researcher to examine its causal effects on some *outcome* of interest
+  - **Randomized Controlled Trial** (RCTs) each unit is **randomly** assigned to a treatment(s) or control group
+- **Observational designs** are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)
+
+---
+## Causal Identification
+
+- **Casual Identification** refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)
+
+- **What's  Your Casual Identification Strategy:** What are the assumptions that make your research design credible?
+
+- Identification &gt; Estimation
+
+---
+## Causal Identification with Experimental Designs
+
+Causal identification for an experiment, requires very few assumptions:
+
+- **Independence** (Satisfied by Randomization)
+  - `\(Y(1), Y(0),X,U, \perp D\)`
+- **SUTVA** Stable Unit Treatment Value Assumption (Depends on features of the design)
+  - No interference between units `\(Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)\)`
+  - No hidden values of the treatment/Variation in the treatment 
+
+
+
+---
+## Internal vs External Validity
+
+
+- **Internal validity** the extent to which causal assumptions are satisfied in a study
+
+- **External validity** the extent to which conclusions can be generalized beyond a particular study
+
+---
+## Internal vs External Validity
+
+Experimental designs are said to have high **internal** validity, but may lack **external** validity
+
+  - [The college sophomore problem](https://psycnet.apa.org/doiLanding?doi=10.1037%2F0022-3514.51.3.515){target="_blank"}
+  - [The weirdest people in the world](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17){target="_blank"}
+
+
+---
+## Causal Identification in Observational Designs
+
+- In an *observational study* the researcher does not control the treatment assignment
+- No guarantee that treatment (D=1) and control groups (D=0) are comparable (That is that we're comparing like with like)
+- Instead, we have justify our claims by theory and assumption rather than direct manipulation
+
+---
+## Conditional Independence (ignorability)
+
+If treatment is not randomly assigned then:
+
+$$
+Y_i(1),Y_i(0) \text{ is not} \perp D_i
+$$
+
+
+However, in some situations, it may be plausible to claim that *conditional* on some variable(s) `\(X\)`, the distribution of potential outcomes `\(Y\)` is the same (independent) across levels of treatment `\(D\)` (**conditional ignorability**)
+
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+- Conditional on a some covariate(s) `\(X_i\)` our treatment is **as-if randomized**
+
+---
+## As-if randomized
+
+![](https://media.makeameme.org/created/dx-59c7bd.jpg)
+
+
+---
+## Causal Identification in Observational Designs
+
+- The claim that treatment is as-if randomized requires further justification in the theory and design of your study
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+- While we can't "prove" this assumption, we typically can test some observable implications of this claim, specifically, things like testing for covariate balance like we did in [lab 03](https://pols1600.paultesta.org/labs/03-lab-comments.html#7_Examine_the_difference_in_covariates_between_those_assigned_to_each_treatment_condition_in_the_study){taget="_blank"} 
+
+
+---
+## The Experimental Ideal
+
+&gt; “The planner of an observational study should always ask himself: How
+would the study be conducted if it were possible to do it by controlled
+experimentation” (Cochran 1965)
+
+- What would you have to randomly assign to answer your question as posed?
+
+- Is it feasible to imagine changing just the treatment and nothing else? 
+
+  - If yes, maybe we should do an experiment
+
+  - If not, maybe we should rethink our question and/or adbopt an observational design 
+
+---
+## Four Common types of Observational Designs
+
+Next we'll consider of type of observational designs:
+
+  - Covariate Adjustment (Regression)
+  - Difference in Difference
+  - Regression Discontinuity
+  - Instrumental Variables
+
+---
+class: inverse, center, middle
+background-image:url("https://m.media-amazon.com/images/I/71lsG3fCaOL._SL1200_.jpg")
+background-size:cover
+# Break
+
+---
+class: inverse, center, middle
+# 💡  Covariate Adjustment
+
+---
+##  Covariate Adjustment
+
+Covariate adjustment refers a broad class of procedures that try to make a comparison more credible by adjusting or controlling for some other potentially confounding factor.
+
+
+---
+## Ice Cream and Violent Crime
+  
+
+```r
+knitr::include_graphics("https://community.oerproject.com/resized-image/__size/500x0/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-05/Project-X-Annoucement-Blog-2.jpg")
+```
+
+&lt;img src="https://community.oerproject.com/resized-image/__size/500x0/__key/communityserver-blogs-components-weblogfiles/00-00-00-00-05/Project-X-Annoucement-Blog-2.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+##  Methods for covariate adjustment
+
+- Subclassification
+  - Pro: Simple, no assumptions about model
+  - Con: Limited to one or two variables
+- Matching (Semi/less parametric approaches)
+  - Balance on multiple covariates
+  - Still only guarantees balance on observed covariates
+- Regression (Parametric/model-based approaches)
+    - Easy to implement and interpret
+    - Assumes you have the correct statistical model...
+
+---
+##  Subclassification
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+
+---
+## Smoking
+
+---
+##  Propensity Score Matching 
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |p(X_i)
+$$
+
+Where
+
+$$
+p(X_i) = Pr(D=1 | X)
+$$
+
+---
+## Regression
+
+Identifying assumption
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+And assumptions about the "functional form": 
+
+$$
+Y = \beta_0 + \tau D + X\beta + \epsilon
+$$
+
+
+---
+##  Methods for covariate adjustment
+
+- Subclassification
+  - Pro: Simple, no assumptions about model
+  - Con: Limited to one or two variables
+- Matching (Semi/less parametric approaches)
+  - Balance on multiple covariates
+  - Still only guarantees balance on observed covariates
+- Regression (Parametric/model-based approaches)
+    - Easy to implement and interpret
+    - Assumes you have the correct statistical model...
+
+
+
+
+---
+class: inverse, center, middle
+# 💡 Difference in Differences
+
+--
+# The Basic Logic of DiD
+
+[Cunningham](https://mixtape.scunning.com/difference-in-differences.html) provides a nice discussion of the canonical difference in difference design used by John Snow (the physician, not the snack), to explore the origins of the Cholera epidempic. To briefly review, in the 1800s, cholera was thought to be transmitted through the air. Failing to find evidence for this theory, Snow set upon an alternative explanation, that cholera was transmitted through living organisms in water. 
+
+To provide a evidence for this hypothesis, he leveraged a sort of natural experiment, in which one water company in London moved its pipes further upstream (reducing contamination), while other companies kept their pumps in the same location. 
+
+Why is this a credible design?
+
+
+Let's adopt a little notation to help us think about the logic of this design in causal terms:
+
+- D: treatment indicator, 1 for treated units, 0 for control units
+- T: period indicator, 1 if post treatment, 0 if pre-treatment.
+- `\(Y_{d}(t)\)` the potential outcome of unit `\(i\)` 
+  - `\(Y_1i(t)\)` the potential outcome of unit `\(i\)` when treated between the two periods 
+  - `\(Y_0i(t)\)` the potential outcome of unit `\(i\)` when control between the two periods 
+
+The individual causal effect for unit i at time t is:
+
+\[
+\tau_{it} = Y_{1i}(t) − Y_{0i}(t)
+\]
+
+What we observe is 
+
+\[
+Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)
+\]
+
+`\(D\)` only equals 1, when `\(T\)` equals 1, so we never observe `\(Y_0i(1)\)` for the treated units. In words, we don't know what their outcome would have been in the second period, had they not been treated.
+
+Our goal is to estimate the the effect of treatment on treated:
+
+
+\[
+\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]
+\]
+
+We we can observe is:
+
+|               | Post-Period (T=1)  | Pre-Period (T=0)  |
+|---------------|--------------------|-------------------|
+| Treated `\(D_{i}=1\)`  | `\(E[Y_{1i}(1)|D_i = 1]\)`  | `\(E[Y_{0i}(0)|D_i = 1]\)` |
+| Control `\(D_i=0\)`  | `\(E[Y_{0i}(1)|D_i = 0]\)`  | `\(E[Y_{0i}(0)|D_i = 0]\)` |
+
+Because potential outcomes notation is abstract, let's consider a modified description of the Snow's cholera death data from Cunningham:
+
+
+```r
+snow &lt;- tibble(Company = c("Lambeth (D=1)", "Southwark and Vauxhall (D=0"),
+               `1854 (T=1)` = c(19,147),
+               `1849 (T=0)` = c(85,135)
+               )
+
+knitr::kable(snow)
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Company &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1854 (T=1) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1849 (T=0) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Lambeth (D=1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Southwark and Vauxhall (D=0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 147 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 135 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+Recall, our goal is to estimate the effect of the the treatment on the treated:
+
+\[
+\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]
+\]
+
+Let's conisder some strategies Snow could take to estimate this quantity:
+
+## Before vs after comparisons:
+
+Snow could have compared `\(E[Yi(1)|Di = 1] − E[Yi(0)|Di = 1]\)`, concluding that moving the pumps upstream led to 66 fewer cholera deaths. 
+
+This comparison assumes that `\(E[Y_{0i}(1)|D_i = 1]= E[Y_{0i}(0)|D_i = 1]\)`, or in words, that Lambeth residents pre-treatment outcomes in 1849 are a good proxy for what their outcomes would have been in 1954 with out treatment ($E[Y_{0i}(1)|D_i = 1]$).
+
+Of course, a skeptic might argue that lots of things changed between 1849 and 1854, not just the location of the pumps, but other factors that could cause choler deaths to decline.
+
+
+## Treatment-Control comparisons in the Post Period.
+
+Alternatively, Snow could have compared outcomes between Lambeth and S&amp;V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), conlcuding that the change in pump locations led to 128 fewer deaths.
+
+Here the assumption is that `\(E[Y_{0i}(1)|D_i = 1]= E[Y_{0i}(1)|D_i = 0]\)`, or in words, that the outcomes in S&amp;V in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved ($E[Y_{0i}(1)|D_i = 1]$)
+
+Again, our annoying skeptic, would argue that their are lots of other factors that make Lambeth different from S&amp;V that could also explain these differences.
+
+
+## Difference in Differences
+
+To address these concerns, Lambeth employed what we now call a difference-in-differences design, 
+
+There are two, equivalent ways to view this design. 
+
+\[
+\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}
+\]
+
+- Difference 1: Average change between Treated and Control  in Post Period
+- Difference 2: Average change between Treated and Control  in Pre Period
+
+Which is equivalent to:
+
+\[
+\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}
+\]
+
+
+- Difference 1: Average change between Treated over time
+- Difference 2: Average change between Control over time
+
+You'll see the DiD design represented both ways, but they produce the same result:
+
+\[
+\tau_{ATT} = (19-147) - (85-135) = -78
+\]
+
+\[
+\tau_{ATT} = (19-85) - (147-135) = -78
+\]
+
+
+The key assumption in this design is what's known as the parallel trends assumption: `\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\)` represented graphically below by the green line
+
+
+```r
+snow_g &lt;- tibble(
+  Period = c(0,0,3,3,0,3),
+  Treatment = c(0,1,0, 1,1,1),
+  Line = c(1,1,1,1,2,2),
+  Company = c("S&amp;V","Lambeth","S&amp;V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
+  Deaths = c(135,85,147,19,85,97)
+)
+
+snow_g %&gt;%
+  ggplot(aes(Period,Deaths,col = Company))+
+  geom_point()+
+  geom_line()+
+  geom_segment(aes(x=3.1,xend=3.1,y=19,yend=147), linetype = 2, col= "gray")+
+  annotate(geom="text",x = 3.3,y=125, label = "1",hjust=.5)+
+  geom_segment(aes(x=3.2,xend=3.2,y=19,yend=97), linetype = 2,col="gray")+
+  annotate(geom="text",x = 3.3,y=55, label = "3",hjust=-.5)+
+  geom_segment(aes(x=-.1,xend=-.1,y=85,yend=135), linetype = 2,col="gray")+
+  annotate(geom="text",x = -.1,y=120, label = "2",hjust=1.5)+
+  xlim(-2,6)+
+  scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
+  theme_bw()
+```
+
+&lt;img src="04-slides_files/figure-html/unnamed-chunk-33-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Where:
+
+1. `\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\)`
+2. `\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]\)`
+3. `\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\)`
+
+## Summary
+
+By taking the difference of difference we accomplish two things:
+
+- Taking the pre-post difference removes any fixed differences between the units
+- Then taking the difference between treated and control differences removes any common differences over time
+
+
+
+---
+class: inverse, center, middle
+# 💡 Regression Discontinuity Design
+
+
+---
+class: inverse, center, middle
+# 💡 Instrumental Variables
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
