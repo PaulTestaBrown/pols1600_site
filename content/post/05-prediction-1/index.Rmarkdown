@@ -25,10 +25,17 @@ image:
 projects: []
 
 links:
+- icon: calendar-check
+  icon_pack: fas
+  name: "A1: Research Questions"
+  url: /files/assignments/A1_research_questions.docx
 - icon: magic
   icon_pack: fas
   name: Notes
   url: /notes/05-notes.html
+
 ---
 
-Simple linear regression. OLS as a linear approximation to the conditional mean function.
+- Simple linear regression. OLS as a linear approximation to the conditional mean function.
+
+- Please download the prompt for [Assignment 1](/files/assignments/A1_research_questions.docx) and upload your group's proposed research questions to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870538/) by 5 pm Sunday, March 6, 2022
