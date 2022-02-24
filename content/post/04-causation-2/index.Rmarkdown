@@ -29,6 +29,10 @@ links:
   icon_pack: fas
   name: Slides
   url: /slides/04-slides.html
+- icon: memo
+  icon_pack: fas
+  name: "A1: Research Questions"
+  url: /files/A1_research_questions.docx
 - icon: book-open
   icon_pack: fas
   name: "New Packages"
