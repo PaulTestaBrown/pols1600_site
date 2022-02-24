@@ -32,7 +32,7 @@ links:
 - icon: calendar-check
   icon_pack: fas
   name: "A1: Research Questions"
-  url: /files/A1_research_questions.docx
+  url: /files/assignments/A1_research_questions.docx
 - icon: book-open
   icon_pack: fas
   name: "New Packages"
@@ -44,3 +44,5 @@ links:
 ---
 
 - Making Causal Claims in Observational Studies: How do we know if X causes Y without randomly assigning X?
+
+- Please download the prompt for [Assignment 1](url("/files/assignments/A1_research_questions.docx")) and upload your group's proposed research questions to [Canvas]("https://canvas.brown.edu/courses/1087979/assignments/7870538/") by 5 pm Sunday, March 6, 2022
