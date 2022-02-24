@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 05:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 05:
+## Prediction with Linear Regression
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Setup
+- Feedback
+- Review
+- Lecture 
+  - Topic 1
+  - Topic 2
+
+- Summary
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+
+```r
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+```
+
+
+
+---
+## Packages for today
+
+
+
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT     tidyverse     lubridate       forcats 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        haven      labelled         ggmap       ggrepel      ggridges 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggthemes        ggpubr        GGally        scales       dagitty 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        ggdag       COVID19          maps       mapdata           qss 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+   tidycensus     dataverse DeclareDesign     easystats 
+         TRUE          TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+---
+## Load the Covid-19 Data
+
+
+```r
+covid &lt;- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+---
+## Transform Covid-19 Data
+
+
+```r
+# Vector containing of US territories
+territories &lt;- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)%&gt;%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+---
+## New Cases
+
+
+
+```r
+covid_us %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000
+    ) -&gt; covid_us
+```
+
+---
+## Facemask Policy
+
+
+```r
+covid_us %&gt;%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -&gt; covid_us
+```
+
+---
+## Dates
+
+
+```r
+covid_us %&gt;%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -&gt; covid_us
+```
+
+
+---
+## Load Data on Presidential Elections
+
+
+```r
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df &lt;- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+```
+
+---
+## HLO of Presidential Elections Data
+
+
+```r
+glimpse(pres_df)
+```
+
+```
+Rows: 4,287
+Columns: 15
+$ year             &lt;dbl&gt; 1976, 1976, 1976, 1976, 1976, 1976, 1976, 1976, 1976,…
+$ state            &lt;chr&gt; "ALABAMA", "ALABAMA", "ALABAMA", "ALABAMA", "ALABAMA"…
+$ state_po         &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AK", "AK",…
+$ state_fips       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4,…
+$ state_cen        &lt;dbl&gt; 63, 63, 63, 63, 63, 63, 63, 94, 94, 94, 94, 86, 86, 8…
+$ state_ic         &lt;dbl&gt; 41, 41, 41, 41, 41, 41, 41, 81, 81, 81, 81, 61, 61, 6…
+$ office           &lt;chr&gt; "US PRESIDENT", "US PRESIDENT", "US PRESIDENT", "US P…
+$ candidate        &lt;chr&gt; "CARTER, JIMMY", "FORD, GERALD", "MADDOX, LESTER", "B…
+$ party_detailed   &lt;chr&gt; "DEMOCRAT", "REPUBLICAN", "AMERICAN INDEPENDENT PARTY…
+$ writein          &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE…
+$ candidatevotes   &lt;dbl&gt; 659170, 504070, 9198, 6669, 1954, 1481, 308, 71555, 4…
+$ totalvotes       &lt;dbl&gt; 1182850, 1182850, 1182850, 1182850, 1182850, 1182850,…
+$ version          &lt;dbl&gt; 20210113, 20210113, 20210113, 20210113, 20210113, 202…
+$ notes            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ party_simplified &lt;chr&gt; "DEMOCRAT", "REPUBLICAN", "OTHER", "OTHER", "OTHER", …
+```
+
+---
+## Transform Data to get just 2020 Electoin
+
+
+```r
+pres_df %&gt;%
+  mutate(
+    state = str_to_title(state)
+  ) %&gt;%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%&gt;%
+  filter(year == 2020) %&gt;%
+  select(state, year, party_simplified, candidatevotes, totalvotes
+         ) %&gt;%
+  spread(party_simplified,candidatevotes) %&gt;%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")
+
+  ) -&gt; pres2020_df
+```
+
+
+---
+## Load Data on Median State Income from the Census
+
+
+```r
+acs_income &lt;- get_acs(geography = "state", 
+              variables = c(medincome = "B19013_001"), 
+              year = 2019)
+```
+
+---
+## HLO: Census Data 
+
+
+```r
+glimpse(acs_income)
+```
+
+```
+Rows: 52
+Columns: 5
+$ GEOID    &lt;chr&gt; "01", "02", "04", "05", "06", "08", "09", "10", "11", "12", "…
+$ NAME     &lt;chr&gt; "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Co…
+$ variable &lt;chr&gt; "medincome", "medincome", "medincome", "medincome", "medincom…
+$ estimate &lt;dbl&gt; 50536, 77640, 58945, 47597, 75235, 72331, 78444, 68287, 86420…
+$ moe      &lt;dbl&gt; 304, 1015, 266, 328, 232, 370, 553, 696, 1008, 220, 294, 780,…
+```
+
+
+---
+## Tidy Census Data
+
+
+```r
+acs_income %&gt;%
+  mutate(
+    state = NAME,
+    median_income = estimate
+  ) -&gt; acs_income
+```
+
+
+---
+## Merge election data and covid data into single `df`
+
+.pull-left[
+- We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()` 
+
+- Always check the matches in your joining variable (i.e. `state`)
+
+- Below we see that our recoding of state to title case in created a mismatch
+]
+
+.pull-right[
+
+```r
+# Should be 51
+sum(pres2020_df$state %in% covid_us$state)
+```
+
+```
+[1] 50
+```
+
+```r
+# Find the mismatch:
+pres2020_df$state[!pres2020_df$state %in% covid_us$state]
+```
+
+```
+[1] "District Of Columbia"
+```
+
+```r
+# Fix
+pres2020_df$state[pres2020_df$state == "District Of Columbia"] &lt;- "District of Columbia"
+# Problem Solved
+sum(pres2020_df$state %in% covid_us$state)
+```
+
+```
+[1] 51
+```
+]
+
+---
+## Merge election data into Covid data
+
+
+```r
+dim(covid_us)
+```
+
+```
+[1] 37766    55
+```
+
+```r
+dim(pres2020_df)
+```
+
+```
+[1] 51  8
+```
+
+```r
+df &lt;- covid_us %&gt;% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(df) # Same number of rows as covid_us w/ 7 additional columns
+```
+
+```
+[1] 37766    62
+```
+
+
+---
+## Merge census data into Covid data
+
+
+```r
+# Should be 51
+dim(df)
+```
+
+```
+[1] 37766    62
+```
+
+```r
+dim(acs_income)
+```
+
+```
+[1] 52  7
+```
+
+```r
+df &lt;- df %&gt;% left_join(
+  acs_income,
+  by = c("state" = "state")
+)
+dim(df)  # Same number of rows as covid_us w/ 6 additional columns
+```
+
+```
+[1] 37766    68
+```
+
+
+# 📢
+## Feedback
+
+
+
+---
+## What we liked
+
+--
+
+- Likes here
+
+---
+## What we liked
+
+<div id="htmlwidget-d7884af4c56bdd402a5a" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7884af4c56bdd402a5a">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["I liked working in lab groups and understanding where the data is coming from","I liked that we got time to work on the lab in groups and then came together as a class and discussed our progress","The extensive notes/explanations included in the documents we used\nWorking through the steps of coding something specific as a class","I thought the subject we were investigating was interesting. I like the mix of descriptive questions and questions which we had to answer with code.","The mutate function has been pretty useful so far.","I really enjoyed how the lab instructions were laid out in a way that allowed us to ~practice~ writing the code ourselves, while also ensuring we didn't get too lost in the sauce.","I like working in groups.","I really enjoyed the lab this week - I thought it was fun and very well paced. Specifically, I liked how each question was allotted a certain amount of time, and that we touched base as a class between questions.","The lab went much better than last week! really felt like I was learning a lot this week","I really enjoyed reading about the study we used in this week's lab. The content was interesting and it was great to learn something new. Also because I learned a lot from the lab today and synthesize why being able to manipulate source data is so helpful in better understanding and accessing the outcomes of a study.","Honestly class this week was a little bit confusing, but I thought going over last week's material briefly was very useful and provided a good segue into this week's material."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## What we disliked
+
+--
+
+- Dislikes here
+
+---
+## What we disliked
+
+<div id="htmlwidget-4e2aa824d9adf60426b9" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4e2aa824d9adf60426b9">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["The end of labs feel a little rushed and I get lost in the more complicated last steps. Also, the lecture had a lot of big math-y words.","N/A","I think it'd be useful to do summaries of what we learned that day at the end of class. It might be difficult to do, though, when we're crunched for time.","Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here.  \n\nMore concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. \n\nIn sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.","I'm not sure if this is possible but releasing the labs earlier (even maybe the night before) would be cool so I can familiarize myself with the steps.  When I get to class I always feel like I am a bit behind because I am just trying to figure out what to do.","The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.","I feel like once the code fails in one place there is no point in moving on until you fix it, so then I have to choose between falling behind or having functional code","On Tuesday, I found it difficult to sit for the lecture without a break halfway through. I think a 3-5 minute break on days like Tuesday when most of the class is lecture would be helpful.","I thought the classroom were in and the way we were all sitting during the lab was not very inducive of collaborative work. It was really hard to hear my group mates and focus since its such a small space. Not sure if anything can be done about that.\nAlso, would it be possible to set up Canvas so that it registers when our groupmates have submitted the lab. I have other classes that have put me in a \"group\" with others on Canvas and it submitted my work for them and vice versa","I think that lecture was a little bit confusing jumping between QSS and class content but honestly I think that's just getting into the flow of it","The more complicated formulae we've looked at this week have been on the difficult end - more clarification on how practically we're going to use them could be useful."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Review
+
+
+---
+## Topics
+
+- Working with R Markdown files
+
+- Basic Programming in R
+
+- Setting up your work space
+
+- Loading data into R
+
+- Looking at your data
+
+- Cleaning and transforming your data
+
+- Describing what's typical of your data
+
+- Describing how your data vary
+
+---
+## Exercises
+
+1. Create an R Markdown File
+
+2. Explore objects and functions in base `R`
+
+3. Install the COVID19 package
+
+4. Load data on COVID19 
+
+5. Inspect the data
+
+6. Welcome to the tidyverse
+
+7. Measures of central tendency
+
+8. Measures of dispersion
+
+---
+class: inverse, center, middle
+# 💡
+# Key Concept
+## Comment
+
+
+---
+## Point 1
+
+
+---
+## Code Slide
+
+.left-column[
+
+```r
+2+2
+```
+
+
+]
+
+.right-column[
+
+```r
+plot(1:10,1:10)
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: inverse, center, middle
+
+# Key Concept
+
+
+- Prediction
+    - What is a model?
+    - What does it mean to say a model is unbiased?
+- Conditional means and OLS Regression
+    - What is a conditional mean?
+    - What does it mean to say OLS provides a linear approximation of the conditional mean function?
+- Mechanics of OLS
+    - What does it mean to minimize the sum of squared residuals
+    - How do we substantively interpret the coefficients of OLS?
+
+# Prediction
+
+- So far, we've talked a lot about causation, and hopefully, we've seen that conditions in which we can make causal claims are rare and valued.
+- Today, we'll change focus, and talk about **prediction**
+- We'll start simple, developing a language and set of tools that can be generalized to more complex situations and questions
+
+## What is a model?
+
+- Models are a description of the world
+    - Seek to partition variance into explained (model predictions) and unexplained (residuals)
+- Models are functions
+    - Describe a relationship between an output (response/dependent variable) and input(s) (explanatory/independent variables)
+
+## Dependent and Indpendent Variables
+
+- **Dependent Variables** The thing we're trying to explain
+- Also called: outcome, response, or left hand side variables
+- Typically denoted by `\(y\)` or `\(Y\)` or `\(y_i\)` 
+- **Independent Variables** The thing(s) we think explain variation in our outcome
+- Also called: explanatory, predictor, or right hand side variables
+- Typically denoted with some variation of `\(X\)`
+
+
+
+## Models partition variance
+
+\[
+\begin{aligned}
+\textrm{Total} &amp;= \textrm{Explained} + \textrm{Unexplained} \\
+\textrm{Observed} &amp;= \textrm{Predicted Value} + \textrm{Residual}\\
+\textrm{Y} &amp;= \hat{Y} + \hat{\epsilon}
+
+\end{aligned}
+\]
+
+## Prediction Error
+
+Prediction error is simply the difference between the actual (observed) outcome ($Y$) and the predicted outcome ($\hat{Y}$)
+
+\[
+\hat{\epsilon}=Y-\hat{Y}
+\]
+
+## Bias
+
+Bias is the expected value of the prediction error ($E[\hat{\epsilon}]$). We could write a simple function to calculate bias as follows:
+
+
+```r
+bias_fn&lt;-function(y,yhat){mean(y-yhat,na.rm=T)}
+```
+
+
+We say a prediction is unbiased if the expected value of the prediction error is 0 ($E[\hat{\epsilon}]=0$).
+
+Intuitively, this means that, on average, are prediction is neither systematically too high, nor too low, relative to the typical value of our outcome. 
+
+## Root Mean Squared Error (RMSE)
+
+RMSE is a useful concept for quantifying the typical or average error of the prediction. 
+
+- First we calculate the error (difference between observed and predicted) for each observation
+- We square the error so that we treat positive and negative errors equally
+- Then we take the mean of these squared errors to get a typical value
+- And finally we take square root of this value to put it back in the units of variable of interest.
+
+Mathematically, RMSE is
+
+\[
+RMSE = \sqrt{\frac{1}{n} \sum \hat{\epsilon_i}^2 } = \sqrt{\frac{1}{n} \sum (Y_i-\hat{Y_i})^2 }
+\]
+
+In R code:
+
+
+```r
+rmse_fn &lt;- function(y,yhat){sqrt(mean((y-yhat)^2,na.rm=T))}
+```
+
+
+To help illustrate these concepts, let's load a subset of data from the 2016 National Elections Study (NES) survey 
+
+
+
+```r
+load(url("https://raw.github.com/PTesta/POLS_1600/master/nes16.rda"))
+```
+
+And look at what we did
+
+
+```r
+head(nes16)
+```
+
+```
+  vaccines pid pid3cat college01 transbath    children age ideology
+1       NA   7     Rep         0         1      1. One  29       NA
+2       NA   6     Rep         1         1     0. None  26       NA
+3       NA   3     Dem         0         1 2. Multiple  23       NA
+4       NA   5     Rep         0         1     0. None  58       NA
+5       NA   3     Dem         0         4 2. Multiple  38       NA
+6       NA   5     Rep         1        NA      1. One  60       NA
+```
+
+## Example: Predicting Age with different statistics:
+
+Suppose we wanted to know the typical value of `\(age\)` for respondents in the 2016 NES. Recall from previous classes we have several measures of centrality, or what a typical value of some variable might be:
+
+- median
+- mode
+- mean
+
+Let's calculate the bias and RMSE associated with each for our prediction of `\(age\)` 
+
+First, we'll calculate the predictions ($\hat{Y}$)
+
+
+```r
+# Median
+age_med&lt;-median(nes16$age,na.rm=T)
+age_med
+```
+
+```
+[1] 50
+```
+
+```r
+# Mode
+age_mode&lt;-as.numeric(names(sort(table(nes16$age),decreasing = T)[1]))
+age_mode
+```
+
+```
+[1] 59
+```
+
+```r
+# Mean
+age_mn&lt;-mean(nes16$age,na.rm=T)
+age_mn
+```
+
+```
+[1] 49.57566
+```
+
+
+Now, let's calculate the bias of these functions using the function we created above
+
+
+```r
+# Calculate bias for each prediction
+bias_med &lt;-bias_fn(nes16$age,age_med)
+bias_mode &lt;- bias_fn(nes16$age,age_mode)
+bias_mn &lt;- bias_fn(nes16$age,age_mn)
+# Put in object "biases" with labels and sort by size of bias
+biases &lt;- sort(c(Median = bias_med, Mode = bias_mode, Mean = bias_mn))
+# Barplot
+barplot(biases,main = "Bias of Mean, Median and Mode for\nPredicting Age in 2016 NES")
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+So the mode, looks a like a pretty bad, or biased predictor, the median has some bias, and the mean (by definition) is an unbiased. That is, if `\(\hat{Y}=\bar{Y}\)` 
+
+\[
+E[\hat{\epsilon}] = E[Y - \hat{Y}]= E[Y]-E[\hat{Y}] = \bar{Y} - \bar{Y} = 0
+\]
+
+However, if we looked at the RMSE (the typical prediction error), we'd see that the mean and median are pretty close
+
+
+```r
+rmse_med &lt;-rmse_fn(nes16$age,age_med)
+rmse_mode &lt;- rmse_fn(nes16$age,age_mode)
+rmse_mn &lt;- rmse_fn(nes16$age,age_mn)
+# Put in object "rmsees" with labels and sort by size of rmse
+rmses &lt;- sort(c(Median = rmse_med, Mode = rmse_mode, Mean = rmse_mn))
+# Barplot
+barplot(rmses,main = "rmse of Mean, Median and Mode for\nPredicting Age in 2016 NES")
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+Differing by only -0.005 years in these data. Most of the time, the models we fit will make predictions that approximate the conditional mean of some outcome (i.e. the mean of Y conditional on X). Sometimes, however, it's useful to make predictions for the conditional median (or some other quantile).
+
+
+
+# Conditional Expecations and OLS Regression
+
+Conditional expectations are our way of incorporating what we know about the world to improve our predictions. That is, how does our prediction of Y change conditional on the values of some additional predictor/information X.
+
+Suppose in addition to knowing the age of our respondents, we also knew whether they believed the benefits of vaccines outweighed the potential risks
+
+\[
+Age \sim Vaccines
+\]
+
+Note: nothing about this relationship implies causation. We're simply interested in explaining variation in some outcome ($Y$, here `\(Age\)`) with some predictor(s) ($X$, here `\(Vaccines\)`)
+
+## Age and belief in the benefit of vaccines
+
+Just as we used the sample mean as an unbiased estimate of expected value of age, we can use separate sample means (sub-classification via logical indexing) to provide  unbiased estimates of the expected value of age conditional on vaccine beliefs
+
+\[
+E[Age|Vaccines=Good]=\frac{1}{n_{good}}\sum Age_{i,|Vac=good}
+\]
+
+In R:
+
+
+```r
+age_mn_vac_good&lt;-round(mean(nes16$age[nes16$vaccines==1],na.rm=T),3)
+age_mn_vac_good
+```
+
+```
+[1] 51.065
+```
+
+\[
+E[Age|Vaccines=Bad]=\frac{1}{n_{bad}}\sum Age_{i,|Vac=bad}
+\]
+
+
+```r
+age_mn_vac_bad&lt;-round(mean(nes16$age[nes16$vaccines==0],na.rm=T),3)
+age_mn_vac_bad
+```
+
+```
+[1] 44.87
+```
+
+So on average, people who believe the benefits of vaccines outweigh the costs, tend to be older by about 6.195 years.
+
+Now consider the output of the following:
+
+
+```r
+m1 &lt;- lm(age~vaccines, data = nes16,na.action = "na.exclude")
+m1
+```
+
+```
+
+Call:
+lm(formula = age ~ vaccines, data = nes16, na.action = "na.exclude")
+
+Coefficients:
+(Intercept)     vaccines  
+     44.870        6.195  
+```
+
+```r
+# Extract and round  coefficients
+beta0 &lt;- round(coef(m1)[1],3)
+beta1 &lt;- round(coef(m1)[2],3)
+```
+
+Formally, we've asked R fit the following model:
+
+\[
+age = \beta_0 +\beta_1 \times vaccines +\epsilon_i
+\]
+
+Specifically, we've asked R to model Age as a function of some constant `\(\beta_0\)` plus some coefficient `\(\beta_1\)` times a variable capturing people's beliefs about vaccines ($vaccines=1$ if they believe benefits outweigh costs, 0 otherwise) and some error (reflecting the fact that there's a lot about people's ages unexplained by their belief in vaccines)
+
+R produces estimates of these parameters:
+
+\[
+\hat{age} = \hat{\beta_0} +\hat{\beta_1} \times vaccines + \hat{\epsilon_i}
+\]
+
+Specifically:
+
+\[
+\hat{age_i} = 44.87 + 6.195 \times vaccines_i + \hat{\epsilon_i}
+\]
+
+That is, R has said modeling age conditional Vaccine beliefs, it's best prediction of person's age for people who are skeptical of the value of vaccines ($vaccinces=0$) is
+
+\[
+\begin{align*}
+\hat{age_i} = 44.87 + 6.195 \times 0 \\
+= 44.87 = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Bad]
+\end{align*}
+\]
+
+And for people who believe vaccines are good ($vaccinces=1$):
+
+\[
+\begin{align*}
+\hat{age_i} = 44.87 + 6.195 \times 1 \\
+= 51.065 = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Good]
+\end{align*}
+\]
+
+So for this simple model, R's `lm()` function says the best prediction of person's age knowing their beliefs about vaccines are the means conditional on their beliefs about vaccines
+
+
+```r
+age_mn_vac_bad 
+```
+
+```
+[1] 44.87
+```
+
+```r
+beta0
+```
+
+```
+(Intercept) 
+      44.87 
+```
+
+```r
+age_mn_vac_bad == beta0
+```
+
+```
+(Intercept) 
+       TRUE 
+```
+
+```r
+age_mn_vac_good 
+```
+
+```
+[1] 51.065
+```
+
+```r
+beta0 + beta1
+```
+
+```
+(Intercept) 
+     51.065 
+```
+
+We can visualize what's going on by plotting beliefs on the x axis and age on the y. The black line corresponds to the overall mean. The red diamond corresponds to the average age of people who are skeptical of vaccines, and the blue circle corresponds to the age among people who believe the benefits outweigh the costs. The grey line connects the two dots with the line defined by an intercept ($\beta_0$) and a slope ($\beta_1$) from `lm()`
+
+
+```r
+plot(age~vaccines,nes16,xlab="Vaccines")
+points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
+points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
+abline(h=age_mn,col="black")
+abline(lm(age~vaccines,nes16),col="grey")
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-29-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Let's clean up the plot a little
+
+
+```r
+plot(age~jitter(vaccines),nes16,xaxt="n",xlab="Vaccines")
+axis(1,at = c(0,1),labels=c("Gee, I don't know","Science!"))
+points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
+points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
+abline(h=age_mn,col="black")
+abline(lm(age~vaccines,nes16),col="grey")
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-30-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Note that both the unconditional and conditional means provide "unbiased" estimates
+
+
+```r
+round(bias_fn(nes16$age,age_mn),5)
+```
+
+```
+[1] 0
+```
+
+```r
+round(bias_fn(nes16$age,predict(m1,na.action = "na.exclude")),5)
+```
+
+```
+[1] 0
+```
+
+But the conditional estimate has a smaller RMSE. That is, knowing something about people's beliefs about vaccines, improves our prediction of their age.
+
+
+```r
+round(rmse_fn(nes16$age,age_mn),2)
+```
+
+```
+[1] 17.58
+```
+
+```r
+round(rmse_fn(nes16$age,predict(m1,na.action = "na.exclude")),2)
+```
+
+```
+[1] 17.42
+```
+
+
+# Mechanics of OLS Regression
+
+## How did choose the coefficients that define the grey line?
+
+
+We used a procedure, Ordinary Least Squares regression, that choose and intercept ($\beta_0$) and slope ($\beta_1$) to minimize the Sum of Squared Residuals ($\sum \hat{\epsilon}^2$). 
+
+
+## Minimizing the sum of squared residuals
+
+\[
+\hat{Y_i}=\beta_0+\beta_1 X_{1,i} + \hat{\epsilon_i}
+\]
+
+\[
+\hat{\epsilon_i}=Y_i-\hat{Y_i}=(Y_i-(\beta_0+\beta_1 X_{1,i}))
+\]
+
+OLS chooses `\(\beta_0\)` and `\(\beta_1\)` to minimize `\(\sum \epsilon^2\)`, the Sum of Squared Residuals (SSR)
+
+\[
+\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
+\]
+
+## Why minimize `\(\sum{\hat{\epsilon_i}^2}\)`
+
+
+Substantively, by minimizing the sum of squared residuals, we're trying to minimize the distance between our models predictions and the observed data.
+
+Suppose the true relationship between y and x is:
+
+\[
+y~1+2x + \epsilon
+\]
+
+If we simulated some data where this was true:
+
+
+```r
+set.seed(123)
+x &lt;- rnorm(20)
+y &lt;- 1 + 2*x + rnorm(20)
+m0 &lt;- lm(y~x)
+m0
+```
+
+```
+
+Call:
+lm(formula = y ~ x)
+
+Coefficients:
+(Intercept)            x  
+     0.9598       1.9217  
+```
+
+The least squares fitting criteria does a decent job recovering those true values^[And in expectation as `\(N\to \infty\)` the estimates would converge on the true values)]. It does so by trying to minimize the distance (grey segments) between the model's predictions (black line) and the observed values (open dots)
+
+
+
+```r
+# Residual: Distance between predicted and observed
+e &lt;- resid(m0)
+# Predicted (or fitted values)
+yhat &lt;- predict(m0)
+# Same as plugging each value of x into equation
+yhat1 &lt;- coef(m0)[1] + coef(m0)[2]*x
+all.equal(yhat,yhat)
+```
+
+```
+[1] TRUE
+```
+
+```r
+plot(x,y)
+abline(m0)
+segments(x,y,x,yhat,col="grey",lwd=1)
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Had we chosen some other line (intercept and slope) 
+
+
+```r
+yhat2 &lt;- 1+1*x
+e2 &lt;- y - yhat2
+plot(x,y)
+abline(1,1,col="red")
+segments(x,y,x,yhat2,col="red",lwd=2)
+abline(m0)
+segments(x,y,x,yhat,col="blue",lwd=1)
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-35-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+Our predictions would be worse (i.e. our residuals would be higher)
+
+
+```r
+mean(e)
+```
+
+```
+[1] -1.387779e-17
+```
+
+```r
+mean(e2)
+```
+
+```
+[1] 0.09036664
+```
+
+
+Furthermore, in addition to being unbiased (mean 0), the residuals from OLS are uncorrelated with the predictors and predictions in our model
+
+
+```r
+round(cor(e,x),2)
+```
+
+```
+[1] 0
+```
+
+```r
+round(cor(e,yhat),2)
+```
+
+```
+[1] 0
+```
+
+```r
+round(cor(e2,x),2)
+```
+
+```
+[1] 0.74
+```
+
+```r
+round(cor(e2,yhat2),2)
+```
+
+```
+[1] 0.74
+```
+
+
+Why not `\(\sum{\hat{\epsilon_i}}\)`
+
+- Any line that passes through `\(\bar{Y}\)` and `\(\bar{X}\)` will satisfy this criteria
+
+Why not `\(\sum{|\hat{\epsilon_i}|}\)`
+
+- Sometimes we do! For example in quantile regression...
+
+
+# The Math behind OLS Regression
+
+To understand what's going on under the hood, you need a broad understanding of some basic calculus. The notes below provide a brief review of some basic calculus to show how to calculate by hand the coefficient for simple bivariate (Y modeled by X) model. We'll probably skip over this in class. The key takeaway is that if you do the math, you'll find that coefficient that minimizes the SSR is:
+
+\[
+\begin{aligned}
+\beta_1 &amp;= \frac{Cov(X_1,Y)}{Var(X_1)}
+\end{aligned}
+\]
+
+## A Brief Review of Derivatives
+
+
+A derivative of `\(f\)` at `\(x\)` is its rate of change at `\(x\)`
+
+- For a line: the slope
+- For a curve: the slope of a line tangent to the curve
+
+You'll see too notations for derivatives:
+
+1. Leibniz notation:
+
+\[
+\frac{df}{dx}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{(x+h)-x}
+\]
+
+2. Lagrange: `\(f^{\prime}(x)\)`
+
+
+
+## Derivatives
+
+Derivative of a constant
+
+\[
+f^{\prime}(c)=0
+\]
+
+Derivative of a line f(x)=2x
+
+\[
+f^{\prime}(x)=2
+\]
+
+Chain rule: y= f(g(x)). The derivative of y with respect to x is
+
+\[
+\frac{d}{dx}(f(g(x)))=f^{\prime}(g(x))g^{\prime}(x)
+\]
+
+The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
+
+## Finding Local Minimums
+
+Local minimum:
+
+\[
+f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)&gt;0 
+\]
+
+## Partial Derivatives
+
+Let `\(f\)` be a function of the variables `\((X_1, \dots, X_n)\)`. The partial derivative of `\(f\)` with respect to `\(X_i\)` is
+
+\[
+\begin{align*}
+\frac{\partial f(X_1, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(X_1, \dots X_i+h \dots, X_n)-f(X_1, \dots X_i \dots, X_n)}{h}
+\end{align*}
+\]
+
+## Minimizing the sum of squared errors
+
+Our model
+
+\[
+Y_i =\beta_0+\beta_1X_{1,i}+\epsilon_i
+\]
+
+Finds coefficients `\(\beta_0\)` and `\(\beta_1\)` to to minimize the sum of squared residuals, `\(\hat{\epsilon}_i\)`:
+
+\[
+\begin{alignat*}{1}
+\sum \hat{\epsilon_i}^2 &amp;= \sum (Y_i-\beta_0-\beta_1 X_{1,i})^2
+\end{alignat*}
+\]
+
+We solve for `\(\beta_0\)` and `\(\beta_1\)`, by taking the partial derivatives with respect to `\(\beta_0\)` and `\(\beta_1\)`, and setting them equal to zero
+
+\[
+\begin{alignat*}{1}
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &amp;= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})=0\\
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &amp;= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}=0
+\end{alignat*}
+\]
+
+First, we'll solve for `\(\beta_0\)`, by multiplying both sides by -1/2 and distributing the `\(\sum\)`:
+
+\[
+\begin{alignat*}{1}
+0 &amp;= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})\\
+\sum \beta_0 &amp;= \sum Y_i - \sum \beta_1 X_{1,i}\\
+N \beta_0 &amp;= \sum Y_i -\sum \beta_1 X_{1,i}\\
+\beta_0 &amp;= \frac{\sum Y_i}{N} - \frac{\beta_1 \sum X_{1,i}}{N}\\
+\beta_0 &amp;= \bar{Y} - \beta_1 \bar{X_{1}}
+\end{alignat*}
+\]
+
+
+Now, we can solve for `\(\beta_1\)` plugging in `\(\beta_0\)`.
+
+\[
+\begin{alignat*}{1}
+0 &amp;= -2\sum [(Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}]\\
+0 &amp;= \sum [Y_iX_i-(\bar{Y} - \beta_1 \bar{X_{1}})X_{1,i}-\beta_1 X_{1,i}^2]\\
+0 &amp;= \sum [Y_iX_i-\bar{Y}X_{1,i} + \beta_1 \bar{X_{1}}X_{1,i}-\beta_1 X_{1,i}^2]
+\end{alignat*}
+\]
+
+Now we'll rearrange some terms and pull out an `\(X_{1,i}\)` to get
+
+\[
+\begin{alignat*}{1}
+0 &amp;= \sum [(Y_i -\bar{Y} + \beta_1 \bar{X_{1}}-\beta_1 X_{1,i})X_{1,i}]
+\end{alignat*}
+\]
+
+Dividing both sides by `\(X_{1,i}\)` and distributing the summation, we can isolate `\(\beta_1\)`
+\[
+\begin{alignat*}{1}
+\beta_1 \sum (X_{1,i}-\bar{X_1}) &amp;= \sum (Y_i -\bar{Y})
+\end{alignat*}
+\]
+
+Dividing by `\(\sum (X_{1,i}-\bar{X_1})\)` to get
+
+\[
+\begin{alignat*}{1}
+\beta_1  &amp;= \frac{\sum (Y_i -\bar{Y})}{\sum (X_{1,i}-\bar{X_1})}
+\end{alignat*}
+\]
+
+Finally, by multiplying by `\(\frac{(X_{1,i}-\bar{X_1})}{(X_{1,i}-\bar{X_1})}\)` we get
+
+\[
+\begin{alignat*}{1}
+\beta_1  &amp;= \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}
+\end{alignat*}
+\]
+
+Which has a nice interpretation: 
+
+\[
+\begin{aligned}
+\beta_1 &amp;= \frac{Cov(X_1,Y)}{Var(X_1)}
+\end{aligned}
+\]
+
+So the coefficient in a simple linear regression of `\(Y\)` on `\(X\)` is simply the ratio of the covariance between `\(X\)` and `\(Y\)` over the variance of `\(X\)`. Neat! 
+
+
+Let's calculate the simple regression coefficients for age predicted by vaccine beliefs
+
+
+```r
+wrk&lt;-na.omit(nes16[,c("age","vaccines")])
+# Variance Covariance of age and vaccines
+vcov1&lt;-var(wrk)
+vcov1
+```
+
+```
+                age  vaccines
+age      310.846052 1.1867675
+vaccines   1.186768 0.1915546
+```
+
+```r
+# Means
+age_mn&lt;-mean(wrk$age)
+vac_mn&lt;-mean(wrk$vaccines)
+beta1&lt;-vcov1[1,2]/vcov1[2,2]
+beta0&lt;-age_mn-beta1*vac_mn
+```
+
+
+And compare them to `R`'s `lm()` function
+
+
+```r
+c(beta0,beta1)
+```
+
+```
+[1] 44.869516  6.195454
+```
+
+```r
+coef(lm(age~vaccines,data=wrk))
+```
+
+```
+(Intercept)    vaccines 
+  44.869516    6.195454 
+```
+
+
+# Interpreting Regression Coefficients
+
+So far, we've seen that for a simple case, with a dichotomous (0-1) predictor, our simple linear regression provided us with a model that returned the conditional means in each group. 
+
+Suppose instead of vaccine beliefs, we were interested in how age varied with ideology, where ideology is a measured on a seven-point scale where 1=strong liberal and 7=strong conservative
+
+We could again calculate the conditional expectation for each level of ideology, from
+
+\[
+E[Age|Ideology=1]=\frac{1}{N_{ideo=1}}\sum Age_{i|ideo=1}
+\]
+
+To
+
+\[
+E[Age|Ideology=7]=\frac{1}{N_{ideo=7}}\sum Age_{i|ideo=7}
+\]
+
+Or....
+
+We could model age as a  linear function of ideology 
+
+\[
+Age_i=\beta_0+\beta_1\times Ideology_i+\epsilon_i
+\]
+
+First, let's compare the results of those two approaches, before getting into the details of estimation
+
+
+```r
+# Means of Age, conditional on ideolog (E[age |ideology])
+age_mn_ideo &lt;- with(nes16, tapply(age,ideology,mean,na.rm=T))
+
+# Linear approximation to conditional mean
+m2 &lt;- lm(age ~ ideology, nes16,na.action = "na.exclude")
+
+age_mn_ideo
+```
+
+```
+       1        2        3        4        5        6        7 
+43.89720 47.83664 46.94828 48.10294 49.83738 54.48382 54.94737 
+```
+
+```r
+m2
+```
+
+```
+
+Call:
+lm(formula = age ~ ideology, data = nes16, na.action = "na.exclude")
+
+Coefficients:
+(Intercept)     ideology  
+     42.328        1.729  
+```
+
+```r
+# Calculate by hand
+
+wrk&lt;-na.omit(nes16[,c("age","ideology")])
+# Variance Covariance of age and ideology
+vcov1&lt;-var(wrk)
+vcov1
+```
+
+```
+                age ideology
+age      311.092872 3.852897
+ideology   3.852897 2.228670
+```
+
+```r
+# Means
+age_mn&lt;-mean(wrk$age)
+ideo_mn&lt;-mean(wrk$ideology)
+beta1&lt;-vcov1[1,2]/vcov1[2,2]
+beta0&lt;-age_mn-beta1*ideo_mn
+beta0
+```
+
+```
+[1] 42.32849
+```
+
+```r
+beta1
+```
+
+```
+[1] 1.728787
+```
+
+```r
+coef(m2)
+```
+
+```
+(Intercept)    ideology 
+  42.328486    1.728787 
+```
+
+And let's visualize these predictions to understand what's going. The red symbols below correspond to the average age of respondents conditional on their ideology. The grey line corresponds to a **linear approximation of these conditional means** with coefficients obtained by minimizing the sum of squared residuals. Sometimes the predictions of this linear approximation are too high, other times they're too low, but on average the error is 0 (by design).
+
+Substantively, it tells us that on average, people who identify more strongly as conservatives tend to be older. How much older? Well, for each unit increase in ideology, our model predicts average age will be higher by 1.73 years.
+
+
+
+```r
+with(nes16,plot(jitter(ideology),age,pch=18,cex=.5,xlim=c(0,7)))
+# Condtional means
+points(1:7,with(nes16,tapply(age,ideology,mean,na.rm=T)),col="red",pch=1:7,cex=1.5)
+# Linear approximation to the conditional mean function
+abline(lm(age~ideology,nes16),col="grey")
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-41-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+When is this linear approximation a good prediction? Well, generally when the underlying conditional mean function is linear. In the relationship above, a linear trend seems reasonable. The less linear the conditional expectation function is, the less suitable a linear approximation.
+
+Note, that we can recover the conditional means, by fitting a "saturated" model, that is by giving R a model with a predictor for each level of variable of interest. 
+
+
+```r
+m3 &lt;- lm(age ~ factor(ideology), nes16, na.action = "na.exclude")
+coef(m3)
+```
+
+```
+      (Intercept) factor(ideology)2 factor(ideology)3 factor(ideology)4 
+        43.897196          3.939448          3.051080          4.205745 
+factor(ideology)5 factor(ideology)6 factor(ideology)7 
+         5.940182         10.586623         11.050172 
+```
+
+
+By default, R drops the first level of a factor, and uses it as a reference category. So the intercept in this model corresponds to the average age among strong liberals 
+
+
+```r
+# Intercept is mean in excluded category
+coef(m3)[1]
+```
+
+```
+(Intercept) 
+    43.8972 
+```
+
+```r
+# Here the mean among strong liberals
+age_mn_ideo[1]
+```
+
+```
+      1 
+43.8972 
+```
+
+And the coefficients for each model tell you the difference in average ages between strong liberals and other ideological identifications, which when added to the average among strong liberals, gives you the mean in that group:
+
+
+
+```r
+round(coef(m3),2)
+```
+
+```
+      (Intercept) factor(ideology)2 factor(ideology)3 factor(ideology)4 
+            43.90              3.94              3.05              4.21 
+factor(ideology)5 factor(ideology)6 factor(ideology)7 
+             5.94             10.59             11.05 
+```
+
+```r
+# Average among liberals (ideology = 2)
+coef(m3)[1]+coef(m3)[2]
+```
+
+```
+(Intercept) 
+   47.83664 
+```
+
+```r
+age_mn_ideo[2]
+```
+
+```
+       2 
+47.83664 
+```
+
+```r
+# Avearge age from coefficeints in m3
+round(c(coef(m3)[1],coef(m3)[1]+coef(m3)[-1]),2)
+```
+
+```
+      (Intercept) factor(ideology)2 factor(ideology)3 factor(ideology)4 
+            43.90             47.84             46.95             48.10 
+factor(ideology)5 factor(ideology)6 factor(ideology)7 
+            49.84             54.48             54.95 
+```
+
+```r
+# Same as conditional means
+round(age_mn_ideo,2)
+```
+
+```
+    1     2     3     4     5     6     7 
+43.90 47.84 46.95 48.10 49.84 54.48 54.95 
+```
+
+```r
+# Removing the intercept, and R returns means for each group
+m4 &lt;- lm(age ~ factor(ideology) - 1, nes16,na.action = "na.exclude")
+m4
+```
+
+```
+
+Call:
+lm(formula = age ~ factor(ideology) - 1, data = nes16, na.action = "na.exclude")
+
+Coefficients:
+factor(ideology)1  factor(ideology)2  factor(ideology)3  factor(ideology)4  
+            43.90              47.84              46.95              48.10  
+factor(ideology)5  factor(ideology)6  factor(ideology)7  
+            49.84              54.48              54.95  
+```
+
+```r
+round(age_mn_ideo,2)
+```
+
+```
+    1     2     3     4     5     6     7 
+43.90 47.84 46.95 48.10 49.84 54.48 54.95 
+```
+
+```r
+# Compare RMSE of linear trend
+rmse_fn(nes16$age, predict(m2))
+```
+
+```
+[1] 17.44544
+```
+
+```r
+# To saturated models
+rmse_fn(nes16$age, predict(m3))
+```
+
+```
+[1] 17.39485
+```
+
+```r
+rmse_fn(nes16$age, predict(m4))
+```
+
+```
+[1] 17.39485
+```
+
+Mathematically, the difference between treating ideology as a linear predictor of age and estimating the means of age conditional on ideology is the difference between fitting:
+
+
+```r
+# Ideology is a linear predictor of age
+head(model.matrix(m2))
+```
+
+```
+   (Intercept) ideology
+87           1        2
+88           1        5
+89           1        5
+92           1        2
+94           1        2
+95           1        5
+```
+
+```r
+# Estimating means of age conditional on ideology
+head(model.matrix(m3))
+```
+
+```
+   (Intercept) factor(ideology)2 factor(ideology)3 factor(ideology)4
+87           1                 1                 0                 0
+88           1                 0                 0                 0
+89           1                 0                 0                 0
+92           1                 1                 0                 0
+94           1                 1                 0                 0
+95           1                 0                 0                 0
+   factor(ideology)5 factor(ideology)6 factor(ideology)7
+87                 0                 0                 0
+88                 1                 0                 0
+89                 1                 0                 0
+92                 0                 0                 0
+94                 0                 0                 0
+95                 1                 0                 0
+```
+
+
+Which we'll talk more about next week when we get to multiple regression.
+
+# WYNK {-}
+
+- Prediction involves error (difference between what we observe and what we predict)
+- One way of evaluating our predictions is to consider the bias of a predictor. 
+- Often we want predictors that are unbiased, but as we will see, this is not the only criteria we care about
+- Means are good (unbiased) estimators, but are not the only tool in our tool kit.
+- OLS regression provides a linear approximation to a conditional mean function
+- For binary predictors (0-1 variables) and saturate models the predictions from a simple OLS regression ARE the conditional means
+- For continuous variables, the predictions are linear approximations to the means
+    - The intercept corresponds to the model's prediction when the predictor is 0
+    - The coefficient tells you how the prediction changes given a unit change in your predictor.
+- OLS obtains these coefficients by minimizing the some of squared residuals
+- The intercept in a simple regression `\(\beta_0\)` corresponds to:
+
+\[
+\beta_0 = \bar{Y} - \beta_1 \bar{X}
+\]
+- The slope `\(\beta_1\)` corresponds to:
+
+\[
+\beta_1 = \frac{Cov(X,Y)}{Var(X)}
+\]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
