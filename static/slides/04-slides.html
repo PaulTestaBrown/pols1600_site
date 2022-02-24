@@ -78,6 +78,24 @@ Tuesday:
   - Instrumental Variables
 
 
+## What you'll learn
+
+- Causal inference in observational and experimental studies is about counterfactual comparisons
+- In observational studies, to make causal claims we generally make some  assumption of conditional independence:
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+- The credibility of this assumption depends less on the data, and more on how the data were generated.
+  - **Selection on Observables** is rarely a credible assumption
+- Observational designs that produce credible causal inference, leverage aspects of the world that create *natural experiments*
+- You should be able to describe the logic and assumptions of common designs in social science 
+  - **Difference-in-Differences:** *Parallel Trends* 
+  - **Regression Discontiniuity:** *Continuity at the cutoff*
+  - **Instrumental Variables:** Instruments need to be *Relevant and Exogenous*
+
+
 ---
 class:inverse, middle, center
 # 💪
@@ -86,17 +104,31 @@ class:inverse, middle, center
 ---
 ## New packages
 
-Hopefully, you were all able to install the following packages 
+Let's try installing these packages manually: 
 
 
 ```r
-# install.packages("dataverse")
-# install.packages("tidycensus")
-# install.packages("easystats")
-# install.packages("DeclareDesign")
+install.packages("dataverse")
 ```
 
 
+```r
+install.packages("tidycensus")
+```
+
+
+```r
+install.packages("easystats")
+```
+
+
+```r
+install.packages("DeclareDesign")
+```
+
+- Some further guidance available [here](https://pols1600.paultesta.org/slides/04-packages.html)
+
+- Particular, for next week, please follow the instructions to [install a Census API key in R](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package)
 
 ---
 ## Packages for today
@@ -145,6 +177,20 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
+---
+## Load Data for today
+
+We'll load the data we need in some of the examples below as well:
+
+
+```r
+## Lab data
+load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
+
+## RDD data
+library(qss)
+data(MPs)
+```
 
 
 ---
@@ -2347,8 +2393,23 @@ class: inverse, middle, center
 # 💡 
 ## Summary
 
+---
+## What you need to know
 
+- Causal inference in observational and experimental studies is about counterfactual comparisons
+- In observational studies, to make causal claims we generally make some  assumption of conditional independence:
 
+$$
+Y_i(1),Y_i(0), \perp D_i |X_i
+$$
+
+- The credibility of this assumption depends less on the data, and more on how the data were generated.
+- **Selection on Observables** is rarely a credible assumption
+- Observational designs that produce credible causal inference, leverage aspects of the world that create *natural experiments*
+- You should be able to describe the logic and assumptions of common designs in social science 
+  - **Difference-in-Differences:** *Parallel Trends* 
+  - **Regression Discontiniuity:** *Continuity at the cutoff*
+  - **Instrumental Variables:** Instruments need to be *Relevant and Exogenous*
 
 
 
