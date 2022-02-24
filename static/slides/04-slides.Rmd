@@ -145,7 +145,7 @@ install.packages("tidycensus")
 ```
 
 ```{r newpacks3, eval=FALSE}
-install.packages("easystats")
+install.packages("easystats", repos = "https://easystats.r-universe.dev")
 ```
 
 ```{r newpacks4, eval=FALSE}

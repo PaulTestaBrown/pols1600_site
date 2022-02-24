@@ -54,7 +54,7 @@ install.packages("tidycensus")
 ```
 
 ```{r, eval=F}
-install.packages("easystats")
+install.packages("easystats", repos = "https://easystats.r-universe.dev")
 ```
 
 ```{r, eval=F}
@@ -69,7 +69,14 @@ knitr::include_graphics("images/pack1.png")
 ```
 
 
--  Sometimes R will ask you where and how you want to install/update these dependencies. Type the number 1 into your console and hit enter (this should try to install everything, but I can't seem to recreate this on my machine)
+-  Sometimes R will ask you where and how you want to install/update these dependencies. Type the number 1 into your console and hit enter (this should try to install everything). If you get an error try again typing 2, then, 3, then 4. 
+
+
+```{r , echo=F}
+knitr::include_graphics("images/pack_dep.png")
+```
+
+
 
 - `R` may tell you need to restart `R` Try saying yes. If it doesn't start downloading, say no, see what happens. After the downloads are complete you may need to restart `R`
 
@@ -84,7 +91,7 @@ knitr::include_graphics("images/pack2.png")
 knitr::include_graphics("images/pack3.png")
 ```
 
-Again, this is a pain and sort of cryptic, but you only have to do it once.
+Again, this is a pain and sort of cryptic, but you only have to do it once. Sometimes you'll need to close and restart R for changes to take effect. Try working through these steps once or twice and if it still doesn't work, shoot me an email.
 
 # Check your installation
 
