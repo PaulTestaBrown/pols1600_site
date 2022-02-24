@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week 02:</title>
+    <title>Week XX:</title>
     <meta charset="utf-8" />
     <meta name="author" content="Paul Testa" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -14,17 +14,33 @@
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="css/brown.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Week 02:
-## Describing Data in R
+# Week XX:
+## Topic HERE
 ### Paul Testa
 
 ---
+
+
+
+
+
+
+
 
 
 
@@ -41,13 +57,136 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Setup
+- Feedback
 - Review
-- Lecture consists of a mix of:
-  - Topics and concepts
-  - Exercises
+- Lecture 
+  - Topic 1
+  - Topic 2
+
 - Summary
 
+
 ---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+
+```r
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+```
+
+
+
+---
+## Packages for today
+
+
+
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT     tidyverse     lubridate       forcats 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        haven      labelled         ggmap       ggrepel      ggridges 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggthemes        ggpubr        GGally        scales       dagitty 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        ggdag       COVID19          maps       mapdata           qss 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+   tidycensus     dataverse DeclareDesign     easystats 
+         TRUE          TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+
+# 📢
+## Feedback
+
+
+
+---
+## What we liked
+
+--
+
+- We liked the lab (or liked it better)
+
+- Working in groups 
+
+- Extensive notes
+
+- Reasonable pacing 
+
+- Real world data
+
+- Mix of substantive and technical questions
+
+---
+## What we liked
+
+<div id="htmlwidget-d651c37af2da785e01bb" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d651c37af2da785e01bb">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["I liked working in lab groups and understanding where the data is coming from","I liked that we got time to work on the lab in groups and then came together as a class and discussed our progress","The extensive notes/explanations included in the documents we used\nWorking through the steps of coding something specific as a class","I thought the subject we were investigating was interesting. I like the mix of descriptive questions and questions which we had to answer with code.","The mutate function has been pretty useful so far.","I really enjoyed how the lab instructions were laid out in a way that allowed us to ~practice~ writing the code ourselves, while also ensuring we didn't get too lost in the sauce.","I like working in groups.","I really enjoyed the lab this week - I thought it was fun and very well paced. Specifically, I liked how each question was allotted a certain amount of time, and that we touched base as a class between questions.","The lab went much better than last week! really felt like I was learning a lot this week","I really enjoyed reading about the study we used in this week's lab. The content was interesting and it was great to learn something new. Also because I learned a lot from the lab today and synthesize why being able to manipulate source data is so helpful in better understanding and accessing the outcomes of a study.","Honestly class this week was a little bit confusing, but I thought going over last week's material briefly was very useful and provided a good segue into this week's material."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## What we disliked
+
+--
+
+- Labs still feel rushed (at the end)
+
+- When code breaks it can be hard to fix
+
+- Lecture was a bit confusing/long
+
+- The space
+
+---
+## What we disliked
+
+<div id="htmlwidget-f934ee40346fe4085017" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f934ee40346fe4085017">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["The end of labs feel a little rushed and I get lost in the more complicated last steps. Also, the lecture had a lot of big math-y words.","N/A","I think it'd be useful to do summaries of what we learned that day at the end of class. It might be difficult to do, though, when we're crunched for time.","Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here.  \n\nMore concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. \n\nIn sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.","I'm not sure if this is possible but releasing the labs earlier (even maybe the night before) would be cool so I can familiarize myself with the steps.  When I get to class I always feel like I am a bit behind because I am just trying to figure out what to do.","The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.","I feel like once the code fails in one place there is no point in moving on until you fix it, so then I have to choose between falling behind or having functional code","On Tuesday, I found it difficult to sit for the lecture without a break halfway through. I think a 3-5 minute break on days like Tuesday when most of the class is lecture would be helpful.","I thought the classroom were in and the way we were all sitting during the lab was not very inducive of collaborative work. It was really hard to hear my group mates and focus since its such a small space. Not sure if anything can be done about that.\nAlso, would it be possible to set up Canvas so that it registers when our groupmates have submitted the lab. I have other classes that have put me in a \"group\" with others on Canvas and it submitted my work for them and vice versa","I think that lecture was a little bit confusing jumping between QSS and class content but honestly I think that's just getting into the flow of it","The more complicated formulae we've looked at this week have been on the difficult end - more clarification on how practically we're going to use them could be useful."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+class:inverse, middle, center
+# 🔍
 ## Review
 
 
@@ -91,9 +230,8 @@ class: inverse, center, middle
 
 ---
 class: inverse, center, middle
-
+# 💡
 # Key Concept
-
 ## Comment
 
 
@@ -119,7 +257,7 @@ class: inverse, center, middle
 plot(1:10,1:10)
 ```
 
-&lt;img src="00-slides_template_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="00-slides_template_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 

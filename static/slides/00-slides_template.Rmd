@@ -1,6 +1,6 @@
 ---
-title: "Week 02:"
-subtitle: "Describing Data in R"
+title: "Week XX:"
+subtitle: "Topic HERE"
 author: "Paul Testa"
 output:
   xaringan::moon_reader:
@@ -35,6 +35,42 @@ htmltools::tagList(
 ```
 
 
+```{r pacakges, include=F}
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT",
+  
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag",
+  
+  # Data 
+  "COVID19","maps","mapdata","qss",
+  "tidycensus", "dataverse", #<<
+  
+  # Analysis
+  "DeclareDesign", "easystats" #<<
+)
+```
+
+```{r ipak, include=F}
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+```
+
+
+```{r loadpackages, include=F}
+ipak(the_packages)
+```
+
 ---
 class: inverse, center, middle
 # Overview
@@ -42,13 +78,139 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Setup
+- Feedback
 - Review
-- Lecture consists of a mix of:
-  - Topics and concepts
-  - Exercises
+- Lecture 
+  - Topic 1
+  - Topic 2
+
 - Summary
 
+
 ---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+```{r, eval=FALSE}
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+
+```
+
+
+
+---
+## Packages for today
+
+
+```{r, ref.label=c("packages")}
+
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+```{r, ref.label="ipak"}
+```
+
+---
+## Load packages for today
+
+```{r ref.label="loadpackages"}
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+
+# 📢
+## Feedback
+
+```{r, echo=F, message=F}
+df <- haven::read_spss("../files/data/wk03.sav")
+df %>%
+  mutate(
+    Reincarnation = reincarnation,
+    Why = creature,
+  ) -> df
+```
+
+---
+## What we liked
+
+--
+
+- We liked the lab (or liked it better)
+
+- Working in groups 
+
+- Extensive notes
+
+- Reasonable pacing 
+
+- Real world data
+
+- Mix of substantive and technical questions
+
+---
+## What we liked
+
+```{r likes, echo=F, out.height='90%'}
+DT::datatable(df %>% 
+                select(Likes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
+              )
+```
+
+
+---
+## What we disliked
+
+--
+
+- Labs still feel rushed (at the end)
+
+- When code breaks it can be hard to fix
+
+- Lecture was a bit confusing/long
+
+- The space
+
+---
+## What we disliked
+
+```{r dislikes, echo=F}
+DT::datatable(df %>% 
+                select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
+
+
+---
+class:inverse, middle, center
+# 🔍
 ## Review
 
 
@@ -92,9 +254,8 @@ class: inverse, center, middle
 
 ---
 class: inverse, center, middle
-
+# 💡
 # Key Concept
-
 ## Comment
 
 
