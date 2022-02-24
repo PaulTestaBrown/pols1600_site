@@ -25,6 +25,14 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/04-slides.html
+- icon: book-open
+  icon_pack: fas
+  name: "New Packages"
+  url: /slides/04-packages.html
 - icon: magic
   icon_pack: fas
   name: Notes
