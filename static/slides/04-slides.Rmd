@@ -1474,7 +1474,7 @@ Broadly regression is a statistical procedural to help us model relationships th
 - $X$ a set of **predictor variables** or things we think explain variation in our outcome
   - AKA: The independent variable, covariates, the right hand side of the model.
 
-- $\beta$ a set of **unknown paramters** that describe the relationship between our outcome $Y$ and our predictors $X$
+- $\beta$ a set of **unknown parameters** that describe the relationship between our outcome $Y$ and our predictors $X$
 
 - $\epsilon$ the **error term** representing variation in $Y$ not explained by our model.
 

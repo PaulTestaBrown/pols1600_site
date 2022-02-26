@@ -1,49 +1,63 @@
 Hi all,
 
-Great job in class today! Just following up with some bookkeeping for the course:
+Just following up with some bookkeeping for the course:
 
 # --- Survey ---
 
-Please take the time complete the class survey (3 questions: likes, dislikes, and something to amuse us):
+Please take the time complete the class survey 
 
-https://brown.co1.qualtrics.com/jfe/form/SV_8lb7yrqOVWcKanc
+https://brown.co1.qualtrics.com/jfe/form/SV_8GHAmuPswJfaSyi
 
-I know it's a pain to answer surveys every week; and don't feel like you have to write an essay, or anything at all. But your feedback is incredibly helpful in structuring the class.
 
-# --- Lab 2 ---
 
-The comments to Lab 02 are now live on canvas and the course website:
+# --- Assignment 1: Research Questions ---
 
-https://pols1600.paultesta.org/labs/02-lab-comments.html
+The prompt for Assignment 1: Research Questions is now live:
 
-I generally assume that you all read these comments and compare the code you wrote in class to my commented solutions. Particularly if there were portions of lab where you were confused or not quite sure what was going on. Whether you actually do is up to you, but if you want to get better at coding and working with data in R, taking the time to go over these comments at your own pace is a great idea. 
+https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx
+
+Essentially, I'll ask you to upload three possible research questions with related discussion that your group could pursue for a final project in the course.
+
+We'll take time in class for Tuesday for you to talk about possible projects.
+
+Your research questions are now due by 5pm on Sunday, March 6, 2022 on Canvas:
+
+https://canvas.brown.edu/courses/1087979/assignments/7870538?module_item_id=10762418
+
 
 
 # --- Upload Tutorials on Friday ---
 
-Please upload QSS Tutorial 2: Measurment II by 11:59 pm Friday
+Please upload QSS Tutorial 4: Casuality II by 11:59 pm tomorrow. 
 
 You can find the tutorials in upper right panel of R Studio, or open this tutorial by running
 
-learnr::run_tutorial("02-measurement2", package = "qsslearnr")
+learnr::run_tutorial("04-causality2", package = "qsslearnr")
 
 # --- Readings ---
 
 
-Please read: Chapter 2 of QSS pp. 32-54 for next week.
+Please read: Chapter 4 of QSS pp. 123-165 for next week.
 
 Ideally you'll have read this before lecture on Tuesday, and definitely by our lab on Thursday.
 
-Additionally on the page for Week 3 you'll see a link to an article by Broockman and Kalla (2016) (also attached to this email). 
+In lecture next week, we'll explore three common designs for making causal inferences in experimental studies. Then we'll get into the mechanics of how linear regression works.
 
-http://pols1600.paultesta.org/files/readings/broockman_kalla_2016.pdf
+In our lab next, we'll continue working with the Covid-19 data (for just one or two more weeks), exploring the question of "Red Covid" using linear regression.
 
-In lecture next week, we'll familiarize ourselves with the logic of the study's research design and the data used to generate the results you see in the article. 
+https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html
 
-In our lab next, we'll be replicating a portion of the results of this article, so I encourage you to read, or at least skim the piece (it's only about 4 pages long) and make sure you understand the basic logic of what they did and why they did it through the lens of causal inference.
+# --- Packages ---
 
+For our lab on Thursday, you'll need to have downloaded the packages described here:
 
-Have a great weekend, watch some football or commercials in between the sportsball and I'll see you all next week!
+https://pols1600.paultesta.org/slides/04-packages.html
+
+And have installed a Cenus API key following the steps described here:
+
+https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package
+
+Please reach out to me if you encounter any issues installing these packages. 
 
 Best,
 Paul
