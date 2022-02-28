@@ -150,7 +150,7 @@ covid <- COVID19::covid19(
 ```
 
 ---
-## Transform Covid-19 Data
+## Filter Covid-19 Data to US States
 
 ```{r covidus}
 # Vector containing of US territories
@@ -171,7 +171,7 @@ covid_us <- covid %>%
 ```
 
 ---
-## New Cases
+## Mutate: Calculate New Cases
 
 
 ```{r newcases}
@@ -179,9 +179,69 @@ covid_us %>%
   dplyr::group_by(state) %>%
   mutate(
     new_cases = confirmed - lag(confirmed),
-    new_cases_pc = new_cases / population *100000
+    new_cases_pc = new_cases / population *100000,
+    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA ) #<<
     ) -> covid_us
 ```
+
+---
+## Calculating a Rolling Average New Cases
+
+```{r}
+covid_us %>%
+  filter(date > "2020-03-05") %>%
+  select(date,new_cases_pc,new_cases_pc_7da)
+```
+
+---
+## New Case Per Capita
+
+.pull-left[
+```{r, eval=F}
+covid_us %>%
+  filter(date > "2020-03-05", 
+         state == "Minnesota") %>%
+  select(date,
+         new_cases_pc,
+         new_cases_pc_7da)%>%
+  ggplot(aes(date,new_cases_pc ))+
+  geom_line(aes(col="Daily"))+
+  theme(legend.position="bottom")+
+    labs( col = "Measure",
+    y = "New Cases Per 100k", x = "",
+    title = "Minnesota"
+  ) -> fig_covid_mn 
+
+fig_covid_mn
+```
+]
+
+.pull-right[
+```{r, echo=F}
+fig_covid_mn
+```
+]
+
+---
+## New Case Per Capita vs 7-day average
+
+```{r, eval=F}
+fig_covid_mn +
+  geom_line(aes(y = new_cases_pc_7da,
+                col = "7-day average")
+            ) -> fig_covid_mn
+```
+]
+
+.pull-right[
+```{r, echo=T}
+fig_covid_mn
+```
+
+]
 
 ---
 ## Facemask Policy
@@ -208,14 +268,16 @@ mutate(
 ```
 
 ---
-## Dates
+## Mutate: Dates and Vaccinations
 
 ```{r dates}
 covid_us %>%
   mutate(
     year = year(date),
     month = month(date),
-    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),
+    year_month = paste(year, 
+                       str_pad(month, width = 2, pad=0), 
+                       sep = "-"),
     percent_vaccinated = people_fully_vaccinated/population*100  
     ) -> covid_us
 ```
@@ -241,7 +303,7 @@ head(pres_df)
 ```
 
 ---
-## Transform Data to get just 2020 Electoin
+## Transform Data to get just 2020 Election
 
 ```{r}
 pres_df %>%
@@ -496,6 +558,37 @@ class: inverse, center, middle
 # 💡  
 # Linear Regression
 ## The Basics
+
+---
+## Understanding Linear Regression
+
+- **Conceptual**
+  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
+  
+- **Practical**
+  - We estimate linear models in R using the `lm()` function
+  
+```{r, eval=F}
+lm(y ~ x, data = df)
+```
+
+  - Will estimate the intercept $(\beta_0)$ and the slope $(\beta_1)$ in the following equation.
+  
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
+- Definitional
+
+  - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR): 
+
+$$
+\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
+$$
+
+
+- Theoretical
+  - Linear regression provides a **linear** estimate of the conditional expectation function $E[Y|X]$
 
 ---
 ## Regression
