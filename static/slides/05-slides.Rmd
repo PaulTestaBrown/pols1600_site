@@ -12,9 +12,16 @@ output:
       countIncrementalSlides: false
 ---
 
+class: inverse, center, middle
+background-image:url("https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/332100/332134.4.jpg")
+background-size:cover
+
+# Overview
+
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE, 
                       cache = T,
   comment = NA, dpi = 300,
   fig.align = "center", out.width = "80%")
@@ -67,9 +74,7 @@ ipak <- function(pkg){
 ipak(the_packages)
 ```
 
----
-class: inverse, center, middle
-# Overview
+
 
 ---
 ## General Plan
@@ -83,9 +88,10 @@ class: inverse, center, middle
   - Casual inference
   - Covariate Adjustment
 - Linear Models
-  - The Basics
-  - The Mechanics
-  - The Intuitions
+  - Conceptual
+  - Practical
+  - Technical
+  - Theoretical
 - Three Common Observational Designs
   - Difference in Difference
   - Regression Discontinuity
@@ -97,6 +103,23 @@ class: inverse, center, middle
 
 ---
 ## Research Questions
+
+- Template [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
+
+- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870538?module_item_id=10762418) this Sunday
+
+- 3 Research questions:
+  
+  - One-sentence research question
+  
+  - Why do we care
+  
+  - Ideal experiment
+  
+  - Observational study
+  
+  - Feasibility
+
 
 
 ---
@@ -204,12 +227,6 @@ covid_us %>%
     new_cases = confirmed - lag(confirmed),
     new_cases_pc = new_cases / population *100000,
     new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
-                                     k = 7, 
-                                     align = "right",
-                                     fill=NA ),
-    new_deaths = deaths - lag(deaths),
-    new_deaths_pc = new_deaths / population *100000,
-    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
                                      k = 7, 
                                      align = "right",
                                      fill=NA )
@@ -322,13 +339,15 @@ covid_us %>%
 
 ```{r pres_data}
 # This joyously stopped working last night...
-# Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
-# 
-# pres_df <- get_dataframe_by_name(
-#   "1976-2020-president.tab",
-#   "doi:10.7910/DVN/42MVDX"
-# )
-load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df <- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+
+# Just in case
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 
 ---
@@ -357,6 +376,13 @@ pres_df %>%
     winner = ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")
 
   ) -> pres2020_df
+```
+
+---
+## Transform Data to get just 2020 Election
+
+```{r}
+head(pres2020_df)
 ```
 
 
@@ -440,7 +466,7 @@ dim(df) # Same number of rows as covid_us w/ 7 additional columns
 
 
 ---
-## Merge census data into Covid data
+## Merge Census data into Covid data
 
 ```{r acs_merge}
 dim(df)
@@ -454,19 +480,18 @@ dim(df)  # Same number of rows as covid_us w/ 2 additional columns
 ```
 
 ---
-## Red Covid
 
-```{r red_covid, echo=F, fig.height=5}
-knitr::include_graphics("https://static01.nyt.com/newsgraphics/2022/02/03/ambriefing-red-covid/5e2413bbdc223f7d0ba6deb062129be4f741b5e1/trumpshare-us-deaths-600.png")
+```{r red_covid, echo=F, out.height='80%'}
+knitr::include_graphics("./images/05_covid.png")
 ```
 
-[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*
+[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
 
 
 ---
 class: inverse, center, middle
 background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
-background-size: cover
+background-size: contain
 # 📢
 ## Feedback
 
@@ -477,13 +502,14 @@ df_wk04 %>%
 ```
 
 ---
-## What we liked
+## What we liked and learned
 
 --
 
 - Causal Inference!
-- Review
 - Data Viz
+- Programming
+- Review
 - Dank Memes
 
 ---
@@ -498,13 +524,33 @@ DT::datatable(df_wk04 %>%
                 pageLength = 3
               )
               )
+2+2
 ```
 
 
 ---
-## What we disliked
+## What we've learned
+
+```{r learn, echo=F, out.height='90%'}
+
+DT::datatable(df_wk04 %>% 
+                select(Learn),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+```
 
 
+---
+## What we disliked or struggled with
+
+
+- Stats
+  - DAGs
+  - Regression
 - Pacing
 - Keeping track of various concepts and skills
 - Lack of breaks
@@ -516,6 +562,23 @@ DT::datatable(df_wk04 %>%
 ```{r dislikes, echo=F}
 DT::datatable(df_wk04 %>% 
                 select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 3
+              )
+              )
+2+2
+```
+
+
+---
+## What we've struggled with
+
+```{r struggle, echo=F, out.height='90%'}
+
+DT::datatable(df_wk04 %>% 
+                select(Struggle),
                fillContainer = F,
               height = "90%",
               options = list(
@@ -707,7 +770,7 @@ $$
 
 
 ---
-##  Linear Regression and the line of best fit
+##  Linear Regression and the Line of Best Fit
 
 
 - The goal of linear regression is to choose coefficients $\beta_0$ and $\beta_1$  to summarizes the relationship between $y$ and $x$
@@ -718,7 +781,7 @@ $$
 
 - To accomplish this we need some sort of criteria. 
 
-- For linear regression, that criteria is minimizing the error between what our model predicts $\hat{y_i} = \beta_0 + \beta_1 x_i$ and what we actually observed ($y_i$) 
+- For linear regression, that criteria is minimizing the error between what our model predicts $\hat{y_i} = \beta_0 + \beta_1 x_i$ and what we actually observed $(y_i)$ 
 
 - More on this to come. But first...
 
@@ -1099,7 +1162,7 @@ And
 $$ \beta_1 = \frac{Cov(x,y)}{Var(x)}$$
 Which is never quite the epiphany, I think we think it is...
 
-The following slides walk you through the mechanics of this exercise. We're gonna skip them in class, but they're there for your reference
+The following slides walk you through the mechanics of this exercise. We're gonna skip through them in class, but they're there for your reference
 
 
 
@@ -1144,7 +1207,13 @@ $$
 Derivative of a line f(x)=2x
 
 $$
-f^{\prime}(x)=2
+f^{\prime}(2x)=2
+$$
+
+Derivative of $f(x)=x^2$
+
+$$
+f^{\prime}(x^2)=2x
 $$
 
 Chain rule: y= f(g(x)). The derivative of y with respect to x is
@@ -1193,9 +1262,7 @@ knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6Wr
 
 Our model
 
-$$
-y_i =\beta_0+\beta_1x_{i}+\epsilon_i
-$$
+$$y_i =\beta_0+\beta_1x_{i}+\epsilon_i$$
 
 Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
 
@@ -1985,7 +2052,7 @@ class: center
 
 
 .left-column[
-- No path from $Z$ to $Y$
+- No path from $Z$ to $Y$ except through $D$
 ]
 
 .right-column[

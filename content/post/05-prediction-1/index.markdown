@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/05-slides.html
 - icon: calendar-check
   icon_pack: fas
   name: "A1: Research Questions"
