@@ -36,27 +36,33 @@ class: center, middle, inverse, title-slide
 ---
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 class: inverse, center, middle
+background-image:url("https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/332100/332134.4.jpg")
+background-size:cover
+
 # Overview
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 ## General Plan
 
+- Group Assignment 1: Research Questions
 - Setup
   - Packages
   - Data
@@ -72,7 +78,30 @@ class: inverse, center, middle
   - Difference in Difference
   - Regression Discontinuity
   - Instrumental Variable Designs
-- Summary
+
+---
+class: inverse, center, middle
+# Research Questions
+
+---
+## Research Questions
+
+- Template [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
+
+- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870538?module_item_id=10762418) this Sunday
+
+- 3 Research questions:
+  
+  - One-sentence research question
+  
+  - Why do we care
+  
+  - Ideal experiment
+  
+  - Observational study
+  
+  - Feasibility
+
 
 
 ---
@@ -222,12 +251,6 @@ covid_us %&gt;%
     new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
                                      k = 7, 
                                      align = "right",
-                                     fill=NA ),
-    new_deaths = deaths - lag(deaths),
-    new_deaths_pc = new_deaths / population *100000,
-    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
-                                     k = 7, 
-                                     align = "right",
                                      fill=NA )
     ) -&gt; covid_us
 ```
@@ -354,13 +377,15 @@ covid_us %&gt;%
 
 ```r
 # This joyously stopped working last night...
-# Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
-# 
-# pres_df &lt;- get_dataframe_by_name(
-#   "1976-2020-president.tab",
-#   "doi:10.7910/DVN/42MVDX"
-# )
-load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df &lt;- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+
+# Just in case
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 
 ---
@@ -415,6 +440,31 @@ pres_df %&gt;%
     winner = ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")
 
   ) -&gt; pres2020_df
+```
+
+---
+## Transform Data to get just 2020 Election
+
+
+```r
+head(pres2020_df)
+```
+
+```
+       state year totalvotes DEMOCRAT REPUBLICAN dem_voteshare rep_voteshare
+1    Alabama 2020    2323282   849624    1441170     0.3656999     0.6203164
+2     Alaska 2020     359530   153778     189951     0.4277195     0.5283314
+3    Arizona 2020    3387326  1672143    1661686     0.4936469     0.4905598
+4   Arkansas 2020    1219069   423932     760647     0.3477506     0.6239573
+5 California 2020   17500881 11110250    6006429     0.6348395     0.3432072
+6   Colorado 2020    3279980  1804352    1364607     0.5501107     0.4160413
+  winner
+1  Trump
+2  Trump
+3  Biden
+4  Trump
+5  Biden
+6  Biden
 ```
 
 
@@ -538,7 +588,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 38072    59
+[1] 38072    56
 ```
 
 ```r
@@ -558,12 +608,12 @@ dim(df) # Same number of rows as covid_us w/ 7 additional columns
 ```
 
 ```
-[1] 38072    66
+[1] 38072    63
 ```
 
 
 ---
-## Merge census data into Covid data
+## Merge Census data into Covid data
 
 
 ```r
@@ -571,7 +621,7 @@ dim(df)
 ```
 
 ```
-[1] 38072    66
+[1] 38072    63
 ```
 
 ```r
@@ -591,47 +641,61 @@ dim(df)  # Same number of rows as covid_us w/ 2 additional columns
 ```
 
 ```
-[1] 38072    68
+[1] 38072    65
 ```
 
 ---
-## Red Covid
 
-&lt;img src="https://static01.nyt.com/newsgraphics/2022/02/03/ambriefing-red-covid/5e2413bbdc223f7d0ba6deb062129be4f741b5e1/trumpshare-us-deaths-600.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="./images/05_covid.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
 
-[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*
+[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
 
 
 ---
 class: inverse, center, middle
 background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
-background-size: cover
+background-size: contain
 # 📢
 ## Feedback
 
 
 
 ---
-## What we liked
+## What we liked and learned
 
 --
 
 - Causal Inference!
-- Review
 - Data Viz
+- Programming
+- Review
 - Dank Memes
 
 ---
 ## What we liked
 
-<div id="htmlwidget-629bfb4bd0c880fc059d" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-629bfb4bd0c880fc059d">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8"],["I like when we review topics from before and the break down fo the slides","I find thinking about causal identification and observational designs really interesting. I'm looking forward to hopefully talking more about moral/ethical constraints there, especially since this is a class focused on social sciences and political research where the data can definitely be manipulated to target/influence divides.","The review at the start of class.","I liked how we reviewed things. The pace also seemed a bit less fast and more manageable","I liked the overview of means, and the introduction to regressions - it was interesting","Your memes :)\nUsing survey data to model our code","I like your cheerful energy!","I really like when you walk us through the visualizations you make step by step"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-66c33c2f3c403c7ea829" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-66c33c2f3c403c7ea829">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["I like when we review topics from before and the break down fo the slides","I find thinking about causal identification and observational designs really interesting. I'm looking forward to hopefully talking more about moral/ethical constraints there, especially since this is a class focused on social sciences and political research where the data can definitely be manipulated to target/influence divides.","The review at the start of class.","I liked how we reviewed things. The pace also seemed a bit less fast and more manageable","I liked the overview of means, and the introduction to regressions - it was interesting","Your memes :)\nUsing survey data to model our code","I like your cheerful energy!","I really like when you walk us through the visualizations you make step by step","I thought the general review was useful, and hope we can do a few more throughout the course just to make sure I'm keeping up"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+```
+[1] 4
+```
 
 
 ---
-## What we disliked
+## What we've learned
+
+<div id="htmlwidget-334a6cda7251e23751c4" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-334a6cda7251e23751c4">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["Programming for sure","I've been talking about the study we used in the lab last week since I first read it. I just found it so interesting and so promising that a 10 minute conversation with a stranger could build a substantial/measurable amount of empathy. Thinking about research design in that way, and the power statistics and the process of obtaining statistics has been cool.","Basics for setting up a R Markdown file and some syntax. Working with and creating vectors and modifying data.","The statistics aspect of class has brought back the useful things I learned in high school but forgot about, so it's nice to have the refresher.","I've started to really get comfortable with the R interface, and I understand basic descriptive statistics (mean, median, etc.) well.","That there are different \"code languages\"\nThat we can code to arrange data in cool ways as opposed to doing it manually","I think I've gotten better at coding, \"learning the language\" I also think all of the theoretical stuff makes sense.","I've learned a lot about the keyboard shortcuts in R and I think that's been really cool.","I've definitely gotten a lot more comfortable with R, I'm learning to look at data in a new and different way, I'm able to read data more critically, I can visualise it a lot more easily (or at least know more or less how to do so) and am semi-able to read code and have a basic idea of what it does"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learn<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
+---
+## What we disliked or struggled with
+
+
+- Stats
+  - DAGs
+  - Regression
 - Pacing
 - Keeping track of various concepts and skills
 - Lack of breaks
@@ -640,8 +704,19 @@ background-size: cover
 ---
 ## What we disliked
 
-<div id="htmlwidget-b6f9ad31f1b14e1dceb1" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b6f9ad31f1b14e1dceb1">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8"],["The pace is a little fast. Its a lot of new info at once","I think review just generally makes it hard for me to engage fully, so I look forward to digging into new content.","In general I had some difficulty staying focused for the entire 1 hour and 20 minutes. I do not think it is reflective of the class itself, but rather of just how busy I am and how hectic everything is at the moment.","I feel pretty decent on a conceptual level with everything, but sometimes things are still a bit fuzzy. It is frustrating that there are so many different things to keep in mind, which are all necessary for a basic understanding of data sets and labs, but I think with time it will be easier.","I think we could use a bit of a longer break halfway through lecture","I just don't really understand the words you use during lecture","a little too much review, to be quite honest... but it was good to take a bit of a break this week...honestly a bit torn.","I wish there was a lab. I find that the hands on work is very helpful in learning"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-37f546f0e4c4e3719717" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37f546f0e4c4e3719717">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["The pace is a little fast. Its a lot of new info at once","I think review just generally makes it hard for me to engage fully, so I look forward to digging into new content.","In general I had some difficulty staying focused for the entire 1 hour and 20 minutes. I do not think it is reflective of the class itself, but rather of just how busy I am and how hectic everything is at the moment.","I feel pretty decent on a conceptual level with everything, but sometimes things are still a bit fuzzy. It is frustrating that there are so many different things to keep in mind, which are all necessary for a basic understanding of data sets and labs, but I think with time it will be easier.","I think we could use a bit of a longer break halfway through lecture","I just don't really understand the words you use during lecture","a little too much review, to be quite honest... but it was good to take a bit of a break this week...honestly a bit torn.","I wish there was a lab. I find that the hands on work is very helpful in learning","Maybe just because we haven't gotten too in depth with it, but regression I've found a little confusing, so if we could go over it not only in conceptual terms but also in practical terms I think that would be really useful"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+```
+[1] 4
+```
+
+
+---
+## What we've struggled with
+
+<div id="htmlwidget-ff3d251183942f4667fb" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ff3d251183942f4667fb">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["","I think some of the programming hasn't settled in, especially since copying and pasting means I don't have to the step-by-step typing (I still like copy and pasting though! it's definitely more streamlined and that doesn't need to change!), but more practice building code chains and understanding why they work will definitely be good","Basics for setting up a R Markdown file and some syntax. Working with and creating vectors and modifying data. Also, setting up diagrams/graphs. Some of the more complicated vectors and pipe functions?","Sometimes you bring up things that we don't have to remember or know about, but that can make me confused. Not always at the moment, but I can sometimes confuse the concept we don't have to understand with something we do.","I'm confused about acyclic graphs but I think we're going to learn about that more in the future","I understand what I wrote above, but still don't know how to go about coding","Sometimes I have difficulty understanding differences between the textbook and our version of R","Some of the statistics stuff has been over my head","I think mostly knowing when and how we're going to apply concepts in a more practical manner could be clarified (ie covariate adjustment) but that's a newer topic so hopefully it'll be covered soon!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Struggle<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -827,7 +902,7 @@ $$
 
 
 ---
-##  Linear Regression and the line of best fit
+##  Linear Regression and the Line of Best Fit
 
 
 - The goal of linear regression is to choose coefficients `\(\beta_0\)` and `\(\beta_1\)`  to summarizes the relationship between `\(y\)` and `\(x\)`
@@ -838,7 +913,7 @@ $$
 
 - To accomplish this we need some sort of criteria. 
 
-- For linear regression, that criteria is minimizing the error between what our model predicts `\(\hat{y_i} = \beta_0 + \beta_1 x_i\)` and what we actually observed ($y_i$) 
+- For linear regression, that criteria is minimizing the error between what our model predicts `\(\hat{y_i} = \beta_0 + \beta_1 x_i\)` and what we actually observed `\((y_i)\)` 
 
 - More on this to come. But first...
 
@@ -1216,7 +1291,7 @@ And
 $$ \beta_1 = \frac{Cov(x,y)}{Var(x)}$$
 Which is never quite the epiphany, I think we think it is...
 
-The following slides walk you through the mechanics of this exercise. We're gonna skip them in class, but they're there for your reference
+The following slides walk you through the mechanics of this exercise. We're gonna skip through them in class, but they're there for your reference
 
 
 
@@ -1261,7 +1336,13 @@ $$
 Derivative of a line f(x)=2x
 
 $$
-f^{\prime}(x)=2
+f^{\prime}(2x)=2
+$$
+
+Derivative of `\(f(x)=x^2\)`
+
+$$
+f^{\prime}(x^2)=2x
 $$
 
 Chain rule: y= f(g(x)). The derivative of y with respect to x is
@@ -1306,9 +1387,7 @@ Let `\(f\)` be a function of the variables `\((x, \dots, X_n)\)`. The partial de
 
 Our model
 
-$$
-y_i =\beta_0+\beta_1x_{i}+\epsilon_i
-$$
+`$$y_i =\beta_0+\beta_1x_{i}+\epsilon_i$$`
 
 Finds coefficients `\(\beta_0\)` and `\(\beta_1\)` to to minimize the sum of squared residuals, `\(\hat{\epsilon}_i\)`:
 
@@ -1905,8 +1984,8 @@ $ margin     &lt;dbl&gt; 0.05690404, -0.04973833, -0.04158868, 0.02329524, -0.23
 ```
 
 ---
-<div id="htmlwidget-2696fe2142f97f2448ac" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2696fe2142f97f2448ac">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["surname","firstname","party","ln.gross","ln.net","yob","yod","margin.pre","region","margin"],["surname of the candidate","first name of the candidate","party of the candidate (labour or tory)","log gross wealth at the time of death","log net wealth at the time of death","year of birth of the candidate","year of death of the candidate","margin of the candidate’s party in the previous election electoral","region","margin of victory (vote share)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b0d7f9738e3a5a456559" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b0d7f9738e3a5a456559">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["surname","firstname","party","ln.gross","ln.net","yob","yod","margin.pre","region","margin"],["surname of the candidate","first name of the candidate","party of the candidate (labour or tory)","log gross wealth at the time of death","log net wealth at the time of death","year of birth of the candidate","year of death of the candidate","margin of the candidate’s party in the previous election electoral","region","margin of victory (vote share)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 
 
 
