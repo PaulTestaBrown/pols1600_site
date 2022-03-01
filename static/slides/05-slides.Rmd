@@ -2051,7 +2051,7 @@ class: center
 
 
 .left-column[
-- No path from $Z$ to $Y$
+- No path from $Z$ to $Y$ except through $D$
 ]
 
 .right-column[
