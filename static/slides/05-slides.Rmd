@@ -15,6 +15,7 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      cache = T,
   comment = NA, dpi = 300,
   fig.align = "center", out.width = "80%", cache = FALSE)
 library("tidyverse")
@@ -43,7 +44,7 @@ the_packages <- c(
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
-  "GGally", "scales", "dagitty", "ggdag",
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", #<<
   # Analysis
@@ -62,7 +63,7 @@ ipak <- function(pkg){
 ```
 
 
-```{r loadpackages, include=F}
+```{r loadpackages, cache=F, include=F}
 ipak(the_packages)
 ```
 
@@ -73,6 +74,7 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Group Assignment 1: Research Questions
 - Setup
   - Packages
   - Data
@@ -88,7 +90,13 @@ class: inverse, center, middle
   - Difference in Difference
   - Regression Discontinuity
   - Instrumental Variable Designs
-- Summary
+
+---
+class: inverse, center, middle
+# Research Questions
+
+---
+## Research Questions
 
 
 ---
@@ -101,7 +109,7 @@ class:inverse, middle, center
 
 Hopefully, you were all able to install the following packages 
 
-```{r, eval=FALSE}
+```{r installpacks, eval=FALSE}
 install.packages("dataverse")
 install.packages("tidycensus")
 install.packages("easystats")
@@ -109,6 +117,21 @@ install.packages("DeclareDesign")
 
 ```
 
+
+---
+## Census API:
+
+Additionally, I hope you have all followed the steps [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+
+1. Install the `tidycensus` package
+2. Load the installed package
+3. Request an API key from the Census
+4. Check your email
+5. Activate your key
+6. Install your API key in R
+7. Check that everything worked
+
+To install the an API key so we can download data directly from the US Census
 
 
 ---
@@ -183,14 +206,20 @@ covid_us %>%
     new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
                                      k = 7, 
                                      align = "right",
-                                     fill=NA ) #<<
+                                     fill=NA ),
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA )
     ) -> covid_us
 ```
 
 ---
 ## Calculating a Rolling Average New Cases
 
-```{r}
+```{r rollmean}
 covid_us %>%
   filter(date > "2020-03-05") %>%
   select(date,new_cases_pc,new_cases_pc_7da)
@@ -200,7 +229,7 @@ covid_us %>%
 ## New Case Per Capita
 
 .pull-left[
-```{r, eval=F}
+```{r plotmean, }
 covid_us %>%
   filter(date > "2020-03-05", 
          state == "Minnesota") %>%
@@ -214,13 +243,11 @@ covid_us %>%
     y = "New Cases Per 100k", x = "",
     title = "Minnesota"
   ) -> fig_covid_mn 
-
-fig_covid_mn
 ```
 ]
 
 .pull-right[
-```{r, echo=F}
+```{r plotmean2, echo=F}
 fig_covid_mn
 ```
 ]
@@ -228,7 +255,8 @@ fig_covid_mn
 ---
 ## New Case Per Capita vs 7-day average
 
-```{r, eval=F}
+.pull-left[
+```{r plotmean7d, eval=F}
 fig_covid_mn +
   geom_line(aes(y = new_cases_pc_7da,
                 col = "7-day average")
@@ -237,7 +265,11 @@ fig_covid_mn +
 ]
 
 .pull-right[
-```{r, echo=T}
+```{r plotmean7d2, echo=F}
+fig_covid_mn +
+  geom_line(aes(y = new_cases_pc_7da,
+                col = "7-day average")
+            ) -> fig_covid_mn
 fig_covid_mn
 ```
 
@@ -246,7 +278,7 @@ fig_covid_mn
 ---
 ## Facemask Policy
 
-```{r}
+```{r recode_facemasks}
 covid_us %>%
 mutate(
   # Recode facial_coverings to create face_masks
@@ -286,26 +318,30 @@ covid_us %>%
 ---
 ## Load Data on Presidential Elections
 
-```{r}
-Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
 
-pres_df <- get_dataframe_by_name(
-  "1976-2020-president.tab",
-  "doi:10.7910/DVN/42MVDX"
-)
+
+```{r pres_data}
+# This joyously stopped working last night...
+# Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+# 
+# pres_df <- get_dataframe_by_name(
+#   "1976-2020-president.tab",
+#   "doi:10.7910/DVN/42MVDX"
+# )
+load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 
 ---
 ## HLO of Presidential Elections Data
 
-```{r}
+```{r pres_hlo}
 head(pres_df)
 ```
 
 ---
 ## Transform Data to get just 2020 Election
 
-```{r}
+```{r pres_wrangle}
 pres_df %>%
   mutate(
     state = str_to_title(state)
@@ -327,29 +363,39 @@ pres_df %>%
 ---
 ## Load Data on Median State Income from the Census
 
-```{r}
-acs_income <- get_acs(geography = "state", 
-              variables = c(medincome = "B19013_001"), 
+```{r acs_data}
+acs_df <- get_acs(geography = "state", 
+              variables = c(med_income = "B19013_001",
+                            med_age = "B01002_001"), 
               year = 2019)
 ```
 
 ---
 ## HLO: Census Data 
 
-```{r}
-glimpse(acs_income)
+```{r acs_hlo}
+head(acs_df)
 ```
 
 
 ---
 ## Tidy Census Data
 
-```{r}
-acs_income %>%
+```{r acs_tidy}
+acs_df %>%
   mutate(
     state = NAME,
-    median_income = estimate
-  ) -> acs_income
+  ) %>%
+  select(state, variable, estimate) %>%
+  pivot_wider(names_from = variable,
+              values_from = estimate) -> acs_df
+```
+
+---
+## Tidy Census Data
+
+```{r}
+head(acs_df)
 ```
 
 
@@ -362,10 +408,11 @@ acs_income %>%
 - Always check the matches in your joining variable (i.e. `state`)
 
 - Below we see that our recoding of state to title case in created a mismatch
+
 ]
 
 .pull-right[
-```{r}
+```{r merge_check}
 # Should be 51
 sum(pres2020_df$state %in% covid_us$state)
 # Find the mismatch:
@@ -381,7 +428,7 @@ sum(pres2020_df$state %in% covid_us$state)
 ---
 ## Merge election data into Covid data
 
-```{r}
+```{r merge_pres}
 dim(covid_us)
 dim(pres2020_df)
 df <- covid_us %>% left_join(
@@ -395,29 +442,38 @@ dim(df) # Same number of rows as covid_us w/ 7 additional columns
 ---
 ## Merge census data into Covid data
 
-```{r}
-# Should be 51
+```{r acs_merge}
 dim(df)
-dim(acs_income)
+dim(acs_df)
 df <- df %>% left_join(
-  acs_income,
+  acs_df,
   by = c("state" = "state")
 )
-dim(df)  # Same number of rows as covid_us w/ 6 additional columns
+dim(df)  # Same number of rows as covid_us w/ 2 additional columns
 
 ```
 
+---
+## Red Covid
 
+```{r red_covid, echo=F, fig.height=5}
+knitr::include_graphics("https://static01.nyt.com/newsgraphics/2022/02/03/ambriefing-red-covid/5e2413bbdc223f7d0ba6deb062129be4f741b5e1/trumpshare-us-deaths-600.png")
+```
+
+[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*
+
+
+---
+class: inverse, center, middle
+background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
+background-size: cover
 # 📢
 ## Feedback
 
-```{r, echo=F, message=F}
-df <- haven::read_spss("../files/data/wk03.sav")
-df %>%
-  mutate(
-    Reincarnation = reincarnation,
-    Why = creature,
-  ) -> df
+```{r feedback, echo=F, message=F}
+df_wk04 <- haven::read_spss("../files/data/wk04.sav")
+df_wk04 %>%
+  filter(Q7 == 1)-> df_wk04
 ```
 
 ---
@@ -425,18 +481,21 @@ df %>%
 
 --
 
-- Likes here
+- Causal Inference!
+- Review
+- Data Viz
+- Dank Memes
 
 ---
 ## What we liked
 
 ```{r likes, echo=F, out.height='90%'}
-DT::datatable(df %>% 
+DT::datatable(df_wk04 %>% 
                 select(Likes),
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 4
+                pageLength = 3
               )
               )
 ```
@@ -445,15 +504,17 @@ DT::datatable(df %>%
 ---
 ## What we disliked
 
---
 
-- Dislikes here
+- Pacing
+- Keeping track of various concepts and skills
+- Lack of breaks
+- Too much review
 
 ---
 ## What we disliked
 
 ```{r dislikes, echo=F}
-DT::datatable(df %>% 
+DT::datatable(df_wk04 %>% 
                 select(Dislikes),
                fillContainer = F,
               height = "90%",
@@ -473,7 +534,7 @@ class:inverse, middle, center
 ---
 ## Review
 
-- Casual inference
+- Casual Inference
   
 - Covariate Adjustment
 
@@ -487,19 +548,35 @@ class:inverse, middle, center
 
 - Causal inference is about counterfactual comparisons
 
+--
+
 - Some counterfactuals are easier to imagine or create than others
+
+--
 
 - Randomization solves the fundamental problem of causal inference allowing us to estimate average treatment effects free from selection bias
 
+--
+
 - Randomization is not always possible, desirable, or ethical
+
+--
 
 - Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:
 
 $$
 Y_i(1),Y_i(0) \perp D_i |X_i
 $$
+
+--
+
 - This assumption goes by many, jargony names: Selection on Observables, Conditional Independence, No unmeasured confounders.
+
+--
+
 - Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.
+
+--
 
 - Observational designs estimate the effect of $D$ conditional on $X$ using covariate adjustment.
 
@@ -528,27 +605,40 @@ class:inverse, middle, center
 ## Subclassification
 
 - Subclassification is a simple way to adjust for a covariate
+  
   - Subset the data to include only the values you want ($X=x$, $D=1$, $Interverntion = Treated$) and calculate the quantity of interest (e.g. a conditional mean, `mean(df$income[df$age <30])`)
-  - But what if we want to control for more than one variable? 
-  - What if our variables aren't categorical like sex, but continuous like height?
+
+--
+
+- But what if we want to control for more than one variable? 
+
+- What if our variables aren't categorical like sex, but continuous like height?
+
+--
 
 - **The Curse of Dimensionality** as you attempt to adjust for more covariates (add more dimensions), the space of possible combinations grows exponentially
+  
   - Assumption of Common Support likely to be violated $0 < Pr(D_i = 1|X_i) < 1$ 
 
 ---
 ## Matching
 
 - Matching refers to a broad set of procedures that try to recreate what randomization provides: **covariate balance**
+  
   - **covariate balance** is a fancy term for saying that in the aggregate, two groups look similar accept on group received the *treatment* $(D=1)$ while another group did not $(D=0)$
+
+--
 
 - There are many ways to try to match observations:
   - **Exact matching:** Find exact matches between treatment and control observations for all covariates $X$. Only works for a few covariates.
   - **Coarsened exact matching:** Find approximate matches within ranges of values for $X$
   - **Matching on summaries of the covariates** calculating  a single measure of the similarility of observations and matching on this summary to produce covariate balance.
 
-- Matching is 
-  - conceptually appealing (mirrors the logic of an experiment)
-  - technically complex (complicated algorhitms, finicky software) 
+--
+
+- Matching:
+  - Conceptually appealing (mirrors the logic of an experiment)
+  - Technically complex (complicated algorhitms, finicky software) 
   - Only provides balance on **observed covariates**
 
 
@@ -563,8 +653,12 @@ class: inverse, center, middle
 ## Understanding Linear Regression
 
 - **Conceptual**
-  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
-  
+  - Simple linear regression estimates "a line of best fit" that summarizes relationships between two variables
+
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
 - **Practical**
   - We estimate linear models in R using the `lm()` function
   
@@ -572,44 +666,86 @@ class: inverse, center, middle
 lm(y ~ x, data = df)
 ```
 
-  - Will estimate the intercept $(\beta_0)$ and the slope $(\beta_1)$ in the following equation.
-  
-$$
-y_i = \beta_0 + \beta_1x_i + \epsilon_i
-$$
-
-- Definitional
-
+- *Technical/Definitional*
   - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR): 
 
-$$
-\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
-$$
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
 
-
-- Theoretical
-  - Linear regression provides a **linear** estimate of the conditional expectation function $E[Y|X]$
+- *Theoretical*
+  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
 ---
-## Regression
+class: inverse, center, middle
+# 💡  
+# Conceptual: Linear Regression
+## Linear Regression Provides an Estimate of the Line of Best Fit
 
-Broadly regression is a statistical procedural to help us model relationships that consists of:
+---
+## Conceptual: Linear Regression 
 
-- $Y$ an **outcome variable** or thing we're trying to explain
-  - AKA: The Dependent Variable, The Response Variable, The Lefthand side of the model
+- Regression is a tool for describing relationships.
+  
+  - How does some outcome we're interested in tend to change as some predictor of that outcome changes?
+  
+  - How does economic development vary with democracy?
+  
+  - How does economic development vary with democracy, adjusting for natural resources like oil and gas
 
-- $X$ a set of **predictor variables** or things we think explain variation in our outcome
+- Formally:
+
+$$
+y_i = f(x_i) + \epsilon
+$$
+
+  - Y is a function of X plus some error, $\epsilon$
+
+- Linear regression assumes that relationship between an outcome and a predictor can be by a [linear](https://en.wikipedia.org/wiki/Linearity) function 
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+$$
+
+
+---
+##  Linear Regression and the line of best fit
+
+
+- The goal of linear regression is to choose coefficients $\beta_0$ and $\beta_1$  to summarizes the relationship between $y$ and $x$
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+$$
+
+- To accomplish this we need some sort of criteria. 
+
+- For linear regression, that criteria is minimizing the error between what our model predicts $\hat{y_i} = \beta_0 + \beta_1 x_i$ and what we actually observed ($y_i$) 
+
+- More on this to come. But first...
+
+
+
+---
+## Regression Notation
+
+- $y_i$ an **outcome variable** or thing we're trying to explain
+  
+  - AKA: The dependent variable, The response Variable, The left hand side of the model
+
+- $x_i$ a **predictor variables** or things we think explain variation in our outcome
+  
   - AKA: The independent variable, covariates, the right hand side of the model.
+  
+  - Cap or No Cap: I'll use  $X$ (should be $\mathbf{X}$) to denote a set (matrix) of predictor variables. $y$ vs $Y$ can also have technical distinctions (Sample vs Population, observed value vs Random Variable, ...)
 
-- $\beta$ a set of **unknown paramters** that describe the relationship between our outcome $Y$ and our predictors $X$
+- $\beta$ a set of **unknown parameters** that describe the relationship between our outcome $y_i$ and our predictors $x_i$
 
-- $\epsilon$ the **error term** representing variation in $Y$ not explained by our model.
+- $\epsilon$ the **error term** representing variation in  $y_i$ not explained by our model.
 
 
 ---
 ## Linear Regression
 
-Today let's return to the   simple (bivariate) linear regressions we introduced last week:
+Let's return to the simple (bivariate) linear regressions we introduced last week:
 
 $$
 y_i = \beta_0 + \beta_1 x_i + \epsilon
@@ -618,7 +754,9 @@ $$
 - We call this a bivariate regression, because there are only two variables.
 
 - We call this a linear regression, because $y_i = \beta_0 + \beta_1 x_i$ is the equation for a line, where:
+ 
   - $\beta_0$ corresponds to the $y$ intercept, or the model's prediction when $x = 0$.
+ 
   - $\beta_1$ corresponds to the slope, or how $y$ is predicted to change as $x$ changes.
 
 ---
@@ -636,26 +774,125 @@ Reflects:
 $$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i$$
 
 ---
-## Estimating a Linear Regression
+## Practical: Estimating a Linear Regression
 
 - We estimate linear regressions in `R` using the `lm()` function.
 - `lm()` requires two arguments:
-  - a formula of the general form `y ~ x` read as "Y modeled by X" or below "Transgender Feeling Thermometer's modeled by Age
-  - a `data` telling R 
+  - a `formula` argument of the general form `y ~ x` read as "Y modeled by X" or below "Transgender Feeling Thermometer (`y`) modeled by (`~`) Age (`x`)
+  - a `data` argument telling R where to find the variables in the formula
   
 
 ```{r lmdata}
 load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
-```
-
-```{r m1}
 m1 <- lm(therm_trans_t0 ~ vf_age, data = df)
 m1
 
 ```
 
 ---
-```{r figlm1code, echo = F}
+
+The coefficients from `lm()` are saved in object called `m1` 
+  
+```{r printm1}
+m1
+```
+
+`m1` actually contains a lot of information
+
+```{r m1info}
+names(m1)
+m1$coefficients
+```
+
+---
+## Practical: Interpreting a Linear Regression
+
+We can extract the intercept and slope from this simple bivariate model, using the `coef()` function
+
+```{r m1coef}
+# All the coefficients
+coef(m1)
+# Just the intercept
+coef(m1)[1]
+# Just the slope
+coef(m1)[2]
+```
+
+---
+## Practical: Interpreting a Linear Regression
+
+The two coefficients from `m1` define a line of best fit, summarizing how feelings toward transgender individuals change with age
+
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon$$
+
+$$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i$$
+
+$$\text{Transgender Feeling Thermometer}_i = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \text{Age}_i + \epsilon_i$$
+---
+## Practical: Predicted values from a Linear Regression
+
+- Often it's useful for interpretation to obtain predicted values from a regression. 
+
+
+- To obtain predicted vales $(\hat{y})$, we simply plug in a value for $x$ (In this case, $Age$) and evaluate our equation.
+
+- For example, might we expect attitudes to differ among an 18-year-old college student and their 68-year-old grandparent?
+
+$$\hat{FT}_{x=18} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 18  = 59.16$$
+$$\hat{FT}_{x=65} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 68  = 49.01$$
+
+---
+## Practical: Predicted values from a Linear Regression
+
+We could do this by hand
+
+```{r pred_man}
+coef(m1)[1] + coef(m1)[2] * 18
+coef(m1)[1] + coef(m1)[2] * 68
+
+```
+
+---
+## Practical: Predicted values from a Linear Regression
+
+More often we will:
+
+- Make a prediction data frame (called `pred_df` below) with the values of interests
+- Use the `predict()` function with our linear model (`m1`) and `pred_df`
+- Save the predicted values to our new column in our prediction data frame
+
+
+
+---
+## Practical: Predicted values from a Linear Regression
+
+```{r pred_df}
+# Make prediction data frame
+pred_df <- data.frame(
+  vf_age = c(18, 68)
+)
+# Predict FT for 18 and 68 year-olds
+predict(m1, newdata = pred_df)
+
+# Save predictions to data frame
+pred_df$ft_trans_hat <- predict(m1, newdata = pred_df)
+pred_df
+```
+
+
+
+---
+## Practical: Visualizing Linear Regression
+
+We can visualize simple regression by:
+
+- plotting a scatter plot of the outcome (y-axis) and predictors (x-axis)
+
+- overlaying the line defined by `lm()`
+
+---
+```{r fig_lm_code, eval=F}
 fig_lm <- df %>%
   ggplot(aes(vf_age,therm_trans_t0))+
   geom_point(size=.5, alpha=.5)+
@@ -680,6 +917,68 @@ fig_lm <- df %>%
   )+
   theme_classic()
 fig_lm
+```
+
+---
+```{r fig_lm_plot, echo=F}
+fig_lm <- df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  geom_abline(intercept = coef(m1)[1],
+              slope = coef(m1)[2],
+              col = "blue"
+              )+
+  geom_vline(xintercept = 0,linetype = 2)+
+  xlim(0,100)+
+  annotate("point",
+           x = 0, y = coef(m1)[1],
+           col= "red",
+           )+
+  annotate("text",
+           label = expression(paste(beta[0],"= 62.81" )),
+           x = 1, y = coef(m1)[1]+5,
+           hjust = "left",
+           )+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People"
+  )+
+  theme_classic()
+fig_lm
+```
+
+
+
+---
+```{r figlm1code, echo = F}
+
+fig_lm+
+  geom_segment(aes(x=47, xend = 47,
+                   y=53.27526, yend=74),
+               col="red")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=74, yend=74),
+               col="darkgrey",linetype = 2)+
+  annotate("text",label = expression(paste(Y[i],"= 74" )),
+           x = 55.5, y = 74,
+           hjust = "left")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=63.5, yend=63.5),
+               col="red",linetype = 2)+
+  annotate("text",label = expression(paste(epsilon[i],"=", Y[i] - hat(Y[i]),"= 74 - 53.27 = 20.73" )),
+           x = 55.5, y = 63.5,
+           col = "red",
+           hjust = "left")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=53.27526, yend=53.27526),
+               col="blue",linetype = 2)+
+  annotate("text",label = expression(paste(hat(Y[i]),"=", beta[0] + beta[1],"Age = 62.81 -0.20*47 = 53.27" )),
+           x = 55.5, y = 53.27526,
+           col = "blue",
+           hjust = "left")
+
+
+
 ```
 
 ---
@@ -722,45 +1021,48 @@ fig_lm +
 ```
 
 
+
+
+
+
 ---
-background-image:url("https://imgflip.com/i/66mx9d")
+background-image:url("https://i.imgflip.com/66mx9d.jpg")
 background-size:contain
 
 ---
 class: inverse, center, middle
 # 💡  
-# Linear Regression
-## The Mechanics of OLS
+# Technical: Linear Regression
+## The Mechanics of Minimizing the Sum of Squared Errors
 
 ---
 ## How did `lm()` choose $\beta_0$ and $\beta_1$
 
-P: By minimizing the sum of squared errors.
+--
 
-Q: Ok, that's not really that helpful...
+- P: By minimizing the sum of squared errors, in procedure called Ordinary Least Squares (OLS) regression
 
-Q: What's an error?
+--
 
-Q: Why would we square and sum them
+- Q: Ok, that's not really that helpful...
 
-Q: How do we minimize them.
+  - What's an error?
+  - Why would we square and sum them
+  - How do we minimize them.
 
 P: Good questions!
+
 
 ---
 ## What's an error?
 
 An error, $\epsilon_i$ is simply the difference between the observed value of $y_i$ and what our model would predict, $\hat{y_i}$ given some value of $x_i$. So for a model:
 
-$$
-y_i=\beta_0+\beta_1 x_{1,i} + \epsilon_i
-$$
+$$y_i=\beta_0+\beta_1 x_{i} + \epsilon_i$$
 
-We simply subtract our model's prediction $\beta_0+\beta_1 x_{1,i}$ from the the observed value, $y_i$
+We simply subtract our model's prediction $\beta_0+\beta_1 x_{i}$ from the the observed value, $y_i$
 
-$$
-\hat{\epsilon_i}=y_i-\hat{y_i}=(Y_i-(\beta_0+\beta_1 x_{1,i}))
-$$
+$$\hat{\epsilon_i}=y_i-\hat{y_i}=(Y_i-(\beta_0+\beta_1 x_{i}))$$
 
 To get $\epsilon_i$
 
@@ -769,9 +1071,11 @@ To get $\epsilon_i$
 
 There are more mathy reasons for this, but at intuitive level, the Sum of Squared Residuals (SSR)
 
-  - Squaring $\epsilon$ treats positive and negative values equally.
+  - Squaring $\epsilon$ treats positive and negative residuals equally.
   
   - Summing produces single value summarizing our models overall performance.
+  
+There are other criteria we could use (e.g. minimizing the sum of absolute errors), but SSR has some nice properties
 
 
 ---
@@ -779,9 +1083,26 @@ There are more mathy reasons for this, but at intuitive level, the Sum of Square
 
 OLS chooses $\beta_0$ and $\beta_1$ to minimize $\sum \epsilon^2$, the Sum of Squared Residuals (SSR)
 
-$$
-\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
-$$
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+---
+## How did `lm()` choose $\beta_0$ and $\beta_1$
+
+In an intro stats course, we would walk through the process of finding
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+Which involves a little bit of calculus. The big payoff is that 
+
+$$\beta_0 = \bar{y} - \beta_1 \bar{x}$$
+And 
+
+$$ \beta_1 = \frac{Cov(x,y)}{Var(x)}$$
+Which is never quite the epiphany, I think we think it is...
+
+The following slides walk you through the mechanics of this exercise. We're gonna skip them in class, but they're there for your reference
+
+
+
 
 ---
 ## How do we minimize $\sum \epsilon^2$
@@ -837,16 +1158,16 @@ The derivative of the "outside" times the derivative of the "inside," rememberin
 ---
 ## Finding a Local Minimums
 
-
+.pull-left[
 Local minimum:
 
 $$
 f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
 $$
+]
 
 .pull-right[
-
-```{r}
+```{r derivatives,echo=F}
 knitr::include_graphics("https://copingwithcalculus.com/SecondDeriv1.png")
 ```
 [Source](https://copingwithcalculus.com/SecondDerivativeTest.html)
@@ -856,13 +1177,13 @@ knitr::include_graphics("https://copingwithcalculus.com/SecondDeriv1.png")
 ---
 ## Partial Derivatives
 
-Let $f$ be a function of the variables $(X_1, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
+Let $f$ be a function of the variables $(x, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
 
 $$\begin{align*}
-\frac{\partial f(X_1, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(X_1, \dots X_i+h \dots, X_n)-f(X_1, \dots X_i \dots, X_n)}{h}
+\frac{\partial f(x, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(x, \dots X_i+h \dots, X_n)-f(x, \dots X_i \dots, X_n)}{h}
 \end{align*}$$
 
-```{r}
+```{r partial, echo=F, fig.height=4}
 knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6WrQ.png")
 ```
 [Source](https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86)
@@ -873,14 +1194,14 @@ knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6Wr
 Our model
 
 $$
-Y_i =\beta_0+\beta_1X_{1,i}+\epsilon_i
+y_i =\beta_0+\beta_1x_{i}+\epsilon_i
 $$
 
 Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
 
-$$\begin{alignat*}{1}
-\sum \hat{\epsilon_i}^2 &= \sum (Y_i-\beta_0-\beta_1 X_{1,i})^2
-\end{alignat*}$$
+$$\begin{aligned}
+\sum \hat{\epsilon_i}^2 &= \sum (y_i-\beta_0-\beta_1 x_{i})^2
+\end{aligned}$$
 
 
 ---
@@ -888,12 +1209,10 @@ $$\begin{alignat*}{1}
 
 We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
 
-$$
-\begin{alignat*}{1}
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})=0\\
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}=0
-\end{alignat*}
-$$
+$$\begin{aligned}
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (y_i-\beta_0-\beta_1 x_{i})=0 & f'(-x^2) = -2x\\
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (y_i-\beta_0-\beta_1 x_{i})x_{i}=0 & \text{chain rule}
+\end{aligned}$$
 
 
 ---
@@ -902,11 +1221,11 @@ $$
 First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
 
 $$\begin{aligned}
-0 &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})\\
-\sum \beta_0 &= \sum Y_i - \sum \beta_1 X_{1,i}\\
-N \beta_0 &= \sum Y_i -\sum \beta_1 X_{1,i}\\
-\beta_0 &= \frac{\sum Y_i}{N} - \frac{\beta_1 \sum X_{1,i}}{N}\\
-\beta_0 &= \bar{Y} - \beta_1 \bar{X_{1}}
+0 &= -2\sum (y_i-\beta_0-\beta_1 x_{i})\\
+\sum \beta_0 &= \sum y_i - \sum \beta_1 x_{i}\\
+N \beta_0 &= \sum y_i -\sum \beta_1 x_{i}\\
+\beta_0 &= \frac{\sum y_i}{N} - \frac{\beta_1 \sum x_{i}}{N}\\
+\beta_0 &= \bar{y} - \beta_1 \bar{x}
 \end{aligned}$$
 
 ---
@@ -915,49 +1234,47 @@ N \beta_0 &= \sum Y_i -\sum \beta_1 X_{1,i}\\
 Now, we can solve for $\beta_1$ plugging in $\beta_0$.
 
 $$\begin{aligned}
-0 &= -2\sum [(Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}]\\
-0 &= \sum [Y_iX_i-(\bar{Y} - \beta_1 \bar{X_{1}})X_{1,i}-\beta_1 X_{1,i}^2]\\
-0 &= \sum [Y_iX_i-\bar{Y}X_{1,i} + \beta_1 \bar{X_{1}}X_{1,i}-\beta_1 X_{1,i}^2]
+0 &= -2\sum [(y_i-\beta_0-\beta_1 x_{i})x_{i}]\\
+0 &= \sum [y_ix_i-(\bar{y} - \beta_1 \bar{x})x_{i}-\beta_1 x_{i}^2]\\
+0 &= \sum [y_ix_i-\bar{y}x_{i} + \beta_1 \bar{x}x_{i}-\beta_1 x_{i}^2]
 \end{aligned}$$
 
 ---
 ## Solving for $\beta_1$
 
-Now we'll rearrange some terms and pull out an $X_{1,i}$ to get
+Now we'll rearrange some terms and pull out an $x_{i}$ to get
 
 
 $$\begin{aligned}
-0 &= \sum [(Y_i -\bar{Y} + \beta_1 \bar{X_{1}}-\beta_1 X_{1,i})X_{1,i}]
+0 &= \sum [(y_i -\bar{y} + \beta_1 \bar{x}-\beta_1 x_{i})x_{i}]
 \end{aligned}$$
 
-Dividing both sides by $X_{1,i}$ and distributing the summation, we can isolate $\beta_1$
+Dividing both sides by $x_{i}$ and distributing the summation, we can isolate $\beta_1$
 
 $$\begin{aligned}
-\beta_1 \sum (X_{1,i}-\bar{X_1}) &= \sum (Y_i -\bar{Y})
+\beta_1 \sum (x_{i}-\bar{x}) &= \sum (y_i -\bar{y})
 \end{aligned}$$
 
-Dividing by $\sum (X_{1,i}-\bar{X_1})$ to get
+Dividing by $\sum (x_{i}-\bar{x})$ to get
 
 $$\begin{aligned}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})}{\sum (X_{1,i}-\bar{X_1})}
+\beta_1  &= \frac{\sum (y_i -\bar{y})}{\sum (x_{i}-\bar{x})}
 \end{aligned}$$
 
 ---
 ## Solving for $\beta_1$
 
-Finally, by multiplying by $\frac{(X_{1,i}-\bar{X_1})}{(X_{1,i}-\bar{X_1})}$ we get
+Finally, by multiplying by $\frac{(x_{i}-\bar{x})}{(x_{i}-\bar{x})}$ we get
 
 $$\begin{aligned}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}
+\beta_1  &= \frac{\sum (y_i -\bar{y})(x_{i}-\bar{x})}{\sum (\bar{x}-x_{i})^2}
 \end{aligned}$$
 
 Which has a nice interpretation: 
 
-$$
-\begin{aligned}
-\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
-\end{aligned}
-$$
+$$\begin{aligned}
+\beta_1 &= \frac{Cov(x,y)}{Var(x)}
+\end{aligned}$$
 
 So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat! 
 
@@ -965,1004 +1282,191 @@ So the coefficient in a simple linear regression of $Y$ on $X$ is simply the rat
 ---
 class: inverse, center, middle
 # 💡  
-# Linear Regression
-## What you need to know.
+# Theoretical: Linear Regression
+## OLS provides a linear estimate of CEF: E[Y|X]
+
+---
+## Linear Regression is a many splendored thing
+
+[Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of the various interpretations/motivations for linear regression.
+
+- A [least squares estimator](https://www.timlrx.com/blog/notes-on-regression-ols)
+
+- A [linear projection](https://www.timlrx.com/blog/notes-on-regression-geometry) of $y$ on the subspace spanned by $X\beta$
+
+- A [method of moments estimator](https://www.timlrx.com/blog/notes-on-regression-method-of-moments)
+
+- A [maximum likelihood estimator](https://www.timlrx.com/blog/notes-on-regression-maximum-likelihood)
+
+- A [singular vector decomposition](https://www.timlrx.com/blog/notes-on-regression-singular-vector-decomposition)
+
+- A [linear approximation of the conditional expectation function](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)
+
+
+---
+## Linear Regression is a many splendored thing
+
+[Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of various interpretations/motivations for linear regression.
+
+- A [least squares estimator](https://www.timlrx.com/blog/notes-on-regression-ols)
+
+- A [linear projection](https://www.timlrx.com/blog/notes-on-regression-geometry) of $y$ on the subspace spanned by $X\beta$
+
+- A [method of moments estimator](https://www.timlrx.com/blog/notes-on-regression-method-of-moments)
+
+- A [maximum likelihood estimator](https://www.timlrx.com/blog/notes-on-regression-maximum-likelihood)
+
+- A [singular vector decomposition](https://www.timlrx.com/blog/notes-on-regression-singular-vector-decomposition)
+
+- A **[linear approximation of the conditional expectation function](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)**
+
+
+---
+## The Conditional Expectation Function
+
+Of all the functions we could choose to describe the relationship between $Y$ and $X$, 
+
+$$
+Y_i = f(X_i) + \epsilon_i
+$$
+
+the conditional expectation of $Y$ given $X$ $(E[Y|X])$, has some appealing properties
+
+$$
+Y_i = E[Y_i|X_i] + \epsilon
+$$
+
+The error, by definition, is uncorrelated with X and $E[\epsilon|X]=0$ 
+
+$$
+E[\epsilon|X] = E[Y - E[Y|X]|X]= E[Y|X] - E[Y|X] = 0
+$$
+
+Of all the possible functions $g(X)$, we can show that $E[Y_i|X_i] $ is the best predictor in terms of minimizing **mean squared error**
+
+$$
+E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2] 
+$$
+
+---
+## Linear Approximations to the  Conditional Expectation Function
+
+- We can then show (in a different class) that linear regression provides the best linear predictor of the CEF
+  - Chapter 3, of [Mostly Harmless Econometrics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991028523169706966)
+  - Chapter 4 of [Foundations of Agnostic Statistics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991000736119706966)
+
+- Furthermore, when the CEF is linear, it's equal exactly to OLS regression
+
+
+---
+```{r cef1code, echo = T, eval=F}
+df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  stat_summary(geom="point", aes(col="CEF"))+
+  stat_summary(geom="line", aes(col="CEF"))+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People",
+    col = ""
+  )+
+  theme_classic() -> plot_cef
 
 
 
-Let's calculate the simple regression coefficients for age predicted by vaccine beliefs
-
-```{r,echo=T}
-wrk<-na.omit(nes16[,c("age","vaccines")])
-# Variance Covariance of age and vaccines
-vcov1<-var(wrk)
-vcov1
-# Means
-age_mn<-mean(wrk$age)
-vac_mn<-mean(wrk$vaccines)
-beta1<-vcov1[1,2]/vcov1[2,2]
-beta0<-age_mn-beta1*vac_mn
 ```
 
+---
+```{r cef1, echo=F}
+df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  stat_summary(geom="point", aes(col="CEF"))+
+  stat_summary(geom="line", aes(col="CEF"))+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People",
+    col = ""
+  )+
+  theme_classic() -> plot_cef
+
+plot_cef
+```
 
 
 
 ---
-## Why minimize $\sum{\hat{\epsilon_i}^2}$
+```{r cef2code, echo = T, eval=F}
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
 
 
-Substantively, by minimizing the sum of squared residuals, we're trying to minimize the distance between our models predictions and the observed data.
 
-Suppose the true relationship between y and x is:
 
-$$
-y~1+2x + \epsilon
-$$
-
-If we simulated some data where this was true:
-
-```{r}
-set.seed(123)
-x <- rnorm(20)
-y <- 1 + 2*x + rnorm(20)
-m0 <- lm(y~x)
-m0
 ```
 
-The least squares fitting criteria does a decent job recovering those true values^[And in expectation as $N\to \infty$ the estimates would converge on the true values)]. It does so by trying to minimize the distance (grey segments) between the model's predictions (black line) and the observed values (open dots)
-
-
-```{r}
-# Residual: Distance between predicted and observed
-e <- resid(m0)
-# Predicted (or fitted values)
-yhat <- predict(m0)
-# Same as plugging each value of x into equation
-yhat1 <- coef(m0)[1] + coef(m0)[2]*x
-all.equal(yhat,yhat)
-
-plot(x,y)
-abline(m0)
-segments(x,y,x,yhat,col="grey",lwd=1)
+---
+```{r cef2, echo=F}
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
 ```
-
-Had we chosen some other line (intercept and slope) 
-
-```{r}
-yhat2 <- 1+1*x
-e2 <- y - yhat2
-plot(x,y)
-abline(1,1,col="red")
-segments(x,y,x,yhat2,col="red",lwd=2)
-abline(m0)
-segments(x,y,x,yhat,col="blue",lwd=1)
-```
-
-
-Our predictions would be worse (i.e. our residuals would be higher)
-
-```{r}
-mean(e)
-mean(e2)
-```
-
-
-Furthermore, in addition to being unbiased (mean 0), the residuals from OLS are uncorrelated with the predictors and predictions in our model
-
-```{r}
-round(cor(e,x),2)
-round(cor(e,yhat),2)
-round(cor(e2,x),2)
-round(cor(e2,yhat2),2)
-```
-
-
-Why not $\sum{\hat{\epsilon_i}}$
-
-- Any line that passes through $\bar{Y}$ and $\bar{X}$ will satisfy this criteria
-
-Why not $\sum{|\hat{\epsilon_i}|}$
-
-- Sometimes we do! For example in quantile regression...
-
-
-# The Math behind OLS Regression
-
-To understand what's going on under the hood, you need a broad understanding of some basic calculus. The notes below provide a brief review of some basic calculus to show how to calculate by hand the coefficient for simple bivariate (Y modeled by X) model. We'll probably skip over this in class. The key takeaway is that if you do the math, you'll find that coefficient that minimizes the SSR is:
-
-$$
-\begin{aligned}
-\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
-\end{aligned}
-$$
-
-## A Brief Review of Derivatives
-
-
-A derivative of $f$ at $x$ is its rate of change at $x$
-
-- For a line: the slope
-- For a curve: the slope of a line tangent to the curve
-
-You'll see too notations for derivatives:
-
-1. Leibniz notation:
-
-$$
-\frac{df}{dx}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{(x+h)-x}
-$$
-
-2. Lagrange: $f^{\prime}(x)$
-
-
-
-## Derivatives
-
-Derivative of a constant
-
-$$
-f^{\prime}(c)=0
-$$
-
-Derivative of a line f(x)=2x
-
-$$
-f^{\prime}(x)=2
-$$
-
-Chain rule: y= f(g(x)). The derivative of y with respect to x is
-
-$$
-\frac{d}{dx}(f(g(x)))=f^{\prime}(g(x))g^{\prime}(x)
-$$
-
-The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
-
-## Finding Local Minimums
-
-Local minimum:
-
-$$
-f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
-$$
-
-## Partial Derivatives
-
-Let $f$ be a function of the variables $(X_1, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
-
-$$\begin{align*}
-\frac{\partial f(X_1, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(X_1, \dots X_i+h \dots, X_n)-f(X_1, \dots X_i \dots, X_n)}{h}
-\end{align*}$$
-
-## Minimizing the sum of squared errors
-
-Our model
-
-$$
-Y_i =\beta_0+\beta_1X_{1,i}+\epsilon_i
-$$
-
-Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
-
-$$\begin{alignat*}{1}
-\sum \hat{\epsilon_i}^2 &= \sum (Y_i-\beta_0-\beta_1 X_{1,i})^2
-\end{alignat*}$$
-
-We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
-
-$$
-\begin{alignat*}{1}
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})=0\\
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}=0
-\end{alignat*}
-$$
-
-First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
-
-$$
-\begin{alignat*}{1}
-0 &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})\\
-\sum \beta_0 &= \sum Y_i - \sum \beta_1 X_{1,i}\\
-N \beta_0 &= \sum Y_i -\sum \beta_1 X_{1,i}\\
-\beta_0 &= \frac{\sum Y_i}{N} - \frac{\beta_1 \sum X_{1,i}}{N}\\
-\beta_0 &= \bar{Y} - \beta_1 \bar{X_{1}}
-\end{alignat*}
-$$
-
-
-Now, we can solve for $\beta_1$ plugging in $\beta_0$.
-
-$$
-\begin{alignat*}{1}
-0 &= -2\sum [(Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}]\\
-0 &= \sum [Y_iX_i-(\bar{Y} - \beta_1 \bar{X_{1}})X_{1,i}-\beta_1 X_{1,i}^2]\\
-0 &= \sum [Y_iX_i-\bar{Y}X_{1,i} + \beta_1 \bar{X_{1}}X_{1,i}-\beta_1 X_{1,i}^2]
-\end{alignat*}
-$$
-
-Now we'll rearrange some terms and pull out an $X_{1,i}$ to get
-
-$$
-\begin{alignat*}{1}
-0 &= \sum [(Y_i -\bar{Y} + \beta_1 \bar{X_{1}}-\beta_1 X_{1,i})X_{1,i}]
-\end{alignat*}
-$$
-
-Dividing both sides by $X_{1,i}$ and distributing the summation, we can isolate $\beta_1$
-$$
-\begin{alignat*}{1}
-\beta_1 \sum (X_{1,i}-\bar{X_1}) &= \sum (Y_i -\bar{Y})
-\end{alignat*}
-$$
-
-Dividing by $\sum (X_{1,i}-\bar{X_1})$ to get
-
-$$
-\begin{alignat*}{1}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})}{\sum (X_{1,i}-\bar{X_1})}
-\end{alignat*}
-$$
-
-Finally, by multiplying by $\frac{(X_{1,i}-\bar{X_1})}{(X_{1,i}-\bar{X_1})}$ we get
-
-$$
-\begin{alignat*}{1}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}
-\end{alignat*}
-$$
-
-Which has a nice interpretation: 
-
-$$
-\begin{aligned}
-\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
-\end{aligned}
-$$
-
-So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat! 
-
-
-Let's calculate the simple regression coefficients for age predicted by vaccine beliefs
-
-```{r,echo=T}
-wrk<-na.omit(nes16[,c("age","vaccines")])
-# Variance Covariance of age and vaccines
-vcov1<-var(wrk)
-vcov1
-# Means
-age_mn<-mean(wrk$age)
-vac_mn<-mean(wrk$vaccines)
-beta1<-vcov1[1,2]/vcov1[2,2]
-beta0<-age_mn-beta1*vac_mn
-```
-
-
-And compare them to `R`'s `lm()` function
-
-```{r,echo=T}
-c(beta0,beta1)
-coef(lm(age~vaccines,data=wrk))
-```
-
 
 
 
 ---
-## Models partition variance
+```{r cef3code, echo = T, eval=F}
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
 
-$$\begin{aligned}
-\textrm{Total Variation} &= \textrm{Explained} + \textrm{Unexplained} \\
-\textrm{Observed Variation} &= \textrm{Predicted Value} + \textrm{Residual}\\
-\textrm{Y} &= X\beta + \epsilon \\
-\textrm{Y} &= \hat{Y} + \hat{\epsilon}
-\end{aligned}$$
 
----
-## Prediction Error
 
-Prediction error is simply the difference between the actual (observed) outcome ($Y$) and the predicted outcome ($\hat{Y}$)
 
-$$
-\hat{\epsilon}=Y-\hat{Y}
-$$
-
----
-## Bias
-
-Bias is the expected value of the prediction error ($E[\hat{\epsilon}]$). We could write a simple function to calculate bias as follows:
-
-```{r}
-bias_fn<-function(y,yhat){mean(y-yhat,na.rm=T)}
 ```
 
-
-We say a prediction is unbiased if the expected value of the prediction error is 0 ($E[\hat{\epsilon}]=0$).
-
-Intuitively, this means that, on average, our prediction is neither systematically too high, nor too low, relative to the typical value of our outcome. 
-
 ---
-## Bias vs. variance 
-
-```{r, echo=F, out.height="80%"}
-knitr::include_graphics("https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/images/bias_variance/bullseye.png")
+```{r cef3, echo=F}
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
 ```
+
 
 
 ---
-## Root Mean Squared Error (RMSE)
+## What you need to know about Regression
 
-RMSE is a useful concept for quantifying the typical or average error of the prediction. 
+- **Conceptual**
+  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
 
-1. calculate the error 
-  - difference between observed and predicted for each observation
-2. square the error 
-  - treat positive and negative errors equally
-2. the mean of the squared errors
-  - get a typical value
-4. take square root 
-  - put the value back in the units of variable of interest.
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
+- **Practical**
+  - We estimate linear models in R using the `lm()` function
+  
+```{r ols, eval=F}
+lm(y ~ x, data = df)
+```
+
+- *Technical/Definitional*
+  - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR): 
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+- *Theoretical*
+  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
 ---
-## Root Mean Squared Error (RMSE)
-
-Mathematically, RMSE is
-
-$$
-RMSE = \sqrt{\frac{1}{n} \sum \hat{\epsilon_i}^2 } = \sqrt{\frac{1}{n} \sum (Y_i-\hat{Y_i})^2 }
-$$
-
-In R code:
-
-```{r}
-rmse_fn <- function(y,yhat){sqrt(mean((y-yhat)^2,na.rm=T))}
-```
-
-
-To help illustrate these concepts, let's load a subset of data from the 2016 National Elections Study (NES) survey 
-
-
-```{r}
-load(url("https://raw.github.com/PTesta/POLS_1600/master/nes16.rda"))
-```
-
-And look at what we did
-
-```{r}
-head(nes16)
-```
-
-## Example: Predicting Age with different statistics:
-
-Suppose we wanted to know the typical value of $age$ for respondents in the 2016 NES. Recall from previous classes we have several measures of centrality, or what a typical value of some variable might be:
-
-- median
-- mode
-- mean
-
-Let's calculate the bias and RMSE associated with each for our prediction of $age$ 
-
-First, we'll calculate the predictions ($\hat{Y}$)
-
-```{r}
-# Median
-age_med<-median(nes16$age,na.rm=T)
-age_med
-# Mode
-age_mode<-as.numeric(names(sort(table(nes16$age),decreasing = T)[1]))
-age_mode
-# Mean
-age_mn<-mean(nes16$age,na.rm=T)
-age_mn
-
-
-```
-
-
-Now, let's calculate the bias of these functions using the function we created above
-
-```{r}
-# Calculate bias for each prediction
-bias_med <-bias_fn(nes16$age,age_med)
-bias_mode <- bias_fn(nes16$age,age_mode)
-bias_mn <- bias_fn(nes16$age,age_mn)
-# Put in object "biases" with labels and sort by size of bias
-biases <- sort(c(Median = bias_med, Mode = bias_mode, Mean = bias_mn))
-# Barplot
-barplot(biases,main = "Bias of Mean, Median and Mode for\nPredicting Age in 2016 NES")
-```
-
-So the mode, looks a like a pretty bad, or biased predictor, the median has some bias, and the mean (by definition) is an unbiased. That is, if $\hat{Y}=\bar{Y}$ 
-
-$$
-E[\hat{\epsilon}] = E[Y - \hat{Y}]= E[Y]-E[\hat{Y}] = \bar{Y} - \bar{Y} = 0
-$$
-
-However, if we looked at the RMSE (the typical prediction error), we'd see that the mean and median are pretty close
-
-```{r}
-rmse_med <-rmse_fn(nes16$age,age_med)
-rmse_mode <- rmse_fn(nes16$age,age_mode)
-rmse_mn <- rmse_fn(nes16$age,age_mn)
-# Put in object "rmsees" with labels and sort by size of rmse
-rmses <- sort(c(Median = rmse_med, Mode = rmse_mode, Mean = rmse_mn))
-# Barplot
-barplot(rmses,main = "rmse of Mean, Median and Mode for\nPredicting Age in 2016 NES")
-```
-
-
-Differing by only `r round(rmse_mn - rmse_med,3)` years in these data. Most of the time, the models we fit will make predictions that approximate the conditional mean of some outcome (i.e. the mean of Y conditional on X). Sometimes, however, it's useful to make predictions for the conditional median (or some other quantile).
-
-
-
-# Conditional Expecations and OLS Regression
-
-Conditional expectations are our way of incorporating what we know about the world to improve our predictions. That is, how does our prediction of Y change conditional on the values of some additional predictor/information X.
-
-Suppose in addition to knowing the age of our respondents, we also knew whether they believed the benefits of vaccines outweighed the potential risks
-
-$$
-Age \sim Vaccines
-$$
-
-Note: nothing about this relationship implies causation. We're simply interested in explaining variation in some outcome ($Y$, here $Age$) with some predictor(s) ($X$, here $Vaccines$)
-
-## Age and belief in the benefit of vaccines
-
-Just as we used the sample mean as an unbiased estimate of expected value of age, we can use separate sample means (sub-classification via logical indexing) to provide  unbiased estimates of the expected value of age conditional on vaccine beliefs
-
-$$
-E[Age|Vaccines=Good]=\frac{1}{n_{good}}\sum Age_{i,|Vac=good}
-$$
-
-In R:
-
-```{r}
-age_mn_vac_good<-round(mean(nes16$age[nes16$vaccines==1],na.rm=T),3)
-age_mn_vac_good
-```
-
-$$
-E[Age|Vaccines=Bad]=\frac{1}{n_{bad}}\sum Age_{i,|Vac=bad}
-$$
-
-```{r}
-
-age_mn_vac_bad<-round(mean(nes16$age[nes16$vaccines==0],na.rm=T),3)
-age_mn_vac_bad
-```
-
-So on average, people who believe the benefits of vaccines outweigh the costs, tend to be older by about `r age_mn_vac_good-age_mn_vac_bad` years.
-
-Now consider the output of the following:
-
-```{r}
-m1 <- lm(age~vaccines, data = nes16,na.action = "na.exclude")
-m1
-# Extract and round  coefficients
-beta0 <- round(coef(m1)[1],3)
-beta1 <- round(coef(m1)[2],3)
-
-```
-
-Formally, we've asked R fit the following model:
-
-$$
-age = \beta_0 +\beta_1 \times vaccines +\epsilon_i
-$$
-
-Specifically, we've asked R to model Age as a function of some constant $\beta_0$ plus some coefficient $\beta_1$ times a variable capturing people's beliefs about vaccines ($vaccines=1$ if they believe benefits outweigh costs, 0 otherwise) and some error (reflecting the fact that there's a lot about people's ages unexplained by their belief in vaccines)
-
-R produces estimates of these parameters:
-
-$$
-\hat{age} = \hat{\beta_0} +\hat{\beta_1} \times vaccines + \hat{\epsilon_i}
-$$
-
-Specifically:
-
-$$
-\hat{age_i} = `r beta0` + `r beta1` \times vaccines_i + \hat{\epsilon_i}
-$$
-
-That is, R has said modeling age conditional Vaccine beliefs, it's best prediction of person's age for people who are skeptical of the value of vaccines ($vaccinces=0$) is
-
-$$
-\begin{align*}
-\hat{age_i} = `r beta0` + `r beta1` \times 0 \\
-= `r beta0` = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Bad]
-\end{align*}
-$$
-
-And for people who believe vaccines are good ($vaccinces=1$):
-
-$$
-\begin{align*}
-\hat{age_i} = `r beta0` + `r beta1` \times 1 \\
-= `r beta0 +beta1` = \frac{1}{n_{bad}}\sum Age_{i,|Vac=bad} =E[Age|Vaccines=Good]
-\end{align*}
-$$
-
-So for this simple model, R's `lm()` function says the best prediction of person's age knowing their beliefs about vaccines are the means conditional on their beliefs about vaccines
-
-```{r}
-age_mn_vac_bad 
-beta0
-age_mn_vac_bad == beta0
-age_mn_vac_good 
-beta0 + beta1
-
-```
-
-We can visualize what's going on by plotting beliefs on the x axis and age on the y. The black line corresponds to the overall mean. The red diamond corresponds to the average age of people who are skeptical of vaccines, and the blue circle corresponds to the age among people who believe the benefits outweigh the costs. The grey line connects the two dots with the line defined by an intercept ($\beta_0$) and a slope ($\beta_1$) from `lm()`
-
-```{r}
-plot(age~vaccines,nes16,xlab="Vaccines")
-points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
-points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
-abline(h=age_mn,col="black")
-abline(lm(age~vaccines,nes16),col="grey")
-```
-
-Let's clean up the plot a little
-
-```{r}
-plot(age~jitter(vaccines),nes16,xaxt="n",xlab="Vaccines")
-axis(1,at = c(0,1),labels=c("Gee, I don't know","Science!"))
-points(0,age_mn_vac_bad,col="red",pch=18,cex=2)
-points(1,age_mn_vac_good,col="blue",pch=19,cex=2)
-abline(h=age_mn,col="black")
-abline(lm(age~vaccines,nes16),col="grey")
-```
-
-Note that both the unconditional and conditional means provide "unbiased" estimates
-
-```{r,echo=T}
-round(bias_fn(nes16$age,age_mn),5)
-round(bias_fn(nes16$age,predict(m1,na.action = "na.exclude")),5)
-```
-
-But the conditional estimate has a smaller RMSE. That is, knowing something about people's beliefs about vaccines, improves our prediction of their age.
-
-```{r}
-round(rmse_fn(nes16$age,age_mn),2)
-round(rmse_fn(nes16$age,predict(m1,na.action = "na.exclude")),2)
-
-```
-
+class: center, middle
+background-image:url(https://www.memecreator.org/static/images/memes/5312518.jpg)
+background-size:contain
 
 ---
-# Mechanics of OLS Regression
-
-## How did choose the coefficients that define the grey line?
-
-
-We used a procedure, Ordinary Least Squares regression, that choose and intercept ($\beta_0$) and slope ($\beta_1$) to minimize the Sum of Squared Residuals ($\sum \hat{\epsilon}^2$). 
-
-
-## Minimizing the sum of squared residuals
-
-$$
-\hat{Y_i}=\beta_0+\beta_1 X_{1,i} + \hat{\epsilon_i}
-$$
-
-$$
-\hat{\epsilon_i}=Y_i-\hat{Y_i}=(Y_i-(\beta_0+\beta_1 X_{1,i}))
-$$
-
-OLS chooses $\beta_0$ and $\beta_1$ to minimize $\sum \epsilon^2$, the Sum of Squared Residuals (SSR)
-
-$$
-\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
-$$
-
-## Why minimize $\sum{\hat{\epsilon_i}^2}$
-
-
-Substantively, by minimizing the sum of squared residuals, we're trying to minimize the distance between our models predictions and the observed data.
-
-Suppose the true relationship between y and x is:
-
-$$
-y~1+2x + \epsilon
-$$
-
-If we simulated some data where this was true:
-
-```{r}
-set.seed(123)
-x <- rnorm(20)
-y <- 1 + 2*x + rnorm(20)
-m0 <- lm(y~x)
-m0
-```
-
-The least squares fitting criteria does a decent job recovering those true values^[And in expectation as $N\to \infty$ the estimates would converge on the true values)]. It does so by trying to minimize the distance (grey segments) between the model's predictions (black line) and the observed values (open dots)
-
-
-```{r}
-# Residual: Distance between predicted and observed
-e <- resid(m0)
-# Predicted (or fitted values)
-yhat <- predict(m0)
-# Same as plugging each value of x into equation
-yhat1 <- coef(m0)[1] + coef(m0)[2]*x
-all.equal(yhat,yhat)
-
-plot(x,y)
-abline(m0)
-segments(x,y,x,yhat,col="grey",lwd=1)
-```
-
-Had we chosen some other line (intercept and slope) 
-
-```{r}
-yhat2 <- 1+1*x
-e2 <- y - yhat2
-plot(x,y)
-abline(1,1,col="red")
-segments(x,y,x,yhat2,col="red",lwd=2)
-abline(m0)
-segments(x,y,x,yhat,col="blue",lwd=1)
-```
-
-
-Our predictions would be worse (i.e. our residuals would be higher)
-
-```{r}
-mean(e)
-mean(e2)
-```
-
-
-Furthermore, in addition to being unbiased (mean 0), the residuals from OLS are uncorrelated with the predictors and predictions in our model
-
-```{r}
-round(cor(e,x),2)
-round(cor(e,yhat),2)
-round(cor(e2,x),2)
-round(cor(e2,yhat2),2)
-```
-
-
-Why not $\sum{\hat{\epsilon_i}}$
-
-- Any line that passes through $\bar{Y}$ and $\bar{X}$ will satisfy this criteria
-
-Why not $\sum{|\hat{\epsilon_i}|}$
-
-- Sometimes we do! For example in quantile regression...
-
-
-# The Math behind OLS Regression
-
-To understand what's going on under the hood, you need a broad understanding of some basic calculus. The notes below provide a brief review of some basic calculus to show how to calculate by hand the coefficient for simple bivariate (Y modeled by X) model. We'll probably skip over this in class. The key takeaway is that if you do the math, you'll find that coefficient that minimizes the SSR is:
-
-$$
-\begin{aligned}
-\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
-\end{aligned}
-$$
-
-## A Brief Review of Derivatives
-
-
-A derivative of $f$ at $x$ is its rate of change at $x$
-
-- For a line: the slope
-- For a curve: the slope of a line tangent to the curve
-
-You'll see too notations for derivatives:
-
-1. Leibniz notation:
-
-$$
-\frac{df}{dx}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{(x+h)-x}
-$$
-
-2. Lagrange: $f^{\prime}(x)$
-
-
-
-## Derivatives
-
-Derivative of a constant
-
-$$
-f^{\prime}(c)=0
-$$
-
-Derivative of a line f(x)=2x
-
-$$
-f^{\prime}(x)=2
-$$
-
-Chain rule: y= f(g(x)). The derivative of y with respect to x is
-
-$$
-\frac{d}{dx}(f(g(x)))=f^{\prime}(g(x))g^{\prime}(x)
-$$
-
-The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
-
-## Finding Local Minimums
-
-Local minimum:
-
-$$
-f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
-$$
-
-## Partial Derivatives
-
-Let $f$ be a function of the variables $(X_1, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
-
-$$\begin{align*}
-\frac{\partial f(X_1, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(X_1, \dots X_i+h \dots, X_n)-f(X_1, \dots X_i \dots, X_n)}{h}
-\end{align*}$$
-
-## Minimizing the sum of squared errors
-
-Our model
-
-$$
-Y_i =\beta_0+\beta_1X_{1,i}+\epsilon_i
-$$
-
-Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
-
-$$\begin{alignat*}{1}
-\sum \hat{\epsilon_i}^2 &= \sum (Y_i-\beta_0-\beta_1 X_{1,i})^2
-\end{alignat*}$$
-
-We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
-
-$$
-\begin{alignat*}{1}
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})=0\\
-\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}=0
-\end{alignat*}
-$$
-
-First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
-
-$$
-\begin{alignat*}{1}
-0 &= -2\sum (Y_i-\beta_0-\beta_1 X_{1,i})\\
-\sum \beta_0 &= \sum Y_i - \sum \beta_1 X_{1,i}\\
-N \beta_0 &= \sum Y_i -\sum \beta_1 X_{1,i}\\
-\beta_0 &= \frac{\sum Y_i}{N} - \frac{\beta_1 \sum X_{1,i}}{N}\\
-\beta_0 &= \bar{Y} - \beta_1 \bar{X_{1}}
-\end{alignat*}
-$$
-
-
-Now, we can solve for $\beta_1$ plugging in $\beta_0$.
-
-$$
-\begin{alignat*}{1}
-0 &= -2\sum [(Y_i-\beta_0-\beta_1 X_{1,i})X_{1,i}]\\
-0 &= \sum [Y_iX_i-(\bar{Y} - \beta_1 \bar{X_{1}})X_{1,i}-\beta_1 X_{1,i}^2]\\
-0 &= \sum [Y_iX_i-\bar{Y}X_{1,i} + \beta_1 \bar{X_{1}}X_{1,i}-\beta_1 X_{1,i}^2]
-\end{alignat*}
-$$
-
-Now we'll rearrange some terms and pull out an $X_{1,i}$ to get
-
-$$
-\begin{alignat*}{1}
-0 &= \sum [(Y_i -\bar{Y} + \beta_1 \bar{X_{1}}-\beta_1 X_{1,i})X_{1,i}]
-\end{alignat*}
-$$
-
-Dividing both sides by $X_{1,i}$ and distributing the summation, we can isolate $\beta_1$
-$$
-\begin{alignat*}{1}
-\beta_1 \sum (X_{1,i}-\bar{X_1}) &= \sum (Y_i -\bar{Y})
-\end{alignat*}
-$$
-
-Dividing by $\sum (X_{1,i}-\bar{X_1})$ to get
-
-$$
-\begin{alignat*}{1}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})}{\sum (X_{1,i}-\bar{X_1})}
-\end{alignat*}
-$$
-
-Finally, by multiplying by $\frac{(X_{1,i}-\bar{X_1})}{(X_{1,i}-\bar{X_1})}$ we get
-
-$$
-\begin{alignat*}{1}
-\beta_1  &= \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}
-\end{alignat*}
-$$
-
-Which has a nice interpretation: 
-
-$$
-\begin{aligned}
-\beta_1 &= \frac{Cov(X_1,Y)}{Var(X_1)}
-\end{aligned}
-$$
-
-So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat! 
-
-
-Let's calculate the simple regression coefficients for age predicted by vaccine beliefs
-
-```{r,echo=T}
-wrk<-na.omit(nes16[,c("age","vaccines")])
-# Variance Covariance of age and vaccines
-vcov1<-var(wrk)
-vcov1
-# Means
-age_mn<-mean(wrk$age)
-vac_mn<-mean(wrk$vaccines)
-beta1<-vcov1[1,2]/vcov1[2,2]
-beta0<-age_mn-beta1*vac_mn
-```
-
-
-And compare them to `R`'s `lm()` function
-
-```{r,echo=T}
-c(beta0,beta1)
-coef(lm(age~vaccines,data=wrk))
-```
-
-
-# Interpreting Regression Coefficients
-
-So far, we've seen that for a simple case, with a dichotomous (0-1) predictor, our simple linear regression provided us with a model that returned the conditional means in each group. 
-
-Suppose instead of vaccine beliefs, we were interested in how age varied with ideology, where ideology is a measured on a seven-point scale where 1=strong liberal and 7=strong conservative
-
-We could again calculate the conditional expectation for each level of ideology, from
-
-$$
-E[Age|Ideology=1]=\frac{1}{N_{ideo=1}}\sum Age_{i|ideo=1}
-$$
-
-To
-
-$$
-E[Age|Ideology=7]=\frac{1}{N_{ideo=7}}\sum Age_{i|ideo=7}
-$$
-
-Or....
-
-We could model age as a  linear function of ideology 
-
-$$
-Age_i=\beta_0+\beta_1\times Ideology_i+\epsilon_i
-$$
-
-First, let's compare the results of those two approaches, before getting into the details of estimation
-
-```{r}
-# Means of Age, conditional on ideolog (E[age |ideology])
-age_mn_ideo <- with(nes16, tapply(age,ideology,mean,na.rm=T))
-
-# Linear approximation to conditional mean
-m2 <- lm(age ~ ideology, nes16,na.action = "na.exclude")
-
-age_mn_ideo
-m2
-
-# Calculate by hand
-
-wrk<-na.omit(nes16[,c("age","ideology")])
-# Variance Covariance of age and ideology
-vcov1<-var(wrk)
-vcov1
-# Means
-age_mn<-mean(wrk$age)
-ideo_mn<-mean(wrk$ideology)
-beta1<-vcov1[1,2]/vcov1[2,2]
-beta0<-age_mn-beta1*ideo_mn
-beta0
-beta1
-coef(m2)
-```
-
-And let's visualize these predictions to understand what's going. The red symbols below correspond to the average age of respondents conditional on their ideology. The grey line corresponds to a **linear approximation of these conditional means** with coefficients obtained by minimizing the sum of squared residuals. Sometimes the predictions of this linear approximation are too high, other times they're too low, but on average the error is 0 (by design).
-
-Substantively, it tells us that on average, people who identify more strongly as conservatives tend to be older. How much older? Well, for each unit increase in ideology, our model predicts average age will be higher by `r round(beta1,2)` years.
-
-
-```{r}
-with(nes16,plot(jitter(ideology),age,pch=18,cex=.5,xlim=c(0,7)))
-# Condtional means
-points(1:7,with(nes16,tapply(age,ideology,mean,na.rm=T)),col="red",pch=1:7,cex=1.5)
-# Linear approximation to the conditional mean function
-abline(lm(age~ideology,nes16),col="grey")
-```
-
-When is this linear approximation a good prediction? Well, generally when the underlying conditional mean function is linear. In the relationship above, a linear trend seems reasonable. The less linear the conditional expectation function is, the less suitable a linear approximation.
-
-Note, that we can recover the conditional means, by fitting a "saturated" model, that is by giving R a model with a predictor for each level of variable of interest. 
-
-```{r}
-m3 <- lm(age ~ factor(ideology), nes16, na.action = "na.exclude")
-coef(m3)
-```
-
-
-By default, R drops the first level of a factor, and uses it as a reference category. So the intercept in this model corresponds to the average age among strong liberals 
-
-```{r}
-# Intercept is mean in excluded category
-coef(m3)[1]
-# Here the mean among strong liberals
-age_mn_ideo[1]
-```
-
-And the coefficients for each model tell you the difference in average ages between strong liberals and other ideological identifications, which when added to the average among strong liberals, gives you the mean in that group:
-
-
-```{r}
-round(coef(m3),2)
-# Average among liberals (ideology = 2)
-coef(m3)[1]+coef(m3)[2]
-age_mn_ideo[2]
-
-# Avearge age from coefficeints in m3
-round(c(coef(m3)[1],coef(m3)[1]+coef(m3)[-1]),2)
-# Same as conditional means
-round(age_mn_ideo,2)
-
-# Removing the intercept, and R returns means for each group
-m4 <- lm(age ~ factor(ideology) - 1, nes16,na.action = "na.exclude")
-m4
-round(age_mn_ideo,2)
-
-# Compare RMSE of linear trend
-rmse_fn(nes16$age, predict(m2))
-# To saturated models
-rmse_fn(nes16$age, predict(m3))
-rmse_fn(nes16$age, predict(m4))
-
-
-```
-
-Mathematically, the difference between treating ideology as a linear predictor of age and estimating the means of age conditional on ideology is the difference between fitting:
-
-```{r}
-# Ideology is a linear predictor of age
-head(model.matrix(m2))
-
-# Estimating means of age conditional on ideology
-head(model.matrix(m3))
-```
-
-
-Which we'll talk more about next week when we get to multiple regression.
-
-# WYNK {-}
-
-- Prediction involves error (difference between what we observe and what we predict)
-- One way of evaluating our predictions is to consider the bias of a predictor. 
-- Often we want predictors that are unbiased, but as we will see, this is not the only criteria we care about
-- Means are good (unbiased) estimators, but are not the only tool in our tool kit.
-- OLS regression provides a linear approximation to a conditional mean function
-- For binary predictors (0-1 variables) and saturate models the predictions from a simple OLS regression ARE the conditional means
-- For continuous variables, the predictions are linear approximations to the means
-    - The intercept corresponds to the model's prediction when the predictor is 0
-    - The coefficient tells you how the prediction changes given a unit change in your predictor.
-- OLS obtains these coefficients by minimizing the some of squared residuals
-- The intercept in a simple regression $\beta_0$ corresponds to:
-
-$$
-\beta_0 = \bar{Y} - \beta_1 \bar{X}
-$$
-- The slope $\beta_1$ corresponds to:
-
-$$
-\beta_1 = \frac{Cov(X,Y)}{Var(X)}
-$$
-
----
+class: inverse, center, middle
 # 💡  
 # Three Designs for Causal Inference in Observational Studies
 
@@ -1973,7 +1477,7 @@ $$
 Subclassification, matching, and regression all require an assumption of selection on observables:
 
 $$
-Y_i(1),Y_i(0) \perp D_i |X_i
+Y_i(1),Y_i(0) \perp D_i |x_i
 $$
 
 But how do we know if we've got the right model or we've controlled for the right variables?
@@ -2159,7 +1663,7 @@ Let's conisder some strategies Snow could take to estimate this quantity:
 
 
 ---
-## Treatment-Control comparisons in the Post Period.
+## Treatment-Control comparisons in the post period
 
 - Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to 128 fewer deaths.
 
@@ -2376,6 +1880,7 @@ MPs %>%
   theme_bw() -> fig_rdd
 fig_rdd
 ```
+
 ---
 ## RDD Notation
 
@@ -2428,6 +1933,14 @@ knitr::include_graphics("https://mixtape.scunning.com/graphics/rdd_simul_ex.jpg"
   - no effect of treatment on things measured pre-treatment (placebo tests)
 
 
+---
+## Applications of RDD
+
+- [Lee (2001)](https://www.nber.org/papers/w8441) Does incumbency create electoral advantage
+
+- [Eggers (2014)](https://journals.sagepub.com/doi/full/10.1177/0010414014534199) Does proportional representatoin increase turnout?
+
+- [Velez and Newman (2019)](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12427) What's the effect of ethnic television on political participation
 
 ---
 class: inverse, center, middle
@@ -2854,7 +2367,7 @@ Take-aways
 ---
 ## IV Applications
 
-```{r, echo=F}
+```{r ivapps, echo=F}
 knitr::include_graphics("https://pbs.twimg.com/media/EJGyHnyUYAA-yhM?format=jpg&name=large")
 ```
 
@@ -2899,7 +2412,7 @@ $$
 - Observational designs that produce credible causal inference, leverage aspects of the world that create *natural experiments*
 - You should be able to describe the logic and assumptions of common designs in social science 
   - **Difference-in-Differences:** *Parallel Trends* 
-  - **Regression Discontiniuity:** *Continuity at the cutoff*
+  - **Regression Discontinuity:** *Continuity at the cutoff*
   - **Instrumental Variables:** Instruments need to be *Relevant and Exogenous*
 
 
