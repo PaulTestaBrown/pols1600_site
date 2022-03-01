@@ -364,13 +364,16 @@ head(pres_df)
 ```{r pres_wrangle}
 pres_df %>%
   mutate(
-    state = str_to_title(state)
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
   ) %>%
   filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
   filter(year == 2020) %>%
   select(state, year, party_simplified, candidatevotes, totalvotes
          ) %>%
-  spread(party_simplified,candidatevotes) %>%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %>%
   mutate(
     dem_voteshare = DEMOCRAT/totalvotes,
     rep_voteshare = REPUBLICAN/totalvotes,
@@ -458,11 +461,11 @@ sum(pres2020_df$state %in% covid_us$state)
 ```{r merge_pres}
 dim(covid_us)
 dim(pres2020_df)
-df <- covid_us %>% left_join(
+covid_us <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
-dim(df) # Same number of rows as covid_us w/ 7 additional columns
+dim(covid_us) # Same number of rows as covid_us w/ 7 additional columns
 ```
 
 
@@ -470,13 +473,13 @@ dim(df) # Same number of rows as covid_us w/ 7 additional columns
 ## Merge Census data into Covid data
 
 ```{r acs_merge}
-dim(df)
+dim(covid_us)
 dim(acs_df)
-df <- df %>% left_join(
+covid_us <- covid_us %>% left_join(
   acs_df,
   by = c("state" = "state")
 )
-dim(df)  # Same number of rows as covid_us w/ 2 additional columns
+dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
 
 ```
 

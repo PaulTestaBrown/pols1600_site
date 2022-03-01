@@ -428,13 +428,16 @@ head(pres_df)
 ```r
 pres_df %&gt;%
   mutate(
-    state = str_to_title(state)
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
   ) %&gt;%
   filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%&gt;%
   filter(year == 2020) %&gt;%
   select(state, year, party_simplified, candidatevotes, totalvotes
          ) %&gt;%
-  spread(party_simplified,candidatevotes) %&gt;%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %&gt;%
   mutate(
     dem_voteshare = DEMOCRAT/totalvotes,
     rep_voteshare = REPUBLICAN/totalvotes,
@@ -601,11 +604,11 @@ dim(pres2020_df)
 ```
 
 ```r
-df &lt;- covid_us %&gt;% left_join(
+covid_us &lt;- covid_us %&gt;% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
-dim(df) # Same number of rows as covid_us w/ 7 additional columns
+dim(covid_us) # Same number of rows as covid_us w/ 7 additional columns
 ```
 
 ```
@@ -618,7 +621,7 @@ dim(df) # Same number of rows as covid_us w/ 7 additional columns
 
 
 ```r
-dim(df)
+dim(covid_us)
 ```
 
 ```
@@ -634,11 +637,11 @@ dim(acs_df)
 ```
 
 ```r
-df &lt;- df %&gt;% left_join(
+covid_us &lt;- covid_us %&gt;% left_join(
   acs_df,
   by = c("state" = "state")
 )
-dim(df)  # Same number of rows as covid_us w/ 2 additional columns
+dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
 ```
 
 ```
