@@ -88,9 +88,10 @@ ipak(the_packages)
   - Casual inference
   - Covariate Adjustment
 - Linear Models
-  - The Basics
-  - The Mechanics
-  - The Intuitions
+  - Conceptual
+  - Practical
+  - Technical
+  - Theoretical
 - Three Common Observational Designs
   - Difference in Difference
   - Regression Discontinuity
