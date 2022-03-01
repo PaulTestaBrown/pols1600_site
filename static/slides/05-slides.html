@@ -376,7 +376,7 @@ covid_us %&gt;%
 
 
 ```r
-# This joyously stopped working last night...
+# Try this code first
 Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
 
 pres_df &lt;- get_dataframe_by_name(
@@ -384,7 +384,8 @@ pres_df &lt;- get_dataframe_by_name(
   "doi:10.7910/DVN/42MVDX"
 )
 
-# Just in case
+# If the code above fails, comment out and uncomment the code below:
+
 # load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 
