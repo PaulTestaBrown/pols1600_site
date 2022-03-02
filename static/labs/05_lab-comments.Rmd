@@ -1,5 +1,5 @@
 ---
-title: 'Lab 03 - Replicating Broockman and Kalla (2016)'
+title: 'Lab 05 - Examining the Phenomena of Red Covid'
 author: "Your Group Members Names Here"
 date: "Last Updated `r format(Sys.Date())`"
 output:
@@ -119,22 +119,18 @@ As with every lab, you should:
 - Knit the document again after completing a section or chunk (Error checking)
 - Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870523?module_item_id=10762397){target="_blank"}.
 
-# Summarize the study
+# Summarize the article
 
-Before we get started working with the data, please provide some brief answers (1-3 sentences) to the following questions
 
-- **What's the research question?** Broadly the Broockman and Kalla (2016) is interested in questions about persuasion. How do we change peoples minds about controversial political topics. Specifically, they are interested in whether a brief conversation in which participants are given information transgender rights and encouraged to engage in **analogic perspective** taking can lead to lasting changes in attitudes on these issues.
-- **What's the theoretical framework?** I would argue the paper draws on research from social psychology that suggests encouraging active processing and perspective taking can lead to durable changes in attitudes
-- **What's the empirical design?** The authors conducted a randomized placebo controlled design. Participants who were registered voters in Miami-Dade County were recruited to take a baseline survey. Among those who completed the baseline survey, subjects were randomly assigned either the treatment or the placebo control condition. In the treatment condition, canvassers from a local organization would knock on subjects doors and deliver a script that provided information about transgender issues and encouraged respondents to try to look at these issues from the perspective of a transgendered person. In the placebo control condition, subjects received a message about recycling. Including a "placebo" control condition allows the authors to make comparisons between more similar groups (i.e. people who would actually answer their door when a canvasser knocked). The study also contained a number of post-treatment interventions (See figure 2)
-- **What's are the main results?** Broockman and Kalla find that these brief 10-minute conversations increased tolerance toward transgendered indviduals by roughly a third of standard deviation and these effects persisted long after the intervention. These changes in general attitudes appear to in turn increase support for non-discrimination laws.
+- **What's Leonhardt's Basic Claim** Broadly the Broockman and Kalla (2016) is interested in questions about persuasion. How do we change peoples minds about controversial political topics. Specifically, they are interested in whether a brief conversation in which participants are given information transgender rights and encouraged to engage in **analogic perspective** taking can lead to lasting changes in attitudes on these issues.
+- **What are some empirical implications of this claim** I would argue the paper draws on research from social psychology that suggests encouraging active processing and perspective taking can lead to durable changes in attitudes
+
 
 # Set up your workspace
 
-Here is some minimal code so that your lab will compile when you first knit it.
+1. **In the code chunk below, please set up your work space by loading more packages, using the [code from slides 9-11 from Tuesday's class](https://pols1600.paultesta.org/slides/05-slides.html#9){target="_blank"}**
 
-```{r tidverse}
-library(tidyverse)
-```
+
 
 1. **In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides  [here](https://pols1600.paultesta.org/slides/03-slides.html#13){target="_blank"}**
 
@@ -143,20 +139,18 @@ library(tidyverse)
 wd <- "." # Change to file path on your computer
 setwd(wd)
 
-# Load additional packages
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT",
   ## Tidyverse
-  "tidyverse", "lubridate", "forcats", 
-  "haven", "labelled",
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
-  "ggmap","ggrepel", "ggridges", 
-  "ggthemes", "ggpubr", "GGally",
-  "scales", "dagitty", "ggdag",
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
   # Data 
-  "COVID19","maps","mapdata",
-  "qss"
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse",
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
 )
 
 # Define function to load packages
@@ -173,572 +167,329 @@ ipak(the_packages)
 
 ----
 
-#  Load the replication data
+#  Load the data for today.
 
-Next we'll load the data for today, which is a subset of Broockman and Kalla's full data set^[You can find the full set of replication files [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/WKR39N){target="_blank"}]
+Next we'll load data to explore the phenomenom of *Red Covid* 
 
+## Load Covid-19 data
 
-1. **Please run the code chunk below to load the data** That's it. That's the task for this question
+First we'll need data on Covid-19 cases and deaths that we've worked with throughout the course.
 
-```{r data}
-load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
+In the chunk below, please write code to load data on Covid-19 in the states using the `covid19()` function from the `COVID19` package
+
+```{r covid}
+covid <- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
 ```
 
-The will load a data frame called `df` containing the following variables:
 
-- `completed_baseline` whether someone completed the baseline survey ("Survey") or not ("No Survey")
-- `treatment_assigned` what intervention someone who completed the baseline survey was assigned two (treatment= "Trans-Equality", placebo = "Recycling")
-- `answered_door` whether someone answered the door ("Yes") or not ("No") when a canvasser came to their door
-- `treatment_group` the treatment assignments of those who answered the door and the received the treatment or placebo (treatment= "Trans-Equality", placebo = "Recycling")
-- `vf_age` the age of the person in years
-- `vf_female` the respondent's sex (female = 1, male = 0)
-- `vf_democrat` whether the person was a registered Democract (Democrat=1, 0 otherwise)
-- `vf_white` whether the person was white (White=1, 0 otherwise)
-- `vf_vg_12` whether the person voted in the 2012 general election (voted = 1, 0 otherwise)
-- `therm_trans_tX` a feeling thermometer^[The actual study contains a number of measures about transgender attitudes and policies which are scaled together to produce a single measure of subjects latent tolerance. For simplicity, we'll focus on this single survey item.], where respondents are asked to rate how warmly they feel toward transgender people on a scale of 0 (Very Cold) to 100 (Very Warm), with 50 corresponding to neither warm nor cold. The `_tX` corresponds to the time the measure was taken: 
-    - `_t0` pre-treatment measure from baseline survey
-    - `_t1` post-treatment measure 3-days after intervention
-    - `_t2` post-treatment measure 3-weeks after intervention
-    - `_t3` post-treatment measure 6-weeks after intervention
-    - `_t4` post-treatment measure 3-months after intervention
-    
-# Provide a high level overview of the data
+## Load Election Data
 
-In the code chunk below, please write code to provide a *high level overview* of the data that allows you to answer the following questions. 
+Next need data on the 2020 presidential election. In the code chunk below, write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab's dataverse. 
 
-Please interpret the results of your code by writing brief answers in Markdown after each question.
-
-1. **How many observations are there in `df`?** There are `r scales::comma(dim(df)[1])` observations in `df`
-2. **How many variables are there in the `df`?** There are `r dim(df)[2]` variables in `df`
-3. **What's the unit of analysis?** Each row corresponds to a registered voter from Miami Dade County who was invited to take the baseline survey. 
-4. **How many registered voters completed the baseline survey?** `r scales::comma(table(df$completed_baseline)[2])` registered voters took the baseline survey or `r scales::percent(prop.table(table(df$completed_baseline))[2])` of the registered voters who were invited to take the survey
-5. **How many treatment conditions are there?** There are two treatment conditions, an intervention in which canvassers 
+The code you'll need is [here](https://pols1600.paultesta.org/slides/05-slides.html#21)
 
 
-> informed voters that they might face a decision about the issue (whether to vote to repeal the law protecting transgender people); can- vassers asked voters to explain their views; and canvassers showed a video that presented arguments on both sides. Canvassers also defined the term “transgender” at this point and, if they were trans- gender themselves, noted this. The canvassers next attempted to encourage “analogic perspective- taking” (16). Canvassers first asked each voter to talk about a time when they themselves were judged negatively for being different. The can- vassers then encouraged voters to see how their own experience offered a window into transgen- der people’s experiences, hoping to facilitate voters’ ability to take transgender people’s perspectives. The intervention ended with another attempt to encourage active processing by asking voters to describe if and how the exercise changed their mind. (Broockman and Kalla 2016, p. 221)
 
-And a placebo condition in which canvassers instead delivered a message about recycling.
+```{r pres_data}
+# This joyously stopped working last night...
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
 
-6. **How many participants were assigned to each condition?** `r scales::comma(table(df$treatment_assigned)[2])` participants who completed the baseline survey were randomly assigned to receive the intervention about Trans Equality and `r scales::comma(table(df$treatment_assigned)[1])` received the placebo message about Recycling.
-7. **How many participants answered the door when a canvasser came?** `r scales::comma(table(df$answered_door)[2])` registered voters actually answered the door when canvassers knocked and `r scales::comma(table(df$answered_door)[1])` did not.
-8. **How many participants actually received each treatment condition?** `r scales::comma(table(df$treatment_group)[2])` registered voters received the Trans-Equality treatment and `r scales::comma(table(df$treatment_group)[1])` received the placebo message about recycling.
+pres_df <- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
 
+# 
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+```
 
+- `Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")` sets a parameter in your `R` enivornment that tells the `dataverse` package to use Harvard's dataverse
+- `get_dataframe_by_name()` downloads the `"1976-2020-president.tab"` file from the [U.S. President 1976–2020 dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX) using its digital object identifier (DOI): doi:10.7910/DVN/42MVDX
+
+# Describe the structure of each dataset
+
+1. **Specifically what is the unit of observation? Substantively, what does a row `covid` and `pres_df` correspond to?** 
+
+- A row in the `covid` dataset corresponds roughly to a observation of given state (or US Territory) on a given date. For example, the first row in `covid` descries the state of Covid-19 in the Northern Mariana Islands on March 16, 2020.
+
+- A row in the `pres_df` dataset corresponds to the candidate's results in a given state in a given presidential election. For example, the first row, describes the number of votes Jimmy Carter got in Alabama in 1976.
+
+You may want to use the code chunk below to get a quick high-level overview of the data
+  
 ```{r hlo}
-# 1. How many observations are there in `df`?
-dim(df)[1]
-
-# 2. How many variables are there in the `df`?
-dim(df)[2]
-
-
-# 3. What's the unit of analysis?
-head(df)
-
-# 4. How many registered voters completed the baseline survey?
-table(df$completed_baseline)
-# 5. How many treatment conditions are there? 
-length(unique(na.omit(df$treatment_assigned)))
-# OR
-table(df$treatment_assigned)
-
-
-# 6. How many participants were assigned to each condition?
-table(df$treatment_assigned)
-
-# 7. How many participants answered the door when a canvasser came?
-table(df$answered_door)
-
-# 8. How many participants actually received the treatment?
-table(df$treatment_group)
-
-
+# Take a quick look at your two data sets
+head(covid)
+head(pres_df)
 
 ```
 
-# Describe the distribution of covariates in the full dataset
 
-Now let's look at the distribution of pre-treatment covariates in the full data set.
+# Transform data for analysis.
 
-The variables that start with `vf_` contain information about registered voters from the voter file for Miami-Dade County:
+Ok, so our main data set on Covid-19 describes the state of the pandemic in a given state on a given date. To explore the concept of *Red Covid*, we'll need to add data on the 2020 election to distinguish Red States from Blue States.
 
-- `vf_age` the age of the person in years
-- `vf_female` the respondent's sex (female = 1, male = 0)
-- `vf_democrat` whether the person was a registered Democract (Democrat=1, 0 otherwise)
-- `vf_white` whether the person was white (White=1, 0 otherwise)
-- `vf_vg_12` whether the person voted in the 2012 general election (voted = 1, 0 otherwise)
+To accomplish this, we're going to need to:
 
-The code below quickly calculates the mean for each of these voter file variables, by [applying a the mean function across multiple columns](https://dplyr.tidyverse.org/articles/colwise.html){target="_blank"} that all start with `vf_`
+- Recode the Covid-19 data like we've done before
+- Reshape and recode the presidential election data.
 
-- `df%>%` pipes the `df` data frame into the `summarise()` function
-- `across()` tells  `summarise()` to calculate the `mean` for every column in `df` that `starts_with()` `vf_`
+## Recode the Covid-19 data 
 
+In the chunk below, please recode the `covid` data to create a `covid_us` data set, again using code from the slides as your guide, starting [here](https://pols1600.paultesta.org/slides/05-slides.html#14) and ending [here](https://pols1600.paultesta.org/slides/05-slides.html#20)
 
-```{r cov_vf1}
-df %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))
-```
-
-Next I **[gather](https://r4ds.had.co.nz/tidy-data.html?q=gather%20#pivoting){target="_blank"}** the columns together using the `pivot_longer()` command which pivots the columns which `starts_with("vf")` into a column named `Covariates` and puts their associated values into a column named `Voter File Means`
-
-
-
-```{r cov_vf2}
-df %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather covariate means into `Voter File Means` column
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Voter File Means"
-  ) -> cov_vf
-
-cov_vf
-```
-
-1. **Using `cov_vf` please describe the demographics of the `df` data set**  In the `df` data set, a typical registered voter has an average age just over 49 years. Fifty-six percent of the registered voters are female, 45 percent are registered as democrats, 13.5 percent identify as white, and 67 percent voted in the 2012 general election.
-
-# Examine the difference in covariate balance between those who did and did not take the baseline survey
-
-Now let's examine the difference in these covariates between registered voters who did and did not take the baseline survey.
-
-The code below uses `group_by(completed_baseline)` to adapt the code from the previous section to calculate the covariate averages **separately** for respondents who did and did not complete the baseline survey. 
-
-```{r cov_baseline1}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(completed_baseline) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))
-```
-
-Next we **reshape the data** gathering the values for all the columns **except** the `completed_baseline` column
-
-```{r cov_baseline2}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(completed_baseline) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) 
-```
-
-Then we spread the values of the `completed_baseline` into separate columns using the `pivot_wider()` command
-
-The column `No Survey` contains the mean value of each covariate for registered voters who did not complete the survey, and the `Survey` column contains averages for registered voters who completed the baseline. 
-
-
-```{r cov_baseline3}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(completed_baseline) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) %>%
-  pivot_wider(
-    names_from = completed_baseline,
-    values_from = Means
+```{r covid19recode}
+# Create a vector containing of US territories
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
   )
 
-```
-
-Next we calculate the difference in means between Non Survey takers and survey takers using the `mutate()` function to create a column called `Difference` and save this output to an an object called `cov_baseline`
-
-```{r cov_baseline4}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(completed_baseline) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) %>%
-  pivot_wider(
-    names_from = completed_baseline,
-    values_from = Means
-  )%>%
-  # Calculate difference
+# Filter out Territories and create state variable
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)%>%
   mutate(
-    Diff_Survey = `No Survey` - Survey
-  ) -> cov_baseline
-
-# Display differences
-cov_baseline
-```
-
-Finally, I **[join](https://r4ds.had.co.nz/relational-data.html#outer-join){target="blank"}** the values from `cov_baseline` into `cov_vf` using the shared column `Covariate`
-
-```{r cov_baseline5}
-cov_balance <- cov_vf %>% 
-  left_join(cov_baseline,
-            by = c("Covariate" = "Covariate")
-            ) %>%
-  mutate_if(is.numeric,round,2)
-cov_balance
-```
-
-1. **Please describe the differences between those who completed the baseline survey and those who did not. Do these differences seem large or small?** 
-
-Registered voters who took the survey tended to be younger by about 2.3 years. They were a little more likely to be female  and registered Democrats by about 2 percentage points. They were 8 percentage points more likely to be White and 7 percentage points more likely to have voted in the 2012 general election than registered to voters who did not complete the baseline survey. It's hard to say if these differences are large or small, or at least it's hard to say with the tools you currently have. 
-
-Later in the course we'll learn how to formally test these differences. 
-
-The code below calculate these differences in means (`Estimate`), and standardizes thes differences by their `standard error` which is a measure of how much we'd expect these differences to vary if we were to repeat this study. 
-
-Again, we'll talk about this later, but the `Estimate` divided by its standard error produces what's called a `test statistic` (`t value`) below. Again, more on this to come, but a test statistic greater than 2 for a simple difference of means is generally seen as evidence that it is unlikely this difference could have arrisen by chance. 
-
-We quantify this evidence with a `p value` (`Pr(>|t|)`) which is a conditional probablity (again more to come) of observing the test statistic we did, if some claim about the world (here a null hypotesis that there's no difference between survey takers and non survey takers) was true. Again by convention, we take a `p value` less than 0.05 has evidence that the difference we observed was unlikely to happen by chance. The p-values for all of these differences are below that threshold, suggesting a substantive difference between people who did and did not take the survey.
-
-```{r diff1}
-# If needed install the estimator package
-if(!require(estimatr)){install.packages("estimatr")}
-library(estimatr)
-difference_in_means(vf_age ~ completed_baseline, df)
-difference_in_means(vf_female ~ completed_baseline, df)
-difference_in_means(vf_democrat ~ completed_baseline, df)
-difference_in_means(vf_white ~ completed_baseline, df)
-difference_in_means(vf_vg_12 ~ completed_baseline, df)
-```
-
-Just for *fun* here's some code to calculate lots of differences in means programatically.
-
-
-```{r diff2}
-# If you don't have the purrr package, install it
-if(!require(purrr)){install.packages("purrr")}
-# Load the purr package
-library(purrr)
-
-# From the df data frame
-df %>%
-  # Get the select the columns whose names start with vf_
-  select(starts_with("vf_"))%>%
-  # Extract the column names
-  names()%>%
-  # Create the formulas to calculate the diff in means for
-  # Each variable
-  purrr::map(~ formula(paste0(.," ~ completed_baseline"))) %>%
-  # Caclulate the difference in means for each variable
-  purrr::map(~difference_in_means(., data = df)) %>%
-  # Put the output into a tidy data frame.
-  map_df(tidy)
-
-```
-
-
-
-# Examine the difference in covariates between those assigned to each treatment condition in the study.
-
-One of the identifying assumptions of an experimental design like Broockman and Kalla's is that treatment is independent of potential outcomes and covariates.
-
-One of the empirical implications of this assumption is that, that the differences in observable covariates between treatment and control should be small. 
-
-To the extent the groups are comparable on observable covariates, we are more confident that the random assignment of treatment conditions has created a credible counterfactual comparison.
-
-
-Using the code from the previous section as a guide, calculate the difference in average covariate values between those subjects who completed the baseline survey and were randomly **assigned** to receive the `Trans-Equality` treatment, and those who were randomly assigned to receive the `Recyclying` placebo.
-
-To accomplish this you will need to do the following:
-
-- add a `filter(!is.na(treatment_assigned))%>%` after `df%>%` to filter out subjects who didn't not complete the baseline.
-- Replace `completed_baseline` with `treatment_assigned` in the code
-- In the `mutate()` function, change:
-  - `Diff_Survey` to `Diff_Treatment`
-  - the values `Survey` to `Recycling` and `No Survey` to `Trans-Equality`
-- Change `-> cov_baseline` to `-> cov_treatment`
-
-```{r baltreat}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(treatment_assigned) %>%
-  filter(!is.na(treatment_assigned)) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) %>%
-  pivot_wider(
-    names_from = treatment_assigned,
-    values_from = Means
-  )%>%
-  # Calculate difference
-  mutate(
-    Diff_Treat = `Trans-Equality` - Recycling
-    )-> cov_treat
-
-cov_balance <- cov_balance %>% 
-  left_join(cov_treat,
-            by = c("Covariate" = "Covariate")
-            ) %>%
-  mutate_if(is.numeric,round,2)
-cov_balance
-```
-
-1. **Please describe the covariate differences between each treatment condition. Are these differences larger or smaller than those between who completed the survey and those who did not?** 
-
-Subjects assigned to the treatment condition tended to be a little older (by about 1.3 years), were a little less likely to be women (by 1 percentage point) and have voted in the 2012 election (by about 3.7 percentage points) and a little more likely to be Democrats (by 2.4 percentage points) and white (0.7 percentage points).
-
-These differences are smaller than the differences we saw between those who did and did not complete the baseline survey.
-
-A more formal test of these differences show none rise to conventional levels of signficance (although some are close).
-
-In short, randomization appears to have succeeded in creating groups that are balanced on observable covariates
-
-
-
-
-```{r baltreat1}
-df %>%
-  # Get the select the columns whose names start with vf_
-  select(starts_with("vf_"))%>%
-  # Extract the column names
-  names()%>%
-  # Create the formulas to calculate the diff in means for
-  # Each variable
-  purrr::map(~ formula(paste0(.," ~ treatment_assigned"))) %>%
-  # Caclulate the difference in means for each variable
-  purrr::map(~difference_in_means(., data = df)) %>%
-  # Put the output into a tidy data frame.
-  map_df(tidy)
-```
-
-Among those who actually answered the door when canvassers came, we see that that those who received the Trans Equality treatment tended to be less likely to have voted in the 2012 election and this difference seems unlikely to have occurred just by chance (p < 0.05). 
-
-```{r baltreat2}
-df %>%
-  # Get the select the columns whose names start with vf_
-  select(starts_with("vf_"))%>%
-  # Extract the column names
-  names()%>%
-  # Create the formulas to calculate the diff in means for
-  # Each variable
-  purrr::map(~ formula(paste0(.," ~ treatment_group"))) %>%
-  # Caclulate the difference in means for each variable
-  purrr::map(~difference_in_means(., data = df)) %>%
-  # Put the output into a tidy data frame.
-  map_df(tidy)
-```
-
-If there there large differences across multiple covariates, we might worry that something systematic was going on with the canvassers that made participants more or less likely to answer the door. 
-
-Even if we're confident these differences aren't something systematic, we can, as Broockman and Kalla do, adjust our estimates to control for these small differences to ensure that we're isolating the effect of the treatment and not conflating this with other chance variations the voting histories or demographics of the subjects in the treatment and the control.
-
-Statistically significant differences happen do happen by chance: 1 time out of 20 we'd expect a p-value below 0.05 even when there was no real difference. 
-
-The probablity of a false positive (i.e. of detecting a difference that isn't there) increases as we make more comparisons (test multiple differences)
-
-We can [adjust our p values for these multiple](https://benwhalley.github.io/just-enough-r/multiple-comparisons.html){target="_blank"} to control for this increased probablity of making false discoveries. When we do, the differences in voting rates are no longer statistically significant.
-
-```{r baltreat3}
-df %>%
-  # Get the select the columns whose names start with vf_
-  select(starts_with("vf_"))%>%
-  # Extract the column names
-  names()%>%
-  # Create the formulas to calculate the diff in means for
-  # Each variable
-  purrr::map(~ formula(paste0(.," ~ treatment_group"))) %>%
-  # Caclulate the difference in means for each variable
-  purrr::map(~difference_in_means(., data = df)) %>%
-  # Put the output into a tidy data frame.
-  map_df(tidy)%>%
-  mutate(
-    p.value = p.adjust(p.value, method = "BH")
+    state = administrative_area_level_2
   )
+
+# Calculate new cases, new cases per capita, and 7-day average
+
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000,
+    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> covid_us
+
+# Recode facemask policy
+
+covid_us %>%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -> covid_us
+
+# Create year-month and percent vaccinated variables
+
+covid_us %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, 
+                       str_pad(month, width = 2, pad=0), 
+                       sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> covid_us
+
 ```
 
 
-# Calculate the Average Treatment Effect
+## Create new measures of the 7-day and 14 day averages of new deaths from Covid-19
 
-Now let's take the same approach to calculate the Average Treatment Effect (ATE) for each time period.
+Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#15) as a guide:
 
-Using the code from the previous sections as a template,
+- Anywhere you see `new_cases` write `new_deaths`
+- Anywhere you see `confirmed` write `deaths`
 
-- Add a `filter(!is.na(treatment_group))%>%` after `df%>%` to filter out subjects who didn't receive the treatment.^[Recall that only some people who completed the baseline and were assigned to receive the treatment actually answered the door when canvassers came knocking.]
-- Change `summarise(across(starts_with("vf_"), mean))%>%` code to select variables that start with `therm_trans`
-- Change the `cols` argument in `pivot_longer()` to select the columns that start with `therm_trans`
-- Everywhere you see `treatment_assigned` in the code replace it with `treatement_group` 
-- In the `mutate()` function, change:
-  - `Diff_Treatment` to `ATE`
-  - Add the following line `Days = c(0,3,21,42,90)` to create a column called Days (*make sure to put a comma after `ATE = `Trans-Equality`  - Recycling,` ). Be sure to wrap ``Trans-Equality`` in backticks ` before and after the phrase
-- Change `-> cov_treatment` to `ate_df`
+```{r}
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
+                                     k = 14, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> covid_us
+```
 
-```{r ate}
-df %>%
-  # Calculate difference between Survey and Non-Survey Takers
-  group_by(treatment_assigned) %>%
-  filter(!is.na(treatment_assigned)) %>%
-  # Calculate means for voter file variables
-  summarise(across(starts_with("therm_trans"), mean, na.rm=T))%>%
-  pivot_longer(
-    cols = starts_with("therm_trans"),
-    names_to = "Covariate",
-    values_to = "Means"
+
+## Reshape and recode the presidential election data.
+
+We want to add election data to our Covid-19 data. To do this, we need to transform our election data, which is structured as candidate-state-election year, into a data set that contains the election results by state for 2020.
+
+Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#23) transform `pres_df` to create and object called `pres2020_df` by
+
+- Create a copy of the year variable called `year_election`
+- Taking the `state` variable which was `ALLCAPS` and turning into `Title Case`
+- Changing the observations `state` which are now `"District Of Columbia"` to `"District Of Columbia"`
+- Filtering the data to include only candidates from the Democratic and Republican Parties
+- Filtering the data to inlcude only the results from the 2020 election.
+- Selecting the `state`, `year`, `party_simplified`, `candidatevotes` and `totalvotes` columns from `pres_df`
+- Pivoting the `candidatevotes` into two new columns with names from the `party_simplified` column
+- Creating measures of the Democratic (`dem_voteshare`)and Republican (`rep_voteshare`) canditdates' vote shares in each state by dividing the new `DEMOCRAT` and `REPUBLICAN` columns by the values from the `totalvotes` column
+- Creating a variable called `winner` which takes a value of `"Trump"` if the `rep_voteshare` variable for a state is greater than the `dem_voteshare` for a state.
+- Saving the output of these transformations to an data frame called `pres2020_df`
+
+Which, I know sounds like a lot. All you need to do is copy and paste the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#23).
+
+```{r pres_wrangle}
+# Transform Presidential Election data
+pres_df %>%
+  mutate(
+    year_election = year,
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
   ) %>%
-  pivot_wider(
-    names_from = treatment_assigned,
-    values_from = Means
-  )%>%
-  # Calculate difference
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020) %>%
+  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
+         ) %>%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %>%
   mutate(
-    ATE = `Trans-Equality` - Recycling,
-    Days = c(0,3,21,42,90)
-    )-> ate_df
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
 
-ate_df
-```
+  ) -> pres2020_df
 
-1. **Did the treatment seem to effect respondents feelings toward transgender people?** The treatment appears to increase respondents favorable feelings toward transgender individuals by about 4 to 6 points
-2. **Does this effect appear to last?** The effects appear relatively stable and persistent, as 90 days after the intervention, respondents who got the Trans-Equality treatment still rated transgender individuals more about 5.3 points higher than subjects who got the Recycling Placebo.
-
-# Plot the results and comment on the study
-
-Using `ate_df` with commands from the `ggplot` package please produce a figure that displays these differences
-
-- You'll need to provide
-  - `data` 
-  - `aes`
-  - `geom`
-
-Here's a simple plot visualzing the ATE's
-
-```{r plotate}
-ate_df %>%
-  ggplot(aes(Days, ATE))+
-  geom_point()+
-  geom_hline(yintercept = 0,linetype=2)+
-  theme_bw()+
-  labs(x="Days Since Treatment",
-       y = "ATE on Feeling Thermometers\n toward Transgender People")
-```
-
-If we wanted to produce something more simlar to Figure 1, we'd need to calculate **confidence intervals** around our estimate. Again, getting ahead of ourselves, a confidence interval is a coverage interval with the property that some $\alpha$ percent of intervals constructed in this manner will contain the true value of quantitantity of interest. When we construct a 95% confidence interval, we are saying that 95 percent of the time this interval contains the "truth" (5 percent of the time the truth lies outside this interval). So we think of confidence intervals as conveying a *range of plausible* values for what the true difference between people who got the treatment and people who got the placebo might be.
-When 0 lies within this range, we conclude that the difference is "non-significant" since the estimate could have been negative or could have been positive (both are equally likely in a [Frequentist](https://en.wikipedia.org/wiki/Frequentist_inference) view of confidence intervals). 
-
-Below we see that the ATE appears non significant 21 days and 90 days after the intervention. The confidence intervals reported by Broockman and Kalla in figure 1 are generally much farther from 0. They're using multiple measures to capture a more general measure of transgender tolerance. In general, using multiple measures of a complex concept [reduces measurement error](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/strength-of-issues-using-multiple-measures-to-gauge-preference-stability-ideological-constraint-and-issue-voting/16F6AF97F7B71AA0112EC9ADF78B553A){target="_blank"}, resulting in more precise estimates.
-
-
-```{r atecis}
-df %>%
-  # Get the select the columns whose names start with vf_
-  select(starts_with("therm_trans"))%>%
-  # Extract the column names
-  names()%>%
-  # Create the formulas to calculate the diff in means for
-  # Each variable
-  purrr::map(~ formula(paste0(.," ~ treatment_group"))) %>%
-  # Caclulate the difference in means for each variable
-  purrr::map(~difference_in_means(., data = df)) %>%
-  # Put the output into a tidy data frame.
-  map_df(tidy)%>%
-  mutate(
-    ATE = estimate,
-    Days = c(0,3,21,42,90)
-  ) -> ate_df
-
-ate_df %>%
-  ggplot(aes(Days, ATE))+
-  geom_point()+
-  geom_linerange(aes(ymin=conf.low, ymax=conf.high))+
-  geom_hline(yintercept = 0,linetype=2)+
-  theme_bw()+
-  labs(x="Days Since Treatment",
-       y = "ATE on Feeling Thermometers\n toward Transgender People")
 ```
 
 
+# Merge the election data into the Covid-19 data
+
+Now that we've got our election data structured as electoral results per state, we can merge this state-level data into our Covid-19 data, using the common variable `state` in each data frame.
+
+- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data.** 
+
+Again, you should be able to just copy and paste the code from [here](https://pols1600.paultesta.org/slides/05-slides.html#30)
+
+```{r merge_pres}
+dim(covid_us)
+dim(pres2020_df)
+covid_us <- covid_us %>% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(covid_us) # Same number of rows as covid_us w/ 7 additional columns
+```
+
+--------------------------------------------------------------
+
+Ok. That was a lot of code just to get the data set up to do some simple analyses^[Which is why so much of the start of this course has been focused on developing our coding skills].
+
+Let's start with some simple descriptive statistics.
 
 
-1. **Finally, use this space to share some thoughts on the study** 
+# Calculate the average number new Covid-19 deaths in Red and Blue States and median percent of a state's vaccinated population.
 
-- **Do you find it convincing?** I do.
-- **What makes the design credible?** Random assignment paired with a placebo control.
-- **Are there things you would do differently?** I do wonder a bit about attrition across multiple waves (some people who completed the baseline survey don't respond to future surveys), and what the proper way scale their multiple measures into a single outcome measure is. There aren't huge differences on our observable covariates between those who participated in the baseline and those who participated in the final wave, so maybe it doesn't make a huge difference, but in theory, you could try and bound the results, imputing extreme values to those who drop out, to get a sense of how much attrition might change the conclusions.
+With the `covid_us` data set:
 
-```{r attrition}
-sum(is.na(df$therm_trans_t0[!is.na(df$treatment_group)]))
-sum(is.na(df$therm_trans_t1[!is.na(df$treatment_group)]))
-sum(is.na(df$therm_trans_t2[!is.na(df$treatment_group)]))
-sum(is.na(df$therm_trans_t3[!is.na(df$treatment_group)]))
-sum(is.na(df$therm_trans_t4[!is.na(df$treatment_group)]))
+- use the `group_by()` command to have `summarise()` calculate values separately by the `winner` of each state.
+- use the `summarise()` command with `mean()` function to calculate the average number of new deaths (`new_deaths`) and the average of the 7-day rolling average of new deaths per 100,000 citizens (`new_deaths_pc_7da`) 
+- use the `summarise()` command with `median()` function to calculate median value of the percentage of state's population that's vaccinated.
+  - Remember to tell `mean()` and `median()` what to do with NAs using the `na.rm` argument.
 
-df %>%
-  filter(!is.na(treatment_group))%>%
-  filter(!is.na(therm_trans_t0))%>%
-  group_by(treatment_group)%>%
-   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) %>%
-  pivot_wider(
-    names_from = treatment_group,
-    values_from = Means
-  )%>%
-  # Calculate difference
-  mutate(
-    Diff_t0 = `Trans-Equality` - Recycling
-  ) -> cov_bal_t0
+```{r}
+covid_us %>%
+  group_by(winner)%>%
+  summarise(
+    new_deaths = mean(new_deaths, na.rm=T),
+    new_deaths_pc_7da = mean(new_deaths_pc_7da, na.rm=T),
+    percent_vaccinated = median(percent_vaccinated, na.rm=T)
+  )
 
-df %>%
-  filter(!is.na(treatment_group))%>%
-  filter(!is.na(therm_trans_t4))%>%
-  group_by(treatment_group)%>%
-   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
-  # Gather columns containing means, exclude column for groups
-  pivot_longer(
-    cols = starts_with("vf_"),
-    names_to = "Covariate",
-    values_to = "Means"
-  ) %>%
-  pivot_wider(
-    names_from = treatment_group,
-    values_from = Means
-  )%>%
-  # Calculate difference
-  mutate(
-    Diff_t4 = `Trans-Equality` - Recycling
-  ) -> cov_bal_t4
 
-cov_bal_t0
-cov_bal_t4
+```
+
+- **Please interpret the results of your analysis here** 
+
+
+# Calculate the average number new Covid-19 deaths in Red and Blue States using a linear model
+
+Now let's see how a linear model can be used to estimate conditional means. 
+
+Please estimate the following models using the `lm()` function:
+
+\[
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+\[
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+Save the output of lm into objects called `m1` and `m2`.
+
+```{r}
+m1 <- lm(new_deaths ~ winner, covid_us)
+m2 <- lm(new_deaths_pc_7da ~ winner, covid_us)
+
+```
+
+- **Please interpret the coefficients of the model in terms conditional means you estimated in the previous section**
+
+
+# Explore the relationships between Republican Vote Share, Vaccination Rates, and Deaths from Covid-19 on September 23, 2021
+
+
+Please estimate the following models using the `lm()` function:
+
+\[
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+\[
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+```{r}
+summary(lm(percent_vaccinated ~ rep_voteshare, covid_us,
+   subset = date == "2021-09-23"))
+summary(lm(new_deaths_pc_7da ~ percent_vaccinated, covid_us,
+   subset = date == "2021-09-23"))
 ```
 
 
-- **Do you think the results would "travel" to other topics and issues?** I think it would be interesting to apply this approach to questions of racial justice or partisan polarization.
+
+# Visualize the relationships between Republican Vote Share, Vaccination Rates, and Deaths from Covid-19 on September 23, 2021
 
 
+```{r}
+table(forcats::fct_rev(factor(covid_us$winner)))
+covid_us %>%
+  filter(date == "2021-09-23") %>%
+  filter(state != "District of Columbia") %>%
+  ggplot(aes(percent_vaccinated,new_deaths_pc_7da))+
+  geom_point(aes(col=winner))+
+  geom_smooth(method = "lm")
 
-# Take the Class Survey
+covid_us %>%
+  filter(date == "2021-09-23") %>%
+  filter(state != "District of Columbia") %>%
+  ggplot(aes(rep_voteshare, new_deaths_pc_7da, label = state_po))+
+  geom_point(aes(col=winner))+
+  geom_smooth(method = "lm")+
+  geom_text_repel()
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_3n0J3Rb8I7LjoSW){target="_blank"} for this week.
 
-If you're interested, the intellectual history of this study is quite the tail:
-
-- [The Case of the Amazing Gay-Marriage Data: How a Graduate Student Reluctantly Uncovered a Huge Scientific Fraud](https://www.thecut.com/2015/05/how-a-grad-student-uncovered-a-huge-fraud.html)
-- [How a Gay-Marriage Study Went Wrong](https://www.newyorker.com/science/maria-konnikova/how-a-gay-marriage-study-went-wrong)
-- [How Two Grad Students Uncovered An Apparent Fraud — And A Way To Change Opinions On Transgender Rights](https://fivethirtyeight.com/features/how-two-grad-students-uncovered-michael-lacour-fraud-and-a-way-to-change-opinions-on-transgender-rights/)
-- [How to talk someone out of bigotry](https://www.vox.com/2020/1/29/21065620/broockman-kalla-deep-canvassing)
-
+round(covid_us$new_deaths_pc)
+round(covid_us$deaths)
+```
 

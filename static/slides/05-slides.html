@@ -428,13 +428,14 @@ head(pres_df)
 ```r
 pres_df %&gt;%
   mutate(
+    year_election = year,
     state = str_to_title(state),
     # Fix DC
     state = ifelse(state == "District Of Columbia", "District of Columbia", state)
   ) %&gt;%
   filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%&gt;%
   filter(year == 2020) %&gt;%
-  select(state, year, party_simplified, candidatevotes, totalvotes
+  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
          ) %&gt;%
   pivot_wider(names_from = party_simplified,
               values_from = candidatevotes) %&gt;%
