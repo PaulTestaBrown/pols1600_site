@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: calendar-check
+  icon_pack: fas
+  name: "A2: Data"
+  url: /files/assignments/A2_Data.html
 - icon: magic
   icon_pack: fas
   name: Notes
