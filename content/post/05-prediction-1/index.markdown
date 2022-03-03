@@ -29,6 +29,14 @@ links:
   icon_pack: fas
   name: Slides
   url: /slides/05-slides.html
+- icon: flask
+  icon_pack: fas
+  name: Lab
+  url: /labs/05-lab.Rmd
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/05-lab-comments.html
 - icon: calendar-check
   icon_pack: fas
   name: "A1: Research Questions"
