@@ -147,7 +147,7 @@ To install the an API key so we can download data directly from the US Census
 ```r
 the_packages &lt;- c(
   ## R Markdown
-  "kableExtra","DT",
+  "kableExtra","DT","texreg",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
@@ -440,10 +440,9 @@ pres_df %&gt;%
   pivot_wider(names_from = party_simplified,
               values_from = candidatevotes) %&gt;%
   mutate(
-    dem_voteshare = DEMOCRAT/totalvotes,
-    rep_voteshare = REPUBLICAN/totalvotes,
-    winner = ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")
-
+    dem_voteshare = DEMOCRAT/totalvotes *100,
+    rep_voteshare = REPUBLICAN/totalvotes*100,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")))
   ) -&gt; pres2020_df
 ```
 

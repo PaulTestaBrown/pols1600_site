@@ -46,7 +46,7 @@ htmltools::tagList(
 ```{r packages, include=F}
 the_packages <- c(
   ## R Markdown
-  "kableExtra","DT",
+  "kableExtra","DT","texreg",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
@@ -376,10 +376,9 @@ pres_df %>%
   pivot_wider(names_from = party_simplified,
               values_from = candidatevotes) %>%
   mutate(
-    dem_voteshare = DEMOCRAT/totalvotes,
-    rep_voteshare = REPUBLICAN/totalvotes,
-    winner = ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")
-
+    dem_voteshare = DEMOCRAT/totalvotes *100,
+    rep_voteshare = REPUBLICAN/totalvotes*100,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
   ) -> pres2020_df
 ```
 
@@ -466,7 +465,7 @@ covid_us <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
-dim(covid_us) # Same number of rows as covid_us w/ 7 additional columns
+dim(covid_us) 
 ```
 
 
