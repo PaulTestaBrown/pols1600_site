@@ -67,15 +67,7 @@ Blue States using linear regression (10 minutes)
 
 One of these 10 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
 
-```{r graded}
-set.seed(3032022)
-graded_question <- sample(1:10,size = 1)
-paste("Question",graded_question,"is the graded question for this week")
-```
-
-> Grading Questin 9: Basically, if you made any changes to `fig_m5` 100 percent. If you simply recreated `fig_m5` 80 percent. If you didn't create figure `fig_m5` 0 percent. Sorry! But don't fret, remember your 3 lowest lab scores are dropped from your lab grade.
-
-You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
+You will work in your assigned groups. **Only one member of each group needs to submit the html file of lab.**
 
 This lab **must** contain the names of the group members in attendance. 
 
@@ -120,7 +112,7 @@ Conceptually, this lab is designed to help reinforce the relationship between li
 
 - In question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.
 
-- Question 10 asks you to play the role of a skeptic, and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
+- Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
 
 
 
@@ -144,33 +136,15 @@ As with every lab, you should:
 
 
 ```{r extendedsetup, message=F}
-# Set working directory
-wd <- "." # Change to file path on your computer
-setwd(wd)
+# List of packages
 
-the_packages <- c(
-  ## R Markdown
-  "kableExtra","DT","texreg",
-  ## Tidyverse
-  "tidyverse", "lubridate", "forcats", "haven", "labelled",
-  ## Extensions for ggplot
-  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
-  "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Data 
-  "COVID19","maps","mapdata","qss","tidycensus", "dataverse",
-  # Analysis
-  "DeclareDesign", "easystats", "zoo"
-)
 
-# Define function to load packages
-ipak <- function(pkg){
-    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-    if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-    sapply(pkg, require, character.only = TRUE)
-}
 
-ipak(the_packages)
+# Define ipak function to load packages
+
+
+# Use ipak function to load packages
+
 ```
 
 
@@ -178,7 +152,7 @@ ipak(the_packages)
 
 #  Load the data for today.
 
-Next we'll load data to explore the phenomenom of *Red Covid* 
+Next we'll load data to explore the phenomenon of *Red Covid* 
 
 ## Load Covid-19 data
 
@@ -187,12 +161,8 @@ First we'll need data on Covid-19 cases and deaths that we've worked with throug
 **In the chunk below, please write code to load data on Covid-19 in the states using the `covid19()` function from the `COVID19` package. ([slides](https://pols1600.paultesta.org/slides/05-slides.html#13){target="_blank"})**
 
 ```{r covid}
-# Load covid data
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# Load covid-19 data
+
 ```
 
 
@@ -207,16 +177,8 @@ The code you'll need is [here](https://pols1600.paultesta.org/slides/05-slides.h
 
 
 ```{r pres_data, message=F}
-# This joyously stopped working last night...
-Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+# Load election data
 
-pres_df <- get_dataframe_by_name(
-  "1976-2020-president.tab",
-  "doi:10.7910/DVN/42MVDX"
-)
-
-# Backup
-# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 
 - `Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")` sets a parameter in your `R` enivornment that tells the `dataverse` package to use Harvard's dataverse
@@ -227,16 +189,12 @@ pres_df <- get_dataframe_by_name(
 
 1. **Specifically what is the unit of observation? Substantively, what do rows in `covid` and `pres_df` correspond to?** 
 
-- A row in the `covid` dataset corresponds roughly to an observation of given state (or US Territory) on a given date. For example, the first row in `covid` describes the state of Covid-19 in the Northern Mariana Islands on March 16, 2020.
-
-- A row in the `pres_df` dataset corresponds to a candidate's results in a given state in a given presidential election. For example, the first row describes the number of votes Jimmy Carter got in Alabama in 1976.
 
 You may want to use the code chunk below to get a quick high-level overview of the data
   
 ```{r hlo}
 # Take a quick look at your two data sets
-head(covid)
-head(pres_df)
+
 
 ```
 
@@ -256,66 +214,20 @@ In the chunk below, **please recode the `covid` data to create a `covid_us` data
 
 ```{r covid19recode}
 # Create a vector containing of US territories
-territories <- c(
-  "American Samoa",
-  "Guam",
-  "Northern Mariana Islands",
-  "Puerto Rico",
-  "Virgin Islands"
-  )
+
 
 # Filter out Territories and create state variable
-covid_us <- covid %>%
-  filter(!administrative_area_level_2 %in% territories)%>%
-  mutate(
-    state = administrative_area_level_2
-  )
+
 
 # Calculate new cases, new cases per capita, and 7-day average
 
-covid_us %>%
-  dplyr::group_by(state) %>%
-  mutate(
-    new_cases = confirmed - lag(confirmed),
-    new_cases_pc = new_cases / population *100000,
-    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
-                                     k = 7, 
-                                     align = "right",
-                                     fill=NA )
-    ) -> covid_us
 
-# Recode facemask policy
 
-covid_us %>%
-mutate(
-  # Recode facial_coverings to create face_masks
-    face_masks = case_when(
-      facial_coverings == 0 ~ "No policy",
-      abs(facial_coverings) == 1 ~ "Recommended",
-      abs(facial_coverings) == 2 ~ "Some requirements",
-      abs(facial_coverings) == 3 ~ "Required shared places",
-      abs(facial_coverings) == 4 ~ "Required all times",
-    ),
-    # Turn face_masks into a factor with ordered policy levels
-    face_masks = factor(face_masks,
-      levels = c("No policy","Recommended",
-                 "Some requirements",
-                 "Required shared places",
-                 "Required all times")
-    ) 
-    ) -> covid_us
+# Recode facemask policy (Not strictly necessary so feel free to skip)
+
 
 # Create year-month and percent vaccinated variables
 
-covid_us %>%
-  mutate(
-    year = year(date),
-    month = month(date),
-    year_month = paste(year, 
-                       str_pad(month, width = 2, pad=0), 
-                       sep = "-"),
-    percent_vaccinated = people_fully_vaccinated/population*100  
-    ) -> covid_us
 
 ```
 
@@ -329,21 +241,13 @@ Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides
 - For the 14-day average, change the `new_deaths_pc_7da` to `new_deaths_pc_14da` and set `k=14` in the `zoo::rollmean()`
 - Remember to save the output of `mutate()` back into `covid_us`
 
-```{r}
-covid_us %>%
-  dplyr::group_by(state) %>%
-  mutate(
-    new_deaths = deaths - lag(deaths),
-    new_deaths_pc = new_deaths / population *100000,
-    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
-                                     k = 7, 
-                                     align = "right",
-                                     fill=NA ),
-    new_deaths_pc_14da = zoo::rollmean(new_deaths_pc, 
-                                     k = 14, 
-                                     align = "right",
-                                     fill=NA )
-    ) -> covid_us
+```{r deaths}
+# Create the following variables:
+# new_deaths
+# new_deaths_pc
+# new_deaths_pc_7da
+# new_deaths_pc_14da
+
 ```
 
 
@@ -383,24 +287,6 @@ Which, I know sounds like a lot, but...
 
 ```{r pres_wrangle}
 # Transform Presidential Election data
-pres_df %>%
-  mutate(
-    year_election = year,
-    state = str_to_title(state),
-    # Fix DC
-    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
-  ) %>%
-  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
-  filter(year == 2020) %>%
-  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
-         ) %>%
-  pivot_wider(names_from = party_simplified,
-              values_from = candidatevotes) %>%
-  mutate(
-    dem_voteshare = DEMOCRAT/totalvotes*100,
-    rep_voteshare = REPUBLICAN/totalvotes*100,
-    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
-  ) -> pres2020_df
 
 ```
 
@@ -440,14 +326,8 @@ With the `covid_us` data set:
 - use the `summarise()` command with `mean()` function to calculate the average number of new deaths (`new_deaths`) and the average of the 7-day rolling average of new deaths per 100,000 citizens (`new_deaths_pc_7da`) 
   - Remember to tell `mean()` what to do with NAs using the `na.rm` argument.
 
-```{r}
-covid_us %>%
-  group_by(winner)%>%
-  summarise(
-    new_deaths = mean(new_deaths, na.rm=T),
-    new_deaths_pc_7da = mean(new_deaths_pc_7da, na.rm=T),
-  )
-
+```{r redcovidall}
+# Calculate the mean number of new_deaths and new_deaths_pc_7da
 
 ```
 
@@ -460,14 +340,8 @@ If that's true, then the differences between Red and Blue states in terms of new
 
 - In the code chunk below, take the your code from the previous chunk, and use the `filter()` command to subset the data to include only obsevations with a value of `date` less than `"2021-04-19`
 
-```{r}
-covid_us %>%
-  filter(date < "2021-04-19") %>%
-  group_by(winner)%>%
-  summarise(
-    new_deaths = mean(new_deaths, na.rm=T),
-    new_deaths_pc_7da = mean(new_deaths_pc_7da, na.rm=T),
-  )
+```{r redcovidearly}
+# Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021
 ```
 
 
@@ -477,27 +351,21 @@ Similarly, if Leonhardt's claim is true, then the differences between Red and Bl
 
 - In the code chunk below, take the your code from the previous chunk, and use the `filter()` command to subset the data to include only obsevations with a value of `date` greater than `"2021-04-19`
 
-```{r}
-covid_us %>%
-  filter(date > "2021-04-19") %>%
-  group_by(winner)%>%
-  summarise(
-    new_deaths = mean(new_deaths, na.rm=T),
-    new_deaths_pc_7da = mean(new_deaths_pc_7da, na.rm=T),
-  )
+```{r redcovidlate}
+# Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021
 ```
 
 
 
 - **Please interpret the results of this analysis here**
 
-- When we look at the difference in the average number of new deaths between Red and Blue States in the full dataset, we see that states which Biden won had about 27 new deaths compared to 23.8 new deaths in states which Trump one.
+- When we look at the difference in the average number of new deaths between Red and Blue States in the full dataset, we see that ...
 
-- However, when we  consider differences in the 7-day average of new deaths per 100,000 residents, we see that rates tend to be higher in Red States (0.415 deaths per 100k) than Blue States (0.349 deaths per 100k). This difference reflects the fact that Biden tended to win more populous states than trump, so simply looking at the average number of new deaths is bit misleading. Comparing 7-day averages per 100,000 residents adjusts for differences in population between Red and Blue States.
+- However, when we  consider differences in the 7-day average of new deaths per 100,000 residents, we see that ...
 
-- When we limit our analysis, to just observations before April 19, 2021, the difference in the 7-day average rate of new Covid-19 deaths per 100,000 residents is relatively small (0.02 more deaths per 100,000 residents in Red States)
+- When we limit our analysis, to just observations before April 19, 2021 ...
 
-- When we look at observations after the vaccine became widely available the difference is more than 6 times as big (0.125 more deaths per 100,000 residents in Red States)
+- When we look at observations after the vaccine became widely available ...
 
 
 
@@ -517,36 +385,24 @@ Please estimate the following models using the `lm()` function:
 
 Save the output of lm into objects called `m1` and `m2` and display the results of each model (by printing the objects on their own line)
 
-```{r}
-m1 <- lm(new_deaths ~ winner, covid_us)
-m2 <- lm(new_deaths_pc_7da ~ winner, covid_us)
+```{r m1m2}
+# Fit m1
 
-# Intercept corresponds to the mean among Red States
-coef(m1)[1]
-mean(covid_us$new_deaths[covid_us$winner == "Trump"], na.rm=T)
-
-# Slope corresponds to the difference in means between Red and Blue States
-coef(m1)[1] + coef(m1)[2]
-mean(covid_us$new_deaths[covid_us$winner == "Biden"], na.rm=T)
+# Fit m2
 
 
-# Intercept corresponds to the mean among Red States
-coef(m2)[1]
-mean(covid_us$new_deaths_pc_7da[covid_us$winner == "Trump"], na.rm=T)
+# Interpret model coefficients in terms of conditional means
 
-# Slope corresponds to the difference in means between Red and Blue States
-coef(m2)[1] + coef(m2)[2]
-mean(covid_us$new_deaths_pc_7da[covid_us$winner == "Biden"], na.rm=T)
 ```
 
 - **Please interpret the coefficients of these models in terms of the conditional means you estimated for all the observations in the previous section**
 
 
-- The intercept corresponds to the mean number of new deaths (`m1`)/new deaths per 100k (`m2`) in states Trump won 
+- The intercept corresponds to ...
 
-- The coefficient on winner corresponds to the difference in means between Red and Blue states. 
+- The coefficient on winner corresponds to... 
 
-- The intercept plus the coefficient corresponds to the mean number of new deaths (`m1`)/new deaths per 100k (`m2`) in states Biden won 
+- The intercept plus the coefficient corresponds to ...
 
 -------------
 
@@ -554,7 +410,7 @@ Neat. So this simple bivariate model with a binary predictor (a predictor that t
 
 
 
-# Explore the relationships between Republican Vote Share, Vaccination Rates, and Deaths from Covid-19 on September 23, 2021
+# Explore the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021
 
 Let's tease out some further implications Leonhardt's claim. 
 
@@ -597,36 +453,30 @@ Remember to separate arguments in lm using a comma ( `lm(formula = ??? ~ ???, da
 
 Please assign the output of each model to objects called `m3`, `m4`, and `m5`. Place these objects on their own line and interpret the results.
 
-```{r}
+```{r m3m4m5}
 # Deaths modeled by percent vaccinated on 2021-09-23
-m3 <- lm(new_deaths_pc_14da ~ percent_vaccinated, covid_us,
-         subset = date == "2021-09-23")
-m3
+
 
 #  Percent vaccinated modeled by Republican vote share on 2021-09-23
-m4 <- lm(percent_vaccinated ~ rep_voteshare, covid_us,
-         subset = date == "2021-09-23")
-m4 
+
 
 # Deaths modeled by Republican vote share on 2021-09-23
-m5 <- lm(new_deaths_pc_14da ~ rep_voteshare, covid_us,
-         subset = date == "2021-09-23")
-m5
+
 
 ```
 
 - **Do you're models' estimates match your expectations?** That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor
 
-Yes.
+[Yes/No].
 
 
-- A one percentage point increase in the percent of a state's population that is vaccinated is associated with a 0.033 decrease in the 14-day average of new deaths from Covid-19 (per 100,000 residents)
+- A one percentage point increase in the percent of a state's population that is vaccinated is associated with a ...
 
-- A one percentage point increase in the percent of a state's population that voted for Trump is associated with a 0.53 percentage point decrease in the percent of state's population that is vaccinated.
+- A one percentage point increase in the ...
 
-- A one percentage point increase in the percent of a state's population that voted for Trump is associated with a 0.02 decrease in the 14-day average of new deaths from Covid-19 (per 100,000 residents)
+- A ...
 
-# Visualize the relationships between Republican vote share  and deaths from Covid-19 on September 23, 2021
+# Visualize the relationships between Republican Vote Share and deaths from Covid-19 on September 23, 2021
 
 Now, let's visualize the results of the model `m5` from the previous section.
 
@@ -735,26 +585,6 @@ Here's an example fo what an improved `fig_m5` might look like
 ```{r}
 # Updated fig_m5 code here
 
-fig_m5 +
-  # two way gradient, blue states -> blue, red states -> red, swing -> grey
-  scale_color_gradient2(
-    midpoint = 50,
-    low = "blue", mid = "grey", high = "red",
-    guide = "none")+
-  # Vertical line at 50% threshold
-  geom_vline(xintercept = 50, 
-             col = "grey",linetype = 3)+
-  # Add labels
-  geom_text_repel(aes(label = state_po), size=2)+
-  # theme with minimal lines
-  theme_classic()+
-  # Labels
-  labs(
-    x = "Republican Vote Share\n 2020 Presidential Election",
-    y = "New Covid-19 Deaths per 100kresidents\n (14-day average)",
-    title = "Partisan Gaps in Covid-19 Deaths at the State Level",
-    subtitle = "Data from Sept. 23, 2021"
-  )
 
 ```
 
@@ -762,153 +592,10 @@ fig_m5 +
 In the comments to this lab, I'll include some code to recreate as closely as possible, the first two figures from Leonhardt's September 27, 2021 [article.](https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html)  
 
 
-## Recreating the NYT Figures
-
-This turned out to be more annoying than I thought, but if you really wanted to recreate the figures from the articles, this was as close as I could get:
-
-```{r nty1}
-# Vector containing labeled states
-the_labs <- c("WV","WY","MS","KY","TX","FL","GA","IL","NY","VT","MD","CA")
-
-covid_us %>%
-  # Only include labels for states in the the_labs
-  mutate(
-    nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)
-  )%>%
-  # Subset data
-  filter(date == "2021-09-23") %>%
-  filter(state != "District of Columbia") %>%
-  # Set aesthetics, flipping vax to % unvaxxed
-  ggplot(aes(x = rep_voteshare,
-             y = (100-percent_vaccinated),
-             label = nyt_labs
-             ))+
-  # points coloreded by vote share
-  geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+
-  # color gradient
-  scale_color_gradient2(
-    midpoint = 50,
-    low = "blue", mid = "grey", high = "red",
-    guide = "none")+
-  # add simple regression line
-  geom_smooth(method = "lm", 
-              se=F,
-              linetype = 2,
-              col ="grey")+
-  # add labels
-  geom_text_repel()+
-  # futz with limits
-  ylim(15,60)+
-  # add grid lines by hand
-  geom_hline(yintercept = 60, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = 40, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = 20, col = "lightgrey", size = .25)+
-  geom_segment(aes(x = 50, xend = 50, y=20, yend = 60), col = "lightgrey", size = .25)+
-  # Add arrows
-  geom_segment(aes(x = 34, xend = 32, y=18.5, yend = 18.5),
-               arrow = arrow(length = unit(0.2, "cm")),
-               col = "#95959c")+
-  # Add biden text
-  annotate("text",x = 34.5, y=18.5 ,label = "Larger vote",
-           hjust=0,vjust=0, col = "#95959c")+
-  annotate("text",x = 34.5, y=17.1 ,label = "share for",
-           hjust=0,vjust=0, col = "#95959c")+
-  annotate("text",x = 38.7, y=17.1 ,label = "Biden",
-           colour = "#494ca6", 
-           fontface =2,
-           hjust=0,vjust=0)+
-  # Add trump arrow
-  geom_segment(aes(x = 70, xend = 72, y=18.5, yend = 18.5),
-               arrow = arrow(length = unit(0.2, "cm")),
-               col = "#95959c")+
-  # Add trump text
-  annotate("text",x = 69.5, y=18.5 ,label = "Larger vote",
-           hjust=1,vjust=0, col = "#95959c")+
-  annotate("text",x = 66.1, y=17.1 ,label = "share for",
-           hjust=1,vjust=0, col = "#95959c")+
-  annotate("text",x = 69.5, y=17.1 ,label = "Trump",
-           colour = "#991a38", 
-           fontface =2,
-           hjust=1,vjust=0)+
-  # Label y-axis
-  annotate("text",x = 30, y=20 ,label = "20%",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  annotate("text",x = 30, y=40 ,label = "40%",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  annotate("text",x = 30, y=60 ,label = "60% of residents not fully vaccinated",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  # get rid of default theme
-  theme_void()
-
-```
-
-```{r nty2}
-# Same as above, but now modeling deaths with rep vote share
-
-covid_us %>%
-  mutate(
-    nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)
-  )%>%
-  filter(date == "2021-09-23") %>%
-  filter(state != "District of Columbia") %>%
-  ggplot(aes(x = rep_voteshare,
-             y = new_deaths_pc_14da,
-             label = nyt_labs
-             ))+
-  geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+
-  scale_color_gradient2(
-    midpoint = 50,
-    low = "blue", mid = "grey", high = "red",
-    guide = "none")+
-  geom_smooth(method = "lm", 
-              se=F,
-              linetype = 2,
-              col ="grey")+
-  geom_text_repel()+
-  # theme_void()+
-  ylim(-.2,2.2)+
-  geom_hline(yintercept = 0, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = .5, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = 1, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = 1.5, col = "lightgrey", size = .25)+
-  geom_hline(yintercept = 2, col = "lightgrey", size = .25)+
-  geom_segment(aes(x = 50, xend = 50, y=0, yend = 2), col = "lightgrey", size = .25)+
-  geom_segment(aes(x = 34, xend = 32, y=-.12, yend = -.12),
-               arrow = arrow(length = unit(0.2, "cm")),
-               col = "#95959c")+
-  annotate("text",x = 34.5, y=-.1 ,label = "Larger vote",
-           hjust=0,vjust=0, col = "#95959c")+
-  annotate("text",x = 34.5, y=-.2 ,label = "share for",
-           hjust=0,vjust=0, col = "#95959c")+
-  annotate("text",x = 38.82, y=-.2 ,label = "Biden",
-           colour = "#494ca6", 
-           fontface =2,
-           hjust=0,vjust=0)+
-  geom_segment(aes(x = 70, xend = 72, y=-.12, yend = -.12),
-               arrow = arrow(length = unit(0.2, "cm")),
-               col = "#95959c")+
-  annotate("text",x = 69.5, y=-.1 ,label = "Larger vote",
-           hjust=1,vjust=0, col = "#95959c")+
-  annotate("text",x = 66.09, y=-.2 ,label = "share for",
-           hjust=1,vjust=0, col = "#95959c")+
-  annotate("text",x = 69.5, y=-.2 ,label = "Trump",
-           colour = "#991a38", 
-           fontface =2,
-           hjust=1,vjust=0)+
-  annotate("text",x = 30, y=0.5 ,label = "0.5",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  annotate("text",x = 30, y=1 ,label = "1",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  annotate("text",x = 30, y=1.5 ,label = "1.5",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  annotate("text",x = 30, y=2 ,label = "2 deaths per 100,000 residents",col = "#95959c",
-           vjust = -0.5, hjust = 0)+
-  theme_void()
-```
 
 # Alternative explanations for Red Covid
 
-Finally, before you go, let's consider some alternative explanations for why we might see an association between state partisanship and Covid-19 outcomes. 
+Finally, let's consider some alternative explanations for why we might see an association between state partisanship and Covid-19 outcomes. 
 
 Think about factors that might be associated with both Covid-19 deaths and a state's Republican voteshare
 
@@ -922,20 +609,9 @@ Think about factors that might be associated with both Covid-19 deaths and a sta
 
 If you're stumped, Leonhardt discusses some of these explanations in his November 2021 [article](https://www.nytimes.com/2021/11/08/briefing/covid-death-toll-red-america.html){target="_blank"} on the matter.
 
-- Specifically, there are lots of ways in which Red States tend to differ from Blue states:
-
-- Population size (which we tried to adjust for by using a measure scaled by population)
-- Socio-Economic Differences  
-  - Red states tend to be older than Blue states and older people tend to be more vulnerable to Covid. But as Leonhardt argues, shouldn't we have seen a difference throughout Covid then? Similary, Red states tend to be poorer, maybe there residents are on average less healthy, 
-- Geography and Climate
-- Different policies
-  - Different policy regimes and rates of compliance with social distancing measures (this is still a partisan story the mechanism is maybe different than a simple low rates of vaccines)
-  
-Anyway there are lots of things a skeptic might claim. Next week, we'll see how we might explore these criticisms using multiple regression.
-
 
 # Take the Class Survey
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_ereKWyXCdAojdGu){target="_blank"} for this week.
+If you've got a moment please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_ereKWyXCdAojdGu){target="_blank"} for this week.
 
 

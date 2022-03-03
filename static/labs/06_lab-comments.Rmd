@@ -1,0 +1,655 @@
+---
+title: 'Lab 05 - Examining the Phenomena of Red Covid'
+author: "Your Group Members Names Here"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, 
+                      comment = NA, 
+                      warnings = FALSE, 
+                      errors = FALSE, 
+                      messages = FALSE, 
+                      cache = TRUE,
+                      tidy = FALSE)
+```
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+
+
+
+# Overview {-}
+
+Today we will explore **the logic and design** of Broockman and Kalla's 2016 study, ["Durably reducing transphobia: A field experiment on door-to-door canvassing"](https://www.science.org/doi/10.1126/science.aad9713){target="_blank"}, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore **whether the intervention had any effect on respondents' feelings toward transgender individuals.**
+
+To accomplish this we will:
+
+1. Summarize the study (5 Minutes)
+2. Set up our work space (2-3 Minutes)
+3. Load a portion of the replication data (1-2 Minutes)
+4. Get a high level overview of the data (5 minutes)
+5. Describe the distribution of covariates in the full dataset (5 minutes)
+6. Examine the difference in covariates between those who did and did not complete the survey (10 minutes)
+7. Examine the difference in covariates between those assigned to each treatment condition in the study. (10 minutes)
+8. Estimate the average treatment effect of the intervention (10 minutes)
+9. Plot the results and comment on the study (10 minutes)
+10. Take the weekly survey (3-5 minutes)
+
+One of these 9 tasks (excluding the weekly) will be randomly selected as the graded question for the lab.
+
+```{r graded}
+set.seed(20220217)
+graded_question <- sample(1:9,size = 1)
+paste("Question",graded_question,"is the graded question for this week")
+```
+
+
+You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
+
+This lab **must** contain the names of the group members in attendance. 
+
+If you are attending remotely, you will submit your labs individually.
+
+Here are your assigned groups for the semester.
+
+```{r groups, echo=F}
+groups_df <- tibble::tibble(
+  `Group 1` = c("Maria Sofia Pena", "Lily Seckondorf", 
+                "Sam Swartz","Ben Pollard"),
+  `Group 2` = c("Ryan Jaquez Melo", "Charles Key",
+                "Katherine Beggs","Samuel Clark"),  
+  `Group 3` = c("Fausto Rojas","Zoey Katzive",
+                "Hunter Keneley", "Anne Lord"),
+  `Group 4` = c("Annette Lee","Sara Shipon",
+                "Zachary Potts","Lucas Aquayo-Garber"),
+  `Group 5` = c("Zeke Hertz","Ruqiya Egal",
+                "Zoe Magley","Logan Danker"),
+  `Group 6` = c("Christopher Pool","Laura David",
+                "Kevin Moclair","")
+)
+
+DT::datatable(groups_df)
+```
+
+# Goals {-}
+
+Conceptually, this lab will give you lots of practice calculating **means** and **conditional means**. We will use these means to 
+
+- **Describe the characteristics of the study's population.** After Question 5, you should be able to describe what a typical registered voter in Miami-Dade County looks like
+- **Explore differences between participants in the study this population** Do people who took the baseline survey differ in systematic ways from people who did not (Question 6)
+- **Assess the empirical implications of the identifying assumptions of this design** If treatment was randomly assigned, then participants assigned to treatment condition should on average look similar to participants in the control condition (Question 7)
+- **Estimate the average treatment effect over multiple time periods** You'll recall from lecture that the ATE is simply a difference of conditional means:
+
+$$
+\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}
+$$
+
+We'll see that these quantities can be calculated quickly for multiple variables using the following commands:
+
+- We will use the `group_by` and `summarise` commands to quickly calculate average values for different groups, and the `mutate` function to calculate differences between these averages
+- We will introduce the `across()` and `starts_with()` functions to calculate summaries like a `mean` across multiple variables that start the the same pre-fixes.
+- We will introduce the `pivot_longer()`, `pivot_wider()` and `left_join` commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column 
+- We will use functions from the `ggplot` package to graphically display our results.
+
+
+# Please knit this .Rmd file {-}
+
+As with every lab, you should:
+
+- Download the file
+- Save it in your course folder
+- **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
+- Knit the document
+- Open the html file in your browser (Easier to read)
+- Knit the document again after completing a section or chunk (Error checking)
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870523?module_item_id=10762397){target="_blank"}.
+
+# Summarize the article
+
+
+- **What's Leonhardt's Basic Claim** Broadly the Broockman and Kalla (2016) is interested in questions about persuasion. How do we change peoples minds about controversial political topics. Specifically, they are interested in whether a brief conversation in which participants are given information transgender rights and encouraged to engage in **analogic perspective** taking can lead to lasting changes in attitudes on these issues.
+- **What are some empirical implications of this claim** I would argue the paper draws on research from social psychology that suggests encouraging active processing and perspective taking can lead to durable changes in attitudes
+
+
+# Set up your workspace
+
+1. **In the code chunk below, please set up your work space by loading more packages, using the [code from slides 9-11 from Tuesday's class](https://pols1600.paultesta.org/slides/05-slides.html#9){target="_blank"}**
+
+
+
+1. **In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides  [here](https://pols1600.paultesta.org/slides/03-slides.html#13){target="_blank"}**
+
+```{r extendedsetup, message=F}
+# Set working directory
+wd <- "." # Change to file path on your computer
+setwd(wd)
+
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse",
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+
+# Define function to load packages
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+ipak(the_packages)
+```
+
+
+----
+
+#  Load the data for today.
+
+Next we'll load data to explore the phenomenom of *Red Covid* 
+
+## Load Covid-19 data
+
+First we'll need data on Covid-19 cases and deaths that we've worked with throughout the course.
+
+In the chunk below, please write code to load data on Covid-19 in the states using the `covid19()` function from the `COVID19` package
+
+```{r covid}
+covid <- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+
+## Load Election Data
+
+Next need data on the 2020 presidential election. In the code chunk below, write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab's dataverse. 
+
+The code you'll need is [here](https://pols1600.paultesta.org/slides/05-slides.html#21)
+
+
+
+```{r pres_data}
+# This joyously stopped working last night...
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df <- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+
+# 
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+```
+
+- `Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")` sets a parameter in your `R` enivornment that tells the `dataverse` package to use Harvard's dataverse
+- `get_dataframe_by_name()` downloads the `"1976-2020-president.tab"` file from the [U.S. President 1976–2020 dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX) using its digital object identifier (DOI): doi:10.7910/DVN/42MVDX
+
+# Describe the structure of each dataset
+
+1. **Specifically what is the unit of observation? Substantively, what does a row `covid` and `pres_df` correspond to?** 
+
+- A row in the `covid` dataset corresponds roughly to a observation of given state (or US Territory) on a given date. For example, the first row in `covid` descries the state of Covid-19 in the Northern Mariana Islands on March 16, 2020.
+
+- A row in the `pres_df` dataset corresponds to the candidate's results in a given state in a given presidential election. For example, the first row, describes the number of votes Jimmy Carter got in Alabama in 1976.
+
+You may want to use the code chunk below to get a quick high-level overview of the data
+  
+```{r hlo}
+# Take a quick look at your two data sets
+head(covid)
+head(pres_df)
+
+```
+
+
+# Transform data for analysis.
+
+Ok, so our main data set on Covid-19 describes the state of the pandemic in a given state on a given date. To explore the concept of *Red Covid*, we'll need to add data on the 2020 election to distinguish Red States from Blue States.
+
+To accomplish this, we're going to need to:
+
+- Recode the Covid-19 data like we've done before
+- Reshape and recode the presidential election data.
+
+## Recode the Covid-19 data 
+
+In the chunk below, please recode the `covid` data to create a `covid_us` data set, again using code from the slides as your guide, starting [here](https://pols1600.paultesta.org/slides/05-slides.html#14) and ending [here](https://pols1600.paultesta.org/slides/05-slides.html#20)
+
+```{r covid19recode}
+# Create a vector containing of US territories
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)%>%
+  mutate(
+    state = administrative_area_level_2
+  )
+
+# Calculate new cases, new cases per capita, and 7-day average
+
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000,
+    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> covid_us
+
+# Recode facemask policy
+
+covid_us %>%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -> covid_us
+
+# Create year-month and percent vaccinated variables
+
+covid_us %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, 
+                       str_pad(month, width = 2, pad=0), 
+                       sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> covid_us
+
+```
+
+
+## Create new measures of the 7-day and 14 day averages of new deaths from Covid-19
+
+Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#15) as a guide:
+
+- Anywhere you see `new_cases` write `new_deaths`
+- Anywhere you see `confirmed` write `deaths`
+
+```{r}
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
+                                     k = 14, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> covid_us
+```
+
+
+## Reshape and recode the presidential election data.
+
+We want to add election data to our Covid-19 data. To do this, we need to transform our election data, which is structured as candidate-state-election year, into a data set that contains the election results by state for 2020.
+
+Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#23) transform `pres_df` to create and object called `pres2020_df` by
+
+- Create a copy of the year variable called `year_election`
+- Taking the `state` variable which was `ALLCAPS` and turning into `Title Case`
+- Changing the observations `state` which are now `"District Of Columbia"` to `"District Of Columbia"`
+- Filtering the data to include only candidates from the Democratic and Republican Parties
+- Filtering the data to inlcude only the results from the 2020 election.
+- Selecting the `state`, `year`, `party_simplified`, `candidatevotes` and `totalvotes` columns from `pres_df`
+- Pivoting the `candidatevotes` into two new columns with names from the `party_simplified` column
+- Creating measures of the Democratic (`dem_voteshare`)and Republican (`rep_voteshare`) canditdates' vote shares in each state by dividing the new `DEMOCRAT` and `REPUBLICAN` columns by the values from the `totalvotes` column
+- Creating a variable called `winner` which takes a value of `"Trump"` if the `rep_voteshare` variable for a state is greater than the `dem_voteshare` for a state.
+- Saving the output of these transformations to an data frame called `pres2020_df`
+
+Which, I know sounds like a lot. All you need to do is copy and paste the code from this [slide](https://pols1600.paultesta.org/slides/05-slides.html#23).
+
+```{r pres_wrangle}
+# Transform Presidential Election data
+pres_df %>%
+  mutate(
+    year_election = year,
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
+  ) %>%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020) %>%
+  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
+         ) %>%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %>%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
+
+  ) -> pres2020_df
+
+```
+
+
+# Merge the election data into the Covid-19 data
+
+Now that we've got our election data structured as electoral results per state, we can merge this state-level data into our Covid-19 data, using the common variable `state` in each data frame.
+
+- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data.** 
+
+Again, you should be able to just copy and paste the code from [here](https://pols1600.paultesta.org/slides/05-slides.html#30)
+
+```{r merge_pres}
+dim(covid_us)
+dim(pres2020_df)
+covid_us <- covid_us %>% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(covid_us) # Same number of rows as covid_us w/ 7 additional columns
+```
+
+--------------------------------------------------------------
+
+Ok. That was a lot of code just to get the data set up to do some simple analyses^[Which is why so much of the start of this course has been focused on developing our coding skills].
+
+Let's start with some simple descriptive statistics.
+
+
+# Calculate the average number new Covid-19 deaths in Red and Blue States and median percent of a state's vaccinated population.
+
+With the `covid_us` data set:
+
+- use the `group_by()` command to have `summarise()` calculate values separately by the `winner` of each state.
+- use the `summarise()` command with `mean()` function to calculate the average number of new deaths (`new_deaths`) and the average of the 7-day rolling average of new deaths per 100,000 citizens (`new_deaths_pc_7da`) 
+- use the `summarise()` command with `median()` function to calculate median value of the percentage of state's population that's vaccinated.
+  - Remember to tell `mean()` and `median()` what to do with NAs using the `na.rm` argument.
+
+```{r}
+covid_us %>%
+  group_by(winner)%>%
+  summarise(
+    new_deaths = mean(new_deaths, na.rm=T),
+    new_deaths_pc_7da = mean(new_deaths_pc_7da, na.rm=T),
+    percent_vaccinated = median(percent_vaccinated, na.rm=T)
+  )
+
+
+```
+
+- **Please interpret the results of your analysis here** 
+
+
+# Calculate the average number new Covid-19 deaths in Red and Blue States using a linear model
+
+Now let's see how a linear model can be used to estimate conditional means. 
+
+Please estimate the following models using the `lm()` function:
+
+\[
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+\[
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+Save the output of lm into objects called `m1` and `m2`.
+
+```{r}
+m1 <- lm(new_deaths ~ winner, covid_us)
+m2 <- lm(new_deaths_pc_7da ~ winner, covid_us)
+
+```
+
+- **Please interpret the coefficients of the model in terms conditional means you estimated in the previous section**
+
+
+# Explore the relationships between Republican Vote Share, Vaccination Rates, and Deaths from Covid-19 on September 23, 2021
+
+
+Please estimate the following models using the `lm()` function:
+
+\[
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+\[
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner}
+\]
+
+```{r}
+summary(lm(percent_vaccinated ~ rep_voteshare, covid_us,
+   subset = date == "2021-09-23"))
+summary(lm(new_deaths_pc_7da ~ percent_vaccinated, covid_us,
+   subset = date == "2021-09-23"))
+```
+
+
+
+# Visualize the relationships between Republican Vote Share, Vaccination Rates, and Deaths from Covid-19 on September 23, 2021
+
+
+```{r}
+table(forcats::fct_rev(factor(covid_us$winner)))
+covid_us %>%
+  filter(date == "2021-09-23") %>%
+  filter(state != "District of Columbia") %>%
+  ggplot(aes(percent_vaccinated,new_deaths_pc_7da))+
+  geom_point(aes(col=winner))+
+  geom_smooth(method = "lm")
+
+covid_us %>%
+  filter(date == "2021-09-23") %>%
+  filter(state != "District of Columbia") %>%
+  ggplot(aes(rep_voteshare, new_deaths_pc_7da, label = state_po))+
+  geom_point(aes(col=winner))+
+  geom_smooth(method = "lm")+
+  geom_text_repel()
+
+
+round(covid_us$new_deaths_pc)
+round(covid_us$deaths)
+```
+
+
+
+```{r}
+
+
+```{r}
+covid <- COVID19::covid19(
+  country = "US",
+  level = 3,
+  verbose = F,
+  start = "2021-07-01"
+
+)
+
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)%>%
+  mutate(
+    state = toupper(administrative_area_level_2),
+    county = toupper(administrative_area_level_3),
+    fips = key_local
+  )
+
+
+covid_us %>%
+  filter(key_local %in% c("29901" ,"29592" ,"02997", "02998"))
+
+unique(covid_us$county[!toupper(covid_us$county) %in% pres_cnty_df$county_name])
+unique(pres_cnty_df$county_name[!pres_cnty_df$county_name%in%covid_us$county])
+pres_cnty_df$county_name
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+pres_cnty_df$county_name
+(acs_cnty_df$NAME)
+pres_cnty_df <- get_dataframe_by_name(
+  "countypres_2000-2020.tab",
+  "doi:10.7910/DVN/VOQCHQ"
+)
+class(pres_cnty_df$totalvotes)
+
+pres_cnty_df%>%
+  filter(party %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020)%>%
+  slice(500:505)
+pres_cnty_df$county_name
+pres_cnty_df %>%
+  mutate(
+    year_election = year,
+    state_election = state,
+    fips = str_pad(county_fips, 5, side = "left", pad = "0")
+    # Fix DC
+  ) %>%
+  filter(party %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020) %>%
+  select(state_po,county_name, fips, year_election, party, candidatevotes, totalvotes,
+         ) %>%
+  group_by(state_po, county_name, fips, party)%>%
+  summarise(
+    candidatevotes = sum(candidatevotes),
+    totalvotes = unique(totalvotes)
+  )%>%
+  pivot_wider(names_from = party,
+              values_from = candidatevotes) %>%
+mutate(
+    dem_voteshare = DEMOCRAT/totalvotes,
+    rep_voteshare = REPUBLICAN/totalvotes,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
+
+  ) -> pres_cnty_2020_df
+
+acs_cnty_df <- get_acs(geography = "county", 
+              variables = c(med_income = "B19013_001",
+                            med_age = "B01002_001"), 
+              year = 2019)
+acs_cnty_df$GEOID
+acs_cnty_df %>%
+  mutate(
+    county = NAME,
+    fips = GEOID
+  ) %>%
+  select(fips, variable, estimate) %>%
+  pivot_wider(names_from = variable,
+              values_from = estimate) -> acs_cnty_df
+
+tmp <- covid_us %>%left_join(pres_cnty_2020_df
+                             )
+tmp <- tmp %>% left_join(acs_cnty_df)
+
+tmp %>%
+  dplyr::group_by(fips) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000,
+    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> tmp
+
+tmp %>%
+  dplyr::group_by(fips) %>%
+  mutate(
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_7da = zoo::rollmean(new_deaths_pc, 
+                                     k = 14, 
+                                     align = "right",
+                                     fill=NA ),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> tmp
+
+tmp$med_age
+summary(tmp$new_deaths_pc_7da)
+
+tmp %>%
+  ungroup()%>%
+  mutate(
+    rep_voteshare_std = scale(rep_voteshare),
+    med_age_std = scale(med_age),
+    med_income_std = scale(med_income),
+    percent_vaccinated_std = scale(percent_vaccinated)
+
+  )%>% group_by(fips)%>%
+  mutate(
+    day = 1:n()
+    )-> tmp
+
+summary(lm(new_deaths_pc_7da ~ rep_voteshare_std +med_age_std + med_income_std + percent_vaccinated_std + day+ state, tmp))
+
+summary(lm(new_deaths_pc_7da ~ rep_voteshare_std + med_age_std + med_income_std, tmp))
+
+
+
+summary(lm(new_deaths_pc_7da ~ rep_voteshare + med_age +med_income + percent_vaccinated, tmp[tmp$new_deaths_pc_7da>=0,],
+           subset = date == "2021-11-15"))
+
+
+tmp %>%
+  filter(date == "2021-11-15")%>%
+  ggplot(aes(rep_voteshare,percent_vaccinated))+
+  geom_point(aes(col=winner, size= new_deaths_pc_7da), alpha = .1)+
+  geom_smooth()
+
+tmp$percent_vaccinated
+summary(lm(new_deaths_pc_7da ~ rep_voteshare + med_age + med_income , tmp,
+           subset = date == "2021-11-15"))
+
+
+```
+
+
+```
+
