@@ -38,4 +38,4 @@ links:
 Multiple regression. What it means to “control for education” or hold “age constant.”
 
 
-- Please read the prompt for [Assignment 1](/files/assignments/A2_Data.html){target="_blank"} and upload your group's proposed revised research question and initial exploration of a dataset to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) by 5 pm Sunday, March 20, 2022
+- Please read the prompt for [Assignment 2](/files/assignments/A2_Data.html){target="_blank"} and upload your group's proposed revised research question and initial exploration of a dataset to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) by 5 pm Sunday, March 20, 2022
