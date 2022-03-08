@@ -539,7 +539,7 @@ DT::datatable(df_feedback %>%
 
 
 - Lab
-  - Pacing
+  - Pacing/Length
   - Coding roadblocks/portals of discovery
 - Connection between lecture and lab
 - Math
@@ -577,18 +577,22 @@ df_feedback_full %>%
   )%>%
   group_by(Fit,Options)%>%
   summarise(
-    Vote = n()
+    Vote = n(),
   )%>%
+  arrange(Fit,Vote)%>%
   mutate(
+    Rank =n():1,
     Fit = factor(Fit, levels = c("Palette","Jacket","Pant","Top","Pattern","Tie","Shoe")),
     Options = forcats::fct_reorder(Options, Vote)
   )%>%
   ungroup()%>%
   na.omit()%>%
-  ggplot(aes(Options,Vote))+
+  ggplot(aes(Options,Vote, fill=Rank))+
   geom_bar(stat = "identity")+
-  facet_wrap(~Fit, scale="free_y",ncol = 1)+
-  coord_flip()
+  facet_wrap(~Fit, scale="free_y",ncol = 2)+
+  coord_flip()+
+  guides(fill="none")
+
 
 
 ```
