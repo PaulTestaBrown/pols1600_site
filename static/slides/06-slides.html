@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 06:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 06:
+## Linear Regression with Multiple Predictors
+### Paul Testa
+
+---
+
+
+class: inverse, center, middle
+background-image:url("https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/332100/332134.4.jpg")
+background-size:cover
+
+# Overview
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+## General Plan
+
+- Group Assignment 2: Data
+- Setup
+  - Packages
+  - Data
+- Feedback
+- Review
+  - Causal Inference in Observational Designs
+  - Simple Linear Regression
+- Multiple Regression 
+  - Overview
+  - Estimating and Interpreting Multiple Regression
+  - Reading Regression Tables
+  - What does it mean to "control for" X
+- ICYI: The Matrix Algebra of Linear Regression 
+
+---
+class: inverse, center, middle
+# Research Questions
+
+---
+## Assignment 1 Research Questions:
+
+- Feedback posted to Canvas.
+
+- General Comments:
+
+  - Really great questions!
+  
+  - Feedback tries to balance interest/feasibility/data availability
+  
+  - "Not an experiment" `\(\to\)` What would you have to randomize to answer your question
+  
+  - Not every question need to be causal
+  
+  - "Make your theories elaborate" - R.A. Fisher to [William Cochran](https://www.jstor.org/stable/2344179)
+    - But keep your models simple - Testa to POLS 1600
+
+
+---
+## Assignment 2: Data Explorations
+
+
+- Prompt posted [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
+
+- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) this Sunday
+
+1. A revised description of your group's research project
+2. A description of a linear model implied by your question
+3. R code that loads some potentially relevant data to your question and at least one descriptive summary of that data.
+4. Some information about your group such as:
+    - A group name^[If you're Group 01 don't change your name to Group 4]
+    - A group color or color scheme
+    - A group motto, mascot, crest, etc.
+    - Your group's theme song
+    - Your group's astrological sign
+    - Anything else that you think well help you form strong ingroup bounds that facilitate collaboration
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## Packages
+
+Hopefully, you were all able to install the following packages 
+
+- `dataverse` (necessary for this week)
+- `tidycensus` (necessary for this week)
+- `easystats` (useful later)
+- `DeclareDesign` (useful later)
+
+---
+## Census API:
+
+Additionally, I hope you have all followed the steps [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+
+1. Install the `tidycensus` package
+2. Load the installed package
+3. Request an API key from the Census
+4. Check your email
+5. Activate your key
+6. Install your API key in R
+7. Check that everything worked
+
+To install the an API key so we can download data directly from the US Census
+
+
+---
+## Packages for today
+
+
+
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+* "scatterplot3d",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT        texreg     tidyverse     lubridate 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      forcats         haven      labelled         ggmap       ggrepel 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggridges      ggthemes        ggpubr        GGally        scales 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      dagitty         ggdag       ggforce scatterplot3d       COVID19 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+         maps       mapdata           qss    tidycensus     dataverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+DeclareDesign     easystats           zoo 
+         TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for Thursday's Lab
+
+---
+## Load the Covid-19 Data
+
+
+```r
+covid &lt;- COVID19::covid19(
+  country = "US",
+  level = 2,
+  verbose = F
+)
+```
+
+---
+## Filter Covid-19 Data to US States (Now Excluding D.C. as well)
+
+
+```r
+# Vector containing of US territories
+territories &lt;- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands",
+  "District of Columbia"
+  )
+
+# Filter out Territories and create state variable
+covid_us &lt;- covid %&gt;%
+  filter(!administrative_area_level_2 %in% territories)%&gt;%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+---
+## Mutate: Calculate New Deaths Per Capita and Percent Vaccinated
+
+
+
+```r
+covid_us %&gt;%
+  dplyr::group_by(state) %&gt;%
+  mutate(
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_14da = zoo::rollmean(new_deaths_pc, k = 14, align = "right", fill=NA ),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -&gt; covid_us
+```
+
+
+---
+## Load Data on Presidential Elections
+
+
+
+
+```r
+# Try this code first
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df &lt;- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+
+# If the code above fails, comment out and uncomment the code below:
+
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+```
+
+---
+## HLO of Presidential Elections Data
+
+
+```r
+head(pres_df)
+```
+
+```
+# A tibble: 6 × 15
+   year state   state_po state_fips state_cen state_ic office       candidate   
+  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       
+1  1976 ALABAMA AL                1        63       41 US PRESIDENT "CARTER, JI…
+2  1976 ALABAMA AL                1        63       41 US PRESIDENT "FORD, GERA…
+3  1976 ALABAMA AL                1        63       41 US PRESIDENT "MADDOX, LE…
+4  1976 ALABAMA AL                1        63       41 US PRESIDENT "BUBAR, BEN…
+5  1976 ALABAMA AL                1        63       41 US PRESIDENT "HALL, GUS" 
+6  1976 ALABAMA AL                1        63       41 US PRESIDENT "MACBRIDE, …
+# … with 7 more variables: party_detailed &lt;chr&gt;, writein &lt;lgl&gt;,
+#   candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;, version &lt;dbl&gt;, notes &lt;lgl&gt;,
+#   party_simplified &lt;chr&gt;
+```
+
+---
+## Transform Data to get just 2020 Election
+
+
+```r
+pres_df %&gt;%
+  mutate(
+    year_election = year,
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
+  ) %&gt;%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%&gt;%
+  filter(year == 2020) %&gt;%
+  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
+         ) %&gt;%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %&gt;%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes *100,
+    rep_voteshare = REPUBLICAN/totalvotes*100,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,"Trump","Biden")))
+  ) -&gt; pres2020_df
+```
+
+---
+## Transform Data to get just 2020 Election
+
+
+```r
+head(pres2020_df)
+```
+
+```
+# A tibble: 6 × 9
+  state      state_po year_election totalvotes DEMOCRAT REPUBLICAN dem_voteshare
+  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1 Alabama    AL                2020    2323282   849624    1441170          36.6
+2 Alaska     AK                2020     359530   153778     189951          42.8
+3 Arizona    AZ                2020    3387326  1672143    1661686          49.4
+4 Arkansas   AR                2020    1219069   423932     760647          34.8
+5 California CA                2020   17500881 11110250    6006429          63.5
+6 Colorado   CO                2020    3279980  1804352    1364607          55.0
+# … with 2 more variables: rep_voteshare &lt;dbl&gt;, winner &lt;fct&gt;
+```
+
+
+---
+## Load Data on Median State Income from the Census
+
+
+```r
+acs_df &lt;- get_acs(geography = "state", 
+              variables = c(med_income = "B19013_001",
+                            med_age = "B01002_001"), 
+              year = 2019)
+
+# Uncomment if get_acs() doesn't work:
+# load(url("https://pols1600.paultesta.org/files/data/acs_df.rda"))
+```
+
+---
+## HLO: Census Data 
+
+
+```r
+head(acs_df)
+```
+
+```
+# A tibble: 6 × 5
+  GEOID NAME    variable   estimate    moe
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+1 01    Alabama med_age        39      0.2
+2 01    Alabama med_income  50536    304  
+3 02    Alaska  med_age        34.3    0.1
+4 02    Alaska  med_income  77640   1015  
+5 04    Arizona med_age        37.7    0.2
+6 04    Arizona med_income  58945    266  
+```
+
+
+---
+## Tidy Census Data
+
+
+```r
+acs_df %&gt;%
+  mutate(
+    state = NAME,
+  ) %&gt;%
+  select(state, variable, estimate) %&gt;%
+  pivot_wider(names_from = variable,
+              values_from = estimate) -&gt; acs_df
+```
+
+---
+## Tidy Census Data
+
+
+```r
+head(acs_df)
+```
+
+```
+# A tibble: 6 × 3
+  state      med_age med_income
+  &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+1 Alabama       39        50536
+2 Alaska        34.3      77640
+3 Arizona       37.7      58945
+4 Arkansas      38.1      47597
+5 California    36.5      75235
+6 Colorado      36.7      72331
+```
+
+
+
+---
+## Merge election data into Covid data
+
+
+```r
+# Always check dimensions before and after merging
+dim(covid_us)
+```
+
+```
+[1] 37696    52
+```
+
+```r
+dim(pres2020_df)
+```
+
+```
+[1] 51  9
+```
+
+```r
+# Merge covid_us with pres2020_df and save as tmp file
+tmp &lt;- covid_us %&gt;% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(tmp) # Same number of rows as covid_us w/ 8 additional columns
+```
+
+```
+[1] 37696    60
+```
+
+
+---
+## Merge Census data into Covid data
+
+
+```r
+dim(tmp)
+```
+
+```
+[1] 37696    60
+```
+
+```r
+dim(acs_df)
+```
+
+```
+[1] 52  3
+```
+
+```r
+# Merge tmp with acs_df and save as final covid_df file
+covid_df &lt;- tmp %&gt;% left_join(
+  acs_df,
+  by = c("state" = "state")
+)
+dim(covid_df)  # Same number of rows as tmp w/ 2 additional columns
+```
+
+```
+[1] 37696    62
+```
+
+
+
+---
+## Subset Merged data to include only the variables and observations we want
+
+
+```r
+the_vars &lt;- c(
+  # Covid variables
+  "state","state_po","date","new_deaths_pc_14da", "percent_vaccinated",
+  # Election variables
+  "winner","rep_voteshare",
+  # Demographic variables
+  "med_age","med_income","population")
+
+
+covid_lab &lt;- covid_df %&gt;%
+  filter( date == "2021-09-23")%&gt;%
+  select(all_of(the_vars))%&gt;%
+  ungroup()
+
+length(the_vars)
+```
+
+```
+[1] 10
+```
+
+```r
+dim(covid_lab)
+```
+
+```
+[1] 50 10
+```
+
+
+---
+## A Preview of Where We're Headed:
+
+Consider the following **multiple regression** (which we will on Thursday):
+
+`$$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share} +\beta_2 \text{Median Age} +\beta_3 \text{Median Income} + \epsilon$$`
+- The tell us how the outcome, *New Covid Deaths*, is expected to change with a **unit change** in a given predictor, controlling for/holding constant the other predictors in the model (more on "controlling for" shortly).
+  - In the model above, `\(\beta_2\)` tells us how *New Covid Deaths* is predicted to change, if the *Median Age* of a state increased by one year (i.e. a unit change).
+  - Similarly, `\(\beta_3\)` tells us how *New Covid Deaths* is predicted to change, if the *Median Income* of a state increased by one dollar (i.e. a unit change).  
+  - Since vote share, median income and age are measured on very different scales, interpreting these coefficients in the same model can be cumbersome.
+
+---
+## Standardizing variables.
+
+
+- When variables are measured in different units multiple regression coefficients can be hard to interpret
+  - Coefficients, `\(\beta\)`, tell us about the predicted change in `\(y\)` for a unit change in `\(x\)` or `\(z\)`
+  - For example `\(\beta_{age}\)`
+
+- *z-scores* standardize variables so that their unit of measurement no longer matters (QSS p. 103).
+
+
+- To calculate the *z-score* of a variable `\(x\)`, we simply, substract off the mean and divide by the standard deviaton
+
+$$ z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x} $$
+
+- The *z-score* of Age is 
+
+$$ z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
+
+---
+## Standardizing Predictors in R
+
+
+```r
+covid_lab %&gt;%
+  mutate(
+    rep_voteshare_std = (rep_voteshare - mean(rep_voteshare))/sd(rep_voteshare),
+    med_age_std = ( med_age - mean( med_age))/sd( med_age),
+    med_income_std = (med_income - mean(med_income))/sd(med_income),
+    percent_vaccinated_std = (percent_vaccinated - mean(percent_vaccinated))/sd(percent_vaccinated)
+  ) -&gt; covid_lab
+```
+
+
+
+
+---
+## Multiple Regression with Standardized Predictors
+
+If we were to estimate a model with standardized predictors:
+
+`$$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share}_{std} +\beta_2 \text{Median Age}_{std} +\beta_3 \text{Median Income}_{std} + \epsilon$$`
+The coefficients still tell us predicted change in New Covid Deaths for a unit change in a predicotr, but now a unit change corresponds to a 1-standard deviation increase of each predictor:
+
+
+```r
+covid_lab %&gt;%
+  summarise(
+    sd_rep_vote = sd(rep_voteshare),
+    sd_med_age = sd(med_age),
+    sd_med_income = sd(med_income)
+  )
+```
+
+```
+# A tibble: 1 × 3
+  sd_rep_vote sd_med_age sd_med_income
+        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1        10.4       2.36        10288.
+```
+
+---
+## Saving Data
+
+Finally, I'll save the data for Thursday's lab
+
+
+```r
+# Don't run this code
+save(covid_lab, file = "../files/data/06_lab.rda")
+```
+
+And on Thursday, we'll be able to load the `covid_lab` just by running:
+
+
+```r
+load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
+```
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
+background-size: contain
+# 📢
+## Feedback
+
+
+
+---
+## What we liked
+
+--
+
+- The lab, or at least aspects of the lab like:
+  - Working in groups
+  - Building from copying code to writing code
+  - Dealing with real world data/questions
+- Pacing of lab/lecture
+- Tutorials
+- Math(!?)
+
+---
+## What we liked
+
+<div id="htmlwidget-d86a0273114c6b92ef7c" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d86a0273114c6b92ef7c">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+---
+## What we disliked 
+
+
+- Lab
+  - Pacing/Length
+  - Coding roadblocks/portals of discovery
+- Connection between lecture and lab
+- Math
+
+
+---
+## What we disliked
+
+<div id="htmlwidget-d66608265411ffb6666f" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d66608265411ffb6666f">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+```
+[1] 4
+```
+
+---
+## What we'll do
+
+.pull-left[
+### Me
+
+- Keep the labs shorter
+- Post the labs earlier
+- Try different ways of teaching coding
+  - Copy paste and run code
+  - Run and comment code
+  - Fill in the blank
+  - Update and adapt code
+  - Troubleshoot broken code
+  - Write your own code
+]
+
+--
+
+.pull-right[
+### You
+
+- Keep doing the tutorials
+- Review the labs before class
+- Use the structure of .Rmd file as your friend
+- Use separate code chunks for exploratory code and final code
+- Work through the commented labs
+- Come to office hours?
+
+
+
+]
+
+---
+class: inverse, center, middle
+background-image:url("https://media.giphy.com/media/KWwPcQwGetlA0qKdY0/giphy.gif")
+background-size: cover
+
+## Help me with my fit
+
+
+
+---
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+background-image:url("https://www.blackenterprise.com/wp-content/blogs.dir/1/files/2015/08/Michael-Jordan_nike.com-2-1280x720.jpg")
+background-size: cover
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Review
+
+
+---
+## Review
+
+- Casual Inference in Observational Designs
+  - Difference-in-Differences
+  - Regression Discontinuity Design
+  - Instrumental Variables
+
+- Simple Linear Regression
+
+---
+class:inverse, middle, center
+# 🔍
+## Casual Inference in Observational Designs
+
+---
+## Review: Casual Inference in Observational Designs
+
+
+- Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:
+
+$$
+Y_i(1),Y_i(0) \perp D_i |X_i
+$$
+
+--
+
+- This assumption goes by many, jargony names: Selection on Observables, Conditional Independence, No unmeasured confounders.
+
+--
+
+- Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.
+
+--
+
+- Three common research designs:
+
+  - Difference in Difference Design
+
+  - Regression Discontinuity Designs
+  
+  - Instrumental Variable Designs
+
+
+---
+## Review: Difference in Difference Design
+
+- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+  
+  - Taking the pre-post difference removes any fixed differences between the units
+  
+  - Then taking the difference between treated and control differences removes any common differences over time
+
+- The key identifying assumption of a DiD design is the "assumption of parallel trends"
+
+- Common Diff-in-Diffs in political science:
+  - Basically any time there's staggered adoption of policy overtime `\(\to\)` Diff-in-Diff.
+  
+
+---
+## Review: Regression Discontinuity Design
+
+- A Regression Discontinuity Design (RDD):
+ - leverages a naturally occuring discontinuity in the probability of receiving some treatment
+ - uses regression to estimate the effect of that treatment **at the discontinuity**
+
+- RDD are identified under assumptions of either:
+  - Continuity at the cutoff
+  - Local randomization
+  
+- The key idea is that at (continuity) or in some window around (local randomization), variation in the outcome of interest is due only change in the treatment
+
+- Common discontinuities in political science:
+  - First past the post elections
+  - Borders
+  - Eligibility cutoffs for policies
+
+---
+## Review: Instrumental Variables
+
+Instrumental variables are an economists favorite tool for dealing with **omitted variable bias**
+
+- We're worried that these effects are **confounded** by some unobserved, omitted variable, that influences both the treatment and the outcome
+- We find an **instrumental variable** that is **exogenous** and **relevant** satisfying the following assumptions
+  - Randomization 
+  - Excludability
+  - First-stage relationship
+  - Monotonicity
+- Allowing us estimate a Local Average Treatment Effect (LATE) using the instrument to isolate the variation in our treatment that is **exogenous** (uncorrelated with ommitted variables)
+- Common instruments in political science:
+  - Nature (rainfall)
+  - Geography (distance from the equator)
+  - History (Different colonial legacies/institutions)
+
+
+---
+## IV Applications
+
+&lt;img src="https://pbs.twimg.com/media/EJGyHnyUYAA-yhM?format=jpg&amp;name=large" width="80%" style="display: block; margin: auto;" /&gt;
+
+[@AndrewHeiss](https://twitter.com/andrewheiss/status/1193931226865901569?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1193931226865901569%7Ctwgr%5E%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fandrewheiss2Fstatus2F1193931226865901569widget%3DTweet)
+
+
+---
+class:inverse, middle, center
+# 🔍
+# Simple Linear Regression
+### Linear regression provides a linear estimate of the CEF
+
+---
+## Review: Simple Linear Regression
+
+- **Conceptual**
+  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
+
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
+- **Practical**
+  - We estimate linear models in R using the `lm()` function
+  
+
+```r
+lm(y ~ x, data = df)
+```
+
+- *Technical/Definitional*
+  - Linear regression chooses `\(\beta_0\)` and `\(\beta_1\)` to minimize the Sum of Squared Residuals (SSR): 
+
+`$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$`
+
+- *Theoretical*
+  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): `\(E[Y|X]\)`
+  
+---
+## Linear Regression and the CEF
+
+Recall the first model we fit in last week's lab
+
+`$$\text{new_deaths} = \beta_0 + \beta_1 \text{winner} + \epsilon$$`
+
+
+```r
+m1 &lt;- lm(new_deaths ~ winner, covid_df)
+m1
+```
+
+```
+
+Call:
+lm(formula = new_deaths ~ winner, data = covid_df)
+
+Coefficients:
+(Intercept)  winnerBiden  
+     23.805        4.199  
+```
+
+`m1` is the equation for a very simple line defined by two points:
+
+  - `\(\beta_0\)` = E[new_deaths|winner = Trump]
+  - `\(\beta_0 + \beta_1\)` = E[new_deaths|winner = Biden]
+
+---
+## Linear Regression and the CEF
+
+It's helpful to take a look at what's going on under the hood in `lm()`
+
+We gave it the following data:
+
+
+```r
+head(m1$model)
+```
+
+```
+   new_deaths winner
+67          0  Biden
+68          0  Biden
+69          0  Biden
+70          0  Biden
+71          0  Biden
+72          0  Biden
+```
+
+---
+## Linear Regression and the CEF
+
+- R doesn't know how to calculate the mean of `Biden` (or any character or factor data). 
+- Instead it creates an indicator variable `winnerBiden` which equals 1 when `winner` equals `Biden` and 0 otherwise.
+
+
+```r
+head(model.matrix(m1))
+```
+
+```
+   (Intercept) winnerBiden
+67           1           1
+68           1           1
+69           1           1
+70           1           1
+71           1           1
+72           1           1
+```
+
+```r
+table(m1$model$winner)
+```
+
+```
+
+Trump Biden 
+18263 18513 
+```
+
+```r
+table(model.matrix(m1)[,2])
+```
+
+```
+
+    0     1 
+18263 18513 
+```
+
+---
+
+
+```r
+covid_df%&gt;%
+  mutate(
+    winner01 = ifelse(winner=="Biden",1,0)
+  )%&gt;%
+  ggplot(aes(winner01, new_deaths))+
+  geom_point()+
+  stat_summary(geom="point",fun=mean,col= "red",size=2)+
+  geom_segment(aes(x=0,xend =1, 
+                   y=coef(m1)[1],
+                   yend = coef(m1)[1]+coef(m1)[2]*1
+                   ),
+               col= "red")
+```
+
+---
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Linear Regression and the CEF
+
+- When the CEF function is linear, `lm()` provides you coefficients that give you conditional means like in `m1`
+  - The CEF is linear for *saturated models* in like  `m1` where the coefficients define every possible category of comparison.
+- For continuous variables, like  `m3` from the lab below, `lm()` provides a linear approximation to the CEF
+
+
+```r
+m3 &lt;- lm(new_deaths_pc_14da ~ percent_vaccinated, covid_df,
+         subset = date == "2021-09-23")
+m3
+```
+
+```
+
+Call:
+lm(formula = new_deaths_pc_14da ~ percent_vaccinated, data = covid_df, 
+    subset = date == "2021-09-23")
+
+Coefficients:
+       (Intercept)  percent_vaccinated  
+           2.40519            -0.03304  
+```
+
+
+---
+
+
+```r
+covid_df %&gt;%
+  filter(date == "2021-09-23") %&gt;%
+  ggplot(aes(percent_vaccinated, new_deaths_pc_14da))+
+  geom_point(size=.5,alpha=.5)+
+  stat_summary_bin(fun = "mean", 
+                   geom = "point", 
+                   col="red",
+                   bins =10
+                   )+
+  geom_smooth(method ="lm")
+```
+
+---
+
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, middle, center
+# 💡 
+## Multiple Regression
+
+---
+## Overiew: Multiple Regression
+
+- **Conceptual**
+  - Multiple linear regression generalizes simple regression to models with multiple predictors
+
+$$
+y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i
+$$
+
+$$
+y_i = X\beta + \epsilon_i
+$$
+
+- **Practical**
+  - We estimate linear models in R using the `lm()` function using the `+` to add predictors
+  - We use the `*` to include the main effects `\((\beta_1 x, \beta_2z)\)` and interactions `\((\beta_3 (x\cdot z))\)`of two predictors
+  
+
+```r
+lm(y ~ x + z, data = df)
+lm(y ~ x*z, data = df) # Is a shortcut for:
+lm(y ~ x + z + x:z, data = df)
+```
+
+---
+## Overiew: Multiple Regression
+
+
+- *Technical/Definitional*
+  - Simple linear regression chooses a `\(\hat{\beta_0}\)` and `\(\hat{\beta_1}\)`  to minimize the Sum of Squared Residuals (SSR): 
+
+`$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2$$`
+  - Multiple linear regression chooses a vector of coefficients `\(\hat{\beta}\)` to minimize the Sum of Squared Residuals (SSR):
+  
+`$$\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})$$`
+
+
+- *Theoretical*
+  - Multiple Linear regression provides a **linear** estimate of the conditional expectation function (CEF): `\(E[Y|X]\)` where `\(Y\)` is now a function of multiple predictors, `\(X\)`
+
+
+---
+class: inverse, middle, center
+# 💡 
+## Estimating and Interpreting Multiple Regression Regression Models
+
+---
+## Political Interest and Partisan Evaluations
+
+Let's load some data from the [2016 NES](https://electionstudies.org/data-center/2016-time-series-study/) and explore the relationship between political interest and evaluations of presidential candidates:
+
+- Political Interest: "How interested are you in in politics?
+  - Very Interested
+  - Somewhat interested
+  - Not very Interested
+  - Not at all Interested
+- Feeling Thermometer: "... On the feeling thermometer scale of 0 to 100, how would you rate"
+  - Donald Trump
+  - Hillary Clinton
+
+---
+## Data
+
+
+```r
+load(url("https://pols1600.paultesta.org/files/data/nes.rda"))
+# Look at data
+dim(nes)
+```
+
+```
+[1] 1200   14
+```
+
+```r
+head(nes)
+```
+
+```
+  caseid    state age gender educ faminc pid7 ideo5 pol_interest church_atd
+1    745  Alabama  19      2    3     97    5     3            1          2
+2   1115  Alabama  46      1    3      3    1     1            3          6
+3    258  Alabama  59      2    2      6    2     3            2          1
+4    126  Alabama  55      2    4      6    1     2            3          5
+5    414  Alabama  66      1    3      8    7     4            3          3
+6    523  Alabama  61      1    2     97    1     2            3          6
+  bornagain01 ft_trump ft_hrc vote_choice
+1           0        3     19       Other
+2           0        0     36         HRC
+3           1       22      2        &lt;NA&gt;
+4           0        1     80         HRC
+5           1      100      3        &lt;NA&gt;
+6           1        0    100        &lt;NA&gt;
+```
+
+```r
+table(nes$pol_interest)
+```
+
+```
+
+  0   1   2   3 
+ 78 178 348 568 
+```
+
+---
+## Data Wrangling/Recoding
+
+
+```r
+nes %&gt;%
+  mutate(
+    income = ifelse(faminc &gt; 16, NA, faminc),
+    interested = ifelse(pol_interest==3,T,F),
+    pol_interest_f = factor(case_when(
+      pol_interest == 0 ~ "Not at all Interested",
+      pol_interest == 1 ~ "Not very Interested",
+      pol_interest == 2 ~ "Somewhat Interested",
+      pol_interest == 3 ~ "Very Interested"
+    )),
+    tc_diff = abs(ft_trump - ft_hrc)
+  ) -&gt; nes
+```
+
+---
+## Roadmap
+
+Let's estimate the following series of models, predicting the absolute value of the difference in feeling thermometer ratings between Trump and Clinton (`tc_diff`)
+
+`$$\text{tc_diff} = \beta_0$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{interested}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest_f}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest} + \beta_2\text{age}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age} + \beta_3\text{interested} \times \text{age}$$`
+---
+## `m0`: "The Empty Model"
+
+A linear model with just an intercept returns the mean of `tc_diff`
+
+
+```r
+m0 &lt;- lm(tc_diff ~ 1, nes)
+m0
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ 1, data = nes)
+
+Coefficients:
+(Intercept)  
+      53.58  
+```
+
+```r
+mean(nes$tc_diff, na.rm=T)
+```
+
+```
+[1] 53.57776
+```
+
+```r
+# Save Sum of Squared Residuals
+ssr0 &lt;- sum(m0$residuals^2)
+```
+
+---
+## `m1` A model with a single dichotomous predictor
+
+Now let's model `tc_diff` as function of whether respondents are very interested in politics (`interested` = T) or not (`interested` = F)
+
+
+```r
+m1 &lt;- lm(tc_diff ~ interested, nes)
+m1
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ interested, data = nes)
+
+Coefficients:
+   (Intercept)  interestedTRUE  
+         47.84           12.75  
+```
+
+```r
+coef(m1)[1]
+```
+
+```
+(Intercept) 
+     47.845 
+```
+
+```r
+mean(nes$tc_diff[nes$interested == F],na.rm = T)
+```
+
+```
+[1] 47.845
+```
+
+```r
+coef(m1)[1] + coef(m1)[2]
+```
+
+```
+(Intercept) 
+   60.59155 
+```
+
+```r
+mean(nes$tc_diff[nes$interested == T],na.rm = T)
+```
+
+```
+[1] 60.59155
+```
+
+
+---
+## `m1` A model with a single dichotomous predictor
+
+- If we tell R not to include an intercept, it returns those conditional means exactly.
+
+
+```r
+m1_alt &lt;- lm(tc_diff ~ -1+ interested, nes)
+m1_alt
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ -1 + interested, data = nes)
+
+Coefficients:
+interestedFALSE   interestedTRUE  
+          47.85            60.59  
+```
+
+```r
+tapply(nes$tc_diff, nes$interested, mean,na.rm=T)
+```
+
+```
+   FALSE     TRUE 
+47.84500 60.59155 
+```
+
+- When we compare the SSR from `m1` we see that it has decreased from `m0` reflecting the fact some of the total variation in `tc_diff` is being explained by the variation in  `interested` 
+
+
+```r
+# Save Sum of Squared Residuals
+ssr1 &lt;- sum(m1$residuals^2)
+ssr1 &lt; ssr0
+```
+
+```
+[1] TRUE
+```
+
+---
+## `m2` A model with a single categoical predictor
+
+Now let's model `tc_diff` as function of the categorical predictor `pol_interest_f`, which is a factor variable of the four unique levels of political interest
+
+
+```r
+m2 &lt;- lm(tc_diff ~ pol_interest_f, nes)
+m2
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ pol_interest_f, data = nes)
+
+Coefficients:
+                      (Intercept)  pol_interest_fNot very Interested  
+                           46.104                              1.727  
+pol_interest_fSomewhat Interested      pol_interest_fVery Interested  
+                            2.136                             14.488  
+```
+
+- Woah, why did R turn a single variable into model with four coefficients?
+
+---
+## `m2` A model with a single categoical predictor
+
+When we give `lm()` factor or character data, 
+
+
+
+```r
+head(m2$model)[1:4,]
+```
+
+```
+  tc_diff      pol_interest_f
+1      16 Not very Interested
+2      36     Very Interested
+3      20 Somewhat Interested
+4      79     Very Interested
+```
+
+It converts this data in separate binary indicators for each level excluding the first ("Not at all interested"), that take a value of 1 when `pol_interest_f` equals that level and 0 otherwise
+
+
+```r
+head(model.matrix(m2))[1:4,]
+```
+
+```
+  (Intercept) pol_interest_fNot very Interested
+1           1                                 1
+2           1                                 0
+3           1                                 0
+4           1                                 0
+  pol_interest_fSomewhat Interested pol_interest_fVery Interested
+1                                 0                             0
+2                                 0                             1
+3                                 1                             0
+4                                 0                             1
+```
+
+
+---
+## `m2` A model with a single categoical predictor
+
+The coefficients in `m2` tell us how the conditional mean of `tc_diff` for someone with a given level of interest is likely to very from the conditional mean of `tc_diff` for someone that is not at all interested in politics.
+
+
+```r
+tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
+```
+
+```
+Not at all Interested   Not very Interested   Somewhat Interested 
+             46.10390              47.83051              48.23988 
+      Very Interested 
+             60.59155 
+```
+
+```r
+# Compare to
+# Not at all
+coef(m2)[1]
+```
+
+```
+(Intercept) 
+    46.1039 
+```
+
+```r
+# Not very
+coef(m2)[1] + coef(m2)[2]
+```
+
+```
+(Intercept) 
+   47.83051 
+```
+
+```r
+# Somewhat
+coef(m2)[1] + coef(m2)[3]
+```
+
+```
+(Intercept) 
+   48.23988 
+```
+
+```r
+# Very
+coef(m2)[1] + coef(m2)[4]
+```
+
+```
+(Intercept) 
+   60.59155 
+```
+
+---
+## `m2` A model with a single categorical predictor
+
+- Again if we excluded the intercept `lm()` returns the conditional means
+
+
+```r
+m2_alt &lt;- lm(tc_diff ~ -1+ pol_interest_f, nes)
+m2_alt
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ -1 + pol_interest_f, data = nes)
+
+Coefficients:
+pol_interest_fNot at all Interested    pol_interest_fNot very Interested  
+                              46.10                                47.83  
+  pol_interest_fSomewhat Interested        pol_interest_fVery Interested  
+                              48.24                                60.59  
+```
+
+```r
+tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
+```
+
+```
+Not at all Interested   Not very Interested   Somewhat Interested 
+             46.10390              47.83051              48.23988 
+      Very Interested 
+             60.59155 
+```
+
+-Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
+
+
+```r
+# Save Sum of Squared Residuals
+ssr2 &lt;- sum(m2$residuals^2)
+ssr2 &lt; ssr1
+```
+
+```
+[1] TRUE
+```
+
+
+---
+## `m3` A model with a single numeric predictor
+
+What if we had instead modeled `tc_diff` as a function of `pol_interest`
+
+
+```r
+m3 &lt;- lm(tc_diff ~ pol_interest, nes)
+m3
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ pol_interest, data = nes)
+
+Coefficients:
+ (Intercept)  pol_interest  
+      40.799         6.012  
+```
+
+`lm()` returns a single coefficient, because `pol_interest` is a numeric variable.
+
+
+---
+## Comparing `m2` to `m3`
+
+
+```r
+nes %&gt;%
+  ggplot(aes(pol_interest,tc_diff))+
+  geom_jitter(size=.5, alpha=.5)+
+  geom_smooth(method ="lm", aes(col = "m3"),se=F)+
+  stat_summary(geom ="point",
+               fun = mean,
+               aes(col = "m2")
+               )+
+  labs(col = "Model")
+```
+
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## `m4`: A model with both a dichtomous and continuous predictor
+
+Now let's estimate a multiple regression model "controlling" for age
+
+
+```r
+m4 &lt;- lm(tc_diff ~ interested + age, nes)
+m4
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ interested + age, data = nes)
+
+Coefficients:
+   (Intercept)  interestedTRUE             age  
+       32.1758          9.7739          0.3534  
+```
+
+Note the size of the coefficient on `interested` has decreased, compared to `m1`. Part of the variation `tc_diff` explained by `interested` reflected variation explained by `age`
+
+
+```r
+coef(m1)[1]
+```
+
+```
+(Intercept) 
+     47.845 
+```
+
+```r
+coef(m4)[2]
+```
+
+```
+interestedTRUE 
+      9.773938 
+```
+
+- Mechanically, we sometimes say the coefficient on `interested` shifts the intercept of the line describing the relationship between `tc_diff` and age.
+
+---
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+What if we think the relationship between `age` and `tc_diff` varies depending on a person's level of political interest?
+
+We could fit an interacton model:
+
+
+```r
+m5 &lt;- lm(tc_diff ~ interested*age, nes)
+m5
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ interested * age, data = nes)
+
+Coefficients:
+       (Intercept)      interestedTRUE                 age  interestedTRUE:age  
+           39.7626             -6.7040              0.1823              0.3397  
+```
+
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+Mechanically, R takes the data
+
+
+```r
+head(m5$model)
+```
+
+```
+  tc_diff interested age
+1      16      FALSE  19
+2      36       TRUE  46
+3      20      FALSE  59
+4      79       TRUE  55
+5      97       TRUE  66
+6     100       TRUE  61
+```
+
+And creates a model matrix:
+
+
+```r
+head(model.matrix(m5))
+```
+
+```
+  (Intercept) interestedTRUE age interestedTRUE:age
+1           1              0  19                  0
+2           1              1  46                 46
+3           1              0  59                  0
+4           1              1  55                 55
+5           1              1  66                 66
+6           1              1  61                 61
+```
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the interested and uninterested
+
+
+```r
+m5_uninterested &lt;- lm(tc_diff ~ age, nes,
+                    subset = interested == F)
+m5_uninterested
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ age, data = nes, subset = interested == 
+    F)
+
+Coefficients:
+(Intercept)          age  
+    39.7626       0.1823  
+```
+
+```r
+coef(m5)[1]
+```
+
+```
+(Intercept) 
+   39.76264 
+```
+
+```r
+coef(m5)[3]
+```
+
+```
+      age 
+0.1822814 
+```
+
+```r
+m5_interested &lt;- lm(tc_diff ~ age, nes,
+                    subset = interested == T)
+m5_interested
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ age, data = nes, subset = interested == 
+    T)
+
+Coefficients:
+(Intercept)          age  
+    33.0586       0.5219  
+```
+
+```r
+coef(m5)[1] +coef(m5)[2]
+```
+
+```
+(Intercept) 
+   33.05863 
+```
+
+```r
+coef(m5)[3] +coef(m5)[4]
+```
+
+```
+      age 
+0.5219337 
+```
+
+---
+
+
+```r
+nes %&gt;%
+  filter(!is.na(interested))%&gt;%
+  ggplot(aes(age, tc_diff, col = interested))+
+  geom_point(size = .5, alpha = .5)+
+  geom_smooth(method ="lm")
+```
+
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-42-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## `m6`: A model with an two continuous predictors
+
+Now lets model `tc_diff` as a function of two predictors: `age` and `income`
+
+
+```r
+m6 &lt;- lm(tc_diff ~ age + income, nes)
+m6
+```
+
+```
+
+Call:
+lm(formula = tc_diff ~ age + income, data = nes)
+
+Coefficients:
+(Intercept)          age       income  
+    33.1994       0.4003       0.1573  
+```
+
+We interpret this model as saying:
+
+- Controlling for `income`, as `age` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.40
+- Controlling for `age`, as `income` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.16
+
+---
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-44-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## A model with an interaction between two continuous predictors
+
+## Multiplicative Interactions with a continuous moderator
+
+Suppose we wanted to fit an interaction between two continuous variables like `age` and `income`. 
+
+The general form of this model is
+
+$$
+Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
+$$
+
+- The marginal effect of X on Y, now depends on the value of Z at which you evaluate the relationship
+
+$$
+\frac{\partial Y}{\partial X}=\beta_1+\beta_3Z
+$$
+
+---
+
+Easier to show this with some simulated data:
+
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-45-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, middle, center
+# 💡 
+## Reading Regression Tables
+
+---
+class: inverse, middle, center
+# 💡 
+## Understanding what it means to "control for" X
+
+
+
+
+  
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

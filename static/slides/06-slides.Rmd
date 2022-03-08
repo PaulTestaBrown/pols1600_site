@@ -52,10 +52,12 @@ the_packages <- c(
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+  "scatterplot3d", #<<
   # Data 
-  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", #<<
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "easystats", "zoo"#<<
+  "DeclareDesign", "easystats", "zoo"
 )
 ```
 
@@ -88,10 +90,10 @@ ipak(the_packages)
   - Causal Inference in Observational Designs
   - Simple Linear Regression
 - Multiple Regression 
-  - What does it mean to control for X
-  - Residualized Regression
-  - Interpreting Multiple Regression
+  - Overview
+  - Estimating and Interpreting Multiple Regression
   - Reading Regression Tables
+  - What does it mean to "control for" X
 - ICYI: The Matrix Algebra of Linear Regression 
 
 ---
@@ -429,9 +431,9 @@ $$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share} +\beta_2 \te
 
 $$ z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x} $$
 
-- The *z-score* of Median Age is 
+- The *z-score* of Age is 
 
-$$ z\text{-score of Median Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
+$$ z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
 
 ---
 ## Standardizing Predictors in R
@@ -588,6 +590,7 @@ DT::datatable(df_feedback %>%
 - Use the structure of .Rmd file as your friend
 - Use separate code chunks for exploratory code and final code
 - Work through the commented labs
+- Come to office hours?
 
 
 
@@ -685,7 +688,7 @@ $$
 
 --
 
-- Three of the most common observational designs for causal inference are:
+- Three common research designs:
 
   - Difference in Difference Design
 
@@ -733,13 +736,17 @@ $$
 Instrumental variables are an economists favorite tool for dealing with **omitted variable bias**
 
 - We're worried that these effects are **confounded** by some unobserved, omitted variable, that influences both the treatment and the outcome
-
 - We find an **instrumental variable** that is **exogenous** and **relevant** satisfying the following assumptions
   - Randomization 
   - Excludability
   - First-stage relationship
   - Monotonicity
 - Allowing us estimate a Local Average Treatment Effect (LATE) using the instrument to isolate the variation in our treatment that is **exogenous** (uncorrelated with ommitted variables)
+- Common instruments in political science:
+  - Nature (rainfall)
+  - Geography (distance from the equator)
+  - History (Different colonial legacies/institutions)
+
 
 ---
 ## IV Applications
@@ -813,10 +820,8 @@ head(m1$model)
 ---
 ## Linear Regression and the CEF
 
-
-R doesn't know how to calculate the mean of `Biden` (or any character or factor data). 
-
-Instead it creates an indicator variable, that takes a value of 1, any where `winner` equals `Biden` and 0 when `winner` equals `Trump`
+- R doesn't know how to calculate the mean of `Biden` (or any character or factor data). 
+- Instead it creates an indicator variable `winnerBiden` which equals 1 when `winner` equals `Biden` and 0 otherwise.
 
 ```{r}
 head(model.matrix(m1))
@@ -826,7 +831,7 @@ table(model.matrix(m1)[,2])
 
 ---
 
-```{r}
+```{r, eval=F}
 covid_df%>%
   mutate(
     winner01 = ifelse(winner=="Biden",1,0)
@@ -843,8 +848,39 @@ covid_df%>%
 ```
 
 ---
+```{r, echo=F}
+covid_df%>%
+  mutate(
+    winner01 = ifelse(winner=="Biden",1,0)
+  )%>%
+  ggplot(aes(winner01, new_deaths))+
+  geom_point()+
+  stat_summary(geom="point",fun=mean,col= "red",size=2)+
+  geom_segment(aes(x=0,xend =1, 
+                   y=coef(m1)[1],
+                   yend = coef(m1)[1]+coef(m1)[2]*1
+                   ),
+               col= "red")
+
+```
+
+---
+## Linear Regression and the CEF
+
+- When the CEF function is linear, `lm()` provides you coefficients that give you conditional means like in `m1`
+  - The CEF is linear for *saturated models* in like  `m1` where the coefficients define every possible category of comparison.
+- For continuous variables, like  `m3` from the lab below, `lm()` provides a linear approximation to the CEF
 
 ```{r}
+m3 <- lm(new_deaths_pc_14da ~ percent_vaccinated, covid_df,
+         subset = date == "2021-09-23")
+m3
+```
+
+
+---
+
+```{r, eval=F}
 covid_df %>%
   filter(date == "2021-09-23") %>%
   ggplot(aes(percent_vaccinated, new_deaths_pc_14da))+
@@ -858,6 +894,22 @@ covid_df %>%
 ```
 
 ---
+
+```{r, echo=F}
+covid_df %>%
+  filter(date == "2021-09-23") %>%
+  ggplot(aes(percent_vaccinated, new_deaths_pc_14da))+
+  geom_point(size=.5,alpha=.5)+
+  stat_summary_bin(fun = "mean", 
+                   geom = "point", 
+                   col="red",
+                   bins =10
+                   )+
+  geom_smooth(method ="lm")
+```
+
+
+---
 class: inverse, middle, center
 # 💡 
 ## Multiple Regression
@@ -866,423 +918,396 @@ class: inverse, middle, center
 ## Overiew: Multiple Regression
 
 - **Conceptual**
-  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
+  - Multiple linear regression generalizes simple regression to models with multiple predictors
 
 $$
-y_i = \beta_0 + \beta_1x_i + \epsilon_i
+y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i
+$$
+
+$$
+y_i = X\beta + \epsilon_i
 $$
 
 - **Practical**
-  - We estimate linear models in R using the `lm()` function
+  - We estimate linear models in R using the `lm()` function using the `+` to add predictors
+  - We use the `*` to include the main effects $(\beta_1 x, \beta_2z)$ and interactions $(\beta_3 (x\cdot z))$of two predictors
   
-```{r ols, eval=F}
-lm(y ~ x, data = df)
+```{r, eval=F}
+lm(y ~ x + z, data = df)
+lm(y ~ x*z, data = df) # Is a shortcut for:
+lm(y ~ x + z + x:z, data = df)
+
 ```
 
-- *Technical/Definitional*
-  - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR): 
+---
+## Overiew: Multiple Regression
 
-$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+- *Technical/Definitional*
+  - Simple linear regression chooses a $\hat{\beta_0}$ and $\hat{\beta_1}$  to minimize the Sum of Squared Residuals (SSR): 
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2$$
+  - Multiple linear regression chooses a vector of coefficients $\hat{\beta}$ to minimize the Sum of Squared Residuals (SSR):
+  
+$$\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})$$
+
 
 - *Theoretical*
-  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
+  - Multiple Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$ where $Y$ is now a function of multiple predictors, $X$
 
 
+---
+class: inverse, middle, center
+# 💡 
+## Estimating and Interpreting Multiple Regression Regression Models
 
-# Mutliple Regression
+---
+## Political Interest and Partisan Evaluations
 
+Let's load some data from the [2016 NES](https://electionstudies.org/data-center/2016-time-series-study/) and explore the relationship between political interest and evaluations of presidential candidates:
 
-- We'll spend the bulk of this course we working with linear models
-    - Relatively simple to estimate and interpret
-    - Some nice statistical properties
-    - Foundation for understanding more complicated models
-
-## Some Notation for Today 
-
-- $Y$ some (for today) continuous outcome
-- $X$ a continuous predictor
-- $Z$ another continuous predictor
-- $D$ a dichotomous predictor
-- $G$ a categorical predictor with more than two levels
-- $\beta_i$ the coefficient for predictor $i$
-- $u_i$ the residual for $i$ (difference between observed and predicted)
+- Political Interest: "How interested are you in in politics?
+  - Very Interested
+  - Somewhat interested
+  - Not very Interested
+  - Not at all Interested
+- Feeling Thermometer: "... On the feeling thermometer scale of 0 to 100, how would you rate"
+  - Donald Trump
+  - Hillary Clinton
 
 ---
 ## Data
-
-Let's load some data from the 2016 NES
 
 ```{r}
 load(url("https://pols1600.paultesta.org/files/data/nes.rda"))
 # Look at data
 dim(nes)
 head(nes)
+table(nes$pol_interest)
 ```
 
-Let's explore how self-reported interest in politics, relates to perceptions of presidentational candidates (Clinton and Trump) in 2016. 
-
-Suppose we're interested in the absolute difference in affect toward candidates -- that is, whether someone feels strongly positive about one candidate and strongly negative about another candidate. 
-
-For simplicity, let's compare differences in absolute affect between those who say they follow politics closely, to those who say they don't.
-
-First, we'll recode the data:
+---
+## Data Wrangling/Recoding
 
 ```{r}
-# Recode
-nes$interest01<-ifelse(nes$pol_interest==3,1,0)
-nes$tc_diff<-abs(nes$ft_trump-nes$ft_hrc)
-
-plot(nes$ft_hrc,nes$ft_trump)
-abline(0,1)
-par(mfrow=c(1,1))
-
-
+nes %>%
+  mutate(
+    income = ifelse(faminc > 16, NA, faminc),
+    interested = ifelse(pol_interest==3,T,F),
+    pol_interest_f = factor(case_when(
+      pol_interest == 0 ~ "Not at all Interested",
+      pol_interest == 1 ~ "Not very Interested",
+      pol_interest == 2 ~ "Somewhat Interested",
+      pol_interest == 3 ~ "Very Interested"
+    )),
+    tc_diff = abs(ft_trump - ft_hrc)
+  ) -> nes
 ```
 
-Next, we'll formalize our question into a model
+---
+## Roadmap
 
-\[
-\text{|FT}_{T} - \text{FT}_H| = \beta_0 + \beta_1 \text{Interest}
-\]
+Let's estimate the following series of models, predicting the absolute value of the difference in feeling thermometer ratings between Trump and Clinton (`tc_diff`)
 
-What do the coefficients tell us?
+$$\text{tc_diff} = \beta_0$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{interested}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest_f}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest} + \beta_2\text{age}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age} + \beta_3\text{interested} \times \text{age}$$
+---
+## `m0`: "The Empty Model"
 
-Why might we expet the coefficient on $\beta_1$ to be positive? Why might we expect it to be negative?
-
-## Candidate Differences modeled by Interest
+A linear model with just an intercept returns the mean of `tc_diff`
 
 ```{r}
-themodel<-lm(tc_diff~interest01,nes)
-themodel
+m0 <- lm(tc_diff ~ 1, nes)
+m0
+mean(nes$tc_diff, na.rm=T)
+
+# Save Sum of Squared Residuals
+ssr0 <- sum(m0$residuals^2)
+
 ```
 
-## Displaying the model
+---
+## `m1` A model with a single dichotomous predictor
 
-```{r,echo=F}
-nes_good<-na.omit(nes[,c("tc_diff","interest01")])
-set.seed(12345)
-# Produce scatter plot with some 
-pred_values<-predict(themodel)
-themeans<-with(nes_good,tapply(tc_diff,interest01,mean,na.rm=T))
-diff(themeans)
-themodel
-plot(tc_diff~jitter(interest01),data=nes,
-     col="gray",axes=FALSE,pch=19,cex=.5,
-xlab="Political Interest\n(0=Not Interested, 1=Interested)",
-ylab="Abs. Diff in Candidate FTs",ylim=range(nes_good$tc_diff,na.rm=T))
-axis(1,at=c(0,1),labels=c(0,1))
-axis(2)
-points(c(0,1),themeans,cex=2,col=c("purple","blue")) ## open circles
-set.seed(12345) # So the interest jitter is the same as before
-points(pred_values~jitter(interest01),data=nes_good,cex=.7)
-abline(themodel)
-arrows(0,themeans[1],1,themeans[1],length=.1)
-arrows(1,themeans[1],1,themeans[2],length=.1)
-text(x = 1,y=themeans[2]-6,labels = round(coef(themodel)[2],2),pos=4)
-```
-
-Now let's think about building models more generally, starting with the simplest possible model
-
-
-## The Empty Model
-
-\[
-Y = \beta_0 + u_i
-\]
-
-What's your best prediction for some outcome, knowing nothing else?
+Now let's model `tc_diff` as function of whether respondents are very interested in politics (`interested` = T) or not (`interested` = F)
 
 ```{r}
-lm0<-lm(tc_diff~1,nes)
-coef(lm0) 
-mean(nes$tc_diff,na.rm=T)
-ssr0 <- sum(resid(lm0)^2)
-ssr0
+m1 <- lm(tc_diff ~ interested, nes)
+m1
+coef(m1)[1]
+mean(nes$tc_diff[nes$interested == F],na.rm = T)
 
-sum((nes$tc_diff - mean(nes$tc_diff, na.rm=T))^2,na.rm=T)
-nes$tc_diff[1]- mean(nes$tc_diff, na.rm=T)
+coef(m1)[1] + coef(m1)[2]
+mean(nes$tc_diff[nes$interested == T],na.rm = T)
 ```
 
-A prediction of the unconditional mean of the outcome, will minimize the sum of squared errors. 
 
-Now let's add some information, like whether people say they're interested in politics
+---
+## `m1` A model with a single dichotomous predictor
 
-## A model with a single dichotomous predictor
-
-\[
-Y= \beta_0 + \beta_1D_i + u_i 
-\]
-
-This is just the model from above telling us how feelings toward candidates differ by levels of political interest?
+- If we tell R not to include an intercept, it returns those conditional means exactly.
 
 ```{r}
-lm1<-lm(tc_diff~interest01,nes)
-coef(lm1)
-mean(tc_diff~interest01,data=nes,na.rm=T)
-diff(mean(tc_diff~interest01,data=nes,na.rm=T))
-ssr1 <- sum(resid(lm1)^2)
+m1_alt <- lm(tc_diff ~ -1+ interested, nes)
+m1_alt
+tapply(nes$tc_diff, nes$interested, mean,na.rm=T)
+```
+
+- When we compare the SSR from `m1` we see that it has decreased from `m0` reflecting the fact some of the total variation in `tc_diff` is being explained by the variation in  `interested` 
+
+```{r}
+# Save Sum of Squared Residuals
+ssr1 <- sum(m1$residuals^2)
 ssr1 < ssr0
 ```
 
-Note the sum of squared residuals has decreased from lm0 to lm1. Adding predictors increases the portion of total variance explained by our model (and decreases the portion unexplained)
+---
+## `m2` A model with a single categoical predictor
 
-Let's review how we would handle categorical predictor, say modeling absolute differences in feelings toward the candidate by each level of political interests
+Now let's model `tc_diff` as function of the categorical predictor `pol_interest_f`, which is a factor variable of the four unique levels of political interest
 
-## A model with a categorical predictor
+```{r}
+m2 <- lm(tc_diff ~ pol_interest_f, nes)
+m2
+```
 
-\[
-Y_i= \beta_0 + \beta_1 G_i + u_i 
-\]
+- Woah, why did R turn a single variable into model with four coefficients?
+
+---
+## `m2` A model with a single categoical predictor
+
+When we give `lm()` factor or character data, 
 
 
 ```{r}
-table(nes$pol_interest)
-lm2<-lm(tc_diff~factor(pol_interest),nes)
-head(model.frame(lm2))
-head(model.matrix(lm2))
-t(t(coef(lm2)))
+head(m2$model)[1:4,]
 ```
 
-
-- What just happened?
-    - The factor() tells R to treat pol\_interest as if it were a categorical variable (rather than numeric)
-    - When you put a factor variable into a formula, R drops the first level of the factor (pol\_interest=0) and creates indicators for each subsequent level of the factor (pol\_interest = 0-3)
-    - The coefficients tell us how the mean of each level of the pol\_interest variable differs from the mean of the excluded category (given to us by the intercept)
+It converts this data in separate binary indicators for each level excluding the first ("Not at all interested"), that take a value of 1 when `pol_interest_f` equals that level and 0 otherwise
 
 ```{r}
-
-mu_0<-with(nes,mean(tc_diff[pol_interest==0],na.rm=T))
-mu_1<-with(nes,mean(tc_diff[pol_interest==1],na.rm=T))
-mu_2<-with(nes,mean(tc_diff[pol_interest==2],na.rm=T))
-mu_3<-with(nes,mean(tc_diff[pol_interest==3],na.rm=T))
+head(model.matrix(m2))[1:4,]
 ```
+
+
+---
+## `m2` A model with a single categoical predictor
+
+The coefficients in `m2` tell us how the conditional mean of `tc_diff` for someone with a given level of interest is likely to very from the conditional mean of `tc_diff` for someone that is not at all interested in politics.
 
 ```{r}
-coef(lm2)[1]
-mu_0
-coef(lm2)[2]
-mu_1-mu_0
-coef(lm2)[3]
-mu_2-mu_0
-coef(lm2)[4]
-mu_3-mu_0
+tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
+# Compare to
+# Not at all
+coef(m2)[1]
+# Not very
+coef(m2)[1] + coef(m2)[2]
+# Somewhat
+coef(m2)[1] + coef(m2)[3]
+# Very
+coef(m2)[1] + coef(m2)[4]
 ```
 
-What if we hadn't used the factor function?
+---
+## `m2` A model with a single categorical predictor
 
-Then R would treat the pol\_interest variable as a numeric variable and we'd have:
-
-##  A model with a single continous predictor
-
-\[
-Y_i= \beta_0 + \beta_1X_i + u_i 
-\]
+- Again if we excluded the intercept `lm()` returns the conditional means
 
 ```{r}
-lm3<-lm(tc_diff~pol_interest,nes)
-coef(lm3)
+m2_alt <- lm(tc_diff ~ -1+ pol_interest_f, nes)
+m2_alt
+tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
 ```
 
-We interpret the coefficient on $pol\_interest$ like the slope of a line (i.e. a 1 unite change in political interest is associated with `r round(coef(lm3)[2],2)` unit increase in perceived candidate differences)
-
-- What provides a better fit?
-
-```{r,echo=F}
-pred.df<-data_frame(pol_interest=0:3)
-pred.df$lm2_fit<-predict(lm2,pred.df)
-pred.df$lm3_fit<-predict(lm3,pred.df)
-
-with(nes, plot(x=jitter(pol_interest),y=tc_diff,pch=19,col="grey",cex=.2))
-points(pred.df$pol_interest,pred.df$lm2_fit,col=pred.df$pol_interest+3,pch=19)
-points(pred.df$pol_interest,pred.df$lm3_fit,col="red",pch=4)
-abline(lm3,col="red")
-with(na.omit(nes[,c("tc_diff","pol_interest")]),
-             abline(h=mean(tc_diff,na.rm=T),col="darkgrey",lty=2))
-with(na.omit(nes[,c("tc_diff","pol_interest")]),
-abline(v=mean(pol_interest,na.rm=T),col="darkgrey",lty=2))
-
-
-sum(resid(lm2)^2)<sum(resid(lm3)^2)
-sum(resid(lm2)^2)-sum(resid(lm3)^2)
-# Model 2 explains about 4 percent (but with two additional variables)
-var(predict(lm2))/var(lm2$model$tc_diff)
-summary(lm2)$r.squared
-# Model 3 explains about 3 percent of the variation
-var(predict(lm3))/var(lm3$model$tc_diff)
-summary(lm3)$r.squared
-
-```
-
-
-Let's see what happens when we add a continuous predictor to our model, like age
-
-
-## A model with both a dichtomous and continous predictor
-
-
-\[
-Y_i= \beta_0 + \beta_1D_i+\beta_2X_i + u_i 
-\]
-
-
-```{r,}
-lm4<-lm(tc_diff~interest01+age,nes)
-lm4
-```
-
-What have we done? 
-
-Well one way to think about this model, is that we have a belief that perceptions about candidates are related to both people's levels of political interest and their age. 
-
-We also think that interest and age may be related. 
-
-So by fitting a model with both predictors, we attempt to control for the variance explained by one variable when trying to identify the variatio explained by the other variable.
-
-That is, once we know all there is to know about age's relationship to interest  and age's relationship to perceptions of candidate differece, does political interest explain any additional variation in candidate perceptions (and vice versa, once we know the relationship between interest and perceptions, does age explain any additional variation)
-
-We can do this manually, by estimating a series of bivariate regressions of affect on age and interest on age, and then regressing the residuals from the first model on the residuals from the second:
-
+-Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
 
 ```{r}
-# 1. Regress affect on age
-lm4_affect_on_age <- lm(tc_diff~age, data=lm4$model)
-
-# 2. Save portion of affect not explained by age
-tc_diff_res <- lm4_affect_on_age$residuals
-
-# 3. Check: Are residuals associated with age
-round(cor(tc_diff_res, lm4_affect_on_age$model$age),5) 
-
-# 4. Regress interest on age
-lm4_interest_on_age <- lm(interest01 ~ age, data = lm4$model)
-interest01_res <- lm4_interest_on_age$res
-
-# 5. Check: Are residuals associated with age
-round(cor(interest01_res, lm4_interest_on_age$model$age),5) 
-
-# 6. Regress remaining variation in affect not explained by age
-#    on variation in interest not explained by age
-lm4_res <- lm(tc_diff_res ~ interest01_res)
-
-# 7. Same as coefficient on interest01 from lm4
-coef(lm4_res)[2]
-coef(lm4)[2]
-
+# Save Sum of Squared Residuals
+ssr2 <- sum(m2$residuals^2)
+ssr2 < ssr1
 ```
 
 
-In terms of our interpetring our model graphically, we can think of the dichotomous predictor as shifting the intercept of a line whose slope is defined by the coefficient on age.
+---
+## `m3` A model with a single numeric predictor
 
-```{r,echo=F}
-# Data frame for predictions at each combination of age and interest
-pred.df2<-expand.grid(interest01=c(0,1),age=sort(unique(nes$age)))
-head(pred.df2)
-# Fitted values
-pred.df2$lm4_fit<-predict(lm4,pred.df2)
-
-# Plot data, colors for age and interest
-with(nes, plot(x=age,y=tc_diff,pch=19,col=ifelse(nes$interest01==1,"green","purple"),cex=.2))
-
-# Plot lines defined by model
-abline(coef(lm4)[1],coef(lm4)[3],col="purple")
-abline(coef(lm4)[1]+coef(lm4)[2],coef(lm4)[3],col="green")
-# And predicted values
-points(pred.df2$age,pred.df2$lm4_fit,col=ifelse(pred.df2$interest01==1,"green","purple"))
-```
-
-
-## A model with an interaction between D and X
-
-Suppose we thought the relationship between age and perceptions depended on levels of interest. We could represent this model with an interaction:
-
-\[
-Y_i= \beta_0 +\beta_1D_i + \beta_2X_i + \beta_3D_i\times X_i
-\]
-
-- $\beta_1$ shifts the intercept 
-    - From $\beta_0$ (D=0) to  $\beta_0+\beta_1$ (D=1)
-- $\beta_3$ changes the slope
-    - From $\beta_2$ (D=0) to  $\beta_2+\beta_3$ (D=1)
-
-Let's fit that model
+What if we had instead modeled `tc_diff` as a function of `pol_interest`
 
 ```{r}
-# * is a short cut for writing the full interaction
-lm5<-lm(tc_diff~interest01*age,nes)
-lm5
-
+m3 <- lm(tc_diff ~ pol_interest, nes)
+m3
 ```
 
-And plot the results to see if the relationship between age and perceptions differs conditional on interest?
+`lm()` returns a single coefficient, because `pol_interest` is a numeric variable.
 
-```{r,echo=F}
-pred.df2$lm5_fit<-predict(lm5,pred.df2)
-with(nes, plot(x=age,y=tc_diff,pch=19,col=ifelse(nes$interest01==1,"green","purple"),cex=.2))
 
-abline(coef(lm5)[1],coef(lm5)[3],col="purple")
-abline(coef(lm5)[1]+coef(lm5)[2],coef(lm5)[3]+coef(lm5)[4],col="green")
-points(pred.df2$age,pred.df2$lm5_fit,col=ifelse(pred.df2$interest01==1,"green","purple"))
-
-```
-
-We could get the same two lines, by fitting separate models on just the interested and uninterested:
+---
+## Comparing `m2` to `m3`
 
 ```{r}
-
-# Subsetting with an index
-lm5_uninterested <- lm(tc_diff ~ age, data = nes[nes$interest01 == 0,])
-
-coef(lm5_uninterested)["age"]
-# Same as
-coef(lm5)["age"]
-
-# Subsetting with an argument
-lm5_interested <- lm(tc_diff ~ age, data = nes, subset = interest01 == 1)
-
-coef(lm5_interested)["age"]
-# Same as
-coef(lm5)["age"] + coef(lm5)["interest01:age"]
-
-
+nes %>%
+  ggplot(aes(pol_interest,tc_diff))+
+  geom_jitter(size=.5, alpha=.5)+
+  geom_smooth(method ="lm", aes(col = "m3"),se=F)+
+  stat_summary(geom ="point",
+               fun = mean,
+               aes(col = "m2")
+               )+
+  labs(col = "Model")
 ```
 
 
-## A model with two continuous predictors
+---
+## `m4`: A model with both a dichtomous and continuous predictor
 
-\[
-Y_i\sim 1 + X_i + Z_i
-\]
-
-- Essentially adding another dimension to our model
+Now let's estimate a multiple regression model "controlling" for age
 
 ```{r}
-nes$income<-ifelse(nes$faminc>16,NA,nes$faminc)
-lm6<-lm(tc_diff~age+income,nes)
-lm6
+m4 <- lm(tc_diff ~ interested + age, nes)
+m4
 ```
 
-Which we can visualize:
+Note the size of the coefficient on `interested` has decreased, compared to `m1`. Part of the variation `tc_diff` explained by `interested` reflected variation explained by `age`
 
+```{r}
+coef(m1)[1]
+coef(m4)[2]
+```
+
+- Mechanically, we sometimes say the coefficient on `interested` shifts the intercept of the line describing the relationship between `tc_diff` and age.
+
+---
+```{r, echo=F}
+nes%>%
+  ggplot(aes(age, tc_diff))+
+  geom_point()+
+  geom_abline(aes(intercept = coef(m4)[1],
+                  slope = coef(m4)[3],
+                  col = "Not interested"))+
+  geom_abline(aes(intercept = coef(m4)[1] + coef(m4)[2],
+                  slope = coef(m4)[3],
+                  col = "Interested"))+
+  labs(
+    col = "Interested?"
+  )
+```
+
+
+
+
+
+
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+What if we think the relationship between `age` and `tc_diff` varies depending on a person's level of political interest?
+
+We could fit an interacton model:
+
+```{r}
+m5 <- lm(tc_diff ~ interested*age, nes)
+m5
+```
+
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+Mechanically, R takes the data
+
+```{r}
+head(m5$model)
+```
+
+And creates a model matrix:
+
+```{r}
+head(model.matrix(m5))
+```
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the interested and uninterested
+
+```{r}
+m5_uninterested <- lm(tc_diff ~ age, nes,
+                    subset = interested == F)
+m5_uninterested
+coef(m5)[1]
+coef(m5)[3]
+
+m5_interested <- lm(tc_diff ~ age, nes,
+                    subset = interested == T)
+m5_interested
+coef(m5)[1] +coef(m5)[2]
+coef(m5)[3] +coef(m5)[4]
+
+```
+
+---
+
+```{r}
+nes %>%
+  filter(!is.na(interested))%>%
+  ggplot(aes(age, tc_diff, col = interested))+
+  geom_point(size = .5, alpha = .5)+
+  geom_smooth(method ="lm")
+```
+
+
+---
+## `m6`: A model with an two continuous predictors
+
+Now lets model `tc_diff` as a function of two predictors: `age` and `income`
+
+```{r}
+m6 <- lm(tc_diff ~ age + income, nes)
+m6
+```
+
+We interpret this model as saying:
+
+- Controlling for `income`, as `age` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.40
+- Controlling for `age`, as `income` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.16
+
+---
 ```{r,echo=F}
 
 s3d <-with(nes, scatterplot3d(age,income,tc_diff ,
       pch=16,cex.symbols=.5, type="p",angle=70))
-s3d$plane3d(lm6,col="red")
+s3d$plane3d(m6,col="red")
 
 
 ```
 
+
+
+---
+## A model with an interaction between two continuous predictors
+
 ## Multiplicative Interactions with a continuous moderator
 
-\[
-Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z
-\]
+Suppose we wanted to fit an interaction between two continuous variables like `age` and `income`. 
+
+The general form of this model is
+
+$$
+Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
+$$
 
 - The marginal effect of X on Y, now depends on the value of Z at which you evaluate the relationship
 
-\[
+$$
 \frac{\partial Y}{\partial X}=\beta_1+\beta_3Z
-\]
+$$
+
+---
 
 Easier to show this with some simulated data:
 
@@ -1312,8 +1337,8 @@ points(mypoints, cex=psize, col=4)
 
 ```
 
-Another Perspective
 
+---
 ```{r,echo=F}
 pmat<-persp(nx, nx, z, theta = 45, phi = 10, shade = 0.75, xlab = "X", ylab = "Z", 
     zlab = "Y")
@@ -1322,552 +1347,18 @@ mypoints <- trans3d(X, Z, Y, pmat=pmat)
 points(mypoints, cex=psize, col=4)
 ```
 
-# ICYI Some of the Math Behind OLS Regression
-
-This isn't really central to our task in course (hence the ICYI), but is useful if you plan to continue on in future courses. So below is a brief discussion of how to estimate OLS regression with multiple predictors, it requires a little bit of linear algebra.
-
-
-Last week we saw that in a bivariate (two variable) world, OLS chose coefficients to minimize the sum of squared errors
-
-
-\[
-\textrm{Find }\widehat{\beta_0},\,\widehat{\beta_1} \text{ argmin }_{\beta_0, \beta_1} \sum (Y-(\beta_0+\beta_1X))^2
-\]
-
-Giving us:
-
-\[
-\beta_0 = \bar{Y} - \beta_1 \bar{X_{1}}
-\]
-And
-\[
-\beta_1 = \frac{\sum (Y_i -\bar{Y})(X_{1,i}-\bar{X_1})}{\sum (\bar{X_1}-X_{1,i})^2}=\frac{Cov{[X,Y]}}{Var[X]}
-\]
-
-## OLS with Multiple Predicors
-
-That's great, but what if we want to predict $Y$ with more than just one $X$, like:
-
-\[
-Y=\beta_0+\beta_1X_1+\beta_2X_2 + \dots +\beta_kX_k +\epsilon
-\]
-
-The criterion remains the same--we want to minizime the sum of the squared residuals $\sum \epsilon^2$, but we'll need to use matix algebra to simplify the math.
-
-## OLS in matrix form
-
-Spefically, we can write:
-
-\[
-Y=\beta_0+\beta_1X_1+\beta_2X_2 + \dots +\beta_kX_k +\epsilon
-\]
-
-As
-$$
-Y= \begin{bmatrix}
-Y_1 	\\
-Y_2 	\\
-\vdots \\
-Y_n 	
-\end{bmatrix}
-$$
-$$
-X=
-\begin{bmatrix}
-	 1  & X_{1,1}&\dots & X_{1,k}\\
- 1  & X_{2,1}&\dots & X_{2,k}\\
- \vdots&\vdots&  & \vdots \\
- 1  & X_{n,1}&\dots & X_{n,k}\\
-\end{bmatrix}
-$$
-$$\beta=
-\begin{bmatrix}
-\beta_0\\
-\beta_1\\
-\vdots \\
-\beta_k\\
-\end{bmatrix}$$
-
-$$
-\epsilon=
-\begin{bmatrix}
-\epsilon_1\\
-\epsilon_2\\
-\vdots\\
-\epsilon_n
-\end{bmatrix}
-$$
-
-\[
-Y=X\beta+\epsilon
-\]
-
-
-## Residuals
-
-Our residual (error), is simply
-
-\[
-Y=X\beta+\epsilon
-\]
-
-\[
-\epsilon=Y-X\beta
-\]
-
-
-Note that our $\epsilon$ is a $n\times$ column vector:
-
-
-\[
-\epsilon=
-\begin{bmatrix}
-\epsilon_1\\
-\epsilon_2\\
-\vdots\\
-\epsilon_n
-\end{bmatrix}
-\]
-And it's transpose, $\epsilon^\prime$ is a $1\times n$ row vector
-
-\[
-\epsilon^\prime=[\epsilon_1,\epsilon_2,\dots,\epsilon_n]
-\]
-
-
-## Minimizing the sum of Squared Residuals with Matrix Algebra
-
-Taking the inner product of a vector ($\epsilon^\prime\epsilon$) is the equivalent of $\sum \epsilon^2$
-
-So our task becomes:
-
-\[
-\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})
-\]
-
-Distributing the transpose and expanding that last expression we get:
-
-$$
-\begin{align}
-\epsilon^\prime\epsilon &=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})\\
-&=Y^\prime Y-\widehat{\beta}^\prime X^\prime Y-Y^\prime X \widehat{\beta} +\widehat{\beta}^\prime X^\prime X\widehat{\beta}
-\end{align}
-$$
-
-At this point, it's probably useful to have some toy numbers to illustrate what's going on.
-
-## Example data with 5 observations and two predictors
-
-```{r}
-y=c(1,2,4,6,10)
-x1=c(-3,3,2,4,8)
-x2=c(1,5,3,5,2)
-X<-cbind(1,x1,x2)
-X
-
-
-```
-
-## Claim: $-\widehat{\beta}^\prime X^\prime Y$=$-Y^\prime X \widehat{\beta}$
-
-Both $X^\prime Y$ and $Y^\prime X$ yield vectors with the same values 
-
-```{r}
-# t() is R's transpose function (switch index of rows and columns)
-t(X)%*%y
-t(y)%*%X
-```
-
-Which when pre multiplied by some $\widehat{\beta}^\prime$ (e.g.  $\widehat{\beta}^\prime X^\prime Y$) or post-multipled by $\widehat{\beta}$ (ie.. $-Y^\prime X \widehat{\beta}$), give the same value.
-
-```{r}
-# Pick a random vector for illustration
-beta_ex<-1:3
-t(beta_ex)%*%t(X)%*%y
-t(y)%*%X%*%beta_ex
-```
-
-## Minimizing the sum of Squared Residuals with Matrix Algebra
-
-So now we can combine the second and third terms:
-
-$$
-\begin{align}
-\epsilon^\prime\epsilon &=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})\\
-&=Y^\prime Y-\widehat{\beta}^\prime X^\prime Y-Y^\prime X \widehat{\beta} +\widehat{\beta}^\prime X^\prime X\widehat{\beta}\\
-&=Y^\prime Y-2\widehat{\beta}^\prime X^\prime Y+\widehat{\beta}^\prime X^\prime X\widehat{\beta}
-\end{align}
-$$
-
-## Claim: $X^{\prime}X$ is symmetric 
-
-A symmetric matrix is one where
-
-\[
-A^\prime=A
-\]
-
-Only square matrices can be symmetric
-
-Let's look at our toy example
-
-```{r}
-XtX<-t(X)%*%X
-XtX
-t(XtX)
-```
-
-
-Let's look at our toy example
-
-```{r}
-XtX==t(XtX)
-```
-
-## First Order Conditions
-
-Ok, so now we just need to take the derivative of $\epsilon^{\prime}\epsilon$ with respect to $\widehat{\beta}$ and set it 0
-
-\[
-\frac{\partial[\epsilon^{\prime}\epsilon]}{\partial\widehat{\beta}}=-2X^\prime Y+2X^{\prime}X\widehat{\beta}=0
-\]
-
-## Matrix Differentiation
-
-For $k\times1$ vectors $a$ and $b$:
-
-\[
-\frac{\partial[a^\prime b]}{\partial b}=\frac{\partial[b^\prime a]}{\partial b}=a
-\]
-
-When $A$ is a symmetric matrix
-
-\[
-\frac{\partial[a^\prime b]}{\partial b}=2Ab=2b^\prime A
-\]
-
-\[
-\frac{\partial[2\widehat{\beta} X^{\prime}Y ]}{\partial\widehat{\beta}}=2X^{\prime}Y
-\]
-
-And
-
-\[
-\frac{\partial[2\widehat{\beta} X^{\prime}X\widehat{\beta} ]}{\partial\widehat{\beta}}= \frac{\partial[\widehat{\beta}^\prime A \widehat{\beta}]}{\partial \widehat{\beta}}= 2X^{\prime}X\widehat{\beta}
-\]
-
-## First Order Conditions
-
-Ok, so now we just need to take the derivative of $\epsilon^{\prime}\epsilon$ with respect to $\widehat{\beta}$ and set it 0
-
-\[
-\frac{\partial[\epsilon^{\prime}\epsilon]}{\partial \widehat{\beta}}=-2X^\prime Y+2X^{\prime}X\widehat{\beta}=0
-\]
-
-
-$$
-\begin{align}
--2X^{\prime}Y+2X^{\prime}X\widehat{\beta}&=0\\
-2X^{\prime}X\widehat{\beta}&= 2X^{\prime}Y\\
-X^{\prime}X\widehat{\beta}&= X^\prime Y\\
-\left[X^{\prime}X\right]^{-1}X^{\prime}X\widehat{\beta} &= \left[X^{\prime}X\right]^{-1}X^{\prime}Y\\
-I\widehat{\beta}&= \left[X^{\prime}X\right]^{-1} X^{\prime}Y\\
-\widehat{\beta}&= \left[X^{\prime}X\right]^{-1} X^{\prime}Y
-\end{align}
-$$
-
-## Second Order Conditions
-
-If we were to take the derviative of $\epsilon^{\prime}\epsilon$ a second time we'd get $2X^{\prime}X$ , which provided x has full rank is a positive definite matrix meaning $\widehat{\beta}$ provide a minium for $\epsilon^{\prime}\epsilon$
-
-## Simple example
-
-```{r}
-# Math
-solve(XtX)%*%t(X)%*%y
-# R
-lm1<-lm(y~x1+x2,data.frame(y,x1,x2))
-lm1
-```
-
-
-## Properties of OLS
-
-Recall
-
-\[
-Y=X\widehat{\beta}+\epsilon
-\]
-
-Plug in to (normal form) equqtions
-
-$$
-\begin{align}
-X^{\prime}X\widehat{\beta}=X^{\prime}Y\\
-X^{\prime}X\widehat{\beta}=X^{\prime}[X\widehat{\beta}+\epsilon]\\
-X^{\prime}X\widehat{\beta}=X^{\prime}X\widehat{\beta}+X^{\prime}\epsilon\\
-X^{\prime}\epsilon=0
-\end{align}
-$$
-
-This is simply a result of our fitting procedure. That is it will always be true for the model we fit to some data
-
-
-```{r}
-e=resid(lm1)
-```
-
-From $X^{\prime}\epsilon=0$ a number of properties follow
-
-1. Observed values of $X$ are uncorrelated with $\epsilon$
-    
-    ```{r}
-round(cor(cbind(x1,x2,e)),2)
-```
-
-
-2. The $\sum \epsilon$ and sample mean of $\epsilon$ are 0
-
-```{r}
-sum(e);mean(e)
-```
-
-
-3. The models predictions include the conditional means of $Y$ and $X$
-    
-    ```{r}
-predict(lm1,newdat=data.frame(x1=mean(x1),x2=mean(x2)))
-mean(y)
-```
-
-
-4. The models prediction $\widehat{Y}$ are uncorrelated with $\epsilon$
-    
-    ```{r}
-round(cor(cbind(yhat=fitted(lm1),e)),2)
-```
-
-
-## What are the assumptions necessary to justify OLS?
-
-Read 10 textbooks, get 10 different answers about assumptions "necessary" for OLS
-
-- Nature of the data
-- About the structure of the relationship
-- About the distribution of the errors
-
-"Necessary" typically means something like necessary for OLS to be unbiased or provide correct standard errors.
-
-Here's an example of the Assumtions for OLS from a PoliSci text (Lewis-Beck) 
-
-1. No specification error
-- The relationship between Y and X is linear
-- We've got the correct model
-2. No measurement error
-- Measurement error in Y vs in X have different implications
-3. A well-behaved error term, $\epsilon$
-- $E[\epsilon]=0$ (zero mean)
-- $E[\epsilon^2]=\sigma^2$ (homoscedasticity)
-- $E[\epsilon_i\epsilon_j]=0 \forall i \neq j$ (no correlation in errors)
-- $\epsilon \sim N(0,\sigma^2)$ (Normality)
-
-Properties of OLS under these assumptions
-
-- The estimated coefficients from OLS are the best linear unbiased estimator (BLUE) of the population parameters, where best means lowest variance (among linear unbiased estimators)
-
-## An Econometric Statement
-
-1. Linear in parameters and correct specification
-2. X has full rank
-3. Explanatory variables are exogenous
-4. Errors are independent and identically distributed
-5. In the population, errors are normally distributed
-
-## Linear in parameteres and correct spefication
-
-\[
-y=X\beta+u
-\]
-
-The relationship between X and Y is linear in parameters (i.e. a change in X is associated with same change in Y)
-
-Violations: non-linear relationship, omitted variables
-
-## X has full rank
-
-Essentially no variable can be expressed as a linear combination of some other variables (Why we had to drop one level of the treatment when estimating the ATE for the Findley data)
-
-Violations: Including indicators for both male and female in a model with an intercept
-
-## Explanatory variables are exogenous
-
-\[
-E[\epsilon|X]=0
-\]
-
-- X is fixed in repeated sampling and all estimates are conditional on X, or X is random and independent of population residuals
-- Violations: omitted variables, measurement error and simultaneity
-
-## Errors are independent and identically distributed
-
-\[
-\epsilon \sim iid(0,\sigma^2)
-\]
-
-- What it's saying:
-    - $E[\epsilon]=0$ in the population
-    - $E[\epsilon\epsilon^\prime]=\Omega=\sigma^2I$ in the population
-
-- $Var[\epsilon]=\sigma^2$ for all $i$
-    - $Cov[\epsilon_i,\epsilon_j]=0$ for all $i$
-    - Violations: omitted variables, heteroscedasticity, auto-correlation (multiple observations of the same unit over time, spatial analysis)
-
-#  ICYI Bias and Variance of OLS
-
-## OLS is unbiased estimator of $\beta$
-
-$$
-\begin{align}
-\widehat{\beta} &= \left[X^{\prime}X\right]^{-1}X^{\prime}Y\\
-\widehat{\beta} &= \left[X^{\prime}X\right]^{-1}X^{\prime}(X\beta+\epsilon)\\
-\widehat{\beta} &= \left[X^{\prime}X\right]^{-1}X^{\prime}X\beta+\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon\\
-\widehat{\beta} &= \beta+\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon
-\end{align}
-$$
-
-
-If $X$ is fixed, then $E[\epsilon]=0$ and
-
-$$
-\begin{align}
-E[\widehat{\beta}]&=E[\beta]+E[\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon]\\
-E[\widehat{\beta}]&=E[\beta]+\left[X^{\prime}X\right]^{-1}X^{\prime}E[\epsilon]\\
-E[\widehat{\beta}]&=E[\beta]
-\end{align}
-$$
-
-Or $X$ is random but independent of $\epsilon$ so $E[X^{\prime}\epsilon]=0$
-
-$$    
-\begin{align}
-E[\widehat{\beta}]&=E[\beta]+E[\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon]\\
-E[\widehat{\beta}]&=E[\beta]+\left[X^{\prime}X\right]^{-1}E[X^{\prime}\epsilon]\\
-E[\widehat{\beta}]&=E[\beta]
-\end{align}
-$$
-
-## Variance of OLS estimators
-
-Recall:
-
-\[
-\widehat{\beta} = \beta+\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon
-\]
-
-So the variance of $\widehat{\beta}$
-
-\[
-E[(\widehat{\beta}-\beta)(\widehat{\beta}-\beta)^\prime]=E[(\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon)(\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon)^\prime]
-\]
-
-Recalling from previous math classes, $(AB)^\prime=B^\prime A^\prime$, we can write
-
-\[
-E[(\widehat{\beta}-\beta)(\widehat{\beta}-\beta)^\prime]=E[(\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon)(\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon)^\prime]
-\]
-
-As:
-
-\[
-E[(\widehat{\beta}-\beta)(\widehat{\beta}-\beta)^\prime]=E[(\left[X^{\prime}X\right]^{-1}X^{\prime}\epsilon\epsilon^\prime X\left[X^{\prime}X\right]^{-1}]
-\]
-
-
-Assuming a fixed $X$, $E[\epsilon\epsilon^\prime=\sigma^2I]$ and so
-
-$$
-\begin{align}
-E[(\widehat{\beta}-\beta)(\widehat{\beta}-\beta)^\prime]&=\left[X^{\prime}X\right]^{-1}X^{\prime}E[\epsilon\epsilon^\prime ]X\left[X^{\prime}X\right]^{-1}\\
-&=\left[X^{\prime}X\right]^{-1}X^{\prime}[\sigma^2 I]X\left[X^{\prime}X\right]^{-1}\\
-&=\sigma^2 I\left[X^{\prime}X\right]^{-1}X^{\prime}X\left[X^{\prime}X\right]^{-1}\\
-&=\sigma^2 \left[X^{\prime}X\right]^{-1}
-\end{align}
-$$
-
-Where we can estimate $\sigma^2$ from the data
-
-\[
-\widehat{\sigma}^2=\frac{\epsilon^{\prime}\epsilon}{n-k}
-\]
-
-
-## Variance Covariance Matrix of OLS Estimator
-
-$$
-\begin{align}
-Var[\widehat{\beta}]&=E[(\widehat{\beta}-\beta)(\widehat{\beta}-\beta)^\prime]\\
-&=
-\begin{bmatrix}
-Var[\widehat{\beta}_1]& Cov[\widehat{\beta}_1,\widehat{\beta}_2] &\dots&Cov[\widehat{\beta}_1,\widehat{\beta}_k]	\\
-Cov[\widehat{\beta}_2,\widehat{\beta}_1] &Var[\widehat{\beta}_2] &\dots&Cov[\widehat{\beta}_1,\widehat{\beta}_k]	\\
-\vdots  &\vdots &\vdots &\vdots 	\\
-Cov[\widehat{\beta}_k,\widehat{\beta}_1] &Cov[\widehat{\beta}_k,\widehat{\beta}_2] &\dots&Var[\widehat{\beta}_k,\widehat{\beta}_k]	
-\end{bmatrix}
-\end{align}
-$$
-
-## Omitted Variable Bias
-
-What happens if we fit:
-
-\[
-y=X\beta
-\]
-
-When in truth, the real relationship is
-
-\[
-y=X\beta + {Z}\gamma+ u
-\]
-
-Doing the math
-
-\[
-\widehat{\beta}=(X^{\prime}X)^{-1}X^{\prime}y
-\]
-
-Plugging the true values of y in
-
-$$
-\begin{align}
-\widehat{\beta}&=(X^{\prime}X)^{-1}X^{\prime}X(\beta +{Z}\gamma+\epsilon)\\
-&=(X^{\prime}X)^{-1}X^{\prime}X\beta+ +(X^{\prime}X)^{-1}X^{\prime}{Z}\gamma+(X^{\prime}X)^{-1}X^{\prime}\epsilon)\\
-&=\beta +(X^{\prime}X)^{-1}X^{\prime}{Z}\gamma+(X^{\prime}X)^{-1}X^{\prime}\epsilon)
-\end{align}
-$$
-
-
-Taking expecations, conditional on only $X$
-$$
-\begin{align}
-E[\widehat{\beta}|X]&=\beta+(X^{\prime}X)^{-1}X^{\prime}{Z}\gamma\\
-&\beta + OVB
-\end{align}
-$$
-
-
-"Short equals long plus the effect of the ommitted times the regression of the ommitted on the included"
-
-- OVB a violation of conditional independence, estimates are biased, and often we don't know the direction of that bias.
 
 ---
-# Summary
+class: inverse, middle, center
+# 💡 
+## Reading Regression Tables
 
-- Multiple regression is a generalization of bivariate regression "to control" for more than one variable.
-- Multiple regression tells us how our outcome of interest will change when a predictor changes, holding all the other predictors in the model constant.
-- Once you've fit a model, to make predictions, simply plug in values for the variables, multiply them by the associated coefficients and evaluate the equation.
-- Interaction models allow the relationship (slope) between Y and X to vary based on the value of some other variable Z.
-- Omitted variable bias, means are estimated coefficients will be wrong. Generally, we don't know the direction of this error.
+---
+class: inverse, middle, center
+# 💡 
+## Understanding what it means to "control for" X
+
+
 
 
   
