@@ -13,7 +13,7 @@ output:
 ---
 
 class: inverse, center, middle
-background-image:url("https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/332100/332134.4.jpg")
+background-image:url("https://static.onecms.io/wp-content/uploads/sites/20/2020/04/09/abby-huntsman-1.jpg")
 background-size:cover
 
 # Overview
@@ -93,8 +93,6 @@ ipak(the_packages)
   - Overview
   - Estimating and Interpreting Multiple Regression
   - Reading Regression Tables
-  - What does it mean to "control for" X
-- ICYI: The Matrix Algebra of Linear Regression 
 
 ---
 class: inverse, center, middle
@@ -429,11 +427,11 @@ $$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share} +\beta_2 \te
 
 - To calculate the *z-score* of a variable $x$, we simply, substract off the mean and divide by the standard deviaton
 
-$$ z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x} $$
+$$z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x}$$
 
 - The *z-score* of Age is 
 
-$$ z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
+$$z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}}$$
 
 ---
 ## Standardizing Predictors in R
@@ -496,8 +494,8 @@ load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 
 ---
 class: inverse, center, middle
-background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
-background-size: contain
+background-image: url("http://static1.squarespace.com/static/5578d503e4b0bc473a0165e5/t/59e7b63a12abd9eb164d30bd/1508357693350/?format=1500w")
+background-size: cover
 # 📢
 ## Feedback
 
@@ -825,6 +823,12 @@ head(m1$model)
 
 ```{r}
 head(model.matrix(m1))
+```
+
+---
+## Linear Regression and the CEF
+
+```{r}
 table(m1$model$winner)
 table(model.matrix(m1)[,2])
 ```
@@ -920,13 +924,9 @@ class: inverse, middle, center
 - **Conceptual**
   - Multiple linear regression generalizes simple regression to models with multiple predictors
 
-$$
-y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i
-$$
+$$y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i$$
 
-$$
-y_i = X\beta + \epsilon_i
-$$
+$$y_i = X\beta + \epsilon_i$$
 
 - **Practical**
   - We estimate linear models in R using the `lm()` function using the `+` to add predictors
@@ -983,8 +983,19 @@ load(url("https://pols1600.paultesta.org/files/data/nes.rda"))
 # Look at data
 dim(nes)
 head(nes)
-table(nes$pol_interest)
 ```
+
+---
+## Data: HLO
+
+```{r}
+table(nes$pol_interest)
+summary(nes$ft_trump)
+summary(nes$ft_hrc)
+
+```
+
+
 
 ---
 ## Data Wrangling/Recoding
@@ -1013,8 +1024,10 @@ $$\text{tc_diff} = \beta_0$$
 $$\text{tc_diff} = \beta_0 + \beta_1\text{interested}$$
 $$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest_f}$$
 $$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest}$$
-$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest} + \beta_2\text{age}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age}$$
 $$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age} + \beta_3\text{interested} \times \text{age}$$
+$$\text{tc_diff} = \beta_0 + \beta_1\text{age} + \beta_2\text{income}$$
+
 ---
 ## `m0`: "The Empty Model"
 
@@ -1037,8 +1050,7 @@ Now let's model `tc_diff` as function of whether respondents are very interested
 
 ```{r}
 m1 <- lm(tc_diff ~ interested, nes)
-m1
-coef(m1)[1]
+coef(m1)
 mean(nes$tc_diff[nes$interested == F],na.rm = T)
 
 coef(m1)[1] + coef(m1)[2]
@@ -1053,9 +1065,13 @@ mean(nes$tc_diff[nes$interested == T],na.rm = T)
 
 ```{r}
 m1_alt <- lm(tc_diff ~ -1+ interested, nes)
-m1_alt
+coef(m1_alt)
 tapply(nes$tc_diff, nes$interested, mean,na.rm=T)
 ```
+
+
+---
+## `m1` A model with a single dichotomous predictor
 
 - When we compare the SSR from `m1` we see that it has decreased from `m0` reflecting the fact some of the total variation in `tc_diff` is being explained by the variation in  `interested` 
 
@@ -1078,7 +1094,6 @@ m2
 - Woah, why did R turn a single variable into model with four coefficients?
 
 ---
-## `m2` A model with a single categoical predictor
 
 When we give `lm()` factor or character data, 
 
@@ -1086,6 +1101,7 @@ When we give `lm()` factor or character data,
 ```{r}
 head(m2$model)[1:4,]
 ```
+
 
 It converts this data in separate binary indicators for each level excluding the first ("Not at all interested"), that take a value of 1 when `pol_interest_f` equals that level and 0 otherwise
 
@@ -1101,6 +1117,13 @@ The coefficients in `m2` tell us how the conditional mean of `tc_diff` for someo
 
 ```{r}
 tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
+```
+
+---
+## `m2` A model with a single categoical predictor
+
+
+```{r}
 # Compare to
 # Not at all
 coef(m2)[1]
@@ -1119,11 +1142,15 @@ coef(m2)[1] + coef(m2)[4]
 
 ```{r}
 m2_alt <- lm(tc_diff ~ -1+ pol_interest_f, nes)
-m2_alt
+coef(m2_alt)
 tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
 ```
 
--Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
+---
+## `m2` A model with a single categorical predictor
+
+
+- Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
 
 ```{r}
 # Save Sum of Squared Residuals
@@ -1148,7 +1175,23 @@ m3
 ---
 ## Comparing `m2` to `m3`
 
-```{r}
+```{r, eval=F}
+nes %>%
+  ggplot(aes(pol_interest,tc_diff))+
+  geom_jitter(size=.5, alpha=.5)+
+  geom_smooth(method ="lm", aes(col = "m3"),se=F)+
+  stat_summary(geom ="point",
+               fun = mean,
+               aes(col = "m2")
+               )+
+  labs(col = "Model")
+```
+
+
+---
+## Comparing `m2` to `m3`
+
+```{r, echo=F}
 nes %>%
   ggplot(aes(pol_interest,tc_diff))+
   geom_jitter(size=.5, alpha=.5)+
@@ -1168,7 +1211,7 @@ Now let's estimate a multiple regression model "controlling" for age
 
 ```{r}
 m4 <- lm(tc_diff ~ interested + age, nes)
-m4
+coef(m4)
 ```
 
 Note the size of the coefficient on `interested` has decreased, compared to `m1`. Part of the variation `tc_diff` explained by `interested` reflected variation explained by `age`
@@ -1211,12 +1254,11 @@ We could fit an interacton model:
 
 ```{r}
 m5 <- lm(tc_diff ~ interested*age, nes)
-m5
+coef(m5)
 ```
 
 
 ---
-## `m5`: A model with an interaction between a dichtomous and continuous predictor
 
 Mechanically, R takes the data
 
@@ -1233,18 +1275,26 @@ head(model.matrix(m5))
 ---
 ## `m5`: A model with an interaction between a dichtomous and continuous predictor
 
-This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the interested and uninterested
+This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the uninterested...
 
 ```{r}
 m5_uninterested <- lm(tc_diff ~ age, nes,
                     subset = interested == F)
-m5_uninterested
+coef(m5_uninterested)
 coef(m5)[1]
 coef(m5)[3]
+```
 
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+And interestd
+
+```{r}
 m5_interested <- lm(tc_diff ~ age, nes,
                     subset = interested == T)
-m5_interested
+coef(m5_interested)
 coef(m5)[1] +coef(m5)[2]
 coef(m5)[3] +coef(m5)[4]
 
@@ -1316,9 +1366,9 @@ set.seed(123)
 X<-rnorm(200,5,2)
 Z<-rnorm(200,5,2)
 Y<-2+2*X+3*Z+-3*X*Z+rnorm(200,1,4)
-m4<-lm(Y~X*Z)
+m7<-lm(Y~X*Z)
 nx <- seq(min(c(X,Z)), max(c(X,Z)), length.out = 50)
-z <- outer(nx, nx, FUN = function(a, b) predict(m4, data.frame(X = a, Z = b)))
+z <- outer(nx, nx, FUN = function(a, b) predict(m7, data.frame(X = a, Z = b)))
 pmat<-persp(nx, nx, z, theta = 0, phi = 10, shade = 0.75, xlab = "X", ylab = "Z", 
     zlab = "Y")
 depth3d <- function(x,y,z, pmat, minsize=0.2, maxsize=2) {
@@ -1353,13 +1403,99 @@ class: inverse, middle, center
 # 💡 
 ## Reading Regression Tables
 
+
+---
+## Regression Tables
+
+- Academic articles are littered with regression tables.
+
+- Below we'll see how to produce regression tables in R
+
+- Learn some heuristics for how to interpret regression tables
+  - We'll cover the theory behind these heuristics in the coming weeks
+  
+
+---
+## Making Regression Tables in R
+
+We can make a very simple regression table using the `htmlreg` function from the `texreg` package
+
+```{r, eval = F}
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6)
+)
+```
+  
+
+---
+
+```{r, echo = F}
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6)
+)
+```
+  
+---
+Yuck, we need to set a argument in the chunk header to results="asis"
+
+````
+
+```{r echo=F, results = "asis"}`r`''`
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6)
+)
+
+```
+
+````
+
+---
+
+```{r, echo = F, results="asis", out.height="60%"}
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6),
+    
+)
+
+```
+  
+
+
+---
+## Interpreting Regression Tables (Stargazing)
+
+- Each column is a model
+- Each row is a coefficient from that model with its  **standard error** (more to come) in parantheses below
+- The bottom of the table shows summary stastitics of the model ( $R^2$ = proportion of variance explained)
+- Coefficients with asterisks `*` are **statistically significant**
+  - It is unlikely that we would see a coefficient this big or bigger if the true coefficient were 0
+- Rule of thumb:
+
+$$\text{If }\frac{\beta}{se} > 2 \to \text{Statistically Significant}$$
+
+
 ---
 class: inverse, middle, center
 # 💡 
-## Understanding what it means to "control for" X
+## Summary
 
+---
+## Summary
 
+Today we estimated and interpreted a series of multiple regression models
 
+- The coefficients in these models still describe slopes (partial derivatives), now for planes (and hyper planes)
 
-  
+- Controlling for variables is easy in `lm()`
 
+```{r, eval=F}
+m1 <- lm(y ~ x, data=df)
+m2 <- lm(y ~ x + z, data=df)
+
+```
+
+In the lab and next week, we will start to explore
+
+- What it means to "control for x"
+- How can we compare different models
+- How can we interpret predictions from multiple regression

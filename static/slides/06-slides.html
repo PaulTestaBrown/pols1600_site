@@ -37,7 +37,7 @@ class: center, middle, inverse, title-slide
 
 
 class: inverse, center, middle
-background-image:url("https://img1.hscicdn.com/image/upload/f_auto/lsci/db/PICTURES/CMS/332100/332134.4.jpg")
+background-image:url("https://static.onecms.io/wp-content/uploads/sites/20/2020/04/09/abby-huntsman-1.jpg")
 background-size:cover
 
 # Overview
@@ -73,8 +73,6 @@ background-size:cover
   - Overview
   - Estimating and Interpreting Multiple Regression
   - Reading Regression Tables
-  - What does it mean to "control for" X
-- ICYI: The Matrix Algebra of Linear Regression 
 
 ---
 class: inverse, center, middle
@@ -202,12 +200,12 @@ ipak(the_packages)
          TRUE          TRUE          TRUE          TRUE          TRUE 
      ggridges      ggthemes        ggpubr        GGally        scales 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      dagitty         ggdag       ggforce scatterplot3d       COVID19 
+      dagitty         ggdag       ggforce       COVID19          maps 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-         maps       mapdata           qss    tidycensus     dataverse 
+      mapdata           qss    tidycensus     dataverse DeclareDesign 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-DeclareDesign     easystats           zoo 
-         TRUE          TRUE          TRUE 
+    easystats           zoo 
+         TRUE          TRUE 
 ```
 
 
@@ -558,11 +556,11 @@ Consider the following **multiple regression** (which we will on Thursday):
 
 - To calculate the *z-score* of a variable `\(x\)`, we simply, substract off the mean and divide by the standard deviaton
 
-$$ z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x} $$
+`$$z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x}$$`
 
 - The *z-score* of Age is 
 
-$$ z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
+`$$z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}}$$`
 
 ---
 ## Standardizing Predictors in R
@@ -632,8 +630,8 @@ load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 
 ---
 class: inverse, center, middle
-background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
-background-size: contain
+background-image: url("http://static1.squarespace.com/static/5578d503e4b0bc473a0165e5/t/59e7b63a12abd9eb164d30bd/1508357693350/?format=1500w")
+background-size: cover
 # 📢
 ## Feedback
 
@@ -655,8 +653,8 @@ background-size: contain
 ---
 ## What we liked
 
-<div id="htmlwidget-d86a0273114c6b92ef7c" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d86a0273114c6b92ef7c">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-abb1ce4283c7f2f34db8" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-abb1ce4283c7f2f34db8">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -674,8 +672,8 @@ background-size: contain
 ---
 ## What we disliked
 
-<div id="htmlwidget-d66608265411ffb6666f" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d66608265411ffb6666f">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5a2e4fed8f5390801aa2" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a2e4fed8f5390801aa2">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ```
 [1] 4
@@ -944,6 +942,10 @@ head(model.matrix(m1))
 72           1           1
 ```
 
+---
+## Linear Regression and the CEF
+
+
 ```r
 table(m1$model$winner)
 ```
@@ -983,7 +985,7 @@ covid_df%&gt;%
 ```
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Linear Regression and the CEF
@@ -1029,7 +1031,7 @@ covid_df %&gt;%
 
 ---
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1043,13 +1045,9 @@ class: inverse, middle, center
 - **Conceptual**
   - Multiple linear regression generalizes simple regression to models with multiple predictors
 
-$$
-y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i
-$$
+`$$y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i$$`
 
-$$
-y_i = X\beta + \epsilon_i
-$$
+`$$y_i = X\beta + \epsilon_i$$`
 
 - **Practical**
   - We estimate linear models in R using the `lm()` function using the `+` to add predictors
@@ -1133,6 +1131,10 @@ head(nes)
 6           1        0    100        &lt;NA&gt;
 ```
 
+---
+## Data: HLO
+
+
 ```r
 table(nes$pol_interest)
 ```
@@ -1142,6 +1144,26 @@ table(nes$pol_interest)
   0   1   2   3 
  78 178 348 568 
 ```
+
+```r
+summary(nes$ft_trump)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00    2.00   30.00   38.38   72.00  100.00       3 
+```
+
+```r
+summary(nes$ft_hrc)
+```
+
+```
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   0.00    3.00   44.00   42.99   76.00  100.00       1 
+```
+
+
 
 ---
 ## Data Wrangling/Recoding
@@ -1171,8 +1193,10 @@ Let's estimate the following series of models, predicting the absolute value of 
 `$$\text{tc_diff} = \beta_0 + \beta_1\text{interested}$$`
 `$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest_f}$$`
 `$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest}$$`
-`$$\text{tc_diff} = \beta_0 + \beta_1\text{pol_interest} + \beta_2\text{age}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age}$$`
 `$$\text{tc_diff} = \beta_0 + \beta_1\text{interested} + \beta_2\text{age} + \beta_3\text{interested} \times \text{age}$$`
+`$$\text{tc_diff} = \beta_0 + \beta_1\text{age} + \beta_2\text{income}$$`
+
 ---
 ## `m0`: "The Empty Model"
 
@@ -1215,26 +1239,12 @@ Now let's model `tc_diff` as function of whether respondents are very interested
 
 ```r
 m1 &lt;- lm(tc_diff ~ interested, nes)
-m1
+coef(m1)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ interested, data = nes)
-
-Coefficients:
-   (Intercept)  interestedTRUE  
-         47.84           12.75  
-```
-
-```r
-coef(m1)[1]
-```
-
-```
-(Intercept) 
-     47.845 
+   (Intercept) interestedTRUE 
+      47.84500       12.74655 
 ```
 
 ```r
@@ -1271,17 +1281,12 @@ mean(nes$tc_diff[nes$interested == T],na.rm = T)
 
 ```r
 m1_alt &lt;- lm(tc_diff ~ -1+ interested, nes)
-m1_alt
+coef(m1_alt)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ -1 + interested, data = nes)
-
-Coefficients:
-interestedFALSE   interestedTRUE  
-          47.85            60.59  
+interestedFALSE  interestedTRUE 
+       47.84500        60.59155 
 ```
 
 ```r
@@ -1292,6 +1297,10 @@ tapply(nes$tc_diff, nes$interested, mean,na.rm=T)
    FALSE     TRUE 
 47.84500 60.59155 
 ```
+
+
+---
+## `m1` A model with a single dichotomous predictor
 
 - When we compare the SSR from `m1` we see that it has decreased from `m0` reflecting the fact some of the total variation in `tc_diff` is being explained by the variation in  `interested` 
 
@@ -1332,7 +1341,6 @@ pol_interest_fSomewhat Interested      pol_interest_fVery Interested
 - Woah, why did R turn a single variable into model with four coefficients?
 
 ---
-## `m2` A model with a single categoical predictor
 
 When we give `lm()` factor or character data, 
 
@@ -1349,6 +1357,7 @@ head(m2$model)[1:4,]
 3      20 Somewhat Interested
 4      79     Very Interested
 ```
+
 
 It converts this data in separate binary indicators for each level excluding the first ("Not at all interested"), that take a value of 1 when `pol_interest_f` equals that level and 0 otherwise
 
@@ -1387,6 +1396,11 @@ Not at all Interested   Not very Interested   Somewhat Interested
       Very Interested 
              60.59155 
 ```
+
+---
+## `m2` A model with a single categoical predictor
+
+
 
 ```r
 # Compare to
@@ -1437,19 +1451,14 @@ coef(m2)[1] + coef(m2)[4]
 
 ```r
 m2_alt &lt;- lm(tc_diff ~ -1+ pol_interest_f, nes)
-m2_alt
+coef(m2_alt)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ -1 + pol_interest_f, data = nes)
-
-Coefficients:
-pol_interest_fNot at all Interested    pol_interest_fNot very Interested  
-                              46.10                                47.83  
-  pol_interest_fSomewhat Interested        pol_interest_fVery Interested  
-                              48.24                                60.59  
+pol_interest_fNot at all Interested   pol_interest_fNot very Interested 
+                           46.10390                            47.83051 
+  pol_interest_fSomewhat Interested       pol_interest_fVery Interested 
+                           48.23988                            60.59155 
 ```
 
 ```r
@@ -1463,7 +1472,11 @@ Not at all Interested   Not very Interested   Somewhat Interested
              60.59155 
 ```
 
--Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
+---
+## `m2` A model with a single categorical predictor
+
+
+- Finally, note that the SSR for `m2` is lower than that of `m1`. Including more information about varying levels of political interest helped us explain more variation in our outcome
 
 
 ```r
@@ -1517,7 +1530,11 @@ nes %&gt;%
   labs(col = "Model")
 ```
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Comparing `m2` to `m3`
+
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1528,17 +1545,12 @@ Now let's estimate a multiple regression model "controlling" for age
 
 ```r
 m4 &lt;- lm(tc_diff ~ interested + age, nes)
-m4
+coef(m4)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ interested + age, data = nes)
-
-Coefficients:
-   (Intercept)  interestedTRUE             age  
-       32.1758          9.7739          0.3534  
+   (Intercept) interestedTRUE            age 
+    32.1757944      9.7739375      0.3533876 
 ```
 
 Note the size of the coefficient on `interested` has decreased, compared to `m1`. Part of the variation `tc_diff` explained by `interested` reflected variation explained by `age`
@@ -1565,7 +1577,7 @@ interestedTRUE
 - Mechanically, we sometimes say the coefficient on `interested` shifts the intercept of the line describing the relationship between `tc_diff` and age.
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-41-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1583,22 +1595,16 @@ We could fit an interacton model:
 
 ```r
 m5 &lt;- lm(tc_diff ~ interested*age, nes)
-m5
+coef(m5)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ interested * age, data = nes)
-
-Coefficients:
-       (Intercept)      interestedTRUE                 age  interestedTRUE:age  
-           39.7626             -6.7040              0.1823              0.3397  
+       (Intercept)     interestedTRUE                age interestedTRUE:age 
+        39.7626421         -6.7040163          0.1822814          0.3396523 
 ```
 
 
 ---
-## `m5`: A model with an interaction between a dichtomous and continuous predictor
 
 Mechanically, R takes the data
 
@@ -1637,24 +1643,18 @@ head(model.matrix(m5))
 ---
 ## `m5`: A model with an interaction between a dichtomous and continuous predictor
 
-This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the interested and uninterested
+This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the uninterested...
 
 
 ```r
 m5_uninterested &lt;- lm(tc_diff ~ age, nes,
                     subset = interested == F)
-m5_uninterested
+coef(m5_uninterested)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ age, data = nes, subset = interested == 
-    F)
-
-Coefficients:
-(Intercept)          age  
-    39.7626       0.1823  
+(Intercept)         age 
+ 39.7626421   0.1822814 
 ```
 
 ```r
@@ -1675,21 +1675,22 @@ coef(m5)[3]
 0.1822814 
 ```
 
+
+---
+## `m5`: A model with an interaction between a dichtomous and continuous predictor
+
+And interestd
+
+
 ```r
 m5_interested &lt;- lm(tc_diff ~ age, nes,
                     subset = interested == T)
-m5_interested
+coef(m5_interested)
 ```
 
 ```
-
-Call:
-lm(formula = tc_diff ~ age, data = nes, subset = interested == 
-    T)
-
-Coefficients:
-(Intercept)          age  
-    33.0586       0.5219  
+(Intercept)         age 
+ 33.0586258   0.5219337 
 ```
 
 ```r
@@ -1721,7 +1722,7 @@ nes %&gt;%
   geom_smooth(method ="lm")
 ```
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-42-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-47-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1751,7 +1752,7 @@ We interpret this model as saying:
 - Controlling for `age`, as `income` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.16
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-44-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-49-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1778,11 +1779,11 @@ $$
 
 Easier to show this with some simulated data:
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-45-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-50-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-51-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1790,16 +1791,406 @@ class: inverse, middle, center
 # 💡 
 ## Reading Regression Tables
 
+
+---
+## Regression Tables
+
+- Academic articles are littered with regression tables.
+
+- Below we'll see how to produce regression tables in R
+
+- Learn some heuristics for how to interpret regression tables
+  - We'll cover the theory behind these heuristics in the coming weeks
+  
+
+---
+## Making Regression Tables in R
+
+We can make a very simple regression table using the `htmlreg` function from the `texreg` package
+
+
+```r
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6)
+)
+```
+  
+
+---
+
+
+```
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 2&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 3&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 4&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 5&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 6&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.92)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.26)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(2.35)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(2.71)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(3.62)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(3.35)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-6.70&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.81)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.84)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(5.55)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;pol_interest&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.98)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;age&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.05)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.08)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.06)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE:age&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.11)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;income&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.29)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.00&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.03&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.07&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.08&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.00&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.03&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.07&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.08&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1196&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1049&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+```
+  
+---
+Yuck, we need to set a argument in the chunk header to results="asis"
+
+````
+
+```{r echo=F, results = "asis"}`r`''`
+texreg::htmlreg(
+  list(m0,m1,m3,m4,m5,m6)
+)
+
+```
+
+````
+
+---
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 2&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 3&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 4&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 5&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 6&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.92)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.26)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(2.35)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(2.71)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(3.62)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(3.35)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-6.70&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.81)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(1.84)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(5.55)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;pol_interest&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.98)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;age&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.05)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.08)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.06)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE:age&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.11)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;income&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.29)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.00&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.03&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.07&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.08&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.00&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.03&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.07&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.08&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1196&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1168&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1049&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+  
+
+
+---
+## Interpreting Regression Tables (Stargazing)
+
+- Each column is a model
+- Each row is a coefficient from that model with its  **standard error** (more to come) in parantheses below
+- The bottom of the table shows summary stastitics of the model ( `\(R^2\)` = proportion of variance explained)
+- Coefficients with asterisks `*` are **statistically significant**
+  - It is unlikely that we would see a coefficient this big or bigger if the true coefficient were 0
+- Rule of thumb:
+
+`$$\text{If }\frac{\beta}{se} &gt; 2 \to \text{Statistically Significant}$$`
+
+
 ---
 class: inverse, middle, center
 # 💡 
-## Understanding what it means to "control for" X
+## Summary
+
+---
+## Summary
+
+Today we estimated and interpreted a series of multiple regression models
+
+- The coefficients in these models still describe slopes (partial derivatives), now for planes (and hyper planes)
+
+- Controlling for variables is easy in `lm()`
 
 
+```r
+m1 &lt;- lm(y ~ x, data=df)
+m2 &lt;- lm(y ~ x + z, data=df)
+```
 
+In the lab and next week, we will start to explore
 
-  
-
+- What it means to "control for x"
+- How can we compare different models
+- How can we interpret predictions from multiple regression
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
