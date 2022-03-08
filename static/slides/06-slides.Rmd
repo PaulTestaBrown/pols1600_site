@@ -675,7 +675,7 @@ $$
   
 - The key idea is that at (continuity) or in some window around (local randomization), variation in the outcome of interest is due only change in the treatment
 
-- Common discontinuties in political science:
+- Common discontinuities in political science:
   - First past the post elections
   - Borders
   - Eligibility cutoffs for policies
