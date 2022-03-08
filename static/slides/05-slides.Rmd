@@ -2030,9 +2030,9 @@ Instrumental variables are an economists favorite tool for dealing with **omitte
 - We find an **instrumental variable** that satisfies the following:
   - Randomization
   - Excludability
-  - First-stage relatioship
+  - First-stage relationship
   - Monotonicity
-- Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommited variables)
+- Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommitted variables)
 
 ---
 class: center
