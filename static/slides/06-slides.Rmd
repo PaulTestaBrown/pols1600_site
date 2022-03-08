@@ -85,41 +85,56 @@ ipak(the_packages)
   - Data
 - Feedback
 - Review
-  - Casual inference
-  - Covariate Adjustment
-- Linear Models
+  - Causal Inference in Observational Designs
+  - Simple Linear Regression
+- Multiple Regression 
   - Conceptual
   - Practical
   - Technical
   - Theoretical
-- Three Common Observational Designs
-  - Difference in Difference
-  - Regression Discontinuity
-  - Instrumental Variable Designs
+- ICYI: The Matrix Algebra of Linear Regression 
 
 ---
 class: inverse, center, middle
 # Research Questions
 
 ---
-## Research Questions
+## Assignment 1 Research Questions:
 
-- Template [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
+- Feedback posted to Canvas.
 
-- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870538?module_item_id=10762418) this Sunday
+- General Comments:
 
-- 3 Research questions:
+  - Really great questions!
   
-  - One-sentence research question
+  - Feedback tries to balance interest/feasibility/data availability
   
-  - Why do we care
+  - "Not an experiment" $\to$ What would you have to randomize to answer your question
   
-  - Ideal experiment
+  - Not every question need to be causal
   
-  - Observational study
-  
-  - Feasibility
+  - "Make your theories elaborate" - R.A. Fisher to [William Cochran](https://www.jstor.org/stable/2344179)
+    - But keep your models simple - Testa to POLS 1600
 
+
+---
+## Assignment 2: Data Explorations
+
+
+- Prompt posted [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
+
+- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) this Sunday
+
+1. A revised description of your group's research project
+2. A description of a linear model implied by your question
+3. R code that loads some potentially relevant data to your question and at least one descriptive summary of that data.
+4. Some information about your group such as:
+    - A group name^[If you're Group 01 don't change your name to Group 4]
+    - A group color or color scheme
+    - A group motto, mascot, crest, etc.
+    - Your group's theme song
+    - Your group's astrological sign
+    - Anything else that you think well help you form strong ingroup bounds that facilitate collaboration
 
 
 ---
@@ -128,18 +143,14 @@ class:inverse, middle, center
 ## Get set up to work
 
 ---
-## New packages
+## Packages
 
 Hopefully, you were all able to install the following packages 
 
-```{r installpacks, eval=FALSE}
-install.packages("dataverse")
-install.packages("tidycensus")
-install.packages("easystats")
-install.packages("DeclareDesign")
-
-```
-
+- `dataverse` (necessary for this week)
+- `tidycensus` (necessary for this week)
+- `easystats` (useful later)
+- `DeclareDesign` (useful later)
 
 ---
 ## Census API:
@@ -182,7 +193,7 @@ To install the an API key so we can download data directly from the US Census
 ---
 class:inverse, center, middle
 # 💪
-## Load Data for today
+## Load Data for Thursday's Lab
 
 ---
 ## Load the Covid-19 Data
@@ -196,7 +207,7 @@ covid <- COVID19::covid19(
 ```
 
 ---
-## Filter Covid-19 Data to US States
+## Filter Covid-19 Data to US States (Now Excluding D.C. as well)
 
 ```{r covidus}
 # Vector containing of US territories
@@ -205,7 +216,8 @@ territories <- c(
   "Guam",
   "Northern Mariana Islands",
   "Puerto Rico",
-  "Virgin Islands"
+  "Virgin Islands",
+  "District of Columbia"
   )
 
 # Filter out Territories and create state variable
@@ -217,116 +229,16 @@ covid_us <- covid %>%
 ```
 
 ---
-## Mutate: Calculate New Cases
+## Mutate: Calculate New Deaths Per Capita and Percent Vaccinated
 
 
 ```{r newcases}
 covid_us %>%
   dplyr::group_by(state) %>%
   mutate(
-    new_cases = confirmed - lag(confirmed),
-    new_cases_pc = new_cases / population *100000,
-    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
-                                     k = 7, 
-                                     align = "right",
-                                     fill=NA )
-    ) -> covid_us
-```
-
----
-## Calculating a Rolling Average New Cases
-
-```{r rollmean}
-covid_us %>%
-  filter(date > "2020-03-05") %>%
-  select(date,new_cases_pc,new_cases_pc_7da)
-```
-
----
-## New Case Per Capita
-
-.pull-left[
-```{r plotmean, }
-covid_us %>%
-  filter(date > "2020-03-05", 
-         state == "Minnesota") %>%
-  select(date,
-         new_cases_pc,
-         new_cases_pc_7da)%>%
-  ggplot(aes(date,new_cases_pc ))+
-  geom_line(aes(col="Daily"))+
-  theme(legend.position="bottom")+
-    labs( col = "Measure",
-    y = "New Cases Per 100k", x = "",
-    title = "Minnesota"
-  ) -> fig_covid_mn 
-```
-]
-
-.pull-right[
-```{r plotmean2, echo=F}
-fig_covid_mn
-```
-]
-
----
-## New Case Per Capita vs 7-day average
-
-.pull-left[
-```{r plotmean7d, eval=F}
-fig_covid_mn +
-  geom_line(aes(y = new_cases_pc_7da,
-                col = "7-day average")
-            ) -> fig_covid_mn
-```
-]
-
-.pull-right[
-```{r plotmean7d2, echo=F}
-fig_covid_mn +
-  geom_line(aes(y = new_cases_pc_7da,
-                col = "7-day average")
-            ) -> fig_covid_mn
-fig_covid_mn
-```
-
-]
-
----
-## Facemask Policy
-
-```{r recode_facemasks}
-covid_us %>%
-mutate(
-  # Recode facial_coverings to create face_masks
-    face_masks = case_when(
-      facial_coverings == 0 ~ "No policy",
-      abs(facial_coverings) == 1 ~ "Recommended",
-      abs(facial_coverings) == 2 ~ "Some requirements",
-      abs(facial_coverings) == 3 ~ "Required shared places",
-      abs(facial_coverings) == 4 ~ "Required all times",
-    ),
-    # Turn face_masks into a factor with ordered policy levels
-    face_masks = factor(face_masks,
-      levels = c("No policy","Recommended",
-                 "Some requirements",
-                 "Required shared places",
-                 "Required all times")
-    ) 
-    ) -> covid_us
-```
-
----
-## Mutate: Dates and Vaccinations
-
-```{r dates}
-covid_us %>%
-  mutate(
-    year = year(date),
-    month = month(date),
-    year_month = paste(year, 
-                       str_pad(month, width = 2, pad=0), 
-                       sep = "-"),
+    new_deaths = deaths - lag(deaths),
+    new_deaths_pc = new_deaths / population *100000,
+    new_deaths_pc_14da = zoo::rollmean(new_death_pc, k = 14, align = "right", fill=NA ),
     percent_vaccinated = people_fully_vaccinated/population*100  
     ) -> covid_us
 ```
@@ -398,6 +310,10 @@ acs_df <- get_acs(geography = "state",
               variables = c(med_income = "B19013_001",
                             med_age = "B01002_001"), 
               year = 2019)
+
+# Uncomment if get_acs() doesn't work:
+# load(url("https://pols1600.paultesta.org/files/data/acs_df.rda"))
+
 ```
 
 ---
@@ -429,43 +345,20 @@ head(acs_df)
 ```
 
 
----
-## Merge election data and covid data into single `df`
-
-.pull-left[
-- We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()` 
-
-- Always check the matches in your joining variable (i.e. `state`)
-
-- Below we see that our recoding of state to title case in created a mismatch
-
-]
-
-.pull-right[
-```{r merge_check}
-# Should be 51
-sum(pres2020_df$state %in% covid_us$state)
-# Find the mismatch:
-pres2020_df$state[!pres2020_df$state %in% covid_us$state]
-# Fix
-pres2020_df$state[pres2020_df$state == "District Of Columbia"] <- "District of Columbia"
-# Problem Solved
-sum(pres2020_df$state %in% covid_us$state)
-
-```
-]
 
 ---
 ## Merge election data into Covid data
 
 ```{r merge_pres}
+# Always check dimensions before and after merging
 dim(covid_us)
 dim(pres2020_df)
-covid_us <- covid_us %>% left_join(
+# Merge covid_us with pres2020_df and save as tmp file
+tmp <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
-dim(covid_us) 
+dim(tmp) # Same number of rows as covid_us w/ 8 additional columns
 ```
 
 
@@ -473,23 +366,129 @@ dim(covid_us)
 ## Merge Census data into Covid data
 
 ```{r acs_merge}
-dim(covid_us)
+dim(tmp)
 dim(acs_df)
-covid_us <- covid_us %>% left_join(
+
+# Merge tmp with acs_df and save as final covid_df file
+covid_df <- tmp %>% left_join(
   acs_df,
   by = c("state" = "state")
 )
-dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
+dim(covid_df)  # Same number of rows as tmp w/ 2 additional columns
 
+```
+
+
+
+---
+## Subset Merged data to include only the variables and observations we want
+
+```{r}
+the_vars <- c(
+  # Covid variables
+  "state","state_po","date","new_deaths_pc_14da", "percent_vaccinated",
+  # Election variables
+  "winner","rep_voteshare",
+  # Demographic variables
+  "med_age","med_income","population")
+
+
+covid_lab <- covid_df %>%
+  filter( date == "2021-09-23")%>%
+  select(all_of(the_vars))%>%
+  ungroup()
+
+length(the_vars)
+dim(covid_lab)
+```
+
+
+---
+## A Preview of Where We're Headed:
+
+Consider the following **multiple regression** (which we will on Thursday):
+
+$$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share} +\beta_2 \text{Median Age} +\beta_3 \text{Median Income} + \epsilon$$
+- The tell us how the outcome, *New Covid Deaths*, is expected to change with a **unit change** in a given predictor, controlling for/holding constant the other predictors in the model (more on "controlling for" shortly).
+  - In the model above, $\beta_2$ tells us how *New Covid Deaths* is predicted to change, if the *Median Age* of a state increased by one year (i.e. a unit change).
+  - Similarly, $\beta_3$ tells us how *New Covid Deaths* is predicted to change, if the *Median Income* of a state increased by one dollar (i.e. a unit change).  
+  - Since vote share, median income and age are measured on very different scales, interpreting these coefficients in the same model can be cumbersome.
+
+---
+## Standardizing variables.
+
+
+- When variables are measured in different units multiple regression coefficients can be hard to interpret
+  - Coefficients, $\beta$, tell us about the predicted change in $y$ for a unit change in $x$ or $z$
+  - For example $\beta_{age}$
+
+- *z-scores* standardize variables so that their unit of measurement no longer matters (QSS p. 103).
+
+
+- To calculate the *z-score* of a variable $x$, we simply, substract off the mean and divide by the standard deviaton
+
+$$ z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x} $$
+
+- The *z-score* of Median Age is 
+
+$$ z\text{-score of Median Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}} $$
+
+---
+## Standardizing Predictors in R
+
+```{r}
+covid_lab %>%
+  mutate(
+    rep_voteshare_std = (rep_voteshare - mean(rep_voteshare))/sd(rep_voteshare),
+    med_age_std = ( med_age - mean( med_age))/sd( med_age),
+    med_income_std = (med_income - mean(med_income))/sd(med_income),
+    percent_vaccinated_std = (percent_vaccinated - mean(percent_vaccinated))/sd(percent_vaccinated)
+  ) -> covid_lab
+
+
+
+```
+
+
+
+
+---
+## Multiple Regression with Standardized Predictors
+
+If we were to estimate a model with standardized predictors:
+
+$$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share}_{std} +\beta_2 \text{Median Age}_{std} +\beta_3 \text{Median Income}_{std} + \epsilon$$
+The coefficients still tell us predicted change in New Covid Deaths for a unit change in a predicotr, but now a unit change corresponds to a 1-standard deviation increase of each predictor:
+
+```{r}
+covid_lab %>%
+  summarise(
+    sd_rep_vote = sd(rep_voteshare),
+    sd_med_age = sd(med_age),
+    sd_med_income = sd(med_income)
+  )
 ```
 
 ---
+## Saving Data
 
-```{r red_covid, echo=F, out.height='80%'}
-knitr::include_graphics("./images/05_covid.png")
+Finally, I'll save the data for Thursday's lab
+
+```{r}
+# Don't run this code
+save(covid_lab, file = "../files/data/06_lab.rda")
 ```
 
-[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
+And on Thursday, we'll be able to load the `covid_lab` just by running:
+
+```{r}
+load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
+```
+
+
+
+
+
 
 
 ---
@@ -500,27 +499,29 @@ background-size: contain
 ## Feedback
 
 ```{r feedback, echo=F, message=F}
-df_wk04 <- haven::read_spss("../files/data/wk04.sav")
-df_wk04 %>%
-  filter(Q7 == 1)-> df_wk04
+df_feedback_full <- haven::read_spss("../files/data/wk05.sav")
+df_feedback_full %>%
+  filter(optout == 1)-> df_feedback
 ```
 
 ---
-## What we liked and learned
+## What we liked
 
 --
 
-- Causal Inference!
-- Data Viz
-- Programming
-- Review
-- Dank Memes
+- The lab, or at least aspects of the lab like:
+  - Working in groups
+  - Building from copying code to writing code
+  - Dealing with real world data/questions
+- Pacing of lab/lecture
+- Tutorials
+- Math(!?)
 
 ---
 ## What we liked
 
 ```{r likes, echo=F, out.height='90%'}
-DT::datatable(df_wk04 %>% 
+DT::datatable(df_feedback %>% 
                 select(Likes),
                fillContainer = F,
               height = "90%",
@@ -528,43 +529,27 @@ DT::datatable(df_wk04 %>%
                 pageLength = 3
               )
               )
-2+2
+
 ```
 
 
----
-## What we've learned
-
-```{r learn, echo=F, out.height='90%'}
-
-DT::datatable(df_wk04 %>% 
-                select(Learn),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
-```
-
 
 ---
-## What we disliked or struggled with
+## What we disliked 
 
 
-- Stats
-  - DAGs
-  - Regression
-- Pacing
-- Keeping track of various concepts and skills
-- Lack of breaks
-- Too much review
+- Lab
+  - Pacing
+  - Coding roadblocks/portals of discovery
+- Connection between lecture and lab
+- Math
+
 
 ---
 ## What we disliked
 
 ```{r dislikes, echo=F}
-DT::datatable(df_wk04 %>% 
+DT::datatable(df_feedback %>% 
                 select(Dislikes),
                fillContainer = F,
               height = "90%",
@@ -577,21 +562,39 @@ DT::datatable(df_wk04 %>%
 
 
 ---
-## What we've struggled with
+```{r, echo=F}
+df_feedback_full %>%
+  select(starts_with("fit_"))%>%
+  mutate_all(forcats::as_factor)%>%
+  mutate_all(as.character)%>%
+  pivot_longer(
+    cols = starts_with("fit"),
+    names_to = "Fit",
+    values_to = "Options"
+  )%>%
+  mutate(
+    Fit = str_to_title(gsub("fit_","", Fit))
+  )%>%
+  group_by(Fit,Options)%>%
+  summarise(
+    Vote = n()
+  )%>%
+  mutate(
+    Fit = factor(Fit, levels = c("Palette","Jacket","Pant","Top","Pattern","Tie","Shoe")),
+    Options = forcats::fct_reorder(Options, Vote)
+  )%>%
+  ungroup()%>%
+  na.omit()%>%
+  ggplot(aes(Options,Vote))+
+  geom_bar(stat = "identity")+
+  facet_wrap(~Fit, scale="free_y",ncol = 1)+
+  coord_flip()
 
-```{r struggle, echo=F, out.height='90%'}
 
-DT::datatable(df_wk04 %>% 
-                select(Struggle),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
 ```
 
 
+
 ---
 class:inverse, middle, center
 # 🔍
@@ -601,33 +604,21 @@ class:inverse, middle, center
 ---
 ## Review
 
-- Casual Inference
-  
-- Covariate Adjustment
+- Casual Inference in Observational Designs
+  - Difference-in-Differences
+  - Regression Discontinuity Design
+  - Instrumental Variables
+
+- Simple Linear Regression
 
 ---
 class:inverse, middle, center
 # 🔍
-## Causal Inference
+## Casual Inference in Observational Designs
 
 ---
-## Review: Causal Inference 
+## Review: Casual Inference in Observational Designs
 
-- Causal inference is about counterfactual comparisons
-
---
-
-- Some counterfactuals are easier to imagine or create than others
-
---
-
-- Randomization solves the fundamental problem of causal inference allowing us to estimate average treatment effects free from selection bias
-
---
-
-- Randomization is not always possible, desirable, or ethical
-
---
 
 - Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:
 
@@ -645,28 +636,46 @@ $$
 
 --
 
-- Observational designs estimate the effect of $D$ conditional on $X$ using covariate adjustment.
+- Three of the most common observational designs for causal inference are:
+
+  - Difference in Difference Design
+
+  - Regression Discontinuity Designs
+  
+  - Instrumental Variable Designs
 
 
 ---
-class:inverse, middle, center
-# 🔍
-## Covariate Adjustment
+## Review: Difference in Difference Design
+
+- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+  
+  - Taking the pre-post difference removes any fixed differences between the units
+  
+  - Then taking the difference between treated and control differences removes any common differences over time
+
+- The key identifying assumption of a DiD design is the "assumption of parallel trends"
+
+- Common Diff-in-Diffs in political science:
+  - Basically any time there's staggered adoption of policy overtime $\to$ Diff-in-Diff.
+  
 
 ---
-## Review: Covariate Adjustment
+## Review: Regression Discontinuity Design
 
-- Covariate adjustment are a set of statistical procedures that allow us to estimate conditional values 
-  - $e.g.(E[Y|X=x]), E[Happiness| leetCoder == T]$
+- A Regression Discontinuity Design (RDD) leverages a naturally occuring discontinuity in the probability of receiving some treatment, and uses regression to estimate the effect of that treatment at the discontinuity
 
-- We adjust for covariates to improve our predictions and make credible comparisons
-  - $E[\text{New Covid-19 cases}|\text{Face mask policy}]$ vs $E[\text{New Covid-19 cases}|\text{Face mask policy |June 2020 },]$
-  - $ATE = E[Y| D = 1] - E[Y | D=0]$
+- The identifying assumption of a RDD is either:
+  - Continuity at the cutoff
+  - Local randomization
+  
+- The key idea is that at (continuity) or in some window around (local randomization), variation in the outcome of interest is due only change in the treatment
 
-- Three approaches:
-  - Subclassification
-  - Matching
-  - Regression
+- Common discontinuties in political science:
+  - First past the post elections
+  - Borders
+  - Eligibility cutoffs for policies
+  
 
 ---
 ## Subclassification
