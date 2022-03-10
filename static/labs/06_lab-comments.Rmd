@@ -567,5 +567,7 @@ Still it's hard to think what that kind of design would be for something like fo
 - Controlling for alternative factors
 - Leveraging variation in the availability of vaccines over time and place.
 
+# Take the Class Survey {-}
 
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cBDz7Y9hv84sl0O){target="_blank"} for this week.
 

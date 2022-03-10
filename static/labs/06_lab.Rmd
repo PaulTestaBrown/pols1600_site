@@ -521,4 +521,7 @@ Display them in a regression table
 
 **Summarize the results of `m5` and offer some broader discussion of what we've learned today**
 
+# Take the Class Survey {-}
+
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cBDz7Y9hv84sl0O){target="_blank"} for this week.
 
