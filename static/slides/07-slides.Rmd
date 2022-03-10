@@ -1,6 +1,6 @@
 ---
-title: "Week XX:"
-subtitle: "Topic HERE"
+title: "Week 07:"
+subtitle: "Interpreting and Evaluating Linear Models"
 author: "Paul Testa"
 output:
   xaringan::moon_reader:
@@ -249,12 +249,10 @@ class:inverse, middle, center
 ---
 class: inverse, center, middle
 # 💡
-# Key Concept
-## Comment
-
+# What does it mean to "control for x"
 
 ---
-## Point 1
+## Why do coefficients change when we control for variables?
 
 
 ---
@@ -277,5 +275,17 @@ plot(1:10,1:10)
 
 ---
 class: inverse, center, middle
+# 💡
+# Producing Predicted Values from regression models
 
-# Key Concept
+
+---
+class: inverse, center, middle
+# 💡
+# Evaluating model performance
+
+
+
+
+
+
