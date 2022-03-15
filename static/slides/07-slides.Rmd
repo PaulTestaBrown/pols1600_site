@@ -69,7 +69,7 @@ ipak <- function(pkg){
 ipak(the_packages)
 ```
 
----
+
 class: inverse, center, middle
 # Overview
 
@@ -158,13 +158,13 @@ glimpse(raw_drww)
 
 
 ---
-## Recoded data
 
-```{r}
-glimpse(df_drww %>% select(age, sex,31:42, starts_with("social")))
+```{r, echo=F}
+DT::datatable(df_drww %>% select(age, sex,31:42, starts_with("social")))
 ```
 
-
+---
+class:inverse, center, middle
 # 📢
 ## Feedback
 
@@ -244,18 +244,169 @@ DT::datatable(df_feedback %>%
 ---
 ## What do you need to know?
 
-- It depends, what do you want to do?
+--
+
+- It depends. What do you want to do?
+
+--
+
+- Students who want to do their own research (in a good way)
+
+  - Skills to work with data (Data Wrangling)
+  - Tools to think about questions and theory (Causal Inference)
+  - Tools to describe relationships and test claims (Estimation with Linear Models)
+  - Tools to describe uncertainty in these relationships (Statistical inference)
+  
+---
+## Do you need to know the math?
+
+--
+- Yes! 
+
+  - Math is a precise and concise way to describe what we're doing
+  - A whole range of studies can be described by the same design (experiment, Diff-in-Diff, regression, etc) represented with the same formula
+  - If you want to prove some property of some formula (e.g. show that under the Gauss-Markov assumptions [linear regression is BLUE](https://www.albert.io/blog/ultimate-properties-of-ols-estimators-guide/#:~:text=OLS%20estimators%20are%20BLUE%20(i.e.,all%20linear%20and%20unbiased%20estimators))), you will do this with Math.
+
+---
+## Do you need to know the math?
+
+- No! 
+
+  - Computers love math. Humans not so much.
+  - We can understand and demonstrate a lot of methods and theories through programming
+    - It's easier to [simulate the Central Limit Theorem](https://towardsdatascience.com/proof-of-central-limit-theorem-using-monte-carlo-simulation-34925a7bc64a) than it is to [prove it.](https://www.cs.toronto.edu/~yuvalf/CLT.pdf)
+    - But the reasons the simulations "work" is because of the underlying math
+
+---
+## Do you need to know the math?
+
+- Maybe!
+
+  - I assume very little background math
+  - I show you some mathematical concepts because:
+    - For some people it's helpful
+    - You'll encounter these symbols and formulas elsewhere 
+    - Even if you don't understand/remember the chain rule you can hopefully understand at a conceptual level what's going on when we minimize the SSR
+    - If you want to go to grad school, you'll have to do the math
+    - If you want to do research, you'll have understand the implications of the math
+
+---
+## Do you need to know how to program?
+
+- Yes. 
+
+- It's unavoidable, if you want to do applied, empirical work
+
+- It lets us avoid having to walk through formal proofs
+
+- It's incredibly marketable.
+
+---
+## Lectures and Questions
+
+.pull-left[
+Common concern: Feeling lost during lectures
+
+```{r ,echo=F}
+knitr::include_graphics("https://c.tenor.com/l-PbZelgds0AAAAM/favorite-facts.gif")
+```
 
 
+]
+
+--
+
+.pull-right[
+Common dislike: Cold calling
+
+  
+```{r, echo=F}
+knitr::include_graphics("https://i.ytimg.com/vi/YES9OE8Ppjo/hqdefault.jpg
+")
+```
+
+]
+
+
+---
+background-image: url("https://i.kym-cdn.com/photos/images/newsfeed/001/508/015/606.jpg")
+background-size:contain
 
 ---
 class:inverse, middle, center
 # 🔍
-## Review: Mutliple Regression
+## Review: Regression
 
 ---
-## Multiple Regression
+## What you need to know about Regression: Conceptual
+  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
 
+$$y_i = \beta_0 + \beta_1x_i + \epsilon_i $$
+
+  - Multiple regression generalizes this approach to include multiple predictors
+  
+$$y_i = \beta_0 + \beta_1x_1 +  \beta_2 x_2 + \dots + \beta_j x_j + \epsilon_i $$
+$$y_i = X\beta + \epsilon_i $$
+- The coefficients in regression models tell us how the outcome $y$ is expected to change as some predictor, $x$ changes.
+
+---
+## What you need to know about Regression: Practical
+
+- We estimate regressions using the `lm()` function
+
+```{r, eval=F}
+m1 <- lm(y ~ x, data = df)
+```
+
+- We control for additional variables by *adding* them to the formula
+
+```{r, eval=F}
+m2 <- lm(y ~ x + z, data = df)
+```
+
+- We can interact variables using the `*` operator. This creates a new variable that is the  product of the two
+
+```{r, eval = F}
+m3 <- lm(y ~ x*z, data = df)
+# Same as
+m3 <- lm(y ~ x + z + x:z, data = df)
+
+```
+
+---
+## What you need to know about Regression: Practical
+
+- We can get statistical summaries of regression models using the `summary()` function
+
+```{r, eval=F}
+summary(m1)
+```
+
+- We display this information in a regression table:
+  - Each column is a model
+  - Each named row is a coefficient
+  - The values in parantheses are standard errors
+  - Coefficients with `*`'s are *statistically significant*
+  
+
+```{r, eval=F}
+texreg::htmlreg(list(m1, m2, m3))
+```
+
+
+
+---
+## What is good but not strictly necessary to know about Regression
+
+- *Technical/Definitional*
+  - Linear regression chooses coefficients to minimize the Sum of Squared Residuals (SSR): 
+
+$$\textrm{Find }\hat{\beta
+} \text{ arg min}_{\hat{\beta
+}} \sum (y_i-(X\hat{\beta}))^2$$
+
+- *Theoretical*
+  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
 
 ---
@@ -265,6 +416,10 @@ class: inverse, center, middle
 
 ---
 ## Models partion variance
+
+- Regression models "partition variance"
+
+- They separate the variation in the outcome (the thing we're trying to explain), into variation explained by the predictors in our model and the remaining variation not explained by these predictors
 
 ---
 ## Models partion variance
@@ -329,7 +484,7 @@ knitr::include_graphics("https://i.stack.imgur.com/UEOIP.png")
 
 - Residuals are uncorrelated with predictors $X$, and predicted values $X\beta$
 
-- We can verify this for `m2` below
+- We can verify this for `m2` below. We'd find the same for `m3`
 
 ```{r}
 cor(resid(m2),covid_lab$rep_voteshare_std) 
@@ -432,8 +587,10 @@ coef(m3_res)[2]
 
 ---
 
-```{r}
-htmlreg(list(m1,m2, m2_death_by_age,m2_repvs_by_age)) %>% HTML() %>% browsable()
+```{r, echo=F}
+htmlreg(list(m1,m2, m2_death_by_age,m2_repvs_by_age, m2_res),
+        custom.model.names = c("Baseline","Mutliple","Deaths","Vote Share","Deaths"),
+        custom.header = list("DV: Death"=1:3, "DV: Vote Share"=4, "DV: Res. Deaths"=5)) %>% HTML() %>% browsable()
 
 ```
 
@@ -460,7 +617,7 @@ venn_df <- tibble(
 )
 ```
 
-```{r}
+```{r,echo=F}
 # Venn
 venn_df %>%
   filter(l %in% c( "Deaths", "RepVS")) %>%
@@ -483,7 +640,7 @@ coord_equal()
 
 ---
 
-```{r}
+```{r, echo=F}
 venn_df %>%
   filter(l %in% c( "Deaths", "RepVS","Age")) %>%
 ggplot(aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
@@ -507,17 +664,18 @@ coord_equal()
 
 ---
 
-```{r}
-htmlreg(list(m3, m3_repvs_by_age_income, m3_death_by_age_income)) %>% HTML() %>% browsable()
+```{r,echo=F}
+htmlreg(list(m1, m3, m3_death_by_age_income, m3_repvs_by_age_income,m3_res),
+          custom.model.names = c("Baseline","Mutliple","Deaths","Vote Share","Deaths"),
+        custom.header = list("DV: Death"=1:3, "DV: Vote Share"=4, "DV: Res. Death"=5)
+        ) %>% HTML() %>% browsable()
 
 ```
 
 
 ---
 
----
-
-```{r}
+```{r,echo=F}
 venn_df %>%
 ggplot(aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
 geom_circle(aes(linetype = l, alpha = a), size = 0.75) +
@@ -537,11 +695,6 @@ coord_equal()
 ```
 
 
----
-## Summary
-
-
-
 
 ---
 class: inverse, center, middle
@@ -549,37 +702,172 @@ class: inverse, center, middle
 # Producing predicted values from regression models
 
 ---
-## Overview
+## Predicted Values
+
+- The coefficients in a regression model define a formula which produces a predcited value of the outcome $y$ when the predictors $X$ take particular values.
+
+- To produce predicted values, we simply need to plug in values for each $x$, multiply them by their corresponding coefficents, $\beta_x$ and ad them together.
 
 ---
-## Motivating Example
+## Predicted Values
+
+- In a simple, bivariate regression, the predicted values are the points are the points along the line defined by the intercept $\beta_0$ and the "slope" $\beta_1$
+
+- When we add predictors, we are adding dimensions to our model. In a model, with two predictors, the predicted values are descibed by a *plane*
+
 
 ---
-## Fit models
+
+```{r partial, echo=F, fig.height=4}
+knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6WrQ.png")
+```
+[Source](https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86)
+
 
 ---
-## Produce prediction data frame
+## Predicted Values
+
+- In a simple, bivariate regression, the predicted values are the points are the points along the line defined by the intercept $\beta_0$ and the "slope" $\beta_1$
+
+- When we add predictors, we are adding dimensions to our model. In a model, with two predictors, the predicted values are descibed by a *plane*
+
+- With more than two predictors, the predicted values fall along a *hyperplane* that likely requires some mind altering substances to visualize.
+
+- In practice, to interpret mutliple regression models, we will produce predicted values for *a range of one variable*, holding other predictors constant at some typical value (what's a good typical value?)
+
+---
+## Producing Predicted Values in R
+
+The basic steps to producing predicted values in R as follows:
+
+1. Fit a model
+2. Produce a **prediction data frame**, where one (sometimes two) predictor(s) vary, and others are held  constant at a single value
+3. Use prediction data frame to obtain predicted values from model using the `predict()` function
+4. Plot predicted values to help interpret your model
+
+Let's demo this using the lab data.
+
+---
+## Fit a model that allows the relationship  of vaccines to vary
+
+Suppose we think that an additional increase in the percent of population vaccinated has a declining impact on Covid-19 deaths. We could estimate this model as follows:
+
+$$\text{Deaths} = \beta_0 + \beta_1 \text{% Vaxxed} + + \beta_1 \text{% Vaxxed}^2 + \episolon$$ 
+
+Let's fit two models
+
+```{r}
+m4 <- lm(new_deaths_pc_14da ~ percent_vaccinated + I(percent_vaccinated^2), 
+         data = covid_lab)
+m5 <- lm(new_deaths_pc_14da ~ percent_vaccinated + I(percent_vaccinated^2)+  
+           rep_voteshare_std + med_age_std + med_income_std, 
+         data = covid_lab)
+```
+
+
+---
+And take a quick look at the results:
+
+```{r}
+summary(m4)
+```
+
+---
+```{r}
+summary(m5)
+```
+
+
+---
+## Interpretting our model
+
+So the coefficient on `percent_vaccinated` is negative, while the coefficient on `I(percent_vaccinated^2)` is positive. 
+
+This implies that the relationship between vaccination rates and Covid-19 deaths is not constant, but changes with the percent of population vaccinated.
+
+To help interpreted this model, let's create a prediction data frame.
+
+---
+## Create a prediction data frame
+
+```{r}
+pred_df <- expand_grid(
+  percent_vaccinated = seq(
+    min(covid_lab$percent_vaccinated, na.rm =T),
+    max(covid_lab$percent_vaccinated, na.rm =T),
+    length.out = 10
+  ),
+  rep_voteshare_std = 0,
+  med_age_std = 0,
+  med_income_std = 0
+)
+```
+
+---
+
+```{r,echo=F}
+pred_df
+```
 
 ---
 ## Use `predict()` to obtain predicted values
 
----
-## Visualize the results
-
-
 ```{r}
-lm(new_deaths_pc_14da ~ percent_vaccinated, data = covid_lab)
-lm(new_deaths_pc_14da ~ percent_vaccinated + I(percent_vaccinated^2), data = covid_lab)
-
-covid_lab %>%
-  ggplot(aes(percent_vaccinated,new_deaths_pc_14da, col=winner))+
-  geom_point()+
-  geom_smooth(method = "lm")+
-  geom_smooth(method = "lm",formula = y ~ poly(x, 2))
-
-
+pred_df$m4_pred <- predict(m4, newdata = pred_df)
+pred_df$m5_pred <- predict(m5, newdata = pred_df)
 
 ```
+
+---
+
+```{r,echo=F}
+pred_df
+```
+
+
+---
+
+```{r}
+pred_df %>%
+  pivot_longer(
+    cols = c("m4_pred","m5_pred"),
+    names_to = "Model",
+    values_to = "Predicted Values"
+  )
+
+```
+
+
+---
+
+```{r,eval=F}
+pred_df %>%
+  pivot_longer(
+    cols = c("m4_pred","m5_pred"),
+    names_to = "Model",
+    values_to = "Predicted Deaths"
+  )%>%
+  ggplot(aes(percent_vaccinated, `Predicted Deaths`,col = Model))+
+  geom_line()
+  
+
+```
+
+---
+
+```{r,echo=F}
+pred_df %>%
+  pivot_longer(
+    cols = c("m4_pred","m5_pred"),
+    names_to = "Model",
+    values_to = "Predicted Deaths"
+  )%>%
+  ggplot(aes(percent_vaccinated, `Predicted Deaths`,col = Model))+
+  geom_line()
+  
+
+```
+
 
 
 
@@ -591,23 +879,81 @@ background-image:url("https://media.gq.com/photos/6153752c430fd1b65067ee50/16:9/
 background-size:cover
 
 ---
-## How should we decide between various
+## How should we decide between the following models
 
 
-```{r}
-m0 <- lm(new_deaths_pc_14da ~ percent_vaccinated, data = covid_lab)
-m <- lm(new_deaths_pc_14da ~ percent_vaccinated + rep_voteshare_std + med_age_std + 
-    med_income_std, data = covid_lab)
-summary(m)
-anova(m0,m)
-m3
-plot(m)
+```{r, echo = F}
+m6 <- lm(new_deaths_pc_14da ~ percent_vaccinated +  
+           rep_voteshare_std + med_age_std + med_income_std, 
+         data = covid_lab)
 
+texreg::htmlreg(list(m4,m5,m6))%>%HTML()%>%browsable()
+```
+
+---
+## R^2: A measure of the variance explained by the model:
+
+
+A simple way to compare models is to look at the proportion of the variance explained by the models predictions, relative to total variance in the outcome: 
+
+$$R^2 = \frac{\text{variance(fitted model values)}}{ \text{variance(response values )}}$$
+
+We call this value the model's "R-squared" "$R^2$"
+
+---
+## R^2
+
+More formally, you'll see $R^2$ defined in terms of "Sums of Squares"
+
+- TSS = Total Summ of Squares = Variance of the Outcome
+- ESS = Explained Sum of Squares = Variance of the Predicted Values
+- RSS = Sum of Squared Residuals = Variance of the Residuals
+
+$$R^2 = \frac{ESS}{TSS}= 1 - \frac{RSS}{TSS}$$
+---
+## Adjusted R^2 
+
+- As we will explore in your lab, a models $R^2$ always increases as we add predictors 
+
+- The adjusted $R^2$ is an attempt to adjust for this by weighting a the $R^2$ of a model by the number of predictors
+
+$$\text{adj. }R^2 = 1 - \frac{RSS/(n-k)}{TSS/(n-1)}$$
+
+---
+## Comparing models with $R^2$
+
+- When models are *nested* (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.
+
+- Formally we call this process an [Analysis of Variance (ANOVA)](https://towardsdatascience.com/anova-for-regression-fdb49cf5d684#:~:text=It%20is%20the%20same%20as,or%20more%20categorical%20predictor%20variables.)
+
+
+---
+
+```{r,echo=F}
+texreg::htmlreg(list(m4,m6,m5))%>%HTML()%>%browsable()
 ```
 
 
+---
+
+```{r}
+# Square term vs Square with controls
+anova(m4,m5)
+```
 
 
+---
 
+```{r}
+# No square vs square with controls 
+anova(m5,m6)
+```
 
+---
+## Summary
 
+- R-Squared is a useful heuristic for evaluating models in terms of variance explained
+
+- R-Squared always increases as we add more predictors
+
+- Comparing nested models involves assessing whether the added variance explained is more than we would expect by chance.
