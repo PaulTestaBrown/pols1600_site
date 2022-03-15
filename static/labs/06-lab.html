@@ -251,7 +251,7 @@ div.tocify {
 <h1 class="title toc-ignore">Lab 06 - Examining Alternative Explanations for Red Covid</h1>
 <h3 class="subtitle">How to have an argument with regression</h3>
 <h4 class="author">Your Group Members Names Here</h4>
-<h4 class="date">Last Updated 2022-03-09</h4>
+<h4 class="date">Last Updated 2022-03-10</h4>
 
 </div>
 
@@ -392,74 +392,18 @@ DeclareDesign     easystats           zoo
 <p>In the code chunk below, please write some code get an high level overview of the data:</p>
 <pre class="r"><code># High level overview
 # Number of observations and variables
-dim(covid_lab)</code></pre>
-<pre><code>[1] 50 14</code></pre>
-<pre class="r"><code># Names of variables
-names(covid_lab)</code></pre>
-<pre><code> [1] &quot;state&quot;                  &quot;state_po&quot;               &quot;date&quot;                  
- [4] &quot;new_deaths_pc_14da&quot;     &quot;percent_vaccinated&quot;     &quot;winner&quot;                
- [7] &quot;rep_voteshare&quot;          &quot;med_age&quot;                &quot;med_income&quot;            
-[10] &quot;population&quot;             &quot;rep_voteshare_std&quot;      &quot;med_age_std&quot;           
-[13] &quot;med_income_std&quot;         &quot;percent_vaccinated_std&quot;</code></pre>
-<pre class="r"><code># Glimpse of data
-glimpse(covid_lab)</code></pre>
-<pre><code>Rows: 50
-Columns: 14
-$ state                  &lt;chr&gt; &quot;Minnesota&quot;, &quot;California&quot;, &quot;Florida&quot;, &quot;Wyoming&quot;…
-$ state_po               &lt;chr&gt; &quot;MN&quot;, &quot;CA&quot;, &quot;FL&quot;, &quot;WY&quot;, &quot;SD&quot;, &quot;KS&quot;, &quot;NV&quot;, &quot;VA&quot;,…
-$ date                   &lt;date&gt; 2021-09-23, 2021-09-23, 2021-09-23, 2021-09-23…
-$ new_deaths_pc_14da     &lt;dbl&gt; 0.2216457, 0.2953878, 1.6069796, 0.9379675, 0.2…
-$ percent_vaccinated     &lt;dbl&gt; 60.42800, 60.13554, 58.03284, 43.69176, 51.7210…
-$ winner                 &lt;fct&gt; Biden, Biden, Trump, Trump, Trump, Trump, Biden…
-$ rep_voteshare          &lt;dbl&gt; 45.28494, 34.32072, 51.21982, 69.49979, 61.7693…
-$ med_age                &lt;dbl&gt; 38.0, 36.5, 42.0, 37.7, 37.0, 36.7, 38.0, 38.2,…
-$ med_income             &lt;dbl&gt; 71306, 75235, 55660, 64049, 58275, 59597, 60365…
-$ population             &lt;int&gt; 5639632, 39512223, 21477737, 578759, 884659, 29…
-$ rep_voteshare_std      &lt;dbl&gt; -0.458414311, -1.517101206, 0.114647651, 1.8797…
-$ med_age_std            &lt;dbl&gt; -0.20243285, -0.83768236, 1.49156586, -0.329482…
-$ med_income_std         &lt;dbl&gt; 0.84320704, 1.22512299, -0.67765246, 0.13779496…
-$ percent_vaccinated_std &lt;dbl&gt; 0.6323644, 0.5957229, 0.3322836, -1.4644565, -0…</code></pre>
-<pre class="r"><code># Summary of data
-summary(covid_lab)</code></pre>
-<pre><code>    state             state_po              date            new_deaths_pc_14da
- Length:50          Length:50          Min.   :2021-09-23   Min.   :0.1342    
- Class :character   Class :character   1st Qu.:2021-09-23   1st Qu.:0.2630    
- Mode  :character   Mode  :character   Median :2021-09-23   Median :0.4089    
-                                       Mean   :2021-09-23   Mean   :0.5753    
-                                       3rd Qu.:2021-09-23   3rd Qu.:0.8733    
-                                       Max.   :2021-09-23   Max.   :1.8151    
- percent_vaccinated   winner   rep_voteshare      med_age        med_income   
- Min.   :43.29      Trump:25   Min.   :30.38   Min.   :30.80   Min.   :45081  
- 1st Qu.:48.78      Biden:25   1st Qu.:41.45   1st Qu.:37.12   1st Qu.:55511  
- Median :53.93                 Median :49.59   Median :38.40   Median :60981  
- Mean   :55.38                 Mean   :50.03   Mean   :38.48   Mean   :62631  
- 3rd Qu.:61.52                 3rd Qu.:58.00   3rd Qu.:39.50   3rd Qu.:70601  
- Max.   :71.20                 Max.   :69.50   Max.   :44.70   Max.   :84805  
-   population       rep_voteshare_std   med_age_std       med_income_std   
- Min.   :  578759   Min.   :-1.89751   Min.   :-3.25163   Min.   :-1.7060  
- 1st Qu.: 1827712   1st Qu.:-0.82886   1st Qu.:-0.57300   1st Qu.:-0.6922  
- Median : 4558234   Median :-0.04312   Median :-0.03303   Median :-0.1604  
- Mean   : 6560454   Mean   : 0.00000   Mean   : 0.00000   Mean   : 0.0000  
- 3rd Qu.: 7530849   3rd Qu.: 0.76915   3rd Qu.: 0.43282   3rd Qu.: 0.7747  
- Max.   :39512223   Max.   : 1.87973   Max.   : 2.63502   Max.   : 2.1554  
- percent_vaccinated_std
- Min.   :-1.5152       
- 1st Qu.:-0.8268       
- Median :-0.1817       
- Mean   : 0.0000       
- 3rd Qu.: 0.7692       
- Max.   : 1.9822       </code></pre>
-<pre class="r"><code># Variables I want to calculate sd for
-the_vars &lt;- c(&quot;new_deaths_pc_14da&quot;,&quot;rep_voteshare&quot;,&quot;med_age&quot;,&quot;med_income&quot;,&quot;percent_vaccinated&quot;)
 
-# Calculate standard deviations
-covid_lab %&gt;%
-  select(all_of(the_vars))%&gt;%
-  summarise_all(sd)</code></pre>
-<pre><code># A tibble: 1 × 5
-  new_deaths_pc_14da rep_voteshare med_age med_income percent_vaccinated
-               &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;              &lt;dbl&gt;
-1              0.407          10.4    2.36     10288.               7.98</code></pre>
+
+# Names of variables
+
+
+# Glimpse of data
+
+
+# Summary of data
+
+
+# Calculate standard deviations</code></pre>
 <p>Please use this HLO to answer the following questions:</p>
 <ul>
 <li><p><strong>How many observations are there:</strong> 50</p></li>
