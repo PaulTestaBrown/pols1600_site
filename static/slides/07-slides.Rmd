@@ -39,7 +39,7 @@ htmltools::tagList(
 ```{r packages, include=F}
 the_packages <- c(
   ## R Markdown
-  "kableExtra","DT","texreg",
+  "kableExtra","DT","texreg","htmltools",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
@@ -76,14 +76,17 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Group Assignment 2: Data
 - Setup
+  - Packages
+  - Data
 - Feedback
 - Review
-- Lecture 
-  - Topic 1
-  - Topic 2
-
-- Summary
+  - Multiple Regression
+- Interpreting regression models
+  - What does it mean to control for "variables"
+  - Producing predicted values from our models
+  - Evaluating model performance
 
 
 ---
@@ -94,12 +97,7 @@ class:inverse, middle, center
 ---
 ## New packages
 
-Hopefully, you were all able to install the following packages 
-
-```{r, eval=FALSE}
-
-
-```
+No new packages this week
 
 
 
@@ -130,15 +128,56 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
+---
+## Data: Red Covid
+
+Today we'll work with the data from last week's lab
+
+```{r}
+load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
+
+```
+
+---
+## Data: Russian Opinion on the War In Ukraine 
+
+- We'll also load the data for this weeks lab, a public opinion from Russia conducted by Alexei Miniailo's ["Do Russians Want War"](https://www.dorussianswantwar.com/en) project
+
+- The code chunk below [sources](https://www.earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/source-function-in-R/) a script I wrote called [`drww_english_recode.R`](https://gist.github.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40) to download the raw data and recode Cyrilic into English
+
+```{r}
+source("https://gist.githubusercontent.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40/raw/601680d7b20cd1638d93c325156d4b000ea1f9cc/drww_english_recode.R")
+```
+
+---
+## Original data
+
+```{r}
+glimpse(raw_drww)
+```
+
+
+---
+## Recoded data
+
+```{r}
+glimpse(df_drww %>% select(age, sex,31:42, starts_with("social")))
+```
+
 
 # 📢
 ## Feedback
 
 
 ```{r feedback, echo=F, message=F}
-df_feedback_full <- haven::read_spss("../files/data/wk05.sav")
+df_feedback_full <- haven::read_spss("../files/data/wk06.sav")
 df_feedback_full %>%
-  filter(optout == 1)-> df_feedback
+  filter(optout == 1 | is.na(optout))-> df_feedback
+df_feedback %>%
+  mutate(
+    Likes = like,
+    Dislikes = dislike
+  ) -> df_feedback
 ```
 
 
@@ -163,8 +202,8 @@ df_feedback_full %>%
 ## What we liked
 
 ```{r likes, echo=F, out.height='90%'}
-DT::datatable(df %>% 
-                select(Likes),
+DT::datatable(df_feedback %>% 
+                dplyr::select(Likes),
                fillContainer = F,
               height = "90%",
               options = list(
@@ -179,19 +218,19 @@ DT::datatable(df %>%
 
 --
 
-- Labs still feel rushed (at the end)
+- The lab was too easy
 
-- When code breaks it can be hard to fix
+- Lectures can be improved
 
-- Lecture was a bit confusing/long
+- Popcorn participation
 
-- The space
+- Not enough guidance on the final project 
 
 ---
 ## What we disliked
 
 ```{r dislikes, echo=F}
-DT::datatable(df %>% 
+DT::datatable(df_feedback %>% 
                 select(Dislikes),
                fillContainer = F,
               height = "90%",
@@ -203,48 +242,21 @@ DT::datatable(df %>%
 
 
 ---
+## What do you need to know?
+
+- It depends, what do you want to do?
+
+
+
+---
 class:inverse, middle, center
 # 🔍
-## Review
-
-
----
-## Topics
-
-- Working with R Markdown files
-
-- Basic Programming in R
-
-- Setting up your work space
-
-- Loading data into R
-
-- Looking at your data
-
-- Cleaning and transforming your data
-
-- Describing what's typical of your data
-
-- Describing how your data vary
+## Review: Mutliple Regression
 
 ---
-## Exercises
+## Multiple Regression
 
-1. Create an R Markdown File
 
-2. Explore objects and functions in base `R`
-
-3. Install the COVID19 package
-
-4. Load data on COVID19 
-
-5. Inspect the data
-
-6. Welcome to the tidyverse
-
-7. Measures of central tendency
-
-8. Measures of dispersion
 
 ---
 class: inverse, center, middle
@@ -252,37 +264,347 @@ class: inverse, center, middle
 # What does it mean to "control for x"
 
 ---
-## Why do coefficients change when we control for variables?
+## Models partion variance
+
+---
+## Models partion variance
+
+$$\begin{aligned}
+\textrm{Total Variance} &= \textrm{Variance Explained by Model} + \textrm{Unexplained Variance} \\
+\textrm{Observed} &= \textrm{Predicted Value} + \textrm{Error}\\
+\textrm{Y} &=  E[Y|X] + \epsilon\\
+\textrm{Y} &=  X\hat{\beta} + \hat{\epsilon}\\
+\textrm{Y} &= \hat{Y} + \hat{\epsilon}
+\end{aligned}$$
+
+---
+## Coefficients describe the unique variance in Y explained by X (and only X)
+
+When we fit a multiple regression model, the coefficients in that model describe the variation in the outcome explained by that predictor, and only that predictor.
+
+Let's fit three models from last week's lab
+
+```{r}
+# load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
+m1 <- lm(new_deaths_pc_14da ~ rep_voteshare_std, covid_lab)
+m2 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std, covid_lab)
+m3 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
+
+```
 
 
 ---
-## Code Slide
+## Why do coefficients change when we control for variables?
 
-.left-column[
-```{r,echo=T,eval=F}
-2+2
+```{r}
+htmlreg(list(m1, m2, m3)) %>% HTML() %>% browsable()
 ```
 
 
-]
+---
+## Residualized Regression
 
-.right-column[
-```{r,eval=T}
-plot(1:10,1:10)
+--
+
+- Residualized regression is way of understanding what it means to **control for variables** in a regression.
+
+--
+
+- Residuals are the part of the outcome variable, not explained by the predictors in a model
+
+$$
+y = \overbrace{\beta_0 + \beta_1x_1 + \beta_2 x_2  + \dots \beta_j x_j}^{\text{Predictors}} + \underbrace{\epsilon}_{\text{Residuals}}
+$$
+---
+## Residualized Regression
+
+- Residuals are uncorrelated with (orthogonal to) predictors $X$, and predicted values $X\beta$
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://i.stack.imgur.com/UEOIP.png")
 ```
 
-]
+---
+## Residualized Regression
+
+- Residuals are uncorrelated with predictors $X$, and predicted values $X\beta$
+
+- We can verify this for `m2` below
+
+```{r}
+cor(resid(m2),covid_lab$rep_voteshare_std) 
+cor(resid(m2),covid_lab$med_age_std)
+cor(resid(m2),fitted(m2))
+
+
+```
+
+
+---
+## Residualized Regression
+
+We can think of coefficients in a multiple regression as describing the variation in the outcome explained by that predictor, and only that predictor. So for a model like `m2`:
+
+```{r}
+m2
+```
+
+We can recover the coefficient on `rep_voteshare_std` by:
+  
+1. Regressing `new_deaths_pc_14da` on `med_age_std`
+  - The **residuals** from this regression represent the **variation** in Covid-19 deaths **not explained** by the median age of a states' populations
+2. Regressing `rep_voteshare_std` on `med_age_std` 
+  - The **residuals** from this regression represent the **variation** in Republican Vote Share **not  explained** by age
+3. Regressing the residuals from 1. (Deaths not explained by age) on the residuals from 2. (Vote share not explained by age)
+  - The coefficient from this simple residualized regression will be exactly the same as the coefficient for `rep_voteshare_std` from `m2`
+
+
+---
+## Residualized Regression
+
+```{r}
+# 1. Regressing `new_deaths_pc_14da` on `med_age_std`
+m2_death_by_age <- lm(new_deaths_pc_14da ~ med_age_std, covid_lab)
+# Save residuals
+covid_lab$res_death_no_age <- resid(m2_death_by_age)
+
+# 2. Regressing `rep_voteshare_std` on `med_age_std` 
+m2_repvs_by_age <- lm(rep_voteshare_std ~ med_age_std, covid_lab)
+# Save residuals
+covid_lab$res_repvs_no_age <- resid(m2_repvs_by_age)
+
+# 3. Residualized regression of deaths on Rep Vote Share
+m2_res <- lm(res_death_no_age ~ res_repvs_no_age, covid_lab)
+
+```
+
+---
+background-image:url("https://i.imgflip.com/68by8w.jpg")
+backgroun-size:contain
+
+
+---
+## Residualized Regression
+
+```{r}
+# Mutliple regression
+coef(m2)[2]
+
+# Residualized regression
+coef(m2_res)[2]
+```
+
+---
+## Residualized Regression
+
+The same principle holds when controlling for multiple factors like `age` and `income`
+
+1. Regress the outcome on the other controls
+2. Regress the predictor of interest on the other controls
+3. Regress the residuals from 1. and on the residuals from 2 to get the multiple regression coefficient
+
+
+---
+
+```{r}
+# 1. Regressing `new_deaths_pc_14da` on `med_age_std`
+m3_death_by_age_income <- lm(new_deaths_pc_14da ~ med_age_std + med_income_std, covid_lab)
+# Save residuals
+covid_lab$res_death_no_age_income <- resid(m3_death_by_age_income)
+
+# 2. Regressing `rep_voteshare_std` on `med_age_std` 
+m3_repvs_by_age_income <- lm(rep_voteshare_std ~ med_age_std + med_income_std, covid_lab)
+# Save residuals
+covid_lab$res_repvs_no_age_income <- resid(m3_repvs_by_age_income)
+
+# 3. Residualized regression of deaths on Rep Vote Share
+m3_res <- lm(res_death_no_age_income ~ res_repvs_no_age_income, covid_lab)
+
+# multiple regression coefficient
+coef(m3)[2]
+# Same as  residualized regression coefficient
+coef(m3_res)[2]
+```
+
+---
+## Why did the coefficient on Rep Vote Share change in `m3` but not `m2`?
+
+
+---
+
+```{r}
+htmlreg(list(m1,m2, m2_death_by_age,m2_repvs_by_age)) %>% HTML() %>% browsable()
+
+```
+
+
+---
+```{r venn_iv, echo = F, fig.height = 7.5}
+# Colors (order: x1, x2, x3, y, z)
+venn_colors <- c("grey", "blue", "grey", "red")
+venn_lab_colors <- c("white", "blue", "white", "red")
+
+# Line types (order: x1, x2, x3, y, z)
+venn_lines <- c("solid", "solid", "solid", "solid")
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   0,    1.3,    -2),
+  y  = c( 0.0,   -2.5,   -1.8,    -2.8)+1,
+  r  = c( 1.9,    1.5,    1.5,      1.3),
+  l  = c( "Deaths", "RepVS", "Income",   "Age"),
+  cc = c("grey", "red", "black", "blue"),
+  lc = c( "red", "blue", "white","white"),
+  xl = c( 0.0,    0,    1.3,  -2),
+  yl = c( 0.0,   -2.8,   -1.9,   -2.8)+1,
+  a = c(.3, .3 , .7, .7)
+)
+```
+
+```{r}
+# Venn
+venn_df %>%
+  filter(l %in% c( "Deaths", "RepVS")) %>%
+ggplot(aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l, alpha = a), size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors[c(4,2)]) +
+scale_color_manual(values = venn_colors[c(4,2)]) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), col=c("red","blue"), size = 9, parse = T ) +
+annotate(
+  x = 0, y = -0.5,
+  geom = "text", label = expression(beta[2]), size = 10, hjust = .5
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+---
+
+```{r}
+venn_df %>%
+  filter(l %in% c( "Deaths", "RepVS","Age")) %>%
+ggplot(aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l, alpha = a), size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors[c(1,2,4)]) +
+scale_color_manual(values = venn_colors[c(1,2,4)]) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), col=c("blue","red","white"), size = 9, parse = T ) +
+annotate(
+  x = 0, y = -.5,
+  geom = "text", label = expression(beta[2]), size = 10, hjust = .5
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+
+
+---
+
+```{r}
+htmlreg(list(m3, m3_repvs_by_age_income, m3_death_by_age_income)) %>% HTML() %>% browsable()
+
+```
+
+
+---
+
+---
+
+```{r}
+venn_df %>%
+ggplot(aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l, alpha = a), size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), col=c("blue","red","white","white"), size = 9, parse = T ) +
+annotate(
+  x = -0.45, y = -.45,
+  geom = "text", label = expression(beta[2]), size = 5, hjust = .5
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+
+---
+## Summary
+
+
+
 
 ---
 class: inverse, center, middle
 # 💡
-# Producing Predicted Values from regression models
+# Producing predicted values from regression models
+
+---
+## Overview
+
+---
+## Motivating Example
+
+---
+## Fit models
+
+---
+## Produce prediction data frame
+
+---
+## Use `predict()` to obtain predicted values
+
+---
+## Visualize the results
+
+
+```{r}
+lm(new_deaths_pc_14da ~ percent_vaccinated, data = covid_lab)
+lm(new_deaths_pc_14da ~ percent_vaccinated + I(percent_vaccinated^2), data = covid_lab)
+
+covid_lab %>%
+  ggplot(aes(percent_vaccinated,new_deaths_pc_14da, col=winner))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  geom_smooth(method = "lm",formula = y ~ poly(x, 2))
+
+
+
+```
+
 
 
 ---
 class: inverse, center, middle
 # 💡
 # Evaluating model performance
+background-image:url("https://media.gq.com/photos/6153752c430fd1b65067ee50/16:9/w_2560%2Cc_limit/GettyImages-1195887867.jpeg)
+background-size:cover
+
+---
+## How should we decide between various
+
+
+```{r}
+m0 <- lm(new_deaths_pc_14da ~ percent_vaccinated, data = covid_lab)
+m <- lm(new_deaths_pc_14da ~ percent_vaccinated + rep_voteshare_std + med_age_std + 
+    med_income_std, data = covid_lab)
+summary(m)
+anova(m0,m)
+m3
+plot(m)
+
+```
+
 
 
 
