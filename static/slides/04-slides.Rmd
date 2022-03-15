@@ -199,7 +199,7 @@ data(MPs)
 
 
 ---
-class: inverse, center, left
+class: inverse, left, middle
 background-image:url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/17632380-high-res-fleabag-1555319632.jpg")
 background-size:cover
 # 📢
