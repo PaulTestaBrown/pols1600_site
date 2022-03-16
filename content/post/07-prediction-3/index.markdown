@@ -29,6 +29,14 @@ links:
   icon_pack: fas
   name: Slides
   url: /slides/07-slides.html
+- icon: flask
+  icon_pack: fas
+  name: Lab
+  url: /labs/07-lab.Rmd
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/07-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

@@ -141,7 +141,7 @@ load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 ---
 ## Data: Russian Opinion on the War In Ukraine 
 
-- We'll also load the data for this weeks lab, a public opinion from Russia conducted by Alexei Miniailo's ["Do Russians Want War"](https://www.dorussianswantwar.com/en) project
+- We'll also load the data for this week's lab, which examines a public opinion survey from Russia conducted by Alexei Miniailo's ["Do Russians Want War"](https://www.dorussianswantwar.com/en) project
 
 - The code chunk below [sources](https://www.earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/source-function-in-R/) a script I wrote called [`drww_english_recode.R`](https://gist.github.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40) to download the raw data and recode Cyrilic into English
 
