@@ -467,9 +467,7 @@ htmlreg(list(m1, m2, m3)) %>% HTML() %>% browsable()
 
 - Residuals are the part of the outcome variable, not explained by the predictors in a model
 
-$$
-y = \overbrace{\beta_0 + \beta_1x_1 + \beta_2 x_2  + \dots \beta_j x_j}^{\text{Predictors}} + \underbrace{\epsilon}_{\text{Residuals}}
-$$
+$$y = \overbrace{\beta_0 + \beta_1x_1 + \beta_2 x_2  + \dots \beta_j x_j}^{\text{Predictors}} + \underbrace{\epsilon}_{\text{Residuals}}$$
 ---
 ## Residualized Regression
 
