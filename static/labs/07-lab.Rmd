@@ -547,7 +547,7 @@ Please answer the following:
 
 Now let's produce and visualize predicted values to help us interpret the relationship between age and support for the war `m1` (our baseline model) and `m3` (our polynomial model)
 
-We demonstrated the steps for producing predicted values in Tuesday's [lecture]()
+We demonstrated the steps for producing predicted values in Tuesday's [lecture](https://pols1600.paultesta.org/slides/07-slides.html#64)
 
 To review: you'll need to
 
