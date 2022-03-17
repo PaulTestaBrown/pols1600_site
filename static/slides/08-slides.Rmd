@@ -1,6 +1,6 @@
 ---
-title: "Week XX:"
-subtitle: "Topic HERE"
+title: "Week 08:"
+subtitle: "Probably too much Probability Theory"
 author: "Paul Testa"
 output:
   xaringan::moon_reader:
@@ -39,7 +39,7 @@ htmltools::tagList(
 ```{r packages, include=F}
 the_packages <- c(
   ## R Markdown
-  "kableExtra","DT","texreg",
+  "kableExtra","DT","texreg", "htmltools",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
@@ -50,7 +50,7 @@ the_packages <- c(
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "easystats", "zoo"
+  "DeclareDesign", "zoo", "gtools"
 )
 ```
 
@@ -147,23 +147,13 @@ df_feedback_full %>%
 
 --
 
-- We liked the lab (or liked it better)
-
-- Working in groups 
-
-- Extensive notes
-
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
+- Likes here
 
 ---
 ## What we liked
 
 ```{r likes, echo=F, out.height='90%'}
-DT::datatable(df %>% 
+DT::datatable(df_feedback %>% 
                 select(Likes),
                fillContainer = F,
               height = "90%",
@@ -179,19 +169,12 @@ DT::datatable(df %>%
 
 --
 
-- Labs still feel rushed (at the end)
-
-- When code breaks it can be hard to fix
-
-- Lecture was a bit confusing/long
-
-- The space
-
+- Dislikes here
 ---
 ## What we disliked
 
 ```{r dislikes, echo=F}
-DT::datatable(df %>% 
+DT::datatable(df_feedback %>% 
                 select(Dislikes),
                fillContainer = F,
               height = "90%",
@@ -207,75 +190,442 @@ class:inverse, middle, center
 # 🔍
 ## Review
 
+---
+## Predicted Values
+
 
 ---
-## Topics
+## Overfitting vs Under Fitting
 
-- Working with R Markdown files
 
-- Basic Programming in R
 
-- Setting up your work space
-
-- Loading data into R
-
-- Looking at your data
-
-- Cleaning and transforming your data
-
-- Describing what's typical of your data
-
-- Describing how your data vary
-
----
-## Exercises
-
-1. Create an R Markdown File
-
-2. Explore objects and functions in base `R`
-
-3. Install the COVID19 package
-
-4. Load data on COVID19 
-
-5. Inspect the data
-
-6. Welcome to the tidyverse
-
-7. Measures of central tendency
-
-8. Measures of dispersion
 
 ---
 class: inverse, center, middle
 # 💡
-# Key Concept
-## Comment
-
+# WARNING
 
 ---
-## Point 1
-
+## Where we're headed.
 
 ---
-## Code Slide
+## What you should learn from today
 
-.left-column[
-```{r,echo=T,eval=F}
-2+2
-```
+- Language for randomness
 
+- Probability is tool for quantifying and describing randomess
 
-]
+- Random variables
 
-.right-column[
-```{r,eval=T}
-plot(1:10,1:10)
-```
+- Probability Distributions
 
-]
+- Expected values and variance 
 
 ---
 class: inverse, center, middle
+# 💡
+# Randomness
 
-# Key Concept
+## Random Experiments, Sets Theory, and Counting Rules
+
+
+---
+## Random Experiments and Sample Spaces
+
+- In probability theory, a **Random Experiment:** describes a repeatable process where the outcome is uncertain (non-deterministic)
+
+- The **Sample Space** is the **set** of all possible outcomes of an experiment ($S$) 
+
+
+**Examples**
+
+- Flip a coin 
+
+- Flip a coin 10 times and count the number of heads
+
+- Number of wars in the 20th century
+
+- Outcome of an election
+
+---
+## Sets
+
+- In mathematics, a set is bounded collection of elements
+
+- If $A$ is the set of outcomes from a coin toss then $A=\{Heads,Tails\}$
+
+---
+## Elements
+
+- An object within a set
+
+- `1` is an element in set of outcomes from rolling a six-sided die 
+
+---
+## Events
+
+- An Event is a collection of outcomes of an experiment
+
+  - Could contain a single element, multiple elements, no elements, or all the elements.
+
+- If the event $B$ is rolling an odd number, then $B=\{1,3,5\}$
+
+- The outcome `3` is an element of $B$ ($3 \in B$)
+
+- The outcome `4` is not an element of $B$ ($4 \notin B$)
+
+
+---
+## How many elements in a set?
+
+A set can be:
+
+- **Countably Finite:** 
+  
+  - Roll a die, there six possible outcomes $\{1,2,3,4,5,6\}$
+
+
+- **Countably Infinite:** 
+
+  - Number of rolls until a six appears ${1,2,3,\dots}$
+
+--
+
+- **Uncountably Infinite:** 
+
+  - All the real numbers between 0 and 1 $(0,1)$
+
+
+---
+## How many possible outfits could you have made me wear?
+
+---
+## How to count
+
+
+The Fundamental Counting Principle says that if there $x$ ways to do one thing and $z$ ways to do another then, then are their are $x \times z$ total ways of doing both tasks.
+
+More generally, if there are 
+
+- If there are $j$ tasks or decision stages
+
+- And $k$ choices at each decision stage $j$ such that $n_{j,k} = k$
+
+- The total number of possible outcomes is the product of the number number of choices $k$ and each stage, $j$ $\prod_{i=1}^{j} n_k = n_{i,k}*n_{2,k}*\dots*n_{j,k}$ 
+
+
+---
+## How many different outfits could you have made me wear?
+
+- **Palette**: $\{\text{Fall, Winter, Spring, Summer}\}$
+- **Jacket**: $\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\}$
+- **Top**: $\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\}$
+- **Pant**: $\{\text{Slacks, Khakis, Jeans, Shorts}\}$
+- **Shoe**: $\{\text{Dress Shoe, Dress boot, Jordans, Dunks, Basketball, Crocs}\}$
+- **Tie**: $\{\text{Repp, Pattern, Knit, Bow, No tie}\}$
+- **Pattern**: $\{\text{Simple, Stripes, Checks, Graphic}\}$
+
+- How many decision stages?
+
+- How many choices at each stage?
+
+- How many possible outfits?
+
+---
+## How many different suggested outfits could you have made me wear?
+
+- How many decision stages? $j=7$
+
+- How many choices at each stage? 
+
+- **Palette**: $\{\text{Fall, Winter, Spring, Summer}\} = n_{jk} = 4 $ 
+- **Jacket**: $\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\} = n_{jk} = 5$
+- **Top**: $\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\} = n_{jk} = 4$
+- **Pant**: $\{\text{Slacks, Khakis, Jeans, Shorts}\} = n_{jk} = 4$
+- **Shoe**: $\{\text{Dress Shoe, Dress boot, Jordans, Dunks, Basketball, Crocs}\} = n_{jk} = 6$
+- **Tie**: $\{\text{Repp, Pattern, Knit, Bowtie, No tie}\} = n_{jk} = 5$
+- **Pattern**: $\{\text{Simple, Stripes, Checks, Graphic}\} = n_{jk} = 4$
+
+- How many possible suggestions? $\prod_{i=1}^{j} n_{jk} = 4 \times 5 \times 4 \times 4 \times 6 \times 5 \times 4 = 38,400 \text{ outfits}$
+
+---
+## And yet you chose this:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I send students in my undergraduate research class a weekly survey to get a sense of what&#39;s working and what&#39;s not. <br><br>I also ask them silly questions just for fun. Last week, I asked them to help me with my fit. This was the result: <a href="https://t.co/w1t8Cr04Ap">pic.twitter.com/w1t8Cr04Ap</a></p>&mdash; Paul Testa (@ProfPaulTesta) <a href="https://twitter.com/ProfPaulTesta/status/1501291241404833795?ref_src=twsrc%5Etfw">March 8, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+---
+## Permutations and Combinations
+
+- A permutation is a selection of objects in which the order matters.
+
+  - There are *six* ways to arrange 
+
+
+---
+## Counting with Regard to Order and Replacement
+
+In general, when we think about the total number of outcomes, it matters whether 
+
+- we are counting *with* or *without* replacement
+- we can distinguish the order of observations
+
+
+
+```{r, echo=F}
+counting_tab <- tibble::tibble(
+   ` `=  c("Permutation", "Perumation","Combination", "Combination"),
+  `Order Matters` = c("Yes","Yes","No","No"),
+  `Repetition Allowed` = c("Yes","No","No","Yes"),
+  Formula = c("$P(n,k) = {}_{n}P_k = n^k $", 
+              "$P(n,k) = {}_{n}P_k = \\frac{n!}{(n-k)!}$",
+              "$C(n,k) = {}_{n}C_k = \\binom{n}{k} = \\frac{{}_{n}P_k}{k!} \\frac{n!}{k!(n-k)!}$",
+              "$C(n,k) = {}_{n}C_k = \\binom{n + k - 1}{k} =\\frac{(n + k -1)!}{k!(n-1)!}$"
+              ),
+  "Example = {abc}" = c('P(3,3) = Pick three letters in order with replacement = $3^3 = 27$ permutations',
+              'P(3,3) = Pick three letters in order without replacement = $\\frac{3!}{(3-3)!} = \\frac{3*2*1}{1} = 6$ permutations',
+              'C(3,3) = Choose three letters without replacement = $\\frac{3!}{3!(3-3)!} = \\frac{3*2*1}{3*2*1} = 1$ combination',
+              'C(3,3) = Choose three letters with replacement = $\\frac{3+3 -1!}{3!(3-1)!} = \\frac{5*4*3*2*1}{(3*2*1)(2*1)} = 10$ combinations'
+              )
+  )
+
+
+choose(3,3)
+knitr::kable(counting_tab)%>%kableExtra::kable_styling()
+```
+
+---
+
+```{r}
+permutations(3, 2, v = c("a","b","c"),repeats.allowed = T)
+permutations(3, 2, v = c("a","b","c"),repeats.allowed = F)
+```
+
+```{r}
+combinations(3, 2, v = c("a","b","c"),repeats.allowed = F)  
+combinations(3, 2, v = c("a","b","c"),repeats.allowed = T)
+
+```
+
+
+---
+## Example
+
+- Roll a die twice, record the outcome. How many possible outcomes are there?\pause
+- 36 ($n^k=6^2=36$)
+
+## Sample Space
+
+```{r,echo=F,results='asis'}
+two.die<-matrix(NA,6,6)
+for(i in 1:6){
+    for(j in 1:6)
+        two.die[i,j]<-paste("{",i,", ",j,"}",sep="")
+}
+rownames(two.die)<-paste("\\textbf{",1:6,"}")
+colnames(two.die)<-paste("\\textbf{",1:6,"}")
+library(xtable)
+print(xtable(two.die),sanitize.text.function = force,comment = F)
+```
+
+---
+## Permutations
+
+- An urn with six tickets numbered 1 through 6.
+    - Draw 1 ticket, record number, eat ticket (e.g. w/o replacement)
+    - Draw another ticket, record number.
+    - How many unique pairs of numbers can you get?
+
+---    
+## Permutations
+
+- Counting with regard to order and without replacement \pause   
+- **Answer** 
+\[
+\begin{aligned}
+\textrm{P}^6_2&=\frac{n!}{(n-k)!}\\
+            &=\frac{6!}{(6-2)!} \\
+            &=\frac{6*5*4*3*2*1}{4*3*2*1}\\
+            &=\frac{6*5}{1}=30
+\end{aligned}
+\]
+
+---
+## Permutations
+
+```{r,echo=F,results='asis'}
+two.die.p<-two.die
+for(i in 1:6){
+two.die.p[i,i]<-""
+}
+
+print(xtable(two.die.p),sanitize.text.function = force,comment = F)
+```
+
+---
+## Combinations
+
+- Counting without regard to order and without replacement
+- How many unique combinations of tickets are their?
+
+- **Answer** 
+\[
+\begin{aligned}
+\textrm{C}^6_2&=\binom{n}{k}\\
+            &=\frac{6!}{2!(6-2)!} \\
+            &=\frac{6*5*4*3*2*1}{(4*3*2*1)(2*1)}\\
+            &=\frac{6*5}{2*1}=15
+\end{aligned}
+\]
+
+---
+## Combinations
+
+```{r,echo=F,results='asis'}
+two.die.c<-two.die
+two.die.c[lower.tri(two.die.c,diag=T)]<-""
+
+print(xtable(two.die.c),sanitize.text.function = force,comment = F)
+```
+
+---
+## Without regard to order, with replacement
+
+- Roll two die, how many pairings can we observe?
+
+```{r,echo=F,results='asis'}
+two.die.craps<-two.die
+two.die.craps[lower.tri(two.die.craps,diag=F)]<-""
+
+print(xtable(two.die.craps),sanitize.text.function = force,comment = F)
+```
+
+
+
+---
+## Operations on Sets
+
+- Empty Set: $\o$ a set with no elements
+- Subset: 
+    - $D=\{1,2,3,4,5,6\}$
+    - $Primes=\{2,3,5\}$
+    - $Primes \subset D \iff \forall X \in Primes, X \in D$
+- Unions
+    - $A \cup B = \{X:X \in A \lor X \in B \}$
+    - Either $A$, $B$ or both $A and B$ occur
+- Intersections
+    - $A \cap B = \{X:X \in A \land X \in B \}$
+    - Both $A$ and $B$ occur
+- Complements
+    - $A^\complement = \{X:X\notin A\}$
+    - $A^\complement$ means $A$ does not occur
+    - $\o^\complement=S$ and $S^\complement=\o$ 
+
+---
+## Union
+
+\begin{center}
+\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\fill[gray] (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Intersection
+
+\begin{center}
+\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\begin{scope} % start of clip scope
+\clip (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\end{scope} % end of clip scope
+\draw (0,0) circle (1cm) node[left] {$A$};
+\draw (1.5,0) circle (1cm) node[right] {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Complement of Intersection
+
+\begin{center}
+\begin{tikzpicture}
+\filldraw[gray] (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\begin{scope} % start of clip scope
+\clip (0,0) circle (1cm);
+\fill[white] (1.5,0) circle (1cm);
+\end{scope} % end of clip scope
+\draw (0,0) circle (1cm) node[left] {$A$};
+\draw (1.5,0) circle (1cm) node[right] {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Properties of Sets
+
+### Commutative
+$A \cup B = B \cup A$
+$A \cap B = B \cap A$
+
+
+### Associative
+$A\cap (B \cap C) = (A \cap B)\cap C$
+$A\cup (B \cup C) = (A \cup B)\cup C$
+
+---
+## Properties of Sets
+
+### Distributive
+$A\cap (B \cup C)=(A\cap B)\cup (A \cap C)$
+$A\cup (B \cap C)=(A\cup B)\cap (A \cup C)$
+
+### de Morgan's Law
+- $(A \cup B)^\complement = A^\complement \cap B^\complement$
+- $(A \cap B)^\complement = A^\complement \cup B^\complement$
+
+
+---
+## Mutually Exclusive (Pairwise Disjoint)
+
+- $A_i\cap A_j = \o \forall i \neq j$
+- $\bigcup_{i=1}^k A_i = S \rightarrow A_1 \dots A_k$ is a **partition**  of the sample space
+
+
+---
+class: inverse, center, middle
+# 💡
+# Probability
+
+
+---
+class: inverse, center, middle
+# 💡
+# Conditional Probability
+
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Random Variables and Probability Distributions
+
+---
+class: inverse, center, middle
+# 💡
+# Expected Values and Variances
+
+
+---
+class: inverse, center, middle
+# 💡
+# Common Probability Distributions
+
+
+
+
+

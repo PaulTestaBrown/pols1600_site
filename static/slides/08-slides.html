@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week 08:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week 08:
+## Probably too much Probability Theory
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Setup
+- Feedback
+- Review
+- Lecture 
+  - Topic 1
+  - Topic 2
+
+- Summary
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+
+
+
+
+---
+## Packages for today
+
+
+
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "kableExtra","DT","texreg", "htmltools",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+* "scatterplot3d",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "zoo"
+)
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT        texreg     htmltools     tidyverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+    lubridate       forcats         haven      labelled         ggmap 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      ggrepel      ggridges      ggthemes        ggpubr        GGally 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+       scales       dagitty         ggdag       ggforce scatterplot3d 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      COVID19          maps       mapdata           qss    tidycensus 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+    dataverse DeclareDesign           zoo 
+         TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+
+# 📢
+## Feedback
+
+
+
+
+
+---
+## What we liked
+
+--
+
+- Likes here
+
+---
+## What we liked
+
+<div id="htmlwidget-bac4a1496378913103c0" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bac4a1496378913103c0">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## What we disliked
+
+--
+
+- Dislikes here
+---
+## What we disliked
+
+<div id="htmlwidget-cc69f8f2c29a787f7ff8" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cc69f8f2c29a787f7ff8">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Review
+
+---
+## Predicted Values
+
+
+---
+## Overfitting vs Under Fitting
+
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# WARNING
+
+---
+## Where we're headed.
+
+---
+## What you should learn from today
+
+- Language for randomness
+
+- Probability is tool for quantifying and describing randomess
+
+- Random variables
+
+- Probability Distributions
+
+- Expected values and variance 
+
+---
+class: inverse, center, middle
+# 💡
+# Randomness
+
+## Random Experiments, Sets Theory, and Counting Rules
+
+
+---
+## Random Experiments and Sample Spaces
+
+- In probability theory, a **Random Experiment:** describes a repeatable process where the outcome is uncertain (non-deterministic)
+
+- The **Sample Space** is the **set** of all possible outcomes of an experiment ($S$) 
+
+
+**Examples**
+
+- Flip a coin 
+
+- Flip a coin 10 times and count the number of heads
+
+- Number of wars in the 20th century
+
+- Outcome of an election
+
+---
+## Sets
+
+- In mathematics, a set is bounded collection of elements
+
+- If `\(A\)` is the set of outcomes from a coin toss then `\(A=\{Heads,Tails\}\)`
+
+---
+## Elements
+
+- An object within a set
+
+- `1` is an element in set of outcomes from rolling a six-sided die 
+
+---
+## Events
+
+- An Event is a collection of outcomes of an experiment
+
+  - Could contain a single element, multiple elements, no elements, or all the elements.
+
+- If the event `\(B\)` is rolling an odd number, then `\(B=\{1,3,5\}\)`
+
+- The outcome `3` is an element of `\(B\)` ($3 \in B$)
+
+- The outcome `4` is not an element of `\(B\)` ($4 \notin B$)
+
+
+---
+## How many elements in a set?
+
+A set can be:
+
+- **Countably Finite:** 
+  
+  - Roll a die, there six possible outcomes `\(\{1,2,3,4,5,6\}\)`
+
+
+- **Countably Infinite:** 
+
+  - Number of rolls until a six appears `\({1,2,3,\dots}\)`
+
+--
+
+- **Uncountably Infinite:** 
+
+  - All the real numbers between 0 and 1 `\((0,1)\)`
+
+
+---
+## How many possible outfits could you have made me wear?
+
+---
+## How to count
+
+
+The Fundamental Counting Principle says that if there `\(x\)` ways to do one thing and `\(z\)` ways to do another then, then are their are `\(x \times z\)` total ways of doing both tasks.
+
+More generally, if there are 
+
+- If there are `\(j\)` tasks or decision stages
+
+- And `\(k\)` choices at each decision stage `\(j\)` such that `\(n_{j,k} = k\)`
+
+- The total number of possible outcomes is the product of the number number of choices `\(k\)` and each stage, `\(j\)` `\(\prod_{i=1}^{j} n_k = n_{i,k}*n_{2,k}*\dots*n_{j,k}\)` 
+
+
+---
+## How many different outfits could you have made me wear?
+
+- **Palette**: `\(\{\text{Fall, Winter, Spring, Summer}\}\)`
+- **Jacket**: `\(\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\}\)`
+- **Top**: `\(\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\}\)`
+- **Pant**: `\(\{\text{Slacks, Khakis, Jeans, Shorts}\}\)`
+- **Shoe**: `\(\{\text{Dress Shoe, Dress boot, Jordans, Dunks, Basketball, Crocs}\}\)`
+- **Tie**: `\(\{\text{Repp, Pattern, Knit, Bow, No tie}\}\)`
+- **Pattern**: `\(\{\text{Simple, Stripes, Checks, Graphic}\}\)`
+
+- How many decision stages?
+
+- How many choices at each stage?
+
+- How many possible outfits?
+
+---
+## How many different suggested outfits could you have made me wear?
+
+- How many decision stages? `\(j=7\)`
+
+- How many choices at each stage? 
+
+- **Palette**: $\{\text{Fall, Winter, Spring, Summer}\} = n_{jk} = 4 $ 
+- **Jacket**: `\(\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\} = n_{jk} = 5\)`
+- **Top**: `\(\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\} = n_{jk} = 4\)`
+- **Pant**: `\(\{\text{Slacks, Khakis, Jeans, Shorts}\} = n_{jk} = 4\)`
+- **Shoe**: `\(\{\text{Dress Shoe, Dress boot, Jordans, Dunks, Basketball, Crocs}\} = n_{jk} = 6\)`
+- **Tie**: `\(\{\text{Repp, Pattern, Knit, Bowtie, No tie}\} = n_{jk} = 5\)`
+- **Pattern**: `\(\{\text{Simple, Stripes, Checks, Graphic}\} = n_{jk} = 4\)`
+
+- How many possible suggestions? `\(\prod_{i=1}^{j} n_{jk} = 4 \times 5 \times 4 \times 4 \times 6 \times 5 \times 4 = 38,400 \text{ outfits}\)`
+
+---
+## And yet you chose this:
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;I send students in my undergraduate research class a weekly survey to get a sense of what&amp;#39;s working and what&amp;#39;s not. &lt;br&gt;&lt;br&gt;I also ask them silly questions just for fun. Last week, I asked them to help me with my fit. This was the result: &lt;a href="https://t.co/w1t8Cr04Ap"&gt;pic.twitter.com/w1t8Cr04Ap&lt;/a&gt;&lt;/p&gt;&amp;mdash; Paul Testa (@ProfPaulTesta) &lt;a href="https://twitter.com/ProfPaulTesta/status/1501291241404833795?ref_src=twsrc%5Etfw"&gt;March 8, 2022&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+---
+## Counting with Regard to Order and Replacement
+
+In general, when we think about the total number of outcomes, it matters whether 
+
+- we are counting *with* or *without* replacement
+- we can distinguish the order of observations
+
+
+
+
+```r
+counting_tab &lt;- tibble::tibble(
+  ` ` = c("Yes", "No"),
+  `Yes` = c("$n^k $", "$ \\frac{n!}{(n-k)!}$"),
+  `No` = c("$\\binom{n}{k}=\\frac{n!}{k!(n-k)!}$","$\\binom{n+k-1}{k}=\\frac{(n+k-1)!}{(n-1)!k!}$")
+)
+
+knitr::kable(counting_tab)%&gt;%HTML%&gt;%browsable()
+```
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> Yes </th>
+   <th style="text-align:left;"> No </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Yes </td>
+   <td style="text-align:left;"> $n^k $ </td>
+   <td style="text-align:left;"> $\binom{n}{k}=\frac{n!}{k!(n-k)!}$ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> No </td>
+   <td style="text-align:left;"> $ \frac{n!}{(n-k)!}$ </td>
+   <td style="text-align:left;"> $\binom{n+k-1}{k}=\frac{(n+k-1)!}{(n-1)!k!}$ </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+---
+## Example
+
+- Roll a die twice, record the outcome. How many possible outcomes are there?\pause
+- 36 ($n^k=6^2=36$)
+
+## Sample Space
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
+  \hline
+\textbf{ 1 } &amp; {1, 1} &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
+  \textbf{ 2 } &amp; {2, 1} &amp; {2, 2} &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
+  \textbf{ 3 } &amp; {3, 1} &amp; {3, 2} &amp; {3, 3} &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
+  \textbf{ 4 } &amp; {4, 1} &amp; {4, 2} &amp; {4, 3} &amp; {4, 4} &amp; {4, 5} &amp; {4, 6} \\ 
+  \textbf{ 5 } &amp; {5, 1} &amp; {5, 2} &amp; {5, 3} &amp; {5, 4} &amp; {5, 5} &amp; {5, 6} \\ 
+  \textbf{ 6 } &amp; {6, 1} &amp; {6, 2} &amp; {6, 3} &amp; {6, 4} &amp; {6, 5} &amp; {6, 6} \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+---
+## Permutations
+
+- An urn with six tickets numbered 1 through 6.
+    - Draw 1 ticket, record number, eat ticket (e.g. w/o replacement)
+    - Draw another ticket, record number.
+    - How many unique pairs of numbers can you get?
+
+---    
+## Permutations
+
+- Counting with regard to order and without replacement \pause   
+- **Answer** 
+\[
+\begin{aligned}
+\textrm{P}^6_2&amp;=\frac{n!}{(n-k)!}\\
+            &amp;=\frac{6!}{(6-2)!} \\
+            &amp;=\frac{6*5*4*3*2*1}{4*3*2*1}\\
+            &amp;=\frac{6*5}{1}=30
+\end{aligned}
+\]
+
+---
+## Permutations
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
+  \hline
+\textbf{ 1 } &amp;  &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
+  \textbf{ 2 } &amp; {2, 1} &amp;  &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
+  \textbf{ 3 } &amp; {3, 1} &amp; {3, 2} &amp;  &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
+  \textbf{ 4 } &amp; {4, 1} &amp; {4, 2} &amp; {4, 3} &amp;  &amp; {4, 5} &amp; {4, 6} \\ 
+  \textbf{ 5 } &amp; {5, 1} &amp; {5, 2} &amp; {5, 3} &amp; {5, 4} &amp;  &amp; {5, 6} \\ 
+  \textbf{ 6 } &amp; {6, 1} &amp; {6, 2} &amp; {6, 3} &amp; {6, 4} &amp; {6, 5} &amp;  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+---
+## Combinations
+
+- Counting without regard to order and without replacement
+- How many unique combinations of tickets are their?
+
+- **Answer** 
+\[
+\begin{aligned}
+\textrm{C}^6_2&amp;=\binom{n}{k}\\
+            &amp;=\frac{6!}{2!(6-2)!} \\
+            &amp;=\frac{6*5*4*3*2*1}{(4*3*2*1)(2*1)}\\
+            &amp;=\frac{6*5}{2*1}=15
+\end{aligned}
+\]
+
+---
+## Combinations
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
+  \hline
+\textbf{ 1 } &amp;  &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
+  \textbf{ 2 } &amp;  &amp;  &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
+  \textbf{ 3 } &amp;  &amp;  &amp;  &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
+  \textbf{ 4 } &amp;  &amp;  &amp;  &amp;  &amp; {4, 5} &amp; {4, 6} \\ 
+  \textbf{ 5 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp; {5, 6} \\ 
+  \textbf{ 6 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp;  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+---
+## Without regard to order, with replacement
+
+- Roll two die, how many pairings can we observe?
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
+  \hline
+\textbf{ 1 } &amp; {1, 1} &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
+  \textbf{ 2 } &amp;  &amp; {2, 2} &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
+  \textbf{ 3 } &amp;  &amp;  &amp; {3, 3} &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
+  \textbf{ 4 } &amp;  &amp;  &amp;  &amp; {4, 4} &amp; {4, 5} &amp; {4, 6} \\ 
+  \textbf{ 5 } &amp;  &amp;  &amp;  &amp;  &amp; {5, 5} &amp; {5, 6} \\ 
+  \textbf{ 6 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp; {6, 6} \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+---
+## Operations on Sets
+
+- Empty Set: `\(\o\)` a set with no elements
+- Subset: 
+    - `\(D=\{1,2,3,4,5,6\}\)`
+    - `\(Primes=\{2,3,5\}\)`
+    - `\(Primes \subset D \iff \forall X \in Primes, X \in D\)`
+- Unions
+    - `\(A \cup B = \{X:X \in A \lor X \in B \}\)`
+    - Either `\(A\)`, `\(B\)` or both `\(A and B\)` occur
+- Intersections
+    - `\(A \cap B = \{X:X \in A \land X \in B \}\)`
+    - Both `\(A\)` and `\(B\)` occur
+- Complements
+    - `\(A^\complement = \{X:X\notin A\}\)`
+    - `\(A^\complement\)` means `\(A\)` does not occur
+    - `\(\o^\complement=S\)` and `\(S^\complement=\o\)` 
+
+---
+## Union
+
+\begin{center}
+\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\fill[gray] (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\draw (0,0) circle (1cm) node {$A$};
+\draw (1.5,0) circle (1cm) node {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Intersection
+
+\begin{center}
+\begin{tikzpicture}
+\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\begin{scope} % start of clip scope
+\clip (0,0) circle (1cm);
+\fill[gray] (1.5,0) circle (1cm);
+\end{scope} % end of clip scope
+\draw (0,0) circle (1cm) node[left] {$A$};
+\draw (1.5,0) circle (1cm) node[right] {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Complement of Intersection
+
+\begin{center}
+\begin{tikzpicture}
+\filldraw[gray] (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
+\begin{scope} % start of clip scope
+\clip (0,0) circle (1cm);
+\fill[white] (1.5,0) circle (1cm);
+\end{scope} % end of clip scope
+\draw (0,0) circle (1cm) node[left] {$A$};
+\draw (1.5,0) circle (1cm) node[right] {$B$};
+\end{tikzpicture}
+\end{center}
+
+---
+## Properties of Sets
+
+### Commutative
+`\(A \cup B = B \cup A\)`
+`\(A \cap B = B \cap A\)`
+
+
+### Associative
+`\(A\cap (B \cap C) = (A \cap B)\cap C\)`
+`\(A\cup (B \cup C) = (A \cup B)\cup C\)`
+
+---
+## Properties of Sets
+
+### Distributive
+`\(A\cap (B \cup C)=(A\cap B)\cup (A \cap C)\)`
+`\(A\cup (B \cap C)=(A\cup B)\cap (A \cup C)\)`
+
+### de Morgan's Law
+- `\((A \cup B)^\complement = A^\complement \cap B^\complement\)`
+- `\((A \cap B)^\complement = A^\complement \cup B^\complement\)`
+
+
+---
+## Mutually Exclusive (Pairwise Disjoint)
+
+- `\(A_i\cap A_j = \o \forall i \neq j\)`
+- `\(\bigcup_{i=1}^k A_i = S \rightarrow A_1 \dots A_k\)` is a **partition**  of the sample space
+
+
+---
+class: inverse, center, middle
+# 💡
+# Probability
+
+
+---
+class: inverse, center, middle
+# 💡
+# Conditional Probability
+
+
+
+
+---
+class: inverse, center, middle
+# 💡
+# Random Variables and Probability Distributions
+
+---
+class: inverse, center, middle
+# 💡
+# Expected Values and Variances
+
+
+---
+class: inverse, center, middle
+# 💡
+# Common Probability Distributions
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
