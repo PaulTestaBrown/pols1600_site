@@ -190,24 +190,19 @@ In the code chunk below, please write some code get an high level overview of th
 ```{r hlo}
 # High level overview
 # Number of observations and variables
-dim(covid_lab)
+
 
 # Names of variables
-names(covid_lab)
+
 
 # Glimpse of data
-glimpse(covid_lab)
+
 
 # Summary of data
-summary(covid_lab)
 
-# Variables I want to calculate sd for
-the_vars <- c("new_deaths_pc_14da","rep_voteshare","med_age","med_income","percent_vaccinated")
 
 # Calculate standard deviations
-covid_lab %>%
-  select(all_of(the_vars))%>%
-  summarise_all(sd)
+
 
 
 ```
