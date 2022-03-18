@@ -76,9 +76,26 @@ class:inverse, middle, center
 ---
 ## New packages
 
-Hopefully, you were all able to install the following packages 
+Not necessary to install, but if you want to draw Venn Diagrams using [`ggVennDiagram`](https://venn.bio-spring.top/index.html#prerequisites)
 
 
+
+```r
+cran_packages &lt;- c("VennDiagram","colorfulVennPlot","gplots","venn",
+                   "nVennR", "eulerr","venneuler","ggVennDiagram")
+xfun::pkg_load2(cran_packages)
+# GitHub
+if (!requireNamespace("ggvenn")){
+  remotes::install_github("yanlinlin82/ggvenn")
+}
+```
+
+And tools for doing Permutations and Combinations
+
+
+```r
+install.packages("gtools")
+```
 
 
 
@@ -96,12 +113,14 @@ the_packages &lt;- c(
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
+* "ggVennDiagram",
   # Graphics:
 * "scatterplot3d",
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "zoo"
+  "DeclareDesign", "zoo", 
+* "gtools"
 )
 ```
 
@@ -134,12 +153,12 @@ ipak(the_packages)
          TRUE          TRUE          TRUE          TRUE          TRUE 
       ggrepel      ggridges      ggthemes        ggpubr        GGally 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-       scales       dagitty         ggdag       ggforce scatterplot3d 
+       scales       dagitty         ggdag       ggforce ggVennDiagram 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      COVID19          maps       mapdata           qss    tidycensus 
+scatterplot3d       COVID19          maps       mapdata           qss 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-    dataverse DeclareDesign           zoo 
-         TRUE          TRUE          TRUE 
+   tidycensus     dataverse DeclareDesign           zoo        gtools 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
 ```
 
 
@@ -156,6 +175,8 @@ class:inverse, center, middle
 
 
 
+
+
 ---
 ## What we liked
 
@@ -166,8 +187,8 @@ class:inverse, center, middle
 ---
 ## What we liked
 
-<div id="htmlwidget-bac4a1496378913103c0" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bac4a1496378913103c0">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8e203ded3f413b831b6b" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e203ded3f413b831b6b">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -179,8 +200,8 @@ class:inverse, center, middle
 ---
 ## What we disliked
 
-<div id="htmlwidget-cc69f8f2c29a787f7ff8" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cc69f8f2c29a787f7ff8">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-90d1f25da497ac5a39c6" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-90d1f25da497ac5a39c6">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -203,74 +224,157 @@ class: inverse, center, middle
 # 💡
 # WARNING
 
----
-## Where we're headed.
+
 
 ---
-## What you should learn from today
+## What we'll cover today
 
-- Language for randomness
 
-- Probability is tool for quantifying and describing randomess
+- Probability
 
-- Random variables
+  - Probability is a measure of uncertainty telling us how likely an event (or events) is (are) to occur
 
-- Probability Distributions
+  - Probability follows three simple rules (from which numerous theorems follow)
 
-- Expected values and variance 
+- Conditional Probability
+
+  - Conditional probability allow us to describe how our beliefs about one event change after observing another event(s)
+
+  - We update beliefs using Bayes Rule
+
+- Random Variables and Probability Distributions
+
+  - Random variables *map* events in the world onto numbers
+
+  - Probability distributions describe the likelihood that random variables take certain values
+
+  - The expected value of a random variable is a *probability weighted average* that tells us the most likely value a variable will take
+
+
+ 
 
 ---
 class: inverse, center, middle
 # 💡
-# Randomness
+# Probability
 
-## Random Experiments, Sets Theory, and Counting Rules
+## Something pithy here
 
 
 ---
-## Random Experiments and Sample Spaces
+## Probability
 
-- In probability theory, a **Random Experiment:** describes a repeatable process where the outcome is uncertain (non-deterministic)
+- Probability describes the likelihood of an event happening.
 
-- The **Sample Space** is the **set** of all possible outcomes of an experiment ($S$) 
+- Statistics uses probability to quantify uncertainty about estimates and hypotheses.
 
+-  To do this, we will need to understand:
+  
+  - Definitions (**experiment**, **sample space**, **events**,)
+  
+  - Three *rules* of probability (**Kolmogorov axioms**)
 
-**Examples**
-
-- Flip a coin 
-
-- Flip a coin 10 times and count the number of heads
-
-- Number of wars in the 20th century
-
-- Outcome of an election
-
----
-## Sets
-
-- In mathematics, a set is bounded collection of elements
-
-- If `\(A\)` is the set of outcomes from a coin toss then `\(A=\{Heads,Tails\}\)`
+  - Two interpretations interpreting probabilities (**Frequentist** and **Bayesian**)
+    
+    - Some rules for counting
+  
 
 ---
-## Elements
+## Experiments, sample spaces, sets, end events 
 
-- An object within a set
+- In probability thoery, an **experiment** describes a repeatable process where the outcome is uncertain
 
-- `1` is an element in set of outcomes from rolling a six-sided die 
+  - Processes where the outcomes are uncertaint are called *non-deterministic* or *stochastisc*
+
+- The **sample space** of an experiment is the **set** `\((\Omega\)` "omega", or `\(S\)`) of all the possible outcomes of an experiment 
+
+- Sets can be:
+  - empty `\(( A: \{\emptyset\}\)`
+  - a single event `\(( Coin: \{\text{Heads}\}\)`
+  - multiple events `\(( Odd\, \#s: \{\text{1,3,5}\}\)`
+  - infinite `\((\mathbb{R}: \text{ The set of real numbers}\{ -\infty \dots +\infty\}\)`)
+
+- An **event**, `\((E\)` or `\(A)\)`  is a **subset** of outcomes in the sample space
+  - The sample space for a coin flip is `\(\Omega = \{\text{Heads, Tails}\}\)`
+  - The event Heads is a subset of `\(\Omega\)`
 
 ---
-## Events
+bacground-image:url("https://cdn.shopify.com/s/files/1/0684/1207/products/700F4BB8-7FE1-461D-844D-52CB302E6E0C.png?v=1595004762)
+background-size:contain
 
-- An Event is a collection of outcomes of an experiment
 
-  - Could contain a single element, multiple elements, no elements, or all the elements.
+---
+## Operations on Sets
 
-- If the event `\(B\)` is rolling an odd number, then `\(B=\{1,3,5\}\)`
+- Empty Set: `\(\emptyset\)` a set with no elements
+- Subset: 
+    - Let `\(D\)` be the set outcomes for a 6-side die: `\(D=\{1,2,3,4,5,6\}\)`
+    - `\(Primes=\{2,3,5\}\)`
+    - `\(Primes \subset D \iff \forall X \in Primes, X \in D\)`
+- Unions
+    - `\(A \cup B = \{X:X \in A \lor X \in B \}\)`
+    - Either `\(A\)`, `\(B\)` or both `\(A and B\)` occur
+- Intersections
+    - `\(A \cap B = \{X:X \in A \land X \in B \}\)`
+    - Both `\(A\)` and `\(B\)` occur
+- Complements
+    - `\(A'=A^\complement = \{X:X\notin A\}\)`
+    - `\(A'=A^\complement\)` means `\(A\)` does not occur
+    - `\(\emptyset^\complement=S\)` and `\(S^\complement=\emptyset\)` 
+  
 
-- The outcome `3` is an element of `\(B\)` ($3 \in B$)
+---
+class: bottom,right
+background-image:url("https://www.onlinemathlearning.com/image-files/set-operations-venn-diagrams.png")
+background-size:contain
 
-- The outcome `4` is not an element of `\(B\)` ($4 \notin B$)
+[Source](https://www.onlinemathlearning.com/union-set.html)
+
+---
+## Three Rules of Probability
+
+- Probability is defined by three *rules* or assumptions called the **[Kolmogorov Axioms](https://win-vector.com/2020/09/19/kolmogorovs-axioms-of-probability-even-smarter-than-you-have-been-told/)**
+
+
+1. The probability of any event `\(A\)` is nonnegative 
+
+$$Pr(A) \geq 0 $$
+
+2. The probability that one of the outcomes in the same space occurs is 1
+
+
+$$Pr(\Omega) = 1 $$
+
+3. If events `\(A\)` and `\(B\)` are mutually exclusive, then:
+
+`$$Pr(A \text{ or } B) = Pr(A) + Pr(B)$$`
+
+
+
+---
+## Two interpretations of probablity
+
+- Probabilities are defined by these three axioms
+
+- The are two broad ways of interpreting what probabilities mean:
+
+  - Frequentist
+  
+  - Bayesian
+
+
+---
+## Frequentist interpretations of probability
+
+- Probability describes how likely it is that some event happens.
+
+  - Flip a fair coin, the probability of heads is Pr(Heads) = 0.5
+
+- **Frequentist:** view this probability is the limit of the relative frequency of an event over repeated trials.
+
+$$ Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
+
+- Thinking about probability as a relative frequency, requires us to know how to the number of times an event occurred. 
 
 
 ---
@@ -291,14 +395,11 @@ A set can be:
 
 - **Uncountably Infinite:** 
 
-  - All the real numbers between 0 and 1 `\((0,1)\)`
+  - All the real numbers between 0.25 and 0.75 
 
 
 ---
-## How many possible outfits could you have made me wear?
-
----
-## How to count
+## The Fundamental Counting Principle 
 
 
 The Fundamental Counting Principle says that if there `\(x\)` ways to do one thing and `\(z\)` ways to do another then, then are their are `\(x \times z\)` total ways of doing both tasks.
@@ -351,271 +452,176 @@ More generally, if there are
 
 &lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;I send students in my undergraduate research class a weekly survey to get a sense of what&amp;#39;s working and what&amp;#39;s not. &lt;br&gt;&lt;br&gt;I also ask them silly questions just for fun. Last week, I asked them to help me with my fit. This was the result: &lt;a href="https://t.co/w1t8Cr04Ap"&gt;pic.twitter.com/w1t8Cr04Ap&lt;/a&gt;&lt;/p&gt;&amp;mdash; Paul Testa (@ProfPaulTesta) &lt;a href="https://twitter.com/ProfPaulTesta/status/1501291241404833795?ref_src=twsrc%5Etfw"&gt;March 8, 2022&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
+
 ---
-## Counting with Regard to Order and Replacement
+## Permutations and Combinations
 
-In general, when we think about the total number of outcomes, it matters whether 
+- A **Permutation** is a selection of objects in which the **order matters.**
 
-- we are counting *with* or *without* replacement
-- we can distinguish the order of observations
+  - There are *six* ways to arrange the letters "a", "b", "c" using each letter only once ("without replacement")
+  - There are *27* ways to arrange the letters "a", "b", "c" using each letter as many times as we want ("with replacement")
+
+
+- A **Combination** is a selection of objects without regard to order
+
+  - There is *1* ways to choose a group of three letters from the letters "a", "b", "c" using each letter only once ("without replacement")
+  - There are *10* ways to arrange the letters "a", "b", "c" using each letter only once ("with replacement")
 
 
 
+---
+
+
+
+---
+## Permutations in R
+
+.pull-left[
+`\({}_{3}P_2\)` order matters, repeats allowed
 
 ```r
-counting_tab &lt;- tibble::tibble(
-  ` ` = c("Yes", "No"),
-  `Yes` = c("$n^k $", "$ \\frac{n!}{(n-k)!}$"),
-  `No` = c("$\\binom{n}{k}=\\frac{n!}{k!(n-k)!}$","$\\binom{n+k-1}{k}=\\frac{(n+k-1)!}{(n-1)!k!}$")
-)
-
-knitr::kable(counting_tab)%&gt;%HTML%&gt;%browsable()
+gtools::permutations(3, 2, v = c("a","b","c"),repeats.allowed = T)
 ```
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:left;"> Yes </th>
-   <th style="text-align:left;"> No </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Yes </td>
-   <td style="text-align:left;"> $n^k $ </td>
-   <td style="text-align:left;"> $\binom{n}{k}=\frac{n!}{k!(n-k)!}$ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> No </td>
-   <td style="text-align:left;"> $ \frac{n!}{(n-k)!}$ </td>
-   <td style="text-align:left;"> $\binom{n+k-1}{k}=\frac{(n+k-1)!}{(n-1)!k!}$ </td>
-  </tr>
-</tbody>
-</table>
+```
+      [,1] [,2]
+ [1,] "a"  "a" 
+ [2,] "a"  "b" 
+ [3,] "a"  "c" 
+ [4,] "b"  "a" 
+ [5,] "b"  "b" 
+ [6,] "b"  "c" 
+ [7,] "c"  "a" 
+ [8,] "c"  "b" 
+ [9,] "c"  "c" 
+```
+]
+
+.pull-right[
+`\({}_{3}P_2\)` order matters, no repeats 
+
+```r
+gtools::permutations(3, 2, v = c("a","b","c"),repeats.allowed = F)
+```
+
+```
+     [,1] [,2]
+[1,] "a"  "b" 
+[2,] "a"  "c" 
+[3,] "b"  "a" 
+[4,] "b"  "c" 
+[5,] "c"  "a" 
+[6,] "c"  "b" 
+```
+]
+
+---
+## Combinations in R
+
+.pull-left[
+`\({}_{3}C_2\)` no order, no repeats
+
+```r
+gtools::combinations(3, 2, v = c("a","b","c"),repeats.allowed = F)
+```
+
+```
+     [,1] [,2]
+[1,] "a"  "b" 
+[2,] "a"  "c" 
+[3,] "b"  "c" 
+```
+]
+
+.pull-right[
+`\({}_{3}C_2\)` no order, repeats allowed
+
+```r
+gtools::combinations(3, 2, v = c("a","b","c"),repeats.allowed = T)
+```
+
+```
+     [,1] [,2]
+[1,] "a"  "a" 
+[2,] "a"  "b" 
+[3,] "a"  "c" 
+[4,] "b"  "b" 
+[5,] "b"  "c" 
+[6,] "c"  "c" 
+```
+]
+
+---
+## Permutations and Combinations
+
+
+---
+## Frequentist interpretations of probability
+
+- Probabilities from a Frequentist perspective are defined by *fixed* and *unknown*  **parameters**
+
+- The goal of statistics for a frequentist is to learn about these parameters from data.
+
+- Frequentist statistics often ask questions like "What is the probability of observing some data `\(Y\)`, given a hypothesis about the true value of  parameter(s), `\(\theta\)`, that generated it. 
+
+---
+## Frequentist interpretations of probability
+
+For example, suppose we wanted to test whether a coin is "fair"  `\((p = Pr(Heads) = .5; q = Pr(Tails) = 1-p = .5).\)` We could:
+
+- Flip a fair coin 10 times. Our estimate of the  `\(Pr(H)\)` is the number of heads divided by 10. It could be 0.5, but also 0 or 1, or some number in between.
+  
+- Flip a coin 100 times and our estimate will be closer to the true `\(paramter\)`. 
+  
+- Flip a coin an `\(\infty\)` amount of times and the relative frequency will converge to the true parameter/ `\((Pr(H) = \lim_{n \to \infty} \frac{n_{H}}{n} = p = 0.5 \text{ for a fair coin})\)` 
+
 
 
 
 ---
-## Example
+## Bayesian interpretations of probability
 
-- Roll a die twice, record the outcome. How many possible outcomes are there?\pause
-- 36 ($n^k=6^2=36$)
+- Frequentist interpretations make sense for describing processes that we could easily repeat (e.g. Coin flips, Surveys, Experiments) 
 
-## Sample Space
+- But feel more convoluted when trying to describe events like "the probability of that Biden wins reelection."
 
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
-  \hline
-\textbf{ 1 } &amp; {1, 1} &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
-  \textbf{ 2 } &amp; {2, 1} &amp; {2, 2} &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
-  \textbf{ 3 } &amp; {3, 1} &amp; {3, 2} &amp; {3, 3} &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
-  \textbf{ 4 } &amp; {4, 1} &amp; {4, 2} &amp; {4, 3} &amp; {4, 4} &amp; {4, 5} &amp; {4, 6} \\ 
-  \textbf{ 5 } &amp; {5, 1} &amp; {5, 2} &amp; {5, 3} &amp; {5, 4} &amp; {5, 5} &amp; {5, 6} \\ 
-  \textbf{ 6 } &amp; {6, 1} &amp; {6, 2} &amp; {6, 3} &amp; {6, 4} &amp; {6, 5} &amp; {6, 6} \\ 
-   \hline
-\end{tabular}
-\end{table}
+- Bayesian interpretations of probability view probabilities as subjective beliefs. 
 
+- The task for a Bayesian statistics is to update these *prior* beliefs () based on a model of the *likelihood* of observing some data to form new beliefs after observing the data (called *posterior beliefs*).
+
+- Bayesians do this using *Bayes Rule*, which says:
+
+$$\text{posterior} \propto \text{likelihood} \times \text{prior} $$
+More formally:
+
+$$\underbrace{Pr(\theta|Y)}_{\text{Posterior}} \propto \underbrace{Pr(Y|\theta)}_{\text{Likelihood}}) \times \underbrace{Pr(\theta)}_{\text{Prior}} $$
 ---
-## Permutations
-
-- An urn with six tickets numbered 1 through 6.
-    - Draw 1 ticket, record number, eat ticket (e.g. w/o replacement)
-    - Draw another ticket, record number.
-    - How many unique pairs of numbers can you get?
-
----    
-## Permutations
-
-- Counting with regard to order and without replacement \pause   
-- **Answer** 
-\[
-\begin{aligned}
-\textrm{P}^6_2&amp;=\frac{n!}{(n-k)!}\\
-            &amp;=\frac{6!}{(6-2)!} \\
-            &amp;=\frac{6*5*4*3*2*1}{4*3*2*1}\\
-            &amp;=\frac{6*5}{1}=30
-\end{aligned}
-\]
-
----
-## Permutations
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
-  \hline
-\textbf{ 1 } &amp;  &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
-  \textbf{ 2 } &amp; {2, 1} &amp;  &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
-  \textbf{ 3 } &amp; {3, 1} &amp; {3, 2} &amp;  &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
-  \textbf{ 4 } &amp; {4, 1} &amp; {4, 2} &amp; {4, 3} &amp;  &amp; {4, 5} &amp; {4, 6} \\ 
-  \textbf{ 5 } &amp; {5, 1} &amp; {5, 2} &amp; {5, 3} &amp; {5, 4} &amp;  &amp; {5, 6} \\ 
-  \textbf{ 6 } &amp; {6, 1} &amp; {6, 2} &amp; {6, 3} &amp; {6, 4} &amp; {6, 5} &amp;  \\ 
-   \hline
-\end{tabular}
-\end{table}
-
----
-## Combinations
-
-- Counting without regard to order and without replacement
-- How many unique combinations of tickets are their?
-
-- **Answer** 
-\[
-\begin{aligned}
-\textrm{C}^6_2&amp;=\binom{n}{k}\\
-            &amp;=\frac{6!}{2!(6-2)!} \\
-            &amp;=\frac{6*5*4*3*2*1}{(4*3*2*1)(2*1)}\\
-            &amp;=\frac{6*5}{2*1}=15
-\end{aligned}
-\]
-
----
-## Combinations
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
-  \hline
-\textbf{ 1 } &amp;  &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
-  \textbf{ 2 } &amp;  &amp;  &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
-  \textbf{ 3 } &amp;  &amp;  &amp;  &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
-  \textbf{ 4 } &amp;  &amp;  &amp;  &amp;  &amp; {4, 5} &amp; {4, 6} \\ 
-  \textbf{ 5 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp; {5, 6} \\ 
-  \textbf{ 6 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp;  \\ 
-   \hline
-\end{tabular}
-\end{table}
-
----
-## Without regard to order, with replacement
-
-- Roll two die, how many pairings can we observe?
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- &amp; \textbf{ 1 } &amp; \textbf{ 2 } &amp; \textbf{ 3 } &amp; \textbf{ 4 } &amp; \textbf{ 5 } &amp; \textbf{ 6 } \\ 
-  \hline
-\textbf{ 1 } &amp; {1, 1} &amp; {1, 2} &amp; {1, 3} &amp; {1, 4} &amp; {1, 5} &amp; {1, 6} \\ 
-  \textbf{ 2 } &amp;  &amp; {2, 2} &amp; {2, 3} &amp; {2, 4} &amp; {2, 5} &amp; {2, 6} \\ 
-  \textbf{ 3 } &amp;  &amp;  &amp; {3, 3} &amp; {3, 4} &amp; {3, 5} &amp; {3, 6} \\ 
-  \textbf{ 4 } &amp;  &amp;  &amp;  &amp; {4, 4} &amp; {4, 5} &amp; {4, 6} \\ 
-  \textbf{ 5 } &amp;  &amp;  &amp;  &amp;  &amp; {5, 5} &amp; {5, 6} \\ 
-  \textbf{ 6 } &amp;  &amp;  &amp;  &amp;  &amp;  &amp; {6, 6} \\ 
-   \hline
-\end{tabular}
-\end{table}
-
+background-image:url("https://imgs.xkcd.com/comics/frequentists_vs_bayesians.png")
+background-size:contain
+## Bayesian vs Frequentists
 
 
 ---
-## Operations on Sets
-
-- Empty Set: `\(\o\)` a set with no elements
-- Subset: 
-    - `\(D=\{1,2,3,4,5,6\}\)`
-    - `\(Primes=\{2,3,5\}\)`
-    - `\(Primes \subset D \iff \forall X \in Primes, X \in D\)`
-- Unions
-    - `\(A \cup B = \{X:X \in A \lor X \in B \}\)`
-    - Either `\(A\)`, `\(B\)` or both `\(A and B\)` occur
-- Intersections
-    - `\(A \cap B = \{X:X \in A \land X \in B \}\)`
-    - Both `\(A\)` and `\(B\)` occur
-- Complements
-    - `\(A^\complement = \{X:X\notin A\}\)`
-    - `\(A^\complement\)` means `\(A\)` does not occur
-    - `\(\o^\complement=S\)` and `\(S^\complement=\o\)` 
-
----
-## Union
-
-\begin{center}
-\begin{tikzpicture}
-\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
-\fill[gray] (0,0) circle (1cm);
-\fill[gray] (1.5,0) circle (1cm);
-\draw (0,0) circle (1cm) node {$A$};
-\draw (1.5,0) circle (1cm) node {$B$};
-\end{tikzpicture}
-\end{center}
-
----
-## Intersection
-
-\begin{center}
-\begin{tikzpicture}
-\draw (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
-\begin{scope} % start of clip scope
-\clip (0,0) circle (1cm);
-\fill[gray] (1.5,0) circle (1cm);
-\end{scope} % end of clip scope
-\draw (0,0) circle (1cm) node[left] {$A$};
-\draw (1.5,0) circle (1cm) node[right] {$B$};
-\end{tikzpicture}
-\end{center}
-
----
-## Complement of Intersection
-
-\begin{center}
-\begin{tikzpicture}
-\filldraw[gray] (-2,-1.5) rectangle (3.5,1.5) node[below left]{$S$};
-\begin{scope} % start of clip scope
-\clip (0,0) circle (1cm);
-\fill[white] (1.5,0) circle (1cm);
-\end{scope} % end of clip scope
-\draw (0,0) circle (1cm) node[left] {$A$};
-\draw (1.5,0) circle (1cm) node[right] {$B$};
-\end{tikzpicture}
-\end{center}
-
----
-## Properties of Sets
-
-### Commutative
-`\(A \cup B = B \cup A\)`
-`\(A \cap B = B \cap A\)`
+## Bayesian vs Frequentists
 
 
-### Associative
-`\(A\cap (B \cap C) = (A \cap B)\cap C\)`
-`\(A\cup (B \cup C) = (A \cup B)\cup C\)`
+- Our two main tools for doing statistical inference in this course
 
----
-## Properties of Sets
+  - Hypothesis Testing
+  - Interval Estimation
 
-### Distributive
-`\(A\cap (B \cup C)=(A\cap B)\cup (A \cap C)\)`
-`\(A\cup (B \cap C)=(A\cup B)\cap (A \cup C)\)`
+- Follow largely from frequentist interpretations of probability
 
-### de Morgan's Law
-- `\((A \cup B)^\complement = A^\complement \cap B^\complement\)`
-- `\((A \cap B)^\complement = A^\complement \cup B^\complement\)`
+- The differences between Bayesian and Frequentist frameworks, are both philosophical and technical in nature
 
+  - Is probability a relative frequency or subjective belief? How do we form and use prior beliefs
+  - Bayesian statistics relies heavily on algorhithms for [Markov Chain Monte-Carlo](http://www.columbia.edu/~mh2078/MonteCarlo/MCMC_Bayes.pdf) simulations made possible by advances in computing.
 
----
-## Mutually Exclusive (Pairwise Disjoint)
+- For most of the questions in this course, these two frameworks will yield similar (even identical) conclusions.
+  
+  - Sometimes it's helpful to think like a Bayesian, others, like a frequentist
+  - All models are wrong, some models are useful.
 
-- `\(A_i\cap A_j = \o \forall i \neq j\)`
-- `\(\bigcup_{i=1}^k A_i = S \rightarrow A_1 \dots A_k\)` is a **partition**  of the sample space
-
-
----
-class: inverse, center, middle
-# 💡
-# Probability
 
 
 ---
@@ -623,7 +629,19 @@ class: inverse, center, middle
 # 💡
 # Conditional Probability
 
+---
+## Definition
 
+
+---
+## Example
+
+
+---
+## Independence
+
+---
+## Bayes Rule
 
 
 ---
@@ -631,16 +649,585 @@ class: inverse, center, middle
 # 💡
 # Random Variables and Probability Distributions
 
+
 ---
-class: inverse, center, middle
-# 💡
-# Expected Values and Variances
+## Random Variables
+- Random variables assign numeric values to each event in an experiment.
+
+    - Mutually exclusive and exhaustive, together cover the entire sample space.
+
+- Discrete random variables take on finite, or [countably infinite](http://mathworld.wolfram.com/CountablyInfinite.html) distinct values.
+
+- Continuous variables can take on an uncountably infinite number of values.
+
+---
+## Example: Toss Two Coins
+
+- `\(S={TT,TH,HT,HH}\)`
+- Let `\(X\)` be the number of heads
+    - `\(X(TT)=0\)`
+    - `\(X(TH)=1\)`
+    - `\(X(HT)=1\)`
+    - `\(X(HH)=2\)`
+
+    
+---
+## Probability Distributions
+
+- Broadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events. 
+
+- The can be represented in terms of:
+
+  - Probability Mass/Density Functions
+    - Discrete variables have probability mass functions (PMF)
+    - Continuous variables have probability density functions (PDF)
+
+  - Cumulative Density Functions
+    - Discrete: Summation of discrete probabilities
+    - Continuous: Integration over a range of values
+
+---
+## Discrete distributions
+
+- **Probability Mass Function (pmf):** `\(f(x)=p(X=x)\)`
+
+- Assigns probabilities to each unique event such that Kolmogorov Axioms (Positivity, Certainty, and Additivity) still apply 
+
+- **Cumulative Distribution Function (cdf)** `\(F(x_j)=p(X\leq x)=\sum_{i=1}^{j}p(x_i)\)`
+
+  - Sum of the probability mass for events less than or equal to `\(x_j\)`
+
+---
+## Example: Toss Two coins
+
+- `\(S={TT,TH,HT,HH}\)`
+- Let `\(X\)` be the number of heads
+    - `\(X(TT)=0\)`
+    - `\(X(TH)=1\)`
+    - `\(X(HT)=1\)`
+    - `\(X(HH)=2\)`
+- `\(f(X=0)=p(X=0)=1/4\)`
+- `\(f(X=1)=p(X=1)=1/2\)`
+- `\(F(X\leq 1) = p(X \leq 1)= 3/4\)`
 
 
 ---
-class: inverse, center, middle
-# 💡
-# Common Probability Distributions
+## PMF and CDF of a die
+
+Below I graph the pmf and cdf of a die
+
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Each side has equal probability of occurring (1/6). The probability that you roll a 2 or less P(X&lt;=2) = 1/6 + 1/6 = 1/3
+
+
+---
+## Continuous distributions
+
+
+- **Probability Density Functions (PDF):** `\(f(x)\)`
+    - Assigns probabilities to events in the sample space such that Kolmogorov Axioms still apply 
+    - But... since their are an infinite number of values a continuous variable could take, p(X=x)=0, that is, the probability that X takes any one specific value is 0.
+
+- **Cumulative Distribution Function (CDF)** `\(F(x)=p(X\leq x)=\int_{-\infty}^{x}f(x)dx\)`
+    - Instead of summing up to a specific value (discrete) we integrate over all possible values up to `\(x\)`
+    - Probability of having a value less than x
+
+
+---
+## Integrals
+
+First, a brief aside  on integral calculus:
+
+What's the area of the rectangle? `\(base\times height\)`
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Integrals
+
+How would we find the area under a curve?
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Integrals
+
+Well suppose we added up the areas of a bunch of rectangles roughly whose height's approximated the height of the curve?
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+Can we do any better? 
+
+---
+## Integrals
+
+Let's make the rectangles smaller
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+What happens as the width of rectangles get even smaller, approaches 0? Our approximation get's even better:
+
+
+---
+## Link between PDF and CDF
+
+If 
+$$F(x)=p(X\leq x)=\int_{-\infty}^{x}f(x)dx $$
+
+Then by the [fundamental theorem of calculus](https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus)
+
+`$$\frac{d}{dx}F(x)=f(x)$$`
+
+In words
+
+- the PDF ($f(x)$) is the derivative (rate of change) of the CDF ($F(X)$)
+
+- the CDF describes the area under the curve defined by f(x) up to x 
+
+
+---
+## Properties of the CDF
+
+- `\(0\leq F(x) \leq 1\)`
+
+- `\(F\)` is non-decreasing and right continuous
+
+- `\(\lim_{x\to-\infty}F(x)=0\)`
+
+- `\(\lim_{x\to\infty}F(x)=1\)`
+
+- For all `\(a,b \in \mathbb{R}\)` s.t. `\(a&lt;b\)`
+
+$$p(a &lt; X \leq b) = F(b)- F(a) = \int_a^b f(x)dx $$
+
+---
+## Recall the PMF and CDF of a die
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## What's the probability 
+
+- `\(p(X=1)...p(X=6) =\)`\pause `\(1/6\)`
+- `\(p( 2 &lt; X \leq 5) =\)`\pause  `\(F(5)-F(2)=5/6-2/6=3/6=1/2\)`
+
+
+---
+# Common Probablity Distirbutions
+
+In this course, we'll use probability distributions to 
+
+- Model the data generating process as a function of parameters we can estimate
+- To perform inference based on asymptotic theory (statements about how statistics would be have as our sample size approached infinity)
+
+---
+There are a lot of probability distributions:
+![](http://www.math.wm.edu/~leemis/chart/UDR/BaseImage.png)
+
+
+---
+Fortunately, the distributions you need to know to really master data science, is probably more something like
+![](https://miro.medium.com/max/4854/1*szMCjXuMDfKu6L9T9c34wg.png)
+
+And the distributions we'll work with the most in this class are an even smaller subset.
+
+---
+## Bernoulli Random Variables
+
+Let's start with our old friend the coin flip
+
+
+A coin flip is an example of a **Bernoulli random variable** defined by 1 parameter `\(p\)`, the probability of success. It has a pmf of
+
+`$$f(x) =
+    \left\{
+        \begin{array}{cc}
+                p &amp; \mathrm{if\ } x=1 \\
+                1-p &amp; \mathrm{if\ } x=0 \\
+        \end{array} 
+    \right.$$`
+
+
+And a CDF of 
+
+`$$F(x) =
+    \left\{
+        \begin{array}{cc}
+                0 &amp; \mathrm{if\ } x&lt;1 \\
+                1-p &amp; \mathrm{if\ } 0\leq x&lt;1 \\
+                1&amp; \mathrm{if\ } x\geq1 \\
+        \end{array} 
+    \right.$$`
+
+Note that in our coin flip example `\(p=0.5\)` but it need not. Just imagine a weighted coin like the Patriots use at Foxborough
+
+---
+## Uniform Distribution
+
+Our fair die examples represent a discrete uniform distribution: multiple outcomes, equally likely. We could even imagine an infinite number of possible outcomes within a range `\([a,b]\)`, the key parameters for a uniform distribution, in which case our case our continuous uniform random variable has a pdf of
+
+`$$f(x) =
+    \left\{
+        \begin{array}{cc}
+                \frac{1}{b-a}&amp; \mathrm{if\ } a \leq x\leq b \\
+                0 &amp; \text{otherwise} \\
+        \end{array} 
+    \right.$$`
+
+And a CDF:
+
+`$$F(x) =
+    \left\{
+        \begin{array}{cc}
+                        0 &amp; x &lt;a \\
+                \frac{x-a}{b-a}&amp; \mathrm{if\ } a \leq x &lt; b \\
+                1 &amp; x \geq b \\
+        \end{array} 
+    \right.$$`
+
+We won't run into uniform distributions all that often except in examples like rolling a fair sided die, but often they're used in Bayesian analysis as a form of uninformative prior.
+
+---
+## Binomial Distributions
+
+The binomial distribution may be thought of as the sum of outcomes of things that follow a Bernoulli distribution. Toss a fair coin 20 times; how many times does it come up heads? This count is an outcome that follows the binomial distribution.
+
+The key parameters are the number of trials `\(n\)` and the probability of success for each trial `\(p\)` and the pdf of a binomial distribution is:
+
+`$$f(x)=\binom{n}{x}p^x (1-p) ^{1-x} \ \text{for x 0,1,2},\dots n$$`
+
+---
+So if we were to toss a fair coin 20 times and count up the number of heads, the most common outcome would be 10 heads
+
+
+```
+[1] NA
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+The binomial distribution will come in handy when trying to model binary outcomes. 
+
+---
+## Poisson Distributions
+
+What would happen if you let the `\(n\)` in a binomial distribution go to infinity and `\(p\)` go to 0 so that `\(np\)` stayed the same. A Poisson distribution is what would happen. We use Poisson and negative binomial distributions to describe counts using the parameter `\(\lambda\)` which represents rate at which events occur.
+
+
+`$$f(x)=\frac{\lambda^x}{x!}e^{-\lambda}$$`
+
+
+
+```r
+# PDF of Poisson, lambda = 4
+# Try changing lambda
+lambda &lt;- 20
+df &lt;- data.frame(x = 0:20, px = dpois(0:20, lambda))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  labs(title="PMF of Poisson Distribution (Lambda=4)")
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-18-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Geometric Distributions
+
+What if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:
+
+`$$f(x)=p(1-p) ^{x}$$`
+
+
+```r
+df &lt;- data.frame(x = 0:20, px = dgeom(0:20, .5))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  labs(title="PMF of Geometric Distribution, (p=.5)")
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Exponential Distributions
+
+Taking a geometric distribution to its limit, you arrive at the continuous exponential distribution, again described by a `\(\lambda = \frac{1}{\beta}\)` rate parameter
+
+`$$f(x)=\frac{1}{\beta}\exp\left[-x/\beta\right]$$`
+
+
+```r
+p.pdf.exp&lt;-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = dexp)+ylim(0,1)+labs(title="PDF of Exponential Distribution (Lambda=1)",y="")
+p.cdf.exp&lt;-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = pexp)+ylim(0,1)+labs(title="CDF of Exponential Distribution (Lambda=1)",y="")
+ggarrange(p.pdf.exp,p.cdf.exp)
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+We often use exponential distributions to model things like "time until failure" where failure might be another war or the ending of an Italian cabinet.
+
+---
+## Normal Distribution
+
+Finally, there's the distribution so ubiquitous we called it normal. The Normal distribution is defined by two parameters: a location parameter `\(\mu\)` that determines the center of a distribution and a scale parameter `\(\sigma^2\)` that determines the spread of a distribution
+
+`$$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp \left[
+-\frac{1}{2\sigma^2}(x-\mu)^2
+\right]$$`
+
+---
+Standard normal: `\(X \sim N(\mu =0,\sigma^2=1)\)`
+
+
+```r
+p.pdf.norm&lt;-ggplot(data.frame(x = c(-3, 3)), aes(x)) + 
+  stat_function(fun = dnorm,)+ylim(0,1)+
+  labs(title="PDF of Standard Normal Distribution",y="")
+p.cdf.norm&lt;-ggplot(data.frame(x = c(-3, 3)), aes(x)) + stat_function(fun = pnorm)+ylim(0,1)+labs(title="CDF of Standard Normal Distribution",y="")
+ggarrange(p.pdf.norm,p.cdf.norm)
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+- As we'll normal distributions tend to arise when ever you're summing variables. That is sum together a bunch of values from almost any distribution and the **distribution of their sums** tends to follow a normal distribution. Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)
+
+
+---
+Consider a binomial distribution with N=100 and p=.5. The pmf of this variable (black lollipops) follows a distribution that's closely approximated by a normal distribution (red line) with a mean 50 and a standard deviation of 5.
+
+
+```r
+p &lt;- .5
+df &lt;- data.frame(x = 0:100, px = dbinom(0:100,size=100, prob=p))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  stat_function(fun = dnorm,args = list(50,sqrt(100*.5*(1-.5))), col="red")+
+  labs(title="PMF of Binomial Distribution (N=20,P=.5)")
+```
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+A relationship explained more generally by the Central Limit Theorem, which we'll cover next week.
+
+
+---
+### What's the p(X$\leq$ 0) for a normal distirbution with mean 0 and sd 1
+
+Since the normal distribution is so common, it's useful to get practice working with it's pdf and cdf.
+
+Consider the following question: If X is normally distributed variable with `\(\mu=0\)` and `\(\sigma=1\)`, what's the probability that X is less than 0  `\(p(X\leq0)=?\)` We could solve:
+
+`$$\int_{-\infty}^{0}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.5$$`
+
+
+
+---
+But R's `pnorm()` function will quickly tell us
+
+- `\(p(X\leq0)=\)` 0.5
+
+And we can visualize this as follows:
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+Consider some other questions?
+
+- `\(p(X=0)=0\)`
+  - The probability that a continuous variable is exactly some value is always 0.
+- `\(p(X&lt;0)=0.5\)`
+- `\(p(-1&lt; X&lt; 1)\)`
+- `\(p(-2&lt; X&lt; 2)\)`
+
+---
+### p(-1 &lt; X &lt;  1)
+
+
+- `\(p(-1&lt; X&lt; 1)=pr(X&lt;1)-pr(X&lt;-1)\)` 
+
+\[
+\int_{-1}^{1}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.841-0.158=0.682
+\]
+
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+### p(-2 &lt; X &lt; 2)
+
+- `\(p(-2&lt; X\leq 2)=\)` 0.9544997
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+We'll use the fact that close 95 of the observations of a standard normal variable will be within 2 standard deviations of the the mean of 0 for assessing whether a given statistic is likely to have arisen if the true value of that statistic were 0.
+
+
+
+---
+## Expected Value
+
+A (probability) weighted average of the possible outcomes of a random variable, often labeled `\(\mu\)` 
+
+Discrete:
+
+`$$\mu_X=E(X)=\sum xp(x)$$`
+
+Continuous
+
+$$\mu_X=E(X)=\int_{-\infty}^{\infty}xf(x) dx $$
+
+---
+## What's the expected value of a 1 roll of fair die?
+
+`$$\begin{align*}
+E(X)&amp;=\sum_{i=1}^{6}x_ip(x_i)\\
+     &amp;=1/6\times(1+2+3+4+5+6)\\
+     &amp;= 21/6\\
+     &amp;=3.5
+\end{align*}$$`
+
+---
+## Properties of Expected Values
+
+- `\(E(c)=c\)`
+- `\(E(a+bX)=a+bE[X]\)`
+- `\(E[E[X]]=X\)`
+- `\(E[E[Y|X]]=E[Y]\)`
+- `\(E[g(X)]=\int_{-\infty}^\infty g(x)f(x)dx\)`
+- `\(E[g(X_1)+\dots+g(X_n)]=E[g(X_1)]+\dots E[g(X_n)\)`
+- `\(E[XY]=E[X]E[Y]\)` if `\(X\)` and `\(Y\)` are independent
+
+---
+## How many times would you have to roll a fair die to get all six sides?
+
+We can think of this as the sum of the expected values for a series of geometric distributions with varying probabilities of success. The expected value of a geometric variable is:
+
+`$$\begin{align*}E(X)&amp;=\sum_{k=1}^{\infty}kp(1-p)^{k-1} \\
+&amp;=p\sum_{k=1}^{\infty}k(1-p)^{k-1} \\
+&amp;=p\left(-\frac{d}{dp}\sum_{k=1}^{\infty}(1-p)^k\right) \text{(Chain rule)} \\
+&amp;=p\left(-\frac{d}{dp}\frac{1-p}{p}\right) \text{(Geometric Series)} \\
+&amp;=p\left(\frac{d}{dp}\left(1-\frac{1}{p}\right)\right)=p\left(\frac{1}{p^2}\right)=\frac1p\end{align*}$$`
+
+---
+For this question, we need to calculate the probability of success, p, after getting a side we need.
+
+The probability of getting a side you need on your first role is 1. The probability of getting a side you need on the second role, is 5/6 and so the expected number of roles is 6/5, and so the expected number of rolls to get all six is:
+
+
+```r
+ev &lt;- c()
+for(i in 6:1){
+  ev[i] &lt;- 6/i
+  
+}
+# Expected rolls for each 1 through 6th side
+rev(ev)
+```
+
+```
+[1] 1.0 1.2 1.5 2.0 3.0 6.0
+```
+
+```r
+# Total 
+sum(ev)
+```
+
+```
+[1] 14.7
+```
+
+---
+## Variance
+
+If `\(X\)` has a finite mean `\(E[X]=\mu\)`, the `\(E[(X-\mu)^2]\)` is finite and called the variance of `\(X\)` which we write as `\(\sigma^2\)` or `\(Var[X]\)`.
+
+Note:
+
+`$$\begin{align*}
+\sigma^2=E[(X-\mu)^2]&amp;=E[(X^2-2\mu X+\mu^2)]\\
+&amp;= E[X^2]-2\mu E[X]+\mu^2\\
+&amp;= E[X^2]-2\mu^2+\mu^2\\
+&amp;= E[X^2]-\mu^2\\
+&amp;= E[X^2]-E[X]^2
+\end{align*}$$`
+
+- "The variance of X is equal to the expected value of X-squared, minus the square of X's expected value."
+- `\(\sigma^2=E[X^2]-E[X]^2\)` is a useful identity in proofs and derivations
+
+---
+## Variance and Standard Deviations
+
+We often think of variances `\(Var[X]\)` as describing the spread of a distribution
+
+`$$\sigma^2=Var[X]=E[(X-E[X])^2]=E(X^2)-E(X)^2$$`
+
+A standard deviation is just the square root of the variance
+
+`$$\sigma=\sqrt{Var[X]}$$`
+
+---
+## Covariance
+
+Covariance measures the degree to which two random variables vary together. 
+
+- `\(Cov[X,Y] \to +\)` An increase in `\(X\)` tends to be larger than its mean when `\(Y\)` is larger than its mean
+
+`$$Cov[X,Y]=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y]$$`
+
+---
+## Properties of Variance and Covariance
+
+- `\(Cov[X,Y]=E[XY]-E[X]E[Y]\)`
+- `\(Var[X]=E[X^2]-(E[X])^2\)`
+- `\(Var[X|Y]=E[X^2|Y]-(E[X|Y])^2\)`
+- `\(Cov[X,Y]=Cov[X,E[Y|X]]\)`
+- `\(Var[X+Y]=Var[X]+Var[Y]+2Cov[X,Y]\)`
+- `\(Var[Y]=Var[E[Y|X]]+E[Var[Y|X]]\)`
+
+
+---
+## Correlation
+
+- The correlation between `\(X\)` and `\(Y\)` is simply the covariance of `\(X\)` and `\(Y\)` divided by the standard deviation of each.
+
+`$$\rho=\frac{Cov[X,Y]}{\sigma_X\sigma_Y}$$`
+
+- Normalize covariance to a scale that runs between [-1,1]
+
+---
+## Question: If two variables have zero covariance, are they independent?
+
+
+No
+
+A trivial example
+
+- `\(p(X=x)=1/3\)` for `\(x = -1,0,1\)` and let `\(Y=X^2\)`
+- Y clearly depends on X even though their covariance is 0
+
+
+```r
+p=1/3
+x=-1:1
+y=x^2
+cor(x,y)
+```
+
+```
+[1] 0
+```
+
+
 
 
 
