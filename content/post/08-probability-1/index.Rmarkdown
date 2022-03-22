@@ -25,10 +25,10 @@ image:
 projects: []
 
 links:
-# - icon: hand-sparkles
-#   icon_pack: fas
-#   name: pre-work slides
-#   url: /slides/07-prework-slides_blogdown.html
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/08-slides.html
 - icon: magic
   icon_pack: fas
   name: Notes
