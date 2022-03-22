@@ -16,7 +16,8 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = FALSE)
+  fig.align = "center", out.width = "80%", cache = T
+  )
 library("tidyverse")
 ```
 
@@ -345,7 +346,35 @@ $$Pr(\Omega) = 1 $$
 3. If events $A$ and $B$ are mutually exclusive, then:
 
 $$Pr(A \text{ or } B) = Pr(A) + Pr(B)$$
+---
+## The Addition Rule
 
+For any given events, $A$ and $B$, the **addition** rule says we can find the probability of either $A$ or $B$ occurring:
+
+$$ Pr(A \cup B) = Pr(A \text{ or } B) = Pr(A) + Pr(B) - \underbrace{Pr(A \text{ and } B)}_{\text{aka } Pr(A \cap B)}$$
+In words: The probability of either A or B occurring is the probability that A occurs plus the probability that B occurs - minus the probability that both occur (so that we're not double counting...)
+
+---
+class: bottom,right
+background-image:url("https://www.onlinemathlearning.com/image-files/set-operations-venn-diagrams.png")
+background-size:contain
+
+[Source](https://www.onlinemathlearning.com/union-set.html)
+
+
+---
+## The Law of Total Probability (Part 1)
+
+For any event two events, $A$ and $B$, the probability of $A$ $(Pr(A)$ can be **decomposed** into the sum of the probabilities of two **mutually exclusive** events:
+
+$$Pr(A) = Pr(A \text{ and } B) + Pr(A \text{ and } B^{\complement})$$
+
+---
+class: bottom,right
+background-image:url("https://www.onlinemathlearning.com/image-files/set-operations-venn-diagrams.png")
+background-size:contain
+
+[Source](https://www.onlinemathlearning.com/union-set.html)
 
 
 ---
@@ -367,12 +396,18 @@ $$Pr(A \text{ or } B) = Pr(A) + Pr(B)$$
 
   - Flip a fair coin, the probability of heads is Pr(Heads) = 0.5
 
+--
+
 - **Frequentist:** view this probability is the limit of the relative frequency of an event over repeated trials.
 
-$$ Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
+$$Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
 
 - Thinking about probability as a relative frequency, requires us to know how to the number of times an event occurred. 
 
+
+---
+background-image:url("https://www.kindpng.com/picc/m/99-991302_transparent-sesame-street-count-clipart-count-sesame-street.png")
+background-size:contain
 
 ---
 ## How many elements in a set?
@@ -383,6 +418,7 @@ A set can be:
   
   - Roll a die, there six possible outcomes $\{1,2,3,4,5,6\}$
 
+--
 
 - **Countably Infinite:** 
 
@@ -434,49 +470,126 @@ More generally, if there are
 
 - How many choices at each stage? 
 
-- **Palette**: $\{\text{Fall, Winter, Spring, Summer}\} = n_{jk} = 4 $ 
-- **Jacket**: $\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\} = n_{jk} = 5$
-- **Top**: $\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\} = n_{jk} = 4$
-- **Pant**: $\{\text{Slacks, Khakis, Jeans, Shorts}\} = n_{jk} = 4$
-- **Shoe**: $\{\text{Dress Shoe, Dress boot, Jordans, Dunks, Basketball, Crocs}\} = n_{jk} = 6$
-- **Tie**: $\{\text{Repp, Pattern, Knit, Bowtie, No tie}\} = n_{jk} = 5$
-- **Pattern**: $\{\text{Simple, Stripes, Checks, Graphic}\} = n_{jk} = 4$
+  - **Palette**: $\{\text{Fall, Winter, Spring, Summer}\} = n_{1,4} = 4$ 
+  - **Jacket**: $\{\text{Tuxedo, Tweed,Blazer, Sportcoat, No coat}\} = n_{2,5} = 5$
+  - **Top**: $\{\text{Dress Shirt, Polo, Tee Shirt, Sports Jersey}\} = n_{3,4} = 4$
+  - **Pant**: $\{\text{Slacks, Khakis, Jeans, Shorts}\} = n_{4,4} = 4$
+  - **Shoe**: $\{\text{Dress Shoe, Boots, Jordans, Dunks, Basketball, Crocs}\} = n_{5,6} = 6$
+  - **Tie**: $\{\text{Repp, Pattern, Knit, Bowtie, No tie}\} = n_{6,7} = 5$
+  - **Pattern**: $\{\text{Simple, Stripes, Checks, Graphic}\} = n_{7,4} = 4$
 
 - How many possible suggestions? $\prod_{i=1}^{j} n_{jk} = 4 \times 5 \times 4 \times 4 \times 6 \times 5 \times 4 = 38,400 \text{ outfits}$
 
 ---
-## And yet you chose this:
+#### And yet you chose this:
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I send students in my undergraduate research class a weekly survey to get a sense of what&#39;s working and what&#39;s not. <br><br>I also ask them silly questions just for fun. Last week, I asked them to help me with my fit. This was the result: <a href="https://t.co/w1t8Cr04Ap">pic.twitter.com/w1t8Cr04Ap</a></p>&mdash; Paul Testa (@ProfPaulTesta) <a href="https://twitter.com/ProfPaulTesta/status/1501291241404833795?ref_src=twsrc%5Etfw">March 8, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 ---
-## Permutations and Combinations
+## Perumations and Combinations
 
-- A **Permutation** is a selection of objects in which the **order matters.**
+When we're counting how many "events" we can construct from a set of elements, our answer depends on whether we:
 
-  - There are *six* ways to arrange the letters "a", "b", "c" using each letter only once ("without replacement")
-  - There are *27* ways to arrange the letters "a", "b", "c" using each letter as many times as we want ("with replacement")
+- Can distinguish the **order** of elements
 
+- Allow for elements to be **repeated**
 
-- A **Combination** is a selection of objects without regard to order
+Situations where we can distinguish the order of elements being selected are described by **Permutations**
 
-  - There is *1* ways to choose a group of three letters from the letters "a", "b", "c" using each letter only once ("without replacement")
-  - There are *10* ways to arrange the letters "a", "b", "c" using each letter only once ("with replacement")
+Situations where we cannot distinguish the order of elements being selected are described by **Combinations**
 
+In both cases, the total number of permutations or combinations, varies, depending on whether we allow repeats or not.
 
 
 ---
+## Factorials
 
-```{r, echo=F}
+The symbol `!` is the factorial function. `5!` is read as "five factorial" and is a shorthand way of writing:
+
+$$5! = 5\times 4\times 3\times 2 \times 1$$
+
+Combined with the fundamental counting principle, factorials let us mathematically represent situations where 
+
+  - order does or does not matter
+  
+  - repeats are or are not allowed.
+  
+---
+## Perumations: With regard to order and with repeats
+
+A **Permutation** is a selection of objects in which the **order matters.**
+
+When order matters and repeats allowed there are:
+
+- $N$ ways to make our first choice, $N$ ways to make our second choice, ... $N$ ways to make our $k^{th}$ and $N^k$ total permutations of choices
+  
+- There are *27* ways $(n^k=3^3)$ to arrange the letters "a", "b", "c" using each letter as many times as we want ("with replacement/repeats allowed)
+
+
+---
+## Perumations: With regard to order and without repeats
+
+When order matters and repeats are not allowed:
+
+- There are $N$ ways to make our first choice, $N-1$ ways to make our second choice, ... and $N-k$ ways to make our $k^{th}$ choice. 
+
+The formula for a permutation without repeats then is:
+
+$${}_{n}P_k = n\times (n-1) \dots (n-k) = \frac{n!}{(n-k)!}$$
+
+Since dividing $n!$ by $(n-k)!$, leaves us with $n\times (n-1) \dots (n-k)$
+
+$${}_{5}P_3  = \frac{5\times 4 \times 3 \times 2 \times 1}{ 2 \times 1}= 5\times 4 \times 3 = 60$$
+- There are *six* ways to arrange the letters "a", "b", "c" using each letter only once (without replacement/no repeats)
+
+$${}_{3}P_3  = \frac{3 \times 2 \times 1}{1}= 3\times 2 \times 1 = 6$$
+
+---
+## Combinations: without regard to order and without repeats
+
+A **Combination** is a selection of objects **without regard to order**
+
+Combinations without repeats are described using  $\binom{n}{k}$ (a "binomial coefficient), and is a shorthand way of writing:
+
+$${}_{n}C_k = \binom{n}{k} = \frac{{}_{n}P_k}{k!} =  \frac{n!}{k!(n-k)!}$$
+
+
+- We divide by $k!$ because given $k$ sampled elements, there are $k!$ ways of arranging them, but when order does not matter, we want to treat these arrangements as the same (e,g, $AB$ and $BA$ are both instances of getting an $A$ and $B$)
+
+
+- There is *1* ways to choose a group of three letters from the letters "a", "b", "c" using each letter only once (without replacement/no repeats)
+  
+$${}_{3}C_3 = \binom{3}{3} = \frac{{}_{3}P_3}{3!} =  \frac{3!}{3!(0)!} = \frac{3*2*1}{3*2*1*1}=1$$
+
+
+- There are *10* ways to arrange the letters "a", "b", "c" using each letter only once (with replacement/repeats allowed)
+
+---
+## Combinations: without regard to order and with repeats
+
+Finally, we a combination where repeats are allowed is described by a [multiset coefficient](https://en.wikipedia.org/wiki/Multiset)
+
+$${}_{n}C_k = \left(\binom{n + k - 1}{k}\right) =\frac{(n + k -1)!}{k!(n-1)!}$$
+
+- There are *10* ways to arrange the letters "a", "b", "c" using each letter only once (with replacement/repeats allowed)
+
+
+$${}_{3}C_3 = \left(\binom{3+3-1}{3}\right) = \frac{(3+3-1)!}{3!(3-1)!} =  \frac{5!}{3!(2)!} = \frac{5*4*3*2*1}{3*2*1*2*1}=\frac{5*4}{2*1}=10$$
+- I find this one less intuitive too explain, and less commonly used. The classic example is something like picking donuts or filling up a sampler six pack.
+
+---
+
+```{r counttab, echo=F,results="asis", tidy=TRUE}
+
 counting_tab <- tibble::tibble(
    ` `=  c("Permutation", "Perumation","Combination", "Combination"),
   `Order Matters` = c("Yes","Yes","No","No"),
   `Repetition Allowed` = c("Yes","No","No","Yes"),
-  Formula = c("$P(n,k) = {}_{n}P_k = n^k $", 
-              "$P(n,k) = {}_{n}P_k = \\frac{n!}{(n-k)!}$",
-              "$C(n,k) = {}_{n}C_k = \\binom{n}{k} = \\frac{{}_{n}P_k}{k!} \\frac{n!}{k!(n-k)!}$",
-              "$C(n,k) = {}_{n}C_k = \\binom{n + k - 1}{k} =\\frac{(n + k -1)!}{k!(n-1)!}$"
+  Formula = c('&nbsp; ${}_{n}P_k =  n^k$ ', 
+              "&nbsp; ${}_{n}P_k = \\frac{n!}{(n-k)!}$",
+              "&nbsp; ${}_{n}C_k = \\binom{n}{k} = \\frac{{}_{n}P_k}{k!} \\frac{n!}{k!(n-k)!}$",
+              "&nbsp; ${}_{n}C_k = \\binom{n + k - 1}{k} =\\frac{(n + k -1)!}{k!(n-1)!}$"
               ),
   "Example = {abc}" = c('P(3,3) = Pick three letters in order with replacement = $3^3 = 27$ permutations',
               'P(3,3) = Pick three letters in order without replacement = $\\frac{3!}{(3-3)!} = \\frac{3*2*1}{1} = 6$ permutations',
@@ -484,7 +597,15 @@ counting_tab <- tibble::tibble(
               'C(3,3) = Choose three letters with replacement = $\\frac{3+3 -1!}{3!(3-1)!} = \\frac{5*4*3*2*1}{(3*2*1)(2*1)} = 10$ combinations'
               )
   )
+
+
+kable(counting_tab, format = "markdown")%>%
+  kable_styling()
 ```
+
+
+
+
 
 ---
 ## Permutations in R
@@ -509,19 +630,43 @@ gtools::permutations(3, 2, v = c("a","b","c"),repeats.allowed = F)
 .pull-left[
 ${}_{3}C_2$ no order, no repeats
 ```{r}
-gtools::combinations(3, 2, v = c("a","b","c"),repeats.allowed = F)
+gtools::combinations(4, 2, v = c("a","b","c","d"),repeats.allowed = F)
 ```
 ]
 
 .pull-right[
 ${}_{3}C_2$ no order, repeats allowed
 ```{r}
-gtools::combinations(3, 2, v = c("a","b","c"),repeats.allowed = T)
+gtools::combinations(4, 2, v = c("a","b","c","d"),repeats.allowed = T)
 ```
 ]
 
 ---
 ## Permutations and Combinations
+
+Counting turns out to be vary useful for a number of questions/problems in social science. 
+
+For example, in a randomized experiment, how we randomize treatment assignments can have big implications for how we conduct statistical inference.
+
+  - In short, we will "analyze as we randomize"
+  - Compare what we observed from one possible way of assigning treatment, to what we could have observed under different assignments, if some claim (hypothesis) were true
+  - Simple random assignment (equal probability, flipping a coin) yields a lot of possible assignments
+  - Complete random assignment, fixes the \# treated (e.g. N/2), ruling cases where everyone or no-one gets the treatment
+  - Similarly, paired random assignment randomizes within pairs.
+
+```{r, echo=F}
+exptab <- tibble(
+  Randomization = c("Coin Flip", "Completely Randomized","Pair-Randomized"),
+  `Total # of Treatment Assignments` = c("&nbsp; $N^2$","&nbsp; $\\binom{N}{N/2}$", "&nbsp; $2^{N/2}$"),
+  `N=4` = c("16","6","4"),
+  `N=8` = c("256","70","16"),
+  `N=16` = c("65,536","12870","256"),
+)
+
+kable(exptab, format="markdown")%>%
+  kable_styling()
+```
+
 
 
 ---
@@ -599,7 +744,31 @@ class: inverse, center, middle
 # Conditional Probability
 
 ---
-## Definition
+## Conditional Probability: Definition
+
+The conditional probability that event **A** occurred, given that event **B** occurred is written as $Pr(A|B)$ (*"The probability of A given B"*) and defined as:
+
+$$Pr(A|B) = \frac{Pr(A \cap B)}{Pr(B)} = \frac{\text{Probability of Both A and B}}{\text{Probability of B}}$$
+
+- $Pr(A \cap B)$ is the same as $Pr(A \text{ and } B)$  is the **joint probability** of both events occurring
+
+- $Pr(B)$ is the **marginal probability** of B occuring
+
+---
+## Conditional Probability: Multiplication  Rule
+
+Joint probabilities are **symmetrical**. $Pr(A \cap B) = Pr(B \cap A)$. 
+
+By rearranging terms:
+
+$$Pr(A|B) = \frac{Pr(A \cap B)}{Pr(B)}$$
+We get the **multiplication rule**:
+
+$$Pr(A \cap B) = Pr(A|B)Pr(B) = Pr(B|A)Pr(A)$$
+
+
+
+
 
 
 ---
