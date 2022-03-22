@@ -17,7 +17,7 @@ knitr::opts_chunk$set(error = TRUE,
                       warnings = FALSE, 
                       errors = FALSE, 
                       message = FALSE, 
-                      cache = T,
+                      cache = F,
                       tidy = FALSE)
 
 # htmltools::tagList(
@@ -168,7 +168,7 @@ First lets load the libraries we'll need for today.
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT","texreg","htmltools",
-  "flair", # Comments only
+  #"flair", # Comments only
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
@@ -210,7 +210,7 @@ If you were click on the link (you don't need to, but you might be interested), 
 source("https://gist.githubusercontent.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40/raw/601680d7b20cd1638d93c325156d4b000ea1f9cc/drww_english_recode.R")
 
 # If this doesn't work you can download the data here:
-# load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 
 ```
 
@@ -284,7 +284,7 @@ Which we can then format into a table of summary statistics:
 
 ```{r summary_table}
 
-kable(summary_table,
+knitr::kable(summary_table,
       digits = 2) %>% 
   kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
   kableExtra::pack_rows(
@@ -365,15 +365,58 @@ df_drww %>%
 
 # Comment
 
+df_drww %>%
+  mutate(
+    is_female = ifelse(sex == "Female",1, 0)
+  ) %>%
+  select(all_of(the_vars)) %>%
+  pivot_longer(
+    cols = all_of(the_vars ),
+    names_to = "Variable",
+    values_to = "Value"
+  )
 
 # ---- Step 5 -----
 
 # Comment
 
+df_drww %>%
+  mutate(
+    is_female = ifelse(sex == "Female",1, 0)
+  ) %>%
+  select(all_of(the_vars)) %>%
+  pivot_longer(
+    cols = all_of(the_vars ),
+    names_to = "Variable",
+    values_to = "Value"
+  ) %>%
+  group_by(Variable)
 
 # ---- Step 6 -----
 
 # Comment
+
+df_drww %>%
+  mutate(
+    is_female = ifelse(sex == "Female",1, 0)
+  ) %>%
+  select(all_of(the_vars)) %>%
+  pivot_longer(
+    cols = all_of(the_vars ),
+    names_to = "Variable",
+    values_to = "Value"
+  ) %>%
+  group_by(Variable) %>%
+  summarise(
+    `N obs` = n(),
+    Missing = sum(is.na(Value)),
+    Min = min(Value, na.rm = T),
+    `25th perc` = quantile(Value, .25, na.rm=T),
+    Mean = mean(Value, na.rm=T),
+    Median = median(Value, na.rm = T),
+    `75th perc` = quantile(Value, .75, na.rm=T),
+    Max = max(Value, na.rm = T)
+  )
 
 # ---- Step 7 -----
 
@@ -445,17 +488,17 @@ Before you estimate these models, please answer the following:
 Uncomment the code below, and replace the `???` with the appropriate terms to fit the following models.
 
 ```{r models}
-# # Baseline Model
-# m1 <- lm(support_war01 ~ age + sex + education_n, df_drww)
-# 
-# # Interaction model: Allow coefficient for age to vary with sex
-# m2 <- lm(support_war01 ~ age*??? + education_n, df_drww)
-# 
-# # Polynomial model: Allow coefficient for age to vary by age
-# m3 <- lm(support_war01 ~ age + I(???^2) + sex + education_n, df_drww)
-# 
-# # Separate Polynomial: Allow coefficient for age to vary by age separately  by sex
-# m4 <- lm(support_war01 ~ (age + I(???))*??? + education_n, df_drww)
+# Baseline Model
+m1 <- lm(support_war01 ~ age + sex + education_n, df_drww)
+
+# Interaction model: Allow coefficient for age to vary with sex
+m2 <- lm(support_war01 ~ age*sex + education_n, df_drww)
+
+# Polynomial model: Allow coefficient for age to vary by age
+m3 <- lm(support_war01 ~ age + I(age^2) + sex + education_n, df_drww)
+
+# Separate Polynomial: Allow coefficient for age to vary by age separately  by sex
+m4 <- lm(support_war01 ~ (age + I(age^2))*sex + education_n, df_drww)
 ```
 
 
@@ -471,7 +514,7 @@ You can use the [code from last week's lab as a guide.](https://pols1600.paultes
 
 ```{r regtab}
 # Display m1, m2, m3, m4 in a regression table
-
+texreg::htmlreg(list(m1, m2, m3, m4), digits = 5) %>% HTML() %>% browsable()
 ```
 
 
@@ -568,10 +611,19 @@ To review: you'll need to
 ```{r}
 # 2. Create a prediction data frame (`pred_df`)
 
-
+pred_df <- expand.grid(
+  age = seq(18, 99, length.out = 10),
+  sex = "Male",
+  education_n = mean(df_drww$education_n, na.rm = T)
+)
+pred_df
 
 # 3  Use this prediction data frame to obtain predicted values from our model
 # Save the output from predict() back into our prediction data frame
+
+pred_df$fit_m1 <- predict(m1, newdata = pred_df)
+pred_df$fit_m3 <- predict(m3, newdata = pred_df)
+
 
 ## predicted values for m1
 
@@ -583,10 +635,17 @@ To review: you'll need to
 
 
 ## plot predicted values for m1
-
+pred_df %>%
+  ggplot(aes(x = age,
+             y = fit_m1))+
+  geom_line()
 
 ## plot predicted values for m3
 
+pred_df %>%
+  ggplot(aes(x = age,
+             y = fit_m3))+
+  geom_line()
 
 ```
 
@@ -621,6 +680,12 @@ In the code chunk below
 ```{r}
 # 2. Create a prediction data frame (`pred_df_int`)
 
+pred_df_int <- expand.grid(
+  age = seq(18, 99, length.out = 10),
+  sex = c("Male","Female"),
+  education_n = mean(df_drww$education_n, na.rm = T)
+)
+pred_df_int
 
 
 # 3. Use this prediction data frame to obtain predicted values from our model
@@ -630,6 +695,9 @@ In the code chunk below
 
 
 ## predicted values for m4
+pred_df_int$fit_m2 <- predict(m2, newdata = pred_df_int)
+pred_df_int$fit_m4 <- predict(m4, newdata = pred_df_int)
+
 
 
 # 4. Visualize the results using ggplot.
@@ -637,8 +705,19 @@ In the code chunk below
 
 ## plot predicted values for m2
 
+pred_df_int %>%
+  ggplot(aes(x = age,
+             y = fit_m2,
+             col = sex))+
+  geom_line()
+
 
 ## plot predicted values for m4
+pred_df_int %>%
+  ggplot(aes(x = age,
+             y = fit_m4,
+             col = sex))+
+  geom_line()
 
 ```
 

@@ -14,15 +14,6 @@
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-    <script src="libs/datatables-binding/datatables.js"></script>
-    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
-    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
-    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
-    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="css/brown.css" type="text/css" />
   </head>
   <body>
@@ -51,7 +42,7 @@ class: center, middle, inverse, title-slide
 
 
 
----
+
 class: inverse, center, middle
 # Overview
 
@@ -61,11 +52,11 @@ class: inverse, center, middle
 - Setup
 - Feedback
 - Review
-- Lecture 
-  - Topic 1
-  - Topic 2
-
-- Summary
+- Lecture
+  - Probability Theory
+  - Conditional Probability 
+  - Random variables and probability distributions
+  - Expected values and variances
 
 
 ---
@@ -75,20 +66,6 @@ class:inverse, middle, center
 
 ---
 ## New packages
-
-Not necessary to install, but if you want to draw Venn Diagrams using [`ggVennDiagram`](https://venn.bio-spring.top/index.html#prerequisites)
-
-
-
-```r
-cran_packages &lt;- c("VennDiagram","colorfulVennPlot","gplots","venn",
-                   "nVennR", "eulerr","venneuler","ggVennDiagram")
-xfun::pkg_load2(cran_packages)
-# GitHub
-if (!requireNamespace("ggvenn")){
-  remotes::install_github("yanlinlin82/ggvenn")
-}
-```
 
 And tools for doing Permutations and Combinations
 
@@ -113,7 +90,6 @@ the_packages &lt;- c(
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
-* "ggVennDiagram",
   # Graphics:
 * "scatterplot3d",
   # Data 
@@ -153,12 +129,12 @@ ipak(the_packages)
          TRUE          TRUE          TRUE          TRUE          TRUE 
       ggrepel      ggridges      ggthemes        ggpubr        GGally 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-       scales       dagitty         ggdag       ggforce ggVennDiagram 
+       scales       dagitty         ggdag       ggforce scatterplot3d 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-scatterplot3d       COVID19          maps       mapdata           qss 
+      COVID19          maps       mapdata           qss    tidycensus 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-   tidycensus     dataverse DeclareDesign           zoo        gtools 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
+    dataverse DeclareDesign           zoo        gtools 
+         TRUE          TRUE          TRUE          TRUE 
 ```
 
 
@@ -167,64 +143,14 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
-
+---
 # 📢
 ## Feedback
 
-
-
-
-
-
-
 ---
-## What we liked
+## Feedback
 
---
-
-- Likes here
-
----
-## What we liked
-
-<div id="htmlwidget-91af768290415e3d7135" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91af768290415e3d7135">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-
-
----
-## What we disliked
-
---
-
-- Dislikes here
----
-## What we disliked
-
-<div id="htmlwidget-a94191308c16e6c23b89" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a94191308c16e6c23b89">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-
-
----
-class:inverse, middle, center
-# 🔍
-## Review
-
----
-## Predicted Values
-
-
----
-## Overfitting vs Under Fitting
-
-
-
-
----
-class: inverse, center, middle
-# 💡
-# WARNING
-
-
+Only 8 responses...
 
 ---
 ## What we'll cover today
@@ -257,8 +183,6 @@ class: inverse, center, middle
 class: inverse, center, middle
 # 💡
 # Probability
-
-## Something pithy here
 
 
 ---
@@ -353,7 +277,7 @@ $$Pr(\Omega) = 1 $$
 
 For any given events, `\(A\)` and `\(B\)`, the **addition** rule says we can find the probability of either `\(A\)` or `\(B\)` occurring:
 
-$$ Pr(A \cup B) = Pr(A \text{ or } B) = Pr(A) + Pr(B) - \underbrace{Pr(A \text{ and } B)}_{\text{aka } Pr(A \cap B)}$$
+`$$Pr(A \cup B) = Pr(A \text{ or } B) = Pr(A) + Pr(B) - \underbrace{Pr(A \text{ and } B)}_{\text{aka } Pr(A \cap B)}$$`
 In words: The probability of either A or B occurring is the probability that A occurs plus the probability that B occurs - minus the probability that both occur (so that we're not double counting...)
 
 ---
@@ -737,14 +661,13 @@ For example, suppose we wanted to test whether a coin is "fair"  `\((p = Pr(Head
 
 - Bayesians do this using *Bayes Rule*, which says:
 
-$$\text{posterior} \propto \text{likelihood} \times \text{prior} $$
+`$$\text{posterior} \propto \text{likelihood} \times \text{prior}$$`
 More formally:
 
 $$\underbrace{Pr(\theta|Y)}_{\text{Posterior}} \propto \underbrace{Pr(Y|\theta)}_{\text{Likelihood}}) \times \underbrace{Pr(\theta)}_{\text{Prior}} $$
 ---
 background-image:url("https://imgs.xkcd.com/comics/frequentists_vs_bayesians.png")
 background-size:contain
-## Bayesian vs Frequentists
 
 
 ---
@@ -801,17 +724,343 @@ We get the **multiplication rule**:
 
 
 
+---
+## QSS Example (p. 256): Race and Gender in the FL Voter File 
+
+`FLVoters` contains a random sample of 10,000 voters
+
+
+```r
+library(qss)
+data("FLVoters")
+dim(FLVoters)
+```
+
+```
+[1] 10000     6
+```
+
+```r
+FLVoters &lt;- na.omit(FLVoters)
+dim(FLVoters)
+```
+
+```
+[1] 9113    6
+```
+
+```r
+head(FLVoters)
+```
+
+```
+     surname county VTD age gender  race
+1     PIEDRA    115  66  58      f white
+2      LYNCH    115  13  51      m white
+4    LATHROP    115  80  54      m white
+5     HUMMEL    115   8  77      f white
+6 CHRISTISON    115  55  49      m white
+7      HOMAN    115  84  77      f white
+```
+
+---
+## Marginal Probabilities: Gender
+
+
+```r
+# Pr(Gender)
+table(FLVoters$gender)
+```
+
+```
+
+   f    m 
+4883 4230 
+```
+
+```r
+margin_gender &lt;- prop.table(table(FLVoters$gender))
+margin_gender
+```
+
+```
+
+        f         m 
+0.5358279 0.4641721 
+```
+
+---
+## Marginal Probabilities: Race
+
+
+```r
+# Pr(Race)
+table(FLVoters$race)
+```
+
+```
+
+   asian    black hispanic   native    other    white 
+     175     1194     1192       29      310     6213 
+```
+
+```r
+margin_race &lt;- prop.table(table(FLVoters$race))
+margin_race
+```
+
+```
+
+      asian       black    hispanic      native       other       white 
+0.019203336 0.131021617 0.130802151 0.003182267 0.034017338 0.681773291 
+```
 
 
 ---
-## Example
+## Cross Tab of race and gender
+
+
+```r
+table(FLVoters$gender,FLVoters$race, useNA = "ifany")
+```
+
+```
+   
+    asian black hispanic native other white
+  f    83   678      666     17   158  3281
+  m    92   516      526     12   152  2932
+```
+
+---
+## Joint probability of race and gender
+
+
+```r
+joint_p &lt;- prop.table(table(FLVoters$gender,FLVoters$race))
+joint_p
+```
+
+```
+   
+          asian       black    hispanic      native       other       white
+  f 0.009107868 0.074399210 0.073082410 0.001865467 0.017337869 0.360035115
+  m 0.010095468 0.056622408 0.057719741 0.001316800 0.016679469 0.321738176
+```
+
+---
+## Marginal probabilities from joint probabilities:
+
+
+```r
+prob_tab&lt;-addmargins(table(FLVoters$gender,FLVoters$race))
+prob_tab
+```
+
+```
+     
+      asian black hispanic native other white  Sum
+  f      83   678      666     17   158  3281 4883
+  m      92   516      526     12   152  2932 4230
+  Sum   175  1194     1192     29   310  6213 9113
+```
+
+---
+## Marginal probabilities from joint probabilities: Gender
+
+```r
+# Marginal probability of Gender
+prob_tab[,"Sum"]/prob_tab["Sum","Sum"]
+```
+
+```
+        f         m       Sum 
+0.5358279 0.4641721 1.0000000 
+```
+
+```r
+prop.table(table(FLVoters$gender))
+```
+
+```
+
+        f         m 
+0.5358279 0.4641721 
+```
+
+---
+## Marginal probabilities from joint probabilities: Race
+
+```r
+# Marginal probability of Race
+prob_tab["Sum",]/prob_tab["Sum","Sum"]
+```
+
+```
+      asian       black    hispanic      native       other       white 
+0.019203336 0.131021617 0.130802151 0.003182267 0.034017338 0.681773291 
+        Sum 
+1.000000000 
+```
+
+```r
+prop.table(table(FLVoters$race))
+```
+
+```
+
+      asian       black    hispanic      native       other       white 
+0.019203336 0.131021617 0.130802151 0.003182267 0.034017338 0.681773291 
+```
+
+---
+## Total Probability: Pr(Black)
+
+`$$Pr(Black)=Pr(Black \cap female) + Pr(Black \cap male)$$`
+
+
+```r
+prop.table(table(FLVoters$gender,FLVoters$race))["f","black"] +
+  prop.table(table(FLVoters$gender,FLVoters$race))["m","black"]
+```
+
+```
+[1] 0.1310216
+```
+
+```r
+prop.table(table(FLVoters$race))["black"]
+```
+
+```
+    black 
+0.1310216 
+```
+
+---
+## Conditional Probability: Pr(Black|Female)
+
+`$$Pr(Black|Female) = \frac{Pr(Black \text{ and } Female)}{Pr(Female)} \approx \frac{0.074}{0.536} \approx 0.139$$`
+
 
 
 ---
 ## Independence
 
+Events `\(A\)` and `\(B\)` are independent if 
+
+`$$Pr(A|B) = Pr(A) \text{ and } Pr(B|A) = Pr(B)$$`
+
+Conceputally, If `\(A\)` and `\(B\)` are **independent** knowing whether `\(B\)` occurred, tells us nothing about `\(A\)`, and so the conditional probability of `\(A\)` given `\(B\)`, `\(Pr(A|B)\)` is equal to the unconditional, or marginal probability, `\(Pr(A)\)`
+
+Formally, two events are statistically independent if and only if the joint probability is equal to product of the marginal probabilities
+
+`$$Pr(A\text{ and }B) = Pr(A)Pr(B)$$`
+---
+Race and gender are approximately independent in these data
+
+.pull-left[
+
+```r
+plot(x = c(margin_race*margin_gender["f"]),
+     y = joint_p["f",],
+     xlim = c(0,.4),
+     ylim = c(0,.4),
+     xlab = "Pr(race)*Pr(female)",
+     ylab = "Pr(race and gender)"
+             )
+abline(0,1)
+```
+]
+.pull-right[
+
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+## Conditional Independence
+
+We can extend the concept of independence to situations with more than two events:
+
+If events `\(A\)`, `\(B\)`, and `\(C\)` are jointly independent then:
+
+`$$Pr(A \cap B \cap C) = Pr(A)Pr(B)Pr(C)$$`
+
+Joint independence implies pairwise independence and conditional independence:
+
+`$$Pr(A \cap B | C) = Pr(A|C)Pr(B|C)$$`
+But not the reverse.
+
+
 ---
 ## Bayes Rule
+
+Bayes rule is theorem for how we should update our beliefs about `\(A\)` given that `\(B\)` occurred:
+
+`$$Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)} = \frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A^\complement)Pr(A^\complement)}$$`
+Where
+
+- `\(Pr(A)\)` is called the prior probability of A (our initial belief)
+
+- `\(Pr(A|B)\)` is called the posterior probability of A given B (our updated belief after observing B)
+
+---
+###  What's the probability you have Covid-19 given a positive test
+
+`$$Pr(Covid|Test +) = \frac{Pr(+|Covid)Pr(Covid)}{Pr(Test +)}$$`
+
+|               | Has Covid      | Does Not Have Covid |
+|---------------|----------------|---------------------|
+| Test Positive | True Positive  | False Positive      |
+| Test Negative | False Negative | True Negative       |
+
+
+---
+### What's the probability you have Covid-19 given a positive test
+
+Let's assume:
+
+- 1 out 1000 people has Covid
+- Our test correctly identifies true positives 95 percent of the time (sensitivity = True Positive Rate)
+- Our test correctly identifies true negatives 95 percent of the time (specifity = True Negative Rate)
+
+---
+### What's the probability you have Covid-19 given a positive test
+
+In a sample of 100,000 people then:
+
+`$$Pr(Covid|Test +) = \frac{Pr(+|Covid)Pr(Covid)}{Pr(Test +)}$$`
+
+|               | Has Covid      | Does Not Have Covid |
+|---------------|----------------|---------------------|
+| Test Positive | 950 | 4950      |
+| Test Negative | 50 | 94050       |
+
+- `\(Pr(+|Covid) = 950/(1000) \approx 0.95\)`  
+- `\(Pr(Covid) = 1000/100000 \approx 0.01\)`  
+- `\(Pr(+) = Pr(+|Covid) + Pr(+|Covid)= .95*.01 + .05*.99  \approx  0.059\)`  
+
+---
+### What's the probability you have Covid-19 given a positive test
+
+Converting this table into marginal probabilities
+
+`$$Pr(Covid|Test +) = \frac{Pr(+|Covid)Pr(Covid)}{Pr(Test +)}$$`
+
+|               | Has Covid      | Does Not Have Covid | Prob(Test)
+|---------------|----------------|---------------------|---------------------|
+| Test Positive | 0.0095            | 0.0495               |0.059
+| Test Negative | 0.0005            | 0.9505               | 0.941 
+| Prob(Covid)   | 0.01          | 0.99               | 1
+
+`$$Pr(Covid|Test +) = \frac{Pr(+|Covid)Pr(Covid)}{Pr(Test +)}$$`
+`$$Pr(Covid|Test +) = \frac{0.95 \times 0.01}{0.059} \approx 0.16$$`
+---
+What if we took goot a second test? We could use posterior belief as our prior:
+
+
+`$$Pr(Covid|2nd +) = \frac{0.95 \times 0.16}{0.16\times0.95 + (1-0.16)\times 0.95 } \approx 0.783$$`
+Now we're much more confident that we have Covid-19
 
 
 ---
@@ -882,12 +1131,8 @@ class: inverse, center, middle
 
 
 ---
-## PMF and CDF of a die
 
-Below I graph the pmf and cdf of a die
-
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 Each side has equal probability of occurring (1/6). The probability that you roll a 2 or less P(X&lt;=2) = 1/6 + 1/6 = 1/3
 
@@ -912,7 +1157,7 @@ First, a brief aside  on integral calculus:
 
 What's the area of the rectangle? `\(base\times height\)`
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -920,14 +1165,14 @@ What's the area of the rectangle? `\(base\times height\)`
 
 How would we find the area under a curve?
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Integrals
 
 Well suppose we added up the areas of a bunch of rectangles roughly whose height's approximated the height of the curve?
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 Can we do any better? 
 
@@ -936,7 +1181,7 @@ Can we do any better?
 
 Let's make the rectangles smaller
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 What happens as the width of rectangles get even smaller, approaches 0? Our approximation get's even better:
 
@@ -976,7 +1221,7 @@ $$p(a &lt; X \leq b) = F(b)- F(a) = \int_a^b f(x)dx $$
 ---
 ## Recall the PMF and CDF of a die
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-26-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## What's the probability 
@@ -991,6 +1236,7 @@ $$p(a &lt; X \leq b) = F(b)- F(a) = \int_a^b f(x)dx $$
 In this course, we'll use probability distributions to 
 
 - Model the data generating process as a function of parameters we can estimate
+
 - To perform inference based on asymptotic theory (statements about how statistics would be have as our sample size approached infinity)
 
 ---
@@ -1068,16 +1314,11 @@ The binomial distribution may be thought of as the sum of outcomes of things tha
 The key parameters are the number of trials `\(n\)` and the probability of success for each trial `\(p\)` and the pdf of a binomial distribution is:
 
 `$$f(x)=\binom{n}{x}p^x (1-p) ^{1-x} \ \text{for x 0,1,2},\dots n$$`
-
----
 So if we were to toss a fair coin 20 times and count up the number of heads, the most common outcome would be 10 heads
 
+---
 
-```
-[1] NA
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-27-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 The binomial distribution will come in handy when trying to model binary outcomes. 
 
@@ -1089,20 +1330,9 @@ What would happen if you let the `\(n\)` in a binomial distribution go to infini
 
 `$$f(x)=\frac{\lambda^x}{x!}e^{-\lambda}$$`
 
+---
 
-
-```r
-# PDF of Poisson, lambda = 4
-# Try changing lambda
-lambda &lt;- 20
-df &lt;- data.frame(x = 0:20, px = dpois(0:20, lambda))
-ggplot(df,aes(x=x,y=px))+
-         geom_point()+
-         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
-  labs(title="PMF of Poisson Distribution (Lambda=4)")
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-18-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1111,17 +1341,9 @@ ggplot(df,aes(x=x,y=px))+
 What if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:
 
 `$$f(x)=p(1-p) ^{x}$$`
+---
 
-
-```r
-df &lt;- data.frame(x = 0:20, px = dgeom(0:20, .5))
-ggplot(df,aes(x=x,y=px))+
-         geom_point()+
-         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
-  labs(title="PMF of Geometric Distribution, (p=.5)")
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-29-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Exponential Distributions
@@ -1130,14 +1352,9 @@ Taking a geometric distribution to its limit, you arrive at the continuous expon
 
 `$$f(x)=\frac{1}{\beta}\exp\left[-x/\beta\right]$$`
 
+---
 
-```r
-p.pdf.exp&lt;-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = dexp)+ylim(0,1)+labs(title="PDF of Exponential Distribution (Lambda=1)",y="")
-p.cdf.exp&lt;-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = pexp)+ylim(0,1)+labs(title="CDF of Exponential Distribution (Lambda=1)",y="")
-ggarrange(p.pdf.exp,p.cdf.exp)
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-30-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 We often use exponential distributions to model things like "time until failure" where failure might be another war or the ending of an Italian cabinet.
@@ -1154,39 +1371,25 @@ Finally, there's the distribution so ubiquitous we called it normal. The Normal 
 ---
 Standard normal: `\(X \sim N(\mu =0,\sigma^2=1)\)`
 
-
-```r
-p.pdf.norm&lt;-ggplot(data.frame(x = c(-3, 3)), aes(x)) + 
-  stat_function(fun = dnorm,)+ylim(0,1)+
-  labs(title="PDF of Standard Normal Distribution",y="")
-p.cdf.norm&lt;-ggplot(data.frame(x = c(-3, 3)), aes(x)) + stat_function(fun = pnorm)+ylim(0,1)+labs(title="CDF of Standard Normal Distribution",y="")
-ggarrange(p.pdf.norm,p.cdf.norm)
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-31-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
-- As we'll normal distributions tend to arise when ever you're summing variables. That is sum together a bunch of values from almost any distribution and the **distribution of their sums** tends to follow a normal distribution. Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)
+- As we'll see normal distributions tend to arise when ever you're summing variables. 
+
+- That is sum together a bunch of values from almost any distribution and the **distribution of their sums** tends to follow a normal distribution. 
+
+- Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)
 
 
 ---
 Consider a binomial distribution with N=100 and p=.5. The pmf of this variable (black lollipops) follows a distribution that's closely approximated by a normal distribution (red line) with a mean 50 and a standard deviation of 5.
 
-
-```r
-p &lt;- .5
-df &lt;- data.frame(x = 0:100, px = dbinom(0:100,size=100, prob=p))
-ggplot(df,aes(x=x,y=px))+
-         geom_point()+
-         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
-  stat_function(fun = dnorm,args = list(50,sqrt(100*.5*(1-.5))), col="red")+
-  labs(title="PMF of Binomial Distribution (N=20,P=.5)")
-```
-
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
 A relationship explained more generally by the Central Limit Theorem, which we'll cover next week.
+
+---
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-32-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
@@ -1207,7 +1410,8 @@ But R's `pnorm()` function will quickly tell us
 
 And we can visualize this as follows:
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-33-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 Consider some other questions?
@@ -1224,19 +1428,17 @@ Consider some other questions?
 
 - `\(p(-1&lt; X&lt; 1)=pr(X&lt;1)-pr(X&lt;-1)\)` 
 
-\[
-\int_{-1}^{1}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.841-0.158=0.682
-\]
+`$$\int_{-1}^{1}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.841-0.158=0.682$$`
 
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### p(-2 &lt; X &lt; 2)
 
 - `\(p(-2&lt; X\leq 2)=\)` 0.9544997
 
-&lt;img src="08-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-slides_files/figure-html/unnamed-chunk-35-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 We'll use the fact that close 95 of the observations of a standard normal variable will be within 2 standard deviations of the the mean of 0 for assessing whether a given statistic is likely to have arisen if the true value of that statistic were 0.
 
@@ -1253,7 +1455,7 @@ Discrete:
 
 Continuous
 
-$$\mu_X=E(X)=\int_{-\infty}^{\infty}xf(x) dx $$
+`$$\mu_X=E(X)=\int_{-\infty}^{\infty}xf(x) dx$$`
 
 ---
 ## What's the expected value of a 1 roll of fair die?
@@ -1269,11 +1471,17 @@ E(X)&amp;=\sum_{i=1}^{6}x_ip(x_i)\\
 ## Properties of Expected Values
 
 - `\(E(c)=c\)`
+
 - `\(E(a+bX)=a+bE[X]\)`
+
 - `\(E[E[X]]=X\)`
+
 - `\(E[E[Y|X]]=E[Y]\)`
+
 - `\(E[g(X)]=\int_{-\infty}^\infty g(x)f(x)dx\)`
+
 - `\(E[g(X_1)+\dots+g(X_n)]=E[g(X_1)]+\dots E[g(X_n)\)`
+
 - `\(E[XY]=E[X]E[Y]\)` if `\(X\)` and `\(Y\)` are independent
 
 ---
@@ -1358,10 +1566,15 @@ Covariance measures the degree to which two random variables vary together.
 ## Properties of Variance and Covariance
 
 - `\(Cov[X,Y]=E[XY]-E[X]E[Y]\)`
+
 - `\(Var[X]=E[X^2]-(E[X])^2\)`
+
 - `\(Var[X|Y]=E[X^2|Y]-(E[X|Y])^2\)`
+
 - `\(Cov[X,Y]=Cov[X,E[Y|X]]\)`
+
 - `\(Var[X+Y]=Var[X]+Var[Y]+2Cov[X,Y]\)`
+
 - `\(Var[Y]=Var[E[Y|X]]+E[Var[Y|X]]\)`
 
 
