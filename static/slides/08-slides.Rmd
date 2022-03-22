@@ -14,6 +14,7 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+options(blogdown.knit.serve_site = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300,
   fig.align = "center", out.width = "80%", cache = T
@@ -132,6 +133,7 @@ class:inverse, center, middle
 ## Load Data for today
 
 ---
+class:inverse, center, middle
 # 📢
 ## Feedback
 
@@ -192,7 +194,7 @@ class: inverse, center, middle
   
 
 ---
-## Experiments, sample spaces, sets, end events 
+## Experiments, sample spaces, sets, and events 
 
 - In probability thoery, an **experiment** describes a repeatable process where the outcome is uncertain
 
@@ -211,7 +213,7 @@ class: inverse, center, middle
   - The event Heads is a subset of $\Omega$
 
 ---
-bacground-image:url("https://cdn.shopify.com/s/files/1/0684/1207/products/700F4BB8-7FE1-461D-844D-52CB302E6E0C.png?v=1595004762)
+bacground-image:url("https://www.playmonster.com/wp-content/uploads/2019/09/1000_set_pkgcontents-1.png")
 background-size:contain
 
 
