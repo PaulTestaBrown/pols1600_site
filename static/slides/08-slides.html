@@ -207,9 +207,9 @@ class: inverse, center, middle
 ---
 ## Experiments, sample spaces, sets, and events 
 
-- In probability thoery, an **experiment** describes a repeatable process where the outcome is uncertain
+- In probability theory, an **experiment** describes a repeatable process where the outcome is uncertain
 
-  - Processes where the outcomes are uncertaint are called *non-deterministic* or *stochastisc*
+  - Processes where the outcomes are uncertain are called *non-deterministic* or *stochastic*
 
 - The **sample space** of an experiment is the **set** `\((\Omega\)` "omega", or `\(S\)`) of all the possible outcomes of an experiment 
 
@@ -224,7 +224,7 @@ class: inverse, center, middle
   - The event Heads is a subset of `\(\Omega\)`
 
 ---
-bacground-image:url("https://www.playmonster.com/wp-content/uploads/2019/09/1000_set_pkgcontents-1.png")
+background-image:url("https://www.playmonster.com/wp-content/uploads/2019/09/1000_set_pkgcontents-1.png")
 background-size:contain
 
 
@@ -368,9 +368,9 @@ More generally, if there are
 
 - If there are `\(j\)` tasks or decision stages
 
-- And `\(k\)` choices at each decision stage `\(j\)` such that `\(n_{j,k} = k\)`
+- And `\(k\)` choices at each decision stage `\(j\)` such that `\(n_{j,k_j} = k\)`
 
-- The total number of possible outcomes is the product of the number number of choices `\(k\)` and each stage, `\(j\)` `\(\prod_{i=1}^{j} n_k = n_{i,k}*n_{2,k}*\dots*n_{j,k}\)` 
+- The total number of possible outcomes is the product of the number number of choices `\(k\)` and each stage, `\(j\)` `\(\prod_{j=1}^{j} n_{j,k_j} = n_{1,k_1}*n_{2,k_2}*\dots*n_{j,k_j}\)` 
 
 
 ---
@@ -665,7 +665,7 @@ For example, suppose we wanted to test whether a coin is "fair"  `\((p = Pr(Head
 `$$\text{posterior} \propto \text{likelihood} \times \text{prior}$$`
 More formally:
 
-$$\underbrace{Pr(\theta|Y)}_{\text{Posterior}} \propto \underbrace{Pr(Y|\theta)}_{\text{Likelihood}}) \times \underbrace{Pr(\theta)}_{\text{Prior}} $$
+`$$\underbrace{Pr(\theta|Y)}_{\text{Posterior}} \propto \underbrace{Pr(Y|\theta)}_{\text{Likelihood}}) \times \underbrace{Pr(\theta)}_{\text{Prior}}$$`
 ---
 background-image:url("https://imgs.xkcd.com/comics/frequentists_vs_bayesians.png")
 background-size:contain
@@ -700,7 +700,7 @@ class: inverse, center, middle
 # Conditional Probability
 
 ---
-## Conditional Probability: Definition
+### Conditional Probability: Definition
 
 The conditional probability that event **A** occurred, given that event **B** occurred is written as `\(Pr(A|B)\)` (*"The probability of A given B"*) and defined as:
 
@@ -711,7 +711,7 @@ The conditional probability that event **A** occurred, given that event **B** oc
 - `\(Pr(B)\)` is the **marginal probability** of B occuring
 
 ---
-## Conditional Probability: Multiplication  Rule
+### Conditional Probability: Multiplication  Rule
 
 Joint probabilities are **symmetrical**. `\(Pr(A \cap B) = Pr(B \cap A)\)`. 
 
@@ -721,7 +721,13 @@ By rearranging terms:
 We get the **multiplication rule**:
 
 `$$Pr(A \cap B) = Pr(A|B)Pr(B) = Pr(B|A)Pr(A)$$`
+---
+## The Law of Total Probability (Part 2)
 
+We can use multiplication rule to derive an alternative form of the law of total probability:
+
+
+`$$Pr(A) = Pr(A|B)Pr(B) + Pr(A|B^\complement)Pr(B^\complement)$$` 
 
 
 
@@ -849,7 +855,7 @@ joint_p
 ```
 
 ---
-## Marginal probabilities from joint probabilities:
+### Marginal probabilities from joint probabilities:
 
 
 ```r
@@ -866,7 +872,7 @@ prob_tab
 ```
 
 ---
-## Marginal probabilities from joint probabilities: Gender
+### Marginal probabilities from joint probabilities: Gender
 
 ```r
 # Marginal probability of Gender
@@ -889,7 +895,7 @@ prop.table(table(FLVoters$gender))
 ```
 
 ---
-## Marginal probabilities from joint probabilities: Race
+### Marginal probabilities from joint probabilities: Race
 
 ```r
 # Marginal probability of Race
@@ -914,7 +920,7 @@ prop.table(table(FLVoters$race))
 ```
 
 ---
-## Total Probability: Pr(Black)
+### Total Probability: Pr(Black)
 
 `$$Pr(Black)=Pr(Black \cap female) + Pr(Black \cap male)$$`
 
@@ -938,7 +944,7 @@ prop.table(table(FLVoters$race))["black"]
 ```
 
 ---
-## Conditional Probability: Pr(Black|Female)
+### Conditional Probability: Pr(Black|Female)
 
 `$$Pr(Black|Female) = \frac{Pr(Black \text{ and } Female)}{Pr(Female)} \approx \frac{0.074}{0.536} \approx 0.139$$`
 
@@ -1021,8 +1027,10 @@ Where
 
 Let's assume:
 
-- 1 out 1000 people has Covid
+- 1 out 100 people have Covid-19
+
 - Our test correctly identifies true positives 95 percent of the time (sensitivity = True Positive Rate)
+
 - Our test correctly identifies true negatives 95 percent of the time (specifity = True Negative Rate)
 
 ---
@@ -1057,11 +1065,15 @@ Converting this table into marginal probabilities
 `$$Pr(Covid|Test +) = \frac{Pr(+|Covid)Pr(Covid)}{Pr(Test +)}$$`
 `$$Pr(Covid|Test +) = \frac{0.95 \times 0.01}{0.059} \approx 0.16$$`
 ---
-What if we took goot a second test? We could use posterior belief as our prior:
+## What if we took a second test? 
+
+We could use posterior belief as our prior:
 
 
 `$$Pr(Covid|2nd +) = \frac{0.95 \times 0.16}{0.16\times0.95 + (1-0.16)\times 0.95 } \approx 0.783$$`
 Now we're much more confident that we have Covid-19
+
+
 
 
 ---
@@ -1227,8 +1239,9 @@ $$p(a &lt; X \leq b) = F(b)- F(a) = \int_a^b f(x)dx $$
 ---
 ## What's the probability 
 
-- `\(p(X=1)...p(X=6) =\)`\pause `\(1/6\)`
-- `\(p( 2 &lt; X \leq 5) =\)`\pause  `\(F(5)-F(2)=5/6-2/6=3/6=1/2\)`
+- `\(p(X=1)...p(X=6) = 1/6\)`
+
+- `\(p( 2 &lt; X \leq 5) = F(5)-F(2)=5/6-2/6=3/6=1/2\)`
 
 
 ---
@@ -1242,12 +1255,17 @@ In this course, we'll use probability distributions to
 
 ---
 There are a lot of probability distributions:
-![](http://www.math.wm.edu/~leemis/chart/UDR/BaseImage.png)
+
+&lt;img src="http://www.math.wm.edu/~leemis/chart/UDR/BaseImage.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
 
 
 ---
 Fortunately, the distributions you need to know to really master data science, is probably more something like
-![](https://miro.medium.com/max/4854/1*szMCjXuMDfKu6L9T9c34wg.png)
+
+&lt;img src="https://miro.medium.com/max/4854/1*szMCjXuMDfKu6L9T9c34wg.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 
 And the distributions we'll work with the most in this class are an even smaller subset.
 
