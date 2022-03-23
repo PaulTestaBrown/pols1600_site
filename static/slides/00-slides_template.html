@@ -50,6 +50,7 @@ class: center, middle, inverse, title-slide
 
 
 
+
 ---
 class: inverse, center, middle
 # Overview
@@ -78,12 +79,6 @@ class:inverse, middle, center
 Hopefully, you were all able to install the following packages 
 
 
-```r
-install.packages("dataverse")
-install.packages("tidycensus")
-install.packages("easystats")
-install.packages("DeclareDesign")
-```
 
 
 
@@ -92,6 +87,23 @@ install.packages("DeclareDesign")
 
 
 
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+* "scatterplot3d",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+```
 
 ---
 ## Define a function to load (and if needed install) packages
@@ -116,16 +128,18 @@ ipak(the_packages)
 ```
 
 ```
-   kableExtra            DT     tidyverse     lubridate       forcats 
+   kableExtra            DT        texreg     tidyverse     lubridate 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-        haven      labelled         ggmap       ggrepel      ggridges 
+      forcats         haven      labelled         ggmap       ggrepel 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-     ggthemes        ggpubr        GGally        scales       dagitty 
+     ggridges      ggthemes        ggpubr        GGally        scales 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-        ggdag       COVID19          maps       mapdata           qss 
+      dagitty         ggdag       ggforce scatterplot3d       COVID19 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-   tidycensus     dataverse DeclareDesign     easystats 
-         TRUE          TRUE          TRUE          TRUE 
+         maps       mapdata           qss    tidycensus     dataverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+DeclareDesign     easystats           zoo 
+         TRUE          TRUE          TRUE 
 ```
 
 
@@ -137,6 +151,8 @@ class:inverse, center, middle
 
 # 📢
 ## Feedback
+
+
 
 
 
@@ -160,8 +176,8 @@ class:inverse, center, middle
 ---
 ## What we liked
 
-<div id="htmlwidget-d651c37af2da785e01bb" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d651c37af2da785e01bb">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["I liked working in lab groups and understanding where the data is coming from","I liked that we got time to work on the lab in groups and then came together as a class and discussed our progress","The extensive notes/explanations included in the documents we used\nWorking through the steps of coding something specific as a class","I thought the subject we were investigating was interesting. I like the mix of descriptive questions and questions which we had to answer with code.","The mutate function has been pretty useful so far.","I really enjoyed how the lab instructions were laid out in a way that allowed us to ~practice~ writing the code ourselves, while also ensuring we didn't get too lost in the sauce.","I like working in groups.","I really enjoyed the lab this week - I thought it was fun and very well paced. Specifically, I liked how each question was allotted a certain amount of time, and that we touched base as a class between questions.","The lab went much better than last week! really felt like I was learning a lot this week","I really enjoyed reading about the study we used in this week's lab. The content was interesting and it was great to learn something new. Also because I learned a lot from the lab today and synthesize why being able to manipulate source data is so helpful in better understanding and accessing the outcomes of a study.","Honestly class this week was a little bit confusing, but I thought going over last week's material briefly was very useful and provided a good segue into this week's material."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1f9566660242c1f65f03" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1f9566660242c1f65f03">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -180,8 +196,8 @@ class:inverse, center, middle
 ---
 ## What we disliked
 
-<div id="htmlwidget-f934ee40346fe4085017" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f934ee40346fe4085017">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11"],["The end of labs feel a little rushed and I get lost in the more complicated last steps. Also, the lecture had a lot of big math-y words.","N/A","I think it'd be useful to do summaries of what we learned that day at the end of class. It might be difficult to do, though, when we're crunched for time.","Broadly speaking, I don't like computers. I don't like bending over the small desks, staring at a screen, etc. The class is fine: it's something I have to do, all things worth doing are difficult, and I'm learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn't really a practical concern, but rather a question about, y'know, what we're doing here.  \n\nMore concretely, I found the lab hard to complete, but I'll look over the notes and review. Part of me thinks I'd learn better if I started the labs before class. I'd ask better questions, be less confused, etc. \n\nIn sum: the class is fine. It's good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.","I'm not sure if this is possible but releasing the labs earlier (even maybe the night before) would be cool so I can familiarize myself with the steps.  When I get to class I always feel like I am a bit behind because I am just trying to figure out what to do.","The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.","I feel like once the code fails in one place there is no point in moving on until you fix it, so then I have to choose between falling behind or having functional code","On Tuesday, I found it difficult to sit for the lecture without a break halfway through. I think a 3-5 minute break on days like Tuesday when most of the class is lecture would be helpful.","I thought the classroom were in and the way we were all sitting during the lab was not very inducive of collaborative work. It was really hard to hear my group mates and focus since its such a small space. Not sure if anything can be done about that.\nAlso, would it be possible to set up Canvas so that it registers when our groupmates have submitted the lab. I have other classes that have put me in a \"group\" with others on Canvas and it submitted my work for them and vice versa","I think that lecture was a little bit confusing jumping between QSS and class content but honestly I think that's just getting into the flow of it","The more complicated formulae we've looked at this week have been on the difficult end - more clarification on how practically we're going to use them could be useful."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1d34e3ef6ddf60db1be0" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1d34e3ef6ddf60db1be0">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -257,7 +273,7 @@ class: inverse, center, middle
 plot(1:10,1:10)
 ```
 
-&lt;img src="00-slides_template_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="00-slides_template_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
