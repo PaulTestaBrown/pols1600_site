@@ -283,7 +283,7 @@ $$Pr(A \text{ or } B) = Pr(A) + Pr(B)$$
 
 - **Frequentist:** view this probability is the limit of the relative frequency of an event over repeated trials.
 
-$$ Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
+$$Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
 
 - Thinking about probability as a relative frequency, requires us to know how to the number of times an event occurred. 
 
@@ -380,9 +380,10 @@ More generally, if there are
 
 
 
+
 ---
 
-```{r, echo=F}
+```{r, echo=F, results="markdown"}
 counting_tab <- tibble::tibble(
    ` `=  c("Permutation", "Perumation","Combination", "Combination"),
   `Order Matters` = c("Yes","Yes","No","No"),
@@ -398,6 +399,8 @@ counting_tab <- tibble::tibble(
               'C(3,3) = Choose three letters with replacement = $\\frac{3+3 -1!}{3!(3-1)!} = \\frac{5*4*3*2*1}{(3*2*1)(2*1)} = 10$ combinations'
               )
   )
+
+knitr::kable(counting_tab)
 ```
 
 ---
