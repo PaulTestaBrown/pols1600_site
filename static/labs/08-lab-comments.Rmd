@@ -470,7 +470,7 @@ So our transformation decreases the probability for low values of the original $
 
 **Answer:** Write your comparison of the two histograms here.
 
-- Do using `p_star` improve the predictive performance?
+- Does using `p_star` improve the predictions?
 
 
 ```{r}
@@ -487,7 +487,7 @@ hist(obama_ev_2, add=T, col="red")
 abline(v=365,col="blue")
 ```
 
-**Answer:** So the transformation seems to have improved the predictions from the simulation. Whereas the original probability had Obama losing in some cases, all of the predictions from the transformed probability are above the 270.
+**Answer:** So the transformation seems to have improved the predictions from the simulation.The center of the distribution is closer to Obama's actual vote share. Furthermore, whereas the original probability had Obama losing in some cases, all of the predictions from the transformed probability are above the 270. 
 
 
 ------------------------
