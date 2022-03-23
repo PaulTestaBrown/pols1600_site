@@ -1,0 +1,565 @@
+---
+title: "Lab 08: Predicting Election Outcomes "
+author: "Your Group Members Names Here"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, 
+                      comment = NA, 
+                      warnings = FALSE, 
+                      errors = FALSE, 
+                      message = FALSE, 
+                      cache = T,
+                      tidy = FALSE)
+```
+
+# Overview {-}
+
+Today we'll work through exercise 6.6.2 A Probability Model for Betting Market Election Prediction. 
+
+1. Setup
+2.
+
+We'll get a flavor of R's functions for probability distributions and how to conduct simulations using R.
+
+I assume you've read and worked through section 6.3.2 of Imai.
+
+## Goals {-}
+
+## Workflow {-}
+
+### Please knit this .Rmd file {-}
+
+As with every lab, you should:
+
+- Download the file
+- Save it in your course folder
+- **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
+- Knit the document
+- Open the html file in your browser (Easier to read)
+- Write yourcode in the chunks provided
+- Comment out or delete any test code you do not need
+- **Knit the document again after completing a section or chunk** (Error checking)
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404){target="_blank"}.
+
+
+# Get setup to work
+
+## Load Packages
+
+First we'll load the pacakges we need for today:
+
+```{r}
+library(tidyverse)
+library(qss)
+```
+
+Now we'll load two data sets from the `qss` package: `pres08` and `intrade08`
+
+First we'll start off by loading the data for this assignment
+
+- `pres08` contains the 2008 US presidential election outcomes by state.
+- `intrade08` contains from Intrade, an online prediction market, in days leading up to the 2008 United States Presidential Election.
+
+```{r}
+# Results from 2008 election
+data("pres08")
+
+# Daily betting market data
+data("intrade08")
+
+```
+
+
+## Provide a high level overview each data set
+
+In the code chunk below, please provide a high level overview of each dataset.
+
+```{r}
+# pres08
+glimpse(pres08)
+summary(pres08)
+# 
+glimpse(intrade08)
+summary(intrade08)
+
+```
+
+## Re-Arrange the intrade
+
+If you look closely at the data, you'd see that the `pres08` is arranged alphabetically by a state's postal abreviation code, while `intrade08` is arranged alphabetically by a state's name.
+
+As a result, D.C. comes before Deleware in `pres08` but after Delaware in `intrade08`
+
+```{r}
+pres08$state[1:9]
+intrade08$state[1:9]
+```
+
+
+Please use the `arrange()` function to re-arrange the `pres08` data first by `state`. and `intrade08` by `day` and then by `state`
+
+  - Remember to save the output of this command back into `intrade08`
+
+```{r}
+pres08 <- pres08 %>%
+  arrange(state)
+
+intrade08 <- intrade08 %>%
+  arrange(day,state)
+```
+
+If you're code was correct, DC should now come before DE in `intrade08`
+
+```{r}
+pres08$state[1:9]
+intrade08$state[1:9]
+```
+
+
+## Convert the `PriceD` variable in `intrade08` to a probability
+
+The intrade08 data contain a variable called `PriceD` that is roughly the probability that Obama will win the presidential election. 
+
+```{r}
+summary(intrade08$PriceD)
+```
+
+Please create a variable called `prob_obama_win`  in `intrade08` by dividing `PriceD` by 100.
+
+We will treat `prob_obama_win` as probability on date $i$ that conveyed by the betting markets that Obama wins a state $j$.
+
+
+```{r}
+# Write your code here
+intrade08 %>%
+  mutate(
+    prob_obama_win = PriceD/100
+  ) -> intrade08
+
+```
+
+
+## Create a subset of intrade08, called `df1` that contains just the data for Monday, November 3, 2008
+
+
+Next we'll create a subset of the data that contains just the data from the day before the election (that is Monday, November 3, 2008)
+
+- Hint: try `filter()`
+
+```{r}
+df1 <- intrade08 %>%
+  filter(day == "2008-11-03")
+```
+
+
+
+# Calculate the Obama's expected electoral votes on November 3, 2008
+
+Using the data from `pres08` and `df1`, calculate the expected number of electoral votes Obama is predicted to win and compare this to the actual number of 365 electoral college votes he won.
+
+Hints:
+
+- How are `pres08`  and `df1` structured? That is, what is the first row in 
+
+```{r}
+all.equal(pres08$state, df1$state)
+```
+
+
+
+
+
+```{r}
+obama_ev <- sum(pres08$EV[df1$prob_obama_win > 0.5])
+obama_ev
+```
+
+
+
+
+You'll want to sum up the electoral votes from `pres08` where the probability of winning in `df1$PriceD` is greater than 0.5
+
+```{r}
+
+# obama.ev <- sum(pres08$EV [ ? > 0.5])
+
+```
+
+
+\comment
+
+```{r}
+obama.ev <- sum(pres08$EV [ df1$PriceD > 0.5])
+obama.ev
+```
+
+Looks pretty close to the 365 he actually won.
+
+\comment
+
+--------------------------
+
+So it looks like the betting markets are pretty good. They predict Obama will win 364 votes, which taking into account the fact that Nebraska divides its electoral votes, is pretty close to the 365 he actually won
+
+
+# Use the probabilities from the day before the election to simulate the total number of electoral votes Obama is predicted to win.
+
+Assume each state is a Bernoulli trial where the probability of success is $p_{ij}$ (that is, the value of `PriceD` for each state). Use a 1000 simulations and `rbernoulli` function to simulate a draw from a Bernoulli distribution for each of the states (and one district) in df1 where the probability of winning corresponds to the value of `PriceD` for that state/district.
+
+```{r}
+# Here's some code to get you started
+# set.seed(123) # for reproducabilitiy
+# sims <- 1000
+# states <- ? 
+# obama.ev.1 <- c() # Container to hold results of each simulation
+# 
+# for(i in 1:sims){
+#   obama.ev.1[i] <- sum(pres08$EV[rbernoulli(n = ?, p = ?])
+# }
+
+
+```
+
+\comment
+```{r}
+# Here's some code to get you started
+set.seed(123)
+sims <- 1000
+states <- 51
+obama.ev.1 <- c()
+
+for(i in 1:sims){
+  obama.ev.1[i] <- sum(pres08$EV[rbernoulli(n = states, p = df1$PriceD)])
+}
+
+
+```
+
+\comment
+
+--------------------------
+
+
+#  Display the distribution of predicted number of electoral votes in a histogram with a vertical line for the actual number of votes Obama received. Interpret the results
+
+```{r}
+# hist(?)
+# abline(v=365,col="blue")
+
+```
+
+
+**Answer:** Write your interpretation of the histogram here.
+
+\comment
+
+```{r}
+hist(obama.ev.1)
+abline(v=365,col="blue")
+```
+
+**Answer:** So the predictions seem a bit off. The most frequent value is a bit below Obama's actual vote share, and in some cases, the simulations actually have Obama losing. Part of this reflects the fact that model assumes the probability of winning or losing is independent across states, while models like 538 allow for some correlation across states (and adjust for other factors like the economy etc.)
+
+\comment
+
+--------------------------------
+
+Interesting so the typical electoral vote share from the simulations is a bit lower than Obama's actual vote share and in a small number of simulations, Obama is predicted to actually lose the election.
+
+Prediction markets tend to exaggerate the chances of long-shots winning a campaign. Let's adjust the probabilities used above using the following formula:
+
+\[
+p_{ij}^* = \Phi(1.64 \times \Phi^{-1}(p_{ij}))
+\]
+
+Where $\Phi$ is the PDF of the normal distribution (`prnorm()` in R) and $\Phi^{-1}$ is the CDF (`qnorm()` in R) of the normal distribution.
+
+# Compute $p_{ij}^*$ using the formula above and the `pnorm()` and `qnorm()` functions in R, and plot the new probabilities on the y axis against the old probabilities on the x axis.
+
+```{r}
+# Calculate p_star
+# p_star <- pnorm(?*qnorm(?))
+
+# Plot pstar against original probs
+# plot(x= df1$PriceD, y = p_star)
+
+# Add line showing p_star function
+# curve(pnorm(1.64*qnorm(x)),add=T,col="grey")
+
+# Add 45 degree line showing 
+# Points below = lower prob
+# Point above = higher prob
+
+# abline(a=0,b=1, lty=2)
+
+
+```
+
+
+\comment
+```{r}
+p_star <- pnorm(1.64*qnorm(df1$PriceD))
+
+plot(x= df1$PriceD, y = p_star)
+# Add line showing p_star function
+curve(pnorm(1.64*qnorm(x)),add=T,col="grey")
+
+# Add 45 degree line showing 
+# Points below = lower prob
+# Point above = higher prob
+abline(a=0,b=1, lty=2)
+
+
+```
+\comment
+
+-----------------------------
+
+So our transformation decreases the probability for low values of the original $p_{ij}$ and increases the probabilities of high $p_{ij}$
+
+
+# Using $p_{ij}^*$ repeat the simulations from above and plot the distribution of the old and new predictions with two histograms. Do the new probabilities improve the predictive performance?
+
+```{r}
+# set.seed(123)
+# sims <- 1000
+# states <- 51 
+# obama.ev.2 <- c() # Container to hold results of each simulation
+
+# Simulation using 
+# for(i in 1:sims){
+#   obama.ev.2[i] <- sum(pres08$EV[rbernoulli(n = states, p = Probability for Each state)])
+# }
+
+# Plot distributions
+# hist(obama.ev.1)
+# hist(obama.ev.2, add=T, col="red")
+
+```
+
+**Answer:** Write your comparison of the two histograms here.
+
+\comment
+
+```{r}
+set.seed(123)
+sims <- 1000
+states <- 51
+obama.ev.2 <- c() # Container to hold results of each simulation
+
+#Simulation using
+for(i in 1:sims){
+  obama.ev.2[i] <- sum(pres08$EV[rbernoulli(n = states, p = p_star)])
+}
+# Plot distributions
+hist(obama.ev.1)
+hist(obama.ev.2, add=T, col="red")
+abline(v=365,col="blue")
+```
+
+**Answer:** So the transformation seems to have improved the predictions from the simulation. Whereas the original probability had Obama losing in some cases, all of the predictions from the transformed probability are above the 270.
+\comment
+
+------------------------
+
+Interesting, so the transformation seemed to improve the predictions in that none of the simulated values were below the 270 electoral vote threshold.
+
+# Compute the expected number of electoral votes for Obama for the 120 days before November 4. Display the results in a time series plot and interpret the predictions.
+
+Here's some code to get the 120 days before the election
+
+
+```{r}
+# Get dates
+dates <- unique(sort(intrade08$day[intrade08$day < "2008-11-04" & intrade08$day >= "2008-07-07"]))
+summary(dates)
+length(dates)
+```
+
+Now create a container to hold 120 predictions 
+
+```{r}
+# Create containers to hold the values you want to calculate for each day
+obama.ev.120 <- c()
+```
+
+And write code that:
+
+- That loops through all 120 dates, and extracts the date for day i
+- Calculates p_star from the `PriceD` for that day
+- Sums the electoral votes for states in which `p_star` is greater than 0.5
+- Plots dates on the x axis and obama.ev.120 on the y
+
+Use the code below as a template and fill in the ?
+
+```{r}
+
+# for(i in 1:?){
+  # Extract date i
+  # day <- dates[?]
+  
+  # Calculate p_star for day
+  # p_star <- pnorm(1.64*qnorm(intrade08$PriceD[intrade08$day == ?]))
+  
+  # Sum expected EV for day 
+  # obama.ev.120[i] <- sum(pres08$EV[ ? > 0.5])
+# }
+
+
+# Plot
+# plot(x=dates, obama.ev.120,
+#     ylim=c(0,538)
+#     )
+```
+
+
+**Answer:** Interpret your plot here
+
+\comment
+
+```{r}
+
+for(i in 1:120){
+  # Calculate p_star for that day
+  day <- dates[i]
+  p_star <- pnorm(1.64*qnorm(intrade08$PriceD[intrade08$day == day]))
+  obama.ev.120[i] <- sum(pres08$EV[p_star > 0.5])
+}
+
+# Plot
+plot(x=dates, obama.ev.120,
+     ylim=c(0,538)
+     )
+abline(h=365)
+```
+
+**Answer:**  So by October, the prediction markets seem to be pretty close to the actual electoral votes Obama received.
+
+\comment
+
+
+
+
+# For each of the 120 days before the campaign conduct a simulation using the $p_{ij}^*$ probabilities and do the following:
+
+- Calculate the expected (mean) number of votes for the simulation for each day
+- Compute the 2.5% and 97.5% percentiles for the simulation for each day
+- Plot the mean number of votes from the simulations for each day and add a vertical segment that goes from the 2.5% percentile to 97.5% percentile for each day's simulation.
+- Interpret the results.
+
+You need to use two for loops for this. The first for loop, will loop through dates and calculate p_star for each date ($i$). For each date and p_star, the second loop will generate $j$ simulations of the predicted number of electoral votes. After the $j$ simulations are complete, the code will calculate the quantities you want for that date, $i$, and then the code will move to the next date and repeat the process.
+
+Use the code below as a template, filling in the question marks with the appropriate code (Look back over what you've done above for help)
+
+```{r}
+
+# Create containers to hold the values you want to calculate for each day
+# Average predicted value
+ev.mean <- c()
+# 97.5 percentile
+ev.ul <- c()
+# 2.5 percentile
+ev.ll <- c()
+
+# Simulation
+
+# for(i in 1:120){
+  # 1. Extract day i from dates object
+  # day <- ?
+  
+  # 2. Caclulate p_star for day i
+  # p_star <- ?
+  
+  # 3. create container for simulations for day i
+  # obama.ev.sim <- ?
+  
+  #. 4 Conduct 100 simulations
+  # for(j in 1:100){
+    # For simulation j, cacluate expected EV and save in container
+      # obama.ev.sim[j] <- ?
+
+#  }
+  # 5.After 100 simulations, cacluate
+  
+  # Average predicted EF for day i
+  # ev.mean[i] <- ?
+  
+  # 97.5 percentile
+  # ev.ul[i] <- ?
+  
+  # 2.5 percentile
+  # ev.ll[i] <- ?
+
+  # Repeat for next i until all 120 dates have been simulate.
+# }
+
+
+# Plot values
+
+# plot(x=dates, ev.mean,
+#     ylim=c(0,538)
+#     )
+# Add vertical segment for 95% coverage interval
+#segments(x0=dates, y0=ev.ll, x1 = dates, y1 = ev.ul)
+
+
+```
+
+
+**Answer:** Provide a brief interpretation of your plot here:
+
+
+\comment
+
+```{r}
+
+# Create containers to hold the values you want to calculate for each day
+# Average predicted value
+ev.mean <- c()
+# 97.5 percentile
+ev.ul <- c()
+# 2.5 percentile
+ev.ll <- c()
+
+
+for(i in 1:120){
+  day <- dates[i]
+  p_star <- pnorm(1.64*qnorm(intrade08[intrade08$day == day,"PriceD"]))
+  obama.ev.sim <- c()
+  for(j in 1:100){
+      obama.ev.sim[j] <- sum(pres08$EV[rbernoulli(states,p_star)])
+
+  }
+  ev.mean[i] <- mean(obama.ev.sim)
+  ev.ul[i] <- quantile(obama.ev.sim,.975)
+  ev.ll[i] <- quantile(obama.ev.sim,.025)
+
+}
+
+# Plot
+
+plot(x=dates, ev.mean,
+     ylim=c(0,538)
+     )
+segments(x0=dates, y0=ev.ll, x1 = dates, y1 = ev.ul)
+abline(h=270)
+abline(h=365,lty=2)
+
+```
+
+**Answer:** For most of the the 120 days before the election the majority of the simulations have Obama winning (with the exception of a brief period around the Republican Convention). By October, 95 percent of the simulations have Obama with a electoral vote share above 270. The width of the coverage intervals declines slightly over time, suggesting the betting markets are more certain of an Obama victory closer to the election.
+
+\comment
+
+
+
