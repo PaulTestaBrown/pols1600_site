@@ -163,7 +163,7 @@ df_feedback_full %>%
 ## What we liked
 
 ```{r likes, echo=F, out.height='90%'}
-DT::datatable(df %>% 
+DT::datatable(df_feedback %>% 
                 select(Likes),
                fillContainer = F,
               height = "90%",
@@ -191,7 +191,7 @@ DT::datatable(df %>%
 ## What we disliked
 
 ```{r dislikes, echo=F}
-DT::datatable(df %>% 
+DT::datatable(df_feedback %>% 
                 select(Dislikes),
                fillContainer = F,
               height = "90%",
