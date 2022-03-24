@@ -16,7 +16,7 @@ output:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
   comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = FALSE)
+  fig.align = "center", out.width = "80%", cache = TRUE)
 library("tidyverse")
 ```
 
@@ -146,14 +146,15 @@ load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 - The code chunk below [sources](https://www.earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/source-function-in-R/) a script I wrote called [`drww_english_recode.R`](https://gist.github.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40) to download the raw data and recode Cyrilic into English
 
 ```{r}
-source("https://gist.githubusercontent.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40/raw/601680d7b20cd1638d93c325156d4b000ea1f9cc/drww_english_recode.R")
+
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 ```
 
 ---
-## Original data
+## HLO of data
 
 ```{r}
-glimpse(raw_drww)
+glimpse(df_drww)
 ```
 
 
