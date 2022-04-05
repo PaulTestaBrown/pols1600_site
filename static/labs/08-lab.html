@@ -1341,6 +1341,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -1361,6 +1362,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -1519,7 +1523,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Lab 08: Predicting Election Outcomes</h1>
 <h4 class="author">Your Group Members Names Here</h4>
-<h4 class="date">Last Updated 2022-03-23</h4>
+<h4 class="date">Last Updated 2022-04-05</h4>
 
 </div>
 
@@ -1557,9 +1561,14 @@ election, plot the results of your simulation. (20 minutes)</p></li>
 </ol>
 <div id="goals" class="section level2 unnumbered">
 <h2 class="unnumbered">Goals</h2>
-<p>Conceptually, the main goal of this lab is to give you some practice
-working with probabilities in an application to the real world
-(predicting elections)</p>
+<p>Conceptually, the main goals of this lab are to</p>
+<ul>
+<li><p>give you some practice working with probabilities in an
+application to the real world (predicting elections)</p></li>
+<li><p>introduce the idea of simulations as a tool for understanding
+probability and describing our uncertainty about what could have
+happened</p></li>
+</ul>
 <p>Technically, you learn how to</p>
 <ul>
 <li><p>use <code>for()</code> loops, which a useful programming skill
@@ -1974,8 +1983,8 @@ following:</h1>
 <li><p>Calculate the expected (mean) number of votes for the simulation
 for each day</p></li>
 <li><p>Compute the 2.5% and 97.5% percentiles of the simulated Electoral
-Votes from the simulation for each day using the
-<code>percentile()</code> function</p></li>
+Votes from the simulation for each day using the <code>quantile()</code>
+function</p></li>
 <li><p>Plot the mean number of votes from the simulations for each day
 and add</p>
 <ul>
