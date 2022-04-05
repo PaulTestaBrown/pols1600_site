@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Week XX:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Paul Testa" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Week XX:
+## Topic HERE
+### Paul Testa
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+# Overview
+
+---
+## General Plan
+
+- Setup
+- Feedback
+- Review
+- Lecture 
+  - Topic 1
+  - Topic 2
+
+- Summary
+
+
+---
+class:inverse, middle, center
+# 💪
+## Get set up to work
+
+---
+## New packages
+
+Hopefully, you were all able to install the following packages 
+
+
+
+
+
+---
+## Packages for today
+
+
+
+```r
+the_packages &lt;- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+* "scatterplot3d",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+```
+
+---
+## Define a function to load (and if needed install) packages
+
+
+
+```r
+ipak &lt;- function(pkg){
+    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+---
+## Load packages for today
+
+
+```r
+ipak(the_packages)
+```
+
+```
+   kableExtra            DT        texreg     tidyverse     lubridate 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      forcats         haven      labelled         ggmap       ggrepel 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggridges      ggthemes        ggpubr        GGally        scales 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      dagitty         ggdag       ggforce scatterplot3d       COVID19 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+         maps       mapdata           qss    tidycensus     dataverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+DeclareDesign     easystats           zoo 
+         TRUE          TRUE          TRUE 
+```
+
+
+---
+class:inverse, center, middle
+# 💪
+## Load Data for today
+
+
+# 📢
+## Feedback
+
+
+
+
+
+---
+## What we liked
+
+--
+
+- We liked the lab (or liked it better)
+
+- Working in groups 
+
+- Extensive notes
+
+- Reasonable pacing 
+
+- Real world data
+
+- Mix of substantive and technical questions
+
+---
+## What we liked
+
+<div id="htmlwidget-196a83c10bfceefae080" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-196a83c10bfceefae080">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## What we disliked
+
+--
+
+- Labs still feel rushed (at the end)
+
+- When code breaks it can be hard to fix
+
+- Lecture was a bit confusing/long
+
+- The space
+
+---
+## What we disliked
+
+<div id="htmlwidget-6eecf7b9b40c90704ef5" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6eecf7b9b40c90704ef5">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+class:inverse, middle, center
+# 🔍
+## Review
+
+
+---
+## Topics
+
+- Working with R Markdown files
+
+- Basic Programming in R
+
+- Setting up your work space
+
+- Loading data into R
+
+- Looking at your data
+
+- Cleaning and transforming your data
+
+- Describing what's typical of your data
+
+- Describing how your data vary
+
+---
+## Exercises
+
+1. Create an R Markdown File
+
+2. Explore objects and functions in base `R`
+
+3. Install the COVID19 package
+
+4. Load data on COVID19 
+
+5. Inspect the data
+
+6. Welcome to the tidyverse
+
+7. Measures of central tendency
+
+8. Measures of dispersion
+
+---
+class: inverse, center, middle
+# 💡
+# Key Concept
+## Comment
+
+
+---
+## Point 1
+
+
+---
+## Code Slide
+
+.left-column[
+
+```r
+2+2
+```
+
+
+]
+
+.right-column[
+
+```r
+plot(1:10,1:10)
+```
+
+&lt;img src="13-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: inverse, center, middle
+
+# Key Concept
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
