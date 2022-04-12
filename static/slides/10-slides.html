@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week XX:</title>
+    <title>Week 10:</title>
     <meta charset="utf-8" />
     <meta name="author" content="Paul Testa" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -29,8 +29,8 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Week XX:
-## Topic HERE
+# Week 10:
+## Quantifying uncertainty with confidence intervals
 ### Paul Testa
 
 ---
@@ -51,33 +51,47 @@ class: center, middle, inverse, title-slide
 
 
 
----
+
 class: inverse, center, middle
 # Overview
 
 ---
 ## General Plan
 
+- Course Plan
 - Setup
 - Feedback
 - Review
-- Lecture 
-  - Topic 1
-  - Topic 2
+- Confidence Intervals
 
-- Summary
 
+---
+## Course Plan
+
+- April 14: Workshop on Paper -- Counts as Assignment 3: Data Explorations
+
+- April 19: Lecture -- Hypothesis Testing
+
+- April 21 Workshop on Paper -- Inference About Models
+
+- April 24: Draft due on Canvas
+
+- April 26: Lecture -- Course Review / How to Make a Presentation
+
+- April 28: Workshop on Presentations
+
+- May 1: Upload Presentations
+
+- May 3: Class Presentations Part 1
+
+- May 5: Class Presentations Part 2
+
+- May ?: Tacos at Dolores?
 
 ---
 class:inverse, middle, center
 # 💪
 ## Get set up to work
-
----
-## New packages
-
-Hopefully, you were all able to install the following packages 
-
 
 
 
@@ -93,15 +107,14 @@ the_packages &lt;- c(
   "kableExtra","DT","texreg",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  "modelr",# &lt;&lt;
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Graphics:
-* "scatterplot3d",
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "easystats", "zoo"
+  "DeclareDesign", "zoo", "boot","purrr"
 )
 ```
 
@@ -130,16 +143,16 @@ ipak(the_packages)
 ```
    kableExtra            DT        texreg     tidyverse     lubridate 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      forcats         haven      labelled         ggmap       ggrepel 
+      forcats         haven      labelled        modelr         ggmap 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-     ggridges      ggthemes        ggpubr        GGally        scales 
+      ggrepel      ggridges      ggthemes        ggpubr        GGally 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      dagitty         ggdag       ggforce scatterplot3d       COVID19 
+       scales       dagitty         ggdag       ggforce       COVID19 
          TRUE          TRUE          TRUE          TRUE          TRUE 
          maps       mapdata           qss    tidycensus     dataverse 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-DeclareDesign     easystats           zoo 
-         TRUE          TRUE          TRUE 
+DeclareDesign           zoo          boot         purrr 
+         TRUE          TRUE          TRUE          TRUE 
 ```
 
 
@@ -148,7 +161,18 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
+---
 
+We'll use data from last week's lab to 
+
+
+```r
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+```
+
+
+---
+class: inverse, center, middle
 # 📢
 ## Feedback
 
@@ -161,23 +185,18 @@ class:inverse, center, middle
 
 --
 
-- We liked the lab (or liked it better)
+- Labs
 
-- Working in groups 
+- Visualization
 
-- Extensive notes
+- Probability Theory and Statistics
 
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
 
 ---
 ## What we liked
 
-<div id="htmlwidget-14c6d460a584e5042ac6" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-14c6d460a584e5042ac6">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ec40d54235fb131483f5" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ec40d54235fb131483f5">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["","probability basics\n","I really liked the mathematical background to probability it helped me understand it more","Lab","I liked working through the lab together, I feel like a lot of things clicked for me today","","I thought the subject of the lab was interesting. Also the theoretical probability information","I enjoyed both the lecture and the lab this week! I thought they were well-paced and I was able to keep up. The probability lesson was really clear and helpful.","The lab was really nice this week","more student engagement","I enjoyed the lab - it helped clear up some things about probability that I was previously unsure about.","","I thought that the lab was pretty manageable","I thought it was cool to learn basic probability/statistical inference outside of the context of a stats class!","The lab was interesting and enjoyable","I thought the review after spring break was helpful","Useful to translate all the equations into how it works in reality, specifically with sample sizes","I always appreciate your assistance during the lab to make sure that we are keeping up with the material and pace necessary to complete the assignment.","The graphs/visualizations were helpful for understanding the concepts","I felt the lab was actually really helpful in getting concepts across last week."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -185,102 +204,885 @@ class:inverse, center, middle
 
 --
 
-- Labs still feel rushed (at the end)
+- The room
 
-- When code breaks it can be hard to fix
+- Feeling rushed in lab and lecture
 
-- Lecture was a bit confusing/long
+- The amount of material
 
-- The space
+- The lack of Crocs
 
 ---
 ## What we disliked
 
-<div id="htmlwidget-9cfab32618cb736f26d9" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9cfab32618cb736f26d9">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b0fa2f7507efa5e8c38b" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b0fa2f7507efa5e8c38b">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["","the harsh lighting","I think it was a lot of material thrown at me all at once so it was a bit hard to absorb","Lecture was confusing and project was confusing when we kept getting errors","Feeling rushed at end of lab, but also worth it for going through it together","","I thought the lab felt a bit too rushed in the last 10 min. Besides that I was able to follow it pretty well. Also: I think these surveys are good and useful, but maybe we don't have to go over them in class? Or maybe go over them less frequently?","","The absence of crocs","","Nothing I disliked - but the lab had some difficult parts. However, I think that was helpful for becoming more comfortable with the week’s content.","","It is generally hard to grasp the information on the slides as the end because we go through the slides so quickly","I thought it was a little hard to internalize all of the concepts by just reading the slides","I find myself struggling to understand the more statistically based aspects of the lectures","I thought we went a little fast","Tech errors definitely made it harder to follow along! But that is unavoidable sometimes. Also sometimes lecture can feel rushed/hard to grasp content because flipping through slides with words/equations","N/A","Every time there is an equation or mathematical statement involving lots of symbols, it'd be helpful to have a simple key somewhere on the page saying what each symbol means.","I'm just finding this math so difficult, but I'm trying to go through and re-read everything each week. If there was possibly a \"cheat sheet\" for some of the theorems, though, that would be so helpful."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+backgroun-image:url(https://www.slashfilm.com/img/gallery/dont-look-up-has-already-become-netflixs-third-most-viewed-film-ever/intro-1641417495.jpg)
+## It's the end of the world as you know it
+
+
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Do you hate the class? A list Experiment:
+
+How many of the following statements are true for you?
+
+.pull-left[
+- I'm a morning person
+- I know how to drive a car with manual transmission
+- I go to bed after midnight most nights
+- I listen to podcasts at least once a week
+]
+
+--
+
+.pull-right[
+- I'm a morning person
+- I know how to drive a car with manual transmission
+- I go to bed after midnight most nights
+- I listen to podcasts at least once a week
+- I hate POLS 1600
+]
+
+---
+
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
 class:inverse, middle, center
 # 🔍
-## Review
+## Review: Generalized Linear Models
 
 
 ---
-## Topics
+## Generalized Linear Models
 
-- Working with R Markdown files
+In last week's lab we fit two models
 
-- Basic Programming in R
+- OLS
+- Logistic regression
 
-- Setting up your work space
 
-- Loading data into R
+```r
+# OLS
+m1 &lt;- lm(support_war01 ~ age + sex + education_n, df_drww)
 
-- Looking at your data
+# Logisitic 
+m2 &lt;- glm(support_war01 ~ age + sex + education_n, df_drww,
+          family = binomial)
+```
 
-- Cleaning and transforming your data
-
-- Describing what's typical of your data
-
-- Describing how your data vary
 
 ---
-## Exercises
+## Generalized Linear Model
 
-1. Create an R Markdown File
+- Logisitic regression is a type of **generalized linear model** used to model **binary outcomes**
 
-2. Explore objects and functions in base `R`
+- We estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions
 
-3. Install the COVID19 package
+- Other common generalized linear models
 
-4. Load data on COVID19 
+  - Probit regression (binary outcomes)
+  - Poisson regression (count data)
+  - Negative binomial regression (count data)
 
-5. Inspect the data
+- It's still "regression", but interpretation typically requires transforming predictions (inverting the link function)
 
-6. Welcome to the tidyverse
 
-7. Measures of central tendency
 
-8. Measures of dispersion
+---
+
+&lt;table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;"&gt;
+&lt;caption&gt;Statistical models&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 1&lt;/th&gt;
+&lt;th style="padding-left: 5px;padding-right: 5px;"&gt;Model 2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.28&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-1.36&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.05)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.29)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;age&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.01&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.05&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.00)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.00)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;sexMale&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.09&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.50&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.02)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.13)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;education_n&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.02&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-0.10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.01)&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(0.06)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-top: 1px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.11&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.11&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Num. obs.&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1463&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1463&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;AIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1575.54&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;BIC&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1596.69&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Log Likelihood&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-783.77&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr style="border-bottom: 2px solid #000000;"&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;Deviance&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;1567.54&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style="font-size: 0.8em;" colspan="3"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+
+---
+## Prediction Data Frame
+
+
+
+```r
+pred_df &lt;- expand_grid(
+  age = 18 : 99,
+  sex = "Female",
+  education_n = mean(df_drww$education_n, na.rm = T)
+)
+```
+
+
+---
+## Predicted Values
+
+
+```r
+# #Predicted values for m1
+pred_df$pred_ols &lt;- predict(m1,
+                            newdata = pred_df)
+# Predicted values for m2
+# Remember to add type = "response"
+pred_df$pred_logit &lt;- predict(m2,
+                            newdata = pred_df,
+                            type = "response")
+```
+
+---
+
+
+```r
+# data
+pred_df%&gt;%
+  # aesthetics
+  ggplot(aes(age, pred_ols, col = "OLS"))+
+  # geometries
+  geom_line()+
+  geom_line(aes(y = pred_logit, col = "Logistic"))+
+  geom_jitter(data=df_drww, aes(age, support_war01),
+              col = "black",
+              height = .05,
+              size = .5,
+              alpha = .5)+
+  labs(
+    col = "Model",
+    x = "Age",
+    y = "Predicted Values"
+  )
+```
+
+
+---
+
+&lt;img src="10-slides_files/figure-html/fig1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
 
 ---
 class: inverse, center, middle
 # 💡
-# Key Concept
-## Comment
+# Confidence Intervals
+## The Basics
 
 
 ---
-## Point 1
+## Overview:
+
+- Confidence intervals provide a way of quantifying uncertainty about **estimates**
+
+- Confidence intervals describe a range of plausible values
+
+- That range is a function of the **standard error** of the estimate, and the a **critical value** determined `\(\alpha\)`, which escribes the degree of confidence we want 
+  
+  - A 95% confidence interval corresponds to an `\(\alpha\)` of 0.05
+
+- A **standard error** is the standard deviation of the sampling distribution of our estimate
+
+- We can obtain the sampling distribution via:
+
+  - simulation (bootstrapping)
+  - asymptotic theory (the CLT)
+
+- Our confidence is about the interval, not the estimate.
+
+---
+## Defintions: Populations and Samples
+
+
+- **Population**: All the cases from which you could have sampled
+
+- **Parameter:** A quantity or quantities of interest often generically called `\(\theta\)` ("theta"). Something we'd like to know about our population
+
+- **Sample:** A (random) draw from that population
+
+- **Sample Size:** The number of observations in your draw (without replacement)
 
 
 ---
-## Code Slide
+## Defintions: Estimators, Estimates, and Statistics
 
-.left-column[
+- **Estimator:** A rule for calculating an *estimate* of our parameter of interest. 
 
-```r
-2+2
-```
+- **Estimate:** The value produced by some estimator for some parameter from some data. Often called `\(\hat{\theta}\)` 
+
+- **Unbiased estimators:** `\(E(\hat{\theta})=E(\theta)\)` On average, the estimates produced by some estimator will be centered around the truth
+
+- **Consistent estimates:** `\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)` As the sample size increases, the estimates from an estimator converge in probability to the parameter value
+
+- **Statistic:** A summary of the data (mean, regression coefficient, `\(R^2\)`). An estimator without a specified target of inference 
+
+---
+## Definitions: Distrubtions and Standard Errors
+
+- **Sampling Distribution:** How some estimate would vary if you took repeated samples from the population
+
+- **Standard Error:** The standard deviation of the sampling distribution
+
+- **Resampling Distribution:** How some estimate would vary if you took repeated samples **from your sample WITH REPLACEMENT** 
+    - "Sampling from our sample, as the sample was sampled from the population."
+    
+---
+## Confidence Intervals: Interpretation
+
+- Confidence intervals give a range of values that are likely to include the true value of the parameter `\(\theta\)` with probability `\((1-\alpha) \times 100\%\)`
+
+  - `\(\alpha = 0.05\)` corresponds to a "95-percent confidence interval"
+
+- Our "confidence" is about the interval
+  
+- In repeated sampling, we expect that `\((1-\alpha) \times 100\%\)` of the intervals we construct would contain the truth.
+
+- For any one interval, the truth, `\(\theta\)`, either falls within in the lower and upper bounds of the interval or it does not.
+
+---
+## Two Approaches to Calculating Confidence Intervals:
+
+In general, there are two ways to calculate confidence intervals:
+
+- **Simulation:** Use our computers to simulate the idea of repeated sampling (e.g. bootstrapping)
+
+  - Flexible, but more computationally intensive
+
+- **Asymptotic Theory:** Use math to derive the properties of the distributions that would arise under repeated sampling
+  
+  - Faster, but requires more assumptions that may not hold
+
+We will consider both. 
+
+- The theory of CIs is easier to illustrate via simulation
+
+- The practice of calculating CIs is (generally) easier using asymptotic theory
+
+---
+## Steps to Calculating a Confidence Interval
+
+From QSS (p. 330)
 
 
-]
+1. Choose the desired level of confidence `\((1-\alpha)\times 100%\)` by specifying a value of α between 0 and 1: the most common choice is= `\(\alpha = 0.05\)`, which gives a 95% confidence level.
 
-.right-column[
+2. Derive the sampling distribution of the estimator by computing its mean and variance.
 
-```r
-plot(1:10,1:10)
-```
+3. Compute the standard error based on this sampling distribution. (square root of the variance)
 
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+4. Compute the critical value `\(z_{\alpha/2}\)` as the `\((1-\alpha)\times 100\)` percentile value of the standard normal distribution
 
-]
+5. Compute the lower and upper confidence limits as
+`\(\hat{\theta} - z_{\alpha/2}\times SE\)` and `\(\hat{\theta} + z_{\alpha/2}\times SE\)` standard error, respectively.
+
+
 
 ---
 class: inverse, center, middle
+# 💡
+# Confidence Intervals
+## Simulating the Sampling Distribution through Bootstrapping
 
-# Key Concept
+
+---
+## Populations
+
+Let's load the data from the *Do Russians Want War* survey
+
+
+```r
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+```
+
+To understand the logic of confidence intervals, let's treat this data as our **population** from which we we could draw repeated samples. 
+
+---
+## Population Age
+
+
+In our population, there are **parameters**, true values of things we want to know. 
+
+Suppose we're interested in the average age of our population.
+
+In our population, the true value of `\(\mu_{age} = E[Age]\)` is
+
+
+```r
+mu_age &lt;- mean(df_drww$age)
+mu_age
+```
+
+```
+[1] 46.64693
+```
+
+Similarly, the true `\(\sigma_{age} = \sqrt{E[Age^2] - E[Age]^2}\)`
+
+
+```r
+sd_age &lt;- sqrt(mean((df_drww$age-mean(df_drww$age))^2))
+sd_age
+```
+
+```
+[1] 15.81829
+```
+
+
+---
+## Distribution Population Age
+
+
+
+```r
+p_pop &lt;- df_drww %&gt;%
+  ggplot(aes(age))+
+  geom_density(col="grey")+
+  geom_rug()+
+  geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(color = "Age")
+
+p_pop
+```
+
+---
+
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+## Sample Estimates of Average Age (N = 25)
+
+Suppose we took three samples, **without replacement** of size 25, and calculated the average age in each sample:
+
+
+```r
+set.seed(123)
+mean_age1 &lt;- mean(sample(df_drww$age, 25, replace = F))
+mean_age2 &lt;- mean(sample(df_drww$age, 25, replace = F))
+mean_age3 &lt;- mean(sample(df_drww$age, 25, replace = F))
+
+mean_age1
+```
+
+```
+[1] 43.36
+```
+
+```r
+mean_age2
+```
+
+```
+[1] 39.36
+```
+
+```r
+mean_age3
+```
+
+```
+[1] 49.72
+```
+
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Repeated Sampling
+
+- Imagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.
+
+- How much would our estimate of the average of age of the population vary?
+
+- Let's use our computers to simulate this process and find out!
+
+---
+## Simualting Repeated Sampling
+
+
+```r
+n_sims &lt;- 1000
+samp_size &lt;- 25
+set.seed(123)
+
+mu_age_samp_dist_n25 &lt;- tibble(
+  sim = 1:n_sims,
+  distribution = "Sampling",
+  sample = "Population"
+) %&gt;%
+  mutate(
+    samp = purrr::map(sim, ~ slice_sample(df_drww, n = samp_size, replace = F)),
+    estimate = purrr::map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+---
+
+
+```r
+mu_age_samp_dist_n25
+```
+
+```
+# A tibble: 1,000 × 5
+     sim distribution sample     samp           estimate
+   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;list&gt;            &lt;dbl&gt;
+ 1     1 Sampling     Population &lt;df [25 × 42]&gt;     43.4
+ 2     2 Sampling     Population &lt;df [25 × 42]&gt;     39.4
+ 3     3 Sampling     Population &lt;df [25 × 42]&gt;     49.7
+ 4     4 Sampling     Population &lt;df [25 × 42]&gt;     46.2
+ 5     5 Sampling     Population &lt;df [25 × 42]&gt;     50.6
+ 6     6 Sampling     Population &lt;df [25 × 42]&gt;     47.8
+ 7     7 Sampling     Population &lt;df [25 × 42]&gt;     46.3
+ 8     8 Sampling     Population &lt;df [25 × 42]&gt;     41.4
+ 9     9 Sampling     Population &lt;df [25 × 42]&gt;     45.4
+10    10 Sampling     Population &lt;df [25 × 42]&gt;     48.8
+# … with 990 more rows
+```
+
+---
+# One Sample
+
+
+```r
+mu_age_samp_dist_n25$samp[[1]]$age
+```
+
+```
+ [1] 35 31 58 26 56 25 53 26 36 35 83 52 41 61 38 29 30 36 60 70 40 32 28 58 45
+```
+
+```r
+mean(mu_age_samp_dist_n25$samp[[1]]$age)
+```
+
+```
+[1] 43.36
+```
+
+```r
+mu_age_samp_dist_n25$estimate[[1]]
+```
+
+```
+[1] 43.36
+```
+
+---
+
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+```r
+p_dist &lt;- mu_age_samp_dist_n25 %&gt;%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug()+
+  geom_density(
+    data = df_drww,
+    aes(x=age),col = "grey"
+  )+
+   geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(title = "Distribution of Sample Means (N=25)")
+p_dist
+```
+
+
+---
+
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Standard Errors
+
+- A **standard error** is simply the standard deviation of the sampling distribution.
+
+- The standard error for our simulation above:
+
+
+```r
+se_age_n25 &lt;- sd(mu_age_samp_dist_n25$estimate)
+se_age_n25
+```
+
+```
+[1] 3.146543
+```
+
+---
+## Coverage Intervals
+
+- From the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.
+
+- From probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between *Two* Standard Deviations of the mean.
+
+
+```r
+ci_age_ul_n25 &lt;- mu_age + 2*se_age_n25
+ci_age_ll_n25 &lt;- mu_age - 2*se_age_n25
+
+mean(mu_age_samp_dist_n25$estimate &gt;ci_age_ll_n25 &amp; 
+       mu_age_samp_dist_n25$estimate &lt;ci_age_ul_n25)
+```
+
+```
+[1] 0.954
+```
+
+
+---
+
+```r
+mu_age_samp_dist_n25 %&gt;%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug(
+    aes(col = estimate &gt;ci_age_ll_n25 &amp; 
+          estimate &lt;ci_age_ul_n25)
+  )+
+  geom_vline(xintercept = mu_age,
+             col = "red",
+             linetype=2)+
+  guides(col="none")+
+  geom_segment(aes(x=ci_age_ll_n25,
+                   xend = ci_age_ul_n25,
+                   y = .15,yend = .15 ),
+               col = "#00BFC4")+
+  theme_bw()
+```
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boostrapped Standard Errors 
+
+- A standard error is the standard deviation of a hypothetical sampling distribution
+
+- How do we calculate a standard error from a single sample?
+
+- It turns out that a random sample provides unbiased estimates of both the population mean **and** the standard deviation of the of the sampling distribution (i.e. the standard error).
+
+- We can estimate this this standard error, by sampling with replacement from our sample to generate a **bootstrapped** sampling distribution
+
+
+---
+## Boostrapped Standard Errors
+
+
+```r
+set.seed(123)
+bs_resamp_1 &lt;- tibble(
+  sim = 1:n_sims,
+  distribution = "Bootstrap",
+  sample = "Sample 1",
+) %&gt;%
+  mutate(
+    samp = purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[1]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+
+---
+## Boostrapped Standard Errors
+
+
+```r
+bs_resamp_2 &lt;- tibble(
+  sim = 1:n_sims,
+  distribution = "Bootstrap",
+  sample = "Sample 2",
+) %&gt;%
+  mutate(
+    samp =  purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[2]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+---
+## Boostrapped Standard Errors
+
+
+```r
+bs_resamp_3 &lt;- tibble(
+  sim = 1:n_sims,
+  distribution = "Bootstrap",
+  sample = "Sample 3",
+) %&gt;%
+  mutate(
+    samp =  purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[3]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+
+---
+## Boostrapped Standard Errors
+
+
+```r
+bs_example &lt;- rbind(
+  mu_age_samp_dist_n25,
+  bs_resamp_1,
+  bs_resamp_2,
+  bs_resamp_3
+)
+
+df_se &lt;- bs_example %&gt;%
+  select(sample, estimate)%&gt;%
+  dplyr::group_by(sample)%&gt;%
+  dplyr::summarise(
+    se = sd(estimate)
+  )
+
+
+df_ci &lt;- df_mn %&gt;%
+  left_join(df_se)
+
+df_ci%&gt;%
+  mutate(
+    ll = xint - qt(df=25,.975)*se,
+    ul = xint + qt(df=25,.975)*se,
+    y = .15,
+    xint_pop = xint[1]
+  ) -&gt; df_ci
+```
+
+---
+
+```r
+bs_example %&gt;%
+  ggplot(aes(estimate,col = sample))+
+  geom_density(aes(linetype=distribution))+
+  facet_wrap(~sample, ncol=1)+
+   geom_vline(
+    data = df_ci,
+    aes(xintercept = xint, 
+             col = sample,
+        linetype=distribution)
+    )+
+    geom_vline(
+    data = df_ci,
+    aes(xintercept = xint_pop), 
+             col = "black",
+        linetype=2)+
+  geom_segment(
+    data = df_ci,
+    aes(x =ll, xend =ul, y=y, yend=y)
+  )
+```
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-31-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+```r
+sim_ci_fn&lt;-function(x,
+                    samp_size=100,
+                    n_sims=1000,
+                    level=.95,
+                    bs=F){
+    # Take a sample of size "nsamp"
+    y&lt;-sample(x=na.omit(x),size=samp_size,replace=F)
+    # Calculate the mean
+    mu&lt;-mean(y,na.rm=T)
+    # If bs=TRUE do bootstrapped SEs 
+    if(bs==T){
+    mu_dist&lt;-rerun(
+      n_sims,
+      mean(sample(y, samp_size, replace = T)))%&gt;%
+      unlist()
+    se&lt;-sd(mu_dist)}else{
+    # Otherwise, just use assymptotic result (Quicker)
+    se&lt;-sd(y,na.rm=T)/sqrt(samp_size-1)
+    }
+    # Significance level
+    the.p&lt;-1-(1-level)/2
+    # Calculate lower and upper limits of interval
+    ll&lt;-mu-qt(p=the.p,df=samp_size-1)*se
+    ul&lt;-mu+qt(p=the.p,df=samp_size-1)*se
+    results&lt;-tibble(mu=mu,ll=ll,ul=ul,se=se)
+    return(results)
+}
+```
+
+---
+
+```r
+set.seed(12345)
+samp25 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 25)) %&gt;%dplyr::mutate(sample = 1:n() )
+samp50 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 50))%&gt;%dplyr::mutate(sample = 1:n() )
+samp100 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 100))%&gt;%dplyr::mutate(sample = 1:n() )
+samp200 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%&gt;%dplyr::mutate(sample = 1:n() )
+```
+
+
+---
+
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-35-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+## Standard Errors and Sample Size
+
+
+```r
+# Standard errors decrease as sample size increases
+c(mean(samp25$se),
+mean(samp50$se),
+mean(samp100$se),
+mean(samp200$se))
+```
+
+```
+[1] 3.193029 2.247602 1.588096 1.121755
+```
+
+```r
+# Specifically, by the square root of the sample size
+c(sd_age/sqrt(25),
+sd_age/sqrt(50),
+sd_age/sqrt(100),
+sd_age/sqrt(200))
+```
+
+```
+[1] 3.163659 2.237045 1.581829 1.118522
+```
+
+---
+## Next Week: Standard Errors for Linear Models
+
+- As you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression
+
+- Next week, we'll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing.
+
+
+
+
+
+
+
+
+  
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

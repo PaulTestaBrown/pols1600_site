@@ -42,15 +42,14 @@ the_packages <- c(
   "kableExtra","DT","texreg",
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  "modelr",# <<
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Graphics:
-  "scatterplot3d", #<<
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "easystats", "zoo"
+  "DeclareDesign", "zoo", "boot","purrr"
 )
 ```
 
@@ -69,37 +68,48 @@ ipak <- function(pkg){
 ipak(the_packages)
 ```
 
----
+
 class: inverse, center, middle
 # Overview
 
 ---
 ## General Plan
 
+- Course Plan
 - Setup
 - Feedback
 - Review
-- Lecture 
-  - Topic 1
-  - Topic 2
+- Confidence Intervals
 
-- Summary
 
+---
+## Course Plan
+
+- April 14: Workshop on Paper -- Counts as Assignment 3: Data Explorations
+
+- April 19: Lecture -- Hypothesis Testing
+
+- April 21 Workshop on Paper -- Inference About Models
+
+- April 24: Draft due on Canvas
+
+- April 26: Lecture -- Course Review / How to Make a Presentation
+
+- April 28: Workshop on Presentations
+
+- May 1: Upload Presentations
+
+- May 3: Class Presentations Part 1
+
+- May 5: Class Presentations Part 2
+
+- May ?: Tacos at Dolores?
 
 ---
 class:inverse, middle, center
 # 💪
 ## Get set up to work
 
----
-## New packages
-
-Hopefully, you were all able to install the following packages 
-
-```{r, eval=FALSE}
-
-
-```
 
 
 
@@ -130,20 +140,23 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
-We'll use data from last weeks lab to 
+---
+
+We'll use data from last week's lab to 
 
 ```{r}
 load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 ```
 
 
-
+---
+class: inverse, center, middle
 # 📢
 ## Feedback
 
 
 ```{r feedback, echo=F, message=F}
-df_feedback_full <- haven::read_spss("../files/data/wk05.sav")
+df_feedback_full <- haven::read_spss("../files/data/wk08.sav")
 df_feedback_full %>%
   filter(optout == 1)-> df_feedback
 ```
@@ -154,17 +167,12 @@ df_feedback_full %>%
 
 --
 
-- We liked the lab (or liked it better)
+- Labs
 
-- Working in groups 
+- Visualization
 
-- Extensive notes
+- Probability Theory and Statistics
 
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
 
 ---
 ## What we liked
@@ -186,13 +194,13 @@ DT::datatable(df_feedback %>%
 
 --
 
-- Labs still feel rushed (at the end)
+- The room
 
-- When code breaks it can be hard to fix
+- Feeling rushed in lab and lecture
 
-- Lecture was a bit confusing/long
+- The amount of material
 
-- The space
+- The lack of Crocs
 
 ---
 ## What we disliked
@@ -210,48 +218,223 @@ DT::datatable(df_feedback %>%
 
 
 ---
+backgroun-image:url(https://www.slashfilm.com/img/gallery/dont-look-up-has-already-become-netflixs-third-most-viewed-film-ever/intro-1641417495.jpg)
+## It's the end of the world as you know it
+
+
+
+---
+```{r, echo = F}
+
+df_feedback %>%
+  mutate(
+    Meteor = stringr::str_wrap(forcats:: as_factor(apocalypse),20)
+  ) %>%
+  ggplot(aes(Meteor, fill = Meteor))+
+  geom_bar(stat="count")+
+  guides(fill = "none")+
+  coord_flip()+
+  labs(x="",
+       title = "There's a giant meteor headed toward Earth...")
+  
+```
+
+---
+## Do you hate the class? A list Experiment:
+
+How many of the following statements are true for you?
+
+.pull-left[
+- I'm a morning person
+- I know how to drive a car with manual transmission
+- I go to bed after midnight most nights
+- I listen to podcasts at least once a week
+]
+
+--
+
+.pull-right[
+- I'm a morning person
+- I know how to drive a car with manual transmission
+- I go to bed after midnight most nights
+- I listen to podcasts at least once a week
+- I hate POLS 1600
+]
+
+---
+
+```{r, echo = F}
+df_feedback %>%
+  select(starts_with("list"))%>%
+  pivot_longer(
+    cols = starts_with("list"),
+    names_to = "version",
+    values_to = "response"
+  )%>%
+  mutate(
+    treatment = ifelse(version == "list_a", "Direct","Veiled")
+  )%>%
+  group_by(treatment)%>%
+  summarize(
+    Response = mean(response,na.rm=T)
+  ) %>%
+  ggplot(aes(x=treatment, y = Response,fill=treatment))+
+  geom_bar(stat = "identity")+
+  guides(fill = "none")+
+  labs(
+    x = "Treatment"
+  )
+
+```
+
+---
+```{r, echo = F}
+df_feedback %>%
+  select(starts_with("list"))%>%
+  pivot_longer(
+    cols = starts_with("list"),
+    names_to = "version",
+    values_to = "response"
+  )%>%
+  mutate(
+    treatment = ifelse(version == "list_a", "Direct","Veiled")
+  )%>%
+  group_by(treatment, response)%>%
+  summarize(
+    N = n()
+  )%>%
+  na.omit()%>%
+  ggplot(aes(response, N, fill = treatment))+
+  geom_bar(stat="identity")+
+  facet_grid(~treatment)
+```
+
+
+
+---
 class:inverse, middle, center
 # 🔍
 ## Review: Generalized Linear Models
 
 
 ---
-## Topics
+## Generalized Linear Models
 
-- Working with R Markdown files
+In last week's lab we fit two models
 
-- Basic Programming in R
+- OLS
+- Logistic regression
 
-- Setting up your work space
+```{r models}
+# OLS
+m1 <- lm(support_war01 ~ age + sex + education_n, df_drww)
 
-- Loading data into R
+# Logisitic 
+m2 <- glm(support_war01 ~ age + sex + education_n, df_drww,
+          family = binomial)
+```
 
-- Looking at your data
-
-- Cleaning and transforming your data
-
-- Describing what's typical of your data
-
-- Describing how your data vary
 
 ---
-## Exercises
+## Generalized Linear Model
 
-1. Create an R Markdown File
+- Logisitic regression is a type of **generalized linear model** used to model **binary outcomes**
 
-2. Explore objects and functions in base `R`
+- We estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions
 
-3. Install the COVID19 package
+- Other common generalized linear models
 
-4. Load data on COVID19 
+  - Probit regression (binary outcomes)
+  - Poisson regression (count data)
+  - Negative binomial regression (count data)
 
-5. Inspect the data
+- It's still "regression", but interpretation typically requires transforming predictions (inverting the link function)
 
-6. Welcome to the tidyverse
 
-7. Measures of central tendency
 
-8. Measures of dispersion
+---
+
+```{r table, echo=F, results="asis"}
+# Regression Table
+htmlreg(list(m1,m2))
+```
+
+
+---
+## Prediction Data Frame
+
+
+```{r}
+pred_df <- expand_grid(
+  age = 18 : 99,
+  sex = "Female",
+  education_n = mean(df_drww$education_n, na.rm = T)
+)
+```
+
+
+---
+## Predicted Values
+
+```{r predictions}
+# #Predicted values for m1
+pred_df$pred_ols <- predict(m1,
+                            newdata = pred_df)
+# Predicted values for m2
+# Remember to add type = "response"
+pred_df$pred_logit <- predict(m2,
+                            newdata = pred_df,
+                            type = "response")
+```
+
+---
+
+```{r fig1code, eval=F}
+# data
+pred_df%>%
+  # aesthetics
+  ggplot(aes(age, pred_ols, col = "OLS"))+
+  # geometries
+  geom_line()+
+  geom_line(aes(y = pred_logit, col = "Logistic"))+
+  geom_jitter(data=df_drww, aes(age, support_war01),
+              col = "black",
+              height = .05,
+              size = .5,
+              alpha = .5)+
+  labs(
+    col = "Model",
+    x = "Age",
+    y = "Predicted Values"
+  )
+
+```
+
+
+---
+
+```{r fig1, echo=F}
+# data
+pred_df%>%
+  # aesthetics
+  ggplot(aes(age, pred_ols, col = "OLS"))+
+  # geometries
+  geom_line()+
+  geom_line(aes(y = pred_logit, col = "Logistic"))+
+  geom_jitter(data=df_drww, aes(age, support_war01),
+              col = "black",
+              height = .05,
+              size = .5,
+              alpha = .5)+
+  labs(
+    col = "Model",
+    x = "Age",
+    y = "Predicted Values"
+  )
+
+```
+
+
 
 ---
 class: inverse, center, middle
@@ -263,9 +446,22 @@ class: inverse, center, middle
 ---
 ## Overview:
 
+- Confidence intervals provide a way of quantifying uncertainty about **estimates**
 
+- Confidence intervals describe a range of plausible values
 
+- That range is a function of the **standard error** of the estimate, and the a **critical value** determined $\alpha$, which escribes the degree of confidence we want 
+  
+  - A 95% confidence interval corresponds to an $\alpha$ of 0.05
 
+- A **standard error** is the standard deviation of the sampling distribution of our estimate
+
+- We can obtain the sampling distribution via:
+
+  - simulation (bootstrapping)
+  - asymptotic theory (the CLT)
+
+- Our confidence is about the interval, not the estimate.
 
 ---
 ## Defintions: Populations and Samples
@@ -304,14 +500,11 @@ class: inverse, center, middle
     - "Sampling from our sample, as the sample was sampled from the population."
     
 ---
-## Confidence Intervals
+## Confidence Intervals: Interpretation
 
 - Confidence intervals give a range of values that are likely to include the true value of the parameter $\theta$ with probability $(1-\alpha) \times 100\%$
 
   - $\alpha = 0.05$ corresponds to a "95-percent confidence interval"
-
----
-## Confidence Intervals: Interpretation
 
 - Our "confidence" is about the interval
   
@@ -337,6 +530,23 @@ We will consider both.
 - The theory of CIs is easier to illustrate via simulation
 
 - The practice of calculating CIs is (generally) easier using asymptotic theory
+
+---
+## Steps to Calculating a Confidence Interval
+
+From QSS (p. 330)
+
+
+1. Choose the desired level of confidence $(1-\alpha)\times 100%$ by specifying a value of α between 0 and 1: the most common choice is= $\alpha = 0.05$, which gives a 95% confidence level.
+
+2. Derive the sampling distribution of the estimator by computing its mean and variance.
+
+3. Compute the standard error based on this sampling distribution. (square root of the variance)
+
+4. Compute the critical value $z_{\alpha/2}$ as the $(1-\alpha)\times 100$ percentile value of the standard normal distribution
+
+5. Compute the lower and upper confidence limits as
+$\hat{\theta} - z_{\alpha/2}\times SE$ and $\hat{\theta} + z_{\alpha/2}\times SE$ standard error, respectively.
 
 
 
@@ -386,7 +596,7 @@ sd_age
 ## Distribution Population Age
 
 
-```{r}
+```{r, eval = F}
 p_pop <- df_drww %>%
   ggplot(aes(age))+
   geom_density(col="grey")+
@@ -400,6 +610,25 @@ p_pop <- df_drww %>%
 
 p_pop
 ```
+
+---
+
+```{r, echo = F}
+p_pop <- df_drww %>%
+  ggplot(aes(age))+
+  geom_density(col="grey")+
+  geom_rug()+
+  geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(color = "Age")
+
+p_pop
+```
+
+
 
 
 ---
@@ -420,7 +649,7 @@ mean_age3
 
 
 ---
-```{r}
+```{r, echo = F}
 df_mn <- tibble(
   xint = c(mu_age, mean_age1, mean_age2, mean_age3),
   sample = c("Population","Sample 1", "Sample 2","Sample 3"),
@@ -456,8 +685,7 @@ p_samp
 ## Simualting Repeated Sampling
 
 ```{r}
-library(boot)
-library(purrr)
+
 n_sims <- 1000
 samp_size <- 25
 set.seed(123)
@@ -468,8 +696,8 @@ mu_age_samp_dist_n25 <- tibble(
   sample = "Population"
 ) %>%
   mutate(
-    samp = map(sim, ~ slice_sample(df_drww, n = samp_size, replace = F)),
-    estimate = map_dbl(samp, ~ mean(.$age))
+    samp = purrr::map(sim, ~ slice_sample(df_drww, n = samp_size, replace = F)),
+    estimate = purrr::map_dbl(samp, ~ mean(.$age))
   )
 
 ```
@@ -490,12 +718,10 @@ mean(mu_age_samp_dist_n25$samp[[1]]$age)
 mu_age_samp_dist_n25$estimate[[1]]
 ```
 
+---
 
 ```{r, echo=F}
-mu_age_samp_dist_n25 %>%
-  group_by(sim)%>%
-  group_map(.,~bind_rows(.$samp)) -> tmp
-class(tmp)
+
 
 df_sims <- bind_rows(mu_age_samp_dist_n25$samp)
 df_sims%>%
@@ -531,7 +757,28 @@ ggplot(aes(age, group = id))+
 
 ---
 
-```{r}
+```{r eval = F}
+p_dist <- mu_age_samp_dist_n25 %>%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug()+
+  geom_density(
+    data = df_drww,
+    aes(x=age),col = "grey"
+  )+
+   geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(title = "Distribution of Sample Means (N=25)")
+p_dist
+```
+
+
+---
+
+```{r echo = F}
 p_dist <- mu_age_samp_dist_n25 %>%
   ggplot(aes(estimate))+
   geom_density()+
@@ -580,7 +827,7 @@ mean(mu_age_samp_dist_n25$estimate >ci_age_ll_n25 &
 
 
 ---
-```{r}
+```{r, eval =F}
 mu_age_samp_dist_n25 %>%
   ggplot(aes(estimate))+
   geom_density()+
@@ -600,6 +847,27 @@ mu_age_samp_dist_n25 %>%
 ```
 
 ---
+```{r, echo =F}
+mu_age_samp_dist_n25 %>%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug(
+    aes(col = estimate >ci_age_ll_n25 & 
+          estimate <ci_age_ul_n25)
+  )+
+  geom_vline(xintercept = mu_age,
+             col = "red",
+             linetype=2)+
+  guides(col="none")+
+  geom_segment(aes(x=ci_age_ll_n25,
+                   xend = ci_age_ul_n25,
+                   y = .15,yend = .15 ),
+               col = "#00BFC4")+
+  theme_bw()
+```
+
+
+---
 ## Boostrapped Standard Errors 
 
 - A standard error is the standard deviation of a hypothetical sampling distribution
@@ -617,14 +885,14 @@ mu_age_samp_dist_n25 %>%
 ```{r}
 set.seed(123)
 bs_resamp_1 <- tibble(
-  sim = 1:nsims,
+  sim = 1:n_sims,
   distribution = "Bootstrap",
   sample = "Sample 1",
 ) %>%
   mutate(
-    samp = map(sim, ~ slice_sample(
-      mu_age_samp_dist_n30$samp[[1]], n = samp_size, replace = T)),
-    estimate = map_dbl(samp, ~ mean(.$age))
+    samp = purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[1]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
   )
 ```
 
@@ -634,14 +902,14 @@ bs_resamp_1 <- tibble(
 
 ```{r}
 bs_resamp_2 <- tibble(
-  sim = 1:nsims,
+  sim = 1:n_sims,
   distribution = "Bootstrap",
   sample = "Sample 2",
 ) %>%
   mutate(
-    samp = map(sim, ~ slice_sample(
-      mu_age_samp_dist_n30$samp[[2]], n = samp_size, replace = T)),
-    estimate = map_dbl(samp, ~ mean(.$age))
+    samp =  purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[2]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
   )
 ```
 
@@ -650,14 +918,14 @@ bs_resamp_2 <- tibble(
 
 ```{r}
 bs_resamp_3 <- tibble(
-  sim = 1:nsims,
+  sim = 1:n_sims,
   distribution = "Bootstrap",
   sample = "Sample 3",
 ) %>%
   mutate(
-    samp = map(sim, ~ slice_sample(
-      mu_age_samp_dist_n30$samp[[3]], n = samp_size, replace = T)),
-    estimate = map_dbl(samp, ~ mean(.$age))
+    samp =  purrr::map(sim, ~ slice_sample(
+      mu_age_samp_dist_n25$samp[[3]], n = samp_size, replace = T)),
+    estimate =  purrr::map_dbl(samp, ~ mean(.$age))
   )
 ```
 
@@ -695,20 +963,7 @@ df_ci%>%
 ```
 
 ---
-## Boostrapped Standard Errors
-```{r}
-bs_example %>%
-  ggplot(aes(estimate,col = sample))+
-  geom_density(aes(linetype=distribution))+
-  facet_wrap(~sample, ncol=1)+
-   geom_vline(
-    data = df_ci,
-    aes(xintercept = xint, 
-             col = sample,
-        linetype=distribution)
-    )
-
-
+```{r, eval=F}
 bs_example %>%
   ggplot(aes(estimate,col = sample))+
   geom_density(aes(linetype=distribution))+
@@ -728,13 +983,32 @@ bs_example %>%
     data = df_ci,
     aes(x =ll, xend =ul, y=y, yend=y)
   )
-
-
 ```
 
 ---
-## Simulating Confidence Intervals for Sample Sizes
+```{r, echo=F}
+bs_example %>%
+  ggplot(aes(estimate,col = sample))+
+  geom_density(aes(linetype=distribution))+
+  facet_wrap(~sample, ncol=1)+
+   geom_vline(
+    data = df_ci,
+    aes(xintercept = xint, 
+             col = sample,
+        linetype=distribution)
+    )+
+    geom_vline(
+    data = df_ci,
+    aes(xintercept = xint_pop), 
+             col = "black",
+        linetype=2)+
+  geom_segment(
+    data = df_ci,
+    aes(x =ll, xend =ul, y=y, yend=y)
+  )
+```
 
+---
 ```{r}
 sim_ci_fn<-function(x,
                     samp_size=100,
@@ -762,66 +1036,82 @@ sim_ci_fn<-function(x,
     ul<-mu+qt(p=the.p,df=samp_size-1)*se
     results<-tibble(mu=mu,ll=ll,ul=ul,se=se)
     return(results)
-    
 }
+```
+
+---
+```{r}
 set.seed(12345)
-samp25 %>%
-  dplyr::mutate(
-    sample = 1:n()
-  )
-samp25 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 25)) %>%dplyr::mutate(sample = 1:n() )
-samp50 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 50))%>%dplyr::mutate(sample = 1:n() )
-samp100 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 100))%>%dplyr::mutate(sample = 1:n() )
-samp200 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%>%dplyr::mutate(sample = 1:n() )
-
-samp1000$ul
-samp500 %>%
-  summarise(
-    coverage = mean(ll<mu_age&ul>mu_age)
-  )
-samp25 %>%
-  summarise(
-    coverage = mean(ll<mu_age&ul>mu_age)
-  )
-samp50 %>%
-  summarise(
-    coverage = mean(ll<mu_age&ul>mu_age)
-  )
-samp100 %>%
-  summarise(
-    coverage = mean(ll<mu_age&ul>mu_age)
-  )
-samp200 %>%
-  summarise(
-    coverage = mean(ll<mu_age&ul>mu_age)
-  )
-
-# Coverage
-
-test <- samp200 %>%
-  slice_sample(n=100) %>%
-  ggplot(
-    aes(x=mu,
-        y=sample,
-        xmin=ll,
-        xmax=ul,
-        col=ll<mu_age&ul>mu_age))+
-  geom_point()+
-  geom_vline(xintercept = mu_age)+
-  geom_errorbarh()+
-  scale_color_discrete(guide="none")+
-  labs(title="95% CIs for 200 samples of\nSize 10")
-test
-new <- samp25%>%slice(1:100)
-test %+% samp25[1:100,]
-test %+% samp50[1:100,]
-test %+% samp100[1:100,]
-test %+% samp200[1:100,]
-ggplot(samp500,aes(x=mu,y=sample,xmin=ll,xmax=ul,col=ll<mu_age&ul>mu_age))+geom_point()+geom_vline(xintercept = mu_age)+
-    geom_errorbarh()+scale_color_discrete(guide=F)+labs(title="95% CIs for 100 samples of\nSize 10")
+samp25 <-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 25)) %>%dplyr::mutate(sample = 1:n() )
+samp50 <-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 50))%>%dplyr::mutate(sample = 1:n() )
+samp100 <-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 100))%>%dplyr::mutate(sample = 1:n() )
+samp200 <-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%>%dplyr::mutate(sample = 1:n() )
 ```
 
 
+---
+
+```{r,echo = F}
+samp25 %>%
+  slice(1:100)%>%
+ggplot(aes(x=mu,
+           y=sample,
+           xmin=ll,
+           xmax=ul,
+           col=ll<mu_age&ul>mu_age))+
+  geom_point()+
+  geom_vline(xintercept = mu_age)+
+  geom_errorbarh()+
+  scale_color_discrete(guide=F)+
+  labs(title="95% CIs for 100 samples of\nSize 25")
+
+```
+
+---
+```{r, echo=F}
+bs_sim_df <- rbind(
+  samp25 %>%mutate(Size = "N=25")%>%slice(1:100),
+  samp50 %>%mutate(Size = "N=50")%>%slice(1:100),
+  samp100 %>%mutate(Size = "N=100")%>%slice(1:100),
+  samp200 %>%mutate(Size = "N=200")%>%slice(1:100)
+
+)
+
+bs_sim_df %>%
+  ggplot(aes(x=mu,
+           y=sample,
+           xmin=ll,
+           xmax=ul,
+           col=ll<mu_age&ul>mu_age))+
+  geom_point()+
+  geom_vline(xintercept = mu_age)+
+  geom_errorbarh()+
+  scale_color_discrete(guide=F)+
+  facet_wrap(~Size)
+```
+
+---
+## Standard Errors and Sample Size
+
+```{r}
+# Standard errors decrease as sample size increases
+c(mean(samp25$se),
+mean(samp50$se),
+mean(samp100$se),
+mean(samp200$se))
+# Specifically, by the square root of the sample size
+c(sd_age/sqrt(25),
+sd_age/sqrt(50),
+sd_age/sqrt(100),
+sd_age/sqrt(200))
+```
+
+---
+## Next Week: Standard Errors for Linear Models
+
+- As you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression
+
+- Next week, we'll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing.
 
 
 

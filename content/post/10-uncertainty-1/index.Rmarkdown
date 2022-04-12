@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/10-slides.html
 - icon: magic
   icon_pack: fas
   name: Notes
