@@ -50,7 +50,7 @@ Our goals today are
 To begin, let's lay out some definitions that we'll use through out these notes
 
 - **Population**: All the cases from which you could have sampled
-- **Paramater:** A quantity or quantities of interest often generically called $\theta$ ("theta"). Something we'd like to know about our population
+- **Parameter:** A quantity or quantities of interest often generically called $\theta$ ("theta"). Something we'd like to know about our population
 - **Sample:** A (random) draw from that population
 - **Sample Size:** The number of observations in your draw (without replacement)
 - **Estimator:** A rule for calculating an *estimate* of our parameter of interest. 

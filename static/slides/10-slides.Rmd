@@ -1,6 +1,6 @@
 ---
-title: "Week XX:"
-subtitle: "Topic HERE"
+title: "Week 10:"
+subtitle: "Quantifying uncertainty with confidence intervals"
 author: "Paul Testa"
 output:
   xaringan::moon_reader:
@@ -130,6 +130,13 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
+We'll use data from last weeks lab to 
+
+```{r}
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+```
+
+
 
 # 📢
 ## Feedback
@@ -205,7 +212,7 @@ DT::datatable(df_feedback %>%
 ---
 class:inverse, middle, center
 # 🔍
-## Review
+## Review: Generalized Linear Models
 
 
 ---
@@ -249,33 +256,579 @@ class:inverse, middle, center
 ---
 class: inverse, center, middle
 # 💡
-# Key Concept
-## Comment
+# Confidence Intervals
+## The Basics
 
 
 ---
-## Point 1
+## Overview:
+
+
+
 
 
 ---
-## Code Slide
-
-.left-column[
-```{r,echo=T,eval=F}
-2+2
-```
+## Defintions: Populations and Samples
 
 
-]
+- **Population**: All the cases from which you could have sampled
 
-.right-column[
-```{r,eval=T}
-plot(1:10,1:10)
-```
+- **Parameter:** A quantity or quantities of interest often generically called $\theta$ ("theta"). Something we'd like to know about our population
 
-]
+- **Sample:** A (random) draw from that population
+
+- **Sample Size:** The number of observations in your draw (without replacement)
+
+
+---
+## Defintions: Estimators, Estimates, and Statistics
+
+- **Estimator:** A rule for calculating an *estimate* of our parameter of interest. 
+
+- **Estimate:** The value produced by some estimator for some parameter from some data. Often called $\hat{\theta}$ 
+
+- **Unbiased estimators:** $E(\hat{\theta})=E(\theta)$ On average, the estimates produced by some estimator will be centered around the truth
+
+- **Consistent estimates:** $\lim_{n\to \infty} \hat{\theta_N} = \theta$ As the sample size increases, the estimates from an estimator converge in probability to the parameter value
+
+- **Statistic:** A summary of the data (mean, regression coefficient, $R^2$). An estimator without a specified target of inference 
+
+---
+## Definitions: Distrubtions and Standard Errors
+
+- **Sampling Distribution:** How some estimate would vary if you took repeated samples from the population
+
+- **Standard Error:** The standard deviation of the sampling distribution
+
+- **Resampling Distribution:** How some estimate would vary if you took repeated samples **from your sample WITH REPLACEMENT** 
+    - "Sampling from our sample, as the sample was sampled from the population."
+    
+---
+## Confidence Intervals
+
+- Confidence intervals give a range of values that are likely to include the true value of the parameter $\theta$ with probability $(1-\alpha) \times 100\%$
+
+  - $\alpha = 0.05$ corresponds to a "95-percent confidence interval"
+
+---
+## Confidence Intervals: Interpretation
+
+- Our "confidence" is about the interval
+  
+- In repeated sampling, we expect that $(1-\alpha) \times 100\%$ of the intervals we construct would contain the truth.
+
+- For any one interval, the truth, $\theta$, either falls within in the lower and upper bounds of the interval or it does not.
+
+---
+## Two Approaches to Calculating Confidence Intervals:
+
+In general, there are two ways to calculate confidence intervals:
+
+- **Simulation:** Use our computers to simulate the idea of repeated sampling (e.g. bootstrapping)
+
+  - Flexible, but more computationally intensive
+
+- **Asymptotic Theory:** Use math to derive the properties of the distributions that would arise under repeated sampling
+  
+  - Faster, but requires more assumptions that may not hold
+
+We will consider both. 
+
+- The theory of CIs is easier to illustrate via simulation
+
+- The practice of calculating CIs is (generally) easier using asymptotic theory
+
+
 
 ---
 class: inverse, center, middle
+# 💡
+# Confidence Intervals
+## Simulating the Sampling Distribution through Bootstrapping
 
-# Key Concept
+
+---
+## Populations
+
+Let's load the data from the *Do Russians Want War* survey
+
+```{r}
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+
+```
+
+To understand the logic of confidence intervals, let's treat this data as our **population** from which we we could draw repeated samples. 
+
+---
+## Population Age
+
+
+In our population, there are **parameters**, true values of things we want to know. 
+
+Suppose we're interested in the average age of our population.
+
+In our population, the true value of $\mu_{age} = E[Age]$ is
+
+```{r}
+mu_age <- mean(df_drww$age)
+mu_age
+```
+
+Similarly, the true $\sigma_{age} = \sqrt{E[Age^2] - E[Age]^2}$
+
+```{r}
+sd_age <- sqrt(mean((df_drww$age-mean(df_drww$age))^2))
+sd_age
+```
+
+
+---
+## Distribution Population Age
+
+
+```{r}
+p_pop <- df_drww %>%
+  ggplot(aes(age))+
+  geom_density(col="grey")+
+  geom_rug()+
+  geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(color = "Age")
+
+p_pop
+```
+
+
+---
+## Sample Estimates of Average Age (N = 25)
+
+Suppose we took three samples, **without replacement** of size 25, and calculated the average age in each sample:
+
+```{r}
+set.seed(123)
+mean_age1 <- mean(sample(df_drww$age, 25, replace = F))
+mean_age2 <- mean(sample(df_drww$age, 25, replace = F))
+mean_age3 <- mean(sample(df_drww$age, 25, replace = F))
+
+mean_age1
+mean_age2
+mean_age3
+```
+
+
+---
+```{r}
+df_mn <- tibble(
+  xint = c(mu_age, mean_age1, mean_age2, mean_age3),
+  sample = c("Population","Sample 1", "Sample 2","Sample 3"),
+  distribution = c("Sampling","Bootstrap", "Bootstrap","Bootstrap")
+)
+
+p_samp <- df_drww %>%
+  ggplot(aes(age))+
+  geom_density(col="grey")+
+  geom_rug()+
+  geom_vline(
+    data = df_mn,
+    aes(xintercept = xint, 
+             col = sample,
+        linetype=sample)
+    )+
+  theme_bw()+
+  labs(color = "Age")
+p_samp
+
+```
+
+---
+## Repeated Sampling
+
+- Imagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.
+
+- How much would our estimate of the average of age of the population vary?
+
+- Let's use our computers to simulate this process and find out!
+
+---
+## Simualting Repeated Sampling
+
+```{r}
+library(boot)
+library(purrr)
+n_sims <- 1000
+samp_size <- 25
+set.seed(123)
+
+mu_age_samp_dist_n25 <- tibble(
+  sim = 1:n_sims,
+  distribution = "Sampling",
+  sample = "Population"
+) %>%
+  mutate(
+    samp = map(sim, ~ slice_sample(df_drww, n = samp_size, replace = F)),
+    estimate = map_dbl(samp, ~ mean(.$age))
+  )
+
+```
+
+---
+
+```{r}
+mu_age_samp_dist_n25
+
+```
+
+---
+# One Sample
+
+```{r}
+mu_age_samp_dist_n25$samp[[1]]$age
+mean(mu_age_samp_dist_n25$samp[[1]]$age)
+mu_age_samp_dist_n25$estimate[[1]]
+```
+
+
+```{r, echo=F}
+mu_age_samp_dist_n25 %>%
+  group_by(sim)%>%
+  group_map(.,~bind_rows(.$samp)) -> tmp
+class(tmp)
+
+df_sims <- bind_rows(mu_age_samp_dist_n25$samp)
+df_sims%>%
+  mutate(
+    num_id = sort(rep(rep(1:1000),25)),
+    id = forcats::fct_reorder(paste("Sample ", sort(rep(rep(1:1000),25))),num_id)
+  ) -> df_sims
+
+df_sims_samp <- df_sims %>%
+  dplyr::group_by(id)%>%
+  dplyr::summarise(
+    num_id = unique(num_id),
+    mean = mean(age)
+  )
+
+df_sims %>%
+  filter(num_id <13)%>%
+ggplot(aes(age, group = id))+
+  geom_density()+
+  geom_rug()+
+  facet_wrap(~id)+
+  geom_vline(
+    data = df_sims_samp%>%filter(num_id <13),
+    aes(xintercept = mean, group = id),
+    linetype = 2
+  )+
+  labs(title="Distribution of Age in 12 Samples")+
+  theme_bw()
+
+
+```
+
+
+---
+
+```{r}
+p_dist <- mu_age_samp_dist_n25 %>%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug()+
+  geom_density(
+    data = df_drww,
+    aes(x=age),col = "grey"
+  )+
+   geom_vline(
+    aes(xintercept = mu_age, 
+             col = "Population Mean"),
+    linetype=2)+
+  theme_bw()+
+  labs(title = "Distribution of Sample Means (N=25)")
+p_dist
+```
+
+
+---
+## Standard Errors
+
+- A **standard error** is simply the standard deviation of the sampling distribution.
+
+- The standard error for our simulation above:
+
+```{r}
+se_age_n25 <- sd(mu_age_samp_dist_n25$estimate)
+se_age_n25
+```
+
+---
+## Coverage Intervals
+
+- From the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.
+
+- From probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between *Two* Standard Deviations of the mean.
+
+```{r}
+ci_age_ul_n25 <- mu_age + 2*se_age_n25
+ci_age_ll_n25 <- mu_age - 2*se_age_n25
+
+mean(mu_age_samp_dist_n25$estimate >ci_age_ll_n25 & 
+       mu_age_samp_dist_n25$estimate <ci_age_ul_n25)
+
+```
+
+
+---
+```{r}
+mu_age_samp_dist_n25 %>%
+  ggplot(aes(estimate))+
+  geom_density()+
+  geom_rug(
+    aes(col = estimate >ci_age_ll_n25 & 
+          estimate <ci_age_ul_n25)
+  )+
+  geom_vline(xintercept = mu_age,
+             col = "red",
+             linetype=2)+
+  guides(col="none")+
+  geom_segment(aes(x=ci_age_ll_n25,
+                   xend = ci_age_ul_n25,
+                   y = .15,yend = .15 ),
+               col = "#00BFC4")+
+  theme_bw()
+```
+
+---
+## Boostrapped Standard Errors 
+
+- A standard error is the standard deviation of a hypothetical sampling distribution
+
+- How do we calculate a standard error from a single sample?
+
+- It turns out that a random sample provides unbiased estimates of both the population mean **and** the standard deviation of the of the sampling distribution (i.e. the standard error).
+
+- We can estimate this this standard error, by sampling with replacement from our sample to generate a **bootstrapped** sampling distribution
+
+
+---
+## Boostrapped Standard Errors
+
+```{r}
+set.seed(123)
+bs_resamp_1 <- tibble(
+  sim = 1:nsims,
+  distribution = "Bootstrap",
+  sample = "Sample 1",
+) %>%
+  mutate(
+    samp = map(sim, ~ slice_sample(
+      mu_age_samp_dist_n30$samp[[1]], n = samp_size, replace = T)),
+    estimate = map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+
+---
+## Boostrapped Standard Errors
+
+```{r}
+bs_resamp_2 <- tibble(
+  sim = 1:nsims,
+  distribution = "Bootstrap",
+  sample = "Sample 2",
+) %>%
+  mutate(
+    samp = map(sim, ~ slice_sample(
+      mu_age_samp_dist_n30$samp[[2]], n = samp_size, replace = T)),
+    estimate = map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+---
+## Boostrapped Standard Errors
+
+```{r}
+bs_resamp_3 <- tibble(
+  sim = 1:nsims,
+  distribution = "Bootstrap",
+  sample = "Sample 3",
+) %>%
+  mutate(
+    samp = map(sim, ~ slice_sample(
+      mu_age_samp_dist_n30$samp[[3]], n = samp_size, replace = T)),
+    estimate = map_dbl(samp, ~ mean(.$age))
+  )
+```
+
+
+---
+## Boostrapped Standard Errors
+
+```{r}
+bs_example <- rbind(
+  mu_age_samp_dist_n25,
+  bs_resamp_1,
+  bs_resamp_2,
+  bs_resamp_3
+)
+
+df_se <- bs_example %>%
+  select(sample, estimate)%>%
+  dplyr::group_by(sample)%>%
+  dplyr::summarise(
+    se = sd(estimate)
+  )
+
+
+df_ci <- df_mn %>%
+  left_join(df_se)
+
+df_ci%>%
+  mutate(
+    ll = xint - qt(df=25,.975)*se,
+    ul = xint + qt(df=25,.975)*se,
+    y = .15,
+    xint_pop = xint[1]
+  ) -> df_ci
+
+```
+
+---
+## Boostrapped Standard Errors
+```{r}
+bs_example %>%
+  ggplot(aes(estimate,col = sample))+
+  geom_density(aes(linetype=distribution))+
+  facet_wrap(~sample, ncol=1)+
+   geom_vline(
+    data = df_ci,
+    aes(xintercept = xint, 
+             col = sample,
+        linetype=distribution)
+    )
+
+
+bs_example %>%
+  ggplot(aes(estimate,col = sample))+
+  geom_density(aes(linetype=distribution))+
+  facet_wrap(~sample, ncol=1)+
+   geom_vline(
+    data = df_ci,
+    aes(xintercept = xint, 
+             col = sample,
+        linetype=distribution)
+    )+
+    geom_vline(
+    data = df_ci,
+    aes(xintercept = xint_pop), 
+             col = "black",
+        linetype=2)+
+  geom_segment(
+    data = df_ci,
+    aes(x =ll, xend =ul, y=y, yend=y)
+  )
+
+
+```
+
+---
+## Simulating Confidence Intervals for Sample Sizes
+
+```{r}
+sim_ci_fn<-function(x,
+                    samp_size=100,
+                    n_sims=1000,
+                    level=.95,
+                    bs=F){
+    # Take a sample of size "nsamp"
+    y<-sample(x=na.omit(x),size=samp_size,replace=F)
+    # Calculate the mean
+    mu<-mean(y,na.rm=T)
+    # If bs=TRUE do bootstrapped SEs 
+    if(bs==T){
+    mu_dist<-rerun(
+      n_sims,
+      mean(sample(y, samp_size, replace = T)))%>%
+      unlist()
+    se<-sd(mu_dist)}else{
+    # Otherwise, just use assymptotic result (Quicker)
+    se<-sd(y,na.rm=T)/sqrt(samp_size-1)
+    }
+    # Significance level
+    the.p<-1-(1-level)/2
+    # Calculate lower and upper limits of interval
+    ll<-mu-qt(p=the.p,df=samp_size-1)*se
+    ul<-mu+qt(p=the.p,df=samp_size-1)*se
+    results<-tibble(mu=mu,ll=ll,ul=ul,se=se)
+    return(results)
+    
+}
+set.seed(12345)
+samp25 %>%
+  dplyr::mutate(
+    sample = 1:n()
+  )
+samp25 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 25)) %>%dplyr::mutate(sample = 1:n() )
+samp50 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 50))%>%dplyr::mutate(sample = 1:n() )
+samp100 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 100))%>%dplyr::mutate(sample = 1:n() )
+samp200 <- map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%>%dplyr::mutate(sample = 1:n() )
+
+samp1000$ul
+samp500 %>%
+  summarise(
+    coverage = mean(ll<mu_age&ul>mu_age)
+  )
+samp25 %>%
+  summarise(
+    coverage = mean(ll<mu_age&ul>mu_age)
+  )
+samp50 %>%
+  summarise(
+    coverage = mean(ll<mu_age&ul>mu_age)
+  )
+samp100 %>%
+  summarise(
+    coverage = mean(ll<mu_age&ul>mu_age)
+  )
+samp200 %>%
+  summarise(
+    coverage = mean(ll<mu_age&ul>mu_age)
+  )
+
+# Coverage
+
+test <- samp200 %>%
+  slice_sample(n=100) %>%
+  ggplot(
+    aes(x=mu,
+        y=sample,
+        xmin=ll,
+        xmax=ul,
+        col=ll<mu_age&ul>mu_age))+
+  geom_point()+
+  geom_vline(xintercept = mu_age)+
+  geom_errorbarh()+
+  scale_color_discrete(guide="none")+
+  labs(title="95% CIs for 200 samples of\nSize 10")
+test
+new <- samp25%>%slice(1:100)
+test %+% samp25[1:100,]
+test %+% samp50[1:100,]
+test %+% samp100[1:100,]
+test %+% samp200[1:100,]
+ggplot(samp500,aes(x=mu,y=sample,xmin=ll,xmax=ul,col=ll<mu_age&ul>mu_age))+geom_point()+geom_vline(xintercept = mu_age)+
+    geom_errorbarh()+scale_color_discrete(guide=F)+labs(title="95% CIs for 100 samples of\nSize 10")
+```
+
+
+
+
+
+
+
+
+
+
+  
+
