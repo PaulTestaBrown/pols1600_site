@@ -29,6 +29,10 @@ links:
   icon_pack: fas
   name: Slides
   url: /slides/10-slides.html
+- icon: flask
+  icon_pack: fas
+  name: Lab
+  url: /labs/09-lab.Rmd
 - icon: magic
   icon_pack: fas
   name: Notes
