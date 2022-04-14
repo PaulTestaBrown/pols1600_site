@@ -1,0 +1,98 @@
+---
+title: "Lab 10 / Assignment 3 - Final Project Data Setup and Explorations"
+author: "Your Group Members Names Here"
+date: "Last Updated `r format(Sys.Date())`"
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, 
+                      comment = NA, 
+                      warnings = FALSE, 
+                      errors = FALSE, 
+                      message = FALSE, 
+                      cache = TRUE,
+                      tidy = FALSE)
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{css sidenote, echo = FALSE}
+.sidenote, .marginnote { 
+  float: right;
+  clear: right;
+  margin-right: -60%;
+  width: 50%;         # best between 50% and 60%
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  vertical-align: baseline;
+  position: relative;
+  }
+```
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+
+
+
+# Overview {-}
+
+Today we will focus on making progress on the data for your final projects. 
+
+Ideally, by today (or sometime this week), you will have a tidy data set that contains all of the variables you need to begin your analysis for your final project.
+
+Sometime this week (the sooner the better, by Sunday at the latest), you will upload this document, which contains the following code and content:
+
+Code to:
+
+- Load your data (or datasets) into R
+
+- Recode, clean, merge, and transform your data as needed.
+
+- Save you cleaned data set as a `.rda` file
+
+- Produce a table of summary statistics
+
+- Produce at least one (and possibly more) informative descriptive figures
+
+Content which:
+
+- Provides a code book identifying your
+  
+  - Outcome variable(s)
+  - Key predictor(s)
+  - Additional covariates 
+
+- A brief substantive description of your descriptive statistics: What does a typical observation in your data set look like.
+
+- A list of next steps and/or outstanding questions
+
+  - 
+  
+
+
+# Load your Data
+
+# Codebook
+
+# Data Cleaning
+
+# Data Description
+
+
+
