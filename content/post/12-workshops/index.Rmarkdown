@@ -33,7 +33,7 @@ links:
   icon_pack: fas
   name: Final Paper Template
   url: /files/assignments/POLS1600_paper_template.Rmd
-- icon: magnifying-glass
+- icon: fa-magnifying-glass
   icon_pack: fas
   name: Final Paper Example
   url: /files/assignments/POLS1600_final_paper_example.html
