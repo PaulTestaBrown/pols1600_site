@@ -24,22 +24,35 @@ knitr::opts_chunk$set(error = TRUE,
 
 # Overview
 
-
-## Template
-
-## Grading Rubric
-
-You final paper consists of six sections (% of final grade, Estimated Length of Section in paragraphs)
+You final will paper consists of seven sections. There is no minimum (or maximum) length for the final paper, but I've included rough estimates in parentheses of how long I think each section should be along with the relative contribution of each section to your final grade.
 
 1. Introduction (5 percent, ~ 4 paragraphs)
 2. Theory and Expectations (10 percent, ~4+ paragraphs)
 3. Data (20 percent ~ 4+ paragraphs)
-4. Design (30 percent ~ 5+ paragraphs)
+4. Design (25 percent ~ 5+ paragraphs)
 5. Results (25 percent ~ 5+ paragraphs)
 6. Conclusion (5 percent ~ 3+ paragraphs)
-7. Code Appendix (5 percent ~ All the code for your project)
+7. Appendix (10 percent ~ Variable codebook and all the R code for your project)
 
-There is no minimum (or maximum) length for final paper. Focus on quality and clarity over quantity. 
+Specific guidance, expectations, and grading criteria for each section are provided below.
+
+You need not have every section completely finished in this draft, but the more you have done the more feedback you will get. Remember, the data, design, and results section make up 70 percent of your grade, so while a good introduction, compelling theory, and thoughtful conclusion are important, you should budget your time accordingly.
+
+Your actual grade for the draft will reflect a general assessment of the status of your project
+
+- 100: On track for A
+- 90: On track for A if provided specific tasks and changes are made
+- 80: Lots of work to do, but if done, headed in the right direction
+- 70: Major revisions needed. We should probably talk in office hours 
+
+Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.
+
+I have also posted a [final paper template]() and [example of a final paper]() from a previous version of POLS 1600.
+
+- The template contains some **sample code** to that may be usefully adapted for your projects, but **should not appear** in your final paper (i.e. keep use the structure provided by the template, but delete the code I've included.)
+
+- The final paper assignment has changed over time. There are things this paper does, which I no longer ask you to do (e.g. explain the difference between simulation and asymptotic approaches to statistical inference). There are things I ask you to do (e.g. write a separate theory section that motivates your expectations) which this paper was not required to do.
+
 
 ---------------------------------------------------
 
@@ -66,6 +79,7 @@ Plan to write at least four paragraphs that
   - Describes a **convincing empirical strategy** with appropriate data and research design 
   - Previews interesting results with **substantive interpretation**
   - Makes reader excited to read the rest of the paper
+  - **Writing throughout** is **clear, precise, and engaging**, with **correct spelling** and **grammar** and consistent citations
 
 - **4 points**
   - **Articulates research question**
@@ -73,6 +87,8 @@ Plan to write at least four paragraphs that
   - Describes empirical strategy with data and research design 
   - Preview of results with **little to no interpretation**
   - Leaves reader **moderately interested** in the rest of the paper.
+  - **Writing throughout** is **clear and precise**, with **correct spelling** and **grammar** and consistent citations
+
 
 - **< 4 points**
   - **Research question unclear** or absent
@@ -80,6 +96,7 @@ Plan to write at least four paragraphs that
   - **Little to no discussion** of the data and research design used to pursue this question.
   - **No discussion** of empirical results
   - **Does little** to pique reader's interest in the rest of the paper.
+  - **Writing throughout** is **muddled and vague**, with **uncorrekt spellung** and **grammur** and consistent citations
 
 # Theory and Expectations 
 
@@ -138,19 +155,29 @@ Sometimes it is helpful to formalize your expectations into a set of numbered hy
 
 # Data 
 
-Describe the data you will use to explore your question. In doing so you should answer:
+Describe the data you will use to explore your question. In doing so you should:
 
 
 - Identify the source or sources of your data
+
+  - If using multiple datasets, briefy describe how your final dataset was constructed.
+
 - Define the unit of analysis and number of observations in your data
+
 - Explain how your key concepts (outcome variable, key predictors, covariates/alternative explanations) are operationalized and measured
+
 - Describe the distributions of these data using a table and/or figure(s). 
+
 - Interpret these distributions for your reader. What does a typical observation in the data look like. Are some data skewed. Are their big outliers 
 
 Your broader goals for this section are to convince your reader:
 
 - That these data are appropriate for your research question
-- Demonstrate your deep knowledge of these data through careful and thoughtful discussion of the measurement and distibutions of your variables
+
+- Demonstrate your deep knowledge of these data through careful and thoughtful discussion of the measurement and distributions of your variables
+
+- Set up your empirical results section through initial descriptive explorations of the data.
+
 
 ## Grading Criteria (20 points)
 
@@ -179,32 +206,32 @@ Your broader goals for this section are to convince your reader:
 
 # Design 
 
-Next, you will describe the research design you will use to test your expectations. You have two main tasks or goals for this section:
+Next, you will describe the empirical research design that you will use to test your expectations. You have two main tasks or goals for this section:
 
-First you need to **explain how you will to interpret your substantive expectations in terms of the empirical estimates of your model** (e.g. the regression coefficients of your linear models). 
+First you need to explain how you will to **test your theoretical expectations** in terms of the **empirical estimates of your model** (e.g. the regression coefficients of your linear models). 
 
-Write down the equations of the models you are estimating. Based on the theoretical framework you've developed, what should we expect in terms of the sign, size, and significance of the predictors in your model
+Write down the equations of the models you are estimating. Based on the theoretical framework you've developed, what should we expect in terms of the sign, size, and significance of the predictors in your model?
 
-At a minimum, you will want to specify at least two models:
+At a minimum, you will likely want to specify at least two models:
 
 1. A baseline (bivariate) model
 
 $$Outcome = \beta_0 + \beta_1 \times \text{Key Predictor} + \epsilon$$
 And tell the reader what your theory implies the in terms of the sign, size, and statistical significance of the coefficient on your key predictor.
 
-2. A multiple regression model controlling for alternative explanations ()
+2. A multiple regression model controlling for alternative explanations (things that predict both your outcome and key predictor)
 
 
 $$Outcome = \beta_0 + \beta_1 \times \text{Key Predictor} + X\beta + \epsilon$$
-Where $X\beta$ is a matrix containing one or more additional predictors representing alternative explanations. Again tell the reader how to interpret this model in relation to your baseline. If your theory is true, what should happen to sign, size, and signficance of the coefficient(s) on your key predictor, once you've controlled for your alternative explanations.
+Where $X\beta$ is a matrix containing one or more additional predictors representing alternative explanations. Again tell the reader how to interpret this model in relation to your baseline. If your theory is true, what should happen to sign, size, and significance of the coefficient(s) on your key predictor, once you've controlled for your alternative explanations?
 
 Most of you will likely estimate more than two models. Perhaps your theory implies the relationship between your key predictor and the outcome is non-linear, or the depends on the value of other moderating variable. Again, specify this model, and explain to the reader how we should interpret 
  
 
-Second, use this section to demonstrate your mastery of some of the key statistical concepts from the course. Specifically:
+Second, use this section to **demonstrate your mastery of some of the key statistical concepts** from the course. Specifically, you should do some of the following here:
 
 
-- What are the identifying assumptions of your research design? (e.g. Selection on Observables?) What might violate these assumptions? How can you address these violations?
+- What are the identifying assumptions we would have to make for your research design to have a causal interpretation ? (e.g. Selection on observables?) What might violate these assumptions? How can you address these violations?
   
 - If you're using linear regression, just what exactly is linear regression and why are you using it?
   
@@ -214,10 +241,12 @@ Second, use this section to demonstrate your mastery of some of the key statisti
    
 - How can we quantify the uncertainty in our estimates? (What's a confidence interval? A sampling distribution? A standard error? What's a hypothesis test? A test statistic? A p-value?)
   
+You will also get credit for demonstrating your understanding of these concepts through your interpretation of your results.  
+  
 
 ## Grading Criteria (30 points)
 
-- **27-30 points:**
+- **23-25 points:**
 
   - **Correctly specifies multiple models** to test empirical expectations
   - Expresses empirical expectations **in terms of coefficients** from linear models
@@ -230,7 +259,7 @@ Second, use this section to demonstrate your mastery of some of the key statisti
     - How to **quantify uncertainty**  around regression estimates, using both **confidence intervals** and **hypothesis tests**
 
 
-- **24-26 points:**
+- **20-22 points:**
 
   - **Correctly specifies two models** to test empirical expectations
   - Expresses empirical expectations **in terms of coefficients** from linear models
@@ -242,7 +271,7 @@ Second, use this section to demonstrate your mastery of some of the key statisti
     - How to **interpret coefficients**  from regression
     - How to **quantify uncertainty**  around regression estimates, using both **confidence intervals** and **hypothesis tests**
 
-- **< 24 points:**
+- **< 20 points:**
 
   - **Incorrectly specifies one models** to test empirical expectations
   - **Does not express** empirical expectations **in terms of coefficients** from linear models
@@ -257,7 +286,7 @@ Second, use this section to demonstrate your mastery of some of the key statisti
 
 # Results
 
-Having describe your data and mapped your theoretical expectations onto your empirical models, you will present your results.
+Having described your data and mapped your theoretical expectations onto your empirical models, you will present your results.
 
 This section should include the following:
 
@@ -352,16 +381,72 @@ Finally, conclude by summarizing the results of your project.
   - **No references/works cited**
   
   
-# Code Appendix 
+# Appendix 
 
-Finally, at the end of your document, you should include a code chunk that contains all of the code to conduct your study. Specifically this code chunk should:
+Finally, at the end of your document, you should provide a:
 
-- Set up the work space
-- Load your data
-- Recode and transform the data as needed
-- Produce tables of summary statistics and figures
+- Codebook
+- Code Appendix.
+
+Your code book should describe be organized conceptually by variable type:
+
+- Outcome
+- Key Predictors
+- Covariates
+
+For each variable, provide:
+
+- `variable_name_used_in_code` | Conceptual name
+  - Description of variable/Survey Question Wording
+  - Original name in raw data.
+  - Summary of any recoding, transformations (e.g. Collapsing categories, or reverse coding endpoints of scales)
+  - Summary of range of values (e.g. 1= Strong Democrat ... 7 = Strong Republican)
+
+After you codebook, at the very end of you document, you will include a single code chunk that contains all the R code, used in your analysis. At a minimum, this code chunk should contain code that:
+
+- Sets up the work space
+- Loads your data
+- Recodes and transforms the data as needed
+- Produces tables of summary statistics and figures
 - Estimate your models
-- Present the results of your models in tables and figures.
+- Presents the results of your models in tables and figures.
 
-In the accompanying `POLS1600_paper_template.Rmd` I've included code to demonstrate how to do this.
+In the accompanying `POLS1600_paper_template.Rmd` I've demonstrated how to write your code inline with each section (e.g. loading data in the Data Section, estimating models in the Results section), display only the tables and figures you want in the main text, and then display the full code at the end of the document.
 
+The keys to a nicely formatted document are:
+
+- Setting global options for code chunks in the for `knitr`
+- Labeling individual code chunks with meaninful names
+- Setting `results ="asis"` for individual chunks you want to display in text.
+- Setting `echo=T, eval=F` in the final appendix code chunk.
+
+## Grading Criteria (25 points)
+
+- **10 points**
+  - Codebook is 
+    - **easy to read** and **informative**
+    - **describes all the variables** used in the analysis.
+  - Code appendix is
+    - **nicely formatted**
+    - **well-commented**
+    - able to to **reproduces all the analysis** in text **without errors**
+  - No R code, raw output, error messages appears in the main text of the paper.
+    
+- **8-9 points**
+  - Codebook is 
+    - **describes all of the variables** used in the analysis.
+  - Code appendix: 
+    - Could be **more cleanly formatted** and **needs more comments**
+    - able to **reproduces all the analysis** in text **without errors** or **only minor errors**
+  - No R code, raw output, error messages appears in the main text of the paper.
+
+- **< 8 points**
+  - Codebook is **absent, incomplete, and/or incorrect**
+  - Code appendix is:
+    - **Poorly formatted**
+    - Contains no **explanatory comments**
+    - **unable to reproduce most of the analysis** in the text.
+    - **Contains** clear errors
+  - R code, raw R output, error messages appear throughout the main text of the paper.
+
+    
