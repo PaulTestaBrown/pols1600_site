@@ -24,7 +24,19 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 
-# links:
+links:
+- icon: calendar-check
+  icon_pack: fas
+  name: "A4: Draft"
+  url: /files/assignments/A4_Draft.html
+- icon: flask
+  icon_pack: fas
+  name: Final Paper Template
+  url: /files/assignments/POLS1600_paper_template.Rmd
+- icon: magnifying-glass
+  icon_pack: fas
+  name: Final Paper Example
+  url: /files/assignments/POLS1600_final_paper_example.html
 # - icon: magic
 #   icon_pack: fas
 #   name: slides
