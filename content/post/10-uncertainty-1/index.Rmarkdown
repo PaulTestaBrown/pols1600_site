@@ -32,7 +32,7 @@ links:
 - icon: flask
   icon_pack: fas
   name: Lab
-  url: /labs/09-lab.Rmd
+  url: /labs/10-lab.Rmd
 - icon: magic
   icon_pack: fas
   name: Notes
