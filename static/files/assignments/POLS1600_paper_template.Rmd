@@ -123,7 +123,7 @@ ipak(the_packages)
 A code chunk here labelled `data` loading data
 
 ```{r data}
-# Uncomment to install
+# Uncomment to install | Recomment after installing
 # remotes::install_github("jamesmartherus/anesr")
 library(anesr)
 
