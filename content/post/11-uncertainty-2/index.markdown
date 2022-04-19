@@ -25,10 +25,26 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/11-slides.html
 - icon: magic
   icon_pack: fas
   name: Notes
   url: /notes/11-notes.html
+- icon: calendar-check
+  icon_pack: fas
+  name: "A4: Draft"
+  url: /files/assignments/A4_Draft.html
+- icon: flask
+  icon_pack: fas
+  name: Final Paper Template
+  url: /files/assignments/POLS1600_paper_template.Rmd
+- icon: pen
+  icon_pack: fas
+  name: Final Paper Example
+  url: /files/assignments/POLS1600_final_paper_example.html
 ---
 
 - Asymptotic and permutation based approaches to hypothesis test and p-values 
