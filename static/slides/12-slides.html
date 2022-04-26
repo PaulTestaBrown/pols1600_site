@@ -247,7 +247,7 @@ class:inverse, middle, center
 - Linear regression provides a linear estimate of the Conditional Expectation Function
 
   - Bivariate: `\(E[Y|x] = \beta_0 + \beta_1 x +\epsilon\)`
-  - Multiple regression: $E[Y|X] = X\beta +\epsilon  = \beta_0 + \beta_1 x_1 \dots \beta_k x_k +\epsilon $
+  - Multiple regression: `\(E[Y|X] = X\beta +\epsilon  = \beta_0 + \beta_1 x_1 \dots \beta_k x_k +\epsilon\)`
 
 - Ordinary Least Linear regression finds coefficients `\(\beta\)` by minimizing the sum of squared errors `\((\sum \epsilon^2)\)`
 
@@ -326,14 +326,14 @@ class:inverse, middle, center
 
 - We can describe this distribution via:
 
-  - simulation (e.g. permuting the outcome to break the relationship between outcome and predictors)
+  - simulation (e.g. permuting the outcome)
   - analytic theory (CLT)
 
-- We quantify our uncertainty about our null hypothesis using a p-value  the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true
+- We quantify our uncertainty using a p-value which describes the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true
 
-  - If our p-value is small (p &lt; 0.05), we reject the null hypothesis because we would observe what we did only small percent of the time
+  - If our p-value is small (p &lt; 0.05), we reject the null hypothesis 
 
-  - If our p-value is large (p &gt; 0.05), we fail to reject the null, or retain the null hypothesis as plausible.
+  - If our p-value is large (p &gt; 0.05), we fail to reject the null, or retain the null hypothesis
 
 
 ---
