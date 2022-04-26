@@ -25,6 +25,10 @@ image:
 projects: []
 
 links:
+- icon: desktop
+  icon_pack: fas
+  name: Slides
+  url: /slides/12-slides.html
 - icon: calendar-check
   icon_pack: fas
   name: "A4: Draft"
@@ -37,6 +41,10 @@ links:
   icon_pack: fas
   name: Final Paper Example
   url: /files/assignments/POLS1600_final_paper_example.html
+- icon: desktop
+  icon_pack: fas
+  name: Presentation Template
+  url: /files/assignments/POLS1600_presentation.zip
 # - icon: magic
 #   icon_pack: fas
 #   name: slides

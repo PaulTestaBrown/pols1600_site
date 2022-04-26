@@ -1,0 +1,179 @@
+---
+title: "Group XX:"
+subtitle: "Presentation Title"
+author: "Group members"
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/brown.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: atelier-lakeside-light
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  message = FALSE, 
+  comment = NA, 
+  dpi = 300,
+  fig.align = "center", 
+  out.width = "80%", 
+  cache = FALSE)
+
+xaringanExtra::use_tile_view()
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+
+# Setup
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Graphics:
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "zoo"
+)
+
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+ipak(the_packages)
+```
+
+
+
+# Motivating Example (Embedded Image)
+
+Start with a motivating example to explain what your project is about. 
+
+```{r, echo=F, fig.height=7}
+# Include impage from the web
+knitr::include_graphics("https://www.pewresearch.org/social-trends/wp-content/uploads/sites/3/2020/06/ST_20.06.12_Protest_Featured-image-copy.jpg")
+library(tidycensus)
+v17 <- load_variables(2017, "acs5", cache = TRUE)
+
+View(v17)
+```
+
+
+---
+# Motivating Example (Illsutrative Quote)
+
+.pull-left[
+
+> All models are wrong, but some are useful - George E. P. Box
+
+]
+
+.pull-right[
+
+![](https://www.shmula.com/wp-content/uploads/2018/11/grant-150x150.jpg)
+
+]
+
+---
+class:inverse, middle, center
+background-image: url("https://cdn.vox-cdn.com/thumbor/jxunNuVg1pzsDzzSBJZ8KjcCkfg=/289x145:3774x3060/1200x800/filters:focal(1699x118:2433x852)/cdn.vox-cdn.com/uploads/chorus_image/image/70793413/usa_today_18153302.0.jpg")
+bacground-size: cover
+
+# Motivating Example (Cover image)
+
+---
+# Research Question
+
+Provide a concise summary of your projects core question(s)
+
+---
+# Theory 
+
+- Use this section to explain how we should think about how to answer your research question
+
+- What explains variation in your outcome of interest.
+
+
+---
+# Expectations
+
+- Translate your theory into a set of testable empirical implications
+
+---
+# Data
+
+- Summarize your data:
+  - Source
+  - Number of observations
+  - Unit of analysis
+  - Measures of
+    - Outcome(s)
+    - Key predictor(s)
+    - Covariates(s)
+    
+---
+# Descriptive Data Visualization (Optional)    
+
+- If you've got a really nice figure that illustrates a key feature of your data, put it hear
+
+
+
+---
+# Design
+
+- Describe your empirical design
+
+- What models will you fit
+
+$$\text{Outcome} = \beta_0 + \beta_1 \text{predictor} + \epsilon$$
+- What do your expectations imply for the sign, size and signficance of coefficients?
+
+---
+# Results: 
+
+- Describe the results of your analysis
+
+- Report and interpret the coefficients for key predictors from each model. 
+
+- Are they consistent or inconsistent with your expectations
+
+---
+# Results: Regression Table (Opitional)
+
+- Possibly include a regression table, or regression table with just the subset of coefficients central to your question
+
+---
+# Results: Predicted Values (Opitional)
+
+- If you've got a complicated model (interaction, polynomial, glm), produce a plot of predicted values to help your reader understand the relationship
+
+
+---
+# Conclusion
+
+- Restate your question
+
+- Summarize your answer
+
+- Offer discussion of limitations and directions for future research
+
+---
+# Appendix
+
+- Additional slides go here
