@@ -68,10 +68,7 @@ Start with a motivating example to explain what your project is about.
 ```{r, echo=F, fig.height=7}
 # Include impage from the web
 knitr::include_graphics("https://www.pewresearch.org/social-trends/wp-content/uploads/sites/3/2020/06/ST_20.06.12_Protest_Featured-image-copy.jpg")
-library(tidycensus)
-v17 <- load_variables(2017, "acs5", cache = TRUE)
 
-View(v17)
 ```
 
 
