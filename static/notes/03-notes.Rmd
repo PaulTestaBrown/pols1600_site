@@ -144,7 +144,6 @@ sqrt(p*(1-p))
 
 ## The headache example
 
-![](http://memecrunch.com/meme/3NSE/headache/image.jpg)
 
 ## Counterfactural reasoning
 
