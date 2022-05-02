@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Group 02:</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Samuel Clark, Katherine Beggs, Charles Key, Ryan Jaquez Melo" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/brown.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Group 02:
+]
+.subtitle[
+## Partisanship, Ideology, and its Effect on Policy Opinion
+]
+.author[
+### Samuel Clark, Katherine Beggs, Charles Key, Ryan Jaquez Melo
+]
+
+---
+
+
+
+
+
+
+# Motivating Example
+
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.gannett-cdn.com/authoring/2012/03/27/NSJR/ghows-LS-4dde3d21-c088-4c6d-9f0c-dc5271d37c79-34aa4c4a.jpeg?width=1200&amp;disable=upscale&amp;format=pjpg&amp;auto=webp" alt="How do we get here?" width="49%" height="20%" /&gt;&lt;img src="https://www.wealthmanagement.com/sites/wealthmanagement.com/files/healthcare-signs-aca.jpg" alt="How do we get here?" width="49%" height="20%" /&gt;
+&lt;p class="caption"&gt;How do we get here?&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Research Question
+
+- The Affordable Care Act (ACA), also known as “Obamacare,” is a series of health insurance reforms aimed at expanding healthcare to more Americans. It was signed into law in March 2010. The main goal of ACA was to increase coverage to uninsured Americans. 
+
+- We modeled our study after the Reny and Sears article “Symbolic politics and self-interest in post-Affordable Care Act Health Insurance Coverage,” and went further in depth 
+
+- For this study, we wanted to find out how symbolic politics and individual self-interests interact to form people's opinions on policy.  
+
+
+
+---
+# Theory 
+
+- Sears defines symbolic politics saying, "“By this line of thinking, people acquire stable affective preferences through conditioning in their pre-adult years with little consideration of the future costs and benefits of these attitudes.” (Sears, 1980).  The most important of these are presumably some general predispositions such as party identification, liberal or conservative ideology, nationalism, or racial prejudice."
+
+- Self-interest draws on the rational choice model, which assumes people will do what benefits them the most.  
+
+- We measure people's self-interest through their health status (health_poor) and we measure people's symbolic politics through both partinship (pid5_rep) and ideology (ideo_cons). 
+
+- We control for symbolic politics when assessing people's opinion of ACA (obamacare_fav) and then we test the interaction between symbolic politcs and self-interest to see what changes.  Will a Republican in poor health be more likely to support ACA than a Republican in good health? We will find out. 
+---
+# Expectations
+
+- Reny and Seers ultimately concluded that individual self-interest was trumped by what they defined as symbolic politics (Partisanship and Self-Interest)
+
+- A critic of this study, scholar W.D. Crano responds to this assertion with saying "a more intense integration of self-interest and symbolic politics is precisely what is needed," which is what we attempt to do. 
+
+- We attempt to provide this integration by measuring the effects of sylbolic politics, self-interest, and their interactions through linear regression.   
+
+- If Sears is correct in that self-interest has little to no effect on people’s opinions on ACA, we should expect to see no change between the linear regression model of Republicans’ opinion on ACA alone versus the regression model of Republicans and conservatives with poor health.
+
+---
+# Data
+
+- We used the dataset Reny and Sear’s article called “Merged_Kaiser.Tab” from Harvard Dataverse.
+
+- In this dataset, there are 80969 observations, each observation being a person who answered the polling questions.
+
+- The key predictors (Independent Variables)  in our data set are partisanship, ideology, and health.  The outcome (Dependent Variable) is opinion of Obamacare. 
+
+- These variables were tested via survey questions put on a scale from 0 to 1. Some these variables were re-coded for ease of use.
+
+- DV: Opinion of Obamacare
+  - (1=very favorable, 0.66=somewhat favorable, 0.33=somewhat unfavorable, 0=very unfavorable; mean=0.55, sd=0.40)
+
+---
+# Data Continued
+  
+- IV: Health, Partisanship, and Ideology
+  - Health: (1=poor, 0.75=fair,0.5=good,0.25=very good, 0=excellent; mean=0.36, sd=0.27)
+  - Partisanship: (1=strong republican, 0.75=lean republican, 0.5=independent, 0.25=lean democrat, 0=democrat; mean = 0.46, sd=0.41)
+  - Ideology: (1=conservative, 0.5=moderate, 0=liberal; mean=0.57, sd=0.39) 
+  
+- Covariates: The covariates we controlled for were income, age, college, gender, race (Black/White), other race, married.
+  - Income: (1=greater than $50k, 0=less than $50k; mean = 0.56, sd=0.49) 
+  - Income Missing: dummy variable for item nonresponse on income (mean=0.11) 
+  - Age: (1=18-29, 2=30-49, 3=50-64, 4=65+) 
+  - College: (1=four-year college or greater, 0=less than four-year college; mean=0.41, sd=0.49)
+  - Gender: (1=female,0=male; mean=0.50)
+  - White: (mean=0.72)
+  - Black: (mean=0.10)
+  - Other Race: (mean=0.18)
+  - Married: (mean=0.53)
+
+
+
+
+---
+# Design
+
+Model 1. A bivariate model testing self interest and favorability of ACA:
+
+- We expect that this model will have a low coefficient for health_poor, indicating that it is not a powerful predictor for determining people’s opinions on ACA. 
+   
+   Obama_fav= 𝛽0 +𝛽1health_poor+ 𝜖
+   
+---
+# Design Continued
+Model 2. A multiple regression including controls for “symbolic interests” (partisanship and ideology)
+
+- This model will likely have little to no change in the slope of the regression line for the first model.  We predict that health status does not greatly affect whether or not someone is in favor of ACA, regardless of symbolic ideology.  When we control for “symbolic interests” we are measuring them and removing their effects from the dependent variable. These controlled categories are the covariates.
+    
+  Obama_fav=𝛽0 +𝛽1health_poor+𝛽2Pid5_rep+ 𝛽3ideo_cons
+    
+Model 3. A full replication recreating the estimates in from lm.out in the code from Reny and Seers (2020): 
+
+-This model controls for income, age, education, race, gender, and marital status.  We expect that the outcome will be similar to the first and third model.
+    
+  Obama_fav = 𝛽0 +𝛽1health_poor+𝛽2Pid5_rep+ 𝛽3ideo_cons +income_over50 + income_missing + age + college + female + black + white + married + 𝜖
+
+---
+# Design Continued (Last Model We Promise)
+
+Model 4. An extension of these results testing the interaction between partisanship and self-interest
+
+We predict that partisanship is a strong predictor for Obamacare and will have a significant effect on the regression for health status.  We expect to see a similar slope for Republicans with poor health and Republicans with good health, indicating self-interest has little effect on opinion of Obamacare. 
+ 
+Obama_fav = 𝛽0 +𝛽1health_poor*Pid5_rep+ 𝛽3ideo_cons +income_over50 + income_missing + age + college + female + black + white + married + 𝜖
+
+---
+# Results:
+
+- Model 1: The first model suggests that the relationship between health status (self-interest) and support for Obamacare is very slight. The coefficient is only -.004, suggesting that a unit increase in health/self-interest surprisingly leads to a decrease in ACA support; however, this shift is statistically insignificant due to its small number. We expected that isolating health as a predictor would show a significant positive relationship with ACA support. This result proves that self-interest alone is not a solid enough indicator for policy opinion at least in this case.
+
+
+- Model 2: The second model uses a regression formula to test two new predictors, political leanings and ideology. The second model suggests something similar to the first. Once we control for partisanship, the coefficient remains relatively unchanged. Instead of 4%, we have 3.7%.
+
+
+- Model 3:  The third model, our replication of the original article, also suggests something similar. Once we control for partisanship along with all these other statistics (age, race, etc.), it goes down to 3.2%
+
+
+---
+#Results Continued
+
+- Model 4: Our results show that healthy Democrats are more likely to support Obamacare than unhealthy Democrats. But,healthy Republicans are less likely to support Obamacare than unhealthy Republicans. Although support for ACA is still high overall for all Democrats and low for all Republicans.   It seems as if self-interest interacts differently with those in opposite political leanings, and it does have a visible effect- albeit small.  
+
+---
+
+&lt;img src="image.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+ 
+
+&lt;img src="Final_Graph.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Conclusion
+
+- When we tested how self-interest interacts with symbolic politics, we found that unhealthy Republicans are more likely to support ACA than healthy Republicans.   We also found that healthy Democrats were more likely to support ACA than unhealthy Democrats.  This shows that self-interest interacts differently along partisan lines.  Perhaps self-interest has slightly more of an influence on those with conservative symbolic politics than it does on those with liberal politics when it comes to policy preferences. We need more data to make this claim, but our results definetly show that self-interest has an effect on the opinion of ACA and has different degrees of influence depending on where someone lies on the political spectrum.  It is significant over policy preferences that are divided along partisan lines and should not be overlooked.  
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "atelier-lakeside-light",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
