@@ -31,6 +31,6 @@ projects: []
 #   url: /slides/12-slides.html
 ---
 
-- Guides and slides coming
+- Do you want tacos? Take the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_0uBG8nc0WLLjJPw){target="_blank"}
 
 
