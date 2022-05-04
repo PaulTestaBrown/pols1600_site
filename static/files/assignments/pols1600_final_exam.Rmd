@@ -1,8 +1,14 @@
 ---
 title: "POLS 1600 Take Home Final"
 author: "YOUR NAME HERE"
-date: '2022-04-29'
-output: html_document
+date: 'DUE 11:59 pm, May 12, 2022 on Canvas'
+output:
+  html_document:
+    theme: journal
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+    number_sections: TRUE
 ---
 
 # Overview {-}
@@ -20,15 +26,15 @@ Each section contains a series of conceptual questions, and or coding tasks for 
 
 You will write your answers to these questions and tasks in this Rmd file.
 
-You will **submit the html file** produced by this .Rmd file on **on Canvas by May 12, 11:59 pm.**
+You will **submit the html file** produced by this .Rmd file on **[on Canvas by May 12, 11:59 pm.](https://canvas.brown.edu/courses/1087979/assignments/7881310)**
 
 Exams submitted after May 12 will automatically lose 10 points for each late day.
 
-If you submit the Rmd instead of the `html` you will lose 5 points from your exam grade.
+If you submit the `Rmd` file instead of the `html` file you will lose 5 points from your exam grade.
 
 If you like, I will meet with you by Zoom for 30 minutes to answer general questions about material from the course. I will not answer specific questions from the exam.
 
-This exam is designed to test **your knowledge and understanding** of concepts and skills from the course. You can and should make use of material from lectures and labs, but if I find evidence of plagiarism (copying and pasting answers verbatim from Google), I will intiate plagiarism procedures described in Brown's [Academic Code](https://college.brown.edu/sites/g/files/dprerj916/files/2022-04/Academic-Code.pdf)
+This exam is designed to test **your knowledge and understanding** of concepts and skills from the course. You can and should make use of material from lectures and labs, but if I find evidence of plagiarism (copying and pasting answers verbatim from Google), I will initiate plagiarism procedures described in Brown's [Academic Code](https://college.brown.edu/sites/g/files/dprerj916/files/2022-04/Academic-Code.pdf)
 
 # Causal Inference (20 points)
 
@@ -43,6 +49,7 @@ This exam is designed to test **your knowledge and understanding** of concepts a
 ## What's the difference between an observational and experimental design? (4 points)
 
 -   Who or what determines the presence of some causal factor
+
 -   Which the strengths and weaknesses of each design
 
 ## What are three common designs for making credible causal claims with observational data? (10 points)
@@ -51,7 +58,7 @@ For each design, please:
 
 -   Describe the basic logic of the design
 
--   Explain the key identifying asssumptions of the design
+-   Explain the key identifying assumptions of the design
 
 -   Discuss some testable implications of these assumptions
 
@@ -71,9 +78,9 @@ In your answer, please discuss:
 
 In your answer, please explain:
 
--   Why would would we want to control for covariates?
+-   Why would  we want to control for covariates?
 
--   How linear regression accomplish this
+-   How linear regression accomplishes this
 
 -   What covariates we want to control for
 
@@ -115,7 +122,7 @@ $$\text{???} = \beta_0 + \beta_1 \times \text{???} + \beta_2 \times \text{???} +
 
 -   If the skeptic is only partly right, and only part of the relationship between partisanship and vaccination is actually a function of geographic differences, what should happen to the sign and significance of the coefficient on partisanship in this model compared to the bivariate model?
 
--   If the skeptic is completely wrong, and geography has no relationship to vaccination rates, what should we expect in terms of the size and significance of the coefficient on rural status? How will the coefficient on partisnaship in this model change?
+-   If the skeptic is completely wrong, and geography has no relationship to vaccination rates, what should we expect in terms of the size and significance of the coefficient on rural status? How will the coefficient on partisanship in this model change?
 
 # Statistical Inference (20 points)
 
@@ -323,4 +330,5 @@ Here's an example of the kind of final figure you could produce for the interact
 knitr::include_graphics("https://pols1600.paultesta.org/files/assignments/final_fig.png")
 ```
 
+- **Code Advice** Again the [final paper template](https://pols1600.paultesta.org/files/assignments/pols1600_paper_template) has lots of code that should be useful for you.
 
