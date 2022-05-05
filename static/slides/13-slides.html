@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Week XX:</title>
+    <title>Week 13:</title>
     <meta charset="utf-8" />
     <meta name="author" content="Paul Testa" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -29,9 +29,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Week XX:
-## Topic HERE
+.title[
+# Week 13:
+]
+.subtitle[
+## Last Class
+]
+.author[
 ### Paul Testa
+]
 
 ---
 
@@ -51,236 +57,390 @@ class: center, middle, inverse, title-slide
 
 
 
----
-class: inverse, center, middle
+
+
+
+
+
+
+
+
+class:inverse, bottom, center
+
+background-image: url("https://www.visitithaca.com/sites/default/files/inline-images/lucifer%20falls%20Brad%20Marzolf%20-%20web%20size_1.PNG")
+background-size: cover
+
 # Overview
 
 ---
 ## General Plan
 
-- Setup
-- Feedback
-- Review
-- Lecture 
-  - Topic 1
-  - Topic 2
+- Course Summary
 
-- Summary
+- Course Feedback
 
+- AMA
 
----
-class:inverse, middle, center
-# 💪
-## Get set up to work
-
----
-## New packages
-
-Hopefully, you were all able to install the following packages 
-
-
-
+- Paper Workshop
 
 
 ---
-## Packages for today
-
-
-
-```r
-the_packages &lt;- c(
-  ## R Markdown
-  "kableExtra","DT","texreg",
-  ## Tidyverse
-  "tidyverse", "lubridate", "forcats", "haven", "labelled",
-  ## Extensions for ggplot
-  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
-  "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Graphics:
-* "scatterplot3d",
-  # Data 
-  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
-  # Analysis
-  "DeclareDesign", "easystats", "zoo"
-)
-```
-
----
-## Define a function to load (and if needed install) packages
-
-
-
-```r
-ipak &lt;- function(pkg){
-    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, "Package"])]
-    if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-    sapply(pkg, require, character.only = TRUE)
-}
-```
-
----
-## Load packages for today
-
-
-```r
-ipak(the_packages)
-```
-
-```
-   kableExtra            DT        texreg     tidyverse     lubridate 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
-      forcats         haven      labelled         ggmap       ggrepel 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
-     ggridges      ggthemes        ggpubr        GGally        scales 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
-      dagitty         ggdag       ggforce scatterplot3d       COVID19 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
-         maps       mapdata           qss    tidycensus     dataverse 
-         TRUE          TRUE          TRUE          TRUE          TRUE 
-DeclareDesign     easystats           zoo 
-         TRUE          TRUE          TRUE 
-```
+class: bottom, center
+background-image: url("https://www.powerthesaurus.org/_images/terms/summery-synonyms-2.png")
+bacground-size: contain
 
 
 ---
-class:inverse, center, middle
-# 💪
-## Load Data for today
+## What was this course about?
+
+--
+
+- How would you know?
+
+--
+
+- How would convince someone who thinks they know different?
+
+--
+
+- What would it take to change what you think you know?
+
+---
+## Why Quantitative Social Science?
+
+What makes for quantitative social science 
+
+- Compelling?
+
+- Useful?
+
+- Hard?
+
+--
+
+Statistical methods and programming are tools not answers 
+
+--
+
+Producing knowledge requires us to match theory with empirical design
+
+--
+
+Being "right" is less important than understanding all the ways you might be wrong. 
+
+--
+
+Good social science is urgent, eclectic, transparent, contingent, and ?
 
 
+## What you've learned
+
+Skills and concepts to help understand and practice quantitative social science
+
+- **Causal Inference** is about counterfactual comparisons
+  
+  - Experimental designs `\(\to\)` random assignment
+  
+  - Observational design `\(\to\)` identifying assumptions `\(\to\)` conditional independence
+
+- **Regression** is a tool for describing relationships
+
+  - OLS provides a linear approximation of the Conditional Expectation Function
+  
+  - Regression can be used for descriptive, predictive, and causal inference. 
+
+- **Statistical inference** is about quantifying uncertainty about what could have happened
+
+  - Confidence intervals provide a range of plausible values for we observed
+  
+  - Hypothesis tests describe the conditional probability of observing what we did, if some hypothesis were true.
+
+
+
+
+---
+class:inverse, bottom, center
+background-image: url("https://i.imgflip.com/6f1aul.jpg")
+bacground-size: cover
 # 📢
 ## Feedback
 
 
-
-
-
 ---
 ## What we liked
 
---
-
-- We liked the lab (or liked it better)
-
-- Working in groups 
-
-- Extensive notes
-
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
-
----
-## What we liked
-
-<div id="htmlwidget-196a83c10bfceefae080" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-196a83c10bfceefae080">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9c76e18f5953f64ebe4e" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9c76e18f5953f64ebe4e">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["I genuinely feel like I gained a huge appreciation for data sciences. Even though it’s all a little sticky in my head, I’m glad I took this course. I also have a decent understanding of how r works so that’s pretty cool! I wish we’d worked through understanding the foundational stuff more and did a little less copy and paste because I think that would have helped me a lot with the final project/paper.","Group projects","","Working in a group for our work definitely helped a lot.","That Testa fellow was pretty great.  I thought the labs were really really helpful too.  Especially as the semester went on.  We ended up getting to a point where the balance of \"fitting lots of stuff in\" and \"having enough time to actually work through the whole lab\" got good, and so I really looked forward to those.  I also enjoyed the final project a bunch, I thought it was cool to get to apply everything.","I loved the lecture/lab structure of the course and working with my lab group!","","I thought the projects worked out quite well. The concepts for the class became more concrete when I had to apply them. Though the labs were difficult at first, they helped me understand concepts and how to do this coding thing. The learner tutorials were quite helpful. \n\nSimilarly, the sample final project was quite useful for working on the final project. Looking at the project helped me both practically and theoretically. \n\nAlso I think you're quite willing to work with students one on one, which, I think, helped a lot of us. Big props for that.","I actually did like the final project- it really helped me understand linear regression and data analysis which I did not have a grasp on initially.","Your easygoing approach made it less stressful to be in a class with entirely unfamiliar material","","I liked the structure of the course, the website was super well organized all semester so it was always easy to follow along. I didn’t always find the coding experience itself fruitful but besides that I liked the course. I also liked my group members.","The group focused work helped provide a very valuable community within the class format, which helped for working past issues and questions during labs and projects. Office hours were always accessible and frequent feedback made navigating the course and class assignments easy.","I like that it was very beginner R friendly. I know I’m not a CS person and stats terrify me but I after trying, I could kind of keep up.","I enjoyed your encouragement and efforts to keep us engaged through entertaining lectures, anecdotes, corny jokes, etc. I often find that this is what makes or breaks a class, i.e. the attitude and dedication of the professor.","I thought Professor Testa was incredibly helpful throughout the whole course in helping us understand the concepts and being patient enough to repeat himself when we were struggling! The support we received in labs and office hours made all the difference.","I really enjoyed the labs and progressively learning how to navigate basic coding through working with different datasets and questions. I enjoyed learning the basics of data visualization and generally am happy with the introduction this course provided me with to R.","The Professor! I have repeatedly failed at maths and it generally scares me, having a nice professor is super important and I really appreciated Professor Testa.\n\nLabs and tutorials were a good structure. Lectures in class could often be complex and beyond what I could ever really aim to understand in this course, but tutorials meant I could nail down some basic skills.\n\nThis course was generally super useful though; it's exactly the right kind of course for IAPA and PoliSci students and will help me a bunch in other courses. I felt it introduced an area that I was unfamiliar with before but now know more about, and know what I need to know more about.","The variety of ways to practice learning: reading the textbook, doing tutorials, doing group labs, walking through things in class, etc.\n\nEncouragement to ask questions. The amount of encouragement overall was really nice!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 ## What we disliked
 
---
-
-- Labs still feel rushed (at the end)
-
-- When code breaks it can be hard to fix
-
-- Lecture was a bit confusing/long
-
-- The space
+<div id="htmlwidget-a31d1219580bfb96ddcf" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a31d1219580bfb96ddcf">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["I think lectures at the beginning were a lot of information without a lot of doing, but I liked the change later on that incorporated more coding in lecture","Lecture, confusing, felt like I needed to know how to code beforehand","","R could be a bit obtuse when it comes to its syntax. Not knowing why something wasn't knitting was especially frustrating at times.","The learning curve for the course was especially steep.  It really felt like walking around in the dark and slamming my head into walls at the beginning.  That got better with time.  I also never really was able to make great use of the lectures, or the whole theoretical side in general.  I have some background in statistics, and sometimes when concepts would be explained I found myself more confused than when I started.  And for concepts that I didn't come in with a knowledge of, I found it hard to wrap my head around.  The labs always felt more valuable than the lectures, and that gap got particularly massive as the semester went on and the labs got better.  I'll admit that I didn't keep up with the textbook except to get through the tutorials, so that's part of the problem for me for sure.  But the gap between theory and practice always felt large.","","","Textbook: Honestly, not super good. I stopped reading it. When I needed help, I'd either go to office hours or look online. \nLectures: Good stuff. Looking at the slides after the class wasn't super helpful, though. They only really worked with the lectures. \n\nBasically, I think the biggest issue with the course was accountability. I think the group projects/group lab assignments led to only some people (those who turned in the assignment for the group) learning from them. Maybe the class should have the same assignment load, but have them all be independent projects. That would've forced me to learn more, I think. As the class works right now, I just put in a lot of work over the last few weeks and learned that way. That's good in a way, but I think I could've learned more if the workload had been spread out over the semester. Maybe having conceptual quizzes would've been good, I'm not sure.  Or maybe the research project can begin at the beginning of the semester? I'm just thinking out loud here...\n","I think the group structure of the class is difficult, some members of the group did not contribute and I had to do much more work on the final project than I expected.","Classes moved too quickly for me to be able to follow along on my own computer. I don't type fast enough and by the time I got an error we had moved on","","I had no experience with stats or coding before, so a lot of the statistical content was hard to follow. Also the coding itself was not that fruitful at times, especially in the first half of the course. But I thought it was pretty much as good of an experience as it could’ve been.","I would have preferred less of a focus on statistics and more of a focus on coding. However, I appreciated the variation in material  and felt that I gained something from the inclusion of coding and statistics material in the class.","I wish there was less stats theory, a lot of it confused me and distracted me from what I was meant to absorb.","I found that I was able to get away with not doing much of the work that I would have benefitted from. For instance, the tutorials could often be completed without having actually learned anything. Group assignments also made it easier for many to get away with knowing less. This is, in many ways, my own fault and will come at the cost of not getting as much out of the class due to my own laziness. However, certain things could be tweaked so that students are forced to learn more. A major assignment (project, test, paper, etc.) could be given that does not rely on group efforts for example. Having said that, I did learn in this course and am far more familiar with r than I was beforehand!","I thought the lectures overall were quite dry, and could have used more built in break/discussion time.","The lectures, while very helpful, were dense and difficult to digest at times simply because of the extent of information included. Though it’s difficult to imagine a different way to squeeze all the content in across 14 weeks.","Lectures often went super complex and it felt like a rush to cram in as much as possible. If there were less content I think I could have focused more on understanding the key concepts more.","Maybe problem-set-type assignments could be more central in how we learn and do work.\n\nTA\n\nMore time on math. I think right now it's worst of both worlds in the sense that there's enough math explanation that we feel like it is important, but not enough that we understand it, leading to a fair amount of confusion or at least lack of confidence. Dedicating a week or two to really getting down the mathematical basis for the content could be really helpful\n\nMaking slides and notes downloadable as .Rmd files"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Disliked<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
-## What we disliked
+## What we learned
 
-<div id="htmlwidget-6eecf7b9b40c90704ef5" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6eecf7b9b40c90704ef5">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-df5e9f0f0d6fc9de5542" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df5e9f0f0d6fc9de5542">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["How data science functions/how to understand and use data correlations more effectively","linear regression","","How to work in R at a baseline level.","I had taken a class in R Studio before this and absolutely despised it.  I hate R Studio much less now.  I actually truly think that I could use it in another practical setting.  I did the whole data frame creation for our group for the final project, and it was awesome to be able to do that.  In terms of coding, I got much much much better at that and I'm glad I did because it seems practical.  It's also not what I would have expected to have gotten good at at the beginning of the semester.","I got a lot more comfortable working with r studio and understanding statistical inference.","","Thought I became better at coding, learned to think in different ways than I had before.","linear regression and how to make cool graphs in R","- keyboard shortcuts for commenting and new code chunks\n- there are such things as coding languages\n- you can pull data from the internet and analyze it using R","","","Data visualization in R and bivariate and multivariate models.","I’m glad I learned how to navigate RStudio.","I learned some of the basics and fundamentals of r and was able to reinforce some of the lessons I learned in a previous statistics course.","I learned the most I thought about linear regression and probability.","Interpreting graphs and navigating regression tables","Basic stats stuff like regressions, multivariate regressions, difference in differences etc. I guess I just also learned more about the kind of work that academics actually do in subjects I'm interested in","Data visualization and graphing with R\nCreating linear models, multiple regression\n\nPerhaps most importantly, even if I don't know how to do something in R, I know how to search for information online and in RStudio."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learned<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+## What we're still learning
+
+<div id="htmlwidget-5558e02ad1cea6e428c5" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5558e02ad1cea6e428c5">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["Coding in r and building up code. Really the foundations which I am now grasping since working on the final but I think could have probably understood better earlier on","how to code","","Plotting things in R can be a bit wonky with all the syntax involved.","I think all of the statistical concepts in general got very confusing, and very few of them actually stuck with me.  In that last lecture when you summarized each of the statistical concepts, I kept having moments of either \"oh, that's all that is?\" or \"huh, we talked about that at some point?\"  Vice versa with the previous paragraph, I would have expected to do well with this stuff given my background, but I don't feel like I made much progress on the concepts themselves.","","","Still a little confused about bootstrapping/prediction. Having a bit of difficulty putting the whole of the class together. Also conceptually rustier than practically rusty.","Uncertainty and hypothesis testing","- I still don't know how to code something if you asked me to do it without any help or guidance","","","The mathematical representations of some of the statistical analysis we complete in R remained unclear to me.","","Most things, admittedly, although I suppose that could be said of practically everything we encounter. I think I especially struggled with probability.","OLS","The math, generally. Not that I particularly want to know the math, but in order to understand things, my brain likes to understand deeply all of the parts that make up the whole. Having a weaker handle on the statistical concepts and actual mathematics undergirding the coding we were doing was definitely a challenge this semester.","I need to spend more time on the stats/math. I guess this is hard to get from this course, and I like that this course didn't try and do all the math and focused on the basics we could do. I think if I want to take this further though I will need to get more of a handle on statistics","The math, which seems particularly important in order to fully understand probability and uncertainty."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Lacked<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+---
+## How'd I do?
+
+.pull-left[
+&lt;img src="02-slides_files/figure-html/unnamed-chunk-29-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="13-slides_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## How'd you do?
+
+&lt;img src="13-slides_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Are you happy you took POLS 1600?
+
+
+---
+&lt;img src="13-slides_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+<div id="htmlwidget-9eca640cadac9ce5c9e5" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9eca640cadac9ce5c9e5">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"],["It was a real challenge and I pushed myself to work with numbers in a way I wasn’t planning to in college. I’m proud of myself for leaning into something I’m uncomfortable/not as confident with and could’ve avoided with Brown’s open curriculum","I feel like I know way more about R and the beginnings of code","","It was a pretty chill class compared to what I was expecting.","Did I have a good time in POLS 1600?  Yes.  Am I happy that I took it in the sense that it was a requirement and I'd like to graduate with my POLS degree?  Sure.  But I think the coding stuff that I did manage to learn probably could have been done in like some coding bootcamp for a few weeks, and the statistical concepts never really stuck.  I took this class instead of a class in like \"17th century Central Asian dance\" or \"Cool Star Shit Because Space is Insane.\"  I get 32 classes in my time at Brown, and there's so much cool stuff to do and not enough time to do it.  I think this class was really practical probably, but it's also one less opportunity for me to do something mind-boggling.  My gripe is more with the concentration requirement system than the class itself I suppose.\n\nWhich is kind of a bummer, and so this question feels bad.  Because I don't necessarily think that it's super likely that the class could have changed in a way to change my answer?  The coolest thing we did was the final project by far, but even with that I guess I wasn't infatuated with our research question nor blown away by the rigor of our analysis.  That would be the only thing that I could really think about that might change my mind, if that was somehow expanded, but it may just be a case of \"you have to eat your vegetables\" here.","I learned a lot of computational skills and got more comfortable with r studio","","I learned to think in different ways, and I learned why social science is a ~science~","I always was mystified by computer science and now I feel like I understand at least some of it","Of all the quantitative class options I had to fulfill the requirement for my major I'm glad I took this one because it was low stress, but I am not interested enough in this material to want to take it if I wasn't required to.","","I know how to read social science articles now which I never knew how to do before.","I really enjoyed programming in R, especially seeing my knowledge come together in the creation of the final presentation. I feel that I have established a comfort ability with working in R that is tangible and represents growth over the semester. I also thought Professor Testa was a really great professor — incredibly kind, patient, and focused on helping students learn.","","This falls on me. If I would have dedicated more time to the course I am sure I would have learned more. I think I took POLS 1600 because I was reapplying to an internship that pointed out the benefits of having r on one's application. However, I ended up getting the internship very early on into the semester and was told that r was entirely optional. This defeated the main driving force for why I took the class and made it far more difficult for me to convince myself to do the necessary work. I would not say that I am unhappy that I took the class, but I definitely lacked a lot motivation to keep myself engaged throughout the semester.","It was really helpful in my understanding of how to combine my two majors, IAPA and AMA","I would have virtually no idea how to navigate just about anything related to R without having taken Pols 1600. I feel like I have a much better understanding of quantitative analysis and the demands of data wrangling, and I am able to appreciate empirical political science as a result","Super important area I needed to learn more about","Great professor\nCool examples explored in class\nPractical applicability of the concepts learned in class"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>happy_why<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":2,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[2,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+---
+## What I'll Do
+
+
+- Lectures: 
+  - Less is more
+  - How much math...
+  - More supplemental content (class notes)
+  - More active learning
+  - Integrating the textbook
+
+--
+
+- Labs: 
+  - Seemed to work ok
+  - Group work vs individual learning?
+  - Greater integration with textbook and lecture
+
+--
+
+- Assignments and Grading
+  - Mostly liked the group project
+  - Tutorials were helpful
+  - More individualized assignments/accountability?
+
 
 
 ---
 class:inverse, middle, center
 # 🔍
-## Review
+## AMA
 
 
 ---
-## Topics
+## Ask *you* anthing? Ok boomer...
 
-- Working with R Markdown files
-
-- Basic Programming in R
-
-- Setting up your work space
-
-- Loading data into R
-
-- Looking at your data
-
-- Cleaning and transforming your data
-
-- Describing what's typical of your data
-
-- Describing how your data vary
-
----
-## Exercises
-
-1. Create an R Markdown File
-
-2. Explore objects and functions in base `R`
-
-3. Install the COVID19 package
-
-4. Load data on COVID19 
-
-5. Inspect the data
-
-6. Welcome to the tidyverse
-
-7. Measures of central tendency
-
-8. Measures of dispersion
-
----
-class: inverse, center, middle
-# 💡
-# Key Concept
-## Comment
-
-
----
-## Point 1
-
-
----
-## Code Slide
-
-.left-column[
 
 ```r
-2+2
+sum(df$ama == "")
+```
+
+```
+[1] 7
 ```
 
 
-]
+---
 
-.right-column[
+&gt; "how many cats do you have"
 
-```r
-plot(1:10,1:10)
-```
 
-&lt;img src="13-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+--
 
-]
+We've had three cats, Isla, Abby and, currently Toby.
+
 
 ---
-class: inverse, center, middle
 
-# Key Concept
+&gt; "What is the craziest moment from your time in undergrad?"
+
+--
+
+&lt;img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2020/08/andy-went-to-cornell.jpg?q=50&amp;fit=crop&amp;w=740&amp;h=370&amp;dpr=1.5" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;iframe src="https://www.google.com/maps/embed?pb=!4v1651767189392!6m8!1m7!1s0BKSYVIOjXGXLO03JSCPNw!2m2!1d42.44124098544037!2d-76.48233296418469!3f200.43895!4f0!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"&gt;&lt;/iframe&gt;
+
+
+---
+
+&gt; "I am interested to know why you decided to go to graduate school, what other career paths you were deciding between, and whether you believe you made the right decision to go into academia and why?"
+
+--
+
+&lt;img src="https://aces.illinois.edu/sites/aces.illinois.edu/files/inline-images/aces-research-history-morrow-plots--uw.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+&gt; "What’s your favorite musical"
+
+--
+
+&lt;img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Newsies_%28musical%29_poster.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+
+&gt;"If we want to, how should we develop our R skills by ourselves at Brown? 
+
+&gt; Best book you ever read? 
+
+&gt; Book you think someone in their early 20s should read?"
+
+
+---
+# Use it or lose it
+
+- Classes at Brown
+
+- Write a Thesis
+
+- RA for a professor/grad student
+
+- Online resources:
+
+  - Mastering the tidyverse: &lt;https://r4ds.had.co.nz/&gt;
+
+  - Casual Inference Mixtape: &lt;https://mixtape.scunning.com/&gt;
+
+  - Declare Design: &lt;https://book.declaredesign.org/index.html&gt;
+
+---
+
+&gt; "What's your favorite part of teaching this class?"
+
+--
+
+
+
+&lt;img src="https://tvseriesfinale.com/wp-content/uploads/2019/11/you-tv-series.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+&gt; "What is your favorite pair of sneakers?"
+
+
+&gt; "What is your favorite spot in providence?"
+
+
+&gt; "Doing anything fun this summer?"
+
+---
+
+![](https://i.ebayimg.com/images/g/1CIAAOSwnuJex-Tg/s-l300.jpg)
+
+---
+
+&gt; "IAPA or Poli Sci?"
+
+--
+
+- Do you really have to ask?
+
+
+---
+
+&gt; "Should I ask you to hook me up with an opportunity in the future?  How should I go about it?" 
+
+--
+
+&gt; How consistent were people's ratings in the previous survey question (did people generally agree/disagree on who did the most/least work.)
+
+---
+
+&lt;img src="13-slides_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&gt; "Should I ask you to hook me up with an opportunity in the future?  How should I go about it?" 
+
+
+&gt; How consistent were people's ratings in the previous survey question (did people generally agree/disagree on who did the most/least work.)
+
+--
+
+&gt; I feel like we as a class didn't engage very much during lecture.  How was that like?
+
+--
+
+&gt; Is doing data science really dry and gonna make me hate the next 40 years of my life just living"
+
+
+---
+
+&gt; "What’s one thing (or more, if applicable) that you’re really glad to did in college?"
+
+- Wrote for the school paper
+
+&gt; "What’s one thing (or more) you wish you had done?" 
+
+- Taken more math classes...
+
+&gt; "What’s one thing (or more) you wish you hadn’t done? Can be school or social or planning for post college related"
+
+- Slept in because I worked late at the paper
+
+---
+
+&gt; "Are there academic careers in PoliSci that aren't math/statistics based?"
+
+--
+
+- Yes! Why do you ask?
+
+---
+
+&gt; "Did you doubt yourself throughout your higher education career? How did you overcome it? Oftentimes, I have very high standards for myself that I am not capable of meeting and which bring a lot of shame. I fear my ability to succeed and actually obtain the career I seek requires skills, abilities, and experience that I never seem any closer to acquiring. Did you think you would end up here at Brown? How DID you end up at Brown?"
+
+
+
+---
+# Thank You
+
+&lt;iframe src="https://player.vimeo.com/video/19216275?h=1dac696474" width="640" height="480" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href="https://vimeo.com/19216275"&gt;Good Riddance (Time of your life) - Green Day&lt;/a&gt; from &lt;a href="https://vimeo.com/user5835576"&gt;Temazo Mal&lt;/a&gt; on &lt;a href="https://vimeo.com"&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -328,6 +488,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
