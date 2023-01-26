@@ -18,19 +18,19 @@ subtitle = "We meet twice a week, alternating lectures on Tuesdays and labs on T
   icon = "cloud"
   icon_pack = "fas"
   name = "Location"
-  description = "Smith-Buonanno Hall G13"
+  description = "Smith-Buonanno Hall 206"
   
 [[feature]]
   icon = "play-circle"
   icon_pack = "far"
   name = "Lecture"
-  description = "Tuesday, 1:00 – 2:20 PM"  
+  description = "Tuesday, 2:30 – 3:50 PM"  
   
 [[feature]]
   icon = "code"
   icon_pack = "fas"
   name = "Labs"
-  description = "Thursdays, 1:00 – 2:20 PM"
+  description = "Thursdays, 2:30 – 3:50 PM"
   
 [[feature]]
   icon = "video"
