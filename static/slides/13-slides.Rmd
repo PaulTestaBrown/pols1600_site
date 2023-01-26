@@ -77,7 +77,7 @@ df <- haven::read_spss("../files/data/wk13.sav")
 
 
 ```{r data, echo=F, results="hide"}
-df$g1_project
+df$g2_project
 df %>%
    unite("group_contrib_1", ends_with("_contrib_1"),na.rm = T)%>%
    unite("group_contrib_2", ends_with("_contrib_2"),na.rm = T)%>%
@@ -87,6 +87,7 @@ df %>%
    unite("group_project", ends_with("_project"),na.rm = T) %>%
    mutate_at(c("group_contrib_1","group_contrib_2","group_contrib_3","group_contrib_4"), ~as.numeric(.)) -> df
 
+df$group_project
 ayuvedic_groups <- sample(c("Sweet", "Sour","Salty","Pungent","Bitter","Astringent"),6)
 ayuvedic_groups
 turtles <- sample(c("Leonardo", "Donatello","Raphael","Michelangelo"))
