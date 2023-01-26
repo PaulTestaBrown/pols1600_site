@@ -251,6 +251,7 @@ class: center, middle
 ## Class
 
 - Tuesday: Lecture/Demonstration
+
 - Thursday: Lab/Exploration
 
 ---
@@ -258,6 +259,7 @@ class: center, middle
 ## Class websites
 
 - Notes, slides, and labs available here: [pols1600.paultesta.org](https://pols1600.paultesta.org)
+
 - Assignments uploaded here: [Canvas](https://canvas.brown.edu/courses/1087979)
 
 ---
@@ -297,19 +299,32 @@ class: center, middle
 - Write up in [Markdown](https://www.markdownguide.org/)
 
 
+---
+## Getting set up for the course:
+
+Here's a [link to a guide](file:///Users/ptesta/git/pols1600_site/static/labs/00-software_setup.html#6_Install_packages) to get you setup for the course.
+
+Take a crack at it after class, over the weekend.
+
+Email me with any issues (there are always issues), and drop by my office hours on Tuesday so we can trouble shoot.
+
+
+
+
 
 ---
 ## Textbook
 
-![](https://pup-assets.imgix.net/onix/images/9780691167039.jpg?fit=fill&fill=solid&fill-color=ffffff&w=1120&h=600)
+![](https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format)
 
-<http://qss.princeton.press/>
+<https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science>
 
 ---
 
 ## How to Read Imai
 
 - Active reading
+
 - Copy and run the code in the text. To do so, do the following:
 
 ```{r, eval=F}
@@ -336,7 +351,7 @@ remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 Anywhere the text loads data:
 
 ```{r, eval=F}
-afghan <- read.csv("afgahn.csv")
+afghan <- read_csv("afgahn.csv")
 ```
 
 You can do 
