@@ -8,8 +8,8 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 50 # Order that this section will appear.
 
-title = "[Syllabus](files/POLS_1600_syllabus_Spring_2022.pdf)"
-subtitle = "Key points below. Full syllabus [here](files/POLS_1600_syllabus_Spring_2022.pdf)"
+title = "[Syllabus](files/POLS_1600_syllabus_Spring_2023.pdf)"
+subtitle = "Key points below. Full syllabus [here](files/POLS_1600_syllabus_Spring_2023.pdf)"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.

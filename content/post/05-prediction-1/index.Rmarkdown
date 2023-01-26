@@ -3,7 +3,7 @@ title: 'Week 05'
 subtitle: 'Prediction I'
 summary: Introducing linear models
 publishDate: "2022-01-04"
-date: "2022-03-01"
+date: "2023-02-28"
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/05-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/05-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/05-lab-comments.html
 - icon: calendar-check
   icon_pack: fas
   name: "A1: Research Questions"

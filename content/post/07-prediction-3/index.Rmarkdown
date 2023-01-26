@@ -3,7 +3,7 @@ title: 'Week 07'
 subtitle: 'Prediction III '
 summary: Evaluating models
 publishDate: "2022-01-06"
-date: "2022-03-15"
+date: "2023-03-14"
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/07-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/07-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/07-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

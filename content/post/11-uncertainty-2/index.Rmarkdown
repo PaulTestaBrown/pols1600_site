@@ -3,7 +3,7 @@ title: 'Week 11'
 subtitle: 'Uncertainty II'
 summary: Quantifying uncertainty with hypothesis testing
 publishDate: "2022-01-10"
-date: "2022-04-19"
+date: "2023-04-18"
 featured: false
 draft: false
 

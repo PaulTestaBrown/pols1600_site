@@ -3,7 +3,7 @@ title: 'Week 10'
 subtitle: 'Uncertainty I'
 summary: Quantifying uncertainty with confidence intervals
 publishDate: "2022-01-09"
-date: "2022-04-12"
+date: "2023-04-11"
 featured: false
 draft: false
 
@@ -33,6 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/10-lab.Rmd
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/10-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes
