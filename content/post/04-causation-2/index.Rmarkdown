@@ -3,7 +3,7 @@ title: 'Week 04'
 subtitle: 'Causation in Observational Studies'
 summary: How to make causal claims when we can't randomize
 publishDate: "2022-01-03"
-date: "2022-02-24"
+date: "2023-02-21"
 featured: false
 draft: false
 
