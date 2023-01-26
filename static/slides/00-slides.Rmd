@@ -315,7 +315,12 @@ Email me with any issues (there are always issues), and drop by my office hours 
 ---
 ## Textbook
 
-![](https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format)
+```{r, echo=F,out.width="40%"}
+knitr::include_graphics("https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format")
+```
+
+
+<!-- ![](https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format){width="80%"} -->
 
 <https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science>
 
