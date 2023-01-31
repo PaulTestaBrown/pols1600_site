@@ -77,13 +77,16 @@ Several slides and tables borrow heavily from notes provide by the amazing [Alli
 ---
 ##  Waitlist
 
+- Course is currently at capacity. May be able to admit a few more if people drop...
+
 - Let me know after Thursday's lab if you're still interested in taking the course
-- Roughly 12 spots open
+
 
 ---
 ## Working in R and R Studio
 
 - Hopefully you all have installed R and R Studio: https://pols1600.paultesta.org/labs/00-software_setup.html
+
 - If you're having issues, don't worry, see me after class and we'll get it sorted.
 
 ---
@@ -149,7 +152,7 @@ background-size:contain
 ---
 ## You've committed a murder
 
-```{r,include=F}
+```{r,echo=F,}
 library(tidyverse)
 library(labelled)
 
@@ -188,7 +191,7 @@ df %>%
     `Why?`= murder_why
   )%>%
   select(`Who would you tell?`, `Why?`)%>%
-  DT::datatable()
+  DT::datatable(options = list("pageLength" = 5))
 
 ```
 
