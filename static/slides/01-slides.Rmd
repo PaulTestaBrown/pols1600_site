@@ -156,15 +156,16 @@ library(labelled)
 # For working live
 # df <- haven::read_spss("static/files/survey_00.sav")
 # For rendering
-df <- haven::read_spss("../files/survey_00.sav")
+df <- haven::read_spss("../files/survey/week1.sav")
 
 df%>%
+  filter(!is.na(murder))%>%
   mutate(
     Murder = to_factor(murder)
   )%>%
   ggplot(aes(Murder, fill=Murder))+
   geom_bar()+
-  geom_text(stat='count', aes(label=..count..), hjust=-0.25)+
+  geom_text(stat='count', aes(label=after_stat(count)), hjust=-0.25)+
   coord_flip()+
   theme_bw()+
   labs(
@@ -180,10 +181,17 @@ df%>%
 ---
 ## Why?
 
-```{r}
-set.seed(123456)
-df[sample(1:19,3),c("murder","murder_why")]
+```{r,echo=FALSE,message=F, warning=F}
+df %>%
+  mutate(
+    `Who would you tell?` = as_factor(murder),
+    `Why?`= murder_why
+  )%>%
+  select(`Who would you tell?`, `Why?`)%>%
+  DT::datatable()
+
 ```
+
 
 ---
 ##  Why do you ask?
