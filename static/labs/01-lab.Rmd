@@ -715,9 +715,9 @@ When you encounter a problem you can solve, send me an email, or ask your friend
 
 The only dumb question in this course is a question you don't ask!
 
-Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870520?module_item_id=10762389)
+Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1091286/assignments/7925682?module_item_id=10882018)
 
-Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_1Gq9SnUONBIEIhE)
+Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI)
 
 
 
