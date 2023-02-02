@@ -13,6 +13,9 @@ output:
 
 ```{r setup, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(error = TRUE, comment = NA, warnings = FALSE, errors = FALSE, messages = FALSE, tidy = FALSE)
+# Icons
+# remotes::install_github("mitchelloharawild/icons")
+
 ```
 
 ```{r load-packages, include = FALSE}
@@ -20,6 +23,15 @@ library(tidyverse)
 library(babynames)
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
 
 
 # Overview {-}
@@ -58,12 +70,12 @@ remotes::install_github("PaulTestaBrown/qsslearnr")
 
 You'll need to have the package `rmarkdown` installed for 
 
-```{r}
+```{r, eval=F}
 remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 
 ```
 
-To work, so make sure you open your first .Rmd file first (this will automatically prompt you to install the `rmarkdown` package)
+To work, so make sure you open your first .Rmd file first (this will automatically prompt you to install the *rmarkdown* package)
 
 
   > If you have a question or somethings not working, don't hesitate to ask. Please email me at <paul_testa@brown.edu> or come to my office at 111 Thayer St Rm 339.
@@ -72,7 +84,7 @@ To work, so make sure you open your first .Rmd file first (this will automatical
 
 - **Download R here:** <https://cran.r-project.org/>
   - Make sure your operating systems are up to date.
-    - Mac: at least macOS 10.13 (High Sierra) (Latest:  macOS Monterey 12.1 )
+    - Mac: at least macOS 10.13 (High Sierra) (Latest:  macOS Ventura 13.1 ). Not different versions for Intel vs Apple chips
     - PC: It should work on most versions you have installed
 
 ![](images/00_r01.png)
