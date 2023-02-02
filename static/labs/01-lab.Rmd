@@ -51,7 +51,7 @@ To do this, we copied and pasted a lot of code. Today, we'll **get practice writ
 2. Set your working director: Session > Set Working Directory > Source file location
   - It's not vital today, but it's a good habit to develop.
 
-# Install the some additiona packages
+# Install the some additional packages
 
 - In the code chunk below, we'll use the `install.packages()` function to install the `lubridate` and `DT` package packages
 - Uncomment the code by removing \#
@@ -85,8 +85,14 @@ Open up the [slides](https://pols1600.paultesta.org/slides/01-slides.html#81) fr
 
 ```{r covid}
 # Download the COVID-19 data
+# If you get a timeout error, uncomment the following:
+# options(timeout="120")
 
+# If that still doesn't work try
+# options(timeout="180")
 
+# And if all that fails you can run the following:
+# load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 
 
 ```
