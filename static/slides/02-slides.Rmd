@@ -176,7 +176,43 @@ ipak(the_packages)
 
 --
 
-Installing packages can be a pain, but it's generally temporary.
+Remember, you only need to install packages once. Then when you work in `R` you need to load packages you want use with `library("package")`
+---
+## Tutorials
+
+- Install tutorials:
+
+```{r}
+# Uncomment and install
+# install.packages("devtools")
+# install.packages("remotes")
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+remotes::install_github("rstudio/learnr")
+remotes::install_github("rstudio-education/gradethis")
+remotes::install_github("PaulTestaBrown/qsslearnr")
+```
+
+---
+## Tutorials
+
+You can see the available problem sets by running the following code in your console:
+
+```{r, eval=F}
+learnr::run_tutorial(package = "qsslearnr")
+```
+
+
+And start a tutorial by running:
+
+```{r, eval=F}
+learnr::run_tutorial("00-intro", package = "qsslearnr")
+
+```
+
+---
+
+![](images/00_problemsets.png)
+
 
 ---
 ## Tutorials
@@ -184,6 +220,12 @@ Installing packages can be a pain, but it's generally temporary.
 - Upload Tutorials 00 and 01 sometime this week for credit
 
 - Get Started on Tutorial 02: QSS Tutorial 2: Measurment II
+
+
+
+
+---
+## Tutorials
 
 - To produce a pdf, R needs a version of $\LaTeX$ installed.
 
@@ -207,12 +249,7 @@ tinytex::install_tinytex()
 Let's load the Covid-19 data we worked with last week:
 
 ```{r covid}
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-    
-)
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 --
@@ -220,6 +257,8 @@ While that runs, let's talk about data visualization and the grammar of graphics
 
 ---
 class:inverse,center, middle
+background-image:url("https://i.kym-cdn.com/entries/icons/mobile/000/018/929/graphic_design_is_my_passion.jpg")
+background-size:contain
 # 💡
 #  Data Visualization 
 
