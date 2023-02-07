@@ -61,6 +61,8 @@ class: inverse, center, middle
 
 </style>
 
+
+
 ---
 ## Today
 
@@ -90,6 +92,31 @@ class: inverse, center, middle
 - Advanced figures with `ggplot`
   - Combining figures with `patchwork`
   - Creating maps with `ggmap`
+
+---
+## Talk: Race & Democracy
+### America is Always Changing, But America Never Changes
+
+.pull-left[
+
+- Date: Thursday, February 9, 2023
+
+- Time: 5:00pm - 6:30pm EST
+
+- Sponsor: Center for Philosophy, Politics and Economics and the Democracy Project
+
+- Location: Salomon Center for Teaching
+
+- Room: DeCiccio
+
+- Cost: Free!
+
+[Register Here](https://events.brown.edu/event/242481-race-democracy-america-is-always-changing-but)
+]
+
+.pull-right[
+![](https://events.brown.edu/live/image/scale/2x/gid/71/width/250/9583_glaude_eddie300.rev.1665161069.webp)
+]
 
 ---
 ## Core Concepts
@@ -651,8 +678,10 @@ df %>%
 ---
 # How we're doing
 
-```{r, out.height='80%'}
-DT::datatable(eval_df)
+```{r, echo=F, out.height='80%'}
+DT::datatable(eval_df,              
+              options = list(pageLength = 5)
+)
 ```
 
 
