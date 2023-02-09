@@ -105,9 +105,21 @@ For every lab:
 - Knit the document
 - Open the html file in your browser (Easier to read)
 - Knit the document again after completing a section or chunk (Error checking)
-- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870521?module_item_id=10762395){target="_blank"}.
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/assignments/7925685?module_item_id=10882025){target="_blank"}.
+
+# Describe the components of the figure you're trying to reprodce
+
+Recall, that we need `data`, `aesthetic` mappings and `geometries` to produce a figure
+
+
+- What are the aesthetic mappings in this plot
+- What is the geometry?
+- What is the data set used? (Hint it's a transformation of `covid_us`)
+
 
 # Outline the steps you will need to complete this process {-}
+
+
 
 # Step 1
 
@@ -145,7 +157,7 @@ Describe briefly (in a sentence or two or a couple of bullet points) what this s
 
 # CLASS SURVEY
 
-Finally, please take a moment to complete this week's [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_8lb7yrqOVWcKanc)
+Finally, please take a moment to complete this week's [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI)
 
 
 
