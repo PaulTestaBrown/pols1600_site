@@ -44,7 +44,7 @@ class: inverse, center, middle
 ---
 ## General Plan
 
-- Groups
+- Groups, Labs & Tutorials
 - Feedback
 - Review
 - Lecture:
@@ -70,6 +70,13 @@ groups_df <- tibble::tibble(
 DT::datatable(groups_df)
 ```
 
+
+---
+## Labs & Tutorials
+
+- Upload Lab 2 if you haven't done so already
+- Same for Tutorials 0, 1, 2. 
+  - Some confusion on what to upload, so let's do a quick demo.
 
 ---
 class: inverse, center, middle
