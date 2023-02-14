@@ -414,7 +414,7 @@ With negative values denoting "best guesses" of the policy in effect for most pe
   - As social scientists, we'd then want explore how our results change using alternative coding rules
 - By converting the numeric `facial_coverings` variable into the categorical, ordered factor `face_masks` we get a variable that:
   - Has meaningful labels
-  - Retains the subtantive ordering of policies
+  - Retains the substantive ordering of policies
 
 ---
 ## Creating the `face_masks` variable
@@ -583,11 +583,23 @@ class: inverse, center, middle
 
 --
 
-- What's the counter factual for these claims:  
-  - Foreign aid increases develop
-  - Wikileaks cost Hillary Clinton the 2016 election
-  - Democracies don't fight wars with other democracies
-  - Universal Pre-K improves child development
+What's the counter factual for these claims:  
+
+--
+
+- Foreign aid increases develop
+
+--
+
+- Wikileaks cost Hillary Clinton the 2016 election
+
+--
+
+- Democracies don't fight wars with other democracies
+
+--
+
+- Universal Pre-K improves child development
 
 
 ---
@@ -627,6 +639,7 @@ class: inverse, center, middle
 In this course, we will use two forms of notation to describe our causal claims.
 
 - Directed Acyclic Graphs
+
 - Potential Outcomes Notation
 
 ---
@@ -749,7 +762,7 @@ $$
 
 - Notation can be incredibly helpful for communicating precisely and clearly
 
-- Our goal is to demistify notation
+- Our goal is to demystify notation
 
 ---
 ## General Notation: Populations and Samples
@@ -781,6 +794,8 @@ $$
 
 - `\(X_i\)` pre-treatment covariates.
   - `\(X_i\)` might be Paul's age, or gender, or partisan affiliation
+  - Pre-treatment refers to things that are determined before the treatment is assigned and therefore cannot be influenced by the treatment
+  
   
 - `\(U_i\)` unobserved potential confounds
   - `\(_i\)` might be something we didn't or can't measure like Paul's genome or general crankiness 
@@ -788,21 +803,21 @@ $$
 ---
 ## General Notation: Expected Values
 
-- The `\(E[Y]\)` reads as "the expected value of Y" and is defined as a probability weighted average based on the uncoditional probability of Y ( `\(f(y)\)` )
+- The `\(E[Y]\)` reads as "the expected value of Y"
 
-$$
-\operatorname{E}[Y] = \int_{-\infty}^\infty y f(y)\, dy.
-$$
+- `\(E[Y]\)` is defined as a probability weighted average based on the uncoditional probability of Y ( `\(f(y)\)` )
+
+`$$\operatorname{E}[Y] = \int_{-\infty}^\infty y f(y)\, dy$$`
 
 
 ---
 ## General Notation: Conditional Expectations
 
-The `\(E[Y|X=x]\)` reads as "the expected value of Y conditional on the value of X" and is defined as a probability weighted average of Y based on the conditional probability of Y given X ( `\(y f_{Y|X}(y|x)\)` )
+- The `\(E[Y|X=x]\)` reads as "the expected value of Y conditional on the value of X"
 
-$$
-\operatorname{E}[Y \vert X=x] = \int_{-\infty}^\infty y f (y\vert x) \, dy.
-$$
+- `\(E[Y|X=x]\)` is defined as a probability weighted average of Y based on the conditional probability of Y given X ( `\(y f_{Y|X}(y|x)\)` )
+
+`$$\operatorname{E}[Y \vert X=x] = \int_{-\infty}^\infty y f (y\vert x) \, dy$$`
 
 
 ---
@@ -819,13 +834,17 @@ $$
 
 - Potential outcomes notation is a way of describing counterfactuals
 
+--
+
 - `\(Y_i(d)\)` is the value of the outcome if `\(D_i\)` was `\(d\)`
   
   - `\(Y_i(1)\)` is the vote share of Rep. Smith when they support \#MeToo
   
   - `\(Y_i(0)\)` is the vote share of Rep. Smith when they do not support \#MeToo.
 
-- Potential outcomes are fixed, but we only observe one (of many) potential outcomes `\(\to\)` *Fundamental Problem of Causal Infernece*
+--
+
+- Potential outcomes are fixed, but we only observe one (of many) potential outcomes `\(\to\)` *Fundamental Problem of Causal Inferenece*
 
 ---
 ## Fundamental Problem of Causal Infernece
@@ -840,6 +859,9 @@ $$
 
 - The ICE is unidentified
 
+- Example:
+  - Paul got the vaccine. The individual effect of the vaccine on Paul is the difference in his health status when he got the vaccine compared to his health status when he got the placebo. But we only observe one of these two potential outcomes.
+
 ---
 class: inverse, center, middle
 # 💡
@@ -850,7 +872,6 @@ class: inverse, center, middle
 ## Identification
 
 - Identification refers to what we can learn from the data available
-
 
 - A quantity of interest is *identified* if, with infinite data it can only take one value
 
@@ -935,24 +956,18 @@ $$
 
 Instead we might end up comparing outcomes among the sick and non-sick
 
-$$
-\text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]
-$$
+`$$\text{What we estimate} = E[Y(1|D=1)] - E[Y(0|D=0)]$$`
 
 
-$$
-\text{What we estimate} = E[\text{Mortality}(\text{Hospital})] - E[\text{Mortality}(\text{No Hospital})]
-$$
+`$$\text{What we estimate} = E[\text{Mortality}(\text{Hospital})] - E[\text{Mortality}(\text{No Hospital})]$$`
 
 ---
 ## Selection bias
 
 The hospital example illustrates the general problem of selection bias
 
-$$
-\widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
-\underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}
-$$
+`$$\widehat{SATE}=\overbrace{\textbf{E[Y(1)|D=1]} - E[Y(0)|D=1]}^{\text{Average Effect of Treatment on Treated}}\\
+\underbrace{+ E[Y(0)|D=1]- \textbf{E[Y(0)|D=0]}}_{\text{Selection Bias}}$$`
 
 - The bold quantities are things we can **observe** (estimate)
 - `\(E[Y(0)|D=1]\)` is a an unobservable counterfactual. 
@@ -968,7 +983,7 @@ $$
 
 - **Selection Bias:** `\(E[Y(0)|D=1] - \mathbf{E[Y(0)|D=0]}\)`, 
     - This is the difference in health outcomes between healthy folks who didn't go to the hospital `\((Y(0)|D=0)\)` and sick folks who went to the hopsital had they not gone `\((Y(0)|D=1)\)`
-    - This what **confounds our causal claims** if we just compare outcomes among people who went to the hopsital and people who didn't
+    - This what **confounds our causal claims** if we just compare outcomes among people who went to the hospital and people who didn't
     - Selection bias equals 0 if `\(E[Y(0)|D=1] = \mathbf{E[Y(0)|D=0]}\)`
     - `\(E[Y(0)|D=1] = \mathbf{E[Y(0)|D=0]}\)` if **D has been randomly assigned**
 
@@ -977,22 +992,16 @@ $$
 
 Randomly assigning treatments creates *statistical independence* `\((\unicode{x2AEB})\)` between treatment ( `\(D\)` ) and potential outcomes ( `\(Y(1),Y(0)\)` ) as well as any observed ( `\(X\)` ) or unobserved confounders ( `\(U\)` ):
 
-$$
-Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
-$$
+`$$Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i$$`
 
 ---
 ## Random Assignment "Solves" the Problem of Selection Bias
 
 When treatment has been randomly assigned, what we can observe ( `\(E[Y_i|D=0], E[Y_i|D=1]\)` ), provides good (unbiased) estimates of theoretical quantities we want observe
 
-$$
-E[Y_i|D=0] = E[Y_i(0)|D=0] = E[Y_i(0)] = E[Y_i(0)|D=1]
-$$
+`$$E[Y_i|D=0] = E[Y_i(0)|D=0] = E[Y_i(0)] = E[Y_i(0)|D=1]$$`
 
-$$
-E[Y_i|D=1] = E[Y_i(1)|D=1] = E[Y_i(1)] = E[Y_i(1)|D=0]
-$$
+`$$E[Y_i|D=1] = E[Y_i(1)|D=1] = E[Y_i(1)] = E[Y_i(1)|D=0]$$`
 
 ---
 ## Estimating an Average Treatment Effect
@@ -1009,12 +1018,14 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbr
 \end{align*}`
 $$
 
-That is, the ATE is causally identified by the difference of means estimator in an experimental design
+That is, the ATE is causally identified by the **difference of means** estimator in an experimental design
 
 ---
 ## Causal Identification with Experimental Designs
 
 Causal identification for an experiment, requires very few assumptions:
+
+--
 
 - **Independence** (Satisfied by Randomization)
   - `\(Y(1), Y(0),X,U, \perp D\)`
@@ -1050,6 +1061,44 @@ Causal identification for an experiment, requires very few assumptions:
   - Sex
   - Democracy
 - Studying the effects of these factors requires strong theory and clever design [Sen and Wasow (2016)](https://scholar.harvard.edu/files/msen/files/race_causality.pdf)
+
+
+---
+class:inverse, center, middle
+
+# 🔍
+# Summary
+
+
+---
+# Causal Inference
+
+--
+
+- Causal Claims involve counterfactual comparisons
+
+--
+
+- The fundamental problem of causal inference is that for an individual only observe one of many potential outcomes
+
+
+-- 
+
+- Causal identification refers to the assumptions necessary to generate credible causal estimates
+
+--
+
+- Experimental designs are identified by the random assignment of treatment which allows us to produce unbiased estimates of the **Average Treatment Effect**
+
+--
+
+- Estimates are unbiased if, on average, they're equal to the trut `\((E[\hat{\theta} - \theta] = 0 )\)`
+
+--
+
+- Two kinds of bias:
+  - Confounding occurs when we **fail to control** for factors that influence both our outcome and explanatory variables
+  - Colliding bias occurs when we **control** for factors influenced by both our outcome and explanatory variables
 
 
 
