@@ -442,7 +442,6 @@ df %>% #<< Raw data
 ```
 
 
-
 ---
 ## 4.1 Tinker with data
 

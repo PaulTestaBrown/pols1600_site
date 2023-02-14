@@ -44,6 +44,7 @@ class: inverse, center, middle
 ---
 ## General Plan
 
+- Groups
 - Feedback
 - Review
 - Lecture:
@@ -51,6 +52,24 @@ class: inverse, center, middle
   - Notations to describe causal claims
   - Causal Identification
   - Causal Identification in experimental designs
+
+---
+## Group Assignments
+
+```{r,echo=F}
+groups_df <- tibble::tibble(
+`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman", ""),
+`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo", ""),
+`Group 3` = c("Will Lake", "Catherine Morrissette", "Amanda Page", "Noah Soutier", ""),
+`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen", ""),
+`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky", ""),
+`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama", ""),
+`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Taha Siddiqui")
+)
+
+DT::datatable(groups_df)
+```
+
 
 ---
 class: inverse, center, middle
@@ -61,12 +80,11 @@ background-size:contain
 
 ```{r, echo=F, message=F}
 df <- haven::read_spss("../files/data/wk02.sav")
-df <- df[-8,]
 df %>%
   mutate(
-    Likes = Q1,
-    Dislikes = Q2,
-    Streaming = Q3
+    Likes = like,
+    Dislikes = dislike,
+    Turn = trip
   ) -> df
 ```
 
@@ -109,63 +127,26 @@ DT::datatable(df %>%
 - Learn to troubleshoot errors
 - Don't be afraid to FAAFO
   
-
 ---
-# What are we watching
+## Who's got the right of way?
 
-.pull-left[
+```{r}
+df %>%
+  mutate(
+    Turn = str_wrap(as_factor(Turn), width = 15)
+  )%>%
+  ggplot(aes(Turn,fill=Turn))+
+  geom_bar(stat="count")+
+  coord_flip()+
+  guides(fill =F)+
+  theme_minimal()+
+  labs(y="",
+       x="",
+       title = "Another car is turning left, who goes first at a red light?")
 
-```{r, echo=F}
-knitr::include_graphics("https://flxt.tmsimg.com/assets/p16805962_b_h9_aa.jpg")
 ```
 
 
-]
-
-.pull-right[
-```{r, echo=F}
-knitr::include_graphics("https://www.denofgeek.com/wp-content/uploads/2021/11/AOT_Original-KV_Logo_Copyright.jpg?resize=724,1024")
-```
-]
-
----
-# What we say we're listening to?
-
-
-.pull-left[
-
-```{r, echo=FALSE}
-knitr::include_graphics("https://assets.simpleviewinc.com/simpleview/image/fetch/c_limit,q_75,w_1200/https://assets.simpleviewinc.com/simpleview/image/upload/crm/desmoines/RKS_DVC_09042020-121-3-_DA0CDDDA-5056-A36A-0696A139DE8F91EE_da0ead9f-5056-a36a-0633632ae182c9c9.jpg")
-```
-
-]
-
-.pull-right[
-```{r,echo=FALSE}
-knitr::include_graphics("https://www.euphoriazine.com/wp-content/uploads/2020/08/02-Galimatias-070-1598390291-scaled.jpg")
-```
-]
-
----
-class: inverse
-background-image:url(https://media.giphy.com/media/3o6gg2VslsUCY1rcLS/giphy.gif)
-background-size:cover
-
-# What we're actually listening to
-
----
-# What we're streaming
-
-```{r, echo=F, out.height='80%'}
-DT::datatable(df %>% 
-                select(Streaming),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 4
-              )
-              )
-```
 
 
 ---
@@ -273,11 +254,12 @@ class:inverse, center, middle
 ## Load the Covid-19 Data
 
 ```{r covid}
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid <- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 
@@ -919,7 +901,7 @@ $$
 
 The problem is that for any one individual, we only observe $Y_i(1)$  or $Y_i(0)$, but never both.
 
-
+- If Paul got the vaccine $(Y_{Paul}(Vaxxed)=\text{Covid Free})$, then we don't know what Paul's health status would have been, had he not got the vaccine $(Y_{Paul}(Unvaxxed) =???)$
 
 ---
 ## A statistical solution to the FPoCI
@@ -1057,9 +1039,15 @@ Causal identification for an experiment, requires very few assumptions:
 
 - If treatment has been randomly assigned, we would expect that there should be few differences between **pre-treatment covariates** in our treatment and control groups.
 
+--
+
 - That is, on average, the only the thing that should differ between these groups is that one group got the treatment and one group did not.
 
+--
+
 - If the treatment had an effect, than we can credibly claim that that effect was due to the presence or absence of the treatment, and not some alternative explanation.
+
+--
 
 - This type of clean counterfactual comparison is what people mean when they talk about an *experimental ideal*
 

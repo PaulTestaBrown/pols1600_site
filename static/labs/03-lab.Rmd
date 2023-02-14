@@ -57,18 +57,13 @@ Here are your assigned groups for the semester.
 
 ```{r groups, echo=F}
 groups_df <- tibble::tibble(
-  `Group 1` = c("Maria Sofia Pena", "Lily Seckondorf", 
-                "Sam Swartz","Ben Pollard"),
-  `Group 2` = c("Ryan Jaquez Melo", "Charles Key",
-                "Katherine Beggs","Samuel Clark"),  
-  `Group 3` = c("Fausto Rojas","Zoey Katzive",
-                "Hunter Keneley", "Anne Lord"),
-  `Group 4` = c("Annette Lee","Sara Shipon",
-                "Zachary Potts","Lucas Aquayo-Garber"),
-  `Group 5` = c("Zeke Hertz","Ruqiya Egal",
-                "Zoe Magley","Logan Danker"),
-  `Group 6` = c("Christopher Pool","Laura David",
-                "Kevin Moclair","")
+`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman", ""),
+`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo", ""),
+`Group 3` = c("Will Lake", "Catherine Morrissette", "Amanda Page", "Noah Soutier", ""),
+`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen", ""),
+`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky", ""),
+`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama", ""),
+`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Taha Siddiqui")
 )
 
 DT::datatable(groups_df)
@@ -111,7 +106,7 @@ As with every lab, you should:
 - Knit the document
 - Open the html file in your browser (Easier to read)
 - Knit the document again after completing a section or chunk (Error checking)
-- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870523?module_item_id=10762397){target="_blank"}.
+- Upload the final lab to [Canvas]https://canvas.brown.edu/courses/1091286/assignments/7925686?module_item_id=10882030){target="_blank"}.
 
 # Summarize the study
 
@@ -130,7 +125,7 @@ Here is some minimal code so that your lab will compile when you first knit it.
 library(tidyverse)
 ```
 
-1. **In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides  [here](https://pols1600.paultesta.org/slides/03-slides.html#13){target="_blank"}**
+1. **In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides  [here](https://pols1600.paultesta.org/slides/03-slides.html#14){target="_blank"}**
 
 ```{r extendedsetup, message=F}
 
@@ -398,5 +393,5 @@ Using `ate_df` with commands from the `ggplot` package please produce a figure t
 
 # Take the Class Survey
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_3n0J3Rb8I7LjoSW){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_0f8mrDmAAwGpcpw){target="_blank"} for this week.
 
