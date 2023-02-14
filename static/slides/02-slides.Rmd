@@ -61,6 +61,8 @@ class: inverse, center, middle
 
 </style>
 
+
+
 ---
 ## Today
 
@@ -90,6 +92,31 @@ class: inverse, center, middle
 - Advanced figures with `ggplot`
   - Combining figures with `patchwork`
   - Creating maps with `ggmap`
+
+---
+## Talk: Race & Democracy
+### America is Always Changing, But America Never Changes
+
+.pull-left[
+
+- Date: Thursday, February 9, 2023
+
+- Time: 5:00pm - 6:30pm EST
+
+- Sponsor: Center for Philosophy, Politics and Economics and the Democracy Project
+
+- Location: Salomon Center for Teaching
+
+- Room: DeCiccio
+
+- Cost: Free!
+
+[Register Here](https://events.brown.edu/event/242481-race-democracy-america-is-always-changing-but)
+]
+
+.pull-right[
+![](https://events.brown.edu/live/image/scale/2x/gid/71/width/250/9583_glaude_eddie300.rev.1665161069.webp)
+]
 
 ---
 ## Core Concepts
@@ -341,6 +368,7 @@ background-image:url(https://www.wikihow.com/images/thumb/9/9e/Create-Guitar-Fee
 background-size:cover
 
 # Feedback
+## (From Last Year...)
 
 ---
 
@@ -649,8 +677,10 @@ df %>%
 ---
 # How we're doing
 
-```{r, out.height='80%'}
-DT::datatable(eval_df)
+```{r, echo=F, out.height='80%'}
+DT::datatable(eval_df,              
+              options = list(pageLength = 5)
+)
 ```
 
 
@@ -1121,7 +1151,7 @@ Why didn't we?
 
 
 ---
-## Create a variable called `new_cases` from the `confirmed` variable
+#### Create a variable called `new_cases` from the `confirmed` variable
 
 The `confirmed` variable contains a running total of confirmed cases in a given state on a given day. 
 
@@ -1138,7 +1168,7 @@ covid_us %>%
 ```
 
 ---
-## Create a variable called `new_cases` from the `confirmed` variable
+#### Create a variable called `new_cases` from the `confirmed` variable
 
 The code below helps us see what's happening inside our mutate function, when we group by `state`
 
@@ -1156,7 +1186,7 @@ covid_us %>%
 
 
 ---
-## Create a variable called `new_cases` from the `confirmed` variable
+#### Create a variable called `new_cases` from the `confirmed` variable
 
 If we hadn't grouped by state, we might calculate the difference between MN and CA
 
@@ -1502,7 +1532,7 @@ mean(covid_us$new_cases_pc, na.rm=T)
 ---
 ## Conditional Means
 
-Last wee, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a **conditional mean** the mean of some variable, conditional on some other variable taking a specific value.
+Last week, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a **conditional mean** the mean of some variable, conditional on some other variable taking a specific value.
 
 Formally, you'll often see this written in terms of **Expected Values**: Something like
 
@@ -1810,11 +1840,10 @@ Hmm... That seems a little strange. What if we calculated the correlation betwee
 ### Correlation
 
 ```{r cormonth}
-
 covid_us %>%
-  filter(year > 2020)%>%
+  filter(year > 2020, year <= 2022)%>%
   ungroup() %>%
-  group_by(year,month)%>%
+  group_by(year_month)%>%
   summarise(
     mn_per_vax = round(mean(percent_vaccinated, na.rm=T),2),
     cor = round(cor(new_cases_pc, percent_vaccinated, use = "complete.obs"),2)
@@ -1826,8 +1855,62 @@ covid_us %>%
 
 ---
 ## Monthly Correlation between Vaccination Rates and New Cases
+```{r, echo=F}
+DT::datatable(monthly_vax_case_correlations,
+              options = list(pageLength = 5)
+              )
+```
+
+---
+## Monthly Correlation between Vaccination Rates and New Cases
+
 ```{r}
-DT::datatable(monthly_vax_case_correlations)
+monthly_vax_case_correlations %>%
+  ggplot(aes(x=year_month, 
+             cor,
+             col=mn_per_vax))+
+    geom_point()+
+  coord_flip()+
+  labs(
+    x = "",
+    y = "Correlation",
+    col = "Percent\nVaccinated"
+  ) -> fig_monthly_vax_case_correlations
+```
+
+---
+
+```{r, echo=F}
+fig_monthly_vax_case_correlations
+```
+
+
+---
+## Monthly Correlation between Vaccination Rates and New Cases
+
+```{r}
+covid_us %>%
+  group_by(year,month,state) %>%
+  summarise(
+    new_cases_pc = mean(new_cases_pc),
+    percent_vaccinated = mean(percent_vaccinated)
+  ) -> monthly_vax_case_rates_by_state
+```
+
+---
+```{r}
+monthly_vax_case_rates_by_state %>%
+  filter(year == 2021) %>%
+  mutate(Month = month(month, label=T, abbr=T))%>%
+  ggplot(aes(percent_vaccinated,new_cases_pc))+
+  geom_point()+
+  stat_smooth(method = "lm")+
+  facet_wrap(~Month) -> fig_monthly_vax_case_rates_by_state
+```
+
+---
+```{r, echo=F, out.height="80%"}
+fig_monthly_vax_case_rates_by_state
 ```
 
 
