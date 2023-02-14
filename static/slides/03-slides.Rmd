@@ -58,13 +58,13 @@ class: inverse, center, middle
 
 ```{r,echo=F}
 groups_df <- tibble::tibble(
-`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman", ""),
-`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo", ""),
-`Group 3` = c("Will Lake", "Catherine Morrissette", "Amanda Page", "Noah Soutier", ""),
-`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen", ""),
-`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky", ""),
-`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama", ""),
-`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Taha Siddiqui")
+`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman"),
+`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo"),
+`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier"),
+`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen"),
+`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky"),
+`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama"),
+`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna")
 )
 
 DT::datatable(groups_df)
