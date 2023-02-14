@@ -3,7 +3,7 @@ title: 'Week 03'
 subtitle: 'Causation I'
 summary: How random assignment helps us make causal claims
 publishDate: "2022-01-02"
-date: "2022-02-15"
+date: "2023-02-14"
 featured: false
 draft: false
 
@@ -37,10 +37,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/03-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/03-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/03-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes
