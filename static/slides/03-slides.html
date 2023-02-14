@@ -110,18 +110,22 @@ background-size:contain
 - Use R Markdown to organize your code
 - Learn to troubleshoot errors
 - Don't be afraid to FAAFO
-  
+
 ---
 ## Who's got the right of way?
 
 
 ```r
+# Data
 df %&gt;%
   mutate(
     Turn = str_wrap(as_factor(Turn), width = 15)
   )%&gt;%
+  # Aesthetics
   ggplot(aes(Turn,fill=Turn))+
+  # Geometries
   geom_bar(stat="count")+
+  # Other layers
   coord_flip()+
   guides(fill =F)+
   theme_minimal()+
@@ -130,7 +134,12 @@ df %&gt;%
        title = "Another car is turning left, who goes first at a red light?")
 ```
 
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+  
+---
+## Who's got the right of way?
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -330,9 +339,13 @@ knitr::opts_chunk$set(
 You want to:
 
 - Load some data
+
 - Combine multiple functions
+
 - Look at your data
+
 - Recode your data
+
 - Transform your data
 
 ---
@@ -342,9 +355,13 @@ You want to:
 You want to:
 
 - Load some data
+
 - Combine multiple functions
+
 - Look at your data
+
 - Recode your data
+
 - Transform your data
 ]
 
@@ -352,9 +369,13 @@ You want to:
 You could use
 
 - `read_*` functions
+
 - `%&gt;%` the "pipe" operator
+
 - `glimpse()` `head()`, `filter()`, `select()`, `arrange()`
+
 - `mutate()`, `case_when()`, `ifelse()`
+
 - `summarize()`, `group_by()`
 
 ]
@@ -722,20 +743,15 @@ $$
 ---
 ### Confounding = Common Causes
 
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Controlling for a confounding variable
 
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-### Colliders = Common Consequence
-
 &lt;img src="03-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
-### Don't Condition on a Collider
+### Colliders = Common Consequence
 
 &lt;img src="03-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -743,6 +759,11 @@ $$
 ### Don't Condition on a Collider
 
 &lt;img src="03-slides_files/figure-html/unnamed-chunk-23-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+### Don't Condition on a Collider
+
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-24-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Potential Outcomes
@@ -1081,8 +1102,7 @@ class:inverse, center, middle
 
 - The fundamental problem of causal inference is that for an individual only observe one of many potential outcomes
 
-
--- 
+--
 
 - Causal identification refers to the assumptions necessary to generate credible causal estimates
 
@@ -1338,7 +1358,7 @@ resume %&gt;%
 
 
 
-&lt;img src="03-slides_files/figure-html/unnamed-chunk-36-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-slides_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---

@@ -133,11 +133,36 @@ DT::datatable(df %>%
 - Use R Markdown to organize your code
 - Learn to troubleshoot errors
 - Don't be afraid to FAAFO
+
+---
+## Who's got the right of way?
+
+```{r, eval=F}
+# Data
+df %>%
+  mutate(
+    Turn = str_wrap(as_factor(Turn), width = 15)
+  )%>%
+  # Aesthetics
+  ggplot(aes(Turn,fill=Turn))+
+  # Geometries
+  geom_bar(stat="count")+
+  # Other layers
+  coord_flip()+
+  guides(fill =F)+
+  theme_minimal()+
+  labs(y="",
+       x="",
+       title = "Another car is turning left, who goes first at a red light?")
+
+```
+
+
   
 ---
 ## Who's got the right of way?
 
-```{r}
+```{r, echo=F}
 df %>%
   mutate(
     Turn = str_wrap(as_factor(Turn), width = 15)
@@ -338,9 +363,13 @@ knitr::opts_chunk$set(
 You want to:
 
 - Load some data
+
 - Combine multiple functions
+
 - Look at your data
+
 - Recode your data
+
 - Transform your data
 
 ---
@@ -350,9 +379,13 @@ You want to:
 You want to:
 
 - Load some data
+
 - Combine multiple functions
+
 - Look at your data
+
 - Recode your data
+
 - Transform your data
 ]
 
@@ -360,9 +393,13 @@ You want to:
 You could use
 
 - `read_*` functions
+
 - `%>%` the "pipe" operator
+
 - `glimpse()` `head()`, `filter()`, `select()`, `arrange()`
+
 - `mutate()`, `case_when()`, `ifelse()`
+
 - `summarize()`, `group_by()`
 
 ]
@@ -1099,8 +1136,7 @@ class:inverse, center, middle
 
 - The fundamental problem of causal inference is that for an individual only observe one of many potential outcomes
 
-
--- 
+--
 
 - Causal identification refers to the assumptions necessary to generate credible causal estimates
 
