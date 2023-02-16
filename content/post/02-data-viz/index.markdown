@@ -3,7 +3,7 @@ title: 'Week 02'
 subtitle: 'Visualizing Data in R'
 summary: 'Describing and Visualizing Data in R'
 publishDate: "2021-12-30"
-date: '2022-02-08'
+date: '2023-02-07'
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/02-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/02-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/02-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

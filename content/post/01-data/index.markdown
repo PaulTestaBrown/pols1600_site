@@ -3,7 +3,7 @@ title: 'Week 01'
 subtitle: 'Data and Measurement'
 summary: 'How do we describe the world around us?'
 publishDate: "2021-12-31"
-date: '2022-02-01'
+date: '2023-01-31'
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/01-lab.Rmd
-- icon: flask
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/01-lab-comments.html
+# - icon: flask
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/01-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

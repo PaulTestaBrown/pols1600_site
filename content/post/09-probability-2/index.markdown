@@ -3,7 +3,7 @@ title: 'Week 09'
 subtitle: 'Probability II'
 summary: Conditional Probability and Limit Theorems
 publishDate: "2022-01-08"
-date: "2022-04-05"
+date: "2023-04-04"
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/09-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/00-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/09-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

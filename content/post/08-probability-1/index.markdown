@@ -3,7 +3,7 @@ title: 'Week 08'
 subtitle: 'Probability I'
 summary: Introduction to probability
 publishDate: "2022-01-07"
-date: "2022-03-22"
+date: "2023-03-21"
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/08-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/08-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/08-lab-comments.html
 - icon: magic
   icon_pack: fas
   name: Notes

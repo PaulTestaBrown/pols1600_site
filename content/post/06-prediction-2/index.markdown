@@ -3,7 +3,7 @@ title: 'Week 06'
 subtitle: 'Prediction II'
 summary: Multiple regression
 publishDate: "2022-01-05"
-date: "2022-03-08"
+date: "2023-03-07"
 featured: false
 draft: false
 
@@ -33,10 +33,10 @@ links:
   icon_pack: fas
   name: Lab
   url: /labs/06-lab.Rmd
-- icon: lightbulb
-  icon_pack: fas
-  name: Lab Comments
-  url: /labs/06-lab-comments.html
+# - icon: lightbulb
+#   icon_pack: fas
+#   name: Lab Comments
+#   url: /labs/06-lab-comments.html
 - icon: calendar-check
   icon_pack: fas
   name: "A2: Data"
