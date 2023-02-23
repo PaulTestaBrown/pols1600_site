@@ -758,7 +758,7 @@ df %>%
     ATE = estimate,
     Days = c(0,3,21,42,90)
   ) -> ate_df
-ate_df
+ate_df[,-1]
 ```
 
 ---

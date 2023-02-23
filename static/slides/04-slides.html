@@ -757,16 +757,22 @@ df %&gt;%
     ATE = estimate,
     Days = c(0,3,21,42,90)
   ) -&gt; ate_df
-ate_df
+ate_df[,-1]
 ```
 
 ```
-                           term   estimate std.error  statistic    p.value  conf.low conf.high       df        outcome        ATE Days
-1 treatment_groupTrans-Equality -0.6101865  2.470775 -0.2469616 0.80504095 -5.464758  4.244385 492.0410 therm_trans_t0 -0.6101865    0
-2 treatment_groupTrans-Equality  6.4618301  2.690313  2.4018875 0.01675624  1.173250 11.750410 408.6734 therm_trans_t1  6.4618301    3
-3 treatment_groupTrans-Equality  4.0591652  2.718401  1.4932177 0.13618853 -1.285385  9.403716 390.1030 therm_trans_t2  4.0591652   21
-4 treatment_groupTrans-Equality  6.3459985  2.633331  2.4098747 0.01641918  1.168734 11.523263 390.8996 therm_trans_t3  6.3459985   42
-5 treatment_groupTrans-Equality  5.2990725  2.782481  1.9044419 0.05762449 -0.172306 10.770451 371.6676 therm_trans_t4  5.2990725   90
+    estimate std.error  statistic    p.value  conf.low conf.high       df
+1 -0.6101865  2.470775 -0.2469616 0.80504095 -5.464758  4.244385 492.0410
+2  6.4618301  2.690313  2.4018875 0.01675624  1.173250 11.750410 408.6734
+3  4.0591652  2.718401  1.4932177 0.13618853 -1.285385  9.403716 390.1030
+4  6.3459985  2.633331  2.4098747 0.01641918  1.168734 11.523263 390.8996
+5  5.2990725  2.782481  1.9044419 0.05762449 -0.172306 10.770451 371.6676
+         outcome        ATE Days
+1 therm_trans_t0 -0.6101865    0
+2 therm_trans_t1  6.4618301    3
+3 therm_trans_t2  4.0591652   21
+4 therm_trans_t3  6.3459985   42
+5 therm_trans_t4  5.2990725   90
 ```
 
 ---
