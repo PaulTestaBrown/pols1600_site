@@ -3,7 +3,7 @@ title: 'Week 12'
 subtitle: 'Workshop'
 summary: Course review and workshop on final projects
 publishDate: "2022-01-11"
-date: "2022-04-26"
+date: "2023-04-25"
 featured: false
 draft: false
 
