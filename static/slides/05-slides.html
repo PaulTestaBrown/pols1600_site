@@ -652,6 +652,28 @@ dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
 
 
 ---
+## Preview of the Lab
+
+Conceptually, this lab is designed to help reinforce the relationship between linear models like `\(y=\beta_0 + \beta_1x\)` and the conditional expectation function `\(E[Y|X]\)`. 
+
+- Questions 1-5 are designed to reinforce your **data wrangling** skills. In particular, you will get practice:
+  - Creating and recoding variables using `mutate()`
+  - Calculating a [moving average](https://en.wikipedia.org/wiki/Moving_average) or rolling mean using the `rollmean()` function from the `zoo` package
+  - Transforming the data on presidential elections so that it can be merged with the data on Covid-19 using the `pivot_wider()` function.
+  - [Merging data](https://r4ds.had.co.nz/relational-data.html) together using the `left_join()` function.
+
+- In question 6, you will see how calculating conditional means provides a simple test of "Red Covid" claim.
+
+- In question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)
+
+- In question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)
+
+- In question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.
+
+- Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
+
+
+---
 class: inverse, center, middle
 background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
 background-size: contain
@@ -767,6 +789,23 @@ attr(,"display_width")
 
 <div id="htmlwidget-ac40ebc3475ef0354874" style="width:100%;height:90%;" class="datatables html-widget "></div>
 <script type="application/json" data-for="htmlwidget-ac40ebc3475ef0354874">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["transforming data","Understanding how to read / comprehend code more effectively!\n","How to design a graph, and choose the type of graph","I wish I had a better understanding of what types of functions I should use when I want to do something","Wish I understood the long chunks more deeply","More time to digest the topics and methods.","Learning how to write out multiple lines of code at once","I just wish I understood the functions more. I feel like there is always so many functions to keep track up that it gets confusing. I would like a list or something that could maybe explain them better.","I just don't think i understand a lot of the functions super well yet in terms of how to write them myself. like I understand broadly what they're doing, but not how to format them to get them to do those things","Data wrangling is still confusing to me","In the course, I wish to understand the theories and mathematical concepts better with practice or examples.","I often have a hard time locating my mistakes when I have errors.","I struggle to properly set up R and understand the language from scratch.","I would like to understand visually how the columns transform so I can see what the code does.","How we are going to do our own research and find credible data","the less intuitive function names","Mutate function, ggplot","pivot_wider and pivot_longer often confuse me in how to best transpose data.","Knowing how to make graphs has been a bit confusing because we use ggplot in class and something different in the tutorials.","The individual panels and their functions/relations to one another","The syntax behind mutating data, as well as the math behind descriptive statistics."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>code_challenge<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+---
+
+
+```
+ [1]  0 NA NA NA NA NA  0 NA  0 NA  0 NA NA NA NA NA NA  9 NA NA 10
+attr(,"label")
+[1] "How do you think we're doing? Please provide a rough assessment of the performance of: - President Donald Trump"
+attr(,"format.spss")
+[1] "F40.2"
+attr(,"display_width")
+[1] 5
+```
+
+&lt;img src="05-slides_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
