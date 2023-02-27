@@ -1723,8 +1723,9 @@ residents</h2>
 <code>new_deaths</code></li>
 <li>Anywhere you see <code>confirmed</code> write
 <code>deaths</code></li>
-<li>For the 14-day average, change the <code>new_deaths_pc_7da</code> to
-<code>new_deaths_pc_14da</code> and set <code>k=14</code> in the
+<li>For the 14-day average, copy the code for
+<code>new_deaths_pc_7da</code> change the <code>new_deaths_pc_7da</code>
+to <code>new_deaths_pc_14da</code> and set <code>k=14</code> in the
 <code>zoo::rollmean()</code></li>
 <li>Remember to save the output of <code>mutate()</code> back into
 <code>covid_us</code></li>
@@ -1805,17 +1806,7 @@ command to merge the <code>pres2020_df</code> data into the
 <code>covid_us</code> data.</strong></li>
 </ul>
 <p>Again, you should be able to just copy and paste the code from <a href="https://pols1600.paultesta.org/slides/05-slides.html#30" target="_blank">here</a></p>
-<pre class="r"><code>dim(covid_us)</code></pre>
-<pre><code>Error in eval(expr, envir, enclos): object &#39;covid_us&#39; not found</code></pre>
-<pre class="r"><code>dim(pres2020_df)</code></pre>
-<pre><code>Error in eval(expr, envir, enclos): object &#39;pres2020_df&#39; not found</code></pre>
-<pre class="r"><code>covid_us &lt;- covid_us %&gt;% left_join(
-  pres2020_df,
-  by = c(&quot;state&quot; = &quot;state&quot;)
-)</code></pre>
-<pre><code>Error in covid_us %&gt;% left_join(pres2020_df, by = c(state = &quot;state&quot;)): could not find function &quot;%&gt;%&quot;</code></pre>
-<pre class="r"><code>dim(covid_us) # Same number of rows as covid_us w/ 8 additional columns</code></pre>
-<pre><code>Error in eval(expr, envir, enclos): object &#39;covid_us&#39; not found</code></pre>
+<pre class="r"><code># Merge in Presidential Data</code></pre>
 <hr />
 <p>Ok. That was a lot of code just to get the data set up to do some
 simple analyses<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
@@ -1873,7 +1864,7 @@ and use the <code>filter()</code> command to subset the data to include
 only obsevations with a value of <code>date</code> greater than
 <code>&quot;2021-04-19</code></li>
 </ul>
-<pre class="r"><code># Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021</code></pre>
+<pre class="r"><code># Calculate the mean number of new_deaths and new_deaths_pc_7da after April 19, 2021</code></pre>
 <ul>
 <li><p><strong>Please interpret the results of this analysis
 here</strong></p></li>
@@ -1998,12 +1989,11 @@ objects on their own line and interpret the results.</p>
 
 # Deaths modeled by Republican vote share on 2021-09-23</code></pre>
 <ul>
-<li><strong>Do you’re models’ estimates match your
-expectations?</strong> That is do the coefficients on each of the
-predictors have the expected sign (positive or negative), that you wrote
-above? Please write one sentence for each model, describing how the
-outcome in that model is expected to change with a unit change in the
-predictor</li>
+<li><strong>Do your models’ estimates match your expectations?</strong>
+That is do the coefficients on each of the predictors have the expected
+sign (positive or negative), that you wrote above? Please write one
+sentence for each model, describing how the outcome in that model is
+expected to change with a unit change in the predictor</li>
 </ul>
 <p>[Yes/No].</p>
 <ul>
@@ -2144,7 +2134,7 @@ his November 2021 <a href="https://www.nytimes.com/2021/11/08/briefing/covid-dea
 <div id="take-the-class-survey" class="section level1" number="11">
 <h1><span class="header-section-number">11</span> Take the Class
 Survey</h1>
-<p>If you’ve got a moment please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_ereKWyXCdAojdGu" target="_blank">class survey</a> for this week.</p>
+<p>If you’ve got a moment please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW" target="_blank">class survey</a> for this week.</p>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
