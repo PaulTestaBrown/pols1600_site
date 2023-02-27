@@ -188,11 +188,12 @@ class:inverse, center, middle
 ## Load the Covid-19 Data
 
 ```{r covid}
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid <- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ---
@@ -500,9 +501,8 @@ background-size: contain
 ## Feedback
 
 ```{r feedback, echo=F, message=F}
-df_wk04 <- haven::read_spss("../files/data/wk04.sav")
-df_wk04 %>%
-  filter(Q7 == 1)-> df_wk04
+df_wk04 <- haven::read_spss("../files/survey/week5.sav")
+df_wk04
 ```
 
 
@@ -529,7 +529,7 @@ DT::datatable(df_wk04 %>%
                 pageLength = 3
               )
               )
-2+2
+
 ```
 
 
@@ -537,13 +537,13 @@ DT::datatable(df_wk04 %>%
 ## What we've learned
 
 ```{r learn, echo=F, out.height='90%'}
-
+df_wk04$code_skills
 DT::datatable(df_wk04 %>% 
-                select(Learn),
+                select(code_skills),
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 ```
@@ -570,7 +570,7 @@ DT::datatable(df_wk04 %>%
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 2+2
@@ -583,11 +583,11 @@ DT::datatable(df_wk04 %>%
 ```{r struggle, echo=F, out.height='90%'}
 
 DT::datatable(df_wk04 %>% 
-                select(Struggle),
+                select(code_challenge),
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 ```
@@ -706,7 +706,7 @@ class:inverse, middle, center
 
 - Matching:
   - Conceptually appealing (mirrors the logic of an experiment)
-  - Technically complex (complicated algorhitms, finicky software) 
+  - Technically complex (complicated algorithms, finicky software) 
   - Only provides balance on **observed covariates**
 
 
@@ -2034,8 +2034,6 @@ Instrumental variables are an economists favorite tool for dealing with **omitte
   - Monotonicity
 - Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommitted variables)
 
----
-class: center
 ## IV Assumption: Randomization
 
 
@@ -2044,7 +2042,7 @@ class: center
 ]
 .right-column[
 ```{r iv1, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2057,12 +2055,12 @@ class: center
 
 
 .left-column[
-- No path from $Z$ to $Y$ except through $D$
+- No path from $Z$ to $Y$
 ]
 
 .right-column[
 ```{r iv2, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2078,7 +2076,7 @@ class: center
 ]
 .right-column[
 ```{r iv3, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2099,7 +2097,7 @@ class: center
 
 .right-column[
 ```{r iv4, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 ]

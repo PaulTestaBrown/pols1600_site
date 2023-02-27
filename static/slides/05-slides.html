@@ -29,9 +29,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Week 05:
+]
+.subtitle[
 ## Prediction with Linear Regression
+]
+.author[
 ### Paul Testa
+]
 
 ---
 
@@ -183,18 +189,18 @@ ipak(the_packages)
 ```
 
 ```
-   kableExtra            DT     tidyverse     lubridate       forcats 
+   kableExtra            DT        texreg     tidyverse     lubridate 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-        haven      labelled         ggmap       ggrepel      ggridges 
+      forcats         haven      labelled         ggmap       ggrepel 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-     ggthemes        ggpubr        GGally        scales       dagitty 
+     ggridges      ggthemes        ggpubr        GGally        scales 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-        ggdag       ggforce       COVID19          maps       mapdata 
+      dagitty         ggdag       ggforce       COVID19          maps 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-          qss    tidycensus     dataverse DeclareDesign     easystats 
+      mapdata           qss    tidycensus     dataverse DeclareDesign 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-          zoo 
-         TRUE 
+    easystats           zoo 
+         TRUE          TRUE 
 ```
 
 
@@ -208,11 +214,12 @@ class:inverse, center, middle
 
 
 ```r
-covid &lt;- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid &lt;- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ---
@@ -266,7 +273,7 @@ covid_us %&gt;%
 ```
 
 ```
-# A tibble: 36,974 × 4
+# A tibble: 54,212 × 4
 # Groups:   state [51]
    state     date       new_cases_pc new_cases_pc_7da
    &lt;chr&gt;     &lt;date&gt;            &lt;dbl&gt;            &lt;dbl&gt;
@@ -280,7 +287,7 @@ covid_us %&gt;%
  8 Minnesota 2020-03-13       0.0887           0.0329
  9 Minnesota 2020-03-14       0.124            0.0507
 10 Minnesota 2020-03-15       0.248            0.0836
-# … with 36,964 more rows
+# … with 54,202 more rows
 ```
 
 ---
@@ -398,27 +405,19 @@ head(pres_df)
 ```
 
 ```
-  year   state state_po state_fips state_cen state_ic       office
-1 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-2 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-3 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-4 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-5 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-6 1976 ALABAMA       AL          1        63       41 US PRESIDENT
-                        candidate             party_detailed writein
-1                   CARTER, JIMMY                   DEMOCRAT   FALSE
-2                    FORD, GERALD                 REPUBLICAN   FALSE
-3                  MADDOX, LESTER AMERICAN INDEPENDENT PARTY   FALSE
-4 BUBAR, BENJAMIN \\"\\"BEN\\"\\"                PROHIBITION   FALSE
-5                       HALL, GUS        COMMUNIST PARTY USE   FALSE
-6                 MACBRIDE, ROGER                LIBERTARIAN   FALSE
-  candidatevotes totalvotes  version notes party_simplified
-1         659170    1182850 20210113    NA         DEMOCRAT
-2         504070    1182850 20210113    NA       REPUBLICAN
-3           9198    1182850 20210113    NA            OTHER
-4           6669    1182850 20210113    NA            OTHER
-5           1954    1182850 20210113    NA            OTHER
-6           1481    1182850 20210113    NA      LIBERTARIAN
+# A tibble: 6 × 15
+   year state   state_po state_…¹ state…² state…³ office candi…⁴ party…⁵ writein
+  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;  
+1  1976 ALABAMA AL              1      63      41 US PR… "CARTE… DEMOCR… FALSE  
+2  1976 ALABAMA AL              1      63      41 US PR… "FORD,… REPUBL… FALSE  
+3  1976 ALABAMA AL              1      63      41 US PR… "MADDO… AMERIC… FALSE  
+4  1976 ALABAMA AL              1      63      41 US PR… "BUBAR… PROHIB… FALSE  
+5  1976 ALABAMA AL              1      63      41 US PR… "HALL,… COMMUN… FALSE  
+6  1976 ALABAMA AL              1      63      41 US PR… "MACBR… LIBERT… FALSE  
+# … with 5 more variables: candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;,
+#   version &lt;dbl&gt;, notes &lt;lgl&gt;, party_simplified &lt;chr&gt;, and abbreviated
+#   variable names ¹​state_fips, ²​state_cen, ³​state_ic, ⁴​candidate,
+#   ⁵​party_detailed
 ```
 
 ---
@@ -455,20 +454,17 @@ head(pres2020_df)
 ```
 
 ```
-       state year totalvotes DEMOCRAT REPUBLICAN dem_voteshare rep_voteshare
-1    Alabama 2020    2323282   849624    1441170     0.3656999     0.6203164
-2     Alaska 2020     359530   153778     189951     0.4277195     0.5283314
-3    Arizona 2020    3387326  1672143    1661686     0.4936469     0.4905598
-4   Arkansas 2020    1219069   423932     760647     0.3477506     0.6239573
-5 California 2020   17500881 11110250    6006429     0.6348395     0.3432072
-6   Colorado 2020    3279980  1804352    1364607     0.5501107     0.4160413
-  winner
-1  Trump
-2  Trump
-3  Biden
-4  Trump
-5  Biden
-6  Biden
+# A tibble: 6 × 9
+  state      state_po year_elec…¹ total…² DEMOC…³ REPUB…⁴ dem_v…⁵ rep_v…⁶ winner
+  &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; 
+1 Alabama    AL              2020  2.32e6  8.50e5 1441170    36.6    62.0 Trump 
+2 Alaska     AK              2020  3.60e5  1.54e5  189951    42.8    52.8 Trump 
+3 Arizona    AZ              2020  3.39e6  1.67e6 1661686    49.4    49.1 Biden 
+4 Arkansas   AR              2020  1.22e6  4.24e5  760647    34.8    62.4 Trump 
+5 California CA              2020  1.75e7  1.11e7 6006429    63.5    34.3 Biden 
+6 Colorado   CO              2020  3.28e6  1.80e6 1364607    55.0    41.6 Biden 
+# … with abbreviated variable names ¹​year_election, ²​totalvotes, ³​DEMOCRAT,
+#   ⁴​REPUBLICAN, ⁵​dem_voteshare, ⁶​rep_voteshare
 ```
 
 
@@ -559,7 +555,7 @@ sum(pres2020_df$state %in% covid_us$state)
 ```
 
 ```
-[1] 50
+[1] 51
 ```
 
 ```r
@@ -568,7 +564,7 @@ pres2020_df$state[!pres2020_df$state %in% covid_us$state]
 ```
 
 ```
-[1] "District Of Columbia"
+character(0)
 ```
 
 ```r
@@ -592,7 +588,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 38072    56
+[1] 55310    56
 ```
 
 ```r
@@ -600,7 +596,7 @@ dim(pres2020_df)
 ```
 
 ```
-[1] 51  8
+[1] 51  9
 ```
 
 ```r
@@ -612,7 +608,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 38072    63
+[1] 55310    64
 ```
 
 
@@ -625,7 +621,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 38072    63
+[1] 55310    64
 ```
 
 ```r
@@ -645,7 +641,7 @@ dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
 ```
 
 ```
-[1] 38072    65
+[1] 55310    66
 ```
 
 ---
@@ -663,6 +659,28 @@ background-size: contain
 ## Feedback
 
 
+```
+# A tibble: 21 × 29
+   StartDate           EndDate             Status        IPAdd…¹ Progr…² Durat…³
+   &lt;dttm&gt;              &lt;dttm&gt;              &lt;dbl+lbl&gt;     &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+ 1 2023-02-23 13:47:36 2023-02-23 13:49:09 0 [IP Addres… 128.14…     100      92
+ 2 2023-02-23 13:47:34 2023-02-23 13:49:13 0 [IP Addres… 128.14…     100      98
+ 3 2023-02-23 13:47:30 2023-02-23 13:49:17 0 [IP Addres… 128.14…     100     107
+ 4 2023-02-23 13:47:32 2023-02-23 13:49:26 0 [IP Addres… 128.14…     100     114
+ 5 2023-02-23 13:47:50 2023-02-23 13:49:35 0 [IP Addres… 128.14…     100     105
+ 6 2023-02-23 13:47:17 2023-02-23 13:49:38 0 [IP Addres… 192.91…     100     141
+ 7 2023-02-23 13:48:03 2023-02-23 13:49:42 0 [IP Addres… 128.14…     100      99
+ 8 2023-02-23 13:47:14 2023-02-23 13:49:48 0 [IP Addres… 128.14…     100     154
+ 9 2023-02-23 13:47:33 2023-02-23 13:49:54 0 [IP Addres… 128.14…     100     140
+10 2023-02-23 13:47:49 2023-02-23 13:49:54 0 [IP Addres… 128.14…     100     125
+# … with 11 more rows, 23 more variables: Finished &lt;dbl+lbl&gt;,
+#   RecordedDate &lt;dttm&gt;, ResponseId &lt;chr&gt;, RecipientLastName &lt;chr&gt;,
+#   RecipientFirstName &lt;chr&gt;, RecipientEmail &lt;chr&gt;, ExternalReference &lt;chr&gt;,
+#   LocationLatitude &lt;chr&gt;, LocationLongitude &lt;chr&gt;, DistributionChannel &lt;chr&gt;,
+#   UserLanguage &lt;chr&gt;, Likes &lt;chr&gt;, Dislikes &lt;chr&gt;, code_skills &lt;chr&gt;,
+#   code_challenge &lt;chr&gt;, eval_1 &lt;dbl&gt;, eval_2 &lt;dbl&gt;, eval_3 &lt;dbl&gt;,
+#   eval_trump_1 &lt;dbl&gt;, eval_trump_2 &lt;dbl&gt;, eval_trump_3 &lt;dbl&gt;, …
+```
 
 
 ---
@@ -679,19 +697,46 @@ background-size: contain
 ---
 ## What we liked
 
-<div id="htmlwidget-66c33c2f3c403c7ea829" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-66c33c2f3c403c7ea829">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["I like when we review topics from before and the break down fo the slides","I find thinking about causal identification and observational designs really interesting. I'm looking forward to hopefully talking more about moral/ethical constraints there, especially since this is a class focused on social sciences and political research where the data can definitely be manipulated to target/influence divides.","The review at the start of class.","I liked how we reviewed things. The pace also seemed a bit less fast and more manageable","I liked the overview of means, and the introduction to regressions - it was interesting","Your memes :)\nUsing survey data to model our code","I like your cheerful energy!","I really like when you walk us through the visualizations you make step by step","I thought the general review was useful, and hope we can do a few more throughout the course just to make sure I'm keeping up"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-
-```
-[1] 4
-```
+<div id="htmlwidget-1182c01d103ebf89f69a" style="width:100%;height:90%;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-1182c01d103ebf89f69a">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["","Getting to work/meet lab partners I have not communicated with yet in this class!","I found our lab quite interesting last week. It was quite rewarding to be able to analyze the data and apply the skills we already learnt","","The Clueless meme\n","The comparisons and examples with real-life studies (like the sophomore problem).","I appreciated the content of today's lecture\n","I found interesting the different ways to interept data and how useful that information is when coding.","lab breakdown of working with our groups but still coming back to working as one large group to make sure we're all on the same page","I've been enjoying the tutorials a lot!","I enjoyed the lab! I appreciated having the comments guide me along the way whenever I needed it. It is especially useful now.","I liked working in groups! It was very interesting to see the way other people work and the troubleshoot with each other. I am looking forward to continuing to work with and learn from my peers.","The mapping concepts to code made the entire process seem a bit more straightforward.","I liked having the time to work with my lab group to just play around with the code.","This is silly but copy and paste is fun lol","We didn't get to it in lab, but did my own experimenting to plot the results of the study. Felt very fulfilling.","I liked the causal questions lecture, especially the section where we got to brainstorm a question with our peers. I think showing us how to understand what's going on in chunks of code was useful. Copy pasting large chunks of code still feels confusing but I think we're getting the skills to get the general picture.","I enjoyed working on replicating published figures from data sets. I think having an end goal/figure helped in understanding the steps we were taking and how to get there.","I liked the lab. I think that having to work through it is the most useful for learning and getting better at coding.\n","I liked during the lab last week when I understood what I was doing and was able to correct my code independently- that felt good.\nI found that taking my time on the tutorials and following in my textbook was useful.","I have enjoyed going over many of the terms that I have heard used when discussing social science research in my previous courses. I also enjoyed going through the different lines of code so we can get a better understanding of what each function and operation is actually doing."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 ## What we've learned
 
-<div id="htmlwidget-334a6cda7251e23751c4" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-334a6cda7251e23751c4">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["Programming for sure","I've been talking about the study we used in the lab last week since I first read it. I just found it so interesting and so promising that a 10 minute conversation with a stranger could build a substantial/measurable amount of empathy. Thinking about research design in that way, and the power statistics and the process of obtaining statistics has been cool.","Basics for setting up a R Markdown file and some syntax. Working with and creating vectors and modifying data.","The statistics aspect of class has brought back the useful things I learned in high school but forgot about, so it's nice to have the refresher.","I've started to really get comfortable with the R interface, and I understand basic descriptive statistics (mean, median, etc.) well.","That there are different \"code languages\"\nThat we can code to arrange data in cool ways as opposed to doing it manually","I think I've gotten better at coding, \"learning the language\" I also think all of the theoretical stuff makes sense.","I've learned a lot about the keyboard shortcuts in R and I think that's been really cool.","I've definitely gotten a lot more comfortable with R, I'm learning to look at data in a new and different way, I'm able to read data more critically, I can visualise it a lot more easily (or at least know more or less how to do so) and am semi-able to read code and have a basic idea of what it does"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Learn<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+```
+ [1] ""                                                                                                               
+ [2] "Separate my code effectively into useful code chunks!\n"                                                        
+ [3] "I'm not entirely sure"                                                                                          
+ [4] "putting data$ something in the tutorials"                                                                       
+ [5] "the basics I have down pretty well, setting up loading and the basic adjustments"                               
+ [6] "I think I am learning pretty well to discern commands and explain what each line does."                         
+ [7] "organizing my code into chunks that make sense for me\n"                                                        
+ [8] "Creating different code chunks and labelling them."                                                             
+ [9] "setting up workspace and staying organized while coding"                                                        
+[10] "It's really satisfying making graphs!"                                                                          
+[11] "Loading them packages."                                                                                         
+[12] "follow instructions"                                                                                            
+[13] "I feel like I am good at understanding what things do"                                                          
+[14] "Set up data/loading libraries, simple filtering of data and making graphs"                                      
+[15] "Making things organized"                                                                                        
+[16] "Simple arithmetic functions, basic plotting"                                                                    
+[17] "Make chunks, load packages, paste things"                                                                       
+[18] "using summary on data tables"                                                                                   
+[19] "I think I've gotten comfortable with getting the workspace set up and looking over and cleaning data."          
+[20] "I am good at FAAFing O"                                                                                         
+[21] "I feel confident using the commands to look at the data! But not quite yet confident on how to mutate the data."
+attr(,"label")
+[1] "What's one thing you do really well in R?"
+attr(,"format.spss")
+[1] "A2000"
+attr(,"display_width")
+[1] 15
+```
+
+<div id="htmlwidget-05115e0b5e87b19b696e" style="width:100%;height:90%;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-05115e0b5e87b19b696e">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["","Separate my code effectively into useful code chunks!\n","I'm not entirely sure","putting data$ something in the tutorials","the basics I have down pretty well, setting up loading and the basic adjustments","I think I am learning pretty well to discern commands and explain what each line does.","organizing my code into chunks that make sense for me\n","Creating different code chunks and labelling them.","setting up workspace and staying organized while coding","It's really satisfying making graphs!","Loading them packages.","follow instructions","I feel like I am good at understanding what things do","Set up data/loading libraries, simple filtering of data and making graphs","Making things organized","Simple arithmetic functions, basic plotting","Make chunks, load packages, paste things","using summary on data tables","I think I've gotten comfortable with getting the workspace set up and looking over and cleaning data.","I am good at FAAFing O","I feel confident using the commands to look at the data! But not quite yet confident on how to mutate the data."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>code_skills<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -709,8 +754,8 @@ background-size: contain
 ---
 ## What we disliked
 
-<div id="htmlwidget-37f546f0e4c4e3719717" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-37f546f0e4c4e3719717">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["The pace is a little fast. Its a lot of new info at once","I think review just generally makes it hard for me to engage fully, so I look forward to digging into new content.","In general I had some difficulty staying focused for the entire 1 hour and 20 minutes. I do not think it is reflective of the class itself, but rather of just how busy I am and how hectic everything is at the moment.","I feel pretty decent on a conceptual level with everything, but sometimes things are still a bit fuzzy. It is frustrating that there are so many different things to keep in mind, which are all necessary for a basic understanding of data sets and labs, but I think with time it will be easier.","I think we could use a bit of a longer break halfway through lecture","I just don't really understand the words you use during lecture","a little too much review, to be quite honest... but it was good to take a bit of a break this week...honestly a bit torn.","I wish there was a lab. I find that the hands on work is very helpful in learning","Maybe just because we haven't gotten too in depth with it, but regression I've found a little confusing, so if we could go over it not only in conceptual terms but also in practical terms I think that would be really useful"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9765dcb4149b20505a6a" style="width:100%;height:90%;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-9765dcb4149b20505a6a">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["","My computer malfunctioning during lab lol","The concepts can be quite hard. The tutorials are important, but sometime it requires a lot of depth","","Needed slightly more time in group work for the lab","","n/a\n","I am still confused about counterfacturals. I also am unsure how all the math equations are relevant, like what/how are we suppose to think about them.","the tutorials are not my favorite, I don't find them super helpful (yet at least) and they're tedious \n","Maybe before labs, we could go over the experiment we are working on a bit more in-depth? I got a bit lost during the lab not because of the coding, but because I wasn't sure what information I was trying to find and how that fit into the experiment we were looking at","There are a lot of concepts and mathematical jargon that can kinda get confusing and clunky and makes me get lost at times.","Although I liked working in groups, I found the lab difficult and was thankful for help from my peers and Prof Testa.","The concepts are a bit technical, and my code has been difficult to load recently because of oftentimes granular and difficult-to-spot errors.","","It is hard to keep up with the group when we are using one person's computer and just doing a few things on our own to see if we are following (basically the speed of info recall)","","The pace is still a bit fast.","I think my brain turns off for some of the more theoretical interpretations of descriptive statistics, but that's not really the focus of the class.","I find the amount of slides confusing because if I need to go back to the slides to remember something it is difficult to find what I am looking for because there are so many and we don't usually go over all of them.","I had trouble understanding the mathematical notations that were used last week (really just in reference to the slides and explanations). But it is just frustrating when I semi-grasp the subject and can see the potential","I still feel confused working with R. I don't feel like I have a strong enough understanding of the language to be able to do labs independently/in a group setting."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ```
 [1] 4
@@ -720,8 +765,8 @@ background-size: contain
 ---
 ## What we've struggled with
 
-<div id="htmlwidget-ff3d251183942f4667fb" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ff3d251183942f4667fb">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9"],["","I think some of the programming hasn't settled in, especially since copying and pasting means I don't have to the step-by-step typing (I still like copy and pasting though! it's definitely more streamlined and that doesn't need to change!), but more practice building code chains and understanding why they work will definitely be good","Basics for setting up a R Markdown file and some syntax. Working with and creating vectors and modifying data. Also, setting up diagrams/graphs. Some of the more complicated vectors and pipe functions?","Sometimes you bring up things that we don't have to remember or know about, but that can make me confused. Not always at the moment, but I can sometimes confuse the concept we don't have to understand with something we do.","I'm confused about acyclic graphs but I think we're going to learn about that more in the future","I understand what I wrote above, but still don't know how to go about coding","Sometimes I have difficulty understanding differences between the textbook and our version of R","Some of the statistics stuff has been over my head","I think mostly knowing when and how we're going to apply concepts in a more practical manner could be clarified (ie covariate adjustment) but that's a newer topic so hopefully it'll be covered soon!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Struggle<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}],"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ac40ebc3475ef0354874" style="width:100%;height:90%;" class="datatables html-widget "></div>
+<script type="application/json" data-for="htmlwidget-ac40ebc3475ef0354874">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"],["transforming data","Understanding how to read / comprehend code more effectively!\n","How to design a graph, and choose the type of graph","I wish I had a better understanding of what types of functions I should use when I want to do something","Wish I understood the long chunks more deeply","More time to digest the topics and methods.","Learning how to write out multiple lines of code at once","I just wish I understood the functions more. I feel like there is always so many functions to keep track up that it gets confusing. I would like a list or something that could maybe explain them better.","I just don't think i understand a lot of the functions super well yet in terms of how to write them myself. like I understand broadly what they're doing, but not how to format them to get them to do those things","Data wrangling is still confusing to me","In the course, I wish to understand the theories and mathematical concepts better with practice or examples.","I often have a hard time locating my mistakes when I have errors.","I struggle to properly set up R and understand the language from scratch.","I would like to understand visually how the columns transform so I can see what the code does.","How we are going to do our own research and find credible data","the less intuitive function names","Mutate function, ggplot","pivot_wider and pivot_longer often confuse me in how to best transpose data.","Knowing how to make graphs has been a bit confusing because we use ggplot in class and something different in the tutorials.","The individual panels and their functions/relations to one another","The syntax behind mutating data, as well as the math behind descriptive statistics."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>code_challenge<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -837,7 +882,7 @@ class:inverse, middle, center
 
 - Matching:
   - Conceptually appealing (mirrors the logic of an experiment)
-  - Technically complex (complicated algorhitms, finicky software) 
+  - Technically complex (complicated algorithms, finicky software) 
   - Only provides balance on **observed covariates**
 
 
@@ -1989,8 +2034,8 @@ $ margin     &lt;dbl&gt; 0.05690404, -0.04973833, -0.04158868, 0.02329524, -0.23
 ```
 
 ---
-<div id="htmlwidget-b0d7f9738e3a5a456559" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b0d7f9738e3a5a456559">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["surname","firstname","party","ln.gross","ln.net","yob","yod","margin.pre","region","margin"],["surname of the candidate","first name of the candidate","party of the candidate (labour or tory)","log gross wealth at the time of death","log net wealth at the time of death","year of birth of the candidate","year of death of the candidate","margin of the candidate’s party in the previous election electoral","region","margin of victory (vote share)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-17645fd7bc1bf630d32a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-17645fd7bc1bf630d32a">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10"],["surname","firstname","party","ln.gross","ln.net","yob","yod","margin.pre","region","margin"],["surname of the candidate","first name of the candidate","party of the candidate (labour or tory)","log gross wealth at the time of death","log net wealth at the time of death","year of birth of the candidate","year of death of the candidate","margin of the candidate’s party in the previous election electoral","region","margin of victory (vote share)"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -2093,8 +2138,6 @@ Instrumental variables are an economists favorite tool for dealing with **omitte
   - Monotonicity
 - Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommitted variables)
 
----
-class: center
 ## IV Assumption: Randomization
 
 
@@ -2102,7 +2145,7 @@ class: center
 - No path from `\(U\)` to `\(Z\)`
 ]
 .right-column[
-&lt;img src="https://book.declaredesign.org/figures/figure_15.4.svg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://book.declaredesign.org/figures/figure_16.7.svg" width="80%" style="display: block; margin: auto;" /&gt;
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 
@@ -2114,11 +2157,11 @@ class: center
 
 
 .left-column[
-- No path from `\(Z\)` to `\(Y\)` except through `\(D\)`
+- No path from `\(Z\)` to `\(Y\)`
 ]
 
 .right-column[
-&lt;img src="https://book.declaredesign.org/figures/figure_15.4.svg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://book.declaredesign.org/figures/figure_16.7.svg" width="80%" style="display: block; margin: auto;" /&gt;
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 
@@ -2132,7 +2175,7 @@ class: center
 - Path from `\(Z\)` to `\(D\)`
 ]
 .right-column[
-&lt;img src="https://book.declaredesign.org/figures/figure_15.4.svg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://book.declaredesign.org/figures/figure_16.7.svg" width="80%" style="display: block; margin: auto;" /&gt;
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 
@@ -2151,7 +2194,7 @@ class: center
 ]
 
 .right-column[
-&lt;img src="https://book.declaredesign.org/figures/figure_15.4.svg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://book.declaredesign.org/figures/figure_16.7.svg" width="80%" style="display: block; margin: auto;" /&gt;
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 ]
 
@@ -2499,6 +2542,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
