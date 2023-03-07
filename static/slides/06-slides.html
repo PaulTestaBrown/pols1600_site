@@ -216,11 +216,13 @@ class:inverse, center, middle
 
 
 ```r
-covid &lt;- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid &lt;- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ---
@@ -436,7 +438,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 55896    52
+[1] 54246    52
 ```
 
 ```r
@@ -457,7 +459,7 @@ dim(tmp) # Same number of rows as covid_us w/ 8 additional columns
 ```
 
 ```
-[1] 55896    60
+[1] 54246    60
 ```
 
 
@@ -470,7 +472,7 @@ dim(tmp)
 ```
 
 ```
-[1] 55896    60
+[1] 54246    60
 ```
 
 ```r
@@ -491,7 +493,7 @@ dim(covid_df)  # Same number of rows as tmp w/ 2 additional columns
 ```
 
 ```
-[1] 55896    62
+[1] 54246    62
 ```
 
 
@@ -969,7 +971,7 @@ lm(formula = new_deaths ~ winner, data = covid_df)
 
 Coefficients:
 (Intercept)  winnerBiden  
-     18.659        3.505  
+      18.99         3.57  
 ```
 
 `m1` is the equation for a very simple line defined by two points:
@@ -1031,7 +1033,7 @@ table(m1$model$winner)
 ```
 
 Trump Biden 
-27338 27588 
+26538 26788 
 ```
 
 ```r
@@ -1041,7 +1043,7 @@ table(model.matrix(m1)[,2])
 ```
 
     0     1 
-27338 27588 
+26538 26788 
 ```
 
 ---
@@ -1087,7 +1089,7 @@ lm(formula = new_deaths_pc_14da ~ percent_vaccinated, data = covid_df,
 
 Coefficients:
        (Intercept)  percent_vaccinated  
-           2.41795            -0.03299  
+           2.41854            -0.03301  
 ```
 
 

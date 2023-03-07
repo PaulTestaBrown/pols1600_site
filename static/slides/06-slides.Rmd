@@ -199,11 +199,13 @@ class:inverse, center, middle
 ## Load the Covid-19 Data
 
 ```{r covid}
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid <- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ---
