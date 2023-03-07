@@ -14,24 +14,21 @@
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
     <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
     <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-    <script src="libs/datatables-binding/datatables.js"></script>
-    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
-    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
-    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
-    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="css/brown.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Week 06:
+]
+.subtitle[
 ## Linear Regression with Multiple Predictors
+]
+.author[
 ### Paul Testa
+]
 
 ---
 
@@ -103,7 +100,7 @@ class: inverse, center, middle
 
 - Prompt posted [here](https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx)
 
-- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) this Sunday
+- Upload to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870539) next Sunday March 19
 
 1. A revised description of your group's research project
 2. A description of a linear model implied by your question
@@ -200,12 +197,12 @@ ipak(the_packages)
          TRUE          TRUE          TRUE          TRUE          TRUE 
      ggridges      ggthemes        ggpubr        GGally        scales 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      dagitty         ggdag       ggforce       COVID19          maps 
+      dagitty         ggdag       ggforce scatterplot3d       COVID19 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-      mapdata           qss    tidycensus     dataverse DeclareDesign 
+         maps       mapdata           qss    tidycensus     dataverse 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-    easystats           zoo 
-         TRUE          TRUE 
+DeclareDesign     easystats           zoo 
+         TRUE          TRUE          TRUE 
 ```
 
 
@@ -296,17 +293,18 @@ head(pres_df)
 
 ```
 # A tibble: 6 × 15
-   year state   state_po state_fips state_cen state_ic office       candidate   
-  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       
-1  1976 ALABAMA AL                1        63       41 US PRESIDENT "CARTER, JI…
-2  1976 ALABAMA AL                1        63       41 US PRESIDENT "FORD, GERA…
-3  1976 ALABAMA AL                1        63       41 US PRESIDENT "MADDOX, LE…
-4  1976 ALABAMA AL                1        63       41 US PRESIDENT "BUBAR, BEN…
-5  1976 ALABAMA AL                1        63       41 US PRESIDENT "HALL, GUS" 
-6  1976 ALABAMA AL                1        63       41 US PRESIDENT "MACBRIDE, …
-# … with 7 more variables: party_detailed &lt;chr&gt;, writein &lt;lgl&gt;,
-#   candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;, version &lt;dbl&gt;, notes &lt;lgl&gt;,
-#   party_simplified &lt;chr&gt;
+   year state   state_po state_…¹ state…² state…³ office candi…⁴ party…⁵ writein
+  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;  
+1  1976 ALABAMA AL              1      63      41 US PR… "CARTE… DEMOCR… FALSE  
+2  1976 ALABAMA AL              1      63      41 US PR… "FORD,… REPUBL… FALSE  
+3  1976 ALABAMA AL              1      63      41 US PR… "MADDO… AMERIC… FALSE  
+4  1976 ALABAMA AL              1      63      41 US PR… "BUBAR… PROHIB… FALSE  
+5  1976 ALABAMA AL              1      63      41 US PR… "HALL,… COMMUN… FALSE  
+6  1976 ALABAMA AL              1      63      41 US PR… "MACBR… LIBERT… FALSE  
+# … with 5 more variables: candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;,
+#   version &lt;dbl&gt;, notes &lt;lgl&gt;, party_simplified &lt;chr&gt;, and abbreviated
+#   variable names ¹​state_fips, ²​state_cen, ³​state_ic, ⁴​candidate,
+#   ⁵​party_detailed
 ```
 
 ---
@@ -344,15 +342,16 @@ head(pres2020_df)
 
 ```
 # A tibble: 6 × 9
-  state      state_po year_election totalvotes DEMOCRAT REPUBLICAN dem_voteshare
-  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
-1 Alabama    AL                2020    2323282   849624    1441170          36.6
-2 Alaska     AK                2020     359530   153778     189951          42.8
-3 Arizona    AZ                2020    3387326  1672143    1661686          49.4
-4 Arkansas   AR                2020    1219069   423932     760647          34.8
-5 California CA                2020   17500881 11110250    6006429          63.5
-6 Colorado   CO                2020    3279980  1804352    1364607          55.0
-# … with 2 more variables: rep_voteshare &lt;dbl&gt;, winner &lt;fct&gt;
+  state      state_po year_elec…¹ total…² DEMOC…³ REPUB…⁴ dem_v…⁵ rep_v…⁶ winner
+  &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt; 
+1 Alabama    AL              2020  2.32e6  8.50e5 1441170    36.6    62.0 Trump 
+2 Alaska     AK              2020  3.60e5  1.54e5  189951    42.8    52.8 Trump 
+3 Arizona    AZ              2020  3.39e6  1.67e6 1661686    49.4    49.1 Biden 
+4 Arkansas   AR              2020  1.22e6  4.24e5  760647    34.8    62.4 Trump 
+5 California CA              2020  1.75e7  1.11e7 6006429    63.5    34.3 Biden 
+6 Colorado   CO              2020  3.28e6  1.80e6 1364607    55.0    41.6 Biden 
+# … with abbreviated variable names ¹​year_election, ²​totalvotes, ³​DEMOCRAT,
+#   ⁴​REPUBLICAN, ⁵​dem_voteshare, ⁶​rep_voteshare
 ```
 
 
@@ -437,7 +436,7 @@ dim(covid_us)
 ```
 
 ```
-[1] 37696    52
+[1] 55896    52
 ```
 
 ```r
@@ -458,7 +457,7 @@ dim(tmp) # Same number of rows as covid_us w/ 8 additional columns
 ```
 
 ```
-[1] 37696    60
+[1] 55896    60
 ```
 
 
@@ -471,7 +470,7 @@ dim(tmp)
 ```
 
 ```
-[1] 37696    60
+[1] 55896    60
 ```
 
 ```r
@@ -492,7 +491,7 @@ dim(covid_df)  # Same number of rows as tmp w/ 2 additional columns
 ```
 
 ```
-[1] 37696    62
+[1] 55896    62
 ```
 
 
@@ -585,7 +584,7 @@ covid_lab %&gt;%
 If we were to estimate a model with standardized predictors:
 
 `$$\text{New Covid Deaths} = \beta_0 +\beta_1 \text{Rep. Vote Share}_{std} +\beta_2 \text{Median Age}_{std} +\beta_3 \text{Median Income}_{std} + \epsilon$$`
-The coefficients still tell us predicted change in New Covid Deaths for a unit change in a predicotr, but now a unit change corresponds to a 1-standard deviation increase of each predictor:
+The coefficients still tell us predicted change in New Covid Deaths for a unit change in a predictor, but now a unit change corresponds to a 1-standard deviation increase of each predictor:
 
 
 ```r
@@ -593,15 +592,19 @@ covid_lab %&gt;%
   summarise(
     sd_rep_vote = sd(rep_voteshare),
     sd_med_age = sd(med_age),
-    sd_med_income = sd(med_income)
+    sd_med_income = sd(med_income),
+    sd_rep_vote_std = sd(rep_voteshare_std),
+    sd_med_age_std = sd(med_age_std),
+    sd_med_income_std = sd(med_income_std)
   )
 ```
 
 ```
-# A tibble: 1 × 3
-  sd_rep_vote sd_med_age sd_med_income
-        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
-1        10.4       2.36        10288.
+# A tibble: 1 × 6
+  sd_rep_vote sd_med_age sd_med_income sd_rep_vote_std sd_med_age_std sd_med_i…¹
+        &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+1        10.4       2.36        10288.               1              1          1
+# … with abbreviated variable name ¹​sd_med_income_std
 ```
 
 ---
@@ -628,107 +631,6 @@ load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 
 
 
----
-class: inverse, center, middle
-background-image: url("http://static1.squarespace.com/static/5578d503e4b0bc473a0165e5/t/59e7b63a12abd9eb164d30bd/1508357693350/?format=1500w")
-background-size: cover
-# 📢
-## Feedback
-
-
-
----
-## What we liked
-
---
-
-- The lab, or at least aspects of the lab like:
-  - Working in groups
-  - Building from copying code to writing code
-  - Dealing with real world data/questions
-- Pacing of lab/lecture
-- Tutorials
-- Math(!?)
-
----
-## What we liked
-
-<div id="htmlwidget-abb1ce4283c7f2f34db8" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-abb1ce4283c7f2f34db8">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","I thought we moved at a pretty good pace. I thought I got a better understanding of how all the code fit together.","Being in groups help grasp the information much better. Also the overview at the beginning of class is great.","I enjoyed the lab more than before, because it had an effective mix of copy-pasting and baby code writing.","I liked that lab was more guided. It was nice that we had group check-ins","Math-y explanations, since they have to be learned sooner or later when doing quantitative analysis.","I thought the lab this week was great. I like how we're building up our skills, and pushing a little bit beyond just copying and pasting to understand why we're doing what we're doing","The Lab was fun with our group","I liked the lab! I've been finding myself enjoying the labs more than I thought I would recently. I also liked the Jon Snow joke in lecture.","I enjoyed the lab! I thought joining the two data frames together was cool and was glad we got to practice that","","The lab, although challenging, went well. Working in groups helps when working through \"portals of discovery.\"","I felt like Tuesday lecture went at a pretty good pace!"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-
-
-
----
-## What we disliked 
-
-
-- Lab
-  - Pacing/Length
-  - Coding roadblocks/portals of discovery
-- Connection between lecture and lab
-- Math
-
-
----
-## What we disliked
-
-<div id="htmlwidget-5a2e4fed8f5390801aa2" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5a2e4fed8f5390801aa2">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13"],["","For some reason, I was getting really large negative numbers when we got to sections seven and eight. I'm not sure why, but I'll do some review.","When inputting the code chucks changing the place holders from green to blue was confusing.","The statistical concepts continue to haunt me, I think because we pack a lot into lecture.","I guess I just get frustrated when my code is right but doesn’t work. But I think it just requires patience at this point","Nothing, really. There were times when things wouldn't work or didn't make sense but that just seems part of the learning process.\n\nI wouldn't be surprised if there are other people like me who initially struggled with how to take notes &amp; learn in a class like this. It's definitely been an adjustment. I've gotten better about only looking at my computer when I absolutely need to on Tuesday classes. Otherwise I could get distracted.\n\n(This is more of a long-term thing: considering the size of the class, and how much of learning coding is trouble-shooting, I bet having a TA would be helpful for everyone. Even CS courses with smaller class sizes than ours have TAs.)","the lab was pretty long, so not being able to move through the whole thing was a little frustrating, but getting the basic steps done and then being able to play with it later has its pros","I was confused by all the equations in lecture and how they connect to lab/ HW","Although I enjoyed the lab, at some point I received an error in my code and couldn't move on for a while because I couldn't figure out the error - so it was stressful to feel like I was falling behind.","I kind of want to understand the code I’m writing a little bit more, maybe it would be nice to do exercises where we practice functions a little more","","If you run into difficulty in the lab it can be hard to catch up as the class moves ahead.","I'm still feeling like all the concepts are piling up on each other, but I also know that I'm busy and could probably spend more time reviewing on my own."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-
-```
-[1] 4
-```
-
----
-## What we'll do
-
-.pull-left[
-### Me
-
-- Keep the labs shorter
-- Post the labs earlier
-- Try different ways of teaching coding
-  - Copy paste and run code
-  - Run and comment code
-  - Fill in the blank
-  - Update and adapt code
-  - Troubleshoot broken code
-  - Write your own code
-]
-
---
-
-.pull-right[
-### You
-
-- Keep doing the tutorials
-- Review the labs before class
-- Use the structure of .Rmd file as your friend
-- Use separate code chunks for exploratory code and final code
-- Work through the commented labs
-- Come to office hours?
-
-
-
-]
-
----
-class: inverse, center, middle
-background-image:url("https://media.giphy.com/media/KWwPcQwGetlA0qKdY0/giphy.gif")
-background-size: cover
-
-## Help me with my fit
-
-
-
----
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-class: inverse, center, middle
-background-image:url("https://www.blackenterprise.com/wp-content/blogs.dir/1/files/2015/08/Michael-Jordan_nike.com-2-1280x720.jpg")
-background-size: cover
-
 
 ---
 class:inverse, middle, center
@@ -747,6 +649,16 @@ class:inverse, middle, center
 - Simple Linear Regression
 
 ---
+## Review
+
+- Casual Inference in Observational Designs
+  - **Difference-in-Differences**
+  - Regression Discontinuity Design
+  - Instrumental Variables
+
+- Simple Linear Regression
+
+---
 class:inverse, middle, center
 # 🔍
 ## Casual Inference in Observational Designs
@@ -758,7 +670,7 @@ class:inverse, middle, center
 - Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:
 
 $$
-Y_i(1),Y_i(0) \perp D_i |X_i
+Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 $$
 
 --
@@ -769,7 +681,14 @@ $$
 
 - Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.
 
---
+-- 
+
+- `\(Y_i(1),Y_i(0) \perp D_i \mid X_i\)` doesn't mean that D has no effect on `\(Y\)`
+
+- Instead it means, that what we can estimate `\(E[Y_i|D_i=1,X_i]\)` and treat this as a good (unbiased) estimate of `\(E[Y_i(1)]\)` and similarly `\(E[Y_i|D_i=0,X_i]\)` is a good estimate of `\(E[Y_i(0)]\)`
+
+---
+## Observational Designs for Causal Inference
 
 - Three common research designs:
 
@@ -780,8 +699,188 @@ $$
   - Instrumental Variable Designs
 
 
+
 ---
-## Review: Difference in Difference Design
+class: inverse, center, middle
+# 💡 Difference in Differences
+
+
+---
+class: inverse, center, middle
+background-image:url(https://www.finebooksmagazine.com/sites/default/files/styles/gallery_item/public/media-images/2020-11/map-lead-4.jpg?h=2ded5a3f&amp;itok=Mn-K5rQc)
+background-size: cover
+## London in the Time of Cholera
+
+---
+## Motivating Example: What causes Cholera?
+
+- In the 1800s, cholera was thought to be transmitted through the air.
+
+- John Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.
+
+- Leveraged a **natural experiment** in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location. 
+
+---
+## Notation
+
+Let's adopt a little notation to help us think about the logic of Snow's design:
+
+- `\(D\)`: treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)
+
+- `\(T\)`: period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).
+
+- `\(Y_{di}(t)\)` the potential outcome of unit `\(i\)` 
+
+  - `\(Y_{1i}(t)\)` the potential outcome of unit `\(i\)` when treated between the two periods 
+
+  - `\(Y_{0i}(t)\)` the potential outcome of unit `\(i\)` when control between the two periods 
+
+---
+## Causal Effects
+
+The individual causal effect for unit i at time t is:
+
+`$$\tau_{it} = Y_{1i}(t) − Y_{0i}(t)$$`
+
+What we observe is 
+
+`$$Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)$$`
+
+`\(D\)` only equals 1, when `\(T\)` equals 1, so we never observe `\(Y_0i(1)\)` for the treated units. 
+
+In words, we don't know what Lambeth's outcome would have been in the second period, had they not been treated.
+
+---
+## Average Treatment on Treated
+
+Our goal is to estimate the average effect of treatment on treated (ATT):
+
+
+`$$\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$$`
+
+That is, what would have happened in Lambeth, had their water company not moved their pipes
+
+---
+## Average Treatment on Treated
+
+Our goal is to estimate the average effect of treatment on treated (ATT):
+
+We we can observe is:
+
+|               | Post-Period (T=1)  | Pre-Period (T=0)  |
+|---------------|--------------------|-------------------|
+| Treated `\(D_{i}=1\)`  | `\(E[Y_{1i}(1)\vert D_i = 1]\)`  | `\(E[Y_{0i}(0)\vert D_i = 1]\)` |
+| Control `\(D_i=0\)`  | `\(E[Y_{0i}(1)\vert D_i = 0]\)`  | `\(E[Y_{0i}(0)\vert D_i = 0]\)` |
+
+---
+## Data
+
+Because potential outcomes notation is abstract, let's consider a modified description of the Snow's cholera death data from [Scott Cunningham](https://mixtape.scunning.com/difference-in-differences.html):
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Company &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1854 (T=1) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1849 (T=0) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Lambeth (D=1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Southwark and Vauxhall (D=0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 147 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 135 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## How can we estimate the effect of moving pumps upstream?
+
+Recall, our goal is to estimate the effect of the the treatment on the treated:
+
+`$$\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$$`
+
+Let's conisder some strategies Snow could take to estimate this quantity:
+
+---
+## Before vs after comparisons:
+
+- Snow could have compared Labmeth in 1854 `\((E[Y_i(1)|D_i = 1] = 19)\)` to Lambeth in 1849 `\((E[Y_i(0)|D_i = 1]=85)\)`, and claimed that moving the pumps upstream led to 66 fewer cholera deaths. 
+
+- This comparison assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved ($E[Y_{0i}(1)|D_i = 1]$).
+
+- A skeptic might argue that Lambeth in 1849 `\(\neq\)` Lambeth in 1854
+
+
+---
+## Treatment-Control comparisons in the Post Period.
+
+- Snow could have compared outcomes between Lambeth and S&amp;V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to 128 fewer deaths.
+
+- Here the assumption is that the outcomes in S&amp;V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved ($E[Y_{0i}(1)|D_i = 1]$)
+
+- Again, our skeptic could argue  Lambeth `\(\neq\)` S&amp;V 
+
+---
+## Difference in Differences
+
+To address these concerns, Snow employed what we now call a difference-in-differences design, 
+
+There are two, equivalent ways to view this design. 
+
+`$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}$$`
+
+- Difference 1: Average change between Treated and Control  in Post Period
+- Difference 2: Average change between Treated and Control  in Pre Period
+
+Which is equivalent to:
+
+`$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}$$`
+
+
+- Difference 1: Average change between Treated over time
+- Difference 2: Average change between Control over time
+
+---
+## Difference in Differences
+
+
+You'll see the DiD design represented both ways, but they produce the same result:
+
+$$
+\tau_{ATT} = (19-147) - (85-135) = -78
+$$
+
+$$
+\tau_{ATT} = (19-85) - (147-135) = -78
+$$
+
+---
+## Identifying Assumption of a Difference in Differences Design
+
+The key assumption in this design is what's known as the parallel trends assumption: `\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\)` 
+
+- In words: If Lambeth hadn't moved its pumps, it would have followed a similar path as S&amp;V
+
+---
+&lt;img src="06-slides_files/figure-html/paralleltrends-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+Where:
+
+1. `\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\)`
+2. `\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]\)`
+3. `\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\)`
+
+
+---
+## Summary
 
 - A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
   
@@ -790,53 +889,32 @@ $$
   - Then taking the difference between treated and control differences removes any common differences over time
 
 - The key identifying assumption of a DiD design is the "assumption of parallel trends"
-
-- Common Diff-in-Diffs in political science:
-  - Basically any time there's staggered adoption of policy overtime `\(\to\)` Diff-in-Diff.
-  
-
----
-## Review: Regression Discontinuity Design
-
-- A Regression Discontinuity Design (RDD):
- - leverages a naturally occuring discontinuity in the probability of receiving some treatment
- - uses regression to estimate the effect of that treatment **at the discontinuity**
-
-- RDD are identified under assumptions of either:
-  - Continuity at the cutoff
-  - Local randomization
-  
-- The key idea is that at (continuity) or in some window around (local randomization), variation in the outcome of interest is due only change in the treatment
-
-- Common discontinuities in political science:
-  - First past the post elections
-  - Borders
-  - Eligibility cutoffs for policies
-
----
-## Review: Instrumental Variables
-
-Instrumental variables are an economists favorite tool for dealing with **omitted variable bias**
-
-- We're worried that these effects are **confounded** by some unobserved, omitted variable, that influences both the treatment and the outcome
-- We find an **instrumental variable** that is **exogenous** and **relevant** satisfying the following assumptions
-  - Randomization 
-  - Excludability
-  - First-stage relationship
-  - Monotonicity
-- Allowing us estimate a Local Average Treatment Effect (LATE) using the instrument to isolate the variation in our treatment that is **exogenous** (uncorrelated with ommitted variables)
-- Common instruments in political science:
-  - Nature (rainfall)
-  - Geography (distance from the equator)
-  - History (Different colonial legacies/institutions)
+  - Absent treatment, treated and control groups
+would see the same changes over time.
+  - Hard to prove, possible to test
 
 
 ---
-## IV Applications
+## Extensions and limitations
 
-&lt;img src="https://pbs.twimg.com/media/EJGyHnyUYAA-yhM?format=jpg&amp;name=large" width="80%" style="display: block; margin: auto;" /&gt;
+- DiD easy to estimate with linear regression
+- Generalizes to multiple periods and treatment interventions
+  - More pre-treatment periods allow you assess "parallel trends" assumption
+- Alternative methods 
+  - Synthetic control
+  - Event Study Designs
+- What if you have multiple treatments or treatments that come and go?
+  - Panel Matching
+  - Generalized Synthetic control
 
-[@AndrewHeiss](https://twitter.com/andrewheiss/status/1193931226865901569?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1193931226865901569%7Ctwgr%5E%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fandrewheiss2Fstatus2F1193931226865901569widget%3DTweet)
+---
+## Applications
+
+- [Card and Krueger (1994)](https://www.nber.org/papers/w4509) What effect did raising the minimum wage in NJ have on employment
+
+- [Abadie, Diamond, &amp; Hainmueller (2014)](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12116?casa_token=_ceCu4SwzTEAAAAA%3AP9aeaZpT_Zh1VdWKXx_tEmzaJTtMJ1n0eG7EaYlvJZYN000re33cfMAI2O8N8htFJjOsln2GyVeQql4) What effect did German Unification have on economic development in West Germany
+
+- [Malesky, Nguyen and Tran (2014)](https://www.cambridge.org/core/journals/american-political-science-review/article/impact-of-recentralization-on-public-services-a-differenceindifferences-analysis-of-the-abolition-of-elected-councils-in-vietnam/3477854BAAFE152DC93C594169D64F58) How does decentralization influence public services?
 
 
 ---
@@ -891,7 +969,7 @@ lm(formula = new_deaths ~ winner, data = covid_df)
 
 Coefficients:
 (Intercept)  winnerBiden  
-     23.805        4.199  
+     18.659        3.505  
 ```
 
 `m1` is the equation for a very simple line defined by two points:
@@ -953,7 +1031,7 @@ table(m1$model$winner)
 ```
 
 Trump Biden 
-18263 18513 
+27338 27588 
 ```
 
 ```r
@@ -963,7 +1041,7 @@ table(model.matrix(m1)[,2])
 ```
 
     0     1 
-18263 18513 
+27338 27588 
 ```
 
 ---
@@ -985,7 +1063,7 @@ covid_df%&gt;%
 ```
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Linear Regression and the CEF
@@ -1009,7 +1087,7 @@ lm(formula = new_deaths_pc_14da ~ percent_vaccinated, data = covid_df,
 
 Coefficients:
        (Intercept)  percent_vaccinated  
-           2.40519            -0.03304  
+           2.41795            -0.03299  
 ```
 
 
@@ -1031,7 +1109,7 @@ covid_df %&gt;%
 
 ---
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1534,7 +1612,7 @@ nes %&gt;%
 ---
 ## Comparing `m2` to `m3`
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1577,7 +1655,7 @@ interestedTRUE
 - Mechanically, we sometimes say the coefficient on `interested` shifts the intercept of the line describing the relationship between `tc_diff` and age.
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-41-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-40-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1722,7 +1800,7 @@ nes %&gt;%
   geom_smooth(method ="lm")
 ```
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-47-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1752,7 +1830,7 @@ We interpret this model as saying:
 - Controlling for `age`, as `income` increases by 1 we can expect the predicted difference in `tc_diff` to increase by 0.16
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-49-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-48-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1779,11 +1857,11 @@ $$
 
 Easier to show this with some simulated data:
 
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-50-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-49-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
-&lt;img src="06-slides_files/figure-html/unnamed-chunk-51-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-slides_files/figure-html/unnamed-chunk-50-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1836,12 +1914,12 @@ texreg::htmlreg(
 &lt;tbody&gt;
 &lt;tr style="border-top: 1px solid #000000;"&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -1855,9 +1933,9 @@ texreg::htmlreg(
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-6.70&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
@@ -1874,7 +1952,7 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;pol_interest&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -1893,9 +1971,9 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -1912,7 +1990,7 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -1972,7 +2050,7 @@ texreg::htmlreg(
 &lt;/tbody&gt;
 &lt;tfoot&gt;
 &lt;tr&gt;
-&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
@@ -2010,12 +2088,12 @@ texreg::htmlreg(
 &lt;tbody&gt;
 &lt;tr style="border-top: 1px solid #000000;"&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;(Intercept)&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;53.58&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;47.84&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;40.80&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;32.18&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;39.76&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;33.20&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -2029,9 +2107,9 @@ texreg::htmlreg(
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;interestedTRUE&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;12.75&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;9.77&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;-6.70&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
@@ -2048,7 +2126,7 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;pol_interest&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;6.01&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -2067,9 +2145,9 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.35&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.18&lt;sup&gt;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.40&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
@@ -2086,7 +2164,7 @@ texreg::htmlreg(
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
-&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style="padding-left: 5px;padding-right: 5px;"&gt;0.34&lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;&lt;/td&gt;
 &lt;td style="padding-left: 5px;padding-right: 5px;"&gt;&amp;nbsp;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -2146,7 +2224,7 @@ texreg::htmlreg(
 &lt;/tbody&gt;
 &lt;tfoot&gt;
 &lt;tr&gt;
-&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;***&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;**&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;*&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
+&lt;td style="font-size: 0.8em;" colspan="7"&gt;&lt;sup&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.001; &lt;sup&gt;&amp;#42;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.01; &lt;sup&gt;&amp;#42;&lt;/sup&gt;p &amp;lt; 0.05&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tfoot&gt;
 &lt;/table&gt;
@@ -2238,6 +2316,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
