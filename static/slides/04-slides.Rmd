@@ -88,7 +88,6 @@ background-size:cover
 - Setup
   - Packages
   - Data
-- Feedback
 - Review
   - Statistical programming
   - Descriptive statistics
@@ -198,246 +197,37 @@ data(MPs)
 ```
 
 
----
-class: inverse, left, middle
-background-image:url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/17632380-high-res-fleabag-1555319632.jpg")
-background-size:cover
-# 📢
-## Feedback
-
-```{r feedback, echo=F, message=F}
-df_wk03 <- haven::read_spss("../files/data/wk03.sav")
-df_wk03 %>%
-  mutate(
-    Reincarnation = reincarnation,
-    Why = creature,
-  ) -> df_wk03
-```
-
----
-## What we liked
-
---
-
-- We liked the lab (or liked it better)
-
-- Working in groups 
-
-- Extensive notes
-
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
-
----
-## What we liked
-
-```{r likes, echo=F, out.height='90%'}
-DT::datatable(df_wk03 %>% 
-                select(Likes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 4
-              )
-              )
-```
-
-
----
-## What we disliked
-
---
-
-- Labs still feel rushed (at the end)
-
-- When code breaks it can be hard to fix
-
-- Lecture was a bit confusing/long
-
-- The space
-
----
-## What we disliked
-
-```{r dislikes, echo=F}
-DT::datatable(df_wk03 %>% 
-                select(Dislikes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
-```
-
----
-## How I read these comments
-
-**Likes**
-
-- What's working? What interests you? What can I try to do more of
-
---
-
-**Dislikes**
-
-- What's the issue?
-  - Specific
-  - General
-
-- What's the cause?
-
-- What can I do to help?
-
-- What can I expect you to do
-
-
----
-class: middle
-
-> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
-
----
-
-## What's the issue?
-
-
-
-.pull-left[
-- General problem
-- Done the readings but still feeling lost
-
-]
-
-.pull-right[
-> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
-
-]
-
-
----
-## What's the cause
-
-
-
-.pull-left[
-My intuition:
-
-- I'm trying to do to much in lectures and labs
-
-- Lack of correspondence between lecture, labs, and textbook 
-
-- Feeling overwhelmed can obscure how much you actually know
-
-]
-
-.pull-right[
-> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
-
-]
-
----
-## How can I help?
-
-.pull-left[
-
-- Review
-
-- Revise
-
-- Reassure
-
-
-]
-
-.pull-right[
-> The stats. Although I did the reading and took notes on the stats notes provided, conceptually, I am...lost.
-
-]
 
 ---
 ## Review: What have we covered
 
  
 - Statistical Programming
-
-- Descriptive statistics
-
-- Data visualization as tool for descriptive inference
-
-- Causal inference in experimental designs
-
-
----
-## Review: Where have we covered
-
-
-- Statistical Programming
-  - All the Slides (💪 sections) and Labs
   - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#72) on Data Wrangling
-  - QSS: Chapter 1.3, Chapter 2.2
   - [Cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
-    - [Transforming](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
-    - [Reshaping](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
- 
----
-## Review: Where have we covered
+  - QSS: Chapter 1.3, Chapter 2.2
+
+--
 
 - Descriptive statistics
 
   - [Slides 01](https://pols1600.paultesta.org/slides/01-slides.html#112), [Lab 01](https://pols1600.paultesta.org/labs/01-lab-comments.html#8_Explore_R%E2%80%99s_functions_for_generating_summary_statistics)
   - QSS: Chapter 2.6, Chapter 3,6, Exercises 1.5,
 
----
-## Review: Where have we covered
-
+--
 
 - Data visualization as tool for descriptive inference
-  
-  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#16), [Lab 02](https://pols1600.paultesta.org/labs/02-lab-comments.html#Outline_the_steps_you_will_need_to_complete_this_process)
-  - QSS: Chapter 1.3, Chapter 2.2, Chapter 3.3, 3.6
-  - [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf) cheat sheet
 
----
-## Review: Where have we covered
+  - [Slides 02](https://pols1600.paultesta.org/slides/02-slides.html#16), [Lab 02](https://pols1600.paultesta.org/labs/02-lab-comments.html#Outline_the_steps_you_will_need_to_complete_this_process)
+  -  [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf) cheat sheet
+  - QSS: Chapter 1.3, Chapter 2.2, Chapter 3.3, 3.6
+
+--
 
 - Causal inference in experimental designs
-  
   - [Slides 03](https://pols1600.paultesta.org/slides/03-slides.html#39), [Lab 03](https://pols1600.paultesta.org/labs/03-lab-comments.html#8_Calculate_the_Average_Treatment_Effect)
   - QSS: Chapter 2.3, 2.4
 
-
----
-## Review: What should you know right now?
-
- 
-- Statistical Programming
-
-- Descriptive statistics
-
-- Data visualization as tool for descriptive inference
-
-- Causal inference in experimental designs
-
- 
-
-
----
-## What you don't need to know
-
-- I view QSS as a supplement to the course. 
-
-- Similar topical structure, but if we don't talk about it in class, it's not something you need to know for the course:
-
-  - Q-Q plots
-  - K-means clustering
-  - Gini Coefficients
-  - `swirl()`
- 
-- If there are specific sections of QSS that are particularly confusing, let me know!
 
 
 ---
@@ -487,6 +277,177 @@ kable(sp_df,
 
 - Learning to think programmatically and algorithmically will help us tackle complex problems
 
+
+---
+## Data Wrangling from the Lab:
+
+```{r, echo=TRUE,eval=F}
+df %>%
+  # Calculate difference between Survey and Non-Survey Takers
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  # Calculate means for variables that start with "therm_trans"
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))%>%
+  # Transpose (flip) data
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  # Gather means into separate columns by treatment status
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )%>%
+  # Calculate ATEs, add labels
+  mutate(
+    ATE = `Trans-Equality` - Recycling,
+    Days = c(0,3,21,42,90)
+    )-> ate_df
+```
+
+
+---
+
+```{r ,echo=T, eval=F}
+df %>%
+  # Calculate difference between Survey and Non-Survey Takers
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  # Calculate means for variables that start with "therm_trans"
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE))) #<<
+```
+
+
+
+```{r ,echo=F, eval=T}
+df %>%
+  # Calculate difference between Survey and Non-Survey Takers
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  # Calculate means for variables that start with "therm_trans"
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))
+```
+
+---
+
+```{r ,echo=T, eval=F}
+df %>%
+  # Calculate difference between Survey and Non-Survey Takers
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  # Calculate means for variables that start with "therm_trans"
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE))) %>% 
+  # Transpose (flip) data
+  pivot_longer(  #<<
+    cols = starts_with("therm_trans"), #<<
+    names_to = "Covariate", #<<
+    values_to = "Means" #<<
+  ) #<<
+```
+
+
+
+```{r ,echo=F, eval=T}
+df %>%
+  # Calculate difference between Survey and Non-Survey Takers
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  # Calculate means for variables that start with "therm_trans"
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE))) %>% 
+  # Transpose (flip) data
+  pivot_longer(  #<<
+    cols = starts_with("therm_trans"), #<<
+    names_to = "Covariate", #<<
+    values_to = "Means" #<<
+  ) #<<
+```
+
+---
+
+```{r ,echo=T, eval=F}
+df %>%
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))%>%
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  # Gather means into separate columns by treatment status
+  pivot_wider(  #<<
+    names_from = treatment_assigned,  #<<
+    values_from = Means  #<<
+  )  #<<
+```
+
+
+
+```{r ,echo=F, eval=T}
+df %>%
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))%>%
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  # Gather means into separate columns by treatment status
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )
+```
+
+---
+
+```{r ,echo=T, eval=F}
+df %>%
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))%>%
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )%>%
+  # Calculate ATEs, add labels, save output
+  mutate(  #<<
+    ATE = `Trans-Equality` - Recycling, #<<
+    Days = c(0,3,21,42,90) #<<
+    )-> ate_df #<<
+ate_df #<<
+```
+
+
+
+```{r ,echo=F, eval=T}
+df %>%
+  group_by(treatment_assigned) %>%
+  filter(!is.na(treatment_assigned)) %>%
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm = TRUE)))%>%
+  pivot_longer(
+    cols = starts_with("therm_trans"),
+    names_to = "Covariate",
+    values_to = "Means"
+  ) %>%
+  pivot_wider(
+    names_from = treatment_assigned,
+    values_from = Means
+  )%>%
+  # Calculate ATEs, add labels, save output
+  mutate(
+    ATE = `Trans-Equality` - Recycling,
+    Days = c(0,3,21,42,90)
+    )-> ate_df
+ate_df
+```
 
 
 ---
@@ -552,7 +513,7 @@ A mean is:
   
 - A common and important measure of central tendency (what's typical)
 
-- It's the arithmetic average you learned in schooll
+- It's the arithmetic average you learned in school
 
 - We can think of it as the balancing point of a distribution
 
@@ -586,11 +547,13 @@ mean(df$x, na.rm=T)
 ## Conditional Means: Practical
 
   
-  - To calculate a conditional mean we could us a logical index `[df$z == 1]` 
+- To calculate a conditional mean we could us a logical index `[df$z == 1]` 
 
 ```{r conmean,eval=F}
 mean(df$x[df$z == 1], na.rm=T)
 ```
+
+--
   
 - If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
 
@@ -606,7 +569,7 @@ df %>%
 ---
 ## Mean: Definitional
 
-Formally, we can define the arithmetic mean of $x$ as $\bar{x}$:
+Formally, we  define the arithmetic mean of $x$ as $\bar{x}$:
 
 $$
 \bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
@@ -748,253 +711,81 @@ At a minimum, a graphic contains three core components:
 
 [Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
 
+
 ---
-## You're about to be reincarnated: HLO
-
-```{r hlo}
-df_wk03$reincarnation
-
-table(df_wk03$reincarnation)
+## Data Visualization from the Lab
+```{r eval=F}
+ate_df %>%
+  ggplot(aes(Days, ATE))+
+  geom_point()+
+  geom_hline(yintercept = 0,linetype=2)+
+  theme_bw()+
+  labs(x="Days Since Treatment",
+       y = "ATE on Feeling Thermometers\n toward Transgender People")
 ```
 
 
 ---
-## You're about to be reincarnated: Basic Plot
 
-```{r plot0code, eval=F}
-df_wk03 %>%
-  ggplot(aes(x = reincarnation, 
-             fill = reincarnation))+
-  geom_bar(
-    stat = "count"
-  )
+```{r echo=F}
+ate_df %>%
+  ggplot(aes(Days, ATE))+
+  geom_point()+
+  geom_hline(yintercept = 0,linetype=2)+
+  theme_bw()+
+  labs(x="Days Since Treatment",
+       y = "ATE on Feeling Thermometers\n toward Transgender People")
 ```
 
----
-
-```{r plot0, echo=F}
-df_wk03 %>%
-  ggplot(aes(x = reincarnation, 
-             fill = reincarnation))+
-  geom_bar(
-    stat = "count"
-  )
-```
 
 ---
-##  Use a factor to label and order responses
+## ATEs with Confidence Intervals
 
-```{r factors}
-df_wk03 %>%
+```{r atecis}
+df %>%
+  # Get the select the columns whose names start with vf_
+  select(starts_with("therm_trans"))%>%
+  # Extract the column names
+  names()%>%
+  # Create the formulas to calculate the diff in means for
+  # Each variable
+  purrr::map(~ formula(paste0(.," ~ treatment_group"))) %>%
+  # Caclulate the difference in means for each variable
+  purrr::map(~difference_in_means(., data = df)) %>%
+  # Put the output into a tidy data frame.
+  map_df(tidy)%>%
   mutate(
-    # Turn numeric values into factor labels 
-    Reincarnation = forcats::as_factor(reincarnation),
-    # Order factor in decreasing frequency of levels
-    Reincarnation = forcats::fct_infreq(Reincarnation),
-    # Reverse order so levels are increasing in frequency
-    Reincarnation = forcats::fct_rev(Reincarnation)
-  ) -> df_wk03
-
-```
-
----
-## Check recoding
-
-```{r recode}
-table(recode= df_wk03$Reincarnation, original = df_wk03$reincarnation)
-```
-
-
----
-##  You're about to be reincarnated: Revised plot
-
-```{r plot1code, eval=F}
-df_wk03 %>% # Data
-  # Aesthetics
-  ggplot(aes(x = Reincarnation, 
-             fill = Reincarnation))+
-  # Geometry
-  geom_bar(stat = "count")+ # Statistic
-  ## Include levels of Reincarnation w/ no values
-  scale_x_discrete(drop=FALSE)+
-  # Don't include a legend
-  scale_fill_discrete(drop=FALSE, guide="none")+
-  # Flip x and y
-  coord_flip()+
-  # Remove lines
-  theme_classic() -> fig1
-
-# Display figure
-fig1
+    ATE = estimate,
+    Days = c(0,3,21,42,90)
+  ) -> ate_df
+ate_df[,-1]
 ```
 
 ---
 
-```{r plot1, echo=F}
-df_wk03 %>%
-  ggplot(aes(x = Reincarnation, 
-             fill = Reincarnation))+
-  geom_bar(
-    stat = "count"
-  )+
-  scale_x_discrete(drop=FALSE)+
-  scale_fill_discrete(drop=FALSE, guide="none")+
-  coord_flip()+
-  theme_classic() -> fig1
-
-fig1
-
-```
-
----
-## What creature and why?
-
-
-```{r creatures, echo=F}
-DT::datatable(df_wk03 %>% 
-                select(Reincarnation,creature),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
-```
-
-
-
-
----
-## You're about to be reincarnated: Add some labels
-
-```{r labcode}
-df_wk03 %>%
-  mutate(
-    # Create numeric id
-    id = 1:n(),
-    # Create a label with 3 answers and NA elsewhere
-    Why = case_when(
-      id == 1 ~ str_wrap(creature[1],30),
-      id == 2 ~ str_wrap(creature[2],30),
-      id == 6 ~ str_wrap(creature[6],30),
-      TRUE ~ NA_character_
-
-    )
-
-  ) -> df_wk03
-
-```
-
----
-```{r whytab, echo=F}
-DT::datatable(df_wk03 %>% 
-                select(Why,creature),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
-```
-
-
-
----
-## You're about to be reincarnated: 
-
-```{r plotdf, echo=T}
-# Caclculate totals before calling ggplot
-plot_df <- df_wk03 %>%
-  group_by(Reincarnation)%>% #<<
-  summarise( #<<
-    Count = n(), #<<
-    Why = na.omit(unique(Why)) #<< 
-  )
-```
-
----
-## You're about to be reincarnated:
-
-```{r labtab, echo=F}
-DT::datatable(plot_df)
-```
-
-
----
-## You're about to be reincarnated: Revised Plot
-
-```{r plot2code, echo=T, eval=F}
-plot_df %>%
-  ggplot(aes(x = Reincarnation, 
-             y = Count,
-             fill = Reincarnation, 
-             label=Why))+
-  geom_bar(stat = "identity")+ #<<
-  ## Include levels of Reincarnation w/ no values
-  scale_x_discrete(drop=FALSE)+
-  # Don't include a legend
-  scale_fill_discrete(drop=FALSE, guide="none")+
-  coord_flip()+
-  labs(x = "",y="",title="You're about to be reincarnated.\nWhat do you want to come back as?")+
-  theme_classic() -> fig1
-```
-
----
-```{r plot2, echo=F}
-plot_df %>%
-  ggplot(aes(x = Reincarnation, 
-             y = Count,
-             fill = Reincarnation, 
-             label=Why))+
-  geom_bar(stat = "identity")+ #<<
-  ## Include levels of Reincarnation w/ no values
-  scale_x_discrete(drop=FALSE)+
-  # Don't include a legend
-  scale_fill_discrete(drop=FALSE, guide="none")+
-  coord_flip()+
-  labs(x = "",y="",title="You're about to be reincarnated.\nWhat do you want to come back as?")+
-  theme_classic() -> fig1
-fig1
-```
-
----
-## Add labels:
-
-```{r plot3code, eval=F}
-fig1 <- fig1 +
-  geom_label_repel(
-    fill="white",
-    nudge_y = 1, 
-    hjust = "left",
-    size=3,
-    arrow = arrow(length = unit(0.015, "npc"))
-    )+ 
-  scale_y_continuous(
-    breaks = c(0,2,4,6,8,10,12),
-    expand = expansion(add =c(0,6))
-    )
-
-fig1
+```{r, eval=FALSE}
+ate_df %>%
+  ggplot(aes(Days, ATE))+
+  geom_point()+
+  geom_linerange(aes(ymin=conf.low, ymax=conf.high))+ #<<
+  geom_hline(yintercept = 0,linetype=2)+
+  theme_bw()+
+  labs(x="Days Since Treatment",
+       y = "ATE on Feeling Thermometers\n toward Transgender People")
 ```
 
 
 ---
 
-```{r plot3, echo=F}
-fig1 <- fig1 +
-  geom_label_repel(
-    fill="white",
-    nudge_y = 1, 
-    hjust = "left",
-    size=3,
-    arrow = arrow(length = unit(0.015, "npc"))
-    )+ 
-  scale_y_continuous(
-    breaks = c(0,2,4,6,8,10,12),
-    expand = expansion(add =c(0,6))
-    )
-
-fig1
+```{r, echo=FALSE}
+ate_df %>%
+  ggplot(aes(Days, ATE))+
+  geom_point()+
+  geom_linerange(aes(ymin=conf.low, ymax=conf.high))+
+  geom_hline(yintercept = 0,linetype=2)+
+  theme_bw()+
+  labs(x="Days Since Treatment",
+       y = "ATE on Feeling Thermometers\n toward Transgender People")
 ```
 
 
@@ -1028,9 +819,13 @@ class:inverse, middle, center
 
 Two ways to represent causal claims
 
+--
+
 - DAGs helped illustrate types of bias
   - **Confounder bias:** Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)
   - **Collider bias:** Controlling for a common consequence 
+
+--
 
 - Potential Outcomes Notation helped illustrate the **Fundamental Problem of Causal Inference**
 
@@ -1156,7 +951,11 @@ class: inverse, center, middle
 
 - **Casual Identification** refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)
 
+--
+
 - **What's  Your Casual Identification Strategy:** What are the assumptions that make your research design credible?
+
+--
 
 - Identification > Estimation
 
@@ -1277,7 +1076,7 @@ class: inverse, center, middle
 background-image:url("https://m.media-amazon.com/images/I/71lsG3fCaOL._SL1200_.jpg")
 background-size:cover
 # Break
-## [Take the survey](https://brown.co1.qualtrics.com/jfe/form/SV_8GHAmuPswJfaSyi)
+## [Take the survey](https://brown.co1.qualtrics.com/jfe/form/SV_7PZrwVs9hVxzOZg)
 
 ---
 class: inverse, center, middle
@@ -1410,7 +1209,7 @@ knitr::include_graphics("https://cdn2.hubspot.net/hubfs/355318/images/Propensity
 [Source](https://www.summitllc.us/propensity-score-matching)
 
 ---
-## Causal Identification with Matching
+## Causal Identification with Matching (ICYI)
 
 Matching again requires an assumption of **selection on observables**
 
@@ -1686,7 +1485,7 @@ $$
 
 - Matching 
   - 👍: Balance on multiple covariates, Mirrors logic of experimental design 
-  - 👎: Selection on observables, Only provides on observed variables, Lot's of technical details...
+  - 👎: Selection on observables, Only provides balance on observed variables, Lot's of technical details...
 
 - Regression 
   - 👍: Easy to implement, control for many factors (good and bad)
@@ -1785,6 +1584,25 @@ knitr::include_graphics("./images/04_cred.png")
 
 
 ---
+## Three Designs for Causal Inference in Observational Studies
+
+- **Difference in Differences (Today)**
+
+- Regression Discontinuity
+
+- Instrumental Variables
+
+---
+## Three Designs for Causal Inference in Observational Studies
+
+- **Difference in Differences**
+
+- *Regression Discontinuity (Next Week)*
+
+- *Instrumental Variables (Next Week)*
+
+
+---
 class: inverse, center, middle
 # 💡 Difference in Differences
 
@@ -1851,10 +1669,10 @@ Our goal is to estimate the average effect of treatment on treated (ATT):
 
 We we can observe is:
 
-|               | Post-Period (T=1)  | Pre-Period (T=0)  |
+|               | Pre-Period (T=0)  | Post-Period (T=1)  |
 |---------------|--------------------|-------------------|
-| Treated $D_{i}=1$  | $E[Y_{1i}(1)\vert D_i = 1]$  | $E[Y_{0i}(0)\vert D_i = 1]$ |
-| Control $D_i=0$  | $E[Y_{0i}(1)\vert D_i = 0]$  | $E[Y_{0i}(0)\vert D_i = 0]$ |
+| Treated $D_{i}=1$  |  $E[Y_{0i}(0)\vert D_i = 1]$ | $E[Y_{1i}(1)\vert D_i = 1]$  |
+| Control $D_i=0$  |  $E[Y_{0i}(0)\vert D_i = 0]$ | $E[Y_{0i}(1)\vert D_i = 0]$  |
 
 ---
 ## Data
@@ -1863,8 +1681,9 @@ Because potential outcomes notation is abstract, let's consider a modified descr
 
 ```{r choleradat,echo=F}
 snow <- tibble(Company = c("Lambeth (D=1)", "Southwark and Vauxhall (D=0"),
+               `1849 (T=0)` = c(85,135),
                `1854 (T=1)` = c(19,147),
-               `1849 (T=0)` = c(85,135)
+
                )
 
 knitr::kable(snow)
@@ -1883,9 +1702,9 @@ Let's conisder some strategies Snow could take to estimate this quantity:
 ---
 ## Before vs after comparisons:
 
-- Snow could have compared Labmeth in 1854 $(E[Y_i(1)|D_i = 1] = 19)$ to Lambeth in 1849 $(E[Y_i(0)|D_i = 1]=85)$, and claimed that moving the pumps upstream led to 66 fewer cholera deaths. 
+- Snow could have compared Labmeth in 1854 $(E[Y_i(1)|D_i = 1] = 19)$ to Lambeth in 1849 $(E[Y_i(0)|D_i = 1]=85)$, and claimed that moving the pumps upstream led to **66 fewer cholera deaths.** 
 
-- This comparison assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved ($E[Y_{0i}(1)|D_i = 1]$).
+- Assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved $(E[Y_{0i}(1)|D_i = 1])$.
 
 - A skeptic might argue that Lambeth in 1849 $\neq$ Lambeth in 1854
 
@@ -1893,9 +1712,9 @@ Let's conisder some strategies Snow could take to estimate this quantity:
 ---
 ## Treatment-Control comparisons in the Post Period.
 
-- Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to 128 fewer deaths.
+- Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to **128 fewer deaths.**
 
-- Here the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved ($E[Y_{0i}(1)|D_i = 1]$)
+- Here the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved $(E[Y_{0i}(1)|D_i = 1])$
 
 - Again, our skeptic could argue  Lambeth $\neq$ S&V 
 
@@ -2057,6 +1876,8 @@ glimpse(MPs)
 ```
 
 ---
+## Variables
+
 ```{r rddtab,echo=F}
 rdd_vars <- data.frame(
 Variable = c("surname", "firstname", "party", "ln.gross", "ln.net", "yob", "yod", "margin.pre", "region", "margin"),
@@ -2072,7 +1893,9 @@ Description = c(
 "region",
 "margin of victory (vote share)")
 )
-DT::datatable(rdd_vars)
+# DT::datatable(rdd_vars,
+#               options = list(pageLength = "5"))
+kable(rdd_vars)
 ```
 
 
@@ -2191,7 +2014,7 @@ class: center
 ]
 .right-column[
 ```{r iv1, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2209,7 +2032,7 @@ class: center
 
 .right-column[
 ```{r iv2, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2225,7 +2048,7 @@ class: center
 ]
 .right-column[
 ```{r iv3, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2246,7 +2069,7 @@ class: center
 
 .right-column[
 ```{r iv4, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 ]
@@ -2289,6 +2112,14 @@ Then we can estimate Local Average Treatment Effect (LATE) sometimes called the 
 It can be [shown](https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf) that the LATE:
 
 $$LATE = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[D|Z=1]-E[D|Z=0]}= \frac{ATE_{Z\to Y}}{ATE_{Z\to D}}$$
+
+Where:
+
+- $ATE_{Z\to Y}$ is the known as the "Intent to Treat" effect (ITT) (i.e. the effect of being assigned to treatment)
+
+- $ATE_{Z\to D}$ is the "effect" of being assigned to treatment on actually receiving treatment
+
+
 
 
 ---

@@ -77,18 +77,13 @@ Here are your assigned groups for the semester.
 
 ```{r groups, echo=F}
 groups_df <- tibble::tibble(
-  `Group 1` = c("Maria Sofia Pena", "Lily Seckondorf", 
-                "Sam Swartz","Ben Pollard"),
-  `Group 2` = c("Ryan Jaquez Melo", "Charles Key",
-                "Katherine Beggs","Samuel Clark"),  
-  `Group 3` = c("Fausto Rojas","Zoey Katzive",
-                "Hunter Keneley", "Anne Lord"),
-  `Group 4` = c("Annette Lee","Sara Shipon",
-                "Zachary Potts","Lucas Aquayo-Garber"),
-  `Group 5` = c("Zeke Hertz","Ruqiya Egal",
-                "Zoe Magley","Logan Danker"),
-  `Group 6` = c("Christopher Pool","Laura David",
-                "Kevin Moclair","")
+`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman",""),
+`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo",""),
+`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier",""),
+`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen",""),
+`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky",""),
+`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama",""),
+`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
 )
 
 DT::datatable(groups_df)
@@ -238,7 +233,7 @@ Using the code from this [slide](https://pols1600.paultesta.org/slides/05-slides
 
 - Anywhere you see `new_cases` write `new_deaths`
 - Anywhere you see `confirmed` write `deaths`
-- For the 14-day average, change the `new_deaths_pc_7da` to `new_deaths_pc_14da` and set `k=14` in the `zoo::rollmean()`
+- For the 14-day average, copy the code for `new_deaths_pc_7da` change the `new_deaths_pc_7da` to `new_deaths_pc_14da` and set `k=14` in the `zoo::rollmean()`
 - Remember to save the output of `mutate()` back into `covid_us`
 
 ```{r deaths}
@@ -300,13 +295,7 @@ Now that we've got our election data structured as electoral results per state, 
 Again, you should be able to just copy and paste the code from [here](https://pols1600.paultesta.org/slides/05-slides.html#30){target="_blank"}
 
 ```{r merge_pres}
-dim(covid_us)
-dim(pres2020_df)
-covid_us <- covid_us %>% left_join(
-  pres2020_df,
-  by = c("state" = "state")
-)
-dim(covid_us) # Same number of rows as covid_us w/ 8 additional columns
+# Merge in Presidential Data
 ```
 
 --------------------------------------------------------------
@@ -352,7 +341,7 @@ Similarly, if Leonhardt's claim is true, then the differences between Red and Bl
 - In the code chunk below, take the your code from the previous chunk, and use the `filter()` command to subset the data to include only obsevations with a value of `date` greater than `"2021-04-19`
 
 ```{r redcovidlate}
-# Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021
+# Calculate the mean number of new_deaths and new_deaths_pc_7da after April 19, 2021
 ```
 
 
@@ -465,7 +454,7 @@ Please assign the output of each model to objects called `m3`, `m4`, and `m5`. P
 
 ```
 
-- **Do you're models' estimates match your expectations?** That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor
+- **Do your models' estimates match your expectations?** That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor
 
 [Yes/No].
 
@@ -612,6 +601,6 @@ If you're stumped, Leonhardt discusses some of these explanations in his Novembe
 
 # Take the Class Survey
 
-If you've got a moment please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_ereKWyXCdAojdGu){target="_blank"} for this week.
+If you've got a moment please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW){target="_blank"} for this week.
 
 

@@ -188,11 +188,12 @@ class:inverse, center, middle
 ## Load the Covid-19 Data
 
 ```{r covid}
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# covid <- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ---
@@ -493,6 +494,28 @@ knitr::include_graphics("./images/05_covid.png")
 
 
 ---
+## Preview of the Lab
+
+Conceptually, this lab is designed to help reinforce the relationship between linear models like $y=\beta_0 + \beta_1x$ and the conditional expectation function $E[Y|X]$. 
+
+- Questions 1-5 are designed to reinforce your **data wrangling** skills. In particular, you will get practice:
+  - Creating and recoding variables using `mutate()`
+  - Calculating a [moving average](https://en.wikipedia.org/wiki/Moving_average) or rolling mean using the `rollmean()` function from the `zoo` package
+  - Transforming the data on presidential elections so that it can be merged with the data on Covid-19 using the `pivot_wider()` function.
+  - [Merging data](https://r4ds.had.co.nz/relational-data.html) together using the `left_join()` function.
+
+- In question 6, you will see how calculating conditional means provides a simple test of "Red Covid" claim.
+
+- In question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)
+
+- In question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)
+
+- In question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.
+
+- Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
+
+
+---
 class: inverse, center, middle
 background-image: url("https://i.pinimg.com/originals/a2/05/b6/a205b689caf19f3287b1544cbe0e6b7b.jpg")
 background-size: contain
@@ -500,9 +523,8 @@ background-size: contain
 ## Feedback
 
 ```{r feedback, echo=F, message=F}
-df_wk04 <- haven::read_spss("../files/data/wk04.sav")
-df_wk04 %>%
-  filter(Q7 == 1)-> df_wk04
+df_wk04 <- haven::read_spss("../files/survey/week5.sav")
+df_wk04
 ```
 
 
@@ -529,7 +551,7 @@ DT::datatable(df_wk04 %>%
                 pageLength = 3
               )
               )
-2+2
+
 ```
 
 
@@ -537,13 +559,13 @@ DT::datatable(df_wk04 %>%
 ## What we've learned
 
 ```{r learn, echo=F, out.height='90%'}
-
+df_wk04$code_skills
 DT::datatable(df_wk04 %>% 
-                select(Learn),
+                select(code_skills),
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 ```
@@ -570,7 +592,7 @@ DT::datatable(df_wk04 %>%
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 2+2
@@ -583,14 +605,48 @@ DT::datatable(df_wk04 %>%
 ```{r struggle, echo=F, out.height='90%'}
 
 DT::datatable(df_wk04 %>% 
-                select(Struggle),
+                select(code_challenge),
                fillContainer = F,
               height = "90%",
               options = list(
-                pageLength = 3
+                pageLength = 4
               )
               )
 ```
+
+
+---
+
+```{r, echo=F}
+df_wk04$eval_trump_6
+df_wk04 %>%
+  mutate(
+    `Comparison Includes`= ifelse(is.na(eval_1), "Trump", "No Trump"),
+    You = ifelse(is.na(eval_1), eval_trump_1, eval_1),
+    Me = ifelse(is.na(eval_2), eval_trump_2, eval_2),
+    Trump = eval_trump_6,
+    `Everyone we know` = ifelse(is.na(eval_3), eval_trump_3, eval_3),
+  )%>%
+  select(`Comparison Includes`, Me, You, `Everyone we know`, Trump)%>%
+  pivot_longer(
+    cols = -`Comparison Includes`,
+    names_to = "Target",
+    values_to = "Evaluation"
+      
+  )%>%
+  mutate(
+    Target = factor(Target, levels = rev(c("You","Me", "Everyone we know", "Trump")))
+  )%>%
+  ggplot(aes(Evaluation, Target, fill=`Comparison Includes`))+
+  geom_density_ridges(
+                      jittered_points = TRUE,
+                      position = position_points_jitter(width = 0.05, height = 0),
+                      point_shape = '|', point_size = 3, point_alpha = 1, alpha = 0.7,
+                      )+
+  labs(y="",
+       title = "How are we doing?")
+```
+
 
 
 ---
@@ -706,7 +762,7 @@ class:inverse, middle, center
 
 - Matching:
   - Conceptually appealing (mirrors the logic of an experiment)
-  - Technically complex (complicated algorhitms, finicky software) 
+  - Technically complex (complicated algorithms, finicky software) 
   - Only provides balance on **observed covariates**
 
 
@@ -2034,8 +2090,6 @@ Instrumental variables are an economists favorite tool for dealing with **omitte
   - Monotonicity
 - Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommitted variables)
 
----
-class: center
 ## IV Assumption: Randomization
 
 
@@ -2044,7 +2098,7 @@ class: center
 ]
 .right-column[
 ```{r iv1, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2057,12 +2111,12 @@ class: center
 
 
 .left-column[
-- No path from $Z$ to $Y$ except through $D$
+- No path from $Z$ to $Y$
 ]
 
 .right-column[
 ```{r iv2, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2078,7 +2132,7 @@ class: center
 ]
 .right-column[
 ```{r iv3, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
@@ -2099,7 +2153,7 @@ class: center
 
 .right-column[
 ```{r iv4, echo=F}
-knitr::include_graphics("https://book.declaredesign.org/figures/figure_15.4.svg")
+knitr::include_graphics("https://book.declaredesign.org/figures/figure_16.7.svg")
 ```
 [Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
 ]
