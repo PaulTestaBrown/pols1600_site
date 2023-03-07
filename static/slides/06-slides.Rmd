@@ -547,7 +547,7 @@ $$
 
 - Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.
 
--- 
+--
 
 - $Y_i(1),Y_i(0) \perp D_i \mid X_i$ doesn't mean that D has no effect on $Y$
 
@@ -667,7 +667,7 @@ Let's conisder some strategies Snow could take to estimate this quantity:
 
 - Snow could have compared Labmeth in 1854 $(E[Y_i(1)|D_i = 1] = 19)$ to Lambeth in 1849 $(E[Y_i(0)|D_i = 1]=85)$, and claimed that moving the pumps upstream led to 66 fewer cholera deaths. 
 
-- This comparison assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved ($E[Y_{0i}(1)|D_i = 1]$).
+- This comparison assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved $(E[Y_{0i}(1)|D_i = 1])$.
 
 - A skeptic might argue that Lambeth in 1849 $\neq$ Lambeth in 1854
 
@@ -677,7 +677,7 @@ Let's conisder some strategies Snow could take to estimate this quantity:
 
 - Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to 128 fewer deaths.
 
-- Here the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved ($E[Y_{0i}(1)|D_i = 1]$)
+- Here the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved $(E[Y_{0i}(1)|D_i = 1])$
 
 - Again, our skeptic could argue  Lambeth $\neq$ S&V 
 
@@ -688,14 +688,14 @@ To address these concerns, Snow employed what we now call a difference-in-differ
 
 There are two, equivalent ways to view this design. 
 
-$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}$$
+$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]\}}^{\text{Treated-Control|Pre}}$$
 
 - Difference 1: Average change between Treated and Control  in Post Period
 - Difference 2: Average change between Treated and Control  in Pre Period
 
 Which is equivalent to:
 
-$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}$$
+$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]\}}^{\text{Post-Pre|Control}}$$
 
 
 - Difference 1: Average change between Treated over time
@@ -763,7 +763,7 @@ Where:
 ---
 ## Summary
 
-- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated-control comparison
   
   - Taking the pre-post difference removes any fixed differences between the units
   
@@ -1086,7 +1086,7 @@ ssr0 <- sum(m0$residuals^2)
 ```
 
 ---
-## `m1` A model with a single dichotomous predictor
+#### `m1` A model with a single dichotomous predictor
 
 Now let's model `tc_diff` as function of whether respondents are very interested in politics (`interested` = T) or not (`interested` = F)
 
@@ -1101,7 +1101,7 @@ mean(nes$tc_diff[nes$interested == T],na.rm = T)
 
 
 ---
-## `m1` A model with a single dichotomous predictor
+#### `m1` A model with a single dichotomous predictor
 
 - If we tell R not to include an intercept, it returns those conditional means exactly.
 
@@ -1113,7 +1113,7 @@ tapply(nes$tc_diff, nes$interested, mean,na.rm=T)
 
 
 ---
-## `m1` A model with a single dichotomous predictor
+#### `m1` A model with a single dichotomous predictor
 
 - When we compare the SSR from `m1` we see that it has decreased from `m0` reflecting the fact some of the total variation in `tc_diff` is being explained by the variation in  `interested` 
 
@@ -1124,7 +1124,7 @@ ssr1 < ssr0
 ```
 
 ---
-## `m2` A model with a single categoical predictor
+#### `m2` A model with a single categoical predictor
 
 Now let's model `tc_diff` as function of the categorical predictor `pol_interest_f`, which is a factor variable of the four unique levels of political interest
 
@@ -1160,6 +1160,8 @@ The coefficients in `m2` tell us how the conditional mean of `tc_diff` for someo
 ```{r}
 tapply(nes$tc_diff, nes$pol_interest_f, mean,na.rm=T)
 ```
+
+- `Not at all interested` is the *reference* or *excluded* category, described by the intercept coefficient in `m2`
 
 ---
 ## `m2` A model with a single categoical predictor
@@ -1231,7 +1233,7 @@ nes %>%
 
 
 ---
-## Comparing `m2` to `m3`
+#### Comparing `m2` to `m3`
 
 ```{r, echo=F}
 nes %>%
@@ -1247,7 +1249,7 @@ nes %>%
 
 
 ---
-## `m4`: A model with both a dichtomous and continuous predictor
+#### `m4`: A model with both a dichtomous and continuous predictor
 
 Now let's estimate a multiple regression model "controlling" for age
 
@@ -1288,7 +1290,7 @@ nes%>%
 
 
 ---
-## `m5`: A model with an interaction between a dichtomous and continuous predictor
+#### `m5`: A model with an interaction between a dichtomous and continuous predictor
 
 What if we think the relationship between `age` and `tc_diff` varies depending on a person's level of political interest?
 
@@ -1315,7 +1317,7 @@ head(model.matrix(m5))
 ```
 
 ---
-## `m5`: A model with an interaction between a dichtomous and continuous predictor
+#### `m5`: A model with an interaction between a dichtomous and continuous predictor
 
 This interaction model essentially estimates separate models describing the relationship between `tc_diff` and `age`  for the uninterested...
 
@@ -1329,9 +1331,9 @@ coef(m5)[3]
 
 
 ---
-## `m5`: A model with an interaction between a dichtomous and continuous predictor
+#### `m5`: A model with an interaction between a dichtomous and continuous predictor
 
-And interestd
+And interested
 
 ```{r}
 m5_interested <- lm(tc_diff ~ age, nes,
@@ -1354,7 +1356,7 @@ nes %>%
 
 
 ---
-## `m6`: A model with an two continuous predictors
+#### `m6`: A model with an two continuous predictors
 
 Now lets model `tc_diff` as a function of two predictors: `age` and `income`
 
@@ -1381,9 +1383,7 @@ s3d$plane3d(m6,col="red")
 
 
 ---
-## A model with an interaction between two continuous predictors
-
-## Multiplicative Interactions with a continuous moderator
+## Multiplicative interactions with a continuous moderator
 
 Suppose we wanted to fit an interaction between two continuous variables like `age` and `income`. 
 
