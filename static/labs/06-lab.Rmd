@@ -79,18 +79,13 @@ Here are your assigned groups for the semester.
 
 ```{r groups, echo=F}
 groups_df <- tibble::tibble(
-  `Group 1` = c("Maria Sofia Pena", "Lily Seckondorf", 
-                "Sam Swartz","Ben Pollard"),
-  `Group 2` = c("Ryan Jaquez Melo", "Charles Key",
-                "Katherine Beggs","Samuel Clark"),  
-  `Group 3` = c("Fausto Rojas","Zoey Katzive",
-                "Hunter Keneley", "Anne Lord"),
-  `Group 4` = c("Annette Lee","Sara Shipon",
-                "Zachary Potts","Lucas Aquayo-Garber"),
-  `Group 5` = c("Zeke Hertz","Ruqiya Egal",
-                "Zoe Magley","Logan Danker"),
-  `Group 6` = c("Christopher Pool","Laura David",
-                "Kevin Moclair","")
+`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman",""),
+`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo",""),
+`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier",""),
+`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen",""),
+`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky",""),
+`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama",""),
+`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
 )
 
 DT::datatable(groups_df)
@@ -114,7 +109,7 @@ In general, when we interpret the regression coefficients from a linear model we
 - **Sign** is the coefficient positive or negative? As the predictor increases does the outcome tend to increase (positive) or decrease (negative)
 - **Size** is the change in the predicted value of the outcome **substantively** meaningful?
   - To facilitate comparisons between predictors, we will use [standardized measures](https://pols1600.paultesta.org/slides/06-slides.html#29){target="_blank"} of Republican Vote Share, Median Age, and Median Income, and Percent Vaccinated
-- **Significance** today we'll put the cart before the horse, and say, coefficient that has one or more asterisks `*` next to it is *stastically signficant*
+- **Significance** today we'll put the cart before the horse, and say, coefficient that has one or more asterisks `*` next to it is *statistically significant*
   - Over the next several weeks, we'll talk in great detail the logic and theory behind statistical inference
   - For today, we'll do a bit of "star-gazing" using these asterisks^[In short, these `*` correspond to $p-values$ below different thresholds. One `*` typically means $p < 0.05$. A p-value is a conditional probability that arises from a hypothesis test summarizing the likelihood of observing a particular test statistic (here a regression coefficient, or more specifically, a t-statistic which is the regression coefficient divided by its standard error) given a paritcular hypothesis (typically, but not allows a *null hypothesis* that the true coefficient is 0). In sum, a p-value assess the likelihood of seeing what we did, if in fact, there was no relationship. If that likelihood is small (p<0.05), we reject the claim of no relationship. We remain uncertain about the true value of the coefficient, but we are pretty confident it's not 0.] as heuristics to help us evaluate the claims of Leonhardt and his skeptics.
   
@@ -134,7 +129,7 @@ As with every lab, you should:
 - Write yourcode in the chunks provided
 - Comment out or delete any test code you do not need
 - **Knit the document again after completing a section or chunk** (Error checking)
-- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404){target="_blank"}.
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/modules/items/10882045){target="_blank"}.
 
 
 # Get setup to work
@@ -209,15 +204,16 @@ In the code chunk below, please write some code get an high level overview of th
 
 Please use this HLO to answer the following questions:
 
-- **How many observations are there:** 50
+- **How many observations are there:** 
 
-- **What is an observation (i.e. what is the unit of analysis):** A U.S. State (on September 23, 2021)
+- **What is an observation (i.e. what is the unit of analysis):** 
 
-- **What is the primary outcome variable for today:** The 14-day average of new Covid-19 deaths
+- **What is the primary outcome variable for today:** 
 
-- **What are the four main predictors we'll be using:** We'll be predicting Covid-19 deaths with measures of Republican Vote Share (`rep_voteshare`), Median Age (`med_age`), Median Income (`med_income`), and Percent Vaccintated (`percent_vaccinated`). 
+- **What are the four main predictors we'll be using:** 
 
-- **Will we be using the the raw values of these predictors or their standardized values?** We'll be using the standardized version of these variables which all have the suffix `_std`
+- **Will we be using the the raw values of these predictors or their standardized values?**
+
 
 - **What is the standard deviation  of our outcome and predictor variables:**
   - Covid-19 deaths: 
@@ -518,5 +514,5 @@ Display them in a regression table
 
 # Take the Class Survey {-}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cBDz7Y9hv84sl0O){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW){target="_blank"} for this week.
 
