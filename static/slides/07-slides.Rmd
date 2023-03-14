@@ -80,9 +80,9 @@ class: inverse, center, middle
 - Setup
   - Packages
   - Data
-- Feedback
 - Review
   - Multiple Regression
+  - Regression Discontinuity Designs
 - Interpreting regression models
   - What does it mean to control for "variables"
   - Producing predicted values from our models
@@ -170,76 +170,11 @@ class:inverse, center, middle
 ## Feedback
 
 
-```{r feedback, echo=F, message=F}
-df_feedback_full <- haven::read_spss("../files/data/wk06.sav")
-df_feedback_full %>%
-  filter(optout == 1 | is.na(optout))-> df_feedback
-df_feedback %>%
-  mutate(
-    Likes = like,
-    Dislikes = dislike
-  ) -> df_feedback
-```
-
-
 ---
-## What we liked
 
---
+Still time to take weekly survey from last week, which will have a real, measurable impact on class on Thursday:
 
-- We liked the lab (or liked it better)
-
-- Working in groups 
-
-- Extensive notes
-
-- Reasonable pacing 
-
-- Real world data
-
-- Mix of substantive and technical questions
-
----
-## What we liked
-
-```{r likes, echo=F, out.height='90%'}
-DT::datatable(df_feedback %>% 
-                dplyr::select(Likes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 4
-              )
-              )
-```
-
-
----
-## What we disliked
-
---
-
-- The lab was too easy
-
-- Lectures can be improved
-
-- Popcorn participation
-
-- Not enough guidance on the final project 
-
----
-## What we disliked
-
-```{r dislikes, echo=F}
-DT::datatable(df_feedback %>% 
-                select(Dislikes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 3
-              )
-              )
-```
+<https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW>
 
 
 ---
@@ -302,36 +237,6 @@ DT::datatable(df_feedback %>%
 
 - It's incredibly marketable.
 
----
-## Lectures and Questions
-
-.pull-left[
-Common concern: Feeling lost during lectures
-
-```{r ,echo=F}
-knitr::include_graphics("https://c.tenor.com/l-PbZelgds0AAAAM/favorite-facts.gif")
-```
-
-
-]
-
---
-
-.pull-right[
-Common dislike: Cold calling
-
-  
-```{r, echo=F}
-knitr::include_graphics("https://i.ytimg.com/vi/YES9OE8Ppjo/hqdefault.jpg
-")
-```
-
-]
-
-
----
-background-image: url("https://i.kym-cdn.com/photos/images/newsfeed/001/508/015/606.jpg")
-background-size:contain
 
 ---
 class:inverse, middle, center
@@ -409,6 +314,167 @@ $$\textrm{Find }\hat{\beta
 - *Theoretical*
   - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
+---
+class: inverse, center, middle
+# 💡 Regression Discontinuity Design
+
+---
+## Motivating Example
+
+.pull-left[
+- Do Members of Parliament in the UK get richer from holding office (QSS Chapter 4.3.4)
+]
+.pull-right[
+```{r eggers1, echo=F}
+knitr::include_graphics("./images/04_eggers.png")
+```
+[Eggers and Hainmueller (2009)](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/mps-for-sale-returns-to-office-in-postwar-british-politics/E4C2B102194AA1EA0D2F1F777EAE3C08)
+]
+
+
+---
+## Logic of the Regression Discontinuity Design (RDD) 
+
+- What's the effect of holding elected office in the UK on personal wealth?
+
+- People who win elections differ in many ways from people who lose elections.
+
+- Logic of an RDD: 
+
+  - Just look at the wealth of individuals who either narrowly won or lost elections.
+
+  - Candidates close to 50 percent cutoff (discontinuity) should be more comparable (better counterfactuals)
+
+---
+## Data from Eggers and Hainmueller (2009)
+
+```{r mpdata}
+library(qss)
+data(MPs)
+glimpse(MPs)
+
+```
+
+---
+## Variables
+
+```{r rddtab,echo=F}
+rdd_vars <- data.frame(
+Variable = c("surname", "firstname", "party", "ln.gross", "ln.net", "yob", "yod", "margin.pre", "region", "margin"),
+Description = c(
+"surname of the candidate",
+"first name of the candidate",
+"party of the candidate (labour or tory)",
+"log gross wealth at the time of death",
+"log net wealth at the time of death",
+"year of birth of the candidate",
+"year of death of the candidate",
+"margin of the candidate’s party in the previous election electoral", 
+"region",
+"margin of victory (vote share)")
+)
+# DT::datatable(rdd_vars,
+#               options = list(pageLength = "5"))
+kable(rdd_vars)
+```
+
+
+
+---
+```{r rddfigcode, eval = F}
+MPs %>%
+  ggplot(aes(margin, ln.net))+
+  geom_point(shape=1)+
+  facet_grid(~party)+
+  geom_smooth(data =MPs %>%
+                filter(margin <0),
+              method = "lm")+
+  geom_smooth(data =MPs %>%
+                filter(margin >0),
+              method = "lm")+
+  theme_bw() -> fig_rdd
+fig_rdd
+```
+
+---
+```{r rddfig, echo = F}
+MPs %>%
+  ggplot(aes(margin, ln.net))+
+  geom_point(shape=1)+
+  facet_grid(~party)+
+  geom_smooth(data =MPs %>%
+                filter(margin <0),
+              method = "lm")+
+  geom_smooth(data =MPs %>%
+                filter(margin >0),
+              method = "lm")+
+  theme_bw() -> fig_rdd
+fig_rdd
+```
+---
+## RDD Notation
+
+- $X$ is a **forcing** variable
+- Treatment $D$ is a determined by $X$
+
+$$
+D_i = 1\{X_i > c\}
+$$
+
+- $X$ is the `margin` variable in the example data, and $D=1$ if `margin` is greater than 0 (i.e. the candidate won the election)
+
+- Interested in the differences in the outcome at the threshold
+
+$$\lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x]$$
+
+---
+## Causal Identification with an RDD
+
+If we assume $E[Y_i(0)|X=x]$ and $E[Y_i(1)|X=x]$ are continuous in x, then we can estimate a (local) ATE at the threshold:
+
+$$\begin{align}
+ATE_{RDD} &= E[Y(1)-Y(0)|X_i=c] \\
+&=  E[Y(1)|X_i=c] -  E[Y(0)|X_i=c]\\
+&= \lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x] \\
+\end{align}$$
+
+---
+## Continuity Assumption
+
+```{r continuity, echo=F}
+knitr::include_graphics("https://mixtape.scunning.com/graphics/rdd_simul_ex.jpg")
+```
+
+[Cunningham (2022)](https://mixtape.scunning.com/regression-discontinuity.html#continuity-assumption)
+
+---
+## Causal Identification with an RDD
+
+- The continuity assumption is a formal way of saying that observations close to the threshold are good counterfactuals for each other
+
+- We can't prove this assumption
+
+- But if it holds, we should observe
+ 
+  - no sorting around the cutoff (no self selection)
+ 
+  - similar distributions of covariates around the cutoff (balance tests)
+  
+  - no effect of treatment on things measured pre-treatment (placebo tests)
+
+
+---
+## Summary: Regression Discontinuity Designs
+
+- Regression discontinuity designs (RDD) leverage natural **discontinuities** in the probability of receiving treatment to estimate *local average treatment effects
+
+  - Common discontinuities include: elections, test score cutoffs, time/events
+
+  - A local average treatment effect means the effect applies only to a subset of observations, here those observations at or close to the cutoff.
+
+- The identifying assumption of an RDD is continuity at the cutoff
+  - This implies that observations just below the cutoff for receiving treatment provide reasonable counterfactuals to those just above the cutoff
+  - We can't prove this, but we can test it's empirical implications (i.e. covariate balance near the cutoff)
 
 ---
 class: inverse, center, middle
@@ -495,12 +561,17 @@ cor(resid(m2),fitted(m2))
 
 
 ---
-## Residualized Regression
+### Residualized Regression
 
-We can think of coefficients in a multiple regression as describing the variation in the outcome explained by that predictor, and only that predictor. So for a model like `m2`:
+We can think of coefficients in a multiple regression as describing the variation in the outcome explained by that predictor, **and only that predictor.** 
+
+---
+### Residualized Regression
+
+So for a model like `m2`:
 
 ```{r}
-m2
+coef(m2)
 ```
 
 We can recover the coefficient on `rep_voteshare_std` by:
@@ -693,6 +764,18 @@ ylim(-4.2, 3.4) +
 coord_equal()
 ```
 
+---
+## Summary: What does it mean to control for "x"?
+
+- Models partition variance in a outcome into that which can be explained by the model's predictions, and the remaining unexplained variation
+
+--
+
+- Coefficients in a linear regression describe the "marginal effect" of a change in a predictor on the outcome, after accounting for (holding constat/controlling) the other predictors in the model.
+
+--
+
+- Residualized regression provides a way of illustrating how multiple regression isolates the  variance explained by specific predictors (and only those predictors)
 
 
 ---
@@ -782,9 +865,9 @@ summary(m5)
 
 So the coefficient on `percent_vaccinated` is negative, while the coefficient on `I(percent_vaccinated^2)` is positive. 
 
-This implies that the relationship between vaccination rates and Covid-19 deaths is not constant, but changes with the percent of population vaccinated.
+This implies that the relationship between vaccination rates and Covid-19 deaths is not constant, but **changes with the percent of population vaccinated.**
 
-To help interpreted this model, let's create a prediction data frame.
+To help interpreted this model, let's **create a prediction data frame.**
 
 ---
 ## Create a prediction data frame
@@ -868,17 +951,31 @@ pred_df %>%
 ```
 
 
+---
+# Summary producing predicted values from regression models
+
+- Predicted values help provide substantive interpretations of linear models
+
+--
+
+- To produce predicted values we create **prediction dataframes** which generally vary one key predictor(s) predictors in the model constant at fixed values (typically their mean or modal values)
+
+
+- We create prediction data frames (e.g. `pred_df`) using `expand_grid()` 
+
+- We generate predicted values using the `predict()` function and save the predictions back into the prediction data frame (e.g. `pred_df$fit <- predict(m, newdata = pred_df)`) so we can display the predictions graphically.
 
 
 ---
 class: inverse, center, middle
-# 💡
-# Evaluating model performance
 background-image:url("https://media.gq.com/photos/6153752c430fd1b65067ee50/16:9/w_2560%2Cc_limit/GettyImages-1195887867.jpeg)
 background-size:cover
 
+# 💡
+# Evaluating model performance
+
 ---
-## How should we decide between the following models
+#### How should we decide between the following models
 
 
 ```{r, echo = F}
@@ -897,7 +994,7 @@ A simple way to compare models is to look at the proportion of the variance expl
 
 $$R^2 = \frac{\text{variance(fitted model values)}}{ \text{variance(response values )}}$$
 
-We call this value the model's "R-squared" "$R^2$"
+We call this value the model's "R-squared" $(R^2)$
 
 ---
 ## R^2
@@ -954,5 +1051,7 @@ anova(m5,m6)
 - R-Squared is a useful heuristic for evaluating models in terms of variance explained
 
 - R-Squared always increases as we add more predictors
+  - Even if they have no relationship with the outcome
+  - Adjusted R-Squared includes weights the variance explained by number of predictors needed to explain it.
 
-- Comparing nested models involves assessing whether the added variance explained is more than we would expect by chance.
+- Comparing nested models involves assessing whether the added variance explained is more than we would expect by chance using an ANOVA (analysis of variance) to compare models.
