@@ -151,10 +151,10 @@ As with every lab, you should:
 - **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
 - Knit the document
 - Open the html file in your browser (Easier to read)
-- Write yourcode in the chunks provided
+- Write your code in the chunks provided
 - Comment out or delete any test code you do not need
 - **Knit the document again after completing a section or chunk** (Error checking)
-- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404){target="_blank"}.
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/assignments/7925689?module_item_id=10882050){target="_blank"}.
 
 
 # Get setup to work
@@ -194,22 +194,10 @@ ipak(the_packages)
 
 ## Load the data
 
-Next we'll load the recoded data for the lab by *sourcing* a script called [`drww_english_recode.R`](https://gist.github.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40) to download the raw data and recode the Cyrilic into English. 
-
-If you were click on the link (you don't need to, but you might be interested), you'll see the source code which:
-
-- Downloads from [GitHub](https://github.com/dorussianswantwar/research1) the [raw data](https://github.com/dorussianswantwar/research1/blob/main/spss.sav) from the DRWW project and loads it into R using the `foreign` package's `read.spss()` function because the data are saved as a .sav file.
-
-- Creates `df_drww` from `raw_drww`, giving the columns (variables) in `raw_drww` English translations in `df_drww`
-
-- Recodes the values of variable in `df_drww` into numeric (`_n` suffixes) and factor (`_f` suffixes) variables (with levels that are in English)
-
-- Constructs some additional variables like `total_social_media_use` which is the sum of total number of social media sites a respondent reports using. 
+Next we'll load the recoded data for the lab. 
 
 ```{r data}
-source("https://gist.githubusercontent.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40/raw/601680d7b20cd1638d93c325156d4b000ea1f9cc/drww_english_recode.R")
 
-# If this doesn't work you can download the data here:
 load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 
 ```
@@ -489,16 +477,16 @@ Uncomment the code below, and replace the `???` with the appropriate terms to fi
 
 ```{r models}
 # Baseline Model
-m1 <- lm(support_war01 ~ age + sex + education_n, df_drww)
+# m1 <- lm(support_war01 ~ ??? + ??? + ???, ???)
 
 # Interaction model: Allow coefficient for age to vary with sex
-m2 <- lm(support_war01 ~ age*sex + education_n, df_drww)
+# m2 <- lm(support_war01 ~ age*??? + education_n, df_drww)
 
 # Polynomial model: Allow coefficient for age to vary by age
-m3 <- lm(support_war01 ~ age + I(age^2) + sex + education_n, df_drww)
+# m3 <- lm(support_war01 ~ age + I(???^2) + sex + education_n, df_drww)
 
 # Separate Polynomial: Allow coefficient for age to vary by age separately  by sex
-m4 <- lm(support_war01 ~ (age + I(age^2))*sex + education_n, df_drww)
+# m4 <- lm(support_war01 ~ (age + I(age^2))*??? + education_n, df_drww)
 ```
 
 
@@ -514,7 +502,7 @@ You can use the [code from last week's lab as a guide.](https://pols1600.paultes
 
 ```{r regtab}
 # Display m1, m2, m3, m4 in a regression table
-texreg::htmlreg(list(m1, m2, m3, m4), digits = 5) %>% HTML() %>% browsable()
+# texreg::htmlreg(list(m1, m2, m3, m4), digits = 5) %>% HTML() %>% browsable()
 ```
 
 
@@ -556,11 +544,11 @@ Let's use the `summary()` function to extract and save the $R^2$ (`r.squared`) a
 ```{r}
 
 # m1
-m1_r_squared <- summary(m1)$r.squared
-m1_r_squared
-
-m1_adj_r_squared <- summary(m1)$adj.r.squared
-m1_adj_r_squared
+# m1_r_squared <- summary(m1)$r.squared
+# m1_r_squared
+# 
+# m1_adj_r_squared <- summary(m1)$adj.r.squared
+# m1_adj_r_squared
 
 # m2
 
@@ -621,8 +609,8 @@ pred_df
 # 3  Use this prediction data frame to obtain predicted values from our model
 # Save the output from predict() back into our prediction data frame
 
-pred_df$fit_m1 <- predict(m1, newdata = pred_df)
-pred_df$fit_m3 <- predict(m3, newdata = pred_df)
+# pred_df$fit_m1 <- predict(m1, newdata = pred_df)
+# pred_df$fit_m3 <- predict(m3, newdata = pred_df)
 
 
 ## predicted values for m1
@@ -635,17 +623,17 @@ pred_df$fit_m3 <- predict(m3, newdata = pred_df)
 
 
 ## plot predicted values for m1
-pred_df %>%
-  ggplot(aes(x = age,
-             y = fit_m1))+
-  geom_line()
+# pred_df %>%
+#   ggplot(aes(x = age,
+#              y = fit_m1))+
+#   geom_line()
 
 ## plot predicted values for m3
 
-pred_df %>%
-  ggplot(aes(x = age,
-             y = fit_m3))+
-  geom_line()
+# pred_df %>%
+#   ggplot(aes(x = age,
+#              y = fit_m3))+
+#   geom_line()
 
 ```
 
@@ -695,8 +683,7 @@ pred_df_int
 
 
 ## predicted values for m4
-pred_df_int$fit_m2 <- predict(m2, newdata = pred_df_int)
-pred_df_int$fit_m4 <- predict(m4, newdata = pred_df_int)
+
 
 
 
@@ -705,19 +692,9 @@ pred_df_int$fit_m4 <- predict(m4, newdata = pred_df_int)
 
 ## plot predicted values for m2
 
-pred_df_int %>%
-  ggplot(aes(x = age,
-             y = fit_m2,
-             col = sex))+
-  geom_line()
-
 
 ## plot predicted values for m4
-pred_df_int %>%
-  ggplot(aes(x = age,
-             y = fit_m4,
-             col = sex))+
-  geom_line()
+
 
 ```
 
@@ -747,11 +724,9 @@ Some questions you might explore:
 
 # Take the Class Survey {-}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_br5bfsL4YRlwt8i){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_5d2ZbPxo6uFcjRQ){target="_blank"} for this week.
 
-This week we're asking questions you submitted in last weeks survey. To encourage participation, let's say that if we get a 100 percent completion rate, **I will bring donuts to class on Tuesday.**
 
-If you really hate these surveys but like donuts, you can just click through without answering any of the questions. As long as we get to 24 responses, donuts for all.
 
 
 

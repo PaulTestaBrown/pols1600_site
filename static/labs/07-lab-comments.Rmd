@@ -160,7 +160,7 @@ As with every lab, you should:
 - Write yourcode in the chunks provided
 - Comment out or delete any test code you do not need
 - **Knit the document again after completing a section or chunk** (Error checking)
-- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404){target="_blank"}.
+- Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/assignments/7925689?module_item_id=10882050){target="_blank"}.
 
 
 # Get setup to work
@@ -200,23 +200,11 @@ ipak(the_packages)
 
 ## Load the data
 
-Next we'll load the recoded data for the lab by *sourcing* a script called [`drww_english_recode.R`](https://gist.github.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40) to download the raw data and recode the Cyrilic into English. 
-
-If you were click on the link (you don't need to, but you might be interested), you'll see the source code which:
-
-- Downloads from [GitHub](https://github.com/dorussianswantwar/research1) the [raw data](https://github.com/dorussianswantwar/research1/blob/main/spss.sav) from the DRWW project and loads it into R using the `foreign` package's `read.spss()` function because the data are saved as a .sav file.
-
-- Creates `df_drww` from `raw_drww`, giving the columns (variables) in `raw_drww` English translations in `df_drww`
-
-- Recodes the values of variable in `df_drww` into numeric (`_n` suffixes) and factor (`_f` suffixes) variables (with levels that are in English)
-
-- Constructs some additional variables like `total_social_media_use` which is the sum of total number of social media sites a respondent reports using. 
+Next we'll load the recoded data for the lab.
 
 ```{r}
-source("https://gist.githubusercontent.com/PaulTestaBrown/7565987b8eedc743fa5a57e451abed40/raw/601680d7b20cd1638d93c325156d4b000ea1f9cc/drww_english_recode.R")
 
-# If this doesn't work you can download the data here:
-# load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
+load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 
 ```
 
@@ -1193,7 +1181,7 @@ Some questions you might explore:
 
 # Take the Class Survey {-}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_br5bfsL4YRlwt8i){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_5d2ZbPxo6uFcjRQ){target="_blank"} for this week.
 
 This week we're asking questions you submitted in last weeks survey. To encourage participation, let's say that if we get a 100 percent completion rate, **I will bring donuts to class on Tuesday.**
 
