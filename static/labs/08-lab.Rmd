@@ -44,7 +44,6 @@ Plan to spend the following amount of time
 
 8. Simulate 100 elections for each of the 120 days before the election, plot the results of your simulation. (20 minutes)
 
-9. Take the class survey for Donuts.
 
 ## Goals {-}
 
@@ -524,7 +523,7 @@ Use your code from the previous questions to help you fill in the `???` in the c
 #  }
 #  # 5.After 100 simulations, calculate
 # 
-# # Average predicted EF for day i
+# # Average predicted EV for day i
 # ev_mean[i] <- ???
 # 
 # # 97.5 percentile
@@ -558,11 +557,8 @@ Use your code from the previous questions to help you fill in the `???` in the c
 
 # Take the Class Survey {-}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_25oMBLPMcUu3ssC){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cOnvgqXGJ9ybOvk){target="_blank"} for this week.
 
-This week we're asking questions you submitted in last weeks survey. To encourage participation, let's say that if we get a 100 percent completion rate, **I will bring donuts to class on Tuesday.**
-
-If you really hate these surveys but like donuts, you can just click through without answering any of the questions. As long as we get to 24 responses, donuts for all.
 
 
 

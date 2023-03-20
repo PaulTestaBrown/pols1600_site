@@ -80,14 +80,34 @@ class: inverse, center, middle
 ## General Plan
 
 - Setup
-- Feedback
-- Review
+- Lab Preview
 - Lecture
   - Probability Theory
   - Conditional Probability 
   - Random variables and probability distributions
   - Expected values and variances
 
+
+---
+# Lab: Predicting Election Outcomes
+
+Available [here](https://pols1600.paultesta.org/labs/08-lab.Rmd)
+
+1. Get set up to work (5 minutes)
+
+2. Calculate Obama's expected electoral vote share on November 3, 2008 (the day before the election) (10 minutes)
+
+3. Simulate a 1000 elections for November 3, 2008 using the betting market prices a measure of the probability that Obama wins or loses a state (10 minutes)
+
+4. Display the results of your simulation with a histogram. (5 minutes)
+
+5. Transform these probabilities to reduce the likelihood that Obama wins states like Alabama and increase the likelihood that Obama wins states like California (5 minutes)
+
+6. Simulate another 1000 elections using these transformed probabilities. Compare the results to your initial simulation. (10 minutes)
+
+7. Calculate Obama's expected total number of votes for each day in the 120 days before the 2008 election (15 minutes)
+
+8. Simulate 100 elections for each of the 120 days before the election, plot the results of your simulation. (20 minutes)
 
 ---
 class:inverse, middle, center
@@ -132,15 +152,6 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
----
-class:inverse, center, middle
-# 📢
-## Feedback
-
----
-## Feedback
-
-Only 8 responses...
 
 ---
 ## What we'll cover today
@@ -156,7 +167,7 @@ Only 8 responses...
 
   - Conditional probability allow us to describe how our beliefs about one event change after observing another event(s)
 
-  - We update beliefs using Bayes Rule
+  - We can update beliefs using Bayes Rule
 
 - Random Variables and Probability Distributions
 
@@ -314,7 +325,7 @@ background-size:contain
 
 --
 
-- **Frequentist:** view this probability is the limit of the relative frequency of an event over repeated trials.
+- **Frequentist:** view this probability as the limit of the relative frequency of an event over repeated trials.
 
 $$Pr(E) = \lim_{n \to \infty} \frac{n_{E}}{n} \approx \frac{ \text{# of Times E happened}}{\text{Total # of Trials}}$$ 
 
@@ -361,6 +372,7 @@ More generally, if there are
 
 - The total number of possible outcomes is the product of the number number of choices $k$ and each stage, $j$ $\prod_{j=1}^{j} n_{j,k_j} = n_{1,k_1}*n_{2,k_2}*\dots*n_{j,k_j}$ 
 
+  - That is, just multiply the number of choices at each stage
 
 ---
 ## How many different outfits could you have made me wear?
@@ -399,7 +411,7 @@ More generally, if there are
 ---
 #### And yet you chose this:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I send students in my undergraduate research class a weekly survey to get a sense of what&#39;s working and what&#39;s not. <br><br>I also ask them silly questions just for fun. Last week, I asked them to help me with my fit. This was the result: <a href="https://t.co/w1t8Cr04Ap">pic.twitter.com/w1t8Cr04Ap</a></p>&mdash; Paul Testa (@ProfPaulTesta) <a href="https://twitter.com/ProfPaulTesta/status/1501291241404833795?ref_src=twsrc%5Etfw">March 8, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Naive professor in class survey: &quot;Help me with my fit&quot;<br>Students: &quot;Ok, bet. Tuxedo, crocs, and a jersey&quot; <a href="https://t.co/NPmBZhsfen">https://t.co/NPmBZhsfen</a> <a href="https://t.co/cWlytcZ12h">pic.twitter.com/cWlytcZ12h</a></p>&mdash; Paul Testa (@ProfPaulTesta) <a href="https://twitter.com/ProfPaulTesta/status/1636820286950522894?ref_src=twsrc%5Etfw">March 17, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 ---
@@ -432,68 +444,6 @@ Combined with the fundamental counting principle, factorials let us mathematical
   
   - repeats are or are not allowed.
   
----
-## Perumations: With regard to order and with repeats
-
-A **Permutation** is a selection of objects in which the **order matters.**
-
-When order matters and repeats allowed there are:
-
-- $N$ ways to make our first choice, $N$ ways to make our second choice, ... $N$ ways to make our $k^{th}$ and $N^k$ total permutations of choices
-  
-- There are *27* ways $(n^k=3^3)$ to arrange the letters "a", "b", "c" using each letter as many times as we want ("with replacement/repeats allowed)
-
-
----
-## Perumations: With regard to order and without repeats
-
-When order matters and repeats are not allowed:
-
-- There are $N$ ways to make our first choice, $N-1$ ways to make our second choice, ... and $N-k$ ways to make our $k^{th}$ choice. 
-
-The formula for a permutation without repeats then is:
-
-$${}_{n}P_k = n\times (n-1) \dots (n-k) = \frac{n!}{(n-k)!}$$
-
-Since dividing $n!$ by $(n-k)!$, leaves us with $n\times (n-1) \dots (n-k)$
-
-$${}_{5}P_3  = \frac{5\times 4 \times 3 \times 2 \times 1}{ 2 \times 1}= 5\times 4 \times 3 = 60$$
-- There are *six* ways to arrange the letters "a", "b", "c" using each letter only once (without replacement/no repeats)
-
-$${}_{3}P_3  = \frac{3 \times 2 \times 1}{1}= 3\times 2 \times 1 = 6$$
-
----
-## Combinations: without regard to order and without repeats
-
-A **Combination** is a selection of objects **without regard to order**
-
-Combinations without repeats are described using  $\binom{n}{k}$ (a "binomial coefficient), and is a shorthand way of writing:
-
-$${}_{n}C_k = \binom{n}{k} = \frac{{}_{n}P_k}{k!} =  \frac{n!}{k!(n-k)!}$$
-
-
-- We divide by $k!$ because given $k$ sampled elements, there are $k!$ ways of arranging them, but when order does not matter, we want to treat these arrangements as the same (e,g, $AB$ and $BA$ are both instances of getting an $A$ and $B$)
-
-
-- There is *1* ways to choose a group of three letters from the letters "a", "b", "c" using each letter only once (without replacement/no repeats)
-  
-$${}_{3}C_3 = \binom{3}{3} = \frac{{}_{3}P_3}{3!} =  \frac{3!}{3!(0)!} = \frac{3*2*1}{3*2*1*1}=1$$
-
-
-- There are *10* ways to arrange the letters "a", "b", "c" using each letter only once (with replacement/repeats allowed)
-
----
-## Combinations: without regard to order and with repeats
-
-Finally, we a combination where repeats are allowed is described by a [multiset coefficient](https://en.wikipedia.org/wiki/Multiset)
-
-$${}_{n}C_k = \left(\binom{n + k - 1}{k}\right) =\frac{(n + k -1)!}{k!(n-1)!}$$
-
-- There are *10* ways to arrange the letters "a", "b", "c" using each letter only once (with replacement/repeats allowed)
-
-
-$${}_{3}C_3 = \left(\binom{3+3-1}{3}\right) = \frac{(3+3-1)!}{3!(3-1)!} =  \frac{5!}{3!(2)!} = \frac{5*4*3*2*1}{3*2*1*2*1}=\frac{5*4}{2*1}=10$$
-- I find this one less intuitive too explain, and less commonly used. The classic example is something like picking donuts or filling up a sampler six pack.
 
 ---
 
@@ -526,39 +476,6 @@ kable(counting_tab, format = "markdown")%>%
 
 
 
----
-## Permutations in R
-
-.pull-left[
-${}_{3}P_2$ order matters, repeats allowed
-```{r}
-gtools::permutations(3, 2, v = c("a","b","c"),repeats.allowed = T)
-```
-]
-
-.pull-right[
-${}_{3}P_2$ order matters, no repeats 
-```{r}
-gtools::permutations(3, 2, v = c("a","b","c"),repeats.allowed = F)
-```
-]
-
----
-## Combinations in R
-
-.pull-left[
-${}_{3}C_2$ no order, no repeats
-```{r}
-gtools::combinations(4, 2, v = c("a","b","c","d"),repeats.allowed = F)
-```
-]
-
-.pull-right[
-${}_{3}C_2$ no order, repeats allowed
-```{r}
-gtools::combinations(4, 2, v = c("a","b","c","d"),repeats.allowed = T)
-```
-]
 
 ---
 ## Permutations and Combinations
@@ -616,9 +533,15 @@ For example, suppose we wanted to test whether a coin is "fair"  $(p = Pr(Heads)
 
 - Frequentist interpretations make sense for describing processes that we could easily repeat (e.g. Coin flips, Surveys, Experiments) 
 
+--
+
 - But feel more convoluted when trying to describe events like "the probability of that Biden wins reelection."
 
+--
+
 - Bayesian interpretations of probability view probabilities as subjective beliefs. 
+
+--
 
 - The task for a Bayesian statistics is to update these *prior* beliefs () based on a model of the *likelihood* of observing some data to form new beliefs after observing the data (called *posterior beliefs*).
 
@@ -637,24 +560,48 @@ background-size:contain
 ## Bayesian vs Frequentists
 
 
-- Our two main tools for doing statistical inference in this course
+Our two main tools for doing statistical inference in this course
 
   - Hypothesis Testing
   - Interval Estimation
 
-- Follow largely from frequentist interpretations of probability
+Follow largely from frequentist interpretations of probability
 
-- The differences between Bayesian and Frequentist frameworks, are both philosophical and technical in nature
+--
 
-  - Is probability a relative frequency or subjective belief? How do we form and use prior beliefs
-  - Bayesian statistics relies heavily on algorhithms for [Markov Chain Monte-Carlo](http://www.columbia.edu/~mh2078/MonteCarlo/MCMC_Bayes.pdf) simulations made possible by advances in computing.
+The differences between Bayesian and Frequentist frameworks, are both philosophical and technical in nature
 
-- For most of the questions in this course, these two frameworks will yield similar (even identical) conclusions.
+- Is probability a relative frequency or subjective belief? How do we form and use prior beliefs
+
+- Bayesian statistics relies heavily on algorhithms for [Markov Chain Monte-Carlo](http://www.columbia.edu/~mh2078/MonteCarlo/MCMC_Bayes.pdf) simulations made possible by advances in computing.
+
+--
+
+For most of the questions in this course, these two frameworks will yield similar (even identical) conclusions.
   
-  - Sometimes it's helpful to think like a Bayesian, others, like a frequentist
-  - All models are wrong, some models are useful.
+- Sometimes it's helpful to think like a Bayesian, others, like a frequentist
+- All models are wrong, some models are useful.
 
 
+
+---
+## Summary: Probability
+
+
+
+- Probability is a measure of uncertainty telling us how likely an event (or events) is (are) to occur
+
+- Probabilities are:
+  - Non-negative
+  - Unitary
+  - Additive
+
+- Two different interpretations of probability:
+
+  - Frequentists: Probability is a long run relative frequency
+  - Bayesians: Probability reflect subjective beliefs which we update upon observing data
+
+- It helps to know how to count. When we count it matters if we do so with or without **replacement** and with our without regard to order
 
 ---
 class: inverse, center, middle
@@ -953,17 +900,17 @@ class: inverse, center, middle
 ---
 ## Probability Distributions
 
-- Broadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events. 
+Broadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events. 
 
-- The can be represented in terms of:
+The can be represented in terms of:
 
-  - Probability Mass/Density Functions
-    - Discrete variables have probability mass functions (PMF)
-    - Continuous variables have probability density functions (PDF)
+- Probability Mass/Density Functions
+  - Discrete variables have probability mass functions (PMF)
+  - Continuous variables have probability density functions (PDF)
 
-  - Cumulative Density Functions
-    - Discrete: Summation of discrete probabilities
-    - Continuous: Integration over a range of values
+- Cumulative Density Functions
+  - Discrete: Summation of discrete probabilities
+  - Continuous: Integration over a range of values
 
 ---
 ## Discrete distributions
@@ -1093,7 +1040,7 @@ $$\frac{d}{dx}F(x)=f(x)$$
 
 In words
 
-- the PDF ($f(x)$) is the derivative (rate of change) of the CDF ($F(X)$)
+- the PDF $(f(x))$is the derivative (rate of change) of the CDF $(F(X))$
 
 - the CDF describes the area under the curve defined by f(x) up to x 
 
@@ -1140,19 +1087,21 @@ In this course, we'll use probability distributions to
 ---
 There are a lot of probability distributions:
 
-```{r probdist1,echo=F, fig.height=5}
+```{r probdist1,echo=F, out.width="60%"}
 knitr::include_graphics("http://www.math.wm.edu/~leemis/chart/UDR/BaseImage.png")
 ```
 
-
+![Source](http://www.math.wm.edu/~leemis/chart/UDR/UDR.html)
 
 
 ---
 Fortunately, the distributions you need to know to really master data science, is probably more something like
 
-```{r probdist2,echo=F, fig.height=5}
+```{r probdist2,echo=F, out.width="60%"}
 knitr::include_graphics("https://miro.medium.com/max/4854/1*szMCjXuMDfKu6L9T9c34wg.png")
 ```
+
+![Source](https://www.datasciencecentral.com/common-probability-distributions-the-data-scientist-s-crib-sheet/)
 
 
 And the distributions we'll work with the most in this class are an even smaller subset.
@@ -1227,7 +1176,7 @@ So if we were to toss a fair coin 20 times and count up the number of heads, the
 
 ```{r,echo=F}
 p <- .2
-df <- data.frame(x = 0:1000, px = dbinom(0:1000,size=1000, prob=p))
+df <- data.frame(x = 0:20, px = dbinom(0:20,size=20, prob=p))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
          geom_segment(aes(x=x,xend=x,y=0,yend=px))+
@@ -1244,12 +1193,16 @@ What would happen if you let the $n$ in a binomial distribution go to infinity a
 
 $$f(x)=\frac{\lambda^x}{x!}e^{-\lambda}$$
 
+We use these distributions to try and predict to predict the [probability of a given number of events occurring in a fixed interval of time.](https://towardsdatascience.com/poisson-distribution-intuition-and-derivation-1059aeab90d) Things like how many acts of political participation would a voter engage in over a year. 
+
+
+  
 ---
 
 ```{r, echo=F}
 # PDF of Poisson, lambda = 4
 # Try changing lambda
-lambda <- 20
+lambda <- 4
 df <- data.frame(x = 0:20, px = dpois(0:20, lambda))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
@@ -1259,11 +1212,43 @@ ggplot(df,aes(x=x,y=px))+
 
 
 ---
+
+```{r, echo=F}
+# PDF of Poisson, lambda = 4
+# Try changing lambda
+lambda <- 10
+df <- data.frame(x = 0:20, px = dpois(0:20, lambda))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  labs(title="PMF of Poisson Distribution (Lambda=10)")
+```
+
+---
+
+```{r, echo=F}
+# PDF of Poisson, lambda = 4
+# Try changing lambda
+lambda <- 20
+df <- data.frame(x = 0:40, px = dpois(0:40, lambda))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  labs(title="PMF of Poisson Distribution (Lambda=20)")
+```
+
+
+
+---
 ## Geometric Distributions
 
 What if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:
 
 $$f(x)=p(1-p) ^{x}$$
+
+Geometric and related distributions are useful for describing the time until an event occurs
+
+
 ---
 
 ```{r, echo=F}
@@ -1282,6 +1267,8 @@ Taking a geometric distribution to its limit, you arrive at the continuous expon
 
 $$f(x)=\frac{1}{\beta}\exp\left[-x/\beta\right]$$
 
+[Cioffa-Revilla (1984)](https://www.jstor.org/stable/1963367) uses an exponential distribution to model the stability of Italian governments.
+
 ---
 
 ```{r, echo=F}
@@ -1290,8 +1277,6 @@ p.cdf.exp<-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = pexp)+y
 ggarrange(p.pdf.exp,p.cdf.exp)
 ```
 
-
-We often use exponential distributions to model things like "time until failure" where failure might be another war or the ending of an Italian cabinet.
 
 ---
 ## Normal Distribution
@@ -1343,7 +1328,7 @@ ggplot(df,aes(x=x,y=px))+
 
 
 ---
-### What's the p(X$\leq$ 0) for a normal distirbution with mean 0 and sd 1
+### What's the $p(X \leq 0)$ for a normal distirbution with mean 0 and sd 1
 
 Since the normal distribution is so common, it's useful to get practice working with it's pdf and cdf.
 
@@ -1560,6 +1545,8 @@ $$Cov[X,Y]=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y]$$
 - $Var[Y]=Var[E[Y|X]]+E[Var[Y|X]]$
 
 
+WYNK: Honestly, for this class, you won't need to know these properties. They'll show up in proofs and theorems and become important when you're trying to evaluate properties of an estimator (isn't unbiased, is it "efficient", or consistent does it have minimum variance?) but that's for another day/course.
+
 ---
 ## Correlation
 
@@ -1589,7 +1576,27 @@ cor(x,y)
 
 
 
+---
+## Summary: Random Variables and Probability Distributions
 
+
+- Random variables assign numeric values to each event in an experiment.
+
+- Probability distributions assign probabilities to the values that a Random variable can take. 
+
+  - Discrete distributions are despribed by their pmf and cdf
+  - Continuous distributions by their pdf and cdf
+
+- Probability distributions let us *describe the data generating process* and encode information about the world into our models
+
+  - There are lots of distributions
+  - Don't worry about memorizing formulas
+  - Do develop intuitions about the nature of your data generating process (Is my outcome continuous or disrecte, binary or count, etc.)
+
+- Two key features of probability distributions are their:
+
+  - Expected values
+  - Variances
 
 
 

@@ -508,7 +508,7 @@ ev_ul <- c()
 # 2.5 percentile
 ev_ll <- c()
 
-Simulation
+# Simulation
 
 for(i in 1:120){
  # 1. Extract day i from dates object
@@ -528,7 +528,7 @@ obama_ev_sim[j] <- sum(pres08$EV[rbernoulli(n_states,p_star)])
  }
  # 5.After 100 simulations, calculate
 
-# Average predicted EF for day i
+# Average predicted EV for day i
 ev_mean[i] <- mean(obama_ev_sim)
 
 # 97.5 percentile
@@ -563,11 +563,8 @@ The width of the coverage intervals declines slightly over time, suggesting the 
 
 # Take the Class Survey {-}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_25oMBLPMcUu3ssC){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cOnvgqXGJ9ybOvk){target="_blank"} for this week.
 
-This week we're asking questions you submitted in last weeks survey. To encourage participation, let's say that if we get a 100 percent completion rate, **I will bring donuts to class on Tuesday.**
-
-If you really hate these surveys but like donuts, you can just click through without answering any of the questions. As long as we get to 24 responses, donuts for all.
 
 
 
