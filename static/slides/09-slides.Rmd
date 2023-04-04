@@ -86,7 +86,7 @@ class: inverse, center, middle
 ---
 ## Goals
 
-- The Law of Large Number's says that as our sample size increases, our sample mean will converge to the  population value
+- The Law of Large Number's says that as our sample size increases, our sample mean will converge to the population value
 
 --
 
@@ -94,7 +94,7 @@ class: inverse, center, middle
 
 --
 
-- Generalized Linear Models allow us to more accurately model different types of data-generating processes using Maxium Likelihood Estimation.
+- Generalized Linear Models allow us to more accurately model different types of data-generating processes using Maximum Likelihood Estimation.
 
 ---
 ## Emoji Slide notation
@@ -155,34 +155,6 @@ class:inverse, center, middle
 # 💪
 ## Load Data for today
 
----
-class:inverse, middle, center
-# 📢
-## Feedback
-
-
-```{r feedback, echo=F, message=F}
-df_feedback_full <- haven::read_spss("../files/data/wk05.sav")
-df_feedback_full %>%
-  filter(optout == 1)-> df_feedback
-```
-
----
-background-image:url("https://assets3.thrillist.com/v1/image/760917/414x310/crop;webp=auto;jpeg_quality=60;progressive.jpg")
-background-size:cover
-
-
----
-background-image:url("https://cdn.quotesgram.com/small/64/32/1870987205-Homer_sad.jpg")
-background-size:contain
-
----
-## One more shot
-
-Take the class survey by Wednesday, 5 pm, and I'll bring donuts on Thursday.
-
-- <https://brown.co1.qualtrics.com/jfe/form/SV_25oMBLPMcUu3ssC>
-
 
 ---
 class:inverse, middle, center
@@ -217,7 +189,7 @@ $$Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)} = \frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A
 
 - Random variables assign numeric values to each event in an experiment.
 
-    - Mutually exclusive and exhaustive, together cover the entire sample space.
+  - Mutually exclusive and exhaustive, together cover the entire sample space.
 
 - Discrete random variables take on finite, or [countably infinite](http://mathworld.wolfram.com/CountablyInfinite.html) distinct values.
 
@@ -476,7 +448,7 @@ And the distributions we'll work with the most in this class are an even smaller
 Let's start with our old friend the coin flip
 
 
-A coin flip is an example of a **Bernoulli random variable** defined by  $p$, the probability of success. It has a pmf of
+A coin flip is an example of a **Bernoulli random variable** defined by 1 parameter $p$, the probability of success. It has a pmf of
 
 $$f(x) =
     \left\{
@@ -531,20 +503,20 @@ We won't run into uniform distributions all that often except in examples like r
 
 The binomial distribution may be thought of as the sum of outcomes of things that follow a Bernoulli distribution. Toss a fair coin 20 times; how many times does it come up heads? This count is an outcome that follows the binomial distribution.
 
-The key parameters are the number of trials $n$ and the probability of success for each trial $p$ and the pmf of a binomial distribution is:
+The key parameters are the number of trials $n$ and the probability of success for each trial $p$ and the pdf of a binomial distribution is:
 
 $$f(x)=\binom{n}{x}p^x (1-p) ^{1-x} \ \text{for x 0,1,2},\dots n$$
 So if we were to toss a fair coin 20 times and count up the number of heads, the most common outcome would be 10 heads
 
 ---
 
-```{r binom,echo=F}
-p <- .5
+```{r,echo=F}
+p <- .2
 df <- data.frame(x = 0:20, px = dbinom(0:20,size=20, prob=p))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
          geom_segment(aes(x=x,xend=x,y=0,yend=px))+
-  labs(title="PMF of Binomial Distribution (N=20,P=.5)")
+  labs(title="PMF of Binomial Distribution (N=20,P=.2)")
 ```
 
 The binomial distribution will come in handy when trying to model binary outcomes. 
@@ -552,16 +524,18 @@ The binomial distribution will come in handy when trying to model binary outcome
 ---
 ## Poisson Distributions
 
-What would happen if you let the $n$ in a binomial distribution go to infinity and $p$ go to 0 so that $np$ stayed the same. 
-
-A Poisson distribution is what would happen. We use Poisson and negative binomial distributions to describe counts using the parameter $\lambda$ which represents rate at which events occur.
+What would happen if you let the $n$ in a binomial distribution go to infinity and $p$ go to 0 so that $np$ stayed the same. A Poisson distribution is what would happen. We use Poisson and negative binomial distributions to describe counts using the parameter $\lambda$ which represents rate at which events occur.
 
 
 $$f(x)=\frac{\lambda^x}{x!}e^{-\lambda}$$
 
+We use these distributions to try and predict to predict the [probability of a given number of events occurring in a fixed interval of time.](https://towardsdatascience.com/poisson-distribution-intuition-and-derivation-1059aeab90d) Things like how many acts of political participation would a voter engage in over a year. 
+
+
+  
 ---
 
-```{r poisson, echo=F}
+```{r, echo=F}
 # PDF of Poisson, lambda = 4
 # Try changing lambda
 lambda <- 4
@@ -572,18 +546,33 @@ ggplot(df,aes(x=x,y=px))+
   labs(title="PMF of Poisson Distribution (Lambda=4)")
 ```
 
+
 ---
 
-```{r poisson20, echo=F}
+```{r, echo=F}
+# PDF of Poisson, lambda = 4
+# Try changing lambda
+lambda <- 10
+df <- data.frame(x = 0:20, px = dpois(0:20, lambda))
+ggplot(df,aes(x=x,y=px))+
+         geom_point()+
+         geom_segment(aes(x=x,xend=x,y=0,yend=px))+
+  labs(title="PMF of Poisson Distribution (Lambda=10)")
+```
+
+---
+
+```{r, echo=F}
 # PDF of Poisson, lambda = 4
 # Try changing lambda
 lambda <- 20
-df <- data.frame(x = 0:50, px = dpois(0:50, lambda))
+df <- data.frame(x = 0:40, px = dpois(0:40, lambda))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
          geom_segment(aes(x=x,xend=x,y=0,yend=px))+
   labs(title="PMF of Poisson Distribution (Lambda=20)")
 ```
+
 
 
 ---
@@ -592,9 +581,13 @@ ggplot(df,aes(x=x,y=px))+
 What if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:
 
 $$f(x)=p(1-p) ^{x}$$
+
+Geometric and related distributions are useful for describing the time until an event occurs
+
+
 ---
 
-```{r geom, echo=F}
+```{r, echo=F}
 df <- data.frame(x = 0:20, px = dgeom(0:20, .5))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
@@ -610,33 +603,30 @@ Taking a geometric distribution to its limit, you arrive at the continuous expon
 
 $$f(x)=\frac{1}{\beta}\exp\left[-x/\beta\right]$$
 
+[Cioffa-Revilla (1984)](https://www.jstor.org/stable/1963367) uses an exponential distribution to model the stability of Italian governments.
+
 ---
 
-```{r exp, echo=F}
+```{r, echo=F}
 p.pdf.exp<-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = dexp)+ylim(0,1)+labs(title="PDF of Exponential Distribution (Lambda=1)",y="")
 p.cdf.exp<-ggplot(data.frame(x = c(0, 5)), aes(x)) + stat_function(fun = pexp)+ylim(0,1)+labs(title="CDF of Exponential Distribution (Lambda=1)",y="")
 ggarrange(p.pdf.exp,p.cdf.exp)
 ```
 
 
-We often use exponential distributions to model things like "time until failure" where failure might be another war or the ending of an Italian cabinet.
-
 ---
 ## Normal Distribution
 
-Finally, there's the distribution so ubiquitous we called it normal. 
-
-The Normal distribution is defined by two parameters: a location parameter $\mu$ that determines the center of a distribution and a scale parameter $\sigma^2$ that determines the spread of a distribution
+Finally, there's the distribution so ubiquitous we called it normal. The Normal distribution is defined by two parameters: a location parameter $\mu$ that determines the center of a distribution and a scale parameter $\sigma^2$ that determines the spread of a distribution
 
 $$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp \left[
 -\frac{1}{2\sigma^2}(x-\mu)^2
 \right]$$
 
-- If we only know $\mu$ and $\sigma^2$ the normal distribution represents the maximum uncertainty ([entropy](https://naokishibuya.medium.com/normal-distribution-demystified-933cf72185d2)) about the state of the world.
-
 ---
+Standard normal: $X \sim N(\mu =0,\sigma^2=1)$
 
-```{r norm, echo=F}
+```{r, echo=F}
 p.pdf.norm<-ggplot(data.frame(x = c(-3, 3)), aes(x)) + 
   stat_function(fun = dnorm,)+ylim(0,1)+
   labs(title="PDF of Standard Normal Distribution",y="")
@@ -650,8 +640,7 @@ ggarrange(p.pdf.norm,p.cdf.norm)
 
 - That is sum together a bunch of values from almost any distribution and the **distribution of their sums** tends to follow a normal distribution. 
 
-- Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit 
-  - in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later
+- Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)
 
 
 ---
@@ -659,8 +648,10 @@ Consider a binomial distribution with N=100 and p=.5.
 
 The pmf of this variable (black lollipops) follows a distribution that's closely approximated by a normal distribution (red line) with a mean 50 and a standard deviation of 5.
 
+A relationship explained more generally by the Central Limit Theorem, which we'll cover next week.
+
 ---
-```{r normp5, echo=F}
+```{r, echo=F}
 p <- .5
 df <- data.frame(x = 0:100, px = dbinom(0:100,size=100, prob=p))
 ggplot(df,aes(x=x,y=px))+
@@ -691,7 +682,7 @@ But R's `pnorm()` function will quickly tell us
 And we can visualize this as follows:
 
 ---
-```{r normp2,echo=F}
+```{r,echo=F}
 normal <- function(mu=0, sigma=1, x){
 1/(sigma*sqrt(2*pi))*exp(-(x-mu)^2/(2*sigma^2))
 }
@@ -1094,11 +1085,6 @@ class:inverse, center, middle
 # Break
 
 
----
-## Maybe take that survey
-
-- <https://brown.co1.qualtrics.com/jfe/form/SV_25oMBLPMcUu3ssC>
-
 
 ---
 class:inverse, center, middle
@@ -1109,9 +1095,9 @@ class:inverse, center, middle
 
 So the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the "true" value of the population of mean. 
 
-So if we took a bunch of samples of the same size and calculated the mean of each sample:
+Iif we took a bunch of samples of the same size and calculated the mean of each sample:
 
-- the distribution of those sample means (the sampling distribution) would be centered around the truth (because the estimator is unbiased).
+- the distribution of those sample means (*the sampling distribution*) would be centered around the truth (because the estimator is unbiased).
 - the width of the distribution (its variance) would decrease as we increased the size of each sample (by the LLN)
 
 The Central Limit Theorem tells us about the shape of that distribution. 
@@ -1409,7 +1395,7 @@ clt4
 ---
 ## Summary
 
-- 
+
 
 - So we see that our sampling distributions are centered on the truth, and as the sample size increases, the width of the distribution decreases (Law of Large Numbers)
 
@@ -1430,7 +1416,7 @@ Broadly, MLE seeks to find parameters $\theta$ for model of some data generating
 
 
 ---
-# Maximum Likelihood Estimation
+## 🦉 Maximum Likelihood Estimation
 
 Formally, consider $n$ iid random variables $X_1, X_2, \ldots X_n$. We can then write their **likelihood** as
 
@@ -1442,7 +1428,7 @@ MLE tries to find $\hat{\theta}_{MLE}$ that maximizes $\mathcal{L}(\theta \mid X
 
 
 ---
-# Properties of Maximum Likelihood Estimators
+## 🦉 Properties of Maximum Likelihood Estimators
 
 MLE Estimators are 
 
@@ -1468,11 +1454,19 @@ class: inverse, center, middle
 
 - OLS provides a linear estimate to the conditional mean function
 
+--
+
 - If the conditional mean function is linear and the errors are normally distributed, OLS is the MLE.
+
+--
 
 - What if the conditional mean function is non-linear?
 
+--
+
 - Sometimes we can transform the mean function so that it is linear, and estimate a generalized linear model (GLM) using MLE
+
+--
 
 - Using a GLM often produces more "reasonable" estimates, and can make more efficient use of the data, although there are many cases where a linear estimate to conditional mean function works just fine (or better)
 
