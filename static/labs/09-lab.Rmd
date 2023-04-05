@@ -127,7 +127,6 @@ First lets load the libraries we'll need for today.
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT","texreg","htmltools",
-  "flair", # Comments only
   ## Tidyverse
   "tidyverse", "lubridate", "forcats", "haven", "labelled",
   "modelr", "purrr",
