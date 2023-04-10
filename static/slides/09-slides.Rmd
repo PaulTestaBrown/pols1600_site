@@ -511,8 +511,8 @@ So if we were to toss a fair coin 20 times and count up the number of heads, the
 ---
 
 ```{r,echo=F}
-p <- .2
-df <- data.frame(x = 0:20, px = dbinom(0:20,size=20, prob=p))
+p <- .5
+df <- data.frame(x = 0:50, px = dbinom(0:50,size=50, prob=p))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
          geom_segment(aes(x=x,xend=x,y=0,yend=px))+
@@ -538,7 +538,7 @@ We use these distributions to try and predict to predict the [probability of a g
 ```{r, echo=F}
 # PDF of Poisson, lambda = 4
 # Try changing lambda
-lambda <- 4
+lambda <- 1
 df <- data.frame(x = 0:20, px = dpois(0:20, lambda))
 ggplot(df,aes(x=x,y=px))+
          geom_point()+
