@@ -12,17 +12,8 @@
     <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
-    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
-    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
-    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-    <script src="libs/datatables-binding/datatables.js"></script>
-    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
-    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
-    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
-    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/brown.css" type="text/css" />
   </head>
   <body>
@@ -72,27 +63,68 @@ class: inverse, center, middle
 
 
 ---
-## Course Plan
+background-image: url("https://i.kym-cdn.com/entries/icons/original/000/037/873/We're_All_Trying_To_Find_The_Guy_Who_Did_This_banner_1.jpg")
+background-size:contain
 
-- April 14: Workshop on Paper -- Counts as Assignment 3: Data Explorations
+---
+## Two Options:
 
-- April 19: Lecture -- Hypothesis Testing
+- Proceed with group projects with condensed schedule/assignments
 
-- April 21 Workshop on Paper -- Inference About Models
+--
 
-- April 24: Draft due on Canvas
+- Replace group projects with a take home (open book/notes) final exam 
+  - Posted April 30
+  - Due May 7
+  - Mix of theory, concepts, and coding. 
 
-- April 26: Lecture -- Course Review / How to Make a Presentation
 
-- April 28: Workshop on Presentations
 
-- May 1: Upload Presentations
+---
+## Course Plan: Option 1
 
-- May 3: Class Presentations Part 1
+- April 13: No Class, Review Feedback to A2
 
-- May 5: Class Presentations Part 2
+- April 18: Lecture -- Hypothesis Testing
 
-- May ?: Tacos at Dolores?
+- April 20 Workshop on Paper -- Inference About Models: Counts as Assignment 3
+
+- April 25: Lecture -- Course Review 
+
+- April 27: Workshop: Paper drafts and Presentations
+
+- April 30: Upload Presentations
+
+- May 2: Class Presentations Part 1
+
+- May 4: Class Presentations Part 2
+
+- May ?: Tacos?
+
+---
+## Course Plan: Option 2
+
+- April 13: No Class, 
+
+- April 18: Lecture -- Hypothesis Testing
+
+- April 20  Lab -- Hypothesis Testing and Interval Estimation
+
+- April 25: Lecture -- Course Review 
+
+- April 27: Workshop: 
+
+- April 30: Take Home Final Exam
+
+- May ?: Tacos or Pizza with POLS 1140?
+
+- May 7: Take Home Final Exam due
+
+
+---
+## What do we want to do?
+
+
 
 ---
 class:inverse, middle, center
@@ -177,6 +209,7 @@ load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
 ```
 
 
+<<<<<<< HEAD
 ---
 class: inverse, center, middle
 # 📢
@@ -263,6 +296,8 @@ How many of the following statements are true for you?
 ---
 &lt;img src="10-slides_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
+=======
+>>>>>>> 225d0dd51c5f558b1c71fa4d5c8b57f2576840a3
 
 
 ---
@@ -650,7 +685,7 @@ p_pop
 
 ---
 
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -692,7 +727,7 @@ mean_age3
 
 
 ---
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Repeated Sampling
@@ -744,7 +779,7 @@ mu_age_samp_dist_n25
  8     8 Sampling     Population &lt;df [25 × 42]&gt;     41.4
  9     9 Sampling     Population &lt;df [25 × 42]&gt;     45.4
 10    10 Sampling     Population &lt;df [25 × 42]&gt;     48.8
-# … with 990 more rows
+# ℹ 990 more rows
 ```
 
 ---
@@ -777,7 +812,7 @@ mu_age_samp_dist_n25$estimate[[1]]
 
 ---
 
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -804,7 +839,7 @@ p_dist
 
 ---
 
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-18-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -867,7 +902,7 @@ mu_age_samp_dist_n25 %&gt;%
 ```
 
 ---
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-25-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -993,7 +1028,7 @@ bs_example %&gt;%
 ```
 
 ---
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-31-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1040,10 +1075,10 @@ samp200 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%&
 
 ---
 
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-34-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-31-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
-&lt;img src="10-slides_files/figure-html/unnamed-chunk-35-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-slides_files/figure-html/unnamed-chunk-32-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Standard Errors and Sample Size
