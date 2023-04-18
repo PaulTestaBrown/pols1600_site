@@ -84,7 +84,22 @@ class: inverse, center, middle
 
 - Demo: Final Projects
 
+---
+## Course Plan
 
+- April 18: Lecture -- Hypothesis Testing
+
+- April 20  Lab -- Hypothesis Testing and Interval Estimation
+
+- April 25: Lecture -- Course Review 
+
+- April 27: Workshop: 
+
+- April 30: Take Home Final Exam
+
+- May ?: Tacos or Pizza with POLS 1140?
+
+- May 7: Take Home Final Exam due
 
 
 ---
@@ -858,6 +873,8 @@ class:inverse, middle, center
 
 ---
 ## Timelines: This Week
+
+**NOTE: I'm leaving these slides in for nw**
 
 - Feedback on Data today
 
