@@ -116,7 +116,6 @@ Some commonly used covariates:
 - **V202468x** PRE‐POST: SUMMARY: Total (family) income
 - **V201600** PRE: What is your (R) sex? [revised]
 - **V201549x** PRE: SUMMARY: R self‐identified race/ethnicity
-- **V201549x** PRE: SUMMARY: R self‐identified race/ethnicity
 - **V201231x** PRE: SUMMARY: Party ID
 - **V201200** PRE: 7pt scale liberal‐conservative self‐placement
 
