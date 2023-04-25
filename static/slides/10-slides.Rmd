@@ -266,6 +266,9 @@ pred_df$pred_ols <- predict(m1,
 pred_df$pred_logit <- predict(m2,
                             newdata = pred_df,
                             type = "response")
+
+
+
 ```
 
 ---
@@ -331,7 +334,7 @@ class: inverse, center, middle
 
 - Confidence intervals describe a range of plausible values
 
-- That range is a function of the **standard error** of the estimate, and the a **critical value** determined $\alpha$, which escribes the degree of confidence we want 
+- That range is a function of the **standard error** of the estimate, and the a **critical value** determined $\alpha$, which describes the degree of confidence we want 
   
   - A 95% confidence interval corresponds to an $\alpha$ of 0.05
 
