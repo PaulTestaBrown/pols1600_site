@@ -31,20 +31,20 @@ links:
   url: /slides/12-slides.html
 - icon: calendar-check
   icon_pack: fas
-  name: "A4: Draft"
-  url: /files/assignments/A4_Draft.html
-- icon: flask
-  icon_pack: fas
-  name: Final Paper Template
-  url: /files/assignments/POLS1600_paper_template.Rmd
-- icon: pen
-  icon_pack: fas
-  name: Final Paper Example
-  url: /files/assignments/POLS1600_final_paper_example.html
-- icon: desktop
-  icon_pack: fas
-  name: Presentation Template
-  url: /files/assignments/POLS1600_presentation.zip
+  name: "Lab"
+  url: /labs/10-lab.Rmd
+# - icon: flask
+#   icon_pack: fas
+#   name: Final Paper Template
+#   url: /files/assignments/POLS1600_paper_template.Rmd
+# - icon: pen
+#   icon_pack: fas
+#   name: Final Paper Example
+#   url: /files/assignments/POLS1600_final_paper_example.html
+# - icon: desktop
+#   icon_pack: fas
+#   name: Presentation Template
+#   url: /files/assignments/POLS1600_presentation.zip
 # - icon: magic
 #   icon_pack: fas
 #   name: slides
