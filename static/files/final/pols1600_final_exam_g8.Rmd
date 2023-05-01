@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600 Take Home Final"
-author: "Group 4: Georgia Kennedy-Bailey,Samuel Levine, Elie Lubin, Bianca Rosen"
+author: "Group 8: Starrchild Jackson"
 date: 'DUE 11:59 pm, May 12, 2023 on Canvas'
 output:
   html_document:
@@ -222,7 +222,7 @@ library(tidyverse)
 
 
 # Load data
-load(url("https://pols1600.paultesta.org/files/data/g4/df_g4.rda"))
+load(url("https://pols1600.paultesta.org/files/data/g8/df_g8.rda"))
 
 ```
 
@@ -249,15 +249,20 @@ The data contain the following variables:
 
 Please download the [codebook](https://electionstudies.org/anes_timeseries_2020_userguidecodebook_20220210/) for further information on how these variables are coded.
 
-Additionally, your data contain: 
+The primary outcome for your analyses comes from the following variable: 
 
-- **`V202332`** POST: HOW MUCH IS CLIMATE CHANGE AFFECTING SEVERE WEATHER/TEMPERATURES IN US
+- **`V201411x`** Should transgender people - that is, people who identify themselves as the sex or gender different from the one they were born as - have to use the bathrooms of the gender they were born as, or should they be allowed to use the bathrooms of their identified gender?^[There were limited questions on the NES to choose from for this topic]
 
-**Your task in this section is to explore variation in perceptions of the impact of climate change on severe weather** using the data available to you. 
+**Your task in this section is to explore variation in support for transgender rights** using the data available to you. 
 
-What specific factors you focus on are up to you. You might focus on partisan or generational differences in perception or other variation across social and economic strata using other predictors in the NES. 
+Additionally, your dataset contains the following variables:
 
-You might instead bring in additional information about where respondents live (say by constructing an indicator of whether their state boarders an ocean, or even merging in outside data on average temperatures or rainfall in 2020 in these states) This option is by no means required. It would be more work, and would create opportunities for potential errors in your code, but could also be more interesting. Again, it's up to you.  
+- **`V202172`** POST: FEELING THERMOMETER: TRANSGENDER PEOPLE
+- **`V202473`** POST: R HAS FAMILY/NEIGHBORS/COWORKERS/FRIENDS WHO ARE TRANSGENDER
+
+Which may or may not be relevant for your analysis.
+
+What specific factors you focus on are up to you. You might focus on partisan or generational differences in support/opposition. You might focus specifically on contact with individuals who are transgender and then try to adjust for factors that would predict both contact and support/opposition. It's up to you!
 
 To accomplish you will need to:
 
@@ -273,12 +278,12 @@ To accomplish you will need to:
 
 ## Formalize your question and expectations (5 points)
 
-What do you think explains variation in perceptions about the impact of climate change?
+What do you think explains variation in support or opposition to transgender rights?
 
 > Write your answer here
 
 
-Don't worry about coming up with the perfect explanation (you have limited data). But try to develop a question and set of expectations that you think would be substantively interesting to explore.
+Don't worry about coming up with the perfect explanation (you have limited data). But try to develop a question and set of expectations (and alternatives) that you think would be substantively interesting to explore.
 
 
 ## Look at and recode the data (5 points)
@@ -300,7 +305,7 @@ Now recode the data to use in your analysis. At a minimum you will need to creat
   - Your key predictor (the thing you think explains variation in your outcome)
   - Additional covariates that:
     - might influence both your outcome and key predictor (Omitted variable bias/Alternative explanations)
-    - might moderate the effect of your key predictor on the outcome (Heterogeneous/conditional effects)
+    - might moderate the effect of your key predictor on the outcome (Heterogenous/conditional effects)
 
 A few more suggestions:
 
@@ -346,7 +351,7 @@ Ideally, present this information like we did in class as a table of descriptive
 
 ## Estimtate at least two models (5 points)
 
-Please estimate the at least two models:
+Please estimate at least two models:
 
 1. A simple bivariate model testing your main expectation
 
@@ -354,6 +359,7 @@ Please estimate the at least two models:
   - Controls for relevant covariates and/or
   - Interactions to test for conditional effects
 
+You're free to estimate more, but try to keep your analysis and interpretations focused on one main question.
 
 
 ```{r models}

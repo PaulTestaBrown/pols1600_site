@@ -1,7 +1,7 @@
 ---
 title: "POLS 1600 Take Home Final"
-author: "YOUR NAMES HERE"
-date: 'DUE 11:59 pm, May 12, 2022 on Canvas'
+author: "Group 6: Logan Torres, Jonathan Zhang, Osiris Russell-Delano, Aicha Sama"
+date: 'DUE 11:59 pm, May 12, 2023 on Canvas'
 output:
   html_document:
     theme: journal

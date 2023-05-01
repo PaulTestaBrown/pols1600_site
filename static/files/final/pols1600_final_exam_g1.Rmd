@@ -1,7 +1,7 @@
 ---
 title: "POLS 1600 Take Home Final"
-author: "YOUR NAME HERE"
-date: 'DUE 11:59 pm, May 12, 2022 on Canvas'
+author: "Group 1: Anna Lister, Kate Kuli, Andreas Young, Claudia Spelman"
+date: 'DUE 11:59 pm, May 12, 2023 on Canvas'
 output:
   html_document:
     theme: journal

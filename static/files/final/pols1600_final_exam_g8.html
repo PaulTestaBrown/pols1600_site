@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Group 4: Georgia Kennedy-Bailey,Samuel Levine, Elie Lubin, Bianca Rosen" />
+<meta name="author" content="Group 8: Starrchild Jackson" />
 
 
 <title>POLS 1600 Take Home Final</title>
@@ -1497,8 +1497,7 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">POLS 1600 Take Home Final</h1>
-<h4 class="author">Group 4: Georgia Kennedy-Bailey,Samuel Levine, Elie
-Lubin, Bianca Rosen</h4>
+<h4 class="author">Group 8: Starrchild Jackson</h4>
 <h4 class="date">DUE 11:59 pm, May 12, 2023 on Canvas</h4>
 
 </div>
@@ -1799,7 +1798,7 @@ library(tidyverse)</code></pre>
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code># Load data
-load(url(&quot;https://pols1600.paultesta.org/files/data/g4/df_g4.rda&quot;))</code></pre>
+load(url(&quot;https://pols1600.paultesta.org/files/data/g8/df_g8.rda&quot;))</code></pre>
 <p>The code loads a small dataframe from the American National Election
 Studies 2020 Time Series Study.</p>
 <p>The data contain the following variables:</p>
@@ -1838,24 +1837,30 @@ GOVERNMENT IN WASHINGTON TO DO WHAT IS RIGHT</li>
 </ul>
 <p>Please download the <a href="https://electionstudies.org/anes_timeseries_2020_userguidecodebook_20220210/">codebook</a>
 for further information on how these variables are coded.</p>
-<p>Additionally, your data contain:</p>
+<p>The primary outcome for your analyses comes from the following
+variable:</p>
 <ul>
-<li><strong><code>V202332</code></strong> POST: HOW MUCH IS CLIMATE
-CHANGE AFFECTING SEVERE WEATHER/TEMPERATURES IN US</li>
+<li><strong><code>V201411x</code></strong> Should transgender people -
+that is, people who identify themselves as the sex or gender different
+from the one they were born as - have to use the bathrooms of the gender
+they were born as, or should they be allowed to use the bathrooms of
+their identified gender?<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
 </ul>
-<p><strong>Your task in this section is to explore variation in
-perceptions of the impact of climate change on severe weather</strong>
-using the data available to you.</p>
+<p><strong>Your task in this section is to explore variation in support
+for transgender rights</strong> using the data available to you.</p>
+<p>Additionally, your dataset contains the following variables:</p>
+<ul>
+<li><strong><code>V202172</code></strong> POST: FEELING THERMOMETER:
+TRANSGENDER PEOPLE</li>
+<li><strong><code>V202473</code></strong> POST: R HAS
+FAMILY/NEIGHBORS/COWORKERS/FRIENDS WHO ARE TRANSGENDER</li>
+</ul>
+<p>Which may or may not be relevant for your analysis.</p>
 <p>What specific factors you focus on are up to you. You might focus on
-partisan or generational differences in perception or other variation
-across social and economic strata using other predictors in the NES.</p>
-<p>You might instead bring in additional information about where
-respondents live (say by constructing an indicator of whether their
-state boarders an ocean, or even merging in outside data on average
-temperatures or rainfall in 2020 in these states) This option is by no
-means required. It would be more work, and would create opportunities
-for potential errors in your code, but could also be more interesting.
-Again, it’s up to you.</p>
+partisan or generational differences in support/opposition. You might
+focus specifically on contact with individuals who are transgender and
+then try to adjust for factors that would predict both contact and
+support/opposition. It’s up to you!</p>
 <p>To accomplish you will need to:</p>
 <ul>
 <li><p>Develop a set of questions and expectations to explore in the
@@ -1871,14 +1876,15 @@ plot of predicted values (10 points)</p></li>
 <div id="formalize-your-question-and-expectations-5-points" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Formalize your
 question and expectations (5 points)</h2>
-<p>What do you think explains variation in perceptions about the impact
-of climate change?</p>
+<p>What do you think explains variation in support or opposition to
+transgender rights?</p>
 <blockquote>
 <p>Write your answer here</p>
 </blockquote>
 <p>Don’t worry about coming up with the perfect explanation (you have
 limited data). But try to develop a question and set of expectations
-that you think would be substantively interesting to explore.</p>
+(and alternatives) that you think would be substantively interesting to
+explore.</p>
 </div>
 <div id="look-at-and-recode-the-data-5-points" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Look at and recode
@@ -1906,7 +1912,7 @@ outcome)</li>
 <li>might influence both your outcome and key predictor (Omitted
 variable bias/Alternative explanations)</li>
 <li>might moderate the effect of your key predictor on the outcome
-(Heterogeneous/conditional effects)</li>
+(Heterogenous/conditional effects)</li>
 </ul></li>
 </ul>
 <p>A few more suggestions:</p>
@@ -1952,7 +1958,7 @@ has lots of code that might be useful for you.</p>
 <div id="estimtate-at-least-two-models-5-points" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Estimtate at least
 two models (5 points)</h2>
-<p>Please estimate the at least two models:</p>
+<p>Please estimate at least two models:</p>
 <ol style="list-style-type: decimal">
 <li><p>A simple bivariate model testing your main expectation</p></li>
 <li><p>A multiple regression model including:</p></li>
@@ -1961,6 +1967,8 @@ two models (5 points)</h2>
 <li>Controls for relevant covariates and/or</li>
 <li>Interactions to test for conditional effects</li>
 </ul>
+<p>You’re free to estimate more, but try to keep your analysis and
+interpretations focused on one main question.</p>
 <pre class="r"><code># Estimate models</code></pre>
 </div>
 <div id="present-and-interperet-your-results-10-points" class="section level2" number="5.5">
@@ -1985,6 +1993,13 @@ of your models with clear references to your table and figure.</p></li>
 <p>Write your interpretation of your results here.</p>
 </blockquote>
 </div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>There were limited questions on the NES to choose from
+for this topic<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

@@ -1,7 +1,7 @@
 ---
 title: "POLS 1600 Take Home Final"
-author: "YOUR NAMES HERE"
-date: 'DUE 11:59 pm, May 12, 2022 on Canvas'
+author: "Group 7: Group 7 Natalia Ibarra, Khaled Abdo, Selene Luna, Yoo Min Lee"
+date: 'DUE 11:59 pm, May 12, 2023 on Canvas'
 output:
   html_document:
     theme: journal
