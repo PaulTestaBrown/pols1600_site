@@ -1,0 +1,337 @@
+---
+title: "data"
+author: "Paul Testa"
+date: "2023-04-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(haven)
+library(labelled)
+
+```
+
+
+```{r}
+df_g7 <- read_dta("31117502.DTA")
+
+names(df_g7)
+
+
+apply(df_g7,1, var_label)
+```
+
+```{r}
+the_vars_g7 <- c("partycom",)
+var_label(df_g7[,47])
+table(df_g7$state, df_g7$region)
+
+table(df_g7$DISC3B)
+
+table(df_g7$polparty, df_g7$partycom)
+
+df_g7 %>% 
+  mutate(
+    discrim_trans = ifelse(DISC3B > 2,NA, DISC3B)
+  ) -> df_g7
+
+prop.table(table(df_g7$discrim_trans))
+df_g7$discrim_trans
+weighted.mean(df_g7$DISC3B == 2, df_g7$popwght,na.rm=T)
+
+```
+
+## Data
+
+```{r}
+nes20 <- read_dta("anes_timeseries_2020_stata_20220210/anes_timeseries_2020_stata_20220210.dta")
+nes20v <- read_dta("anes_timeseries_2020_stata_VoterValidation/anes_timeseries_2020_stata_VoterValidation.dta")
+class(nes20v)
+
+table(nes20$V200001 %in% nes20v$V200001)
+
+nes20 <- nes20 %>% left_join(nes20v,by = "V200001")
+nes20$val1_turnout20
+
+table(nes20$V202054x)
+
+```
+
+
+
+## Common Variables
+
+```{r}
+gsub(".*[[:punct:]] ","",as_factor(nes20$V202054x))
+nes20 %>% 
+  mutate(
+    state = ifelse(V203000 < 0, NA, gsub(".*[[:punct:]] ","",as_factor(V203000))),
+    state_registered = ifelse(V202054x < 0, NA, gsub(".*[[:punct:]] ","",as_factor(V202054x))),
+    region = gsub(".*[[:punct:]] ","",as_factor(nes20$V203003))
+    
+  ) -> nes20
+
+table(nes20$state, nes20$val1_turnout20, useNA = "ifany")
+table(gsub(".*[[:punct:]] ","",as_factor(nes20$V203003)),useNA = "ifany")
+```
+
+- **`state`** the state where the respondent was interviewed
+- **`state_registered`** the state the respondent was registered to vote in
+- **`region`** the Census region of the respondent
+- **`V201507x`** PRE: SUMMARY: Respondent age
+- **`V201511x`** PRE: SUMMARY: Respondent 5 Category level of education
+- **`V202468x`** PRE‐POST: SUMMARY: Total (family) income
+- **`V201600`** PRE: What is your (R) sex? [revised]
+- **`V201601`** PRE: SEXUAL ORIENTATION OF R [REVISED]
+- **`V201534x`** PRE: SUMMARY: R OCCUPATION STATUS 1 DIGIT
+- **`V201549x`** PRE: SUMMARY: R self‐identified race/ethnicity
+- **`V201558x`** PRE: SUMMARY: HISPANIC SUMMARY
+- **`V201231x`** PRE: SUMMARY: Party ID
+- **`V201200`** PRE: 7pt scale liberal‐conservative self‐placement
+- **`V202068x`** POST: SUMMARY: POST VOTE STATUS FOR REGISTERED RESPONDENTS
+- **`V202073`** POST: FOR WHOM DID R VOTE FOR PRESIDENT
+- **`V201233`** PRE: HOW OFTEN TRUST GOVERNMENT IN WASHINGTON TO DO WHAT IS RIGHT
+
+  
+
+
+
+
+```{r}
+the_common_vars2020 <- c("state", "state_registered", "region", "V201507x", "V201511x", "V202468x", "V201600", "V201601", "V201534x", "V201549x", "V201558x", "V201231x", "V201200", "V202068x", "V202073", "V201233")
+
+
+```
+
+
+
+## Group 1 Anna Lister, Kate Kuli, Andreas Young, Claudia Spelman
+
+```{r}
+df <- nes20 %>% 
+  filter(!is.na(val1_turnout20)) %>% 
+  select(all_of(the_common_vars2020),val1_turnout20)
+
+save(df, file = "../../data/g1/df_g1.rda")
+```
+
+
+```{r}
+table(nes20$V202068x, nes20$val1_turnout20)
+val_labels(nes20$val1_turnout20)
+g1_vars <- c(`val1_turnout20`)
+
+table(nes20$val1_turnout20,nes20$val1_turnout16)
+table(nes20$V201101)
+
+nes20 %>% 
+  mutate(
+    voted2016 = case_when(
+      val1_turnout16 >3 ~ 1,
+      val1_turnout16 == 3 ~ 0,
+      T ~ NA_real_
+
+    ),
+    voted2016_bymail = case_when(
+      val1_turnout16 ==4 ~ 1,
+      val1_turnout16 == 5 ~ 0,
+      val1_turnout16 == 6 ~ 0,
+      val1_turnout16 == 3 ~ 0,
+
+      
+    ),
+    voted2016_inperson = case_when(
+      val1_turnout16 ==4 ~ 0,
+      val1_turnout16 == 5 ~ 0,
+      val1_turnout16 == 6 ~ 1,
+      val1_turnout16 == 3 ~ 0,
+
+      
+    ),
+    voted2016_early = case_when(
+      val1_turnout16 ==4 ~ 0,
+      val1_turnout16 == 5 ~ 1,
+      val1_turnout16 == 6 ~ 0,
+      val1_turnout16 == 3 ~ 0,
+
+      
+    ),
+    voted2020 = case_when(
+      val1_turnout20 >3 ~ 1,
+      val1_turnout20 == 3 ~ 0,
+      T ~ NA_real_
+
+    ),
+    voted2020_bymail = case_when(
+      val1_turnout20 ==4 ~ 1,
+      val1_turnout20 == 5 ~ 0,
+      val1_turnout20 == 6 ~ 0,
+      val1_turnout20 == 3 ~ 0,
+
+      
+    ),
+    voted2020_inperson = case_when(
+      val1_turnout20 ==4 ~ 0,
+      val1_turnout20 == 5 ~ 0,
+      val1_turnout20 == 6 ~ 1,
+      val1_turnout20 == 3 ~ 0,
+
+      
+    ),
+    voted2020_early = case_when(
+      val1_turnout20 ==4 ~ 0,
+      val1_turnout20 == 5 ~ 1,
+      val1_turnout20 == 6 ~ 0,
+      val1_turnout20 == 3 ~ 0,
+
+      
+    )
+  ) -> nes20
+
+lm()
+
+
+nes20 %>% 
+  group_by(state_registered) %>% 
+  summarize(
+    n = n(),
+    turnout20 = mean(voted2020, na.rm = T),
+    turnout16 = mean(voted2016, na.rm = T),
+    diff_in_turnout = turnout20 - turnout16,
+    vote20_inperson = mean(voted2020_inperson, na.rm=T),
+    vote20_bymail = mean(voted2020_bymail, na.rm=T),
+    vote20_early = mean(voted2020_early, na.rm=T),
+    vote16_inperson = mean(voted2016_inperson, na.rm=T),
+    vote16_bymail = mean(voted2016_bymail, na.rm=T),
+    vote16_early = mean(voted2016_early, na.rm=T),
+    diff_vote_inperson = vote20_inperson - vote16_inperson,
+    diff_vote_bymail = vote20_bymail - vote16_bymail,
+    diff_vote_early = vote20_early - vote16_early,
+
+  ) %>% 
+  arrange(desc(diff_in_turnout)) -> voting_df
+voting_df$diff_vote_inperson
+summary(lm(turnout20 ~ vote20_bymail + vote20_inperson + vote20_early, voting_df))
+```
+
+
+```{r}
+
+```
+
+
+- `val1_turnout20`
+
+
+## Group 2 Elizabeth Steeves,Fabian Lopez,Lorenzo Mahoney, Ariana Palomo
+
+2020 Trump Support
+
+- `V202073` POST: FOR WHOM DID R VOTE FOR PRESIDENT
+
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020))
+
+save(df, file = "../../data/g2/df_g2.rda")
+```
+
+
+## Group 3 Will Lake,Taha Siddiqui , Amanda Page, Noah Soutier
+
+- Climate Change
+
+- `V202332` POST: HOW MUCH IS CLIMATE CHANGE AFFECTING SEVERE WEATHER/TEMPERATURES IN US
+
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020),V202332)
+
+
+save(df, file = "../../data/g3/df_g3.rda")
+```
+
+
+
+## Group 4 Georgia Kennedy-Bailey,Samuel Levine, Elie Lubin, Bianca Rosen
+
+V202242x - Do you favor, oppose, or neither favor nor oppose providing a path to citizenship for unauthorized immigrants who obey the law, pay a fine, and pass security checks?
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020),V202242x)
+
+
+save(df, file = "../../data/g4/df_g4.rda")
+```
+
+
+## Group 5 Theo Simmons,Fengyu Seah, Hunter Keneley, Schuyler Dubitsky
+
+Voting by generational differences
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020),V202008,V201234,
+         V201115:V201123
+         )
+
+
+save(df, file = "../../data/g5/df_g5.rda")
+
+table(nes20$V201118)
+nes20$V202008
+```
+
+
+## Group 6 Logan Torres, Jonathan Zhang, Osiris Russell-Delano, Aicha Sama
+
+
+V202336x - POST: SUMMARY: Favor/oppose increased regulation on greenhouse emissions
+
+V201432x -
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020),V202336x,
+         V201432x, V202173,V202174,V202183, V202179, V202180, V202162, V202163)
+
+
+save(df, file = "../../data/g6/df_g6.rda")
+
+
+nes20$V201432x
+nes20 %>% 
+  mutate(
+    protest = ifelse(V201432x < 0, NA, V201432x),
+    climate_reg = ifelse(V202336x < 0, NA, V202336x),
+    ft_scientist = ifelse(V202173 < 0, NA, V202173)
+  ) -> nes20
+summary(lm(climate_reg ~ protest + ft_scientist, nes20))
+```
+
+
+## Group 7 Natalia Ibarra, Khaled Abdo, Selene Luna, Yoo Min Lee
+
+Trans rights 2020/22
+
+
+- V201411x: Should transgender people - that is, people who identify themselves as the sex or gender different from the one they were born as - have to use the bathrooms of the gender they were born as, or should they be allowed to use the bathrooms of their identified gender?
+
+```{r}
+df <- nes20 %>% 
+  select(all_of(the_common_vars2020),V201411x,
+         V202172, V202473)
+
+
+save(df, file = "../../data/g7/df_g7.rda")
+```
+
+
+
+
