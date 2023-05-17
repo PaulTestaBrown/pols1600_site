@@ -11,62 +11,52 @@ output:
     number_sections: TRUE
 ---
 
-# Overview {-}
+# Grade {-}
 
-This document provides your final exam for POLS 1600.
 
-The exam consists of five parts corresponding to core concepts and skills from POLS 1600:
 
-- Statistical Programming (10 points)
+- Statistical Programming 
 - Casual Inference (20 Points)
 - Interpreting Linear Models (20 points)
 - Quantifying Uncertainty through Statistical Inference (20 points)
 - Conducting applied empirical analysis (30 points)
 
-Each section contains a series of conceptual questions and/or coding tasks for your to accomplish.
 
-You will write your answers to these questions and tasks in this Rmd file.
-
-You will **submit the html file** produced by this .Rmd file on **[on Canvas by May 12, 11:59 pm.](https://canvas.brown.edu/courses/1087979/assignments/7881310)**
-
-Exams submitted after May 12 will automatically lose 10 points for each late day.
-
-If you submit the `Rmd` file instead of the `html` file you will lose 5 points from your exam grade.
-
-If you like, I will meet with you by Zoom for 30 minutes to answer general questions about material from the course. I will not answer specific questions from the exam.
-
-This exam is designed to test **your knowledge and understanding** of concepts and skills from the course. You can and should make use of material from lectures and labs, but if I find evidence of plagiarism (copying and pasting answers verbatim from Google), I will initiate plagiarism procedures described in Brown's [Academic Code](https://college.brown.edu/sites/g/files/dprerj916/files/2022-04/Academic-Code.pdf)
 
 # Statistical Programming
 
 ## Write the name of a function that accomplishes each task (5 points)
 
-- Transform a dataframe by adding new columns: `answer`
+- Transform a dataframe by adding new columns: `mutate()`
 
-- Pipe the output of one function into another function: `answer`
+- Pipe the output of one function into another function: ` %>% `
 
-- Estimate a linear regression model `answer`
+- Estimate a linear regression model `lm()`
 
-- Present a linear regression model as a formatted html regression table `answer`
+- Present a linear regression model as a formatted html regression table `texreg::htmlreg()`
 
-- Subset a dataframe based on set of logical statements `answer`
+- Subset a dataframe based on set of logical statements `filter(X == x)`
 
 
 
 
 ## To produce a graphic in R using the package `ggplot2` you need at least three components, what are they? (5 points)
 
-- Please write your answer in complete sentences and write some [pseudo code](https://en.wikipedia.org/wiki/Pseudocode) to illustrate your explanation
+- To create a figure in R using ggplot2 you need at a minimum:
+
+  - a **data** set
+  - from which which you map columns onto specific **aesthetics**
+  - which are then presented given a specificed **geometry**
 
 ```{r, eval = F}
 # Write pseudo code 
 
 # Component 1
-
+data %>% 
 # Component 2
-
+ggplot(aes(x=x, y=y))+
 # Component 3
-
+geom_point()
 
 ```
 
@@ -76,53 +66,123 @@ This exam is designed to test **your knowledge and understanding** of concepts a
 
 ## What is the fundamental problem of causal inference? (3 points)
 
--   Please frame your answer in terms of potential outcomes and counterfactual comparisons. 
+-   The fundamental problem of causal inference is that we only observe one of potentially many potential outcomes. For example, if we wanted to know the effect of taking aspirin on my headache we would want to compare my headache status having taken aspirin to my headache status having not taken aspirin. The problem is we only observe one of these two potential outcomes. Thus causal effects at the level of individual units are unidentified.
 
 ## How does random assignment help solve this fundamental problem? (3 points)
 
--   Please discuss the concepts of statistical independence and average treatment effects.
+- Random assignment ensures that treatment status $Z_i$ is independent of potential outcomes $(Y_i(1), Y_i(0))$, observed covariates $(X_i)$ and unobserved -- potentially confounding -- covariates $(U_i)$:
+
+$$
+Y_i(1), Y_i(0), X_i, U_i \perp Z_i
+$$
+
+Random assignment allows us to produce unbiased estimates of the *Average Treatment Effect*, using the observed differences in the average outcomes of groups assigned to treatment and control.
+
+When treatment has been randomly assigned, what we can observe ( $E[Y_i|Z=0], E[Y_i|Z=1]$ ), provides good (unbiased) estimates of theoretical quantities we want observe
+
+$$E[Y_i|Z=0] = E[Y_i(0)|Z=0] = E[Y_i(0)] = E[Y_i(0)|Z=1]$$
+
+$$E[Y_i|Z=1] = E[Y_i(1)|Z=1] = E[Y_i(1)] = E[Y_i(1)|Z=0]$$
+
+If we treatment as been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:
+
+$$\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}$$
+
+That is, the ATE is causally identified by the **difference of means** estimator in an experimental design
 
 ## What's the difference between an observational and experimental design? (2 points)
 
--   Who or what determines the presence of some causal factor
+- **Experimental designs** are studies in which a causal variable of interest, the *treatement*, is manipulated by the researcher to examine its causal effects on some *outcome* of interest
 
--   What are the strengths and weaknesses of each design
+- **Observational designs** are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)
+
+Experimental design are often said to have high *internal validity*: if treatment has been randomly assigned we are confident that such designs credibly identify an average treatment effect. Experimental designs however can be criticized for lacking **external** or **ecological** validity. Observational designs, by contrast may require more assumptions to credibly identify causal effects (and thus may have weaker internal validity), but may possess higher **external** or **ecological** validity.
 
 ## Explain the concept of collider bias. How can avoid introducing collider bias into our analyses (2 points)
 
+-  **Collider bias:** is bias we create when we condition on a *common consequence* of our outcome and predictor(s). Collider bias can come in many forms, but one classic example comes from debates about the gender wage gap between men and women in the U.S. If we estimated a simple regression model controlling only for gender, we would likely find an coefficient on gender suggesting women earn less than men. However if we also controlled for occupation, we risk introducing collider bias into our estimates, since gender discrimination may influence not only the wages men and women are paid but also the jobs for which they are hired. Assuming ability is correlated with both wages and jobs, controlling for occupation (but not ability) may introduce collider bias into our estimates of the gender wage gap.
+
+Avoiding collider bias requires a strong theory. That is we need to think clearly about our causal model, and where variables fit in that model. One easy way to avoid collider bias in a experimetnal designs, is to avoid controlling for post-treatment covariates when estimating average treatment effects.
+
+
 ## What are three common designs for making credible causal claims with observational data? (10 points)
 
-For each design, please:
 
--   Describe the basic logic of the design
+### Difference in Difference Designs
 
--   Explain the key identifying assumptions of the design
+## Summary
 
--   Discuss some testable implications of these assumptions
+- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+  
+  - Taking the pre-post difference removes any fixed differences between the units
+  
+  - Then taking the difference between treated and control differences removes any common differences over time
+
+- The key identifying assumption of a DiD design is the "assumption of parallel trends". This assumption implies that absent treatment, treated and control groups
+would see the same changes over time. While this is hard to prove, we can assess it's credibility by comparing pre-treatment trends in the outcomes of treated and control groups.
+
+### Regression Discontinuity Designs
+
+- Regression discontinuity designs (RDD) leverages natural **discontinuities** in the probability of receiving treatment to estimate *local average treatment effects
+
+  - Common discontinuities include: elections, test score cutoffs, time/events
+
+  - A local average treatment effect means the effect applies only to a subset of observations, here those observations at or close to the cutoff.
+
+- The identifying assumption of an RDD is continuity at the cutoff
+  - This implies that observations just below the cutoff for receiving treatment provide reasonable counterfactuals to those just above the cutoff
+  - We can't prove this, but we can test it's empirical implications for example by comparing covariate balance near the cutoff. We can also test the distribution of observations around the cutoff. If treatment is as-if random, the distribution should be "smooth" with departures suggesting some evidence that units are sorting around the cutoff to select into or out of treatment. 
+
+### Instrumental Variables
+
+Instrumental variables are designs used for dealing with **omitted variable bias**
+
+- We have some non random treatment whose effects we'd like to assess
+- We're worried that these effects are **confounded** by some unobserved, omitted variable, that influences both the treatment and the outcome
+- We find an **instrumental variable** that satisfies the following:
+  - Randomization
+  - Excludability
+  - First-stage relationship
+  - Monotonicity
+- Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommited variables)
+
+- IV designs require and instrument that is exogenous and relevant. The exogeneity assumption (sometimes called the exclusion restriction) is difficult to prove and generally must be justified by appeals to theory (i.e. knowledge about the world that makes this claim credible). However the relevance criteria (first stage relationship) can generally be tested empirically (i.e. the instrument should have stasitically significant relationship with the causal effect of interest)
 
 # Linear Models (20 points)
 
 ## What is a linear regression and why is it useful? (5 points)
 
-In your answer, please discuss:
+  - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
 
--   The basic goals and intuitions that motivate linear regression
+$$y_i = \beta_0 + \beta_1x_i + \epsilon_i $$
 
--   The mechanics of ordinary least squares regression
+  - Multiple regression generalizes this approach to include multiple predictors
+  
+$$y_i = \beta_0 + \beta_1x_1 +  \beta_2 x_2 + \dots + \beta_j x_j + \epsilon_i $$
+$$y_i = X\beta + \epsilon_i $$
+- The coefficients in regression models tell us how the outcome $y$ is expected to change as some predictor, $x$ changes.
 
--   The relationship between linear regression and the Conditional Expectation Function
+ - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR): 
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+  - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$. 
 
 ## What does it mean to control for a variable in a multiple regression? (5 points)
 
-In your answer, please explain:
+- Regression models "partition variance" They separate the variation in the outcome (the thing we're trying to explain), into variation explained by the predictors in our model and the remaining variation not explained by these predictors
 
--   Why would  we want to control for covariates?
+- Coefficients in a linear regression describe the "marginal effect" of a change in a predictor on the outcome, after accounting for (holding constant/controlling) the other predictors in the model.
 
--   How linear regression accomplishes this
+- Residualized regression provides a way of illustrating how multiple regression isolates the  variance explained by specific predictors (and only those predictors)
 
--   What covariates we want to control for
-
--   What covariates we shouldn't control for
+- Generally we want to control for covariates that are potential common causes of our key predictor and outcome of interest to address "omitted variable bias." We want to avoid controlling for common consequences that can introduce "collider bias."
 
 ## Interpreting regression models (10 points)
 
@@ -138,16 +198,16 @@ Please answer the following:
 
 -   Specify a bivariate model predicting vaccination status with partisanship, measured by a 7-point scale to test this expectation (ie fill in the ??? in the equation below):
 
-$$\text{???} = \beta_0 + \beta_1 \times \text{???} + \epsilon$$
+$$\text{Vaccinated} = \beta_0 + \beta_1 \times \text{PID} + \epsilon$$
 
--    If your expectations are correct, what is the expected sign and significance of the coefficient on $\beta_1$
+-    If your expectations are correct, what is the expected sign and significance of the coefficient on $\beta_1$ 
 
-> Write your answer here
+> We would expect the coefficient to be negative and statistically significant (e.g. p < 0.05)
 
 
 -   How should we interpret $\beta_0$ in this model?
 
-> Write your answer here
+> Since partisanship is measured on a scale of 1-7, the intercept in this model is not substantively meaningful
 
 
 2.  Suppose we find the expected relationship in our bivariate model. A skeptic sees your results and says:
@@ -158,26 +218,26 @@ To address the skeptics concerns, you estimate a second model "controlling for g
 
 -   Specify a multiple regression model predicting vaccination status with partisanship and an indicator of whether someone lives in a rural setting.
 
-$$\text{???} = \beta_0 + \beta_1 \times \text{???} + \beta_2 \times \text{???} + \epsilon$$
+$$\text{Vaccinated} = \beta_0 + \beta_1 \times \text{PID} + \beta_2 \times \text{Urban} + \epsilon$$
 
 -   Assuming there is some truth behind the skeptic claims, what is the expected sign and significance of the coefficient on urban status in this model?
 
-> Write your answer here
+> Positive and statistically significant (e.g. p < 0.05)
 
 
 -   If the skeptic is right, and differences in vaccination rates are entirely a function of geography, what should happen to the sign and significance of the coefficient on partisanship in this model compared to the bivariate model?
 
-> Write your answer here
+> It should decrease in magnitude (e.g. get closer to 0) and no longer be statistically significant (e.g. p > 0.05)
 
 
 -   If the skeptic is only partly right, and only part of the relationship between partisanship and vaccination is actually a function of geographic differences, what should happen to the sign and significance of the coefficient on partisanship in this model compared to the bivariate model?
 
-> Write your answer here
+> The coefficent on partisanship should decrease in magnitude compared to the bivariate model but remain negative and statistically significant.
 
 
 -   If the skeptic is completely wrong, and geography has no relationship to vaccination rates, what should we expect in terms of the size and significance of the coefficient on rural status? How will the coefficient on partisanship in this model change?
 
-> Write your answer here
+> It should should be small in size and stasticall indistinguishable from 0.
 
 
 # Statistical Inference (20 points)
@@ -186,13 +246,23 @@ $$\text{???} = \beta_0 + \beta_1 \times \text{???} + \beta_2 \times \text{???} +
 
 Please provide a one-two paragraph explanation of what a confidence interval is, how we construct confidence intervals, and how confidence intervals can be used to conduct statistical inference.
 
-In your answer, please be sure to discuss and explain the following concepts:
+- Statistical inference involves quantifying uncertainty about what could have happened
 
--   Populations and samples
--   Sampling distributions
--   Standard errors
--   Significance thresholds and critical values
--   For a 95% confidence interval, what are we 95% percent confident about?
+- We can describe this uncertainty in terms of a sampling distribution (what could have happened had we had a different sample)
+
+- The standard deviation of a sampling distribution describes its width (spread) and is called a standard error
+
+- Standard errors decrease with by the $\sqrt{N}$ where $N$ is the size of our sample 
+
+- We can estimate standard errors via simulation or analytically. 
+
+  - Simulations require fewer assumptions, but take more time. 
+
+  - Analytic estimates are are quick, but require more assumptions.
+
+- We use standard errors to construct confidence intervals which we interpret as describing a range of plausible values for the thing we're trying to estimate.
+
+- Any one 95% confidence interval may or may not contain the truth, but in repeated sampling, 95% of the intervals we construct would contain the truth.
 
 ## What is a hypothesis test? (10 points)
 
@@ -200,200 +270,45 @@ Please provide a one-two paragraph explanation of what a hypothesis test is, how
 
 In your answer, please be sure to explain the following:
 
--   What is a null hypothesis?
--   What is a test stastitic?
--   What is a distribution of a test statistic under the null?
--   What is a p-value?
--   What's the difference between a Type I and Type II error?
+- A hypothesis test quantifies how likely it is that we would observe what we did (our test statistic), if some claim about the world were true (our hypothesis).
+
+- Typically, we test a null hypothesis that expresses our belief that their is no relationship between variables.
+
+  - $\tau = E[Y|Z=1] - E[Y|Z=0] = 0 \to$ No average treatment effect 
+  - $\beta = 0 \to$ No relationship between predictor and outcome 
+
+- If our claim were true, then under the null, our test statistic would have a distribution centered around the truth.
+
+- We can describe this distribution via:
+
+  - simulation (e.g. permuting the outcome)
+  - analytic theory (CLT)
+
+- We quantify our uncertainty using a p-value which describes the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true
+
+  - If our p-value is small (p < 0.05), we reject the null hypothesis 
+
+  - If our p-value is large (p > 0.05), we fail to reject the null, or retain the null hypothesis
+
 
 # Applied Empirical Analysis (40 points)
 
-Finally lets demonstrate some of the empirical skills you've learned in POLS 1600.
 
-Run the code below to load a small subset of data from the 2020 National Elections Time Series.
 
-```{r}
+## Formalize your question and expectations (5 Points),
 
-# Load libraries
-library(tidyverse)
 
-# Load data
-load(url("https://pols1600.paultesta.org/files/data/df_g1.rda"))
-
-```
-
-The code loads a small dataframe from the American National Election Studies 2020 Time Series Study.
-
-The data contain the following variables:
-
-- **`state`** the state where the respondent was interviewed
-- **`state_registered`** the state the respondent was registered to vote in
-- **`region`** the Census region of the respondent
-- **`V201507x`** PRE: SUMMARY: Respondent age
-- **`V201511x`** PRE: SUMMARY: Respondent 5 Category level of education
-- **`V202468x`** PRE‐POST: SUMMARY: Total (family) income
-- **`V201600`** PRE: What is your (R) sex? [revised]
-- **`V201601`** PRE: SEXUAL ORIENTATION OF R [REVISED]
-- **`V201534x`** PRE: SUMMARY: R OCCUPATION STATUS 1 DIGIT
-- **`V201549x`** PRE: SUMMARY: R self‐identified race/ethnicity
-- **`V201558x`** PRE: SUMMARY: HISPANIC SUMMARY
-- **`V201231x`** PRE: SUMMARY: Party ID
-- **`V201200`** PRE: 7pt scale liberal‐conservative self‐placement
-- **`V202068x`** POST: SUMMARY: POST VOTE STATUS FOR REGISTERED RESPONDENTS
-- **`V202073`** POST: FOR WHOM DID R VOTE FOR PRESIDENT
-- **`V201233`** PRE: HOW OFTEN TRUST GOVERNMENT IN WASHINGTON TO DO WHAT IS RIGHT
-
-Please download the [codebook](https://electionstudies.org/anes_timeseries_2020_userguidecodebook_20220210/) for further information on how these variables are coded.
-
-Additionally, your data contain: 
-
-- `val1_turnout20` a validated measure of turnout in the 2020 election, with the following values:
-  - 1  Linkage not attempted due to no PII
-  - 2  Linkage attempted, no record found 
-  - 3  Linked, not voting 
-  - 4  Linked, voted absentee/by mail 
-  - 5  Linked, voted early 
-  - 6  Linked, voted in person on election day 
-
-**Your task in this section is to explore variation in voting early and/or absentee/mail voting in the 2020 election** using the data available to you. 
-
-What specific factors you focus on are up to you. 
-
-You may look at only early voting, or voting by mail, or both. 
-
-You may explore variation across social and economic strata using other predictors in the NES. 
-
-You might instead bring in additional information about the policies adopted by states in the run up to the 2020 election (e.g. create an indicator of whether respondents lived in states that expanded early voting options). This option is by no means required. It would be more work, and would create opportunities for potential errors in your code, but could also be more interesting. Again, it's up to you.  
-
-To accomplish you will need to:
-
-- Develop a set of questions and expectations to explore in the data (5 points)
-
-- Look at and recode the data (5 points)
-
-- Produce a table of descriptive statistics (5 points)
-
-- Estimate at least two models testing your expectations (5 points)
-
-- Present and interpret the substantive and statistical significance of these models using a regression table and at least one plot of predicted values (10 points)
-
-## Formalize your question and expectations,
-
-What do you think explains variation in early voting/voting by mail in the 2020 election? Do you think certain groups were more or less likely to use these options? Do you think rates of voting were higher blue states vs red states?  What are some alternative explanations for your expected pattern of results?
-
-> Write your answer here
 
 
 ## Look at and recode the data (5 points)
 
-First write some code to give yourself a high level overview the data.
-
-```{r hlo}
-# High Level Overview of the Data
-```
-
-- **Code Advice** 
-  - I would use some combination `glimpse()`, `table()` and `summary()` to accomplish this
-  - Knit your document often and clean up your code accordingly
-
-
-Now recode the data to use in your analysis. At a minimum you will need to create new variables from the raw variables listed above for:
-
-  - Your key outcome of interest (aka your dependent variable, it should probably be a binary indicator)
-  - Your key predictor (the thing you think explains variation in your outcome)
-  - Additional covariates that:
-    - might influence both your outcome and key predictor (Omitted variable bias/Alternative explanations)
-    - might moderate the effect of your key predictor on the outcome (Heterogenous/conditional effects)
-
-A few more suggestions:
-
-  - **Look out for negative values** These should probably be recoded as `NA`
-  - Think about your population of interest, do you want to look at all respondents, only registered voters, only voters? 
-  - Transform categorical variables into binary indicators 
-    - E.g. convert things like race or gender into new variables that take a value of 1 when a respondent possesses that identity, and 0 otherwise
-  - If you want, you may feel free to bring in additional data/information, but you need not to.
-    - For example, you could look back at earlier labs to see how we coded whether someone lived in a "Red" state or a "Blue" State.
-  
-
-```{r recode}
-# Recode data
-```
-
 
 ## Produce a table of descriptive statistics (10 points)
 
-Please calculate the following descriptive statistics for your the variables you will use in your analyses
-
-- Minimum
-- 25th percentile
-- Median
-- Mean 
-- 75th percentile
-- Maximum
-- Number of Missing Observations
-
-Ideally, present this information like we did in class as a table of descriptive statistics. Use this information to describe the distributions of your data. This [template](https://pols1600.paultesta.org/files/assignments/pols1600_paper_template) has lots of code that might be useful for you.
-
-
-
-```{r descriptives}
-# Calculate Summary Statistics
-
-```
-
-
-```{r results="asis"}
-# Table of Descriptive Statistics
-```
-
-
-
 ## Estimtate at least two models (5 points)
-
-Please estimate the at least two models:
-
-1. A simple bivariate model testing your main expectation
-
-2. A multiple regression model including:
-  - Controls for relevant covariates and/or
-  - Interactions to test for conditional effects
-
-
-
-```{r}
-# Estimate models
-```
-
-
 
 
 ## Present and interperet your results (15 points)
 
-Finally, present and interpret the substantive and statistical signficance of your results.
 
-Please include:
-
-- A regression table containing the coefficients, standard errors, p-values for each model
-
-- A plot of the predicted values from one of your models
-
-- A interpretation of the substantive and statistical significance of your models with clear references to your table and figure.
-
-```{r regtab, results = "asis"}
-# Use htmlreg to present your models as a regression table
-```
-
-
-```{r predictions, results = "asis"}
-# Create a prediction dataframe and produce predicted values 
-# for you interaction model
-```
-
-```{r prediction_plot, results = "asis"}
-# Plot the predicted values (ideally with confidence intervals)
-# using ggplot
-
-```
-
-> Write your interpretation of your results here.
 
