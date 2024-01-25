@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Paul Testa">
+
+<title>POLS 1600 - Week 09:</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">POLS 1600</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../class/index.html"> 
+<span class="menu-text">Class</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments.qmd"> 
+<span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="09-slides.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 09:</h1>
+<p class="subtitle lead">Probability: Limit Theorems and Maximum Likelihood Estimation</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Paul Testa </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>class: inverse, center, middle # Overview</p>
+<section id="general-plan" class="level2">
+<h2 class="anchored" data-anchor-id="general-plan">General Plan</h2>
+<ul>
+<li>Setup</li>
+<li>Feedback</li>
+<li>Review
+<ul>
+<li>Probability Distributions</li>
+</ul></li>
+<li>Lecture
+<ul>
+<li>The Law of Large Numbers</li>
+<li>The Central Limit Theorem</li>
+<li>Generalized Linear Models (Maybe…)</li>
+</ul></li>
+</ul>
+</section>
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ul>
+<li>The Law of Large Number’s says that as our sample size increases, our sample mean will converge to the population value</li>
+</ul>
+<p>–</p>
+<ul>
+<li>The Central Limit Theorem says that the distribution of those sample means will follow a normal distribution</li>
+</ul>
+<p>–</p>
+<ul>
+<li>Generalized Linear Models allow us to more accurately model different types of data-generating processes using Maximum Likelihood Estimation.</li>
+</ul>
+</section>
+<section id="emoji-slide-notation" class="level2">
+<h2 class="anchored" data-anchor-id="emoji-slide-notation">Emoji Slide notation</h2>
+<ul>
+<li><p>💪: Exercises</p></li>
+<li><p>📢: Feedback</p></li>
+<li><p>🔍: Review</p></li>
+<li><p>💡: Core concept</p></li>
+<li><p>🦉: In case you’re interested</p></li>
+</ul>
+<p>class:inverse, middle, center # 💪 ## Get set up to work</p>
+</section>
+<section id="new-packages" class="level2">
+<h2 class="anchored" data-anchor-id="new-packages">New packages</h2>
+<p>None!</p>
+</section>
+<section id="packages-for-today" class="level2">
+<h2 class="anchored" data-anchor-id="packages-for-today">Packages for today</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>the_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## R Markdown</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kableExtra"</span>,<span class="st">"DT"</span>,<span class="st">"texreg"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Tidyverse</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"forcats"</span>, <span class="st">"haven"</span>, <span class="st">"labelled"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extensions for ggplot</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggmap"</span>,<span class="st">"ggrepel"</span>, <span class="st">"ggridges"</span>, <span class="st">"ggthemes"</span>, <span class="st">"ggpubr"</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"scales"</span>, <span class="st">"dagitty"</span>, <span class="st">"ggdag"</span>, <span class="st">"ggforce"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COVID19"</span>,<span class="st">"maps"</span>,<span class="st">"mapdata"</span>,<span class="st">"qss"</span>,<span class="st">"tidycensus"</span>, <span class="st">"dataverse"</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Analysis</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DeclareDesign"</span>, <span class="st">"zoo"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-a-function-to-load-and-if-needed-install-packages" class="level2">
+<h2 class="anchored" data-anchor-id="define-a-function-to-load-and-if-needed-install-packages">Define a function to load (and if needed install) packages</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-packages-for-today" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages-for-today">Load packages for today</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(the_packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   kableExtra            DT        texreg     tidyverse     lubridate 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      forcats         haven      labelled         ggmap       ggrepel 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggridges      ggthemes        ggpubr        GGally        scales 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      dagitty         ggdag       ggforce       COVID19          maps 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      mapdata           qss    tidycensus     dataverse DeclareDesign 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+          zoo 
+         TRUE </code></pre>
+</div>
+</div>
+<p>class:inverse, center, middle # 💪 ## Load Data for today</p>
+<p>class:inverse, middle, center # 🔍 # Review ## Random Variables and Probability Distributions</p>
+</section>
+<section id="probability" class="level2">
+<h2 class="anchored" data-anchor-id="probability">Probability</h2>
+<ul>
+<li><p>Probability describes the likelihood of an event happening.</p></li>
+<li><p>Statistics uses probability to quantify uncertainty about estimates and hypotheses.</p></li>
+<li><p>Three <em>rules</em> of probability (<strong>Kolmogorov axioms</strong>)</p>
+<ul>
+<li>Positivity: <span class="math display">\[Pr(A) \geq 0 \]</span></li>
+<li>Certainty: <span class="math display">\[Pr(\Omega) = 1 \]</span></li>
+<li>Additivity: <span class="math display">\[Pr(A \text{ or } B) = Pr(A) + Pr(B)\]</span> iff A and B are mutually exclusive</li>
+</ul></li>
+</ul>
+</section>
+<section id="probability-1" class="level2">
+<h2 class="anchored" data-anchor-id="probability-1">Probability</h2>
+<ul>
+<li><p>Two interpretations interpreting probabilities (<strong>Frequentist</strong> and <strong>Bayesian</strong>)</p></li>
+<li><p>Conditional Probability and Bayes Rule:</p></li>
+</ul>
+<p><span class="math display">\[Pr(A|B) = \frac{Pr(B|A)Pr(A)}{Pr(B)} = \frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A^\complement)Pr(A^\complement)}\]</span></p>
+</section>
+<section id="random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables">Random Variables</h2>
+<ul>
+<li><p>Random variables assign numeric values to each event in an experiment.</p>
+<ul>
+<li>Mutually exclusive and exhaustive, together cover the entire sample space.</li>
+</ul></li>
+<li><p>Discrete random variables take on finite, or <a href="http://mathworld.wolfram.com/CountablyInfinite.html">countably infinite</a> distinct values.</p></li>
+<li><p>Continuous variables can take on an uncountably infinite number of values.</p></li>
+</ul>
+</section>
+<section id="example-toss-two-coins" class="level2">
+<h2 class="anchored" data-anchor-id="example-toss-two-coins">Example: Toss Two Coins</h2>
+<ul>
+<li><p><span class="math inline">\(S={TT,TH,HT,HH}\)</span></p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be the number of heads</p>
+<ul>
+<li><span class="math inline">\(X(TT)=0\)</span></li>
+<li><span class="math inline">\(X(TH)=1\)</span></li>
+<li><span class="math inline">\(X(HT)=1\)</span></li>
+<li><span class="math inline">\(X(HH)=2\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="probability-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="probability-distributions">Probability Distributions</h2>
+<ul>
+<li>Broadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events.</li>
+</ul>
+<p><span class="math display">\[\text{distribution} = \text{list of possible} \textbf{ values} + \text{associated} \textbf{ probabilities}\]</span></p>
+<p>The can be represented in terms of:</p>
+<ul>
+<li><p>Probability Mass/Density Functions</p>
+<ul>
+<li><p>Discrete variables have probability mass functions (PMF)</p></li>
+<li><p>Continuous variables have probability density functions (PDF)</p></li>
+</ul></li>
+<li><p>Cumulative Density Functions</p>
+<ul>
+<li><p>Discrete: Summation of discrete probabilities</p></li>
+<li><p>Continuous: Integration over a range of values</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="discrete-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="discrete-distributions">Discrete distributions</h2>
+<ul>
+<li><p><strong>Probability Mass Function (pmf):</strong> <span class="math inline">\(f(x)=p(X=x)\)</span></p>
+<ul>
+<li>Assigns probabilities to each unique event such that Kolmogorov Axioms (Positivity, Certainty, and Additivity) still apply</li>
+</ul></li>
+<li><p><strong>Cumulative Distribution Function (cdf)</strong> <span class="math inline">\(F(x_j)=p(X\leq x)=\sum_{i=1}^{j}p(x_i)\)</span></p>
+<ul>
+<li>Sum of the probability mass for events less than or equal to <span class="math inline">\(x_j\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-toss-two-coins-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-toss-two-coins-1">Example: Toss Two coins</h2>
+<ul>
+<li><p><span class="math inline">\(S={TT,TH,HT,HH}\)</span></p></li>
+<li><p>Let <span class="math inline">\(X\)</span> be the number of heads</p>
+<ul>
+<li><span class="math inline">\(X(TT)=0\)</span></li>
+<li><span class="math inline">\(X(TH)=1\)</span></li>
+<li><span class="math inline">\(X(HT)=1\)</span></li>
+<li><span class="math inline">\(X(HH)=2\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(f(X=0)=p(X=0)=1/4\)</span></p></li>
+<li><p><span class="math inline">\(f(X=1)=p(X=1)=1/2\)</span></p></li>
+<li><p><span class="math inline">\(F(X\leq 1) = p(X \leq 1)= 3/4\)</span></p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/coin-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each side has equal probability of occurring (1/6). The probability that you roll a 2 or less P(X&lt;=2) = 1/6 + 1/6 = 1/3</p>
+</section>
+<section id="continuous-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="continuous-distributions">Continuous distributions</h2>
+<ul>
+<li><strong>Probability Density Functions (PDF):</strong> <span class="math inline">\(f(x)\)</span>
+<ul>
+<li>Assigns probabilities to events in the sample space such that Kolmogorov Axioms still apply</li>
+<li>But… since their are an infinite number of values a continuous variable could take, p(X=x)=0, that is, the probability that X takes any one specific value is 0.</li>
+</ul></li>
+<li><strong>Cumulative Distribution Function (CDF)</strong> <span class="math inline">\(F(x)=p(X\leq x)=\int_{-\infty}^{x}f(x)dx\)</span>
+<ul>
+<li>Instead of summing up to a specific value (discrete) we integrate over all possible values up to <span class="math inline">\(x\)</span></li>
+<li>Probability of having a value less than x</li>
+</ul></li>
+</ul>
+</section>
+<section id="integrals" class="level2">
+<h2 class="anchored" data-anchor-id="integrals">🦉 Integrals</h2>
+<p>First, a brief aside on integral calculus:</p>
+<p>What’s the area of the rectangle? <span class="math inline">\(base\times height\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="integrals-1" class="level2">
+<h2 class="anchored" data-anchor-id="integrals-1">🦉 Integrals</h2>
+<p>How would we find the area under a curve?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="integrals-2" class="level2">
+<h2 class="anchored" data-anchor-id="integrals-2">🦉 Integrals</h2>
+<p>Well suppose we added up the areas of a bunch of rectangles roughly whose height’s approximated the height of the curve?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Can we do any better?</p>
+</section>
+<section id="integrals-3" class="level2">
+<h2 class="anchored" data-anchor-id="integrals-3">🦉 Integrals</h2>
+<p>Let’s make the rectangles smaller</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What happens as the width of rectangles get even smaller, approaches 0? Our approximation get’s even better:</p>
+</section>
+<section id="link-between-pdf-and-cdf" class="level2">
+<h2 class="anchored" data-anchor-id="link-between-pdf-and-cdf">🦉 Link between PDF and CDF</h2>
+<p>If <span class="math display">\[F(x)=p(X\leq x)=\int_{-\infty}^{x}f(x)dx \]</span></p>
+<p>Then by the <a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">fundamental theorem of calculus</a></p>
+<p><span class="math display">\[\frac{d}{dx}F(x)=f(x)\]</span></p>
+<p>In words</p>
+<ul>
+<li><p>the PDF (<span class="math inline">\(f(x)\)</span>) is the derivative (rate of change) of the CDF (<span class="math inline">\(F(X)\)</span>)</p></li>
+<li><p>the CDF describes the area under the curve defined by f(x) up to x</p></li>
+</ul>
+</section>
+<section id="properties-of-the-cdf" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-the-cdf">Properties of the CDF</h2>
+<ul>
+<li><p><span class="math inline">\(0\leq F(x) \leq 1\)</span></p></li>
+<li><p><span class="math inline">\(F\)</span> is non-decreasing and right continuous</p></li>
+<li><p><span class="math inline">\(\lim_{x\to-\infty}F(x)=0\)</span></p></li>
+<li><p><span class="math inline">\(\lim_{x\to\infty}F(x)=1\)</span></p></li>
+<li><p>For all <span class="math inline">\(a,b \in \mathbb{R}\)</span> s.t. <span class="math inline">\(a&lt;b\)</span></p></li>
+</ul>
+<p><span class="math display">\[p(a &lt; X \leq b) = F(b)- F(a) = \int_a^b f(x)dx \]</span></p>
+</section>
+<section id="recall-the-pmf-and-cdf-of-a-die" class="level2">
+<h2 class="anchored" data-anchor-id="recall-the-pmf-and-cdf-of-a-die">Recall the PMF and CDF of a die</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="whats-the-probability" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-probability">What’s the probability</h2>
+<ul>
+<li><p><span class="math inline">\(p(X=1)...p(X=6) = 1/6\)</span></p></li>
+<li><p><span class="math inline">\(p( 2 &lt; X \leq 5) = F(5)-F(2)=5/6-2/6=3/6=1/2\)</span></p></li>
+</ul>
+</section>
+<section id="common-probablity-distirbutions" class="level2">
+<h2 class="anchored" data-anchor-id="common-probablity-distirbutions">Common Probablity Distirbutions</h2>
+<p>In this course, we’ll use probability distributions to</p>
+<ul>
+<li><p>model the data generating process as a function of parameters we can estimate (using Generalized Linear Models)</p></li>
+<li><p>perform inference based on asymptotic theory (statements about how statistics would be have as our sample size approached infinity)</p></li>
+</ul>
+<p>There are a lot of probability distributions:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="http://www.math.wm.edu/~leemis/chart/UDR/BaseImage.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fortunately, the distributions you need to know to really master data science, are probably more something like</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://miro.medium.com/max/4854/1*szMCjXuMDfKu6L9T9c34wg.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And the distributions we’ll work with the most in this class are an even smaller subset.</p>
+<ul>
+<li><p><strong>Bernoulli</strong>: Coinflips with probability of heads, <span class="math inline">\(p\)</span></p></li>
+<li><p><strong>Uniform</strong>: Coinflip with more than two outcomes</p></li>
+<li><p><strong>Binomial</strong>: Adding up coinflips</p></li>
+<li><p><strong>Poisson</strong>: Counting the total number of events</p></li>
+<li><p><strong>Geometric</strong>: Counting till a specific event occurs</p></li>
+<li><p><strong>Exponential</strong>: Counting till a specific event occurs in continous time</p></li>
+<li><p><strong>Normal</strong>:</p>
+<ul>
+<li>The limit of a Binomial distribution as <span class="math inline">\(n\to \infty\)</span></li>
+<li>The <a href="https://naokishibuya.medium.com/normal-distribution-demystified-933cf72185d2">maximum entropy</a> when we only know the mean and variance</li>
+</ul></li>
+<li><p><strong>t</strong>: A finite sample approximation of the normal</p></li>
+<li><p><span class="math inline">\(\chi^2\)</span>: Distribution of sums of squared variables from Normal distribution</p></li>
+</ul>
+</section>
+<section id="bernoulli-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="bernoulli-random-variables">Bernoulli Random Variables</h2>
+<p>Let’s start with our old friend the coin flip</p>
+<p>A coin flip is an example of a <strong>Bernoulli random variable</strong> defined by 1 parameter <span class="math inline">\(p\)</span>, the probability of success. It has a pmf of</p>
+<p><span class="math display">\[f(x) =
+    \left\{
+        \begin{array}{cc}
+                p &amp; \mathrm{if\ } x=1 \\
+                1-p &amp; \mathrm{if\ } x=0 \\
+        \end{array}
+    \right.\]</span></p>
+<p>And a CDF of</p>
+<p><span class="math display">\[F(x) =
+    \left\{
+        \begin{array}{cc}
+                0 &amp; \mathrm{if\ } x&lt;1 \\
+                1-p &amp; \mathrm{if\ } 0\leq x&lt;1 \\
+                1&amp; \mathrm{if\ } x\geq1 \\
+        \end{array}
+    \right.\]</span></p>
+<p>Note that in our coin flip example <span class="math inline">\(p=0.5\)</span> but it need not. Just imagine a weighted coin like the Patriots use at Foxborough</p>
+</section>
+<section id="uniform-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="uniform-distribution">Uniform Distribution</h2>
+<p>Our fair die examples represent a discrete uniform distribution: multiple outcomes, equally likely. We could even imagine an infinite number of possible outcomes within a range <span class="math inline">\([a,b]\)</span>, the key parameters for a uniform distribution, in which case our case our continuous uniform random variable has a pdf of</p>
+<p><span class="math display">\[f(x) =
+    \left\{
+        \begin{array}{cc}
+                \frac{1}{b-a}&amp; \mathrm{if\ } a \leq x\leq b \\
+                0 &amp; \text{otherwise} \\
+        \end{array}
+    \right.\]</span></p>
+<p>And a CDF:</p>
+<p><span class="math display">\[F(x) =
+    \left\{
+        \begin{array}{cc}
+                        0 &amp; x &lt;a \\
+                \frac{x-a}{b-a}&amp; \mathrm{if\ } a \leq x &lt; b \\
+                1 &amp; x \geq b \\
+        \end{array}
+    \right.\]</span></p>
+<p>We won’t run into uniform distributions all that often except in examples like rolling a fair sided die, but often they’re used in Bayesian analysis as a form of uninformative prior.</p>
+</section>
+<section id="binomial-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="binomial-distributions">Binomial Distributions</h2>
+<p>The binomial distribution may be thought of as the sum of outcomes of things that follow a Bernoulli distribution. Toss a fair coin 20 times; how many times does it come up heads? This count is an outcome that follows the binomial distribution.</p>
+<p>The key parameters are the number of trials <span class="math inline">\(n\)</span> and the probability of success for each trial <span class="math inline">\(p\)</span> and the pdf of a binomial distribution is:</p>
+<p><span class="math display">\[f(x)=\binom{n}{x}p^x (1-p) ^{1-x} \ \text{for x 0,1,2},\dots n\]</span> So if we were to toss a fair coin 20 times and count up the number of heads, the most common outcome would be 10 heads</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The binomial distribution will come in handy when trying to model binary outcomes.</p>
+</section>
+<section id="poisson-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-distributions">Poisson Distributions</h2>
+<p>What would happen if you let the <span class="math inline">\(n\)</span> in a binomial distribution go to infinity and <span class="math inline">\(p\)</span> go to 0 so that <span class="math inline">\(np\)</span> stayed the same. A Poisson distribution is what would happen. We use Poisson and negative binomial distributions to describe counts using the parameter <span class="math inline">\(\lambda\)</span> which represents rate at which events occur.</p>
+<p><span class="math display">\[f(x)=\frac{\lambda^x}{x!}e^{-\lambda}\]</span></p>
+<p>We use these distributions to try and predict to predict the <a href="https://towardsdatascience.com/poisson-distribution-intuition-and-derivation-1059aeab90d">probability of a given number of events occurring in a fixed interval of time.</a> Things like how many acts of political participation would a voter engage in over a year.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="geometric-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-distributions">Geometric Distributions</h2>
+<p>What if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:</p>
+<p><span class="math display">\[f(x)=p(1-p) ^{x}\]</span></p>
+<p>Geometric and related distributions are useful for describing the time until an event occurs</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exponential-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-distributions">Exponential Distributions</h2>
+<p>Taking a geometric distribution to its limit, you arrive at the continuous exponential distribution, again described by a <span class="math inline">\(\lambda = \frac{1}{\beta}\)</span> rate parameter</p>
+<p><span class="math display">\[f(x)=\frac{1}{\beta}\exp\left[-x/\beta\right]\]</span></p>
+<p><a href="https://www.jstor.org/stable/1963367">Cioffa-Revilla (1984)</a> uses an exponential distribution to model the stability of Italian governments.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h2>
+<p>Finally, there’s the distribution so ubiquitous we called it normal. The Normal distribution is defined by two parameters: a location parameter <span class="math inline">\(\mu\)</span> that determines the center of a distribution and a scale parameter <span class="math inline">\(\sigma^2\)</span> that determines the spread of a distribution</p>
+<p><span class="math display">\[f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp \left[
+-\frac{1}{2\sigma^2}(x-\mu)^2
+\right]\]</span></p>
+<p>Standard normal: <span class="math inline">\(X \sim N(\mu =0,\sigma^2=1)\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>As we’ll see normal distributions tend to arise when ever you’re summing variables.</p></li>
+<li><p>That is sum together a bunch of values from almost any distribution and the <strong>distribution of their sums</strong> tends to follow a normal distribution.</p></li>
+<li><p>Since lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)</p></li>
+</ul>
+<p>Consider a binomial distribution with N=100 and p=.5.</p>
+<p>The pmf of this variable (black lollipops) follows a distribution that’s closely approximated by a normal distribution (red line) with a mean 50 and a standard deviation of 5.</p>
+<p>A relationship explained more generally by the Central Limit Theorem, which we’ll cover next week.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="whats-the-px-leq-0-for-a-normal-distirbution-with-mean-0-and-sd-1" class="level3">
+<h3 class="anchored" data-anchor-id="whats-the-px-leq-0-for-a-normal-distirbution-with-mean-0-and-sd-1">What’s the <span class="math inline">\(p(X \leq 0)\)</span> for a normal distirbution with mean 0 and sd 1</h3>
+<p>Since the normal distribution is so common, it’s useful to get practice working with it’s pdf and cdf.</p>
+<p>Consider the following question: If X is normally distributed variable with <span class="math inline">\(\mu=0\)</span> and <span class="math inline">\(\sigma=1\)</span>, what’s the probability that X is less than 0 <span class="math inline">\(p(X\leq0)=?\)</span> We could solve:</p>
+<p><span class="math display">\[\int_{-\infty}^{0}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.5\]</span></p>
+<p>But R’s <code>pnorm()</code> function will quickly tell us</p>
+<ul>
+<li><span class="math inline">\(p(X\leq0)=\)</span> 0.5</li>
+</ul>
+<p>And we can visualize this as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Consider some other questions?</p>
+<ul>
+<li><span class="math inline">\(p(X=0)=0\)</span>
+<ul>
+<li>The probability that a continuous variable is exactly some value is always 0.</li>
+</ul></li>
+<li><span class="math inline">\(p(X&lt;0)=0.5\)</span></li>
+<li><span class="math inline">\(p(-1&lt; X&lt; 1)\)</span></li>
+<li><span class="math inline">\(p(-2&lt; X&lt; 2)\)</span></li>
+</ul>
+</section>
+<section id="p-1-x-1" class="level3">
+<h3 class="anchored" data-anchor-id="p-1-x-1">p(-1 &lt; X &lt; 1)</h3>
+<ul>
+<li><span class="math inline">\(p(-1&lt; X&lt; 1)=pr(X&lt;1)-pr(X&lt;-1)\)</span></li>
+</ul>
+<p><span class="math display">\[\int_{-1}^{1}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}dx=0.841-0.158=0.682\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/norm1sd-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="p-2-x-2" class="level3">
+<h3 class="anchored" data-anchor-id="p-2-x-2">p(-2 &lt; X &lt; 2)</h3>
+<ul>
+<li><span class="math inline">\(p(-2&lt; X\leq 2)=\)</span> 0.9544997</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/norm2sd-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We’ll use the fact that close 95 of the observations of a standard normal variable will be within 2 standard deviations of the the mean of 0 for assessing whether a given statistic is likely to have arisen if the true value of that statistic were 0.</p>
+</section>
+</section>
+<section id="expected-value" class="level2">
+<h2 class="anchored" data-anchor-id="expected-value">Expected Value</h2>
+<p>A (probability) weighted average of the possible outcomes of a random variable, often labeled <span class="math inline">\(\mu\)</span></p>
+<p>Discrete:</p>
+<p><span class="math display">\[\mu_X=E(X)=\sum xp(x)\]</span></p>
+<p>Continuous</p>
+<p><span class="math display">\[\mu_X=E(X)=\int_{-\infty}^{\infty}xf(x) dx\]</span></p>
+</section>
+<section id="whats-the-expected-value-of-a-1-roll-of-fair-die" class="level2">
+<h2 class="anchored" data-anchor-id="whats-the-expected-value-of-a-1-roll-of-fair-die">What’s the expected value of a 1 roll of fair die?</h2>
+<p><span class="math display">\[\begin{align*}
+E(X)&amp;=\sum_{i=1}^{6}x_ip(x_i)\\
+     &amp;=1/6\times(1+2+3+4+5+6)\\
+     &amp;= 21/6\\
+     &amp;=3.5
+\end{align*}\]</span></p>
+</section>
+<section id="properties-of-expected-values" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-expected-values">Properties of Expected Values</h2>
+<ul>
+<li><p><span class="math inline">\(E(c)=c\)</span></p></li>
+<li><p><span class="math inline">\(E(a+bX)=a+bE[X]\)</span></p></li>
+<li><p><span class="math inline">\(E[E[X]]=X\)</span></p></li>
+<li><p><span class="math inline">\(E[E[Y|X]]=E[Y]\)</span></p></li>
+<li><p><span class="math inline">\(E[g(X)]=\int_{-\infty}^\infty g(x)f(x)dx\)</span></p></li>
+<li><p><span class="math inline">\(E[g(X_1)+\dots+g(X_n)]=E[g(X_1)]+\dots E[g(X_n)\)</span></p></li>
+<li><p><span class="math inline">\(E[XY]=E[X]E[Y]\)</span> if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent</p></li>
+</ul>
+</section>
+<section id="variance" class="level2">
+<h2 class="anchored" data-anchor-id="variance">Variance</h2>
+<p>If <span class="math inline">\(X\)</span> has a finite mean <span class="math inline">\(E[X]=\mu\)</span>, the <span class="math inline">\(E[(X-\mu)^2]\)</span> is finite and called the variance of <span class="math inline">\(X\)</span> which we write as <span class="math inline">\(\sigma^2\)</span> or <span class="math inline">\(Var[X]\)</span>.</p>
+<p>Note:</p>
+<p><span class="math display">\[\begin{align*}
+\sigma^2=E[(X-\mu)^2]&amp;=E[(X^2-2\mu X+\mu^2)]\\
+&amp;= E[X^2]-2\mu E[X]+\mu^2\\
+&amp;= E[X^2]-2\mu^2+\mu^2\\
+&amp;= E[X^2]-\mu^2\\
+&amp;= E[X^2]-E[X]^2
+\end{align*}\]</span></p>
+<ul>
+<li>“The variance of X is equal to the expected value of X-squared, minus the square of X’s expected value.”</li>
+<li><span class="math inline">\(\sigma^2=E[X^2]-E[X]^2\)</span> is a useful identity in proofs and derivations</li>
+</ul>
+</section>
+<section id="variance-and-standard-deviations" class="level2">
+<h2 class="anchored" data-anchor-id="variance-and-standard-deviations">Variance and Standard Deviations</h2>
+<p>We often think of variances <span class="math inline">\(Var[X]\)</span> as describing the spread of a distribution</p>
+<p><span class="math display">\[\sigma^2=Var[X]=E[(X-E[X])^2]=E(X^2)-E(X)^2\]</span></p>
+<p>A standard deviation is just the square root of the variance</p>
+<p><span class="math display">\[\sigma=\sqrt{Var[X]}\]</span></p>
+</section>
+<section id="covariance" class="level2">
+<h2 class="anchored" data-anchor-id="covariance">Covariance</h2>
+<p>Covariance measures the degree to which two random variables vary together.</p>
+<ul>
+<li><span class="math inline">\(Cov[X,Y] \to +\)</span> An increase in <span class="math inline">\(X\)</span> tends to be larger than its mean when <span class="math inline">\(Y\)</span> is larger than its mean</li>
+</ul>
+<p><span class="math display">\[Cov[X,Y]=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y]\]</span></p>
+</section>
+<section id="properties-of-variance-and-covariance" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-variance-and-covariance">Properties of Variance and Covariance</h2>
+<ul>
+<li><p><span class="math inline">\(Cov[X,Y]=E[XY]-E[X]E[Y]\)</span></p></li>
+<li><p><span class="math inline">\(Var[X]=E[X^2]-(E[X])^2\)</span></p></li>
+<li><p><span class="math inline">\(Var[X|Y]=E[X^2|Y]-(E[X|Y])^2\)</span></p></li>
+<li><p><span class="math inline">\(Cov[X,Y]=Cov[X,E[Y|X]]\)</span></p></li>
+<li><p><span class="math inline">\(Var[X+Y]=Var[X]+Var[Y]+2Cov[X,Y]\)</span></p></li>
+<li><p><span class="math inline">\(Var[Y]=Var[E[Y|X]]+E[Var[Y|X]]\)</span></p></li>
+</ul>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
+<ul>
+<li>The correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is simply the covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> divided by the standard deviation of each.</li>
+</ul>
+<p><span class="math display">\[\rho=\frac{Cov[X,Y]}{\sigma_X\sigma_Y}\]</span></p>
+<ul>
+<li>Normalize covariance to a scale that runs between [-1,1]</li>
+</ul>
+<p>class:inverse, center, middle # 💡 # The Law of Large Numbers</p>
+</section>
+<section id="the-law-of-large-numbers-intuitive" class="level2">
+<h2 class="anchored" data-anchor-id="the-law-of-large-numbers-intuitive">The Law of Large Numbers (Intuitive)</h2>
+<p>Suppose we wanted to know the average height of our class.</p>
+<p>We could pick someone at random, measure their height and get an estimate. It would be a pretty bad estimate (it would vary a lot from person to person), but it would be an unbiased estimate</p>
+<p>How would we improve our estimate?</p>
+</section>
+<section id="the-law-of-large-numbers-intuitive-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-law-of-large-numbers-intuitive-1">The Law of Large Numbers (Intuitive)</h2>
+<p>Suppose we increased our sample size from N=1 to N = 5.</p>
+<p>Now our estimate reflects the average of 5 people’s heights as opposed to just 1. Both are are unbiased estimates of the truth, but the N=5 sample has a lower variance.</p>
+<p>–</p>
+<p>Now suppose we took a sample of size N = N-1. That is we measured everyone except one person. Our estimate will be quite close to the truth, varying slightly based on the height of the person left out.</p>
+<p>–</p>
+<p>Finally we took a sample of size N = 24 (e.g.&nbsp;the class size). Since our sample is the population, our estimate will be exactly equal to to the population. Each sample will give us the same “true” value. That is, it wil not vary at all.</p>
+<p>–</p>
+<p>The idea that as the sample size increases, the distance of a sample mean from the population mean <span class="math inline">\(\mu\)</span> goes to 0 is called the <strong>Law of Large Numbers</strong></p>
+</section>
+<section id="the-weak-law-of-large-numbers-formally" class="level2">
+<h2 class="anchored" data-anchor-id="the-weak-law-of-large-numbers-formally">The (Weak) Law of Large Numbers (Formally)</h2>
+<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent and identically distributed (i.i.d.) random variables with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Then for every <span class="math inline">\(\epsilon&gt;0\)</span>, as the sample size increases (1), the distance of a sample mean from the population mean <span class="math inline">\(\mu\)</span> (2) goes to 0 (3).</p>
+<p><span class="math display">\[\overbrace{Pr(\left|\frac{X_1+\dots+X_n}{n}-\mu\right| &gt; \epsilon)}^{\text{2. The distance of the sample mean from the truth}} \overbrace{\to 0}^{\text{3. Goes to 0}} \underbrace{\text{ as }n \to \infty}_{\text{1. As the sample size increases}}\]</span></p>
+<p>Equivalently:</p>
+<p><span class="math display">\[\lim_{n \to \infty} Pr(|\bar{X}_n - \mu| &lt; \epsilon) = 1\]</span></p>
+</section>
+<section id="simulating-the-lln" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-the-lln">💪 Simulating the LLN</h2>
+<p>Rhe expected value of rolling a die 3.5.</p>
+<p><span class="math display">\[ E[X] = \Sigma x_ip(X=x_i) = 1/6 * (1+2+3+4+5+6)\]</span></p>
+<p>In terms of the LLN, think of our sample size as the number of times we roll a die.</p>
+<p>If we rolled the die just once and took the average of our role, we could get a 1, 2, 3, 4, 5, or 6. which would be pretty far from our expected value of 3.5</p>
+<p>If we rolled the die two times and took an average, we could still get an value of 1 or 6 for average, but values closer to our expected value of 3.5, happen more often</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average from 2 rows</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">rowMeans</span>(<span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  1 1.5   2 2.5   3 3.5   4 4.5   5 5.5   6 
+  1   2   3   4   5   6   5   4   3   2   1 </code></pre>
+</div>
+</div>
+<p>As we increase our sample size (roll the die more times), the LLN says the chance that our sample average is far from the truth <span class="math inline">\((p(\left|\frac{X_1+\dots+X_n}{n}-\mu\right| &gt; \epsilon))\)</span>, gets vanishingly small.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>die <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>roll_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  rolls <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rolls =</span> <span class="fu">sample</span>(die, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># summarize rolls </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> rolls <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># number of rolls</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">n_rolls =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># number of times 1 was rolled</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">ones =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># number of times 2 was rolled, etc..</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">twos =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">2</span>),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">threes =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">3</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">fours =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">4</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">fives =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">5</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">sixes =</span> <span class="fu">sum</span>(rolls <span class="sc">==</span> <span class="dv">6</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Average of all our rolls</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">average =</span>  <span class="fu">mean</span>(rolls),</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Absolute difference between averages and rolls</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">abs_error =</span> <span class="fu">abs</span>(<span class="fl">3.5</span><span class="sc">-</span>average)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return summary df</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  df</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we could use a for-loop to simulate rolling our die once and calculating the average all the way up to rolling our die a 1000 times.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Holder</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sim_df <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  sim_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sim_df,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">roll_fn</span>(i)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With only a few rolls, our average bounces around a lot</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  n_rolls ones twos threes fours fives sixes  average abs_error
+1       1    0    0      1     0     0     0 3.000000 0.5000000
+2       2    0    0      1     0     0     1 4.500000 1.0000000
+3       3    0    2      0     0     0     1 3.333333 0.1666667
+4       4    0    0      1     1     1     1 4.500000 1.0000000
+5       5    1    1      1     0     1     1 3.400000 0.1000000
+6       6    3    0      2     1     0     0 2.166667 1.3333333</code></pre>
+</div>
+</div>
+<p>With a lot of rolls, our average is very close to 3.5</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(sim_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     n_rolls ones twos threes fours fives sixes  average  abs_error
+995      995  197  160    151   154   171   162 3.430151 0.06984925
+996      996  184  164    176   149   175   148 3.412651 0.08734940
+997      997  163  159    170   163   171   171 3.534604 0.03460381
+998      998  162  163    142   173   185   173 3.576152 0.07615230
+999      999  209  154    151   154   163   168 3.412412 0.08758759
+1000    1000  181  189    147   179   146   158 3.394000 0.10600000</code></pre>
+</div>
+</div>
+<p>Let’s visualize see how our average changes with the number of rolls, using <code>ggplot()</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p_die_lln <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(sim_df, <span class="fu">aes</span>(n_rolls, average))<span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/p_die_lln-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Your turn! Plot how the absolute value of the error changes as the number of rolls increases. Does it increase or decrease? How does the rate at which it goes up or down seem to change?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>class: inverse, center, middle #🦉 ## ICYI: Proving the Weak LLN</p>
+</section>
+<section id="proving-the-weak-lln" class="level2">
+<h2 class="anchored" data-anchor-id="proving-the-weak-lln">Proving the Weak LLN</h2>
+<p>A proof of the LLN is as follows:</p>
+<p>First define <span class="math inline">\(U\)</span> such that its a sample mean for sample of size <span class="math inline">\(n\)</span></p>
+<p><span class="math display">\[U=\frac{X_1+\dots +X_n}{n}\]</span></p>
+</section>
+<section id="proving-the-weak-lln-1" class="level2">
+<h2 class="anchored" data-anchor-id="proving-the-weak-lln-1">Proving the Weak LLN</h2>
+<p>Then show that the sample mean, <span class="math inline">\(U\)</span> is an unbiased estimator of the population mean <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[\begin{align*}
+E[U]&amp;=E[\frac{X_1+\dots +X_n}{n}]=\frac{1}{n}E[X_1+\dots +X_n]\\
+&amp;=\frac{n\mu}{n}=\mu
+\end{align*}\]</span></p>
+<p>With a variance</p>
+<p><span class="math display">\[\begin{align*}
+Var[U]&amp;=Var[\frac{X_1+\dots +X_n}{n}]=\\
+    &amp;=Var[\frac{X_1}{n}]\dots Var[\frac{+X_n}{n}]\\
+    &amp;\frac{\sigma^2}{n^2}\dots \frac{\sigma^2}{n^2}\\
+    &amp;\frac{n \sigma^2}{n^2}\\
+    &amp;\frac{\sigma^2}{n}\\
+\end{align*}\]</span></p>
+<p>That decreases with N.</p>
+</section>
+<section id="proving-the-weak-lln-2" class="level2">
+<h2 class="anchored" data-anchor-id="proving-the-weak-lln-2">Proving the Weak LLN</h2>
+<p>Then, by <a href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality">Chebyshev’s inequality</a>, a theorem specifying, for a given distribution, the maximum fraction of values that can be some distance from that distribution’s mean:</p>
+<p><span class="math display">\[Pr(\left|U-\mu\right| &gt; \epsilon) \leq \frac{\sigma^2}{n\epsilon^2}\]</span></p>
+<p>Which <span class="math inline">\(\to 0\)</span> as <span class="math inline">\(n \to \infty\)</span></p>
+</section>
+<section id="the-strong-law-of-large-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="the-strong-law-of-large-numbers">The Strong Law of Large Numbers</h2>
+<p>As you may have inferred, there is a weak law of large numbers and a strong law of large numbers.</p>
+<p>The weak law of large numbers states that as the sample size increases, the sample mean <a href="https://en.wikipedia.org/wiki/Convergence_in_probability">converges in probability</a> to the population value <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[\lim_{n \to \infty} Pr(|\bar{X}_n - \mu| &lt; \epsilon) = 1\]</span></p>
+<p>The strong law of large numbers states that as the sample size increases, the sample mean <a href="https://en.wikipedia.org/wiki/Convergence_of_random_variables#Almost_sure_convergence">converges almost surely</a> to the population value <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[\lim_{n \to \infty} Pr(|\bar{X}_n = \mu|) = 1\]</span> The <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers#Differences_between_the_weak_law_and_the_strong_law">differences in types of convergence</a> won’t matter much for us in this course</p>
+<p>class:inverse, center, middle # Break</p>
+<p>class:inverse, center, middle # 💡 ## The Central Limit Theorem</p>
+<p>So the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the “true” value of the population of mean.</p>
+<p>Iif we took a bunch of samples of the same size and calculated the mean of each sample:</p>
+<ul>
+<li>the distribution of those sample means (<em>the sampling distribution</em>) would be centered around the truth (because the estimator is unbiased).</li>
+<li>the width of the distribution (its variance) would decrease as we increased the size of each sample (by the LLN)</li>
+</ul>
+<p>The Central Limit Theorem tells us about the shape of that distribution.</p>
+</section>
+<section id="review-z-scores-and-standardization" class="level2">
+<h2 class="anchored" data-anchor-id="review-z-scores-and-standardization">Review: Z-scores and Standardization</h2>
+<p>Given a R.V. <span class="math inline">\(X\)</span> with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, we can define a new R.V. <span class="math inline">\(Z\)</span> as the <em>standardization</em> of <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[Z=\frac{X-\mu}{\sigma}\]</span></p>
+<p>Where Z has <span class="math inline">\(\mu=0\)</span> and <span class="math inline">\(\sigma=1\)</span>.</p>
+</section>
+<section id="notation-for-the-clt" class="level2">
+<h2 class="anchored" data-anchor-id="notation-for-the-clt">Notation for the CLT</h2>
+<p>Next let’s define some variables <span class="math inline">\(S\)</span> and <span class="math inline">\(\bar{X}\)</span> that are the sum <span class="math inline">\((S)\)</span> and sample mean <span class="math inline">\((\bar{X})\)</span> of <span class="math inline">\(n\)</span> iid draws of <span class="math inline">\(X\)</span></p>
+<p>Let <span class="math inline">\(X_1,X_2,\dots,X_n\)</span> be independent and identically distributed RVs with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>.</p>
+<p>Define <span class="math inline">\(S_n\)</span> and <span class="math inline">\(\bar{X}_n\)</span> as follows:</p>
+<p><span class="math display">\[S_n= X_1,X_2,\dots,X_n= \sum_{i=1}^n X_i\]</span></p>
+<p><span class="math display">\[\bar{X}=\frac{X_1,X_2,\dots,X_n}{n}= \frac{S_n}{n}\]</span></p>
+</section>
+<section id="additional-facts-for-the-clt" class="level2">
+<h2 class="anchored" data-anchor-id="additional-facts-for-the-clt">Additional facts for the CLT</h2>
+<p>We can show that:</p>
+<p><span class="math display">\[\begin{alignat*}{3}
+E[S_n]&amp;=n\mu \hspace{2em}Var[S_n]&amp;=n\sigma^2 \hspace{2em} \sigma_S&amp;=\sqrt{n}\sigma\\
+E[\bar{X}_n]&amp;=\mu \hspace{2em}Var[\bar{X}_n]&amp;=\frac{\sigma^2}{n} \hspace{2em}\sigma_{\bar{X}}&amp;=\frac{\sigma}{\sqrt{n}}\\
+\end{alignat*}\]</span></p>
+<p>Basically: the expected value and variance of the sum is just <span class="math inline">\(n\)</span> times the population parameters (the true values for the distribution).</p>
+<p>Since the mean is just the sum divided by the sample size, the expected value of the mean is equal to the population value and the variance and standard deviations of the mean are decreasing in <span class="math inline">\(n\)</span>.</p>
+<p>Finally, we can define <span class="math inline">\(Z\)</span> to be a function of either <span class="math inline">\(S\)</span> or <span class="math inline">\(\bar{X}\)</span></p>
+<p><span class="math display">\[Z_n=\frac{S_n-n\mu}{\sqrt{n}\sigma}=\frac{\bar{X}_n-\mu}{\sigma/\sqrt{n}}\]</span></p>
+</section>
+<section id="central-limit-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h2>
+<p>For a <em>sufficiently large</em> <span class="math inline">\(n\)</span></p>
+<p><span class="math display">\[\begin{align*}
+\bar{X_n}&amp;\approx N(\mu,\sigma^2/n) \\
+\bar{S_n} &amp;\approx N(n\mu,n\sigma^2) \\
+\bar{Z_n}&amp;\approx N(0,1)
+\end{align*}\]</span></p>
+<ul>
+<li><p>The distribution of means <span class="math inline">\((\bar{X_n})\)</span> from almost any distribution <span class="math inline">\(X\)</span> is approximately normal (converges in distribution), but with a smaller variance than (<span class="math inline">\(\sigma^2/n\)</span>)</p></li>
+<li><p>Proof: <a href="https://towardsdatascience.com/central-limit-theorem-proofs-actually-working-through-the-math-a994cd582b33">Several ways</a>, but requires a little more math than is required for this course</p></li>
+</ul>
+</section>
+<section id="clt-why-it-matters" class="level2">
+<h2 class="anchored" data-anchor-id="clt-why-it-matters">CLT: Why it matters</h2>
+<p>Why is this result so important?</p>
+<p>Well lots of our questions come of the form, how does a typical value of Y vary with X.</p>
+<p>We may not know the true underlying distribution of Y, but we can often approximate the distribution of a typical value of Y <span class="math inline">\((E[Y])\)</span> using a normal distribution.</p>
+</section>
+<section id="simulating-the-clt" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-the-clt">Simulating the CLT</h2>
+<p>For almost any distribution, the distribution of means from a sample of that distribution will converge to some Normal distribution.</p>
+<p>Let’s consider a decidedly <em>non-Normal</em> <a href="https://en.wikipedia.org/wiki/Binomial_distribution">Binomial distribution:</a> with p = 0.2.</p>
+<p>The expected value of Binomial Distribution <span class="math inline">\(X \sim B(n,p)\)</span> is <span class="math inline">\(E[X] = n*p\)</span>.</p>
+<p>If we were to flip a coin 20 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 4.</p>
+<p>If we were to flip a coin 100 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 20.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/binom20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="simulating-10000-draws-from-binomial-distributions-of-different-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="simulating-10000-draws-from-binomial-distributions-of-different-sizes">Simulating 10,000 draws from Binomial Distributions of Different Sizes</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of success</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> .<span class="dv">2</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample sizes</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>samp_sizes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>,<span class="dv">1000</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of simulations</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>nsims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Holder for simulations</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>df_sim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_grid</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">samp_size =</span> samp_sizes,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>nsims,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sample_mean =</span> <span class="cn">NA</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulating-1000-draws-from-binomial-distributions-of-different-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="simulating-1000-draws-from-binomial-distributions-of-different-sizes">Simulating 1,000 draws from Binomial Distributions of Different Sizes</h3>
+<p>Below we loop through each sample size in <code>samp_sizes</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> samp_sizes){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  df_sim<span class="sc">$</span>sample_mean[df_sim<span class="sc">$</span>samp_size <span class="sc">==</span> i] <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nsims, i<span class="sc">*</span><span class="fu">mean</span>(<span class="fu">rbinom</span>(i, <span class="dv">1</span>, p)))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/binomsim20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/binomsim50-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/binomsim100-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/binomsim1000-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, let’s consider a decided non normal distribution:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">18</span><span class="sc">:</span><span class="dv">80</span>,<span class="at">size=</span><span class="dv">10000</span>, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">runif</span>(<span class="fu">length</span>(<span class="dv">18</span><span class="sc">:</span><span class="dv">80</span>)))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>samp_mean25 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,<span class="fu">mean</span>(<span class="fu">sample</span>(dist,<span class="dv">25</span>, <span class="at">replace=</span>F)))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>samp_mean100 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,<span class="fu">mean</span>(<span class="fu">sample</span>(dist,<span class="dv">100</span>, <span class="at">replace=</span>F)))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>samp_mean500 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,<span class="fu">mean</span>(<span class="fu">sample</span>(dist,<span class="dv">500</span>, <span class="at">replace=</span>F)))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ex_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> dist,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">samp_mean25 =</span> samp_mean25,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">samp_mean100 =</span> samp_mean100,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">samp_mean500 =</span> samp_mean500</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/clt1 -1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/clt2 -1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/clt3 -1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/clt4 -1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><p>So we see that our sampling distributions are centered on the truth, and as the sample size increases, the width of the distribution decreases (Law of Large Numbers)</p></li>
+<li><p>The shapes of distributions of sample means can be approximated by a Normal Distribution <span class="math inline">\(\bar{X} \sim N(\mu, \sigma^2/n)\)</span></p></li>
+</ul>
+<p>class: inverse, center, middle #🦉 ## ICYI: Maximum Likelihood Estimation</p>
+</section>
+<section id="maximum-likelihood-estimation" class="level1">
+<h1>Maximum Likelihood Estimation</h1>
+<p>The LLN and CLT lie behind many important proofs and theorems in statistics such as <strong>maximum likelihood estimation (MLE)</strong></p>
+<p>Broadly, MLE seeks to find parameters <span class="math inline">\(\theta\)</span> for model of some data generating process (i.e.&nbsp;a probability distribution), that are most probable (i.e.&nbsp;maximize the likelihood) given some data.</p>
+<section id="maximum-likelihood-estimation-1" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-estimation-1">🦉 Maximum Likelihood Estimation</h2>
+<p>Formally, consider <span class="math inline">\(n\)</span> iid random variables <span class="math inline">\(X_1, X_2, \ldots X_n\)</span>. We can then write their <strong>likelihood</strong> as</p>
+<p><span class="math display">\[\mathcal{L}(\theta \mid x_1, x_2, \ldots x_n) = \prod_{i = i}^n f(x_i; \theta)\]</span></p>
+<p>where <span class="math inline">\(f(x_i; \theta)\)</span> is the density (or mass) function of random variable <span class="math inline">\(X_i\)</span> evaluated at <span class="math inline">\(x_i\)</span> with parameter <span class="math inline">\(\theta\)</span>.</p>
+<p>MLE tries to find <span class="math inline">\(\hat{\theta}_{MLE}\)</span> that maximizes <span class="math inline">\(\mathcal{L}(\theta \mid X)\)</span></p>
+</section>
+<section id="properties-of-maximum-likelihood-estimators" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-maximum-likelihood-estimators">🦉 Properties of Maximum Likelihood Estimators</h2>
+<p>MLE Estimators are</p>
+<ul>
+<li><strong>Functionally Invariant</strong> (The “Plug in Principle”)
+<ul>
+<li>If <span class="math inline">\(\hat{\theta}\)</span> is the MLE of <span class="math inline">\(\theta\)</span> than then the MLE of some function of <span class="math inline">\(\theta\)</span>, <span class="math inline">\(f(\theta)\)</span> is <span class="math inline">\(f(\hat\theta_{MLE})\)</span></li>
+<li>If we have the MLE of the variance, the square root of this will give us the MLE of the standard deviation</li>
+</ul></li>
+<li><strong>Consistent</strong> (by the LLN)
+<ul>
+<li><span class="math inline">\(\hat\theta_{MLE}\)</span> collapses to a spike over <span class="math inline">\(\theta\)</span> as <span class="math inline">\(n \to \infty\)</span></li>
+</ul></li>
+<li><strong>Asympotically Normal</strong> (by the CLT)
+<ul>
+<li>A <span class="math inline">\(n \to \infty\)</span> the sampling distribution of <span class="math inline">\(\hat\theta_{MLE}\)</span> becomes Normally distributed</li>
+<li>Makes calculating quantities for inference easy</li>
+</ul></li>
+<li><strong>Asympotically Efficient</strong>
+<ul>
+<li>As <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\hat\theta_{MLE}\)</span> tends to be the estimator with the lowest error</li>
+</ul></li>
+</ul>
+<p>class: inverse, center, middle # 💡 # Generalized Linear Models</p>
+</section>
+<section id="generalized-linear-models" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-linear-models">Generalized Linear Models</h2>
+<ul>
+<li>OLS provides a linear estimate to the conditional mean function</li>
+</ul>
+<p>–</p>
+<ul>
+<li>If the conditional mean function is linear and the errors are normally distributed, OLS is the MLE.</li>
+</ul>
+<p>–</p>
+<ul>
+<li>What if the conditional mean function is non-linear?</li>
+</ul>
+<p>–</p>
+<ul>
+<li>Sometimes we can transform the mean function so that it is linear, and estimate a generalized linear model (GLM) using MLE</li>
+</ul>
+<p>–</p>
+<ul>
+<li>Using a GLM often produces more “reasonable” estimates, and can make more efficient use of the data, although there are many cases where a linear estimate to conditional mean function works just fine (or better)</li>
+</ul>
+</section>
+<section id="mle-and-generalized-linear-models" class="level2">
+<h2 class="anchored" data-anchor-id="mle-and-generalized-linear-models">MLE and Generalized Linear Models</h2>
+<p>We can think some variable <span class="math inline">\(y\)</span> as having a distribution <span class="math inline">\(f\)</span> that contains both a stochastic (random) and systematic components</p>
+<p><span class="math display">\[\begin{aligned}
+\text{Stochastic:    }&amp;&amp; y \sim f(\mu,\alpha)\\
+\text{Systematic:    }&amp;&amp;\mu = g(X\beta)
+\end{aligned}\]</span></p>
+</section>
+<section id="mle-and-generalized-linear-models-1" class="level2">
+<h2 class="anchored" data-anchor-id="mle-and-generalized-linear-models-1">MLE and Generalized Linear Models</h2>
+<p>In the past we’ve described the process of modeling <span class="math inline">\(y\)</span> using a linear regression:</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 x + \epsilon\]</span></p>
+<p>and with multiple predictors:</p>
+<p><span class="math display">\[y = X\beta + \epsilon\]</span></p>
+</section>
+<section id="mle-and-generalized-linear-models-2" class="level2">
+<h2 class="anchored" data-anchor-id="mle-and-generalized-linear-models-2">MLE and Generalized Linear Models</h2>
+<p>We haven’t really talked about the distribution of <span class="math inline">\(\epsilon\)</span>, in part because OLS doesn’t require any distributional assumptions to be unbiased.</p>
+<p>But if we assumed <span class="math inline">\(\epsilon\)</span> are normally distributed, with mean 0 and variance <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="math display">\[\epsilon \sim f_\mathcal{N}(0,\sigma^2)\]</span></p>
+<p>Then we could write our model for <span class="math inline">\(y\)</span> as follows:</p>
+<p><span class="math display">\[\begin{aligned} y &amp;\sim f_{\mathcal{N}}(\mu,\sigma^2)\\
+\mu &amp;= X\beta\end{aligned}\]</span></p>
+<p>Where the systematic component of why is modeled by <span class="math inline">\(X\beta\)</span> (i.e.&nbsp;g() is the identity function), with errors that are Normally distributed.</p>
+<p>The <span class="math inline">\(\beta\)</span>s that OLS estimates turn out to be the same values that would get by maximizing the likelihood of this function, given our data, <span class="math inline">\(X\)</span>, assuming normally distributed errors.</p>
+</section>
+<section id="generalized-linear-models-1" class="level2">
+<h2 class="anchored" data-anchor-id="generalized-linear-models-1">Generalized Linear Models</h2>
+<p><strong>But what if our outcome doesn’t follow a normal distribution?</strong></p>
+<p>Say for example, we have a binary outcome,that we think follows a Bernoulli distribution with <span class="math inline">\(\pi\)</span> probability of success.</p>
+<p>We could model the <em>systematic</em> portion of this using the <a href="https://en.wikipedia.org/wiki/Logistic_function">logistic function</a>, <span class="math inline">\(g()\)</span></p>
+<p><span class="math display">\[\begin{aligned}y &amp;\sim f_{Bern}(\pi)\\
+\pi &amp;= \frac{1}{1+\exp(-{X\beta})}\end{aligned}\]</span></p>
+<p>Again, we could estimate <span class="math inline">\(\beta\)</span> using the MLE to fit a logistic regression.</p>
+</section>
+<section id="mle-and-generalized-linear-models-3" class="level2">
+<h2 class="anchored" data-anchor-id="mle-and-generalized-linear-models-3">MLE and Generalized Linear Models</h2>
+<p>Or if we had a count variable, we might use a Poisson distribution:</p>
+<p><span class="math display">\[\begin{aligned}y &amp;\sim f_{Pois}(\lambda)\\
+\lambda &amp;= \exp(X\beta)\end{aligned}\]</span></p>
+<p>Again estimating <span class="math inline">\(\beta\)</span> using MLE.</p>
+<p>In this class, we’ll let R handle mechanics of actually fitting these models, and instead focus on interpreting their substantive differences</p>
+</section>
+<section id="ols-vs-logistic-regression" class="level2">
+<h2 class="anchored" data-anchor-id="ols-vs-logistic-regression">OLS vs Logistic Regression</h2>
+<p>One situation where we’d use MLE is the case of binary responses variable coded using <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>.</p>
+<p>In practice, these <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>s will code for two classes such as yes/no, non-voter/voter,, etc.</p>
+<p>How should we model this relationship?</p>
+<p>We could use OLS to produce a linear estimate of the conditional mean function <span class="math inline">\((\text{E}[Y \mid {\bf X} = {\bf x}])\)</span>, by finding <span class="math inline">\(\beta\)</span>s that minimize the sum of squared errors</p>
+<p>Or</p>
+<p>We could use a logistic regression, to produce a linear estimate of the “log-odds” of the conditional mean function of our binary variable by finding <span class="math inline">\(\beta\)</span>s that maximize the likelihood of this function.</p>
+<p>Let’s simulate data from the following model:</p>
+<p><span class="math display">\[\log\left(\frac{p({\bf x})}{1 - p({\bf x})}\right) = -2 + 3 x\]</span></p>
+<p>We’ll codify this into a function:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sim_logistic_data <span class="ot">=</span> <span class="cf">function</span>(<span class="at">sample_size =</span> <span class="dv">25</span>, <span class="at">beta_0 =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">beta_1 =</span> <span class="dv">3</span>) {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="at">n =</span> sample_size)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">=</span> beta_0 <span class="sc">+</span> beta_1 <span class="sc">*</span> x</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>eta))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(<span class="at">n =</span> sample_size, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And use it to generate some data</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">=</span> <span class="fu">sim_logistic_data</span>()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(example_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  y          x
+1 0 -0.6264538
+2 1  0.1836433
+3 0 -0.8356286
+4 1  1.5952808
+5 0  0.3295078
+6 0 -0.8204684</code></pre>
+</div>
+</div>
+<p>After simulating a dataset, we’ll then fit both ordinary linear regression and logistic regression.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ordinary linear regression</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fit_lm  <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic regression</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that the syntax is extremely similar. What’s changed?</p>
+<ul>
+<li><code>lm()</code> has become <code>glm()</code></li>
+<li>We’ve added <code>family = binomial</code> argument</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.31<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-2.31<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(1.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+x
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.30<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+3.66<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(1.65)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.34
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.31
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+25
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+25
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+22.74
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+25.18
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-9.37
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+18.74
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<p>Making predictions with an object of type <code>glm</code> is slightly different than making predictions after fitting with <code>lm()</code>.</p>
+<p>In the case of logistic regression, with <code>family = binomial</code>, we have:</p>
+<table class="table">
+<colgroup>
+<col style="width: 66%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>type</code></th>
+<th>Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"link"</code> [default]</td>
+<td><span class="math inline">\(\hat{\eta}({\bf x}) = \log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td><code>"response"</code></td>
+<td><span class="math inline">\(\hat{p}({\bf x})\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>That is, <code>type = "link"</code> will get you the <strong>log odds</strong>, while <code>type = "response"</code> will return <span class="math inline">\(P[Y = 1 \mid {\bf X} = {\bf x}]\)</span> for each observation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> example_data, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">ylab =</span> <span class="st">"Estimated Probability"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Ordinary vs Logistic Regression"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit_lm, <span class="at">col =</span> <span class="st">"darkorange"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">predict</span>(fit_glm, <span class="fu">data.frame</span>(x), <span class="at">type =</span> <span class="st">"response"</span>), </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"dodgerblue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="fu">c</span>(<span class="st">"Ordinary"</span>, <span class="st">"Logistic"</span>, <span class="st">"Data"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>), </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="dv">20</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"dodgerblue"</span>, <span class="st">"black"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="09-slides_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ols-vs-logistic-regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="ols-vs-logistic-regression-1">OLS vs Logistic Regression</h2>
+<ul>
+<li><p>OLS produces impossible predictions</p></li>
+<li><p>The coefficients from logistic regression aren’t directly interpertable <span class="math inline">\(\to\)</span> need predicted values.</p>
+<ul>
+<li>Can also calculate things like <a href="https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faq-how-do-i-interpret-odds-ratios-in-logistic-regression/">odds-ratios</a> but I find this convoluted.</li>
+</ul></li>
+<li><p>The marginal effect of <span class="math inline">\(X\)</span> varies in a logistic regression</p></li>
+</ul>
+</section>
+<section id="interpreting-logistic-regression-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="interpreting-logistic-regression-coefficients">Interpreting Logistic Regression Coefficients</h2>
+<p>Our estimated model is then:</p>
+<p><span class="math display">\[\log\left(\frac{\hat{p}({\bf x})}{1 - \hat{p}({\bf x})}\right) = -2.3 + 3.7 x\]</span></p>
+<p>Because we’re not directly estimating the mean, but instead a function of the mean, we need to be careful with our interpretation of <span class="math inline">\(\hat{\beta}_1 = 3.7\)</span>.</p>
+<p>This means that, for a one unit increase in <span class="math inline">\(x\)</span>, the log odds change (in this case increase) by <span class="math inline">\(3.7\)</span>. Also, since <span class="math inline">\(\hat{\beta}_1\)</span> is positive, as we increase <span class="math inline">\(x\)</span> we also increase <span class="math inline">\(p({\bf x})\)</span>.</p>
+<p>For example, we have:</p>
+<p><span class="math display">\[\hat{P}[Y = 1 \mid X = -0.5] = \frac{e^{-2.3 + 3.7 \cdot (-0.5)}}{1 + e^{-2.3 + 3.7 \cdot (-0.5)}} \approx 0.016\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="sc">-</span><span class="fl">0.5</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1 
+0.01567416 </code></pre>
+</div>
+</div>
+<p><span class="math display">\[\hat{P}[Y = 1 \mid X = 0] = \frac{e^{-2.3 + 3.7 \cdot (0)}}{1 + e^{-2.3 + 3.7 \cdot (0)}} \approx 0.09\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">0</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1 
+0.09016056 </code></pre>
+</div>
+</div>
+<p><span class="math display">\[\hat{P}[Y = 1 \mid X = 1] = \frac{e^{-2.3 + 3.7 \cdot (1)}}{1 + e^{-2.3 + 3.7 \cdot (1)}} \approx 0.38\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x=</span>.<span class="dv">5</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1 
+0.3814476 </code></pre>
+</div>
+</div>
+<p>background-image:url(“https://resourcemoon.com/wp-content/uploads/2018/09/summery.png”) background-size:cover</p>
+</section>
+<section id="summary-1" class="level2">
+<h2 class="anchored" data-anchor-id="summary-1">Summary</h2>
+<ul>
+<li><p>The Law of Large Number’s says that as our sample size increases, our sample mean will converge to the population value</p></li>
+<li><p>The Central Limit Theorem says that the distribution of those sample means will follow a normal distribution</p></li>
+<li><p>Generalized Linear Models allow us to more accurately model different types of data-generating processes using Maxium Likelihood Estimation.</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

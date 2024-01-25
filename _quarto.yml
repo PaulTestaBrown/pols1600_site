@@ -1,0 +1,99 @@
+project:
+  type: website
+  # render:
+  #   - "slides/*"
+  #   - "!*.lab.qmd"
+  #   # - "!/_archive"
+
+website:
+  title: "POLS 1600"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: syllabus.qmd
+        text: Syllabus
+      - href: class/index.qmd
+        text: Class
+      - href: assignments/index.qmd
+        text: Assignments
+  sidebar:
+    - title: "Class"
+      style: "docked"
+      search: false
+      background: dark
+      contents:
+        - section: "Overview"
+          contents:
+            - class/index.qmd
+        - section: "Weekly Content"
+          contents:
+            - text: "0: Introductions"
+              file: class/00-class.qmd
+            - text: "1: Data & Measurement"
+              file: class/01-class.qmd
+            - text: "2: Data Visualization"
+              file: class/02-class.qmd
+            - text: "3: Causation -- Experiments"
+              file: class/03-class.qmd
+            - text: "4: Causation -- Observational Studies"
+              file: class/04-class.qmd
+            - text: "5: Bivariate Regression"
+              file: class/05-class.qmd
+            - text: "6: Multiple Regression"
+              file: class/06-class.qmd
+            - text: "7: Regression Extensions"
+              file: class/07-class.qmd
+            - text: "8: Probability - Random Variables & Distributions"
+              file: class/08-class.qmd
+            - text: "9: Probability - Limit Theorems"
+              file: class/09-class.qmd
+            - text: "10: Inference -- Confidence Intervals"
+              file: class/10-class.qmd
+            - text: "11: Inference -- Hypothesis Testing"
+              file: class/11-class.qmd
+            - text: "12: Workshop"
+              file: class/12-class.qmd
+            - text: "13: Presentations"
+              file: class/13-class.qmd
+    - title: "Assignments"
+      style: "docked"
+      search: false
+      background: dark
+      contents:
+        - section: "Overview"
+          contents:
+            - assignments/index.qmd
+        - section: "Assignemnts"
+          contents:
+            - text: "A1: Introductions"
+              file: assignments/a1.qmd
+            - text: "A2: Data"
+              file: assignments/a2.qmd
+            - text: "A3: Exploratory Analysis"
+              file: assignments/a3.qmd
+            - text: "A4: Draft"
+              file: assignments/a4.qmd
+            - text: "A5: Presentations"
+              file: assignments/a5.qmd
+            - text: "Final Paper"
+              file: assignments/final.qmd
+          
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: false
+
+editor: visual
+
+resources:
+  - "/assets"
+  - "/files"
+  - "/slides"
+  - "/class"
+  - "/labs"
+  
+bibliography: files/paperpile.bib
+execute:
+  freeze: auto

@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name HERE">
+<meta name="dcterms.date" content="2024-01-25">
+
+<title>POLS 1600 - Lab 01 - Exploring data on COVID-19 in the U.S.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">POLS 1600</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../class/index.html"> 
+<span class="menu-text">Class</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments.qmd"> 
+<span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#getting-set-up" id="toc-getting-set-up" class="nav-link" data-scroll-target="#getting-set-up"><span class="header-section-number">1</span> Getting set up</a></li>
+  <li><a href="#install-the-some-additional-packages" id="toc-install-the-some-additional-packages" class="nav-link" data-scroll-target="#install-the-some-additional-packages"><span class="header-section-number">2</span> Install the some additional packages</a></li>
+  <li><a href="#load-the-packages-well-be-using-today" id="toc-load-the-packages-well-be-using-today" class="nav-link" data-scroll-target="#load-the-packages-well-be-using-today"><span class="header-section-number">3</span> Load the packages we’ll be using today</a></li>
+  <li><a href="#download-the-covid19-data-for-u.s." id="toc-download-the-covid19-data-for-u.s." class="nav-link" data-scroll-target="#download-the-covid19-data-for-u.s."><span class="header-section-number">4</span> Download the COVID19 Data for U.S.</a></li>
+  <li><a href="#replicate-the-data-cleaning-and-recoding-from-class" id="toc-replicate-the-data-cleaning-and-recoding-from-class" class="nav-link" data-scroll-target="#replicate-the-data-cleaning-and-recoding-from-class"><span class="header-section-number">5</span> Replicate the data cleaning and recoding from class</a>
+  <ul class="collapse">
+  <li><a href="#uncomment-and-run-the-following-code" id="toc-uncomment-and-run-the-following-code" class="nav-link" data-scroll-target="#uncomment-and-run-the-following-code"><span class="header-section-number">5.1</span> Uncomment and run the following code</a></li>
+  </ul></li>
+  <li><a href="#exploring-our-data" id="toc-exploring-our-data" class="nav-link" data-scroll-target="#exploring-our-data"><span class="header-section-number">6</span> Exploring our data</a>
+  <ul class="collapse">
+  <li><a href="#uncomment-and-run-the-code-below" id="toc-uncomment-and-run-the-code-below" class="nav-link" data-scroll-target="#uncomment-and-run-the-code-below"><span class="header-section-number">6.1</span> Uncomment and run the code below,</a></li>
+  <li><a href="#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" id="toc-please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" class="nav-link" data-scroll-target="#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explain in words your best understanding of what each line of code is doing:</a></li>
+  </ul></li>
+  <li><a href="#look-at-the-source-data-for-face-mask-policies" id="toc-look-at-the-source-data-for-face-mask-policies" class="nav-link" data-scroll-target="#look-at-the-source-data-for-face-mask-policies"><span class="header-section-number">7</span> Look at the source data for face mask policies</a>
+  <ul class="collapse">
+  <li><a href="#please-run-the-following-code" id="toc-please-run-the-following-code" class="nav-link" data-scroll-target="#please-run-the-following-code"><span class="header-section-number">7.1</span> Please run the following code:</a></li>
+  <li><a href="#again-explain-in-words-what-the-components-of-this-code-are-doing" id="toc-again-explain-in-words-what-the-components-of-this-code-are-doing" class="nav-link" data-scroll-target="#again-explain-in-words-what-the-components-of-this-code-are-doing"><span class="header-section-number">7.2</span> Again, explain in words, what the components of this code are doing:</a></li>
+  <li><a href="#what-have-we-learned-about-our-variables-measuring-face_mask-policy" id="toc-what-have-we-learned-about-our-variables-measuring-face_mask-policy" class="nav-link" data-scroll-target="#what-have-we-learned-about-our-variables-measuring-face_mask-policy"><span class="header-section-number">7.3</span> What have we learned about our variables measuring <code>face_mask</code> policy</a></li>
+  </ul></li>
+  <li><a href="#explore-rs-functions-for-generating-summary-statistics" id="toc-explore-rs-functions-for-generating-summary-statistics" class="nav-link" data-scroll-target="#explore-rs-functions-for-generating-summary-statistics"><span class="header-section-number">8</span> Explore R’s functions for generating summary statistics</a>
+  <ul class="collapse">
+  <li><a href="#measures-of-central-tendency" id="toc-measures-of-central-tendency" class="nav-link" data-scroll-target="#measures-of-central-tendency"><span class="header-section-number">8.1</span> Measures of Central Tendency</a></li>
+  <li><a href="#measures-of-dispersion" id="toc-measures-of-dispersion" class="nav-link" data-scroll-target="#measures-of-dispersion"><span class="header-section-number">8.2</span> Measures of Dispersion</a></li>
+  <li><a href="#measures-of-association" id="toc-measures-of-association" class="nav-link" data-scroll-target="#measures-of-association"><span class="header-section-number">8.3</span> Measures of Association</a></li>
+  </ul></li>
+  <li><a href="#facemasks-and-new-cases-of-covid-19" id="toc-facemasks-and-new-cases-of-covid-19" class="nav-link" data-scroll-target="#facemasks-and-new-cases-of-covid-19"><span class="header-section-number">9</span> Facemasks and New Cases of Covid-19</a>
+  <ul class="collapse">
+  <li><a href="#what-do-these-averages-really-tell-us" id="toc-what-do-these-averages-really-tell-us" class="nav-link" data-scroll-target="#what-do-these-averages-really-tell-us"><span class="header-section-number">9.1</span> What do these averages really tell us?</a></li>
+  <li><a href="#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data" id="toc-add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data" class="nav-link" data-scroll-target="#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data"><span class="header-section-number">9.2</span> Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 01 - Exploring data on COVID-19 in the U.S.</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Name HERE </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 25, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<section id="overview" class="level1 unnumbered">
+<h1 class="unnumbered">Overview</h1>
+<p>Today, we’ll continuing exploring the COVID-19 data for the U.S.</p>
+<p>We covered a lot of ground in our last lecture. Conceptually, talked about how to</p>
+<ul>
+<li>Write and code in R Markdown</li>
+<li>Install and load packages</li>
+<li>Download and inspect data</li>
+<li>Clean and recode data</li>
+<li>Calculate simple descriptive statistics with that data</li>
+</ul>
+<p>To do this, we copied and pasted a lot of code. Today, we’ll <strong>get practice writing our own code.</strong> Specifically we will</p>
+<ul>
+<li>Repeat some steps from lecture to get our workspace and data set up</li>
+<li>Recode some additional variables</li>
+<li>Investigate what negative values mean for face mask policy</li>
+<li>Explore, in greater depth, tools for descriptive inference</li>
+<li>Revisit the question of face masks and new cases, <em>conditioning</em> on time.</li>
+</ul>
+</section>
+<section id="getting-set-up" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Getting set up</h1>
+<ol type="1">
+<li>Save this document in a folder for the class</li>
+<li>Set your working director: Session &gt; Set Working Directory &gt; Source file location</li>
+</ol>
+<ul>
+<li>It’s not vital today, but it’s a good habit to develop.</li>
+</ul>
+</section>
+<section id="install-the-some-additional-packages" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Install the some additional packages</h1>
+<ul>
+<li>In the code chunk below, we’ll use the <code>install.packages()</code> function to install the <code>lubridate</code> and <code>DT</code> package packages</li>
+<li>Uncomment the code by removing #</li>
+<li>Run the code “Live” by sending the command to your console</li>
+<li>Once <code>lubridate</code> is installed, comment the code out by placing a # at the start of the line</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("lubridate","DT"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>'lubridate</code> package is a collection of functions that makes working with dates and time more simple.</p>
+<p>The <code>DT</code> package allows us to display data tables in a searchable format in our html output.</p>
+</section>
+<section id="load-the-packages-well-be-using-today" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Load the packages we’ll be using today</h1>
+<ul>
+<li>Create a code chunk</li>
+<li>Label your code chunk “packages”</li>
+<li>Use the <code>library()</code> to load the following packages
+<ul>
+<li><code>tidyverse</code></li>
+<li><code>COVID19</code></li>
+<li><code>lubridate</code></li>
+<li><code>DT</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="download-the-covid19-data-for-u.s." class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Download the COVID19 Data for U.S.</h1>
+<p>Open up the <a href="https://pols1600.paultesta.org/slides/01-slides.html#81">slides</a> from last class and copy and paste the relevant code into the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the COVID-19 data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># If you get a timeout error, uncomment the following:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># options(timeout="120")</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If that still doesn't work try</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># options(timeout="180")</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># And if all that fails you can run the following:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># load(url("https://pols1600.paultesta.org/files/data/covid.rda"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="replicate-the-data-cleaning-and-recoding-from-class" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Replicate the data cleaning and recoding from class</h1>
+<p>Specifically please do the following, uncommenting the code and replacing the <code>???</code> with the appropriate terms</p>
+<ol type="1">
+<li>Create a object called <code>territories</code> that is a vector containing the names of U.S. territories</li>
+</ol>
+<ul>
+<li>Use <code>&lt;-</code> and <code>c()</code> (<a href="https://pols1600.paultesta.org/slides/01-slides#107">slides</a>)</li>
+</ul>
+<ol start="2" type="1">
+<li>Create a new dataframe, called <code>covid_us</code>, by filtering out observations from the U.S. territories <code>- Use</code>&lt;-<code>,</code>%&gt;%<code>,</code>filter()<code>,</code>!<code>and</code>%in%` (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#108">slides</a>)</li>
+<li>Create a <code>state</code> variable that is a copy of the <code>administrative_area_level_2</code></li>
+</ol>
+<ul>
+<li>Use <code>%&gt;%</code>, <code>mutate()</code> and <code>-&gt;</code></li>
+</ul>
+<ol start="4" type="1">
+<li>Create a variable called <code>new_cases</code> from the <code>confirmed</code>. Create a variable called <code>new_cases_pc</code> that is the number of new Covid-19 cases per 100,000 citizens</li>
+</ol>
+<ul>
+<li>Use <code>%&gt;%</code>,<code>group_by()</code>,<code>mutate()</code> and <code>lag()</code>, `<code>/</code> and <code>*</code> (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#110">slides</a>)</li>
+</ul>
+<ol start="5" type="1">
+<li>Create a variable called <code>face_masks</code> from the <code>facial_coverings</code> variable. (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#111">slides</a>)</li>
+</ol>
+<ul>
+<li>Treat negative and positive values the same.</li>
+<li>Recode numeric values so that they have meaningful labels</li>
+<li>Save as a factor variable so that the labels are ordered in terms of increasing levels of severity/restrictions</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- 1. Create territories object</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># territories &lt;- c(</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   "American Samoa",</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Guam",</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Northern Mariana Islands",</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Puerto Rico",</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Virgin Islands"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- 2. Create covid_us data frame</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us &lt;- covid %&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(???)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- 3-5. Recode variables in covid_us</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     state = ???</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) %&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   dplyr::group_by(???) %&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases = ??? - lag(???),</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases_pc = ??? / ??? *100000</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) %&gt;%</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#     face_masks = case_when(</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#       ??? == 0 ~ "No policy",</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#       abs(???) == 1 ~ "Recommended",</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#       abs(???) == 2 ~ "Some requirements",</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#       abs(???) == 3 ~ "Required shared places",</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#       abs(???) == 4 ~ "Required all times",</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) %&gt;% factor(.,</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#       levels = c("No policy","Recommended",</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#                  "Some requirements",</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#                  "Required shared places",</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#                  "Required all times")</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) </span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) -&gt; ???</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next let’s compare our new <code>face_mask</code> variable to the original <code>facial_coverings</code> variable using the table command.</p>
+<p>Uncomment the following code and replace the generic terms <code>data</code>, <code>variable1</code>, and <code>variable2</code> with appropriate terms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table(data$variable1, data$variable2, useNA="ifany")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You’ve just created a “crosstab” a frequency table showing the joint distribution of two variables.</p>
+<div class="blue">
+<blockquote class="blockquote">
+<p>Crosstabs are powerful tools for getting a sense of your data and for checking whether a recode did what you wanted it to do.</p>
+</blockquote>
+</div>
+<p>Finally, let’s create a few more variables called <code>year_month</code> from the <code>date</code> variable and a variable describing the percent of a state’s population that is fully vaccinated (<code>percent_vaccinated</code>), which we’ll use later in the lab.</p>
+<section id="uncomment-and-run-the-following-code" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="uncomment-and-run-the-following-code"><span class="header-section-number">5.1</span> Uncomment and run the following code</h2>
+<p>Highlight the commented code below from <code># covid_us %&gt;%</code> to <code>#   ) -&gt; covid_us</code> and press <code>shift + cmd + C</code> on a mac or <code>shift + ctrl + C</code> on PC to uncomment the code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     year = year(date),</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     month = month(date),</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     year_month = paste(year, str_pad(month, width = 2, pad=0), sep = "-"),</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     percent_vaccinated = people_fully_vaccinated/population*100  </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     ) -&gt; covid_us</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>The <code>year(date)</code> extracts the year from our <code>date</code> variable and saves it in new column called <code>year</code></li>
+<li>Similarly, the <code>month(date)</code> extracts the month from our <code>date</code> variable and saves it in a new column called <code>month</code></li>
+<li>Finally the <code>paste()</code> command pastes these two variables together, with the <code>str_pad()</code> adding a leading 0 to single digit months.</li>
+<li>To calculate the percent of states population that is fully vaccinated on a given date we divide the total number of fully vaccinated by the state’s population and multiply by 100 to make it a percent.</li>
+</ul>
+</section>
+</section>
+<section id="exploring-our-data" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Exploring our data</h1>
+<p>From the <a href="https://covid19datahub.io/articles/docs.html">documentation</a> of the COVID19 package, we see that the numeric values of the <code>facial_coverings</code> correspond to following substantive policy regimes:</p>
+<ul>
+<li>0 - No policy</li>
+<li>1 - Recommended</li>
+<li>2 - Required in some specified shared/public spaces outside the home with other people present, or some situations when social distancing not possible</li>
+<li>3 - Required in all shared/public spaces outside the home with other people present or all situations when social distancing not possible</li>
+<li>4 - Required outside the home at all times regardless of location or presence of other people</li>
+</ul>
+<p>These data come from the <a href="https://github.com/OxCGRT/covid-policy-tracker">Oxford Covid-19 Government Response Tracker</a>. Oxford distinguishes between policies that are in effect for the entire administrative unit (e.g.&nbsp;the State of New York) and policies that may be in effect in only parts of the administrative unit (e.g.&nbsp;New York city)</p>
+<blockquote class="blockquote">
+<p>In short: positive integers identify policies applied to the entire administrative area. Negative integers are used to identify policies that represent a best guess of the policy in force, but may not represent the real status of the given area. The negative sign is used solely to distinguish the two cases, it should not be treated as a real negative value.</p>
+</blockquote>
+<p>Let’s get some practice using the <code>filter()</code>, <code>select()</code> <code>group_by()</code> and <code>summarize()</code>, and <code>n()</code> commands from <code>dplyr</code> package to understand how common each these negative values are in our data.</p>
+<section id="uncomment-and-run-the-code-below" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="uncomment-and-run-the-code-below"><span class="header-section-number">6.1</span> Uncomment and run the code below,</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(facial_coverings == -4) %&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(date, state) %&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(state) %&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     n = n(),</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     earliest_date = min(date),</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     latest_date = max(date),</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   )%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   arrange(earliest_date)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explain in words your best understanding of what each line of code is doing:</h2>
+<ul>
+<li><code>covid_us %&gt;%</code></li>
+<li><code>filter(facial_coverings == -4) %&gt;%</code></li>
+<li><code>select(date, state) %&gt;%</code></li>
+<li><code>group_by(state) %&gt;%</code></li>
+<li><code>summarize(</code></li>
+<li><code>n = n(),</code></li>
+<li><code>earliest_date = min(date),</code></li>
+<li><code>latest_date = max(date),</code></li>
+<li><code>)%&gt;%</code></li>
+<li><code>arrange(earliest_date)</code></li>
+</ul>
+<p>You may find this <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">cheatsheet</a> useful and you can find a more detailed discussion <a href="https://r4ds.had.co.nz/transform.html">here</a></p>
+<section id="substantively-what-does-the-previous-chunk-of-code-tell-us" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="substantively-what-does-the-previous-chunk-of-code-tell-us"><span class="header-section-number">6.2.1</span> Substantively, what does the previous chunk of code tell us?</h3>
+<div class="blue">
+<blockquote class="blockquote">
+<p>Filtering data, selecting specific variables, and summarizing variables are important skills that let us “know our data”</p>
+</blockquote>
+</div>
+</section>
+</section>
+</section>
+<section id="look-at-the-source-data-for-face-mask-policies" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Look at the source data for face mask policies</h1>
+<p>To make sure we understand what this policy variable <code>facial_coverings</code> is measuring, let’s download the source data from Oxford</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>oxford_us <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://github.com/OxCGRT/USA-covid-policy/raw/master/data/OxCGRT_US_latest.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in read_csv("https://github.com/OxCGRT/USA-covid-policy/raw/master/data/OxCGRT_US_latest.csv"): could not find function "read_csv"</code></pre>
+</div>
+</div>
+<p>Now let’s look at the policy on face masks for Illinois. From Oxford’s <a href="https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md">codebook</a>, we learn that variables describing face mask policies all begin with the prefix <code>H6_</code></p>
+<div class="blue">
+<blockquote class="blockquote">
+<p>Using common prefixes for a variable is a good habit that will help you organize and work with your data</p>
+</blockquote>
+</div>
+<section id="please-run-the-following-code" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="please-run-the-following-code"><span class="header-section-number">7.1</span> Please run the following code:</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>oxford_us <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">ymd</span>(Date)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RegionName <span class="sc">==</span> <span class="st">"Illinois"</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         date <span class="sc">&gt;</span> <span class="st">"2020-08-01"</span>, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         date <span class="sc">&lt;</span> <span class="st">"2021-01-01"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(H6_Notes)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date,<span class="fu">starts_with</span>(<span class="st">"H6_"</span>)) <span class="ot">-&gt;</span> il_facemasks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in oxford_us %&gt;% mutate(date = ymd(Date)) %&gt;% filter(RegionName == : could not find function "%&gt;%"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>il_facemasks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'il_facemasks' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="again-explain-in-words-what-the-components-of-this-code-are-doing" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="again-explain-in-words-what-the-components-of-this-code-are-doing"><span class="header-section-number">7.2</span> Again, explain in words, what the components of this code are doing:</h2>
+<ul>
+<li><code>oxford_us %&gt;%</code></li>
+<li><code>mutate(date = ymd(Date))%&gt;%</code></li>
+<li><code>filter(RegionName == "Illinois",</code></li>
+<li><code>date &gt; "2020-08-01",</code></li>
+<li><code>date &lt; "2021-01-01",</code></li>
+<li><code>!is.na(H6_Notes)) %&gt;%</code></li>
+<li><code>select(date,starts_with("H6_")) -&gt; il_facemasks</code></li>
+<li><code>il_facemasks</code></li>
+</ul>
+<p>Let’s take a look at the <code>H6_Notes</code> variable for 2020-09-18</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>il_facemasks<span class="sc">$</span>H6_Notes[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'il_facemasks' not found</code></pre>
+</div>
+</div>
+<p>Now update the code to select <code>H6_Notes</code> variable for 2020-10-01</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># il_facemasks$H6_Notes[???]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="what-have-we-learned-about-our-variables-measuring-face_mask-policy" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="what-have-we-learned-about-our-variables-measuring-face_mask-policy"><span class="header-section-number">7.3</span> What have we learned about our variables measuring <code>face_mask</code> policy</h2>
+</section>
+</section>
+<section id="explore-rs-functions-for-generating-summary-statistics" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Explore R’s functions for generating summary statistics</h1>
+<p>In class, we kind of rushed through our discussion of descriptive statistics. Let’s take a little time to review these concepts in more detail and see how to calculate them in R.</p>
+<section id="measures-of-central-tendency" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="measures-of-central-tendency"><span class="header-section-number">8.1</span> Measures of Central Tendency</h2>
+<p>Measures of central tendency describe what a typical value of some variable. In this course, we’ll use three measures of what’s typical:</p>
+<ul>
+<li>mean</li>
+<li>median</li>
+<li>mode</li>
+</ul>
+<section id="mean" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="mean"><span class="header-section-number">8.1.1</span> Mean</h3>
+<p>One of the most frequent measures of central tendency we’ll use in this course is a mean or average.</p>
+<p>Suppose we have <span class="math inline">\(n\)</span> observations of some variable <span class="math inline">\(x\)</span>. We can calculate the mean of <span class="math inline">\(\bar{x}\)</span> (“x bar), by adding up all the values of x</p>
+<p>[ {x}=_{i=1}^n x_i ]</p>
+<p>We’ll see later in the course that means are closely related to the concept of expected values in probability and that conditional means (which we’ll calculate below) are central to thinking about linear regression.</p>
+<p>For now, please calculate the mean (average) number of new cases per 100,000 residents in our data:</p>
+<p>Last class, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a <strong>conditional mean</strong> the mean of some variable, conditional on some other variable taking a specific value.</p>
+<p>Formally, you’ll often see this written in terms of <strong>Expected Values</strong>: Something like</p>
+<p>[ E[Y|X=x] ]</p>
+<p>Or to make it more concrete:</p>
+<p>[ E[ | ] ]</p>
+<p>In code, we could accomplish this manually, using the index operator:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="how-would-we-calculate-the-conditional-mean-of-new_cases_pc-when-face_masks-equals-recommended" class="level4" data-number="8.1.1.1">
+<h4 data-number="8.1.1.1" class="anchored" data-anchor-id="how-would-we-calculate-the-conditional-mean-of-new_cases_pc-when-face_masks-equals-recommended"><span class="header-section-number">8.1.1.1</span> How would we calculate the conditional mean of <code>new_cases_pc</code> when <code>face_masks</code> equals “Recommended”</h4>
+<p>By using <code>group_by()</code> with <code>summarise()</code> we can accomplish this more quickly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(face_masks)%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases_pc = mean(new_cases_pc, na.rm=T)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="median" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="median"><span class="header-section-number">8.1.2</span> Median</h3>
+<p>The median is another measure of what’s typical for variables that take numeric values</p>
+<p>Imagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value</p>
+<p>The median would be the value in the exact middle of that sequence, also known as the 50th percentile.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Formally, we can define that median as:</p>
+<p>[ M_x = X_i : ^{x_i} f_x(X)dx=^f_x(X)dx=1/2 ]</p>
+<p>Which might look like Greek to you, which is fine. Just think of it as the middle value.</p>
+<section id="please-calculate-the-median-number-of-new-covid-19-cases-per-100000-using-the-median-function.-how-does-it-compare-to-the-mean" class="level4" data-number="8.1.2.1">
+<h4 data-number="8.1.2.1" class="anchored" data-anchor-id="please-calculate-the-median-number-of-new-covid-19-cases-per-100000-using-the-median-function.-how-does-it-compare-to-the-mean"><span class="header-section-number">8.1.2.1</span> Please calculate the median number of new Covid-19 cases per 100,000 using the <code>median()</code> function. How does it compare to the mean?</h4>
+<div class="blue">
+<blockquote class="blockquote">
+<p>Medians are less influenced by outliers than means</p>
+</blockquote>
+</div>
+</section>
+</section>
+<section id="modes" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="modes"><span class="header-section-number">8.1.3</span> Modes</h3>
+<p>Conceptually, a mode describes the most frequent outcome.</p>
+<p>Modes are useful for describing what’s typical of “nominal” or categorical data like our measure of face mask policy.</p>
+<p>To calculate the mode of our <code>face_masks</code> variable, wrap the output of <code>table()</code> with the <code>sort()</code> function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort(table(covid_us$face_masks))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For numeric data, modes correspond to the peak of a variable’s density function (more on this later in the class).</p>
+<p>You can get a sense of the relationship between, means, median’s and modes from this helpful figure from <a href="https://en.wikipedia.org/wiki/Mode_(statistics)">Wikipedia</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" class="img-fluid figure-img" width="200"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="measures-of-dispersion" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="measures-of-dispersion"><span class="header-section-number">8.2</span> Measures of Dispersion</h2>
+<p>Measures of dispersion describe how much the data “vary.” Let’s discuss the following ways we can summarize how our data vary:</p>
+<ul>
+<li>range</li>
+<li>percentile range</li>
+<li>variance</li>
+<li>standard deviation</li>
+</ul>
+<section id="range" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="range"><span class="header-section-number">8.2.1</span> Range</h3>
+<p>The range of a variable is simply it’s minimum and maximum value</p>
+<section id="please-calculate-the-range-of-our-new_cases_pc-using-the-range-function" class="level4" data-number="8.2.1.1">
+<h4 data-number="8.2.1.1" class="anchored" data-anchor-id="please-calculate-the-range-of-our-new_cases_pc-using-the-range-function"><span class="header-section-number">8.2.1.1</span> Please calculate the range of our <code>new_cases_pc</code> using the <code>range()</code> function</h4>
+</section>
+<section id="what-states-on-what-dates-observed-these-minimum-and-maximum-values" class="level4" data-number="8.2.1.2">
+<h4 data-number="8.2.1.2" class="anchored" data-anchor-id="what-states-on-what-dates-observed-these-minimum-and-maximum-values"><span class="header-section-number">8.2.1.2</span> What states on what dates observed these minimum and maximum values?</h4>
+</section>
+</section>
+<section id="percentiles-ranges" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="percentiles-ranges"><span class="header-section-number">8.2.2</span> Percentiles Ranges</h3>
+<p>The <span class="math inline">\(p\)</span>-th percentile is the value of the observation such that 100*p percent of the data are to the left and 100-100*p are two the right.</p>
+<p>[ p_x = X_i : ^{x_i} f_x(X)dx= p; ^f_x(X)dx=1-p ]</p>
+<p>The median is just the 50th percentile</p>
+<p>In R we calculate the <span class="math inline">\(p\)</span>-th percentile using the <code>quantile()</code> setting the <code>probs</code> argument to the <span class="math inline">\(p/100\)</span> percentile that we we want.</p>
+<section id="please-use-the-quantile-function-to-calculate-the-25th-and-75th-percentiles-of-the-new_cases_pc-variable." class="level4" data-number="8.2.2.1">
+<h4 data-number="8.2.2.1" class="anchored" data-anchor-id="please-use-the-quantile-function-to-calculate-the-25th-and-75th-percentiles-of-the-new_cases_pc-variable."><span class="header-section-number">8.2.2.1</span> Please use the <code>quantile()</code> function to calculate the 25th and 75th percentiles of the <code>new_cases_pc</code> variable.</h4>
+<p>The 25th and 75th percentile define the “Interquartile Range” where 50 percent of the observations lie within this range, and 50 percent lie outside the range.</p>
+</section>
+</section>
+<section id="variance" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="variance"><span class="header-section-number">8.2.3</span> Variance</h3>
+<p>Variance describes how much observations of a given measure vary around that measure’s mean.</p>
+<p>The variance in a given sample is calculated by taking the average of the sum of squared deviations (i.e.&nbsp;differences) around a measure’s mean.</p>
+<p>[ ^2_x=_{i=1}<sup>n(x_i-</sup>{x})2 ]</p>
+<ul>
+<li><span class="math inline">\(x_i-\bar{x}\)</span> is the deviation of each observation from the overall mean</li>
+<li><span class="math inline">\((x_i-\bar{x})^2}\)</span> squaring this ensures that we treat positive and negative deviations the same when calculating the overall variance</li>
+<li><span class="math inline">\(\sum_{i=1}\)</span> sums up all the differences</li>
+<li><span class="math inline">\(\frac{1}{n-1}\)</span> is like taking the average of these differences (we divide by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> for <a href="https://web.ma.utexas.edu/users/mks/M358KInstr/SampleSDPf.pdf">statistical reasons</a> that we’ll return two when we talk about estimation)</li>
+</ul>
+<section id="use-the-var-function-to-calculate-the-variance-of-the-new_cases_pc-variable." class="level4" data-number="8.2.3.1">
+<h4 data-number="8.2.3.1" class="anchored" data-anchor-id="use-the-var-function-to-calculate-the-variance-of-the-new_cases_pc-variable."><span class="header-section-number">8.2.3.1</span> Use the <code>var()</code> function to calculate the variance of the <code>new_cases_pc</code> variable.</h4>
+<p>Variance will be important for thinking about uncertainty and inference (e.g.&nbsp;how might our estimate have been different)</p>
+</section>
+</section>
+<section id="standard-deviations" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="standard-deviations"><span class="header-section-number">8.2.4</span> Standard Deviations</h3>
+<p>A standard deviation is simply the square root of variable’s variance.</p>
+<p>[ _x== ]</p>
+<p>Standard deviations are easier to interpet because their units are the same as variable.</p>
+<p>Think of them as a measure of the typical amount of variation for variable.</p>
+<section id="lets-use-the-sd-function-to-calculate-the-standard-deviation-of-the-new_cases_pc-variable" class="level4" data-number="8.2.4.1">
+<h4 data-number="8.2.4.1" class="anchored" data-anchor-id="lets-use-the-sd-function-to-calculate-the-standard-deviation-of-the-new_cases_pc-variable"><span class="header-section-number">8.2.4.1</span> let’s use the <code>sd()</code> function to calculate the standard deviation of the <code>new_cases_pc</code> variable</h4>
+</section>
+</section>
+</section>
+<section id="measures-of-association" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="measures-of-association"><span class="header-section-number">8.3</span> Measures of Association</h2>
+<p>Measures of association describe how variables relate to each other.</p>
+<section id="covariance" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="covariance"><span class="header-section-number">8.3.1</span> Covariance</h3>
+<p>Covariance describes how two variables “co-vary”.</p>
+<p>When <span class="math inline">\(x\)</span> is above its mean, <span class="math inline">\(y\)</span> also tends to be above it’s mean, these variables have a positive covariance.</p>
+<p>If when <span class="math inline">\(x\)</span> tends to be high, <span class="math inline">\(y\)</span> tends to be low, these variables have a negative variance</p>
+<p>Formally, the sample<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> covariance of two variables can written as follows:</p>
+<p>[ cov(x,y)=_{i=1}^n(x_i-{x})(y_i-{y}) ]</p>
+<section id="please-calculate-the-covariance-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-var-function" class="level4" data-number="8.3.1.1">
+<h4 data-number="8.3.1.1" class="anchored" data-anchor-id="please-calculate-the-covariance-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-var-function"><span class="header-section-number">8.3.1.1</span> Please calculate the covariance between the percent of state’s population that is fully vaccinated (<code>percent_vaccinated</code>) and <code>new_cases_pc</code> using the <code>var()</code> function</h4>
+</section>
+</section>
+<section id="correlation" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="correlation"><span class="header-section-number">8.3.2</span> Correlation</h3>
+<p>Like variances, covariances don’t really have intrinsic meaning, since x and y can be measured on very different scales.</p>
+<p>The correlation between two variables takes their covariance and scales this by the standard deviation of each variable, creating a measure that can range from -1 (perfect negative correlation) to 1 perfect positive correlation.</p>
+<p>Again, we can write this formally</p>
+<p>[ _{x,y} = ]</p>
+<p>But don’t sweat the formulas too much. I’m just contractually obligated to show you math.</p>
+<section id="calculate-the-correlation-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-cor-function." class="level4" data-number="8.3.2.1">
+<h4 data-number="8.3.2.1" class="anchored" data-anchor-id="calculate-the-correlation-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-cor-function."><span class="header-section-number">8.3.2.1</span> Calculate the correlation between the percent of state’s population that is fully vaccinated (<code>percent_vaccinated</code>) and <code>new_cases_pc</code> using the <code>cor()</code> function.</h4>
+<p>You’ll need to set the argument <code>use="complete.obs</code></p>
+<p>Hmm… That seems a little strange. What if we calculated the correlation between vaccination rates and new cases separately for each month in 2021</p>
+</section>
+<section id="uncomment-and-interpret-the-output-of-the-code-below" class="level4" data-number="8.3.2.2">
+<h4 data-number="8.3.2.2" class="anchored" data-anchor-id="uncomment-and-interpret-the-output-of-the-code-below"><span class="header-section-number">8.3.2.2</span> Uncomment and interpret the output of the code below</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(year &gt; 2020)%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(year,month)%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     mn_per_vax = mean(percent_vaccinated, na.rm=T),</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     cor = cor(new_cases_pc, percent_vaccinated, use = "complete.obs")</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="facemasks-and-new-cases-of-covid-19" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Facemasks and New Cases of Covid-19</h1>
+<p>Let’s return to the question of the average number of new Covid-19 cases (per 100,000) for different types of face mask policies.</p>
+<p>We ended our previous class with this result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(!is.na(face_masks))%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(face_masks)%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases_pc = round(mean(new_cases_pc, na.rm=T),2)</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; face_mask_summary</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># face_mask_summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="what-do-these-averages-really-tell-us" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="what-do-these-averages-really-tell-us"><span class="header-section-number">9.1</span> What do these averages really tell us?</h2>
+</section>
+<section id="add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data"><span class="header-section-number">9.2</span> Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data</h2>
+<p>If we limit our comparison to a more narrow time period, say one month in one year, we’re making a fairer comparison between states that are likely facing more similar conditions/challenges.</p>
+<section id="add-another-arguement-to-the-group_by-command-from-the-original-code-to-calcutate-the-conditional-means-by-face-mask-policy-for-each-month-in-each-year-of-the-data" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="add-another-arguement-to-the-group_by-command-from-the-original-code-to-calcutate-the-conditional-means-by-face-mask-policy-for-each-month-in-each-year-of-the-data"><span class="header-section-number">9.2.1</span> Add another arguement to the group_by() command from the original code to calcutate the conditional means by face mask policy for each month in each year of the data</h3>
+<ul>
+<li>Save the output of summarize into an object called <code>cases_by_month_and_policy</code></li>
+</ul>
+</section>
+<section id="uncomment-the-code-below-to-display-cases_by_month_and_policy-in-a-searchable-table" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="uncomment-the-code-below-to-display-cases_by_month_and_policy-in-a-searchable-table"><span class="header-section-number">9.2.2</span> Uncomment the code below to display <code>cases_by_month_and_policy</code> in a searchable table</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DT::datatable(cases_by_month_and_policy,</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#               filter = "top")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="uncomment-the-code-below-to-visualize-this-cases_by_month_and_policy" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="uncomment-the-code-below-to-visualize-this-cases_by_month_and_policy"><span class="header-section-number">9.2.3</span> Uncomment the code below to visualize this <code>cases_by_month_and_policy</code></h3>
+<p>What does this figure tell us?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cases_by_month_and_policy %&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     x= year_month,</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     y = new_cases_pc,</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     col=face_masks))+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point()+coord_flip()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So this figure graphically displays the data <code>cases_by_month_and_policy</code></p>
+<p>From about August 2020 to October 2020 states with facemask requirements saw much lower rates of new cases than states that only recommended face masks.</p>
+<p>After October 2020, every state has at least some requirement, and the differences between the stringency of requirements is a little harder to see.</p>
+<p>Again this stuff is complicated. Lots of things are changing and these month comparisons are by no means perfect. Lot’s of things differ between states with different mask policies. What we’d really like to know is a sort of counterfactual comparison between the number new cases in a state with a given policy and what those new cases would have been had that state had a different policy.</p>
+<p>The problem is, we don’t get to see that counterfactual outcome. So how can we make causal claims about the effects of facemasks, or any other policy that interests us? Finding creative ways to answer these questions is the key to making credible causal claims.</p>
+<p>Next week, we’ll explore how to make this figure and many more from our data</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Summary</h1>
+<p>Like lecture, we covered a lot in this first lab. Specifically we:</p>
+<ul>
+<li>Practiced installing packages and setting up our workspace</li>
+<li>Downloaded multiplier data sets</li>
+<li>Saw how we could use functions to transform and explore data. Specifically we used:
+<ul>
+<li><code>%&gt;%</code>, the pipe command, to chain together multiple functions</li>
+<li><code>filter()</code> to filter data based on logical comparisons</li>
+<li><code>select()</code> to select specific variables from our data</li>
+<li><code>group_by()</code> to apply functions by one or more grouping variables</li>
+<li><code>mutate()</code> to create new columns in our data</li>
+<li><code>summarise()</code> to summarize the output of functions, often by groups</li>
+<li><code>arrange()</code> to sort data by a specific variable</li>
+</ul></li>
+<li>Explored different tools of descriptive inference using:
+<ul>
+<li><code>means</code>, <code>medians</code> and <code>modes</code> to describe typical values of data</li>
+<li><code>ranges</code>, <code>percentile ranges</code>, <code>variances</code> and <code>standard deviations</code> to describe how our data vary</li>
+<li><code>covariances</code> and <code>correlations</code> to describe relationships between variables in our data</li>
+</ul></li>
+<li>Explored how the relationships between face masks and Covid-19 changed when we <em>conditioned</em> on time and looked within months as opposed to accross the whole data set.</li>
+</ul>
+<p>Not all of this will make sense the first time through. That’s OK. The things we’ve done today, we will do again and again over the course of the semester. Overtime, concepts that seemed crazy or confusing, we’ll become second nature.</p>
+<p>After class, on the course website and canvas, you’ll find my “commented” solutions today’s lab.</p>
+<p>If there are particular parts of the lab where we went too fast, or things didn’t make sense. Take a moment to review these notes. Try re-running the code. Changing the code. Break the code and see if you can fix it.</p>
+<p>When you encounter a problem you can solve, send me an email, or ask your friends, or doctor Google. I guarantee you, someone else has had a similar question or problem.</p>
+<p>The only dumb question in this course is a question you don’t ask!</p>
+<p>Please upload the html file produced by your .Rmd file to <a href="https://canvas.brown.edu/courses/1091286/assignments/7925682?module_item_id=10882018">Canvas</a></p>
+<p>Finally, please take a moment to complete this weeks <a href="https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI">class survey</a></p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>It’s a little more complicated as we need to decide how to handle situations where their are ties, or an even number of cases. For now we’ll just accept the default rules <code>R</code> uses.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Astute readers might ask, why are you talking about samples? We’ll come back to this later in the course when we talk about probability, estimation and statistical inference.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Group Members Names Here">
+<meta name="dcterms.date" content="2024-01-24">
+
+<title>POLS 1600 - Lab 08: Predicting Election Outcomes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">POLS 1600</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../class/index.html"> 
+<span class="menu-text">Class</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments.qmd"> 
+<span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
+  </ul></li>
+  <li><a href="#get-setup-to-work" id="toc-get-setup-to-work" class="nav-link" data-scroll-target="#get-setup-to-work"><span class="header-section-number">1</span> Get setup to work</a>
+  <ul class="collapse">
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">1.1</span> Load Packages</a></li>
+  <li><a href="#provide-a-high-level-overview-each-data-set" id="toc-provide-a-high-level-overview-each-data-set" class="nav-link" data-scroll-target="#provide-a-high-level-overview-each-data-set"><span class="header-section-number">1.2</span> Provide a high level overview each data set</a></li>
+  <li><a href="#re-arrange-the-intrade" id="toc-re-arrange-the-intrade" class="nav-link" data-scroll-target="#re-arrange-the-intrade"><span class="header-section-number">1.3</span> Re-Arrange the Intrade</a></li>
+  <li><a href="#convert-the-priced-variable-in-intrade08-to-a-probability" id="toc-convert-the-priced-variable-in-intrade08-to-a-probability" class="nav-link" data-scroll-target="#convert-the-priced-variable-in-intrade08-to-a-probability"><span class="header-section-number">1.4</span> Convert the <code>PriceD</code> variable in <code>intrade08</code> to a probability</a></li>
+  <li><a href="#create-a-subset-of-intrade08-called-df_nov3" id="toc-create-a-subset-of-intrade08-called-df_nov3" class="nav-link" data-scroll-target="#create-a-subset-of-intrade08-called-df_nov3"><span class="header-section-number">1.5</span> Create a subset of intrade08, called <code>df_nov3</code></a></li>
+  </ul></li>
+  <li><a href="#calculate-obamas-expected-electoral-votes-on-november-3-2008" id="toc-calculate-obamas-expected-electoral-votes-on-november-3-2008" class="nav-link" data-scroll-target="#calculate-obamas-expected-electoral-votes-on-november-3-2008"><span class="header-section-number">2</span> Calculate Obama’s expected electoral votes on November 3, 2008</a></li>
+  <li><a href="#use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." id="toc-use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." class="nav-link" data-scroll-target="#use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win."><span class="header-section-number">3</span> Use the probabilities from the day before the election to simulate the total number of electoral votes Obama is predicted to win.</a></li>
+  <li><a href="#display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" id="toc-display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" class="nav-link" data-scroll-target="#display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram"><span class="header-section-number">4</span> Display the distribution of predicted number of electoral votes in a histogram</a></li>
+  <li><a href="#compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." id="toc-compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." class="nav-link" data-scroll-target="#compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation."><span class="header-section-number">5</span> Compute <span class="math inline">\(p_{ij}^*\)</span>, plot the transformed probabilities and explain the transformation.</a></li>
+  <li><a href="#using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" id="toc-using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" class="nav-link" data-scroll-target="#using-p_ij-repeat-the-simulations-from-above-and-compare-the-results"><span class="header-section-number">6</span> Using <span class="math inline">\(p_{ij}^*\)</span> repeat the simulations from above and compare the results</a></li>
+  <li><a href="#compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." id="toc-compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." class="nav-link" data-scroll-target="#compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions."><span class="header-section-number">7</span> Compute the expected number of electoral votes for Obama for the 120 days before November 4. Display the results in a time series plot and interpret the predictions.</a></li>
+  <li><a href="#for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" id="toc-for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" class="nav-link" data-scroll-target="#for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following"><span class="header-section-number">8</span> For each of the 120 days before the campaign conduct 100 simulation usings the <span class="math inline">\(p_{ij}^*\)</span> probabilities and do the following:</a></li>
+  <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey">Take the Class Survey</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 08: Predicting Election Outcomes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Group Members Names Here </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 24, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1 unnumbered">
+<h1 class="unnumbered">Overview</h1>
+<p>Today we’ll work through exercise <em>6.6.2 A Probability Model for Betting Market Election Prediction</em> from QSS (pp.&nbsp;309-310). We will use the daily data from the Intrade betting market to derive probabilities from degenerate gamblers about the likelihood that Obama would win the 2008 presidential election. We will use these probabilities to simulate possible elections and the summarize outcomes of these simulations graphically.</p>
+<p>Plan to spend the following amount of time</p>
+<ol type="1">
+<li><p>Get set up to work (5 minutes)</p></li>
+<li><p>Calculate Obama’s expected electoral vote share on November 3, 2008 (the day before the election) (10 minutes)</p></li>
+<li><p>Simulate a 1000 elections for November 3, 2008 using the betting market prices a measure of the probability that Obama wins or loses a state (10 minutes)</p></li>
+<li><p>Display the results of your simulation with a histogram. (5 minutes)</p></li>
+<li><p>Transform these probabilities to reduce the likelihood that Obama wins states like Alabama and increase the likelihood that Obama wins states like California (5 minutes)</p></li>
+<li><p>Simulate another 1000 elections using these transformed probabilities. Compare the results to your initial simulation. (10)</p></li>
+<li><p>Calculate Obama’s expected total number of votes for each day in the 120 days before the 2008 election (15 minutes)</p></li>
+<li><p>Simulate 100 elections for each of the 120 days before the election, plot the results of your simulation. (20 minutes)</p></li>
+</ol>
+<section id="goals" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="goals">Goals</h2>
+<p>Conceptually, the main goals of this lab are to</p>
+<ul>
+<li><p>give you some practice working with probabilities in an application to the real world (predicting elections)</p></li>
+<li><p>introduce the idea of simulations as a tool for understanding probability and describing our uncertainty about what could have happened</p></li>
+</ul>
+<p>Technically, you learn how to</p>
+<ul>
+<li><p>use <code>for()</code> loops, which a useful programming skill when you need to do something repeatedly</p></li>
+<li><p>work with <code>R</code>’s built in probability functions. Specifically, we’ll use the:</p>
+<ul>
+<li><code>rbernoulli()</code> function to simulate “coin flips” for each state and on each date, will the betting market data will define the probability that Obama wins that state.</li>
+<li><code>pnorm()</code> and <code>qnorm()</code> functions to transform these probabilities, giving more probability to places where Obama is likely to win, and less probability to states Obama is unlikely to win.</li>
+</ul></li>
+<li><p>You’ll also get practice wrangling and visualizing data (today using R’s base graphics functions)</p></li>
+</ul>
+</section>
+<section id="workflow" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="workflow">Workflow</h2>
+<section id="please-knit-this-.rmd-file" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="please-knit-this-.rmd-file">Please knit this .Rmd file</h3>
+<p>As with every lab, you should:</p>
+<ul>
+<li>Download the file</li>
+<li>Save it in your course folder</li>
+<li><strong>Update the <code>author:</code> section of the YAML header to include the names of your group members in attendance.</strong></li>
+<li>Knit the document</li>
+<li>Open the html file in your browser (Easier to read)</li>
+<li>Write yourcode in the chunks provided</li>
+<li>Comment out or delete any test code you do not need</li>
+<li><strong>Knit the document again after completing a section or chunk</strong> (Error checking)</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404" target="_blank">Canvas</a>.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="get-setup-to-work" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Get setup to work</h1>
+<section id="load-packages" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">1.1</span> Load Packages</h2>
+<p>First we’ll load the pacakges we need for today:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we’ll load two data sets from the <code>qss</code> package: <code>pres08</code> and <code>intrade08</code></p>
+<ul>
+<li><code>pres08</code> contains the 2008 US presidential election outcomes by state.</li>
+<li><code>intrade08</code> contains from Intrade, an online prediction market, in days leading up to the 2008 United States Presidential Election.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Results from 2008 election</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"pres08"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily betting market data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"intrade08"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="provide-a-high-level-overview-each-data-set" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="provide-a-high-level-overview-each-data-set"><span class="header-section-number">1.2</span> Provide a high level overview each data set</h2>
+<p>In the code chunk below, please write some code to provide a high level overview of each data set.</p>
+<p>We will primarily work with the <code>EV</code> variable from <code>pres08</code> which contains the electoral votes for each state, and the <code>PriceD</code> variable from <code>intrade08</code> from which we will construct a probability that Obama wins that state.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HLO</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pres08</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Briefly describe each data set</strong></p>
+<ul>
+<li><p>The <code>pres08</code> data set contain …</p></li>
+<li><p>The <code>intrade08</code> data contain …</p></li>
+</ul>
+</section>
+<section id="re-arrange-the-intrade" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="re-arrange-the-intrade"><span class="header-section-number">1.3</span> Re-Arrange the Intrade</h2>
+<p>If you look closely at the data, you’d see that both are arranged alphabetically by state name, but in the <code>pres08</code> data, the District of Columbia is named “D.C.”, while in the <code>intrade08</code> data it is called “District of Columbia”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pres08<span class="sc">$</span>state.name[<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "D.C."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>intrade08<span class="sc">$</span>statename[<span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "District of Columbia"</code></pre>
+</div>
+</div>
+<p>As a result, D.C. comes before Delaware in <code>pres08</code> but after Delaware in <code>intrade08</code>. It will be useful below, for the states to be in the same order in both data sets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DC and DE are reversed</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pres08<span class="sc">$</span>state[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DC" "DE"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>intrade08<span class="sc">$</span>state[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "DC"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same abbrevs</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pres08<span class="sc">$</span>state <span class="sc">%in%</span> intrade08<span class="sc">$</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Different namings of DC</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pres08<span class="sc">$</span>state.name <span class="sc">%in%</span> intrade08<span class="sc">$</span>statename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+</div>
+<p>Please use the <code>arrange()</code> function to re-arrange both data sets using the <code>state</code> variable which is the postal abbreviation code for each state and is the same in both data sets.</p>
+<p>For the <code>pres08</code> data <code>arrange()</code> by <code>state</code> and <code>intrade08</code> by <code>day</code> and then by <code>state</code></p>
+<ul>
+<li>Remember to save the output of <code>arrange()</code> back into each respective data frame</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange pres08</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If your code was correct, DC should now come before DE in <code>intrade08</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pres08$state[1:9]</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># intrade08$state[1:9]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And the following code should return <code>TRUE</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all.equal(pres08$state[1:51], intrade08$state[intrade08$day=="2008-11-03"])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="convert-the-priced-variable-in-intrade08-to-a-probability" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="convert-the-priced-variable-in-intrade08-to-a-probability"><span class="header-section-number">1.4</span> Convert the <code>PriceD</code> variable in <code>intrade08</code> to a probability</h2>
+<p>The <code>intrade08</code> data contain a variable called <code>PriceD</code> which we will treat as the probability that Obama will win the presidential election.</p>
+<p>Recall that probabilities must be between 0 and 1. Please create a variable called <code>prob_obama_win</code> in <code>intrade08</code> by dividing <code>PriceD</code> by 100.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable prob_obama_win from PriceD in intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-a-subset-of-intrade08-called-df_nov3" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="create-a-subset-of-intrade08-called-df_nov3"><span class="header-section-number">1.5</span> Create a subset of intrade08, called <code>df_nov3</code></h2>
+<p>Next we’ll create a subset of the data, called <code>df_nov3</code> that contains just the data from the day before the election (that is Monday, November 3, 2008)</p>
+<ul>
+<li>Hint: try <code>filter()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create df_nov3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="calculate-obamas-expected-electoral-votes-on-november-3-2008" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Calculate Obama’s expected electoral votes on November 3, 2008</h1>
+<p>Using the data from <code>pres08</code> and <code>df_nov3</code>, calculate the expected number of electoral votes Obama is predicted to win in the Intrade data by summing up the states where <code>prob_obama_win</code> is greater than 0.5</p>
+<p>Hints:</p>
+<ul>
+<li><p>Because <code>pres08</code> and <code>df_nov3</code> have the same number of rows, and the rows are ordered in the same way (alphabetically by postal abbreviation), we can select variables from <code>pres08</code> using a logical index (<code>[]</code>) on variables from <code>df_nov3</code></p></li>
+<li><p>The you can just sum up the <code>EV</code> where <code>prob_obama_win</code> is greater than 0.5</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate expected Obama EV using prob_obama win </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Please fill in the <code>???</code> below:</strong></p>
+<p>Using the Intrade data from November 3, 2008, Obama is expected to win <strong>???</strong> electoral votes</p>
+<hr>
+<p>So it looks like the betting markets are pretty good. From the previous question, we saw that the Intrade data for November 3, 2008 predicted Obama will win 364 votes, which taking into account the fact that Nebraska divides its electoral votes, is pretty close to the 365 he actually won</p>
+</section>
+<section id="use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Use the probabilities from the day before the election to simulate the total number of electoral votes Obama is predicted to win.</h1>
+<p>Now let’s use the probabilities from <code>prob_obama_win</code> in <code>df_nov3</code> to simulate an the idea of running repeated elections.</p>
+<p>Our variable <code>prob_obama_win</code> represents a probability that Obama win’s a given state. It’s relatively low for a Red state like Alabama, high for blue state like California and more uncertain for a swing state like North Carolina</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prob(Obama Win on Nov 3, 2008)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"AL"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"NC"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"CA"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
+</div>
+</div>
+<p>To simulate the outcome of the election, we’ll treat whether Obama won as the result of a <a href="https://pols1600.paultesta.org/slides/08-slides.html#92" target="_blank">Bernoulli trial</a> where the probability of success (Obama winning) is <span class="math inline">\(p_{ij}\)</span> (that is, the value of <code>prob_obama_win</code>) for each state.</p>
+<p>In most of these simulations, Obama will lose Alabama and win California. However, in each simulation, these probabilities suggest there’s a chance he wins Alabama (3 percent) or loses California (2 percent)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>To simulate repeated elections, we’ll do the following:</p>
+<ul>
+<li><p>set the random seed using <code>set.seed(123)</code> (This makes random simulations reproducible)</p></li>
+<li><p>define <code>sims</code> the number of simulations we want to to do. Let’s set <code>sims</code> equal to 1,000</p></li>
+<li><p>define the number of states as <code>n_states</code> in our simulation, which corresponds to the number of <em>Bernoulli trials</em> (coinflips)</p></li>
+<li><p>define the probability <code>p_obama_win</code> (probability of Obama winning) corresponding to <code>prob_obama_win</code> in <code>df_nov3</code> for each state.</p></li>
+<li><p>create an <em>empty</em> vector called <code>obama_ev_1</code> to store the results of each simulation</p></li>
+<li><p>use a <code>for()</code> loop to simulate these hypothetical elections, where for each <code>i</code> in 1 to <code>sims</code>,</p>
+<ul>
+<li>we take a random draw of size n (equal to the number of states) with corresponding probabilities <code>p</code> (equal to <code>prob_obama_win</code>) using <code>rbernoulli</code></li>
+<li>use the outcome of this random draw (a series of 0s and 1s of length <code>n_states</code>) to select the electoral votes for the states Obama one in simulation <code>i</code></li>
+<li>sum up the electoral votes for states Obama one in simulation <code>i</code> and save them to <code>obama_ev_1[i]</code></li>
+</ul></li>
+</ul>
+<p>I’ve written some code to get you started in the code chunk below.</p>
+<p>Please <strong>uncomment the code</strong> and replace the <code>???</code> with the correct values.</p>
+<p>We’ll interpret the results of our simulation in the next question.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set random seed</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(123)</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Define number of simulations</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sims &lt;- ?????</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Define number of states for each simulation</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># n_states &lt;- ?????</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Create empty container for results of simulation</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_1 &lt;- c() </span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Use for loop to conduct simulations</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:1000){</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   obama_ev_1[i] &lt;- sum(</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     pres08$EV[rbernoulli(</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#       n = ???, </span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#       p = ???)</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#       ]</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Display the distribution of predicted number of electoral votes in a histogram</h1>
+<p>Please do the following with <code>obama_ev_1</code></p>
+<ul>
+<li><p>use the <code>hist()</code> function to create a histogram</p></li>
+<li><p>use the <code>abline()</code> function to plot a vertical line at 365</p>
+<ul>
+<li>try running <code>?graphics::abline</code> to see the help page for <code>abline()</code> to see how to draw a vertical line on a plot</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histogram of simulated EV</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line showing actual votes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Answer:</strong> Write your interpretation of the histogram here.</p>
+<hr>
+<p>Interesting. So the typical electoral vote share from the simulations is a bit lower than Obama’s actual vote share and in a small number of simulations, Obama is predicted to actually lose the election (e.g.&nbsp;had simulated vote shares below 270).</p>
+<p>Prediction markets tend to exaggerate the chances of long shots winning a campaign.</p>
+<p>Let’s adjust the probabilities used above using the following formula:</p>
+<p><span class="math display">\[p_{ij}^* = \Phi(1.64 \times \Phi^{-1}(p_{ij}))\]</span></p>
+<p>Where <span class="math inline">\(\Phi\)</span> is the PDF of the <a href="https://pols1600.paultesta.org/slides/08-slides.html#102">normal distribution</a> (<code>prnorm()</code> in R) and <span class="math inline">\(\Phi^{-1}\)</span> is the CDF (<code>qnorm()</code> in R) of the normal distribution.</p>
+</section>
+<section id="compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Compute <span class="math inline">\(p_{ij}^*\)</span>, plot the transformed probabilities and explain the transformation.</h1>
+<p>Using the formula above and the <code>pnorm()</code> and <code>qnorm()</code> functions in R transform <code>prob_obama_win</code> in <code>df_nov3</code> to <code>p_star</code>.</p>
+<p>Then plot the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate p_star</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># p_star &lt;- pnorm(???*qnorm(???))</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot pstar against original prob_obama_win</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x= df_nov3$prob_obama_win, y = p_star)</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line showing p_star function</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># curve(pnorm(1.64*qnorm(x)),add=T,col="grey")</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add 45 degree line showing </span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Points below = lower prob</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Point above = higher prob</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(a=0,b=1, lty=2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Please interpret the results of this transformation</strong></p>
+<hr>
+<p>So our transformation decreases the probability for low values of the original <span class="math inline">\(p_{ij}\)</span> and increases the probabilities of high <span class="math inline">\(p_{ij}\)</span></p>
+</section>
+<section id="using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Using <span class="math inline">\(p_{ij}^*\)</span> repeat the simulations from above and compare the results</h1>
+<ul>
+<li><p>Uncomment the code below and replace the <code>???</code> with the appropriate code.</p>
+<ul>
+<li>Hint Use the code from the question 3, but replace <code>p_obama_win</code> with <code>p_star</code></li>
+</ul></li>
+<li><p>Then plot the distribution of the old and new simulations with two histograms.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(123)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_2 &lt;- c() # Container to hold results of each simulation</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulation using </span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:sims){</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   obama_ev_2[i] &lt;- ???</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distributions</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># hist(obama_ev_1)</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># hist(obama_ev_2, add=T, col="red")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Answer:</strong> Write your comparison of the two histograms here.</p>
+<ul>
+<li>Does using <code>p_star</code> improve the predictions?</li>
+</ul>
+<hr>
+<p>Interesting, so the transformation seemed to improve the predictions in that none of the simulated values were below the 270 electoral vote threshold.</p>
+</section>
+<section id="compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Compute the expected number of electoral votes for Obama for the 120 days before November 4. Display the results in a time series plot and interpret the predictions.</h1>
+<p>Here’s some code to get the 120 days before the election</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get dates</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">sort</span>(intrade08<span class="sc">$</span>day[intrade08<span class="sc">$</span>day <span class="sc">&lt;</span> <span class="st">"2008-11-04"</span> <span class="sc">&amp;</span> intrade08<span class="sc">$</span>day <span class="sc">&gt;=</span> <span class="st">"2008-07-07"</span>]))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
+"2008-07-07" "2008-08-05" "2008-09-04" "2008-09-04" "2008-10-04" "2008-11-03" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 120</code></pre>
+</div>
+</div>
+<p>Now create a container to hold 120 predictions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create containers to hold the values you want to calculate for each day</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>obama_ev_120 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And write code that:</p>
+<ul>
+<li><p>That loops through all 120 dates, and extracts the date for day i</p></li>
+<li><p>Calculates p_star from the <code>prob_obama_win</code> for that day</p></li>
+<li><p>Sums the electoral votes for states in which <code>p_star</code> is greater than 0.5</p></li>
+<li><p>Plots dates on the x axis and obama_ev_120 on the y</p></li>
+</ul>
+<p>Use the code below as a template and fill in the ???</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:???){</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract date i</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># day &lt;- dates[???]</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate p_star for day</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># p_star &lt;- pnorm(1.64*qnorm(intrade08$prob_obama_win[intrade08$day == ???]))</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sum expected EV for day </span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obama_ev_120[i] &lt;- sum(pres08$EV[ ??? &gt; 0.5])</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x=dates, obama_ev_120,</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     ylim=c(0,538)</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Answer:</strong> Interpret your plot here</p>
+<hr>
+</section>
+<section id="for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> For each of the 120 days before the campaign conduct 100 simulation usings the <span class="math inline">\(p_{ij}^*\)</span> probabilities and do the following:</h1>
+<ul>
+<li><p>Calculate the expected (mean) number of votes for the simulation for each day</p></li>
+<li><p>Compute the 2.5% and 97.5% percentiles of the simulated Electoral Votes from the simulation for each day using the <code>quantile()</code> function</p></li>
+<li><p>Plot the mean number of votes from the simulations for each day and add</p>
+<ul>
+<li>a vertical segment that goes from the 2.5% percentile to 97.5% percentile for each day’s simulation.</li>
+<li>a solid blue horizontal line at 365 corresponding to Obama’s actual electoral votes</li>
+<li>a dashed red line at 270 corresponding to number of electoral votes need to win a presidential election.</li>
+</ul></li>
+<li><p>Interpret the results.</p></li>
+</ul>
+<p>You need to use <strong>two</strong> <code>for()</code> loops for this.</p>
+<p>The first for loop will loop through dates and calculate p_star for each date (<span class="math inline">\(i\)</span>).</p>
+<p>Then, within that for loop, R will do a second loop, where: for each date and p_star, the second loop will generate <span class="math inline">\(j\)</span> simulations of the predicted number of electoral votes.</p>
+<p>After the <span class="math inline">\(j\)</span> simulations are complete, the code will calculate the quantities you want for that date, <span class="math inline">\(i\)</span>, and then the code will move to the next date and repeat the process.</p>
+<p>Use your code from the previous questions to help you fill in the <code>???</code> in the code below</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Create containers to hold the values you want to calculate for each day</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # Average predicted value</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_mean &lt;- c()</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # 97.5 percentile</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ul &lt;- c()</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # 2.5 percentile</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ll &lt;- c()</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # Simulation</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:120){</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 1. Extract day i from dates object</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># day &lt;- ???</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 2. Calculate p_star for day i</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># p_star &lt;- ???</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 3. create container for simulations for day i</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_sim &lt;- ???</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  #. 4 Conduct 100 simulations</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   for(j in 1:100){</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co">#    # For simulation j, calculate expected EV and save in container</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_sim[j] &lt;- ???</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 5.After 100 simulations, calculate</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co"># # Average predicted EV for day i</span></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_mean[i] &lt;- ???</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="co"># # 97.5 percentile</span></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ul[i] &lt;- ???</span></span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a><span class="co"># # 2.5 percentile</span></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ll[i] &lt;- ???</span></span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a><span class="co">#  # Repeat for next i until all 120 dates have been simulate.</span></span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot values</span></span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x= ???,</span></span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="co">#      y = ???,</span></span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a><span class="co">#     ylim=c(0,538)</span></span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add vertical segment for 95% coverage interval</span></span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="co"># segments(x0=dates, x1 = dates, y0= ???, y1 = ???)</span></span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add horizontal lines at 365 and 270</span></span>
+<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(h=???,lty=2, col ="red")</span></span>
+<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(h=???,lty=1, col = "blue")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Answer:</strong> Provide a brief interpretation of your plot here</p>
+</section>
+<section id="take-the-class-survey" class="level1 unnumbered">
+<h1 class="unnumbered">Take the Class Survey</h1>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_cOnvgqXGJ9ybOvk" target="_blank">class survey</a> for this week.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Here we’re assuming these probabilities are independent. Actual forecasting models like 538 or the NYT generally assume the probabilities of winning some states correlate with the probability of winning other neighboring states.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

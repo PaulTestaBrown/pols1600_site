@@ -1,0 +1,199 @@
+---
+title: "POLS 1600"
+subtitle: "Introduction to Quantitative Research Methods"
+about:
+  template: jolla
+  image: "files/img/opalka.jpg"
+toc: true
+# listing:
+#   id: schedule
+#   contents: class
+#   sort: "date desc"
+#   type: table
+---
+
+This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.
+
+# Logistics
+
+We meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio
+
+::: grid
+::: g-col-4
+[{{< fa comments size=5x >}}](class/index.qmd)
+
+### Lecture
+
+Tuesdays 9-10:20 am
+:::
+
+::: g-col-4
+[{{< fa laptop-file size=5x >}}](class/index.qmd)
+
+### Labs
+
+Thursdays 9-10:20 am
+:::
+
+::: g-col-4
+[{{< fa check-to-slot size=5x >}}](https://canvas.brown.edu/courses/1094972/assignments)
+
+### Assignments
+
+Due on Canvas
+:::
+
+::: g-col-4
+[{{< fa paintbrush size=5x >}}](https://canvas.brown.edu/courses/1094972)
+
+### Canvas
+:::
+
+::: g-col-4
+[{{< fa map-location-dot size=5x >}}](https://brown.edu/Facilities/Facilities_Management/maps/index.php#building/BH)
+
+### Location
+
+Barus & Holley 751
+:::
+
+::: g-col-4
+[{{< fa video size=5x >}}](https://brown.zoom.us/j/94330157279)
+
+### Zoom
+:::
+:::
+
+# Schedule
+
+```{r}
+#| echo: false
+#| include: false
+library(knitr)
+library(tidyverse)
+library(kableExtra)
+library(icons)
+library(fontawesome)
+start_date <- "2024-01-25"
+
+week <- paste0("Week ", 0:13)
+topic <- c(
+  "Introductions",
+  "Data & Measurement",
+  "Data Visualization",
+  "Causation -- Experiments",
+  "Causation -- Observational Studies",
+  "Bivariate Regression",
+  "Multiple Regression",
+  "Regression Extensions",
+  "Probability - Random Variables & Distributions",
+  "Probability - Limit Theorems",
+  "Inference -- Confidence Intervals",
+  "Inference -- Hypothesis Testing",
+  "Workshop",
+  "Presentations"
+)
+
+slides <- c(
+  rbind(
+  " ",
+  paste0(
+    "<a href=\"",
+    paste0(
+    "slides/",
+  stringr::str_pad(0:13, 2, pad = "0"),
+  "-slides.qmd",
+  "\" target=\"_blank\">"
+  ),
+  as.character(fa("comments")),
+  "</a>"
+ )
+  )
+)
+
+labs <- c(
+  rbind(
+  " ",
+  paste0(
+    "<a href=\"",
+    paste0(
+    "labs/",
+  stringr::str_pad(0:13, 2, pad = "0"),
+  "-lab.qmd ",
+  "\" download >"
+  ),
+  as.character(fa("laptop-file")),
+  "</a>"
+ )
+  )
+)
+
+comments <- c(
+  rbind(
+  " ",
+  paste0(
+    "<a href=\"",
+    paste0(
+    "labs/",
+  stringr::str_pad(0:13, 2, pad = "0"),
+  "-lab-comments.qmd",
+  "\" target=\"_blank\">"
+  ),
+  as.character(fa("graduation-cap")),
+  "</a>"
+ )
+  )
+)
+
+assignments <- c(
+  rbind(
+  " ",
+  paste0(
+    "<a href=\"",
+    paste0(
+    "assignments/",
+  stringr::str_pad(0:13, 2, pad = "0"),
+  "-lab-comments.qmd",
+  "\" download>"
+  ),
+  as.character(fa("check-to-slot")),
+  "</a>"
+ )
+  )
+)
+
+# Adjust
+
+##
+#
+labs[2] <- " "
+comments[2] <- " "
+slides[seq(4,28, by=2)] <- as.character(fa("comments"))
+labs[seq(6,28, by=2)] <- as.character(fa("laptop-file"))
+comments[seq(6,28, by=2)] <- as.character(fa("graduation-cap"))
+assignments <- rep(" ", 28)
+
+
+
+
+schedule_tibble <- tibble(
+  ' ' = c(rbind(week, topic)),
+  "Lecture" = slides,
+  "Labs" = labs,
+  "Solutions" = comments,
+  "Assignments" = assignments
+  )
+
+
+```
+
+```{r}
+#| echo: false
+#| results: asis
+kable(schedule_tibble,
+      escape = F,
+      align = "lcccc") |> 
+  kable_styling(bootstrap_options = "striped") |> 
+ row_spec(seq(1,27,by=2), bold = T) 
+
+```

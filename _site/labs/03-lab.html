@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.545">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Group Members Names Here">
+<meta name="dcterms.date" content="2024-01-24">
+
+<title>POLS 1600 - Lab 03 - Replicating Broockman and Kalla (2016)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">POLS 1600</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../class/index.html"> 
+<span class="menu-text">Class</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments.qmd"> 
+<span class="menu-text">Assignments</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#please-knit-this-.rmd-file" id="toc-please-knit-this-.rmd-file" class="nav-link" data-scroll-target="#please-knit-this-.rmd-file">Please knit this .Rmd file</a></li>
+  <li><a href="#summarize-the-study" id="toc-summarize-the-study" class="nav-link" data-scroll-target="#summarize-the-study"><span class="header-section-number">1</span> Summarize the study</a></li>
+  <li><a href="#set-up-your-workspace" id="toc-set-up-your-workspace" class="nav-link" data-scroll-target="#set-up-your-workspace"><span class="header-section-number">2</span> Set up your workspace</a></li>
+  <li><a href="#load-the-replication-data" id="toc-load-the-replication-data" class="nav-link" data-scroll-target="#load-the-replication-data"><span class="header-section-number">3</span> Load the replication data</a></li>
+  <li><a href="#provide-a-high-level-overview-of-the-data" id="toc-provide-a-high-level-overview-of-the-data" class="nav-link" data-scroll-target="#provide-a-high-level-overview-of-the-data"><span class="header-section-number">4</span> Provide a high level overview of the data</a></li>
+  <li><a href="#describe-the-distribution-of-covariates-in-the-full-dataset" id="toc-describe-the-distribution-of-covariates-in-the-full-dataset" class="nav-link" data-scroll-target="#describe-the-distribution-of-covariates-in-the-full-dataset"><span class="header-section-number">5</span> Describe the distribution of covariates in the full dataset</a></li>
+  <li><a href="#examine-the-difference-in-covariate-balance-between-those-who-did-and-did-not-take-the-baseline-survey" id="toc-examine-the-difference-in-covariate-balance-between-those-who-did-and-did-not-take-the-baseline-survey" class="nav-link" data-scroll-target="#examine-the-difference-in-covariate-balance-between-those-who-did-and-did-not-take-the-baseline-survey"><span class="header-section-number">6</span> Examine the difference in covariate balance between those who did and did not take the baseline survey</a></li>
+  <li><a href="#examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study." id="toc-examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study." class="nav-link" data-scroll-target="#examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study."><span class="header-section-number">7</span> Examine the difference in covariates between those assigned to each treatment condition in the study.</a></li>
+  <li><a href="#calculate-the-average-treatment-effect" id="toc-calculate-the-average-treatment-effect" class="nav-link" data-scroll-target="#calculate-the-average-treatment-effect"><span class="header-section-number">8</span> Calculate the Average Treatment Effect</a></li>
+  <li><a href="#plot-the-results-and-comment-on-the-study" id="toc-plot-the-results-and-comment-on-the-study" class="nav-link" data-scroll-target="#plot-the-results-and-comment-on-the-study"><span class="header-section-number">9</span> Plot the results and comment on the study</a></li>
+  <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey"><span class="header-section-number">10</span> Take the Class Survey</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 03 - Replicating Broockman and Kalla (2016)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Your Group Members Names Here </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 24, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<section id="overview" class="level1 unnumbered">
+<h1 class="unnumbered">Overview</h1>
+<p>Today we will explore <strong>the logic and design</strong> of Broockman and Kalla’s 2016 study, <a href="https://www.science.org/doi/10.1126/science.aad9713" target="_blank">“Durably reducing transphobia: A field experiment on door-to-door canvassing”</a>, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore <strong>whether the intervention had any effect on respondents’ feelings toward transgender individuals.</strong></p>
+<p>To accomplish this we will:</p>
+<ol type="1">
+<li>Summarize the study (5 Minutes)</li>
+<li>Set up our work space (2-3 Minutes)</li>
+<li>Load a portion of the replication data (1-2 Minutes)</li>
+<li>Get a high level overview of the data (5 minutes)</li>
+<li>Describe the distribution of covariates in the full dataset (5 minutes)</li>
+<li>Examine the difference in covariates between those who did and did not complete the survey (10 minutes)</li>
+<li>Examine the difference in covariates between those assigned to each treatment condition in the study. (10 minutes)</li>
+<li>Estimate the average treatment effect of the intervention (10 minutes)</li>
+<li>Plot the results and comment on the study (10 minutes)</li>
+<li>Take the weekly survey (3-5 minutes)</li>
+</ol>
+<p>One of these 9 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.</p>
+<p>You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.</p>
+<p>This lab <strong>must</strong> contain the names of the group members in attendance.</p>
+<p>If you are attending remotely, you will submit your labs individually.</p>
+<p>Here are your assigned groups for the semester.</p>
+<div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in `tibble::tibble()`:
+! Tibble columns must have compatible sizes.
+• Size 4: Existing data.
+• Size 5: Column `Group 7`.
+ℹ Only values of size one are recycled.</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'groups_df' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="goals" class="level1 unnumbered">
+<h1 class="unnumbered">Goals</h1>
+<p>Conceptually, this lab will give you lots of practice calculating <strong>means</strong> and <strong>conditional means</strong>. We will use these means to</p>
+<ul>
+<li><strong>Describe the characteristics of the study’s population.</strong> After Question 5, you should be able to describe what a typical registered voter in Miami-Dade County looks like</li>
+<li><strong>Explore differences between participants in the study this population</strong> Do people who took the baseline survey differ in systematic ways from people who did not (Question 6)</li>
+<li><strong>Assess the empirical implications of the identifying assumptions of this design</strong> If treatment was randomly assigned, then participants assigned to treatment condition should on average look similar to participants in the control condition (Question 7)</li>
+<li><strong>Estimate the average treatment effect over multiple time periods</strong> You’ll recall from lecture that the ATE is simply a difference of conditional means:</li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&amp;= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}
+\]</span></p>
+<p>We’ll see that these quantities can be calculated quickly for multiple variables using the following commands:</p>
+<ul>
+<li>We will use the <code>group_by</code> and <code>summarise</code> commands to quickly calculate average values for different groups, and the <code>mutate</code> function to calculate differences between these averages</li>
+<li>We will introduce the <code>across()</code> and <code>starts_with()</code> functions to calculate summaries like a <code>mean</code> across multiple variables that start the the same pre-fixes.</li>
+<li>We will introduce the <code>pivot_longer()</code>, <code>pivot_wider()</code> and <code>left_join</code> commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column</li>
+<li>We will use functions from the <code>ggplot</code> package to graphically display our results.</li>
+</ul>
+</section>
+<section id="please-knit-this-.rmd-file" class="level1 unnumbered">
+<h1 class="unnumbered">Please knit this .Rmd file</h1>
+<p>As with every lab, you should:</p>
+<ul>
+<li>Download the file</li>
+<li>Save it in your course folder</li>
+<li><strong>Update the <code>author:</code> section of the YAML header to include the names of your group members in attendance.</strong></li>
+<li>Knit the document</li>
+<li>Open the html file in your browser (Easier to read)</li>
+<li>Knit the document again after completing a section or chunk (Error checking)</li>
+<li>Upload the final lab to [Canvas]https://canvas.brown.edu/courses/1091286/assignments/7925686?module_item_id=10882030){target=“_blank”}.</li>
+</ul>
+</section>
+<section id="summarize-the-study" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Summarize the study</h1>
+<p>Before we get started working with the data, please provide some brief answers (1-3 sentences) to the following questions</p>
+<ul>
+<li><strong>What’s the research question?</strong></li>
+<li><strong>What’s the theoretical framework?</strong></li>
+<li><strong>What’s the empirical design?</strong></li>
+<li><strong>What’s are the main results?</strong></li>
+</ul>
+</section>
+<section id="set-up-your-workspace" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Set up your workspace</h1>
+<p>Here is some minimal code so that your lab will compile when you first knit it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><strong>In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides <a href="https://pols1600.paultesta.org/slides/03-slides.html#14" target="_blank">here</a></strong></li>
+</ol>
+<hr>
+</section>
+<section id="load-the-replication-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Load the replication data</h1>
+<p>Next we’ll load the data for today, which is a subset of Broockman and Kalla’s full data set<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<ol type="1">
+<li><strong>Please run the code chunk below to load the data</strong> That’s it. That’s the task for this question</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/03_lab.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The will load a data frame called <code>df</code> containing the following variables:</p>
+<ul>
+<li><code>completed_baseline</code> whether someone completed the baseline survey (“Survey”) or not (“No Survey”)</li>
+<li><code>treatment_assigned</code> what intervention someone who completed the baseline survey was assigned two (treatment= “Trans-Equality”, placebo = “Recycling”)</li>
+<li><code>answered_door</code> whether someone answered the door (“Yes”) or not (“No”) when a canvasser came to their door</li>
+<li><code>treatment_group</code> the treatment assignments of those who answered the door and the received the treatment or placebo (treatment= “Trans-Equality”, placebo = “Recycling”)</li>
+<li><code>vf_age</code> the age of the person in years</li>
+<li><code>vf_female</code> the respondent’s sex (female = 1, male = 0)</li>
+<li><code>vf_democrat</code> whether the person was a registered Democract (Democrat=1, 0 otherwise)</li>
+<li><code>vf_white</code> whether the person was white (White=1, 0 otherwise)</li>
+<li><code>vf_vg_12</code> whether the person voted in the 2012 general election (voted = 1, 0 otherwise)</li>
+<li><code>therm_trans_tX</code> a feeling thermometer<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, where respondents are asked to rate how warmly they feel toward transgender people on a scale of 0 (Very Cold) to 100 (Very Warm), with 50 corresponding to neither warm nor cold. The <code>_tX</code> corresponds to the time the measure was taken:
+<ul>
+<li><code>_t0</code> pre-treatment measure from baseline survey</li>
+<li><code>_t1</code> post-treatment measure 3-days after intervention</li>
+<li><code>_t2</code> post-treatment measure 3-weeks after intervention</li>
+<li><code>_t3</code> post-treatment measure 6-weeks after intervention</li>
+<li><code>_t4</code> post-treatment measure 3-months after intervention</li>
+</ul></li>
+</ul>
+</section>
+<section id="provide-a-high-level-overview-of-the-data" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Provide a high level overview of the data</h1>
+<p>In the code chunk below, please write code to provide a <em>high level overview</em> of the data that allows you to answer the following questions.</p>
+<p>Please interpret the results of your code by writing brief answers in Markdown after each question.</p>
+<ol type="1">
+<li><strong>How many observations are there in <code>df</code>?</strong></li>
+<li><strong>How many variables are there in the <code>df</code>?</strong></li>
+<li><strong>What’s the unit of analysis?</strong><br>
+</li>
+<li><strong>How many registered voters completed the baseline survey?</strong></li>
+<li><strong>How many treatment conditions are there?</strong></li>
+<li><strong>How many participants were assigned to each condition?</strong></li>
+<li><strong>How many participants answered the door when a canvasser came?</strong></li>
+<li><strong>How many participants actually received each treatment condition?</strong></li>
+</ol>
+</section>
+<section id="describe-the-distribution-of-covariates-in-the-full-dataset" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Describe the distribution of covariates in the full dataset</h1>
+<p>Now let’s look at the distribution of pre-treatment covariates in the full data set.</p>
+<p>The variables that start with <code>vf_</code> contain information about registered voters from the voter file for Miami-Dade County:</p>
+<ul>
+<li><code>vf_age</code> the age of the person in years</li>
+<li><code>vf_female</code> the respondent’s sex (female = 1, male = 0)</li>
+<li><code>vf_democrat</code> whether the person was a registered Democract (Democrat=1, 0 otherwise)</li>
+<li><code>vf_white</code> whether the person was white (White=1, 0 otherwise)</li>
+<li><code>vf_vg_12</code> whether the person voted in the 2012 general election (voted = 1, 0 otherwise)</li>
+</ul>
+<p>The code below quickly calculates the mean for each of these voter file variables, by <a href="https://dplyr.tidyverse.org/articles/colwise.html" target="_blank">applying a the mean function across multiple columns</a> that all start with <code>vf_</code></p>
+<ul>
+<li><code>df%&gt;%</code> pipes the <code>df</code> data frame into the <code>summarise()</code> function</li>
+<li><code>across()</code> tells <code>summarise()</code> to calculate the <code>mean</code> for every column in <code>df</code> that <code>starts_with()</code> <code>vf_</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vf_age vf_female vf_democrat  vf_white  vf_vg_12
+1 49.20192 0.5639679   0.4522069 0.1352628 0.6727895</code></pre>
+</div>
+</div>
+<p>Next I <a href="https://r4ds.had.co.nz/tidy-data.html?q=gather%20#pivoting" target="_blank"><strong>gather</strong></a> the columns together using the <code>pivot_longer()</code> command which pivots the columns which <code>starts_with("vf")</code> into a column named <code>Covariates</code> and puts their associated values into a column named <code>Voter File Means</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))<span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gather covariate means into `Voter File Means` column</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"vf_"</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Voter File Means"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> cov_vf</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>cov_vf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  Covariate   `Voter File Means`
+  &lt;chr&gt;                    &lt;dbl&gt;
+1 vf_age                  49.2  
+2 vf_female                0.564
+3 vf_democrat              0.452
+4 vf_white                 0.135
+5 vf_vg_12                 0.673</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><strong>Using <code>cov_vf</code> please describe the demographics of the <code>df</code> data set</strong></li>
+</ol>
+</section>
+<section id="examine-the-difference-in-covariate-balance-between-those-who-did-and-did-not-take-the-baseline-survey" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Examine the difference in covariate balance between those who did and did not take the baseline survey</h1>
+<p>Now let’s examine the difference in these covariates between registered voters who did and did not take the baseline survey.</p>
+<p>The code below uses <code>group_by(completed_baseline)</code> to adapt the code from the previous section to calculate the covariate averages <strong>separately</strong> for respondents who did and did not complete the baseline survey.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(completed_baseline) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  completed_baseline vf_age vf_female vf_democrat vf_white vf_vg_12
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1 No Survey            49.3     0.563       0.452    0.133    0.671
+2 Survey               47.0     0.587       0.476    0.213    0.738</code></pre>
+</div>
+</div>
+<p>Next we <strong>reshape the data</strong> gathering the values for all the columns <strong>except</strong> the <code>completed_baseline</code> column</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(completed_baseline) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))<span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gather columns containing means, exclude column for groups</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"vf_"</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   completed_baseline Covariate    Means
+   &lt;chr&gt;              &lt;chr&gt;        &lt;dbl&gt;
+ 1 No Survey          vf_age      49.3  
+ 2 No Survey          vf_female    0.563
+ 3 No Survey          vf_democrat  0.452
+ 4 No Survey          vf_white     0.133
+ 5 No Survey          vf_vg_12     0.671
+ 6 Survey             vf_age      47.0  
+ 7 Survey             vf_female    0.587
+ 8 Survey             vf_democrat  0.476
+ 9 Survey             vf_white     0.213
+10 Survey             vf_vg_12     0.738</code></pre>
+</div>
+</div>
+<p>Then we spread the values of the <code>completed_baseline</code> into separate columns using the <code>pivot_wider()</code> command</p>
+<p>The column <code>No Survey</code> contains the mean value of each covariate for registered voters who did not complete the survey, and the <code>Survey</code> column contains averages for registered voters who completed the baseline.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(completed_baseline) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))<span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gather columns containing means, exclude column for groups</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"vf_"</span>),</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> completed_baseline,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Means</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  Covariate   `No Survey` Survey
+  &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;
+1 vf_age           49.3   47.0  
+2 vf_female         0.563  0.587
+3 vf_democrat       0.452  0.476
+4 vf_white          0.133  0.213
+5 vf_vg_12          0.671  0.738</code></pre>
+</div>
+</div>
+<p>Next we calculate the difference in means between Non Survey takers and survey takers using the <code>mutate()</code> function to create a column called <code>Difference</code> and save this output to an an object called <code>cov_baseline</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(completed_baseline) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate means for voter file variables</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"vf_"</span>), mean))<span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gather columns containing means, exclude column for groups</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"vf_"</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> completed_baseline,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Means</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Diff_Survey =</span> <span class="st">`</span><span class="at">No Survey</span><span class="st">`</span> <span class="sc">-</span> Survey</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="ot">-&gt;</span> cov_baseline</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Display differences</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>cov_baseline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  Covariate   `No Survey` Survey Diff_Survey
+  &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+1 vf_age           49.3   47.0        2.29  
+2 vf_female         0.563  0.587     -0.0241
+3 vf_democrat       0.452  0.476     -0.0241
+4 vf_white          0.133  0.213     -0.0800
+5 vf_vg_12          0.671  0.738     -0.0671</code></pre>
+</div>
+</div>
+<p>Finally, I <a href="https://r4ds.had.co.nz/relational-data.html#outer-join" target="blank"><strong>join</strong></a> the values from <code>cov_baseline</code> into <code>cov_vf</code> using the shared column <code>Covariate</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cov_balance <span class="ot">&lt;-</span> cov_vf <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cov_baseline,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Covariate"</span> <span class="ot">=</span> <span class="st">"Covariate"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric,round,<span class="dv">2</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>cov_balance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  Covariate   `Voter File Means` `No Survey` Survey Diff_Survey
+  &lt;chr&gt;                    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;
+1 vf_age                   49.2        49.3   47.0         2.29
+2 vf_female                 0.56        0.56   0.59       -0.02
+3 vf_democrat               0.45        0.45   0.48       -0.02
+4 vf_white                  0.14        0.13   0.21       -0.08
+5 vf_vg_12                  0.67        0.67   0.74       -0.07</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><strong>Please describe the differences between those who completed the baseline survey and those who did not. Do these differences seem large or small?</strong></li>
+</ol>
+</section>
+<section id="examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study." class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Examine the difference in covariates between those assigned to each treatment condition in the study.</h1>
+<p>One of the identifying assumptions of an experimental design like Broockman and Kalla’s is that treatment is independent of potential outcomes and covariates.</p>
+<p>One of the empirical implications of this assumption is that, that the differences in observable covariates between treatment and control should be small.</p>
+<p>To the extent the groups are comparable on observable covariates, we are more confident that the random assignment of treatment conditions has created a credible counterfactual comparison.</p>
+<p>Using the code from the previous section as a guide, calculate the difference in average covariate values between those subjects who completed the baseline survey and were randomly <strong>assigned</strong> to receive the <code>Trans-Equality</code> treatment, and those who were randomly assigned to receive the <code>Recyclying</code> placebo.</p>
+<p>To accomplish this you will need to do the following:</p>
+<ul>
+<li>add a <code>filter(!is.na(treatement_assigned))%&gt;%</code> after <code>df%&gt;%</code> to filter out subjects who didn’t not complete the baseline.</li>
+<li>Replace <code>completed_baseline</code> with <code>treatement_assigned</code> in the code</li>
+<li>In the <code>mutate()</code> function, change:
+<ul>
+<li><code>Diff_Survey</code> to <code>Diff_Treatment</code></li>
+<li>the values <code>No Survey</code> to <code>Trans-Equality</code> and <code>Survey</code> to <code>Recycling</code></li>
+</ul></li>
+<li>Change <code>-&gt; cov_baseline</code> to <code>-&gt; cov_treatment</code></li>
+</ul>
+<ol type="1">
+<li><strong>Please describe the covariate differences between each treatment condition. Are these differences larger or smaller than those between who completed the survey and those who did not?</strong></li>
+</ol>
+</section>
+<section id="calculate-the-average-treatment-effect" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Calculate the Average Treatment Effect</h1>
+<p>Now let’s take the same approach to calculate the Average Treatment Effect (ATE) for each time period.</p>
+<p>Using the code from the previous sections as a template,</p>
+<ul>
+<li>Add a <code>filter(!is.na(treatment_group))%&gt;%</code> after <code>df%&gt;%</code> to filter out subjects who didn’t receive the treatment.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li>Change <code>summarise(across(starts_with("vf_"), mean))%&gt;%</code> code to select variables that start with <code>therm_trans</code></li>
+<li>Change the <code>cols</code> argument in <code>pivot_longer()</code> to select the columns that start with <code>therm_trans</code></li>
+<li>Everywhere you see <code>treatment_assigned</code> in the code replace it with <code>treatement_group</code></li>
+<li>In the <code>mutate()</code> function, change:
+<ul>
+<li><code>Diff_Treatment</code> to <code>ATE</code></li>
+<li>Add the following line <code>Days = c(0,3,21,42,90)</code> to create a column called Days (*make sure to put a comma after <code>ATE =</code>Trans-Equality<code>- Recycling,</code> ) Be sure to wrap <code>Trans-Equality</code> in backticks ` before and after the phrase</li>
+</ul></li>
+<li>Change <code>-&gt; cov_treatment</code> to <code>ate_df</code></li>
+</ul>
+<ol type="1">
+<li><strong>Did the treatment seem to effect respondents feelings toward transgender people?</strong></li>
+<li><strong>Does this effect appear to last?</strong></li>
+</ol>
+</section>
+<section id="plot-the-results-and-comment-on-the-study" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Plot the results and comment on the study</h1>
+<p>Using <code>ate_df</code> with commands from the <code>ggplot</code> package please produce a figure that displays these differences</p>
+<ul>
+<li>You’ll need to provide
+<ul>
+<li><code>data</code></li>
+<li><code>aes</code></li>
+<li><code>geom</code></li>
+</ul></li>
+</ul>
+<ol type="1">
+<li><strong>Finally, use this space to share some thoughts on the study</strong></li>
+</ol>
+<ul>
+<li><strong>Do you find it convincing?</strong></li>
+<li><strong>What makes the design credible?</strong></li>
+<li><strong>Are there things you would do differently?</strong></li>
+<li><strong>Do you think the results would “travel” to other topics and issues?</strong></li>
+</ul>
+</section>
+<section id="take-the-class-survey" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Take the Class Survey</h1>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_0f8mrDmAAwGpcpw" target="_blank">class survey</a> for this week.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>You can find the full set of replication files <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/WKR39N" target="_blank">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The actual study contains a number of measures about transgender attitudes and policies which are scaled together to produce a single measure of subjects latent tolerance. For simplicity, we’ll focus on this single survey item.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Recall that only some people who completed the baseline and were assigned to receive the treatment actually answered the door when canvassers came knocking.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

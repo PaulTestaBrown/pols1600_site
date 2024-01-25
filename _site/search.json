@@ -1,0 +1,1845 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nCanvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html",
+    "href": "labs/01-lab-comments.html",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "",
+    "text": "Today, we’ll continuing exploring the COVID-19 data for the U.S.\nWe covered a lot of ground in our last lecture. Conceptually, talked about how to\n\nWrite and code in R Markdown\nInstall and load packages\nDownload and inspect data\nClean and recode data\nCalculate simple descriptive statistics with that data\n\nTo do this, we copied and pasted a lot of code. Today, we’ll get practice writing our own code. Specifically we will\n\nRepeat some steps from lecture to get our workspace and data set up\nRecode some additional variables\nInvestigate what negative values mean for face mask policy\nExplore, in greater depth, tools for descriptive inference\nRevisit the question of face masks and new cases, conditioning on time."
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#uncomment-and-run-the-following-code",
+    "href": "labs/01-lab-comments.html#uncomment-and-run-the-following-code",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "5.1 Uncomment and run the following code",
+    "text": "5.1 Uncomment and run the following code\nHighlight the commented code below from # covid_us %&gt;% to #   ) -&gt; covid_us and press shift + cmd + C on a mac or shift + ctrl + C on PC to uncomment the code.\n\ncovid_us %&gt;%\n  mutate(\n    year = year(date),\n    month = month(date),\n    year_month = paste(year, str_pad(month, width = 2, pad=0), sep = \"-\"),\n    percent_vaccinated = people_fully_vaccinated/population*100  \n    ) -&gt; covid_us\n\n\nThe year(date) extracts the year from our date variable and saves it in new column called year\nSimilarly, the month(date) extracts the month from our date variable and saves it in a new column called month\nFinally the paste() command pastes these two variables together, with the str_pad() adding a leading 0 to single digit months.\nTo calculate the percent of states population that is fully vaccinated on a given date we divide the total number of fully vaccinated by the state’s population and multiply by 100 to make it a percent."
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#uncomment-and-run-the-code-below",
+    "href": "labs/01-lab-comments.html#uncomment-and-run-the-code-below",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "6.1 Uncomment and run the code below,",
+    "text": "6.1 Uncomment and run the code below,\n\ncovid_us %&gt;%\n  filter(facial_coverings == -4) %&gt;%\n  select(date, state) %&gt;%\n  group_by(state) %&gt;%\n  summarize(\n    n = n(),\n    earliest_date = min(date),\n    latest_date = max(date),\n  )%&gt;%\n  arrange(earliest_date)\n\n# A tibble: 4 × 4\n  state              n earliest_date latest_date\n  &lt;chr&gt;          &lt;int&gt; &lt;date&gt;        &lt;date&gt;     \n1 Illinois         156 2020-10-01    2021-05-15 \n2 Massachusetts     35 2020-10-02    2020-11-05 \n3 South Carolina    61 2020-10-13    2020-12-12 \n4 Maryland         158 2020-11-06    2021-04-12"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing",
+    "href": "labs/01-lab-comments.html#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "6.2 Please explain in words your best understanding of what each line of code is doing:",
+    "text": "6.2 Please explain in words your best understanding of what each line of code is doing:\n\ncovid_us %&gt;% tells R that every line of code after will use covid_us dataframe\nfilter(facial_coverings == -4) %&gt;% tells R to filter out only the rows where the facial coverings variable equals -4\nselect(date, state) %&gt;% tells R to select the columns named date and state\ngroup_by(state) %&gt;% tells R that subsequent commands should be done separately for each unique value of state\nsummarize( tells R we want to summarize the output of susequent commands\nn = n(), tells R to count the number of observations (state-dates) for each state that had a value of -4 on the facial_coverings variable\nearliest_date = min(date), tells R to report the earliest date that each state had a value of -4\nlatest_date = max(date), tells R to report the last date that each state had a value of -4\n)%&gt;% tells R we’re finished with the summarize() function\narrange(earliest_date) arranges the data in asscending order from earliest to latest start date\n\nYou may find this cheatsheet useful and you can find a more detailed discussion here\nSubstantively, what does the previous chunk of code tell us?\n\nSo there are five states that had -4 on the facial covering variable: Illinois, Maryland, Massachusetts, Montana, and South Carolina. Illinois was the first state where this code appears, and it appears present in 156 observations while Montana was the last adopting a policy code -4 on March 25, 2021\n\n\n\nFiltering data, selecting specific variables, and summarizing variables are important skills that let us “know our data”"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#please-run-the-following-code",
+    "href": "labs/01-lab-comments.html#please-run-the-following-code",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.1 Please run the following code:",
+    "text": "7.1 Please run the following code:\n\noxford_us %&gt;%\n  mutate(\n    date = ymd(Date)\n  )%&gt;%\n  filter(RegionName == \"Illinois\", \n         date &gt; \"2020-08-01\", \n         date &lt; \"2021-01-01\",\n         !is.na(H6_Notes)) %&gt;%\n  select(date,starts_with(\"H6_\")) -&gt; il_facemasks\nil_facemasks\n\n# A tibble: 8 × 4\n  date       `H6_Facial Coverings` H6_Flag H6_Notes                             \n  &lt;date&gt;                     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                \n1 2020-08-21                     2       1 \"In Executive Order 2020-52, Executi…\n2 2020-08-26                     2       1 \"Effective from 26 August 2020, the …\n3 2020-09-18                     2       1 \"On 18 September, in Executive Order…\n4 2020-10-01                     4       0 \"Originally coded a 3T, but looking …\n5 2020-10-16                     4       0 \"In Executive Order (EO) 2020-59, Go…\n6 2020-11-13                     4       0 \"Noting that Executive Order 2020-71…\n7 2020-11-20                     4       0 \"Executive Order 2020-73 requires pe…\n8 2020-12-01                     3       1 \"Chicago seems to have changed its g…"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#again-explain-in-words-what-the-components-of-this-code-are-doing",
+    "href": "labs/01-lab-comments.html#again-explain-in-words-what-the-components-of-this-code-are-doing",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.2 Again, explain in words, what the components of this code are doing:",
+    "text": "7.2 Again, explain in words, what the components of this code are doing:\n\noxford_us %&gt;% Tells R to use the Oxford policy data\nmutate(date = ymd(Date))%&gt;% Creates a date variable of class date from the original Date variable (which was class numeric)\nfilter(RegionName == \"Illinois\", subsets the data to just Illinois\ndate &gt; \"2020-08-01\", filters out dates before August 1, 2020\ndate &lt; \"2021-01-01\", filters out observations with dates after January 1,2021\n!is.na(H6_Notes)) %&gt;% filters out observations without notes (which appear in the data when policy changes)\nselect(date,starts_with(\"H6_\")) -&gt; il_facemasks Selects just the date and notes variables and saves them to an object called il_facemasks\nil_facemasks prints the obejct in the console\n\nLet’s take a look at the H6_Notes variable for 2020-09-18\n\nil_facemasks$H6_Notes[3]\n\n[1] \"On 18 September, in Executive Order 2020-55, the Governor reissued most executive orders, extending a majority of the provisions through 17 October 2020. This includes mask requirements.      https://web.archive.org/web/20200922144918/https://www2.illinois.gov/Pages/Executive-Orders/ExecutiveOrder2020-55.aspx\"\n\n\nNow update the code to select H6_Notes variable for 2020-10-01\n\n# il_facemasks$H6_Notes[???]"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#what-have-we-learned-about-our-variables-measuring-face_mask-policy",
+    "href": "labs/01-lab-comments.html#what-have-we-learned-about-our-variables-measuring-face_mask-policy",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.3 What have we learned about our variables measuring face_mask policy",
+    "text": "7.3 What have we learned about our variables measuring face_mask policy\nIn Illinois, the -4’s seem to correspond to more stringent mask policies implemented in Chicago relative to the rest of the state. So by collapsing negative and positive values of facial_coverings to construct our face_mask variable, we’re probably over stating the extent the extensiveness of policies in effect.\nSo we should be cautious in how we interpret our collapsed variable, face_mask. Perhaps we could construct another variable that distinguished state-level policies from more localized policies, or we could only look at cases where there was a uniform state policy."
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#measures-of-central-tendency",
+    "href": "labs/01-lab-comments.html#measures-of-central-tendency",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.1 Measures of Central Tendency",
+    "text": "8.1 Measures of Central Tendency\nMeasures of central tendency describe what a typical value of some variable. In this course, we’ll use three measures of what’s typical:\n\nmean\nmedian\nmode\n\n\n8.1.1 Mean\nOne of the most frequent measures of central tendency we’ll use in this course is a mean or average.\nSuppose we have \\(n\\) observations of some variable \\(x\\). We can calculate the mean of \\(\\bar{x}\\) (“x bar), by adding up all the values of x\n[ {x}=_{i=1}^n x_i ]\nWe’ll see later in the course that means are closely related to the concept of expected values in probability and that conditional means (which we’ll calculate below) are central to thinking about linear regression.\nFor now, please calculate the mean (average) number of new cases per 100,000 residents in our data:\n\nmean(covid_us$new_cases_pc, na.rm=T)\n\n[1] 28.11486\n\n\nLast class, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a conditional mean the mean of some variable, conditional on some other variable taking a specific value.\nFormally, you’ll often see this written in terms of Expected Values: Something like\n[ E[Y|X=x] ]\nOr to make it more concrete:\n[ E[ | ] ]\nIn code, we could accomplish this manually, using the index operator:\n\nmean(covid_us$new_cases_pc[covid_us$face_masks == \"No policy\"], na.rm=T)\n\n[1] 10.26168\n\n\n\n8.1.1.1 How would we calculate the conditional mean of new_cases_pc when face_masks equals “Recommend”\n\nmean(covid_us$new_cases_pc[covid_us$face_masks == \"Recommended\"], na.rm=T)\n\n[1] 16.61408\n\n\nBy using group_by() with summarise() we can accomplish this more quickly:\n\ncovid_us%&gt;%\n  group_by(face_masks)%&gt;%\n  summarise(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  )\n\n# A tibble: 6 × 2\n  face_masks             new_cases_pc\n  &lt;fct&gt;                         &lt;dbl&gt;\n1 No policy                      10.3\n2 Recommended                    16.6\n3 Some requirements              36.2\n4 Required shared places         29.4\n5 Required all times             32.2\n6 &lt;NA&gt;                           11.8\n\n\n\n\n\n8.1.2 Median\nThe median is another measure of what’s typical for variables that take numeric values\nImagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value\nThe median would be the value in the exact middle of that sequence, also known as the 50th percentile.1\nFormally, we can define that median as:\n[ M_x = X_i : ^{x_i} f_x(X)dx=^f_x(X)dx=1/2 ]\nWhich might look like Greek to you, which is fine. Just think of it as the middle value.\n\n8.1.2.1 Please calculate the median number of new Covid-19 cases per 100,000 using the median() function. How does it compare to the mean?\n\nmedian(covid_us$new_cases_pc, na.rm=T)\n\n[1] 10.52355\n\n\nInteresting the median is much lower than the mean. If we were to look at a histogram of our data (more on that next week; think of it as a graphical representation of a frequency table), we see that the new_cases_pc has a “long tail” or is skewed to the right. Most of the values are close to 0, but there are few cases that are extreme outliers.\n\n\nMedians are less influenced by outliers than means\n\n\n\nhist(covid_us$new_cases_pc, breaks = 100)\n\n\n\n\n\n\n\n\n\n\n\n8.1.3 Modes\nConceptually, a mode describes the most frequent outcome.\nModes are useful for describing what’s typical of “nominal” or categorical data like our measure of face mask policy.\nTo calculate the mode of our face_masks variable, wrap the output of table() with the sort() function\n\nsort(table(covid_us$face_masks))\n\n\n    Required all times              No policy            Recommended \n                  1032                   3893                   8879 \nRequired shared places      Some requirements \n                 15088                  24786 \n\n\nFor numeric data, modes correspond to the peak of a variable’s density function (more on this later in the class).\nYou can get a sense of the relationship between, means, median’s and modes from this helpful figure from Wikipedia:\n\nknitr::include_graphics(\"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png\")"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#measures-of-dispersion",
+    "href": "labs/01-lab-comments.html#measures-of-dispersion",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.2 Measures of Dispersion",
+    "text": "8.2 Measures of Dispersion\nMeasures of dispersion describe how much the data “vary.” Let’s discuss the following ways we can summarize how our data vary:\n\nrange\npercentile range\nvariance\nstandard deviation\n\n\n8.2.1 Range\nThe range of a variable is simply it’s minimum and maximum value\n\n8.2.1.1 Please calculate the range of our new_cases_pc using the range() function\n\nrange(covid_us$new_cases_pc,na.rm = T)\n\n[1] -275.6916 1531.8669\n\nmin(covid_us$new_cases_pc,na.rm = T)\n\n[1] -275.6916\n\nmax(covid_us$new_cases_pc,na.rm = T)\n\n[1] 1531.867\n\n\n\n\n8.2.1.2 What states on what dates observed these minimum and maximum values?\n\ncovid_us %&gt;%\n  filter(\n    new_cases_pc &lt; -188 |\n    new_cases_pc &gt; 1500\n  )%&gt;%\n  select(state, date,new_cases_pc)\n\n# A tibble: 5 × 3\n# Groups:   state [5]\n  state        date       new_cases_pc\n  &lt;chr&gt;        &lt;date&gt;            &lt;dbl&gt;\n1 Florida      2021-06-04        -189.\n2 Rhode Island 2022-01-04        1532.\n3 Tennessee    2023-01-01        -267.\n4 Nebraska     2022-10-28        -276.\n5 Kentucky     2022-10-11        -198.\n\n\n\n\n\n8.2.2 Percentiles Ranges\nThe \\(p\\)-th percentile is the value of the observation such that 100*p percent of the data are to the left and 100-100*p are two the right.\n[ p_x = X_i : ^{x_i} f_x(X)dx= p; ^f_x(X)dx=1-p ]\nThe median is just the 50th percentile\nIn R we calculate the \\(p\\)-th percentile using the quantile() setting the probs argument to the \\(p/100\\) percentile that we we want.\n\n8.2.2.1 Please use the quantile() function to calculate the 25th and 75th percentiles of the new_cases_pc variable.\n\nquantile(covid_us$new_cases_pc, probs = c(.25,.75), na.rm=T)\n\n     25%      75% \n 0.00000 32.14152 \n\n\nThe 25th and 75th percentile define the “Interquartile Range” where 50 percent of the observations lie within this range, and 50 percent lie outside the range.\n\n\n\n8.2.3 Variance\nVariance describes how much observations of a given measure vary around that measure’s mean.\nThe variance in a given sample is calculated by taking the average of the sum of squared deviations (i.e. differences) around a measure’s mean.\n[ ^2_x=_{i=1}n(x_i-{x})2 ]\n\n\\(x_i-\\bar{x}\\) is the deviation of each observation from the overall mean\n\\((x_i-\\bar{x})^2}\\) squaring this ensures that we treat positive and negative deviations the same when calculating the overall variance\n\\(\\sum_{i=1}\\) sums up all the differences\n\\(\\frac{1}{n-1}\\) is like taking the average of these differences (we divide by \\(n-1\\) instead of \\(n\\) for statistical reasons that we’ll return two when we talk about estimation)\n\nUse the var() function to calculate the variance of the new_cases_pc variable.\n\nvar(covid_us$new_cases_pc,na.rm=T)\n\n[1] 3402.718\n\n# Calculate by hand\n\nsum(\n  (covid_us$new_cases_pc - mean(covid_us$new_cases_pc,na.rm=T))^2, \n  na.rm=T\n  )/(sum(!is.na(covid_us$new_cases_pc))-1)\n\n[1] 3402.718\n\n\nVariance will be important for thinking about uncertainty and inference (e.g. how might our estimate have been different)\n\n\n8.2.4 Standard Deviations\nA standard deviation is simply the square root of variable’s variance.\n[ _x== ]\nStandard deviations are easier to interpet because their units are the same as variable.\nThink of them as a measure of the typical amount of variation for variable.\nAgain, let’s use the sd() function to calculate the standard deviation of the new_cases_pc variable\n\nsd(covid_us$new_cases_pc,na.rm=T)\n\n[1] 58.33282"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#measures-of-association",
+    "href": "labs/01-lab-comments.html#measures-of-association",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.3 Measures of Association",
+    "text": "8.3 Measures of Association\nMeasures of association describe how variables relate to each other.\n\n8.3.1 Covariance\nCovariance describes how two variables “co-vary”.\nWhen \\(x\\) is above its mean, \\(y\\) also tends to be above it’s mean, these variables have a positive covariance.\nIf when \\(x\\) tends to be high, \\(y\\) tends to be low, these variables have a negative variance\nFormally, the sample2 covariance of two variables can written as follows:\n[ cov(x,y)=_{i=1}^n(x_i-{x})(y_i-{y}) ]\n\n8.3.1.1 Please calculate the covariance between the percent of state’s population that is fully vaccinated (percent_vaccinated) and new_cases_pc using the var() function\n\nvar(covid_us$new_cases_pc,covid_us$percent_vaccinated,na.rm = T)\n\n[1] -19.96569\n\n\n\n\n\n8.3.2 Correlation\nLike variances, covariances don’t really have intrinsic meaning, since x and y can be measured on very different scales.\nThe correlation between two variables takes their covariance and scales this by the standard deviation of each variable, creating a measure that can range from -1 (perfect negative correlation) to 1 perfect positive correlation.\nAgain, we can write this formally\n[ _{x,y} = ]\nBut don’t sweat the formulas too much. I’m just contractually obligated to show you math.\n\n8.3.2.1 Calculate the correlation between the percent of state’s population that is fully vaccinated (percent_vaccinated) and new_cases_pc using the cor() function.\nYou’ll need to set the argument use=\"complete.obs\n\ncor(covid_us$percent_vaccinated, covid_us$new_cases_pc, use = \"complete.obs\")\n\n[1] -0.01369243\n\n\nHmm… That seems a little strange. What if we calculated the correlation between vaccination rates and new cases separately for each month in 2021\n\n\n8.3.2.2 Uncomment and interpret the output of the code below\n\ncovid_us %&gt;%\n  filter(year &gt; 2020)%&gt;%\n  ungroup() %&gt;%\n  group_by(year,month)%&gt;%\n  summarise(\n    mn_per_vax = mean(percent_vaccinated, na.rm=T),\n    cor = cor(new_cases_pc, percent_vaccinated, use = \"complete.obs\")\n  )\n\nError in `summarise()`:\nℹ In argument: `cor = cor(new_cases_pc, percent_vaccinated, use =\n  \"complete.obs\")`.\nℹ In group 28: `year = 2023` and `month = 4`.\nCaused by error in `cor()`:\n! no complete element pairs"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#what-do-these-averages-really-tell-us",
+    "href": "labs/01-lab-comments.html#what-do-these-averages-really-tell-us",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "9.1 What do these averages really tell us?",
+    "text": "9.1 What do these averages really tell us?\nProbably not that much. Different Face mask policies are implemented at different times in the pandemic. For example, by 2021, almost all states have some requirements. Comparing the average for new cases in states with no policy to states with full requirements, is comparing the state of world in early 2020 to the state of the world in late 2020 to mid 2021. But lots of things differ between these periods. Other policies are also going into effect, new variants are emerging.\nIn short, those simple conditional means across the full data don’t really provide an apples to apples comparison.\n\ncovid_us%&gt;%\n  group_by(date,face_masks)%&gt;%\n  summarise(\n    n = n()\n  )%&gt;%\n  filter(date &gt;= \"2020-03-01\")%&gt;%\n  ggplot(aes(date,n,fill=face_masks))+\n  geom_bar(stat=\"identity\")\n\n`summarise()` has grouped output by 'date'. You can override using the\n`.groups` argument.\n\n\n\n\n\n\n\n\ncovid_us%&gt;%\n  group_by(date,face_masks)%&gt;%\n  summarise(\n    new_cases = sum(new_cases)\n  )%&gt;%\n  filter(date &gt;= \"2020-03-01\")%&gt;%\n  ggplot(aes(date,new_cases))+\n  geom_smooth()\n\n`summarise()` has grouped output by 'date'. You can override using the\n`.groups` argument.\n`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = \"cs\")'\n\n\nWarning: Removed 322 rows containing non-finite values (`stat_smooth()`)."
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data",
+    "href": "labs/01-lab-comments.html#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "9.2 Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data",
+    "text": "9.2 Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data\nIf we limit our comparison to a more narrow time period, say one month in one year, we’re making a fairer comparison between states that are likely facing more similar conditions/challenges.\nSo when we compare states in September 2020, we see that rates of new cases tend to be much higher in states with only recommend face mask policies compared to states with at least some requirements.\n\ncovid_us %&gt;%\n  filter(!is.na(face_masks))%&gt;%\n  filter(year_month == \"2020-09\")%&gt;%\n  group_by(face_masks) %&gt;%\n  summarise(\n    new_cases_pc = mean(new_cases_pc,na.rm=T)\n  )\n\n# A tibble: 4 × 2\n  face_masks             new_cases_pc\n  &lt;fct&gt;                         &lt;dbl&gt;\n1 Recommended                    43.9\n2 Some requirements              13.5\n3 Required shared places         13.0\n4 Required all times             10.1\n\n\n\n9.2.1 Add another arguement to the group_by() command from the original code to calcutate the conditional means by face mask policy for each month in each year of the data\n\nSave the output of summarize into an object called cases_by_month_and_policy\n\n\ncovid_us %&gt;%\n  filter(!is.na(face_masks))%&gt;%\n  group_by(year_month,face_masks) %&gt;%\n  summarise(\n    n = length(unique(state)),\n    new_cases_pc = round(mean(new_cases_pc,na.rm=T)),\n    total_cases = round(mean(confirmed,na.rm=T))\n  ) -&gt; cases_by_month_and_policy\n\n`summarise()` has grouped output by 'year_month'. You can override using the\n`.groups` argument.\n\n\n\n\n9.2.2 Uncomment the code below to display cases_by_month_and_policy in a searchable table\n\nDT::datatable(cases_by_month_and_policy,\n              filter = \"top\")\n\n\n\n\n\n\n\n9.2.3 Uncomment the code below to visualize this cases_by_month_and_policy\nWhat does this figure tell us?\n\ncases_by_month_and_policy %&gt;%\n  ggplot(aes(\n    x= year_month,\n    y = new_cases_pc,\n    col=face_masks))+\n  geom_point()+\n  coord_flip()\n\n\n\n\n\n\n\n\nSo this figure graphically displays the data cases_by_month_and_policy\nFrom about August 2020 to October 2020 states with facemask requirements saw much lower rates of new cases than states that only recommended face masks.\nAfter October 2020, every state has at least some requirement, and the differences between the stringency of requirements is a little harder to see.\nAgain this stuff is complicated. Lots of things are changing and these month comparisons are by no means perfect. Lot’s of things differ between states with different mask policies. What we’d really like to know is a sort of counterfactual comparison between the number new cases in a state with a given policy and what those new cases would have been had that state had a different policy.\nThe problem is, we don’t get to see that counterfactual outcome. So how can we make causal claims about the effects of facemasks, or any other policy that interests us? Finding creative ways to answer these questions is the key to making credible causal claims.\nNext week, we’ll explore how to make this figure and many more from our data"
+  },
+  {
+    "objectID": "labs/01-lab-comments.html#footnotes",
+    "href": "labs/01-lab-comments.html#footnotes",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIt’s a little more complicated as we need to decide how to handle situations where their are ties, or an even number of cases. For now we’ll just accept the default rules R uses.↩︎\nAstute readers might ask, why are you talking about samples? We’ll come back to this later in the course when we talk about probability, estimation and statistical inference.↩︎"
+  },
+  {
+    "objectID": "labs/01-lab.html",
+    "href": "labs/01-lab.html",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "",
+    "text": "Today, we’ll continuing exploring the COVID-19 data for the U.S.\nWe covered a lot of ground in our last lecture. Conceptually, talked about how to\n\nWrite and code in R Markdown\nInstall and load packages\nDownload and inspect data\nClean and recode data\nCalculate simple descriptive statistics with that data\n\nTo do this, we copied and pasted a lot of code. Today, we’ll get practice writing our own code. Specifically we will\n\nRepeat some steps from lecture to get our workspace and data set up\nRecode some additional variables\nInvestigate what negative values mean for face mask policy\nExplore, in greater depth, tools for descriptive inference\nRevisit the question of face masks and new cases, conditioning on time."
+  },
+  {
+    "objectID": "labs/01-lab.html#uncomment-and-run-the-following-code",
+    "href": "labs/01-lab.html#uncomment-and-run-the-following-code",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "5.1 Uncomment and run the following code",
+    "text": "5.1 Uncomment and run the following code\nHighlight the commented code below from # covid_us %&gt;% to #   ) -&gt; covid_us and press shift + cmd + C on a mac or shift + ctrl + C on PC to uncomment the code.\n\n# covid_us %&gt;%\n#   mutate(\n#     year = year(date),\n#     month = month(date),\n#     year_month = paste(year, str_pad(month, width = 2, pad=0), sep = \"-\"),\n#     percent_vaccinated = people_fully_vaccinated/population*100  \n#     ) -&gt; covid_us\n\n\nThe year(date) extracts the year from our date variable and saves it in new column called year\nSimilarly, the month(date) extracts the month from our date variable and saves it in a new column called month\nFinally the paste() command pastes these two variables together, with the str_pad() adding a leading 0 to single digit months.\nTo calculate the percent of states population that is fully vaccinated on a given date we divide the total number of fully vaccinated by the state’s population and multiply by 100 to make it a percent."
+  },
+  {
+    "objectID": "labs/01-lab.html#uncomment-and-run-the-code-below",
+    "href": "labs/01-lab.html#uncomment-and-run-the-code-below",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "6.1 Uncomment and run the code below,",
+    "text": "6.1 Uncomment and run the code below,\n\n# covid_us %&gt;%\n#   filter(facial_coverings == -4) %&gt;%\n#   select(date, state) %&gt;%\n#   group_by(state) %&gt;%\n#   summarize(\n#     n = n(),\n#     earliest_date = min(date),\n#     latest_date = max(date),\n#   )%&gt;%\n#   arrange(earliest_date)"
+  },
+  {
+    "objectID": "labs/01-lab.html#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing",
+    "href": "labs/01-lab.html#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "6.2 Please explain in words your best understanding of what each line of code is doing:",
+    "text": "6.2 Please explain in words your best understanding of what each line of code is doing:\n\ncovid_us %&gt;%\nfilter(facial_coverings == -4) %&gt;%\nselect(date, state) %&gt;%\ngroup_by(state) %&gt;%\nsummarize(\nn = n(),\nearliest_date = min(date),\nlatest_date = max(date),\n)%&gt;%\narrange(earliest_date)\n\nYou may find this cheatsheet useful and you can find a more detailed discussion here\n\n6.2.1 Substantively, what does the previous chunk of code tell us?\n\n\nFiltering data, selecting specific variables, and summarizing variables are important skills that let us “know our data”"
+  },
+  {
+    "objectID": "labs/01-lab.html#please-run-the-following-code",
+    "href": "labs/01-lab.html#please-run-the-following-code",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.1 Please run the following code:",
+    "text": "7.1 Please run the following code:\n\noxford_us %&gt;%\n  mutate(\n    date = ymd(Date)\n  )%&gt;%\n  filter(RegionName == \"Illinois\", \n         date &gt; \"2020-08-01\", \n         date &lt; \"2021-01-01\",\n         !is.na(H6_Notes)) %&gt;%\n  select(date,starts_with(\"H6_\")) -&gt; il_facemasks\n\nError in oxford_us %&gt;% mutate(date = ymd(Date)) %&gt;% filter(RegionName == : could not find function \"%&gt;%\"\n\nil_facemasks\n\nError in eval(expr, envir, enclos): object 'il_facemasks' not found"
+  },
+  {
+    "objectID": "labs/01-lab.html#again-explain-in-words-what-the-components-of-this-code-are-doing",
+    "href": "labs/01-lab.html#again-explain-in-words-what-the-components-of-this-code-are-doing",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.2 Again, explain in words, what the components of this code are doing:",
+    "text": "7.2 Again, explain in words, what the components of this code are doing:\n\noxford_us %&gt;%\nmutate(date = ymd(Date))%&gt;%\nfilter(RegionName == \"Illinois\",\ndate &gt; \"2020-08-01\",\ndate &lt; \"2021-01-01\",\n!is.na(H6_Notes)) %&gt;%\nselect(date,starts_with(\"H6_\")) -&gt; il_facemasks\nil_facemasks\n\nLet’s take a look at the H6_Notes variable for 2020-09-18\n\nil_facemasks$H6_Notes[3]\n\nError in eval(expr, envir, enclos): object 'il_facemasks' not found\n\n\nNow update the code to select H6_Notes variable for 2020-10-01\n\n# il_facemasks$H6_Notes[???]"
+  },
+  {
+    "objectID": "labs/01-lab.html#what-have-we-learned-about-our-variables-measuring-face_mask-policy",
+    "href": "labs/01-lab.html#what-have-we-learned-about-our-variables-measuring-face_mask-policy",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "7.3 What have we learned about our variables measuring face_mask policy",
+    "text": "7.3 What have we learned about our variables measuring face_mask policy"
+  },
+  {
+    "objectID": "labs/01-lab.html#measures-of-central-tendency",
+    "href": "labs/01-lab.html#measures-of-central-tendency",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.1 Measures of Central Tendency",
+    "text": "8.1 Measures of Central Tendency\nMeasures of central tendency describe what a typical value of some variable. In this course, we’ll use three measures of what’s typical:\n\nmean\nmedian\nmode\n\n\n8.1.1 Mean\nOne of the most frequent measures of central tendency we’ll use in this course is a mean or average.\nSuppose we have \\(n\\) observations of some variable \\(x\\). We can calculate the mean of \\(\\bar{x}\\) (“x bar), by adding up all the values of x\n[ {x}=_{i=1}^n x_i ]\nWe’ll see later in the course that means are closely related to the concept of expected values in probability and that conditional means (which we’ll calculate below) are central to thinking about linear regression.\nFor now, please calculate the mean (average) number of new cases per 100,000 residents in our data:\nLast class, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a conditional mean the mean of some variable, conditional on some other variable taking a specific value.\nFormally, you’ll often see this written in terms of Expected Values: Something like\n[ E[Y|X=x] ]\nOr to make it more concrete:\n[ E[ | ] ]\nIn code, we could accomplish this manually, using the index operator:\n\n# mean(covid_us$new_cases_pc[covid_us$face_masks == \"No policy\"], na.rm=T)\n\n\n8.1.1.1 How would we calculate the conditional mean of new_cases_pc when face_masks equals “Recommended”\nBy using group_by() with summarise() we can accomplish this more quickly:\n\n# covid_us%&gt;%\n#   group_by(face_masks)%&gt;%\n#   summarise(\n#     new_cases_pc = mean(new_cases_pc, na.rm=T)\n#   )\n\n\n\n\n8.1.2 Median\nThe median is another measure of what’s typical for variables that take numeric values\nImagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value\nThe median would be the value in the exact middle of that sequence, also known as the 50th percentile.1\nFormally, we can define that median as:\n[ M_x = X_i : ^{x_i} f_x(X)dx=^f_x(X)dx=1/2 ]\nWhich might look like Greek to you, which is fine. Just think of it as the middle value.\n\n8.1.2.1 Please calculate the median number of new Covid-19 cases per 100,000 using the median() function. How does it compare to the mean?\n\n\nMedians are less influenced by outliers than means\n\n\n\n\n\n8.1.3 Modes\nConceptually, a mode describes the most frequent outcome.\nModes are useful for describing what’s typical of “nominal” or categorical data like our measure of face mask policy.\nTo calculate the mode of our face_masks variable, wrap the output of table() with the sort() function\n\n# sort(table(covid_us$face_masks))\n\nFor numeric data, modes correspond to the peak of a variable’s density function (more on this later in the class).\nYou can get a sense of the relationship between, means, median’s and modes from this helpful figure from Wikipedia:\n\nknitr::include_graphics(\"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png\")"
+  },
+  {
+    "objectID": "labs/01-lab.html#measures-of-dispersion",
+    "href": "labs/01-lab.html#measures-of-dispersion",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.2 Measures of Dispersion",
+    "text": "8.2 Measures of Dispersion\nMeasures of dispersion describe how much the data “vary.” Let’s discuss the following ways we can summarize how our data vary:\n\nrange\npercentile range\nvariance\nstandard deviation\n\n\n8.2.1 Range\nThe range of a variable is simply it’s minimum and maximum value\n\n8.2.1.1 Please calculate the range of our new_cases_pc using the range() function\n\n\n8.2.1.2 What states on what dates observed these minimum and maximum values?\n\n\n\n8.2.2 Percentiles Ranges\nThe \\(p\\)-th percentile is the value of the observation such that 100*p percent of the data are to the left and 100-100*p are two the right.\n[ p_x = X_i : ^{x_i} f_x(X)dx= p; ^f_x(X)dx=1-p ]\nThe median is just the 50th percentile\nIn R we calculate the \\(p\\)-th percentile using the quantile() setting the probs argument to the \\(p/100\\) percentile that we we want.\n\n8.2.2.1 Please use the quantile() function to calculate the 25th and 75th percentiles of the new_cases_pc variable.\nThe 25th and 75th percentile define the “Interquartile Range” where 50 percent of the observations lie within this range, and 50 percent lie outside the range.\n\n\n\n8.2.3 Variance\nVariance describes how much observations of a given measure vary around that measure’s mean.\nThe variance in a given sample is calculated by taking the average of the sum of squared deviations (i.e. differences) around a measure’s mean.\n[ ^2_x=_{i=1}n(x_i-{x})2 ]\n\n\\(x_i-\\bar{x}\\) is the deviation of each observation from the overall mean\n\\((x_i-\\bar{x})^2}\\) squaring this ensures that we treat positive and negative deviations the same when calculating the overall variance\n\\(\\sum_{i=1}\\) sums up all the differences\n\\(\\frac{1}{n-1}\\) is like taking the average of these differences (we divide by \\(n-1\\) instead of \\(n\\) for statistical reasons that we’ll return two when we talk about estimation)\n\n\n8.2.3.1 Use the var() function to calculate the variance of the new_cases_pc variable.\nVariance will be important for thinking about uncertainty and inference (e.g. how might our estimate have been different)\n\n\n\n8.2.4 Standard Deviations\nA standard deviation is simply the square root of variable’s variance.\n[ _x== ]\nStandard deviations are easier to interpet because their units are the same as variable.\nThink of them as a measure of the typical amount of variation for variable.\n\n8.2.4.1 let’s use the sd() function to calculate the standard deviation of the new_cases_pc variable"
+  },
+  {
+    "objectID": "labs/01-lab.html#measures-of-association",
+    "href": "labs/01-lab.html#measures-of-association",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "8.3 Measures of Association",
+    "text": "8.3 Measures of Association\nMeasures of association describe how variables relate to each other.\n\n8.3.1 Covariance\nCovariance describes how two variables “co-vary”.\nWhen \\(x\\) is above its mean, \\(y\\) also tends to be above it’s mean, these variables have a positive covariance.\nIf when \\(x\\) tends to be high, \\(y\\) tends to be low, these variables have a negative variance\nFormally, the sample2 covariance of two variables can written as follows:\n[ cov(x,y)=_{i=1}^n(x_i-{x})(y_i-{y}) ]\n\n8.3.1.1 Please calculate the covariance between the percent of state’s population that is fully vaccinated (percent_vaccinated) and new_cases_pc using the var() function\n\n\n\n8.3.2 Correlation\nLike variances, covariances don’t really have intrinsic meaning, since x and y can be measured on very different scales.\nThe correlation between two variables takes their covariance and scales this by the standard deviation of each variable, creating a measure that can range from -1 (perfect negative correlation) to 1 perfect positive correlation.\nAgain, we can write this formally\n[ _{x,y} = ]\nBut don’t sweat the formulas too much. I’m just contractually obligated to show you math.\n\n8.3.2.1 Calculate the correlation between the percent of state’s population that is fully vaccinated (percent_vaccinated) and new_cases_pc using the cor() function.\nYou’ll need to set the argument use=\"complete.obs\nHmm… That seems a little strange. What if we calculated the correlation between vaccination rates and new cases separately for each month in 2021\n\n\n8.3.2.2 Uncomment and interpret the output of the code below\n\n# covid_us %&gt;%\n#   filter(year &gt; 2020)%&gt;%\n#   ungroup() %&gt;%\n#   group_by(year,month)%&gt;%\n#   summarise(\n#     mn_per_vax = mean(percent_vaccinated, na.rm=T),\n#     cor = cor(new_cases_pc, percent_vaccinated, use = \"complete.obs\")\n#   )"
+  },
+  {
+    "objectID": "labs/01-lab.html#what-do-these-averages-really-tell-us",
+    "href": "labs/01-lab.html#what-do-these-averages-really-tell-us",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "9.1 What do these averages really tell us?",
+    "text": "9.1 What do these averages really tell us?"
+  },
+  {
+    "objectID": "labs/01-lab.html#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data",
+    "href": "labs/01-lab.html#add-another-filter-to-the-code-above-to-caluclate-the-conditional-means-for-just-1-month-in-a-particular-year-in-the-data",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "9.2 Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data",
+    "text": "9.2 Add another filter to the code above to caluclate the conditional means for just 1 month in a particular year in the data\nIf we limit our comparison to a more narrow time period, say one month in one year, we’re making a fairer comparison between states that are likely facing more similar conditions/challenges.\n\n9.2.1 Add another arguement to the group_by() command from the original code to calcutate the conditional means by face mask policy for each month in each year of the data\n\nSave the output of summarize into an object called cases_by_month_and_policy\n\n\n\n9.2.2 Uncomment the code below to display cases_by_month_and_policy in a searchable table\n\n# DT::datatable(cases_by_month_and_policy,\n#               filter = \"top\")\n\n\n\n9.2.3 Uncomment the code below to visualize this cases_by_month_and_policy\nWhat does this figure tell us?\n\n# cases_by_month_and_policy %&gt;%\n#   ggplot(aes(\n#     x= year_month,\n#     y = new_cases_pc,\n#     col=face_masks))+\n#   geom_point()+coord_flip()\n\nSo this figure graphically displays the data cases_by_month_and_policy\nFrom about August 2020 to October 2020 states with facemask requirements saw much lower rates of new cases than states that only recommended face masks.\nAfter October 2020, every state has at least some requirement, and the differences between the stringency of requirements is a little harder to see.\nAgain this stuff is complicated. Lots of things are changing and these month comparisons are by no means perfect. Lot’s of things differ between states with different mask policies. What we’d really like to know is a sort of counterfactual comparison between the number new cases in a state with a given policy and what those new cases would have been had that state had a different policy.\nThe problem is, we don’t get to see that counterfactual outcome. So how can we make causal claims about the effects of facemasks, or any other policy that interests us? Finding creative ways to answer these questions is the key to making credible causal claims.\nNext week, we’ll explore how to make this figure and many more from our data"
+  },
+  {
+    "objectID": "labs/01-lab.html#footnotes",
+    "href": "labs/01-lab.html#footnotes",
+    "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nIt’s a little more complicated as we need to decide how to handle situations where their are ties, or an even number of cases. For now we’ll just accept the default rules R uses.↩︎\nAstute readers might ask, why are you talking about samples? We’ll come back to this later in the course when we talk about probability, estimation and statistical inference.↩︎"
+  },
+  {
+    "objectID": "slides/00-slides.html#overview",
+    "href": "slides/00-slides.html#overview",
+    "title": "Welcome to POLS 1600",
+    "section": "Overview",
+    "text": "Overview\n\n\nGoals and Expectations\n\n\n\n\nCourse Structure\n\n\n\n\nCourse Policies\n\n\n\n\nA Few Fundamental Truths\n\nclass: middle, center"
+  },
+  {
+    "objectID": "slides/00-slides.html#goals-and-expectations",
+    "href": "slides/00-slides.html#goals-and-expectations",
+    "title": "Welcome to POLS 1600",
+    "section": "Goals and Expectations",
+    "text": "Goals and Expectations"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-you-will-learn",
+    "href": "slides/00-slides.html#what-you-will-learn",
+    "title": "Welcome to POLS 1600",
+    "section": "What you will learn",
+    "text": "What you will learn\nYou will learn\n\n\nhow to think like a social scientist\n\n\n\n\nhow to use data to make descriptive, predictive, and causal claims\n\n\n\n\nhow to quantify uncertainty about these claims\n\n\n\n\nhow to present, interpret, and critique these claims"
+  },
+  {
+    "objectID": "slides/00-slides.html#reasons-to-take-this-class",
+    "href": "slides/00-slides.html#reasons-to-take-this-class",
+    "title": "Welcome to POLS 1600",
+    "section": "Reasons to take this class",
+    "text": "Reasons to take this class\n\nYou want to change the world"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-is-this-study-important",
+    "href": "slides/00-slides.html#why-is-this-study-important",
+    "title": "Welcome to POLS 1600",
+    "section": "Why is this study important?",
+    "text": "Why is this study important?\n\n\nFindings provide evidence of benefits of social spending/universal basic income"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-should-we-believe-these-results",
+    "href": "slides/00-slides.html#why-should-we-believe-these-results",
+    "title": "Welcome to POLS 1600",
+    "section": "Why should we believe these results",
+    "text": "Why should we believe these results\n\n\nBecause it’s in the Times?\nBecause the authors are professors at good schools?\nBecause of how the study was done!\n\nRandom assignment provides a reasoned basis for inference\nCreates informative counter-factual comparisons\nPre-registered hypotheses ensure that we’re not cherry-picking results"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?\n\n\nHow strong are the effects?\n\nIs a fifth of a standard deviation a lot?\n\nWhy do we care about brain waves?\nWhat’s the mechanism?\nHow confident are we that these results couldn’t have happened just by chance"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-1",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-2",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-2",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?\n\nSource: Andrew Gelman"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-3",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-3",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?\n\nSource: Andrew Gelman"
+  },
+  {
+    "objectID": "slides/00-slides.html#reasons-to-take-this-class-1",
+    "href": "slides/00-slides.html#reasons-to-take-this-class-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Reasons to take this class",
+    "text": "Reasons to take this class\n\n\nYou want to change the world\n\nData, design, and analysis are incredlibly powerful tools\nYou want to understand their strengths and limits\n\nYou want to be a better consumer of data and knowledge\nYou want to be a better consumer of data and knowledge\nYou want to get a job / go to grad school\nYou have to\nYou’re just in it for the memes"
+  },
+  {
+    "objectID": "slides/00-slides.html#great-expectations",
+    "href": "slides/00-slides.html#great-expectations",
+    "title": "Welcome to POLS 1600",
+    "section": "Great expectations",
+    "text": "Great expectations\n\nI expect that you will come to class ready to engage with:\n\nsocial science\ndata\nprogramming\nmath"
+  },
+  {
+    "objectID": "slides/00-slides.html#requirements",
+    "href": "slides/00-slides.html#requirements",
+    "title": "Welcome to POLS 1600",
+    "section": "Requirements",
+    "text": "Requirements\nI assume that you will\n\n\nDo the readings\n\n\n\n\nBring your computers 1\n\n\n\n\nWork through classwork\n\n\n\n\nAsk questions\n\n\nIf you only have a desktop/or tablet let me know and we’ll figure out a solution."
+  },
+  {
+    "objectID": "slides/00-slides.html#course-structure",
+    "href": "slides/00-slides.html#course-structure",
+    "title": "Welcome to POLS 1600",
+    "section": "Course structure",
+    "text": "Course structure"
+  },
+  {
+    "objectID": "slides/00-slides.html#class",
+    "href": "slides/00-slides.html#class",
+    "title": "Welcome to POLS 1600",
+    "section": "Class",
+    "text": "Class\n\nTuesday: Lecture/Demonstration\nThursday: Lab/Exploration"
+  },
+  {
+    "objectID": "slides/00-slides.html#class-websites",
+    "href": "slides/00-slides.html#class-websites",
+    "title": "Welcome to POLS 1600",
+    "section": "Class websites",
+    "text": "Class websites\n\nSlides, labsm and additional resources available here: pols1600.paultesta.org\nAssignments uploaded here: Canvas"
+  },
+  {
+    "objectID": "slides/00-slides.html#software-and-computing",
+    "href": "slides/00-slides.html#software-and-computing",
+    "title": "Welcome to POLS 1600",
+    "section": "Software and computing",
+    "text": "Software and computing\n\nStatistics done using R\n\nOpen source (free) statistical language\n\nThrough R Studio\n\nAn integrated development environment for R\n\nResults written up using R Markdown\n\nLanguage for combing R code with html Markdown"
+  },
+  {
+    "objectID": "slides/00-slides.html#r",
+    "href": "slides/00-slides.html#r",
+    "title": "Welcome to POLS 1600",
+    "section": "R",
+    "text": "R"
+  },
+  {
+    "objectID": "slides/00-slides.html#r-studio",
+    "href": "slides/00-slides.html#r-studio",
+    "title": "Welcome to POLS 1600",
+    "section": "R Studio",
+    "text": "R Studio"
+  },
+  {
+    "objectID": "slides/00-slides.html#quarto",
+    "href": "slides/00-slides.html#quarto",
+    "title": "Welcome to POLS 1600",
+    "section": "Quarto",
+    "text": "Quarto\n\n\n\nProject options in YAML\nCode in triple backtick chunks:\n\nChunk options set with “#|” (hashpipe)\n\n\n```{r}\n#| label = \"simulate_data\"\nx &lt;- rnorm(100)\ny &lt;- 2*x + rnorm(100)\n```\n\nWrite up in Markdown\nOutput rendered as an html file"
+  },
+  {
+    "objectID": "slides/00-slides.html#getting-set-up-for-the-course",
+    "href": "slides/00-slides.html#getting-set-up-for-the-course",
+    "title": "Welcome to POLS 1600",
+    "section": "Getting set up for the course:",
+    "text": "Getting set up for the course:\nHere’s a link to a guide to get you setup for the course.\nTake a crack at it after class, over the weekend.\nEmail me with any issues (there are always issues), and drop by my office hours on Tuesday so we can trouble shoot."
+  },
+  {
+    "objectID": "slides/00-slides.html#textbook",
+    "href": "slides/00-slides.html#textbook",
+    "title": "Welcome to POLS 1600",
+    "section": "Textbook",
+    "text": "Textbook\n\n\n\n\n\n\n\n\n\n&lt;!. . .  . . .&gt;\nhttps://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science"
+  },
+  {
+    "objectID": "slides/00-slides.html#how-to-read-imai",
+    "href": "slides/00-slides.html#how-to-read-imai",
+    "title": "Welcome to POLS 1600",
+    "section": "How to Read Imai",
+    "text": "How to Read Imai\n\nActive reading\nCopy and run the code in the text. To do so, do the following:"
+  },
+  {
+    "objectID": "slides/00-slides.html#how-to-read-imai-1",
+    "href": "slides/00-slides.html#how-to-read-imai-1",
+    "title": "Welcome to POLS 1600",
+    "section": "How to Read Imai",
+    "text": "How to Read Imai\nOnce you’ve rune the following\nAnywhere the text loads data:\nYou can do\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  15.00   22.00   30.00   32.39   40.00   80.00"
+  },
+  {
+    "objectID": "slides/00-slides.html#additional-readings",
+    "href": "slides/00-slides.html#additional-readings",
+    "title": "Welcome to POLS 1600",
+    "section": "Additional Readings",
+    "text": "Additional Readings\n\nOccasionally, I will provide additional readings, available on both Canvas and pols1600.paultesta.org"
+  },
+  {
+    "objectID": "slides/00-slides.html#assignments-1",
+    "href": "slides/00-slides.html#assignments-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Assignments",
+    "text": "Assignments\nYou have three types of assignments in this course\n\nLabs\nTutorials\nFinal Project"
+  },
+  {
+    "objectID": "slides/00-slides.html#labs",
+    "href": "slides/00-slides.html#labs",
+    "title": "Welcome to POLS 1600",
+    "section": "Labs",
+    "text": "Labs\n\nEach Thursday we will work in groups to complete an in-class lab\nThe labs are designed to reinforce and extend concepts from lecture using real world data."
+  },
+  {
+    "objectID": "slides/00-slides.html#labs-1",
+    "href": "slides/00-slides.html#labs-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Labs",
+    "text": "Labs"
+  },
+  {
+    "objectID": "slides/00-slides.html#labs-2",
+    "href": "slides/00-slides.html#labs-2",
+    "title": "Welcome to POLS 1600",
+    "section": "Labs",
+    "text": "Labs"
+  },
+  {
+    "objectID": "slides/00-slides.html#labs-3",
+    "href": "slides/00-slides.html#labs-3",
+    "title": "Welcome to POLS 1600",
+    "section": "Labs",
+    "text": "Labs\n\nWeeks 1 and 2 we’ll work collectively\nWeeks 3 on, you’ll be assigned to small groups\nEach week:\n\nLog on to the Canvas, download the lab .qmd file\nOpen R Studio\nRender the qmd file to get ready to work\nComplete the lab\nUpload the rendered html file to Canvas by the end of class\n\nOne question randomly graded\n\n100% if correct\n85% if incorrect, but you tried\n0% if you did not try/absent for the lab\n\nComments/Answers posted immediately after class"
+  },
+  {
+    "objectID": "slides/00-slides.html#problem-setstutorials",
+    "href": "slides/00-slides.html#problem-setstutorials",
+    "title": "Welcome to POLS 1600",
+    "section": "Problem Sets/Tutorials",
+    "text": "Problem Sets/Tutorials\n\nCoding tutorials to reinforce concepts from lecture and textbook.\nAccessed by running\n\n\nComplete the tutorial. Save output as “LASTNAME_TutorialNumber.pdf”\nUpload output to Canvas by Friday by 11:59 pm\nGrades:\n\n100% any upload\n0% no upload"
+  },
+  {
+    "objectID": "slides/00-slides.html#final-project",
+    "href": "slides/00-slides.html#final-project",
+    "title": "Welcome to POLS 1600",
+    "section": "Final Project",
+    "text": "Final Project"
+  },
+  {
+    "objectID": "slides/00-slides.html#your-first-assignment",
+    "href": "slides/00-slides.html#your-first-assignment",
+    "title": "Welcome to POLS 1600",
+    "section": "Your First Assignment:",
+    "text": "Your First Assignment:\n\nDownload and install R and R Studio\n\nEmail me if you have troubles\nTroubleshoot by Zoom or in-person (111 Thayer Room 339)\n\nWork through 00-software_setup before next class."
+  },
+  {
+    "objectID": "slides/00-slides.html#portals-of-discovery",
+    "href": "slides/00-slides.html#portals-of-discovery",
+    "title": "Welcome to POLS 1600",
+    "section": "Portals of Discovery",
+    "text": "Portals of Discovery"
+  },
+  {
+    "objectID": "slides/00-slides.html#errors",
+    "href": "slides/00-slides.html#errors",
+    "title": "Welcome to POLS 1600",
+    "section": "Errors",
+    "text": "Errors\n\nish happens\nSeeing red is a good thing\nWe learn by making errors"
+  },
+  {
+    "objectID": "slides/00-slides.html#final-reports",
+    "href": "slides/00-slides.html#final-reports",
+    "title": "Welcome to POLS 1600",
+    "section": "Final Reports",
+    "text": "Final Reports\n\nCan be on any topic you like\nMore info to come\nDue dates:\n\nWeek 2 Groups assigned\nWeek 3 Research Topics\nWeek 6 Data Proposal\nWeek 8 Data Explorations\nWeek 11 Drafts\nWeek 12 Presentations\nWeek 13 Final Paper"
+  },
+  {
+    "objectID": "slides/00-slides.html#grading",
+    "href": "slides/00-slides.html#grading",
+    "title": "Welcome to POLS 1600",
+    "section": "Grading",
+    "text": "Grading"
+  },
+  {
+    "objectID": "slides/00-slides.html#grading-1",
+    "href": "slides/00-slides.html#grading-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Grading",
+    "text": "Grading"
+  },
+  {
+    "objectID": "slides/00-slides.html#grading-2",
+    "href": "slides/00-slides.html#grading-2",
+    "title": "Welcome to POLS 1600",
+    "section": "Grading",
+    "text": "Grading"
+  },
+  {
+    "objectID": "slides/00-slides.html#grading-3",
+    "href": "slides/00-slides.html#grading-3",
+    "title": "Welcome to POLS 1600",
+    "section": "Grading",
+    "text": "Grading"
+  },
+  {
+    "objectID": "slides/00-slides.html#grading-4",
+    "href": "slides/00-slides.html#grading-4",
+    "title": "Welcome to POLS 1600",
+    "section": "Grading",
+    "text": "Grading\n\n5% Attendance\n10% Class involvement and participation\n10% Tutorials\n30% Labs\n20% Assignments for final paper\n20% Final paper"
+  },
+  {
+    "objectID": "slides/00-slides.html#course-policies",
+    "href": "slides/00-slides.html#course-policies",
+    "title": "Welcome to POLS 1600",
+    "section": "Course policies",
+    "text": "Course policies\n\nAcademic honesty\nCommunity standards\nIncomplete/late work\n\nclass: inverse, center, middle background-image=“https://media.giphy.com/media/xUOwGpVpFJHewjL1u0/giphy.gif”) background-size = cover background-position: 50% 50%"
+  },
+  {
+    "objectID": "slides/00-slides.html#introductions-1",
+    "href": "slides/00-slides.html#introductions-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Introductions",
+    "text": "Introductions"
+  },
+  {
+    "objectID": "slides/00-slides.html#two-fundamental-truths",
+    "href": "slides/00-slides.html#two-fundamental-truths",
+    "title": "Welcome to POLS 1600",
+    "section": "Two Fundamental Truths",
+    "text": "Two Fundamental Truths"
+  },
+  {
+    "objectID": "slides/00-slides.html#testas-first-fundamental-truth",
+    "href": "slides/00-slides.html#testas-first-fundamental-truth",
+    "title": "Welcome to POLS 1600",
+    "section": "Testa’s first fundamental truth",
+    "text": "Testa’s first fundamental truth\nbackground-image=https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg) background-size =50%"
+  },
+  {
+    "objectID": "slides/00-slides.html#testas-first-fundamental-truth-1",
+    "href": "slides/00-slides.html#testas-first-fundamental-truth-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Testa’s first fundamental truth",
+    "text": "Testa’s first fundamental truth"
+  },
+  {
+    "objectID": "slides/00-slides.html#expectation-management",
+    "href": "slides/00-slides.html#expectation-management",
+    "title": "Welcome to POLS 1600",
+    "section": "1. Expectation Management",
+    "text": "1. Expectation Management"
+  },
+  {
+    "objectID": "slides/00-slides.html#pedagogical-tomfoolery",
+    "href": "slides/00-slides.html#pedagogical-tomfoolery",
+    "title": "Welcome to POLS 1600",
+    "section": "2. Pedagogical Tomfoolery",
+    "text": "2. Pedagogical Tomfoolery"
+  },
+  {
+    "objectID": "slides/00-slides.html#positionality",
+    "href": "slides/00-slides.html#positionality",
+    "title": "Welcome to POLS 1600",
+    "section": "3. Positionality",
+    "text": "3. Positionality"
+  },
+  {
+    "objectID": "slides/00-slides.html#epistemology",
+    "href": "slides/00-slides.html#epistemology",
+    "title": "Welcome to POLS 1600",
+    "section": "4. Epistemology",
+    "text": "4. Epistemology"
+  },
+  {
+    "objectID": "slides/00-slides.html#testas-second-fundamental-truth",
+    "href": "slides/00-slides.html#testas-second-fundamental-truth",
+    "title": "Welcome to POLS 1600",
+    "section": "Testa’s second fundamental truth",
+    "text": "Testa’s second fundamental truth"
+  },
+  {
+    "objectID": "slides/00-slides.html#testas-second-fundamental-truth-1",
+    "href": "slides/00-slides.html#testas-second-fundamental-truth-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Testa’s second fundamental truth",
+    "text": "Testa’s second fundamental truth"
+  },
+  {
+    "objectID": "slides/00-slides.html#two-kinds-of-people-in-this-world",
+    "href": "slides/00-slides.html#two-kinds-of-people-in-this-world",
+    "title": "Welcome to POLS 1600",
+    "section": "Two kinds of people in this world",
+    "text": "Two kinds of people in this world"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-is-it-that-we-say-we-do-here",
+    "href": "slides/00-slides.html#what-is-it-that-we-say-we-do-here",
+    "title": "Welcome to POLS 1600",
+    "section": "What is it that we say we do here",
+    "text": "What is it that we say we do here"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-does-quantitative-research-do",
+    "href": "slides/00-slides.html#what-does-quantitative-research-do",
+    "title": "Welcome to POLS 1600",
+    "section": "What does quantitative research do?",
+    "text": "What does quantitative research do?\n\nDescriptions"
+  },
+  {
+    "objectID": "slides/00-slides.html#descriptions",
+    "href": "slides/00-slides.html#descriptions",
+    "title": "Welcome to POLS 1600",
+    "section": "Descriptions",
+    "text": "Descriptions"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-does-quantitative-research-do-1",
+    "href": "slides/00-slides.html#what-does-quantitative-research-do-1",
+    "title": "Welcome to POLS 1600",
+    "section": "What does quantitative research do?",
+    "text": "What does quantitative research do?\n\nDescriptions\nExplanations"
+  },
+  {
+    "objectID": "slides/00-slides.html#explanations",
+    "href": "slides/00-slides.html#explanations",
+    "title": "Welcome to POLS 1600",
+    "section": "Explanations",
+    "text": "Explanations"
+  },
+  {
+    "objectID": "slides/00-slides.html#explanations-1",
+    "href": "slides/00-slides.html#explanations-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Explanations",
+    "text": "Explanations"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-does-quantitative-research-do-2",
+    "href": "slides/00-slides.html#what-does-quantitative-research-do-2",
+    "title": "Welcome to POLS 1600",
+    "section": "What does quantitative research do?",
+    "text": "What does quantitative research do?\n\nDescriptions\nExplanations\nPredictions and Uncertainty"
+  },
+  {
+    "objectID": "slides/00-slides.html#predictions-and-uncertainty",
+    "href": "slides/00-slides.html#predictions-and-uncertainty",
+    "title": "Welcome to POLS 1600",
+    "section": "Predictions and Uncertainty",
+    "text": "Predictions and Uncertainty"
+  },
+  {
+    "objectID": "slides/00-slides.html#predictions-and-uncertainty-1",
+    "href": "slides/00-slides.html#predictions-and-uncertainty-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Predictions and Uncertainty",
+    "text": "Predictions and Uncertainty"
+  },
+  {
+    "objectID": "slides/00-slides.html#predictions-and-uncertainty-2",
+    "href": "slides/00-slides.html#predictions-and-uncertainty-2",
+    "title": "Welcome to POLS 1600",
+    "section": "Predictions and Uncertainty",
+    "text": "Predictions and Uncertainty"
+  },
+  {
+    "objectID": "slides/00-slides.html#what-does-quantitative-research-do-3",
+    "href": "slides/00-slides.html#what-does-quantitative-research-do-3",
+    "title": "Welcome to POLS 1600",
+    "section": "What does quantitative research do?",
+    "text": "What does quantitative research do?\n\nDescriptions\nExplanations\nPredictions and Uncertainty\n\nbackground-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg”) background-size =cover"
+  },
+  {
+    "objectID": "slides/00-slides.html#two-kinds-of-people-in-this-world-1",
+    "href": "slides/00-slides.html#two-kinds-of-people-in-this-world-1",
+    "title": "Welcome to POLS 1600",
+    "section": "Two kinds of people in this world",
+    "text": "Two kinds of people in this world"
+  },
+  {
+    "objectID": "slides/00-slides.html#introductions-2",
+    "href": "slides/00-slides.html#introductions-2",
+    "title": "Welcome to POLS 1600",
+    "section": "Introductions",
+    "text": "Introductions"
+  },
+  {
+    "objectID": "slides/00-slides.html#my-research",
+    "href": "slides/00-slides.html#my-research",
+    "title": "Welcome to POLS 1600",
+    "section": "My research",
+    "text": "My research\n\nI study American Poltical Behavior with focus on poltics of race and criminal justice\nHow do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?\nHow can we use methodological tools to better answer these questions?\n\nclass: inverse,center, bottom background-image=“https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg”) background-size =cover ## But Enough about me"
+  },
+  {
+    "objectID": "slides/00-slides.html#class-survey",
+    "href": "slides/00-slides.html#class-survey",
+    "title": "Welcome to POLS 1600",
+    "section": "Class survey",
+    "text": "Class survey\nPlease click here to take a brief survey that will help me structure the class going forward."
+  },
+  {
+    "objectID": "slides/00-slides.html#next-week",
+    "href": "slides/00-slides.html#next-week",
+    "title": "Welcome to POLS 1600",
+    "section": "Next Week:",
+    "text": "Next Week:\n\nComplete the class survey\nDownload and Install R and R studio\nRead Chapters 1 (Friday) and start Chapter 3 in QSS\nTuesday: Lecture: Describing Data in R\nThursday: Lab: Exploring COVID-19 data in the US\nFriday: Submit Tutorials: “00-intro” & “01-measurement”\n\nOnly time you’ll have two tutorials due (Ok to submit late)\n\n\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "resources/00-software-setup.html#tldr",
+    "href": "resources/00-software-setup.html#tldr",
+    "title": "Getting started with R",
+    "section": "TLDR",
+    "text": "TLDR\nIf you’re pressed for time here’s the short version of what you should do before next class.\n\nDownload R\nDownload R Studio\nOpen R Studio on your computer\nCreate an Quarto Markdown Document (.qmd) in R Studio\n\n\nFile &gt; New File &gt; Quarto Document\nInstall any requested packages\n\n\nRender this .Qmd into an html file.\n\n\nClick the render arrow with the needle OR:\nUse the hot keys: Mac: cmd + shift + k PC: crtl + shift + k\n\n\nInstall some additional packages for the course\n\nSpecifically copy and paste the following into the console in R Studio and hit enter:\n\ninstall.packages(\"rmarkdown\")\ninstall.packages(\"devtools\")\ninstall.packages(\"remotes\")\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\nremotes::install_github(\"rstudio/learnr\")\nremotes::install_github(\"rstudio-education/gradethis\")\nremotes::install_github(\"PaulTestaBrown/qsslearnr\")\n\nYou’ll need to have the package rmarkdown installed for\n\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\n\nTo work, so make sure you’ve copied and pasted the code above into your console\n\nIf you have a question or somethings not working, don’t hesitate to ask. Please email me at paul_testa@brown.edu or come to my office at 111 Thayer St Rm 339."
+  },
+  {
+    "objectID": "resources/00-software-setup.html#install-the-devtools-and-remotes-packages",
+    "href": "resources/00-software-setup.html#install-the-devtools-and-remotes-packages",
+    "title": "Getting started with R",
+    "section": "6.1 Install the devtools and remotes packages",
+    "text": "6.1 Install the devtools and remotes packages\nThe version of R that you just downloaded is considered base R, which provides you with good but basic statistical computing and graphics powers.\nTo get the most out of R, you’ll need to install add-on packages, which are user-written to extend/expand your R capabilities.\nPackages can live in one of two places:\n\nThey may be carefully curated by CRAN (which involves a thorough submission and review process), and thus are easy install using install.packages(\"name_of_package\", dependencies = TRUE).\nAlternatively, they may be available via the software sharing platform GitHub.\n\nTo download these packages, you first need to install the devtools and remotes packages.\n\ninstall.packages(\"rmarkdown\")\ninstall.packages(\"devtools\")\ninstall.packages(\"remotes\")\n\nPlace your cursor in the console (lower left panel), and copy and paste each line of code above. After you’ve pasted a line, hit Enter/Return and R will execute (run) that line of code. So type:\n\ninstall.packages(“devtools”)\n\nHit enter.\nThen type\n\ninstall.packages(“remotes”)\n\nAnd hit enter again.\nEach time, R will likely spit out some cryptic red text as it installs the packages.\nWhen it’s done, R will you should see a line with a single &gt; in the console.\nYou should be able to see the newly installed packages by scrolling through or searching the Packages pane on the bottom left"
+  },
+  {
+    "objectID": "resources/00-software-setup.html#install-packages-for-course",
+    "href": "resources/00-software-setup.html#install-packages-for-course",
+    "title": "Getting started with R",
+    "section": "6.2 Install Packages for Course",
+    "text": "6.2 Install Packages for Course\nNow we’ll use the intall_github() function from the remotes package, to install some packages we’ll use for this course.\nAgain, copy and paste each line of code into your console, and hit Enter/Return to run that code.\n\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\nremotes::install_github(\"rstudio/learnr\")\nremotes::install_github(\"rstudio-education/gradethis\")\nremotes::install_github(\"PaulTestaBrown/qsslearnr\")\n\nWe’ll go over this during our next meeting so don’t worry if this doesn’t work\nYou will likely be asked to update some existing packages\nType 1 in the console and hit enter\n\nIn particular, we’ll be using a version of Matthew Blackwell’s qsslearnr as problem sets for this course.\nYou can see the available problem sets by running the following code in your console:\n\nlearnr::run_tutorial(package = \"qsslearnr\")\n\nAnd start a tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nTo try and explain in words what this code is doing:\n\nlearnr::run_tutorial( Says use the run_tutorial() from the learnr package\n\"00-intro\" tells run_tutorial() to run the \"00-intro\" tutorial\npackage = \"qsslearnr\" tells run_tutorial() to look for this tutorial in the qsslearnr package.\n\nIf you run this code, you should see the following tutorial show up in the upper right panel:"
+  },
+  {
+    "objectID": "resources/00-software-setup.html#optional-adding-a-tutorial-panel",
+    "href": "resources/00-software-setup.html#optional-adding-a-tutorial-panel",
+    "title": "Getting started with R",
+    "section": "6.3 Optional: Adding a Tutorial Panel",
+    "text": "6.3 Optional: Adding a Tutorial Panel\nYou can also add a “Tutorial” panel to R Studio.\n\nClick on “Tools &gt; Global Options”\n\nAlternatively you can use the hotkey combination cmd + , on a Mac cntrl + , … No Shortcut for PC :(\n\n\n\n\nSelect the Pain Layout tab. In the upper right of the four pains, check the box next to Tutorial\nYou may need to close and re-open R Studio. When you do, in the upper right tab you should see:"
+  },
+  {
+    "objectID": "resources/00-software-setup.html#optional-adjusting-quarto-r-markdown-display-options",
+    "href": "resources/00-software-setup.html#optional-adjusting-quarto-r-markdown-display-options",
+    "title": "Getting started with R",
+    "section": "6.4 Optional: Adjusting Quarto / R Markdown Display Options",
+    "text": "6.4 Optional: Adjusting Quarto / R Markdown Display Options\n\n2+2\n\n[1] 4\n\n\nThis is just personal perference, but while we’re changin some global options, I’d recommend\n\nClick on `RMarkdown\nSet “Show In Document Outline” to `All Sections and Chunks\nUncheck the box that says “Show Output in line for all R Markdown Documents”"
+  },
+  {
+    "objectID": "resources/00-software-setup.html#optional-dont-save-r-history",
+    "href": "resources/00-software-setup.html#optional-dont-save-r-history",
+    "title": "Getting started with R",
+    "section": "6.5 Optional: Don’t Save R History",
+    "text": "6.5 Optional: Don’t Save R History\nFinally, in the R General tab, I’d strongly recommend unchecking the box that says “Always save R History”\n\n** Be sure to click OK** when you’re done updating these settings."
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "This class is an introduction to applied statistics as practiced in political science. It is computing intensive, and, as such, will enable students to execute basic quantitative analyses of social science data using the linear model with statistical inference arising from re-sampling and permutation based techniques as applied in the R statistical computing language with RStudio. By the end of the course, a successful student will be able to find social science data online, download it, analyze it, and write about how the analyses bear on focused social science or policy questions.\n\n\n\nMore than anything I assume a willingness to engage with mathematics, data analysis, computer programming, and the practice of social science thinking and writing. I also assume you’ve taken at least one class in algebra at the level taught in most high schools in the United States and have used a personal computer to read and type email and other documents and have some experience with the Internet.\nI also assume that you will read the syllabus and that you keep up to date on changes in the syllabus which will be announced in class. You should not expect a response to emails that ask a question already answered in the syllabus.\nThis is an experimental class so you should expect that the syllabus will change throughout the term. Make sure you have the syllabus with the latest date stamp. I will announce syllabus changes via the emails sent from Canvas.\n\n\n\nNeither the University nor I tolerate cheating or plagiarism. The Brown Writing Center defines plagiarism as ``appropriating another person’s ideas or words (spoken or written) without attributing those word or ideas to their true source.’’ The consequences for plagiarism are often severe, and can include suspension or expulsion. This course will follow the guidelines in the Academic Code for determining what is and isn’t plagiarism:\n\nIn preparing assignments a student often needs or is required to employ outside sources of information or opinion. All such sources should be listed in the bibliography. Citations and footnote references are required for all specific facts that are not common knowledge and about which there is not general agreement. New discoveries or debatable opinions must be credited to the source, with specific references to edition and page even when the student restates the matter in his or her own words. Word-for-word inclusion of any part of someone else’s written or oral sentence, even if only a phrase or sentence, requires citation in quotation marks and use of the appropriate conventions for attribution. Citations should normally include author, title, edition, and page. (Quotations longer than one sentence are generally indented from the text of the essay, without quotation marks, and identified by author, title, edition, and page.) Paraphrasing or summarizing the contents of another’s work is not dishonest if the source or sources are clearly identified (author, title, edition, and page), but such paraphrasing does not constitute independent work and may be rejected by the instructor. Students who have questions about accurate and proper citation methods are expected to consult reference guides as well as course instructors.\n\nWe will discuss specific information about your written work in class in more detail, but if you are unsure of how to properly cite material, please ask for clarification. If you are having difficulty with writing or would like more information or assistance, consult the Writing Center, the Brown library and/or the Academic Code for more information.\n\n\n\nAll students and the instructor must be respectful of others in the classroom. If you ever feel that the classroom environment is discouraging your participation or problematic in any way, please contact me.\n\n\n\nBrown University is committed to full inclusion of all students. Please inform me if you have a disability or other condition that might require accommodations or modification of any of these course procedures. You may speak with me after class or during office hours. For more information contact Student and Employee Accessibility Services at 401-863-9588 or SEAS@brown.edu.\n\n\n\nAny student with a documented disability is welcome to contact me as early in the semester as possible so that we may arrange reasonable accommodations. As part of this process, please be in touch with Student Accessibility Services by calling 401-863-9588 or online\n\n\n\nThis course is designed to support an inclusive learning environment where diverse perspectives are recognized, respected and seen as a source of strength. It is my intent to provide materials and activities that are respectful of various levels of diversity: mathematical background, previous computing skills, gender, sexuality, disability, age, socioeconomic status, ethnicity, race, and culture. Toward that goal:\n\nIf you have a name and/or set of pronouns that differ from those that appear in your official Brown records, please let me know!\nIf there are things going on inside or outside of class that are affecting your performance in class, please don’t hesitate to talk to me, provide anonymous feedback through our course survey, or contact one of Brown’s Academic Deans."
+  },
+  {
+    "objectID": "syllabus.html#course-goals",
+    "href": "syllabus.html#course-goals",
+    "title": "Syllabus",
+    "section": "",
+    "text": "This class is an introduction to applied statistics as practiced in political science. It is computing intensive, and, as such, will enable students to execute basic quantitative analyses of social science data using the linear model with statistical inference arising from re-sampling and permutation based techniques as applied in the R statistical computing language with RStudio. By the end of the course, a successful student will be able to find social science data online, download it, analyze it, and write about how the analyses bear on focused social science or policy questions."
+  },
+  {
+    "objectID": "syllabus.html#expectations",
+    "href": "syllabus.html#expectations",
+    "title": "Syllabus",
+    "section": "",
+    "text": "More than anything I assume a willingness to engage with mathematics, data analysis, computer programming, and the practice of social science thinking and writing. I also assume you’ve taken at least one class in algebra at the level taught in most high schools in the United States and have used a personal computer to read and type email and other documents and have some experience with the Internet.\nI also assume that you will read the syllabus and that you keep up to date on changes in the syllabus which will be announced in class. You should not expect a response to emails that ask a question already answered in the syllabus.\nThis is an experimental class so you should expect that the syllabus will change throughout the term. Make sure you have the syllabus with the latest date stamp. I will announce syllabus changes via the emails sent from Canvas."
+  },
+  {
+    "objectID": "syllabus.html#academic-integrity",
+    "href": "syllabus.html#academic-integrity",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Neither the University nor I tolerate cheating or plagiarism. The Brown Writing Center defines plagiarism as ``appropriating another person’s ideas or words (spoken or written) without attributing those word or ideas to their true source.’’ The consequences for plagiarism are often severe, and can include suspension or expulsion. This course will follow the guidelines in the Academic Code for determining what is and isn’t plagiarism:\n\nIn preparing assignments a student often needs or is required to employ outside sources of information or opinion. All such sources should be listed in the bibliography. Citations and footnote references are required for all specific facts that are not common knowledge and about which there is not general agreement. New discoveries or debatable opinions must be credited to the source, with specific references to edition and page even when the student restates the matter in his or her own words. Word-for-word inclusion of any part of someone else’s written or oral sentence, even if only a phrase or sentence, requires citation in quotation marks and use of the appropriate conventions for attribution. Citations should normally include author, title, edition, and page. (Quotations longer than one sentence are generally indented from the text of the essay, without quotation marks, and identified by author, title, edition, and page.) Paraphrasing or summarizing the contents of another’s work is not dishonest if the source or sources are clearly identified (author, title, edition, and page), but such paraphrasing does not constitute independent work and may be rejected by the instructor. Students who have questions about accurate and proper citation methods are expected to consult reference guides as well as course instructors.\n\nWe will discuss specific information about your written work in class in more detail, but if you are unsure of how to properly cite material, please ask for clarification. If you are having difficulty with writing or would like more information or assistance, consult the Writing Center, the Brown library and/or the Academic Code for more information."
+  },
+  {
+    "objectID": "syllabus.html#community-standards",
+    "href": "syllabus.html#community-standards",
+    "title": "Syllabus",
+    "section": "",
+    "text": "All students and the instructor must be respectful of others in the classroom. If you ever feel that the classroom environment is discouraging your participation or problematic in any way, please contact me."
+  },
+  {
+    "objectID": "syllabus.html#accessibility",
+    "href": "syllabus.html#accessibility",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Brown University is committed to full inclusion of all students. Please inform me if you have a disability or other condition that might require accommodations or modification of any of these course procedures. You may speak with me after class or during office hours. For more information contact Student and Employee Accessibility Services at 401-863-9588 or SEAS@brown.edu."
+  },
+  {
+    "objectID": "syllabus.html#academic-accommodations",
+    "href": "syllabus.html#academic-accommodations",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Any student with a documented disability is welcome to contact me as early in the semester as possible so that we may arrange reasonable accommodations. As part of this process, please be in touch with Student Accessibility Services by calling 401-863-9588 or online"
+  },
+  {
+    "objectID": "syllabus.html#diversity-and-inclusion",
+    "href": "syllabus.html#diversity-and-inclusion",
+    "title": "Syllabus",
+    "section": "",
+    "text": "This course is designed to support an inclusive learning environment where diverse perspectives are recognized, respected and seen as a source of strength. It is my intent to provide materials and activities that are respectful of various levels of diversity: mathematical background, previous computing skills, gender, sexuality, disability, age, socioeconomic status, ethnicity, race, and culture. Toward that goal:\n\nIf you have a name and/or set of pronouns that differ from those that appear in your official Brown records, please let me know!\nIf there are things going on inside or outside of class that are affecting your performance in class, please don’t hesitate to talk to me, provide anonymous feedback through our course survey, or contact one of Brown’s Academic Deans."
+  },
+  {
+    "objectID": "assignments/index.html",
+    "href": "assignments/index.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "You have three types of assignments in this course",
+    "crumbs": [
+      "Assignments",
+      "Overview",
+      "Assignments"
+    ]
+  },
+  {
+    "objectID": "assignments/index.html#labs",
+    "href": "assignments/index.html#labs",
+    "title": "Assignments",
+    "section": "Labs",
+    "text": "Labs\n\nEach Thursday we will work in groups to complete an in-class lab\nThe labs are designed to reinforce and extend concepts from lecture using real world data.",
+    "crumbs": [
+      "Assignments",
+      "Overview",
+      "Assignments"
+    ]
+  },
+  {
+    "objectID": "assignments/index.html#tutorials",
+    "href": "assignments/index.html#tutorials",
+    "title": "Assignments",
+    "section": "Tutorials",
+    "text": "Tutorials\nCoding tutorials to reinforce concepts from lecture and textbook.\nAccessed by running in the console of R Studio\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nComplete the tutorial. Save output as “LASTNAME_TutorialNumber.html”\nUpload output to Canvas by Friday by 11:59 pm",
+    "crumbs": [
+      "Assignments",
+      "Overview",
+      "Assignments"
+    ]
+  },
+  {
+    "objectID": "assignments/index.html#final-project",
+    "href": "assignments/index.html#final-project",
+    "title": "Assignments",
+    "section": "Final Project",
+    "text": "Final Project\nFinally, throughout the semester you will be have periodic assignments to ensure that you’re making progress on your final projects.\n\nWeek 4:  Research Topics\nWeek 6:  Potential Data\nWeek 8:  Explortatory Analysis\nWeek 11: Draft\nWeek 12: Presentations\nWeek 13: Final Paper",
+    "crumbs": [
+      "Assignments",
+      "Overview",
+      "Assignments"
+    ]
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html",
+    "href": "assignments/A1_Research_Questions.html",
+    "title": "POLS 2580 Assignment 1",
+    "section": "",
+    "text": "Asking a good research question is one of the most important skills you will develop in your academic careers. It’s also one of the hardest.\nWe often think we’re asking one question, when in fact the study we conduct really addresses a related but distinct question. When a priest asked Willie Sutton why he robbed banks, he replied the “Well, that’s where the money is”. The priest’s question was about why rob at all, while Sutton answered the different question “Given one robs, why rob banks?” Similarly, Medieval philosophers might ask why objects stay in motion, while Newton suggests what really need is not an explanation of motion itself but of changes in motion.\nThe object of our question shapes the form of our explanation.\nIn this assignment, I would like your group to craft three potential research questions that we might explore in our research project for this class. Each question, should be a single sentence, with a few sentences answering the following questions (More details below):\n\nWhy do we care about the answer to this research question?\nWhat’s would a hypothetical “ideal experiment” to answer this question look like?\nWhat would a study with observational data look like?\nA published study that relates to this question\nHow feasible would it be to do a study like this for the course\n\nYou may use this Rmd file as a template (click here to download) or create your own file. Please submit your responses to Canvas.\nYou might start by writing down several questions of different forms about the same topic:\n\nWhy do people vote?\nWhy do people not vote?\nWhy do the rich vote at higher rates than the poor?\nWhen might people who don’t vote, be motivated to vote?\nWhat is the effect of encouraging someone to vote via a phone call?\nAre phone calls more or less effective than in-person contact for get-out the vote efforts?\n\nEach of these questions addresses a general topic that political scientists seem to think is important. Each carries some suppositions and assumptions that in turn influence the type of explanation we might find convincing. Why do people vote feels a bit broad to me. People probably vote for many reasons. How can we hope to adjudicate between all the possible reasons for voting? (Further are these the same reasons for not voting or do we need another set of explanations altogether?)\nWhether phone calls are more or less effective than in-person contacts for GOTV efforts seems more tractable, but also perhaps to narrow. Do we really care? If we’re confident we can identify an effect or difference in one study, are we sure we’ll see similar effects in a different study conducted under different circumstances?\nIn crafting your research questions, you want to strike a balance between things we actually care about (why do people vote) and things we can actually assess (what’s effect of a particularly type of encouragement to vote). A few thoughts on this process:\n\n“Why” questions tend to be more compelling than “What” or “How” or “Do” questions, I think in part because “why” questions often imply a theory and suggest a counterfactual (why this and not that), while other ways of asking questions feel more descriptive. For example, why do the rich vote at higher rates than the poor. Well, one explanation may be that their relative social and economic status means they are more likely to be targets of mobilization efforts by campaigns (among many things). So a natural follow up to this larger question might be, what’s the effect of providing similar mobilization efforts to the poor. Would they vote at similar rates to the rich? If so, then we’ve learned something about how mobilization explains class differences in participation.\nThinking about questions in terms of puzzles is another useful trick. Why do parties exist when politicians’ ideological preferences can explain the vast majority of their legislative behavior? Note this type of question contains a lot of presuppositions (how do we measure ideological preferences? Do they really explain legislative behavior? Is that what we care about?), but as point of departure for a study these type arguments can be useful\nTry to be simple and clear. Don’t worry about asking the perfect question right away. Your questions can and should evolve over time, and I suspect some of you will write a paper that has nothing to do with the questions you posed here.\n\nFor each question, please discuss the following:\n\nWhy do we care? Why we should care about the answer to this question. A strong justification is often that existing theories yield conflicting predictions and so your study will offer some insight into how to adjudicate betweeen these theories. A less strong justification is that no one has ever studied this before. Even if this is true (and it’s often not) it may be true for good reason. No need for formal citations, but if there are specific theories or claims your addressing feel free to name names.\nThe ideal experiment Please describe an “ideal” experiment that you could run that would give you some purchase on your question. Note the key feature of an experiment, is that you the researcher are able to manipulate (through random assignment) some facet of the world. Assume money, resources, physics, and even ethics are not an object. If you could randomly assign anything, what would you manipulate. At what level of analysis would your manipulation occur (i.e. are your units of analysis individuals or countries or something else). How would you measure your outcome, again assuming you were all power and all-seeing. If that manipulation isn’t feasible, what does that say about the ability to make a causal claim about your question?\nThe observational study Finally, considering some of the potential limitations that might prevent you from implementing your ideal experiment (it’s hard to randomly assign democratic government), what is one way you might address your research question with observational data. Would your study use cross-sectional or longitudinal data. What are some of the concerns (selection on observables) that arise in this setting. Is there a natural experiment or some sort of discontinuity you might leverage to approximate this experimental ideal.\n\nAgain, each paragraph should be brief and to the point. No need to specify a full research design–just give me the broad strokes. You’re writing for each question should not exceed a page.\nAfter you’ve thought through how you might go about answering your question, please find\n\nA published study that relates to this question. It need not be exactly your question as posed, but it should be in a similar area. Include a full citation, and link to the study. Then in a paragraph sentences try to summarize:\n\n\nThe study’s research question\nEmprical design\nCore findings.\n\nFinally on a scale of 1 (least feasible) to 10 (most feasible), please evaluate how likely you think it is you could write an empirical paper on this question for this course.\nDon’t worry about getting everything right. Your final projects can, will, and probably should change. The point of this exercise is to get some practice thinking about questions that interest you in the language of causal inference and potential outcomes."
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#why-do-we-care",
+    "href": "assignments/A1_Research_Questions.html#why-do-we-care",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Why do we care:",
+    "text": "Why do we care:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-ideal-experiment",
+    "href": "assignments/A1_Research_Questions.html#the-ideal-experiment",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-observational-study",
+    "href": "assignments/A1_Research_Questions.html#the-observational-study",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The observational study:",
+    "text": "The observational study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#a-published-study",
+    "href": "assignments/A1_Research_Questions.html#a-published-study",
+    "title": "POLS 2580 Assignment 1",
+    "section": "A published study:",
+    "text": "A published study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#feasibility-x10",
+    "href": "assignments/A1_Research_Questions.html#feasibility-x10",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#why-do-we-care-1",
+    "href": "assignments/A1_Research_Questions.html#why-do-we-care-1",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Why do we care:",
+    "text": "Why do we care:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-ideal-experiment-1",
+    "href": "assignments/A1_Research_Questions.html#the-ideal-experiment-1",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-observational-study-1",
+    "href": "assignments/A1_Research_Questions.html#the-observational-study-1",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The observational study:",
+    "text": "The observational study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#a-published-study-1",
+    "href": "assignments/A1_Research_Questions.html#a-published-study-1",
+    "title": "POLS 2580 Assignment 1",
+    "section": "A published study:",
+    "text": "A published study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#feasibility-x10-1",
+    "href": "assignments/A1_Research_Questions.html#feasibility-x10-1",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#why-do-we-care-2",
+    "href": "assignments/A1_Research_Questions.html#why-do-we-care-2",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Why do we care:",
+    "text": "Why do we care:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-ideal-experiment-2",
+    "href": "assignments/A1_Research_Questions.html#the-ideal-experiment-2",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#the-observational-study-2",
+    "href": "assignments/A1_Research_Questions.html#the-observational-study-2",
+    "title": "POLS 2580 Assignment 1",
+    "section": "The observational study:",
+    "text": "The observational study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#a-published-study-2",
+    "href": "assignments/A1_Research_Questions.html#a-published-study-2",
+    "title": "POLS 2580 Assignment 1",
+    "section": "A published study:",
+    "text": "A published study:"
+  },
+  {
+    "objectID": "assignments/A1_Research_Questions.html#feasibility-x10-2",
+    "href": "assignments/A1_Research_Questions.html#feasibility-x10-2",
+    "title": "POLS 2580 Assignment 1",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)"
+  },
+  {
+    "objectID": "syllabus.html#description",
+    "href": "syllabus.html#description",
+    "title": "Syllabus",
+    "section": "",
+    "text": "This class is an introduction to applied statistics as practiced in political science. It is computing intensive, and, as such, will enable students to execute basic quantitative analyses of social science data using the linear model with statistical inference arising from re-sampling and permutation based techniques as applied in the R statistical computing language with RStudio. By the end of the course, a successful student will be able to find social science data online, download it, analyze it, and write about how the analyses bear on focused social science or policy questions."
+  },
+  {
+    "objectID": "syllabus.html#requirements",
+    "href": "syllabus.html#requirements",
+    "title": "Syllabus",
+    "section": "Requirements",
+    "text": "Requirements\nTo accomplish this metamorphosis, we’ll need the following:\n\nSome math\nSome programming and computing skills\nSome general life skills"
+  },
+  {
+    "objectID": "syllabus.html#math",
+    "href": "syllabus.html#math",
+    "title": "Syllabus",
+    "section": "Math",
+    "text": "Math\nYou either already know, or will learn, all the math you need to take this course.1 We’ll go over some key theorems of probability and statistics in class, emphasizing conceptual understanding (often illustrated via simulation) over formal proofs.2. Along the way, we’ll need some calculus and linear algebra to make our lives easier, and so we’ll briefly review this material together in class."
+  },
+  {
+    "objectID": "syllabus.html#computing",
+    "href": "syllabus.html#computing",
+    "title": "Syllabus",
+    "section": "Computing",
+    "text": "Computing\nDoing quantitative, empirical social science research requires working with data. Today, working with data requires a computer and statistical software. I assume that you have, or will acquire, a laptop that you will bring to class. In terms of software, there are many possible options. In this class,R.3.\nAll the slides, notes, and assignments in this class are produced using R Markdown, a free, open-source tool for creating reproducible research. It’s a short but steep learning curve, the benefits of which (pretty documents, nicely formatted tables and figures, easy integration with citation managers) far outweigh the costs (finicky syntax)"
+  },
+  {
+    "objectID": "syllabus.html#general",
+    "href": "syllabus.html#general",
+    "title": "Syllabus",
+    "section": "General",
+    "text": "General\nLike any course, success in this class requires preparation, participation and perseverance. In terms of preparation, I expect that you will have done the readings and submitted your assignments on time (more on that below). In short, you’ll get out of this class what you put in. In terms of participation, I expect that you will come to class eager to learn and engage with that week’s topics. If you have a question, ask it. If you’re getting an error, share it. In some ways, your job is to make errors. To paraphrase Joyce: people of genius make no mistakes. Our errors are volitional and portals of discovery. While this experience can be challenging and frustrating, it is also incredibly rewarding. I fully expect you persevere through the problems and difficulties that inevitably arise in this course, and will do everything I can to help in this process."
+  },
+  {
+    "objectID": "syllabus.html#footnotes",
+    "href": "syllabus.html#footnotes",
+    "title": "Syllabus",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThis is not the same as all the math you need to know be a successful, methodologically sophisticated political scientist. But it’s a start, and one that will hopefully help you figure out what additional training you’ll need.↩︎\nWe’ll do the proofs as well, but your focus should be on making sure you understand concepts and implications rather than specific derivations↩︎\nAvailable for free at https://cran.r-project.org/. Python is also increasingly common among social scientists.↩︎\nSeriously. Working carefully through these examples will be incredibly helpful and rewarding. If you’re taking the time to read this footnote, send me picture of a cute animal and I’ll add 1 point of extra credit to your final paper grade. See, your hard work is already paying off.↩︎"
+  },
+  {
+    "objectID": "syllabus.html#class",
+    "href": "syllabus.html#class",
+    "title": "Syllabus",
+    "section": "Class",
+    "text": "Class\nThis course meets two times a week for 80 minutes on Tuesdays and Thursdays. Tuesday’s class will be devoted to lecture, demonstration and review. Recorded versions of these lectures will be provided on Canvas after class. Thursday’s class will focus on applications of these concepts through brief labs where you’ll work with real data from a variety of sources. I assume that you will come to class having done each week’s assigned readings and reviewed material from the previous week’s lectures and labs. Slides and labs are available on Canvas and https://pols1600.paultesta.org"
+  },
+  {
+    "objectID": "syllabus.html#attendance",
+    "href": "syllabus.html#attendance",
+    "title": "Syllabus",
+    "section": "Attendance",
+    "text": "Attendance\nYou may miss two classes without it having any effect on the attendance portion of your grade. After two absences, each additional absence (without a written note from the University) will reduce your final grade by 1 percent."
+  },
+  {
+    "objectID": "syllabus.html#readings",
+    "href": "syllabus.html#readings",
+    "title": "Syllabus",
+    "section": "Readings",
+    "text": "Readings\nImai (2022) required textbooks for the course (Estimated cost: \\(\\sim\\)$38.50 for the ebook, $55.00 for the paperback):\n\nImai, Kosuke. 2022. Quantitative Social Science An Introduction in Tidyverse. Princeton University Press.\n\nMost chapters are spread over multiple weeks. You should read this text with your laptop and R Studio open. Execute the code in the main text and ideally try to complete the assignments and exercises at the end of the chapter.4\nAdditional readings will be listed below and available to download on the course website and Canvas."
+  },
+  {
+    "objectID": "syllabus.html#labs",
+    "href": "syllabus.html#labs",
+    "title": "Syllabus",
+    "section": "Labs",
+    "text": "Labs\nThe bulk of the work and learning you’ll do in the course comes in the form of weekly labs in which you’ll explore a given data set or paper using R. You’ll be given an R Markdown document that will guide you through a set of exercises to teach concepts covered in the lectures and reading. You’ll code in R and summaries of your findings in R Markdown. You will compile your document to produce an html document which you will submit on Canvas by the end of each class.\nAll work in this class MUST BE SUBMITTED ONLINE VIA CANVAS.\nYou will work in groups on these labs. One member of your group will submit a lab. One question from the lab will be randomly selected for grading."
+  },
+  {
+    "objectID": "syllabus.html#tutorials",
+    "href": "syllabus.html#tutorials",
+    "title": "Syllabus",
+    "section": "Tutorials",
+    "text": "Tutorials\nIn addition to weekly labs, you will also work through weekly tutorials made available to you through the `qsslearnr’ package. These tutorials provide you with an opportunity to practice your programming and review concepts from the text and lecture. After completing each tutorial, you will download your progress report and upload this file to Canvas by midnight on Friday each week a tutorial is assigned. If you upload a report by Friday, you receive a grade of 100 % on that Tutorial. If you upload a report after Friday, you receive a grade of 50 %. If you do not upload a report, you receive a grade of 0 %. There are 11 total tutorials for the course. Your lowest grade on the Tutorials will be dropped.\nThese Tutorials are for your personal benefit. You may collaborate with peers, but you must submit your own file."
+  },
+  {
+    "objectID": "syllabus.html#assignments",
+    "href": "syllabus.html#assignments",
+    "title": "Syllabus",
+    "section": "Assignments",
+    "text": "Assignments\nIn addition to weekly labs, you will complete periodic group assignments developing an original research presentation applying skills you have learned in this class to a topic of your choosing. All assignments are due the Friday after the class with which they are associated.\nThe timeline of assignments for your final paper is as follows:\n\nWeek 4: Research Topics\nWeek 6: Identifying Datasets\nWeek 8: Data Explorations\nWeek 11: Draft of Research Presentation\nWeek 12: Research Presentations\nWeek 13: Final Paper\n\nAssignments must be submitted on time to Canvas. No late work will be accepted without prior approval of the instructor or a note from the University."
+  },
+  {
+    "objectID": "syllabus.html#grades",
+    "href": "syllabus.html#grades",
+    "title": "Syllabus",
+    "section": "Grades",
+    "text": "Grades\nYour final grade for this course will be calculated as follows:\n\n5 % Class attendance\n10 % Class involvement and participation\n10 % Tutorials\n30 % Labs\n20 % Assignments not including the final Paper\n25 % Final Project\n\nLabs, assignments excluding the final presentation, will be graded graded out of 100 roughly on a ✓ + (100, completed on time, acceptable), ✓ (85, completed on time, passable), ✓ - (0 not submitted on time, unacceptable). The lowest two lab grades will be dropped from your final lab grade. Tutorials are graded on pass (submitted on time = 100 % ) - fail (not submitted =0) based submitting your progress report from the tutorial by Friday each week. If you submit a Tutorial after the week it’s do, you will receive partial credit (50 %). Your final projects will be graded on 100-point scales with rubrics provided beforehand.\nIncomplete Work Assignments not turned in will be counted as zero in the calculation of the final grade.\nComputers in class Please bring your laptops if you have them. We will install R and RStudio together. If you do not own a laptop, you can still work in a group of other people who have laptops and will be able to complete the in-class worksheets without a problem. In fact, it is ideal if each group of 2-4 people works with one laptop and then shares the work among themselves. Of course, feel free to work on your own outside of class."
+  },
+  {
+    "objectID": "syllabus.html#time",
+    "href": "syllabus.html#time",
+    "title": "Syllabus",
+    "section": "Time",
+    "text": "Time\nThis course meets 27 times over 13 weeks in the semester. Each class is 80 minutes long so you should expect to spend approximately 36 hours total in class; approximately 4 hours per week reading the textbook and reviewing material (42 hours total); approximately 22 hours on tutorials each week, approximately 30 hours on assignments for the final paper; approximately 50 hours researching, writing, and revising your final presentation; and at least .5 hours meeting with me in person to discuss your work (Estimated Total Time: 180.5 hours)"
+  },
+  {
+    "objectID": "class/00-class.html",
+    "href": "class/00-class.html",
+    "title": "Introductions",
+    "section": "",
+    "text": "Welcome! I’ll see you in class on Thursday.\nTune in via Zoom: https://brown.zoom.us/j/97039852954",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "0: Introductions"
+    ]
+  },
+  {
+    "objectID": "class/00-class.html#readings",
+    "href": "class/00-class.html#readings",
+    "title": "Introductions",
+    "section": "Readings",
+    "text": "Readings\n\nNone this week",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "0: Introductions"
+    ]
+  },
+  {
+    "objectID": "class/00-class.html#lecture",
+    "href": "class/00-class.html#lecture",
+    "title": "Introductions",
+    "section": "Lecture",
+    "text": "Lecture\nThe slides for today’s lesson are available online as an HTML file. Use the buttons below to open the slides either as an interactive website or as a static PDF (for printing or storing for later). You can also click in the slides below and navigate through them with your left and right arrow keys.\n\n View all slides in new window",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "0: Introductions"
+    ]
+  },
+  {
+    "objectID": "class/00-class.html#lab",
+    "href": "class/00-class.html#lab",
+    "title": "Introductions",
+    "section": "Lab",
+    "text": "Lab\n\nNone",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "0: Introductions"
+    ]
+  },
+  {
+    "objectID": "class/00-class.html#assignments",
+    "href": "class/00-class.html#assignments",
+    "title": "Introductions",
+    "section": "Assignments",
+    "text": "Assignments\n\nWork through Software Setup before class next week",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "0: Introductions"
+    ]
+  },
+  {
+    "objectID": "class/01-class.html",
+    "href": "class/01-class.html",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
+    "objectID": "class/01-class.html#readings",
+    "href": "class/01-class.html#readings",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
+    "objectID": "class/01-class.html#lecture",
+    "href": "class/01-class.html#lecture",
+    "title": "Data and Measurement",
+    "section": "Lecture",
+    "text": "Lecture\n\n View all slides in new window",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
+    "objectID": "class/01-class.html#lab",
+    "href": "class/01-class.html#lab",
+    "title": "Data and Measurement",
+    "section": "Lab",
+    "text": "Lab\n\n Download this week’s here \n Upload the rendered html file to Canvas here\n Review the commented solutions after class here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
+    "objectID": "class/01-class.html#assignments",
+    "href": "class/01-class.html#assignments",
+    "title": "Data and Measurement",
+    "section": "Assignments",
+    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"01-measurement1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
+    "objectID": "slides/01-slides.html#general-plan",
+    "href": "slides/01-slides.html#general-plan",
+    "title": "Week 01:",
+    "section": "General Plan",
+    "text": "General Plan\n\nReview\n\nFeedback\nQuestions\n\nLecture consists of a mix of:\n\nTopics and concepts\nExercises\n\nSummary"
+  },
+  {
+    "objectID": "slides/01-slides.html#slides",
+    "href": "slides/01-slides.html#slides",
+    "title": "Week 01:",
+    "section": "Slides",
+    "text": "Slides\n\nFollow along here: https://pols1600.paultesta.org/slides/01-slides.html\nType the letter o to get an overview to help you navigate.\nWe have a LOT to cover today\n\nWe’ll take time to focus on what you need to know\nOther things we’ll cover more quicky\nThese are things that will be good to know eventually\n\nWe’ll review this material again on Thursday and our first “lab” will be a joint excercise\n\nSeveral slides and tables borrow heavily from notes provide by the amazing Allison Hill"
+  },
+  {
+    "objectID": "slides/01-slides.html#waitlist",
+    "href": "slides/01-slides.html#waitlist",
+    "title": "Week 01:",
+    "section": "Waitlist",
+    "text": "Waitlist\n\nCourse is currently at capacity. May be able to admit a few more if people drop…\nLet me know after Thursday’s lab if you’re still interested in taking the course"
+  },
+  {
+    "objectID": "slides/01-slides.html#working-in-r-and-r-studio",
+    "href": "slides/01-slides.html#working-in-r-and-r-studio",
+    "title": "Week 01:",
+    "section": "Working in R and R Studio",
+    "text": "Working in R and R Studio\n\nHopefully you all have installed R and R Studio: https://pols1600.paultesta.org/labs/00-software_setup.html\nIf you’re having issues, don’t worry, see me after class and we’ll get it sorted."
+  },
+  {
+    "objectID": "slides/01-slides.html#loading-data-from-qss",
+    "href": "slides/01-slides.html#loading-data-from-qss",
+    "title": "Week 01:",
+    "section": "Loading data from QSS",
+    "text": "Loading data from QSS\nOnce you’ve done the following:\n\ninstall.packages(\"devtools\")\ninstall.packages(\"remotes\")\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\n\nAnywhere the text loads data:\n\nafghan &lt;- read.csv(\"afgahn.csv\")\n\nYou can do\n\nlibrary(\"qss\")\ndata(\"afghan\")\nsummary(afghan$age)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  15.00   22.00   30.00   32.39   40.00   80.00"
+  },
+  {
+    "objectID": "slides/01-slides.html#tutorials",
+    "href": "slides/01-slides.html#tutorials",
+    "title": "Week 01:",
+    "section": "Tutorials",
+    "text": "Tutorials\nOnce you’ve done the following\n\nremotes::install_github(\"rstudio/learnr\")\nremotes::install_github(\"rstudio-education/gradethis\")\nremotes::install_github(\"PaulTestaBrown/qsslearnr\")\n\nYou can see the available problem sets by running the following code in your console:\n\nlearnr::run_tutorial(package = \"qsslearnr\")"
+  },
+  {
+    "objectID": "slides/01-slides.html#tutorials-1",
+    "href": "slides/01-slides.html#tutorials-1",
+    "title": "Week 01:",
+    "section": "Tutorials",
+    "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nbackground-image:url(“https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg”) background-size:contain"
+  },
+  {
+    "objectID": "slides/01-slides.html#youve-committed-a-murder",
+    "href": "slides/01-slides.html#youve-committed-a-murder",
+    "title": "Week 01:",
+    "section": "You’ve committed a murder",
+    "text": "You’ve committed a murder"
+  },
+  {
+    "objectID": "slides/01-slides.html#why",
+    "href": "slides/01-slides.html#why",
+    "title": "Week 01:",
+    "section": "Why?",
+    "text": "Why?"
+  },
+  {
+    "objectID": "slides/01-slides.html#why-do-you-ask",
+    "href": "slides/01-slides.html#why-do-you-ask",
+    "title": "Week 01:",
+    "section": "Why do you ask?",
+    "text": "Why do you ask?\nIt’s cousin Nick’s fault…\n\n\n\n\n\n\n- I think it’s a funny question that reveals interesting things about our relationships with our parents\n\n\n\n\nWhat assumptions are we making when we ask this question?\n\n\n\n\n\n\n\n- You’re not a murderer\n\n\n\n\n- You don’t know someone who’s committed a murder or been murdered\n\n\n\n\nYou’ve got a mom and dad\n\n–\n\nHow might we make this question better?\n\n–\n\nUse a screener question\n\n“Would you feel comfortable…”\n\n“Pipe” in responses from a prior question\n\n“Who are two people who raised you…”\n\n\n–\nWhat questions we ask and how we ask them matters"
+  },
+  {
+    "objectID": "slides/01-slides.html#hopes-and-dreams-fears-and-worries",
+    "href": "slides/01-slides.html#hopes-and-dreams-fears-and-worries",
+    "title": "Week 01:",
+    "section": "Hopes and Dreams, Fears and Worries",
+    "text": "Hopes and Dreams, Fears and Worries\n.pull-left[ What are we excited about\n\nEngaging with social science\nLearning statistics and math\nLearning to code ]\n\n\n\n\n\n\n\n.pull-right[ What are we worried about\n\n\n\n\n.pull-right[ You\n\n\n- Do the reading, come class, ask questions - Engage with labs and tutorials with a “growth mindset” - Ask questions throughout - Come to office hours! ]\n\n\nclass: inverse,center, bottom background-image:url(“https://media2.giphy.com/media/ZCNjymWszyazkph0z2/200.webp?cid=ecf05e47l0nwxqty4s1m0l4bn43cpkl6wapqcbipk1a4otyt&rid=200.webp&ct=g”) background-size: cover # How you doin\n\n\nclass: inverse,bottom,center background-image:url(“https://media.giphy.com/media/KQER23aFnrfSU/giphy.gif”) background-size: cover # Menza Menz\n\n\n## Testa’s 50-50 rule\n\n\n- When I was in your shoes…\n\n\n\n\nCOME TO CLASS\nWhen I was in grad school I often felt like I understood only 50% of what was taught\n\n\n\n\n\n\n\n- As I took more classes, I realized that actually understood only about 50% of that initial 50%\n\n\n\n\n- That’s your target. - Don’t worry about getting everything right - Focus on getting better each class\n\n\n## Goals\n\n\nToday we’ll explore COVID-19 data in the U.S. We’ll try to answer to one question.\n\n\n&gt; On average, did states that adopted mask mandates have lower rates of new cases?\n\n\n\nSeems simple right?"
+  },
+  {
+    "objectID": "slides/01-slides.html#topics",
+    "href": "slides/01-slides.html#topics",
+    "title": "Week 01:",
+    "section": "Topics",
+    "text": "Topics\n\nWorking with R Markdown files\nBasic Programming in R\nSetting up your work space\nLoading data into R\nLooking at your data\nCleaning and transforming your data\nDescribing typical values and variation in your data"
+  },
+  {
+    "objectID": "slides/01-slides.html#exercises",
+    "href": "slides/01-slides.html#exercises",
+    "title": "Week 01:",
+    "section": "Exercises",
+    "text": "Exercises\n\nCreate an R Markdown File\nExplore objects and functions in base R\nInstall the tidyverse and COVID19 packages and reading data in R\nExploring Covid-19 Data\nTransforming our data with the tidyverse\nDescribing our data\n\nclass: inverse, center, middle # 💡 # Working with R Markdown files"
+  },
+  {
+    "objectID": "slides/01-slides.html#yaml-markdown-r---render---output",
+    "href": "slides/01-slides.html#yaml-markdown-r---render---output",
+    "title": "Week 01:",
+    "section": "YAML + Markdown + R -> Render -> Output",
+    "text": "YAML + Markdown + R -&gt; Render -&gt; Output"
+  },
+  {
+    "objectID": "slides/01-slides.html#r-markdown-workflow",
+    "href": "slides/01-slides.html#r-markdown-workflow",
+    "title": "Week 01:",
+    "section": "R Markdown Workflow",
+    "text": "R Markdown Workflow\n\nOpen a .Rmd\nChoose your output\nUpdate the YAML\nWrite text in Markdown\nEmbed your R code in code chunks\nRender your document using knitr to knit your code and markdown into chosen output\n\nCheatsheet: https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf\nclass: inverse, center, middle background-image: url(“https://media.giphy.com/media/fwWCuPYI6rE2jGNsrk/giphy.gif”) background-size: contain"
+  },
+  {
+    "objectID": "slides/01-slides.html#tips-for-working-in-r-markdown",
+    "href": "slides/01-slides.html#tips-for-working-in-r-markdown",
+    "title": "Week 01:",
+    "section": "Tips for working in R Markdown",
+    "text": "Tips for working in R Markdown\n\nYAML controls output\nFormat text using Markdown syntax\nWrite code in chunks\nControl output of code chunks with options.\nKnit your documents to produce output.\n\nclass: inverse, center, middle # 💡 # Basic Programming in R"
+  },
+  {
+    "objectID": "slides/01-slides.html#the-basics-of-r",
+    "href": "slides/01-slides.html#the-basics-of-r",
+    "title": "Week 01:",
+    "section": "The Basics of R",
+    "text": "The Basics of R\n\nR is an interpreter (&gt;)\n“Everything that exists in R is an object”\n“Everything that happens in R is the result of a function”\nPackages make R great"
+  },
+  {
+    "objectID": "slides/01-slides.html#r-is-an-interpreter",
+    "href": "slides/01-slides.html#r-is-an-interpreter",
+    "title": "Week 01:",
+    "section": "R is an interpreter (>)",
+    "text": "R is an interpreter (&gt;)\n–\nEnter commands line-by-line in the console\n–\n\nThe &gt; means R is a ready for a command\n\n–\n\nThe + means your last command isn’t complete\n\n–\n\nIf you get stuck with a + use your escape key!\n\n–\n\nSend commands from your R script (.Rmd or .R file) to the console:\n\ncntrl + Enter (PC) | cmd + Return (Mac) -&gt; run current line\ncntrl + shift + Enter (PC) | cmd + shift  + Return (Mac) -&gt; run all code in current chunk"
+  },
+  {
+    "objectID": "slides/01-slides.html#r-is-a-calculator",
+    "href": "slides/01-slides.html#r-is-a-calculator",
+    "title": "Week 01:",
+    "section": "R is a Calculator",
+    "text": "R is a Calculator\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n+\naddition\nx + y\n\n\n-\nsubtraction\nx - y\n\n\n*\nmultiplication\nx * y\n\n\n/\ndivision\nx / y\n\n\n^\nraised to the power of\nx ^ y\n\n\nabs\nabsolute value\nabs(x)\n\n\n%/%\ninteger division\nx %/% y\n\n\n%%\nremainder after division\nx %% y\n\n\n\n\n\n\n\n5 %/% 2 # 2 goes into 5 two times with...\n\n[1] 2\n\n5 %% 2 # 1 left over\n\n[1] 1"
+  },
+  {
+    "objectID": "slides/01-slides.html#r-is-logical",
+    "href": "slides/01-slides.html#r-is-logical",
+    "title": "Week 01:",
+    "section": "R is logical",
+    "text": "R is logical\n.pull-left[\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&\nand\nx & y\n\n\n|\nor\nx | y\n\n\nxor\nexactly x or y\nxor(x, y)\n\n\n!\nnot\n!x\n\n\n\n\n\n\n]\n.pull-right[\n\nx &lt;- T; y &lt;- F\n\nx == T\n\n[1] TRUE\n\nx == T & y == T\n\n[1] FALSE\n\nx == T | y == T\n\n[1] TRUE\n\n!x\n\n[1] FALSE\n\n\n]"
+  },
+  {
+    "objectID": "slides/01-slides.html#logical-vs-exclusive-or",
+    "href": "slides/01-slides.html#logical-vs-exclusive-or",
+    "title": "Week 01:",
+    "section": "logical vs exclusive OR",
+    "text": "logical vs exclusive OR\n\n| is inclusive, so x|y means\n\nx is true or\ny is true or\nboth x and y are true\n\nxor is exclusive so xor(x,y) means\n\nx is true or\ny is true\nbut not both\n\n\n\nx &lt;- c(0,1,0,1)\ny &lt;- c(0,0,1,1)\nboolean_or &lt;- x | y # R treats 1 as T and 0 as F\nexclusive_or &lt;- xor(x,y)\ntibble(x,y,boolean_or,exclusive_or)\n\n# A tibble: 4 × 4\n      x     y boolean_or exclusive_or\n  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;       \n1     0     0 FALSE      FALSE       \n2     1     0 TRUE       TRUE        \n3     0     1 TRUE       TRUE        \n4     1     1 TRUE       FALSE"
+  },
+  {
+    "objectID": "slides/01-slides.html#r-can-make-comparisons",
+    "href": "slides/01-slides.html#r-can-make-comparisons",
+    "title": "Week 01:",
+    "section": "R can make comparisons",
+    "text": "R can make comparisons\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&lt;\nless than\nx &lt; y\n\n\n&lt;=\nless than or equal to\nx &lt;= y\n\n\n&gt;\ngreater than\nx &gt; y\n\n\n&gt;=\ngreater than or equal to\nx &gt;= y\n\n\n==\nexactly equal to\nx == y\n\n\n!=\nnot equal to\nx != y\n\n\n%in%\ngroup membership*\nx %in% y\n\n\nis.na\nis missing\nis.na(x)\n\n\n!is.na\nis not missing\n!is.na(x)\n\n\n\n\n\n\n*(shortcut to using | repeatedly with ==)"
+  },
+  {
+    "objectID": "slides/01-slides.html#when-well-use-logic-and-comparison-in-r",
+    "href": "slides/01-slides.html#when-well-use-logic-and-comparison-in-r",
+    "title": "Week 01:",
+    "section": "When we’ll use logic and comparison in R",
+    "text": "When we’ll use logic and comparison in R\nLogic and comparisons are useful for:\n\nProbability\n\nWhat’s the probability that state adopts (A==1) a mask mandate if Biden won its Electoral College votes Pr(A==1 | B==1)\n\nSubsetting the data\n\nWe only want to look at states Biden won Electoral College vote (select only states where A==1)\n\nTransforming data / creating new variables\n\nWe want to create an indicator of states that Biden won which also adopted mask mandates (A== 1 & B == 1)"
+  },
+  {
+    "objectID": "slides/01-slides.html#everything-that-exists-in-r-is-an-object",
+    "href": "slides/01-slides.html#everything-that-exists-in-r-is-an-object",
+    "title": "Week 01:",
+    "section": "Everything that exists in R is an object",
+    "text": "Everything that exists in R is an object\n\nThe number 5 is an object in R\n\n\n5\n\n[1] 5\n\n\n\nWe can assign the object 5, the name x, using the assignment operator &lt;-+\n\n\nx &lt;- 5 # Read this as \"x gets 5\"\n\n\nNow if we tell R to show us x, we’ll get\n\n\nx\n\n[1] 5\n\nprint(x)\n\n[1] 5"
+  },
+  {
+    "objectID": "slides/01-slides.html#data-come-in-different-types",
+    "href": "slides/01-slides.html#data-come-in-different-types",
+    "title": "Week 01:",
+    "section": "Data come in different types",
+    "text": "Data come in different types"
+  },
+  {
+    "objectID": "slides/01-slides.html#data-come-in-different-types-1",
+    "href": "slides/01-slides.html#data-come-in-different-types-1",
+    "title": "Week 01:",
+    "section": "Data come in different types",
+    "text": "Data come in different types\n.pull-left[ * Numeric (2 subtypes) - Integers (1, 50) - Double (1.5, 50.25, ?double) * Character (\"hello\") * Factor (grade = \"A\" | grade = \"B\") * Logical (TRUE | FALSE)\n\n# Create some data\ny &lt;- 6L # Integer\nonly_two_types_of_people &lt;- TRUE # Logical\nme &lt;- \"Paul\"\ngrades = factor(c(\"A\",\"B\",\"C\"))\n\n]\n.pull-right[\n\n# What type are they\nclass(x)\n\n[1] \"numeric\"\n\nclass(y)\n\n[1] \"integer\"\n\nclass(only_two_types_of_people)\n\n[1] \"logical\"\n\nclass(me)\n\n[1] \"character\"\n\nclass(grades)\n\n[1] \"factor\"\n\n\n]"
+  },
+  {
+    "objectID": "slides/01-slides.html#data-come-in-different-shapes-and-sizes",
+    "href": "slides/01-slides.html#data-come-in-different-shapes-and-sizes",
+    "title": "Week 01:",
+    "section": "Data come in different “shapes” and “sizes”",
+    "text": "Data come in different “shapes” and “sizes”\nName | “Size” | Type of Data | R code –|-||– scalar | 1 | numeric, character, factor, logical | x &lt;- 5 vector | N elements: length(x) |all the same |v &lt;- c(1, 2, T, \"false\") matrix | N rows by columns K: dim(x) | all the same |m &lt;- matrix(y,2,2) array | N row by K column by J dimensions: dim(x) |all the same | a &lt;- array(m,c(2,2,3)) data frames | N row by K column matrix | can be different | d &lt;-data.frame(x=x, y=y) tibbles | N row by K column matrix | can be different | d &lt;-tibble(x=x, y=y) lists | can vary | can be different | l &lt;-list(x,y,m,a,d)\n\n\n\n- We will mostly work with data.frames and tibbles (a data.frame with added bells and whistles)\n\n\nbackground-image: url(https://miro.medium.com/max/1400/0*MgEQsDgZZ7fJcdhZ.png) background-size: cover class: top, right\n\n\n#### Source: Gaurav Tiwari\n\n\n## Why data types and structures matter\n\n\n- R treats different data types differently - This can be a source of error and opportunity - For example, we can use: - vectors to store values to select variables or label plots\n\n\n::: {.cell layout-align=“center”}\n\n\n{.r .cell-code} my_vars &lt;- c(\"variable_name1\",\"variable_name2\") :::\n\n\n- matrices to do math\n\n\n::: {.cell layout-align=“center”}\n\n\n{.r .cell-code} M1 &lt;- M2 &lt;- matrix(1:4,2,2) M1 %*% M2\n\n\n::: {.cell-output .cell-output-stdout}\n\n\n[,1] [,2] [1,]    7   15 [2,]   10   22\n\n\n::: :::\n\n\n- data.frames/tibbles to store and manipulate data - lists to store complex outputs, like say the results of estimating six slightly different models\n\n\nFor now, just know that these differences exist and matter.\n\n\n## Everything that happens in R is the result of a function\n\n\n- You’ve already seen and used some R functions - the &lt;- is the assignement operator that assigns a value to a name - c() is the combine function that combines elements together - install.packages() installs packages - library() loads packages you’ve installed so you can use functions and data that are part of that package\n\n\n## Three sources of functions\n\n\n- Three sources of functions: - base R &lt;-; mean(x); library(\"package_name\") - packages remotes::intall_github(\"user/repository\") - You my_function &lt;- function(x){x^2}\n\n\n## Functions are like recipes\n\n\nThey have\n\n\n.pull-left[ - names\n\n\n- ingredients (inputs)\n\n\n- steps that tell you what to do with the ingredients (statements/code)\n\n\n- tasty results from applying those steps to given ingredients (outputs) ]\n\n\n.pull-right[\n\n\n::: {.cell layout-align=“center”}\n\n\n```{.r .cell-code} can_x_kick_it &lt;- function(x){ # Determine if x can kick it # If x in A Tribe Called Quest if(x %in% c(“Q-Tip”,“Phife Dawg”, “Ali Shaheed Muhammad”, “Jarobi White”)){ return(“Yes you can”) }else{ return(“Before this, did you really know what live was?”) }\n\n\n} can_x_kick_it(“Q-Tip”) ```\n\n\n::: {.cell-output .cell-output-stdout}\n\n\n[1] \"Yes you can\"\n\n\n:::\n\n\n{.r .cell-code} can_x_kick_it(\"Paul\")\n\n\n::: {.cell-output .cell-output-stdout}\n\n\n[1] \"Before this, did you really know what live was?\"\n\n\n::: :::\n\n\n]\n\n\n## When we’ll use functions\n\n\n- All the time (“Everything that happens in R is the result of a function”) - Most of the time we’ll use functions that are part of base R or some package we’ve installed and loaded - Later, we’ll start to write our own functions - This is particularly useful when you find yourself copying and pasting the same code over and over.\n\n\nclass: inverse, center, middle background-image: url(“https://media.giphy.com/media/Nf8vX5K7AHcAg/giphy.gif”) background-size: cover\n\n\n# 💪 # 2. Explore objects and functions in base R\n\n\n## Create some simple objects\n\n\nIn the .Rmd file you created for this class\n\n\n1. Delete the template (everything below the YAML Header) 2. Create a new code chunk (cmd/cntrl + shift + I) 3. Copy the following into your code chunk and interpret the results:\n\n\n::: {.cell layout-align=“center”}\n\n\n```{.r .cell-code} # Create objects x &lt;- 5 y &lt;- T z &lt;- 1:5\n\n\n# Look at objects x y z\n\n\n# Manipulate objects x*x y+x x^z ``` :::\n\n\n## Create some more complex objects\n\n\n.pull-left[ - Run the following code - If you have the slides open, there should be an icon you can hover over to copy all the code. - Print the objects in R’s console]\n\n\n.pull-right[\n\n\n::: {.cell layout-align=“center”}\n\n\n{.r .cell-code} v &lt;- c(1, 2, T, \"false\") # Vector m &lt;- matrix(y, nrow = 2, ncol = 2) # Matrix a &lt;- array(m, c(2, 2, 3)) # Array d &lt;- data.frame(x = x, y = y) # Dataframe t &lt;- tibble(x = x, y = y) # Tibble l &lt;- list(x, y, m, a, d, t) # List :::\n\n\n]\n\n\n## Summary Coding in R\n\n\n- We use functions to manipulate objects in R - Class/type/mode of objects matters - Use # to comment your code - Give objects meaningful names - Use consistent naming conventions: - snake_case - CamelCase - SpONgeBObCaSE (don’t do this)\n\n\nclass: inverse, center, middle # 💡 # Setting up your work space\n\n\n## Getting set up to work in R\n\n\nEach time you start a project in R, you will want to:\n\n\n1. Set your working directory to the source file location - Session &gt; Set Working Directory &gt; Source File Location - Make sure your document is saved in folder with the other files (e.g. data) you’ll need\n\n\n## Getting set up to work in R\n\n\n1. Set your working directory to the source file location\n\n\n\n\nLoad (and, if needed, install) R packages that you will be using\n\n\nInstall packages once with install.packages(\"package_name\")\nLoad packages to use during your work session with library(\"package_name\")\nPeriodically check for updates in package panel on the lower right"
+  },
+  {
+    "objectID": "slides/01-slides.html#getting-set-up-to-work-in-r",
+    "href": "slides/01-slides.html#getting-set-up-to-work-in-r",
+    "title": "Week 01:",
+    "section": "Getting set up to work in R",
+    "text": "Getting set up to work in R\n\nSet your working directory to the source file location\nLoad (and, if needed, install) R packages that you will be using\n\n–\n\nChange any “global” options you want\n\n\nI’ll typically do this for you\nUseful for controlling how code or figures are displayed\n\n\n# Options for these slides\nknitr::opts_chunk$set(\n  warning = FALSE,       # Don't display warnings\n  message = FALSE,       # Don't display messages\n  comment = NA,          # No prefix before line of text\n  dpi = 300,             # Figure resolution\n  fig.align = \"center\",  # Figure alignment\n  out.width = \"80%\",     # Figure width\n  cache = FALSE          # Don't cache code chunks\n  )"
+  },
+  {
+    "objectID": "slides/01-slides.html#getting-set-up-to-work-in-r-1",
+    "href": "slides/01-slides.html#getting-set-up-to-work-in-r-1",
+    "title": "Week 01:",
+    "section": "Getting set up to work in R",
+    "text": "Getting set up to work in R\n\nSet your working directory to the source file location\nLoad (and, if needed, install) R packages that you will be using\nChange any “global” options you want\n\n–\n\nLoad the data you’re going to be using\n\nclass: inverse, center, middle # 💡 # Loading data into R"
+  },
+  {
+    "objectID": "slides/01-slides.html#loading-data-into-r",
+    "href": "slides/01-slides.html#loading-data-into-r",
+    "title": "Week 01:",
+    "section": "Loading data into R",
+    "text": "Loading data into R\nThere are three ways to load data.\n\nLoad a pre-existing dataset\n\ndata(\"dataset\") will load the dataset named “dataset”\ndata() will list all datasets\nUseful for tutorials, working through examples/help\n\nLoad a .Rdata/.rda file using load(\"dataset.rda\")\nRead data of a different format (.csv, .dta, .spss) into R using specific functions\n\nWe will use functions from the haven and readr packages to read data from the web and stored locally on your computer\n\n\n\n# Reading data from a webiste\ndf_web &lt;- readr::read_csv(\"https://pols1600.paultesta.org/files/data.rda\")\n# Reading data from your computer\ndf_local &lt;- haven::read_dta(\"~/Desktop/pols1600/lab/data.rda\")\n\nclass: inverse, center, middle background-image: url(“https://miro.medium.com/max/612/1*GS0ohg3qm14E4Ya7fljicw.jpeg”) background-size:cover"
+  },
+  {
+    "objectID": "slides/01-slides.html#installing-the-tidyverse-and-covid19-packages",
+    "href": "slides/01-slides.html#installing-the-tidyverse-and-covid19-packages",
+    "title": "Week 01:",
+    "section": "Installing the tidyverse and COVID19 packages",
+    "text": "Installing the tidyverse and COVID19 packages\nLet’s install the tidyverse and COVID19.\n\nCreate a new code chunk\nLabel it libraries\nCopy and paste the following into your console\n\n\ninstall.packages(c(\"tidyverse\",\"COVID19\"))"
+  },
+  {
+    "objectID": "slides/01-slides.html#loading-the-tidyverse-and-covid19-packages",
+    "href": "slides/01-slides.html#loading-the-tidyverse-and-covid19-packages",
+    "title": "Week 01:",
+    "section": "Loading the tidyverse and COVID19 packages",
+    "text": "Loading the tidyverse and COVID19 packages\n\nType the following into your code chunk:\n\n\nlibrary(tidyverse)\nlibrary(COVID19)"
+  },
+  {
+    "objectID": "slides/01-slides.html#loading-state-level-data",
+    "href": "slides/01-slides.html#loading-state-level-data",
+    "title": "Week 01:",
+    "section": "Loading state-level data",
+    "text": "Loading state-level data\n.pull-left[ Now we can use the covid19() to read in data about COVID19 in the US\nTo do so we’ll suppy three arguments:\n\ncountry = US tells the function we want data for the US\nlevel = 2 tells the function we want state-level data\nverbose = F tells the function not to print other stuff ] .pull-right[\n\n\ncovid &lt;- COVID19::covid19(\n  country = \"US\",\n  level = 2,\n  verbose = F\n    \n)\n\n]\nclass: inverse, center, middle"
+  },
+  {
+    "objectID": "slides/01-slides.html#high-level-overviews",
+    "href": "slides/01-slides.html#high-level-overviews",
+    "title": "Week 01:",
+    "section": "High Level Overviews",
+    "text": "High Level Overviews\nAnytime you load data into R, try some combination of the following to get a high-level overview of the data\n\ndim(data) gives you the dimensions (# of rows and columns)\nView(data) opens data in a separate pane\nprint(data); data will display a truncated view of data in your console\nglimpse(data) will show a transposed (switch columns and rows) version of data with information on variable type\nhead(data) shows you the first 5 rows\ntail(data) shows you the last 5 rows\nglimpse(data)\ndata$variable extracts variable from data\ntable(data$variable) creates a frequency table\n\nGood for categorical data\n\nsummary(data$variable) summary statistics\n\nGood for numeric data"
+  },
+  {
+    "objectID": "slides/01-slides.html#high-level-overview-allow-you-to",
+    "href": "slides/01-slides.html#high-level-overview-allow-you-to",
+    "title": "Week 01:",
+    "section": "High Level Overview allow you to",
+    "text": "High Level Overview allow you to\nThese HLOs allow you to\n\nDescribe the structure of your data:\n\nHow many observations (rows)\nHow many variables (columns)\n\nDescribe the unit of analysis\n\nWhat does a row in your data correspond to\n\nIndetify the class and type of variables (columns)\n\nNumeric, categorical, logical\nIs there missing data (NAs)\n\n\nclass: inverse, center, middle background-image: url(“https://media.makeameme.org/created/data-dataeverywhere.jpg”) background-size:contain # 💪 # 4. Exploring Covid-19 Data"
+  },
+  {
+    "objectID": "slides/01-slides.html#exploring-covid-19-data",
+    "href": "slides/01-slides.html#exploring-covid-19-data",
+    "title": "Week 01:",
+    "section": "Exploring Covid-19 Data",
+    "text": "Exploring Covid-19 Data\n\nCreate a new chunk\nLabel it explore_data\nType the following\n\n\ndim(covid)\nhead(covid)\nglimpse(covid)\ntable(covid$administrative_area_level_2)\ncovid$confirmed\nsummary(covid$confirmed)\ntable(covid$stay_home_restrictions)"
+  },
+  {
+    "objectID": "slides/01-slides.html#answer-the-following",
+    "href": "slides/01-slides.html#answer-the-following",
+    "title": "Week 01:",
+    "section": "Answer the following",
+    "text": "Answer the following\n\nHow many observations are there (rows)\nHow many variables (columns)\nWhat’s the unit of analysis? -In words, how would you describe what a row in your data set corresponds to?\nAre there any missing values for confirmed\nRange of values can stay_home_restrictions take"
+  },
+  {
+    "objectID": "slides/01-slides.html#answer-the-following-1",
+    "href": "slides/01-slides.html#answer-the-following-1",
+    "title": "Week 01:",
+    "section": "Answer the following",
+    "text": "Answer the following\n.pull-left[ - How many observations are there (rows)\n\ndim(covid)[1]\n\n[1] 80156\n\n\n\nHow many variables (columns)\n\n\ndim(covid)[2]\n\n[1] 47\n\n\n] .pull-right[ - What’s the unit of analysis? A “‘State’-Date”\n\ncovid %&gt;%\n  select(\"date\",\"administrative_area_level_2\")%&gt;%\n  slice(1:2)\n\n        date administrative_area_level_2\n1 2020-03-16    Northern Mariana Islands\n2 2020-03-17    Northern Mariana Islands\n\n\n]"
+  },
+  {
+    "objectID": "slides/01-slides.html#answer-the-following-2",
+    "href": "slides/01-slides.html#answer-the-following-2",
+    "title": "Week 01:",
+    "section": "Answer the following",
+    "text": "Answer the following\n\nIs there missing data in confirmed\n\n\nsummary(covid$confirmed)[7]\n\n NA's \n18214 \n\ntable(is.na(covid$confirmed))\n\n\nFALSE  TRUE \n61942 18214 \n\n\n\nWhat values can stay_home_restrictions take\n\n\ntable(covid$stay_home_restrictions)\n\n\n   -2    -1     0     1     2 \n 1437  3560 31248 15024  2409"
+  },
+  {
+    "objectID": "slides/01-slides.html#summary",
+    "href": "slides/01-slides.html#summary",
+    "title": "Week 01:",
+    "section": "Summary",
+    "text": "Summary\nWe used: - dim() to get a sense of the size of our data - View()/glimpse/print() helped us describe the structure (State-Date) - summary() and table() to get a quick sense of some variables - What’s up with the negative values of stay_home_restrictions - https://covid19datahub.io/articles/docs.html - The index operator [] to select values we wanted - We used the %&gt;% operator to chain together functions to help us look at the data\nclass: inverse, center, middle # 💡 # Data Wrangling in the Tidyverse\nclass: inverse, middle, center # The Tidyverse\n\n“The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.”"
+  },
+  {
+    "objectID": "slides/01-slides.html#the-tidyverse-what-well-learn-today",
+    "href": "slides/01-slides.html#the-tidyverse-what-well-learn-today",
+    "title": "Week 01:",
+    "section": "The Tidyverse: What we’ll learn today",
+    "text": "The Tidyverse: What we’ll learn today\n\nWhat is tidy data\nHow to use the pipe %&gt;% to make our code more intuitive\nIn our exercise we will see how to use the following from the dplyr package:\n\nfilter() to filter rows in our data\nmutate() to create new columns in our data\ncase_when to create new columns in our data based on existing columns\ngroup_by to apply functions by a grouping variable\nsummarize to summarize the results of a function"
+  },
+  {
+    "objectID": "slides/01-slides.html#tidy-data",
+    "href": "slides/01-slides.html#tidy-data",
+    "title": "Week 01:",
+    "section": "Tidy Data",
+    "text": "Tidy Data\nTidy data is a standard way of mapping the meaning of a dataset to its structure.\nA dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types. In tidy data:\n\nEvery column is a variable.\nEvery row is an observation.\nEvery cell is a single value.\n\nMore\nclass: center, middle, inverse"
+  },
+  {
+    "objectID": "slides/01-slides.html#the-pipe",
+    "href": "slides/01-slides.html#the-pipe",
+    "title": "Week 01:",
+    "section": "The pipe",
+    "text": "The pipe\n“dataframe first, dataframe once”\n–\n\nlibrary(dplyr)\n\n–\nRStudio Keyboard Shortcuts:\nOSX: CMD + SHIFT + M\nElse: CTRL + SHIFT + M\nclass: middle\nNesting a dataframe inside a function is hard to read.\n\nslice(covid, 1)\n\n–\nHere, the “sentence” starts with a verb.\n–\n\nPiping a dataframe into a function lets you read L to R\n\ncovid %&gt;% slice(1)\n\n–\nNow, the “sentence” starts with a noun.\nclass: middle\nSequences of functions make you read inside out\n\nslice(filter(covid, administrative_area_level_2 == \"Rhode Island\"), 1)\n\n–\n\nChaining functions together lets you read L to R\n\ncovid %&gt;% \n  filter(administrative_area_level_2 == \"Rhode Island\") %&gt;% \n  slice(1)\n\nclass: inverse, center, middle background-image: url(“https://hms.harvard.edu/sites/default/files/media/DNA%20large.jpg”) background-size: cover # 💪 # Excerise 5. Wrangling with the Tidyverse"
+  },
+  {
+    "objectID": "slides/01-slides.html#tasks",
+    "href": "slides/01-slides.html#tasks",
+    "title": "Week 01:",
+    "section": "Tasks",
+    "text": "Tasks\n\nSubset our Covid data to include only the 50 states + DC\n\nfilter()\n\nCreate two new variables that capture the # of new cases and face mask policy in place\n\nmutate() with case_when()"
+  },
+  {
+    "objectID": "slides/01-slides.html#subseting-our-data",
+    "href": "slides/01-slides.html#subseting-our-data",
+    "title": "Week 01:",
+    "section": "Subseting our data",
+    "text": "Subseting our data\n\nCreate a vector of the territories we don’t want\nUse the filter() command to “filter” out these territories"
+  },
+  {
+    "objectID": "slides/01-slides.html#create-a-vector-of-the-territories-we-dont-want",
+    "href": "slides/01-slides.html#create-a-vector-of-the-territories-we-dont-want",
+    "title": "Week 01:",
+    "section": "1. Create a vector of the territories we don’t want",
+    "text": "1. Create a vector of the territories we don’t want\n\nterritories &lt;- c(\n  \"American Samoa\",\n  \"Guam\",\n  \"Northern Mariana Islands\",\n  \"Puerto Rico\",\n  \"Virgin Islands\"\n  )"
+  },
+  {
+    "objectID": "slides/01-slides.html#creating-new-variables-with-mutate",
+    "href": "slides/01-slides.html#creating-new-variables-with-mutate",
+    "title": "Week 01:",
+    "section": "Creating new variables with mutate()",
+    "text": "Creating new variables with mutate()\n.pull-left[ - Copy administrative_area_level_2 into new variable `state - Group by state - Calculate the number of new cases - Scale this number per 100,00 citizens] .pull-right[\n\ndim(covid_us)\n\n[1] 73354    47\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2,\n  ) %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases/population *100000\n    ) -&gt; covid_us\ndim(covid_us)\n\n[1] 73354    50\n\n\n]"
+  },
+  {
+    "objectID": "slides/01-slides.html#creating-new-variables-with-mutate-and-case_when",
+    "href": "slides/01-slides.html#creating-new-variables-with-mutate-and-case_when",
+    "title": "Week 01:",
+    "section": "Creating new variables with mutate() and case_when()",
+    "text": "Creating new variables with mutate() and case_when()\n\ncovid_us %&gt;%\n  mutate(\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n      \n    ) %&gt;% factor(.,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    )\n  ) -&gt; covid_us\n\nclass: inverse, center, middle # 💡 # Describing typical values and variation in your data"
+  },
+  {
+    "objectID": "slides/01-slides.html#descriptive-inference",
+    "href": "slides/01-slides.html#descriptive-inference",
+    "title": "Week 01:",
+    "section": "Descriptive Inference",
+    "text": "Descriptive Inference\nWhen social scientists talk about descriptive inference, we’re trying to summarize our data and make claims about what’s typical of our data\n\n\n\n\n\n\n- What’s a typical value - “Measures of central tendency”\n\n\n\n\n- How do our data vary around typical values - “Measures of dispersion”\n\n\n\n\nHow does variation in one variable relate to variation in another\n\n“Measures of association”"
+  },
+  {
+    "objectID": "slides/01-slides.html#using-r-to-summarize-data",
+    "href": "slides/01-slides.html#using-r-to-summarize-data",
+    "title": "Week 01:",
+    "section": "Using R to Summarize Data",
+    "text": "Using R to Summarize Data\nHere are some common ways of summarizing data and how to calculate them with R\n\n\n\n\nDescription\nUsage\n\n\n\n\nsum\nsum(x)\n\n\nminimum\nmin(x)\n\n\nmaximum\nmax(x)\n\n\nrange\nrange(x)\n\n\nmean\nmean(x)\n\n\nmedian\nmedian(x)\n\n\npercentile\nquantile(x)\n\n\nvariance\nvar(x)\n\n\nstandard deviation\nsd(x)\n\n\nrank\nrank(x)\n\n\n\n\n\n\nAll of these functions have an argument called na.rm=F. If your data have missing values, you’ll need to set na.rm=F (e.g. mean(x, na.rm=T))\nclass:inverse,center, middle background-image:url(“https://i.pinimg.com/originals/83/5c/33/835c33d22fd2ae61cbf0c14545524d54.jpg”) background-size:cover # 💪 # 6. Describing our data"
+  },
+  {
+    "objectID": "slides/01-slides.html#describing-our-data",
+    "href": "slides/01-slides.html#describing-our-data",
+    "title": "Week 01:",
+    "section": "Describing our data",
+    "text": "Describing our data\nWe’re finally ready to answer that simple question we began class with\n\nOn average, did states that adopted mask mandates have lower rates of new cases?\n\nTo do so use the following functions\n\nfilter() and is.na()to only look at cases where we have data on face mask requirements\nmean() to calculate the average number of new cases\ngroup_by() to calculate this mean separately for each level of face mask policy\nsummarize() to summarize our results"
+  },
+  {
+    "objectID": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k",
+    "href": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k",
+    "title": "Week 01:",
+    "section": "Face Masks and New Covid-19 Cases (per 100k)",
+    "text": "Face Masks and New Covid-19 Cases (per 100k)\n\ncovid_us %&gt;%\n  filter(!is.na(face_masks))%&gt;%\n  group_by(face_masks)%&gt;%\n  summarize(\n    `Average No. of New Cases` = round(mean(new_cases_pc, na.rm=T),2)\n  )%&gt;%\n  rename(\n    \"Face Mask Policy\" = face_masks\n  ) -&gt; face_mask_summary"
+  },
+  {
+    "objectID": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k-1",
+    "href": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k-1",
+    "title": "Week 01:",
+    "section": "Face Masks and New Covid-19 Cases (per 100k)",
+    "text": "Face Masks and New Covid-19 Cases (per 100k)\n.pull-left[\n\nWhat should we conclude?\nWhat’s wrong with this simple comparison?\nWhat’s a better comparison? (Thursday)\n\n]\n.pull-right[\n\n\n\n\nFace Mask Policy\nAverage No. of New Cases\n\n\n\n\nNo policy\n10.26\n\n\nRecommended\n16.61\n\n\nSome requirements\n36.18\n\n\nRequired shared places\n29.38\n\n\nRequired all times\n32.18\n\n\n\n\n\n\n]\nbackground-image:url(https://memegenerator.net/img/instances/84491541.jpg) background-size:contain"
+  },
+  {
+    "objectID": "assignments/a1.html",
+    "href": "assignments/a1.html",
+    "title": "POLS 1600: Research Topics",
+    "section": "",
+    "text": "Asking a good research question is one of the most important skills you will develop in your academic careers. It’s also one of the hardest.\nWe often think we’re asking one question, when in fact the study we conduct really addresses a related but distinct question. When a priest asked Willie Sutton why he robbed banks, he replied the “Well, that’s where the money is”. The priest’s question was about why rob at all, while Sutton answered the different question “Given one robs, why rob banks?” Similarly, Medieval philosophers might ask why objects stay in motion, while Newton suggests what really need is not an explanation of motion itself but of changes in motion.\nThe object of our question shapes the form of our explanation.\nIn this assignment, I would like your group to craft three potential research questions that we might explore in our research project for this class. Each question, should be a single sentence, with a few sentences answering the following questions (More details below):\n\nWhy do we care about the answer to this research question?\nWhat’s would a hypothetical “ideal experiment” to answer this question look like?\nWhat would a study with observational data look like?\nA published study that relates to this question\nHow feasible would it be to do a study like this for the course\n\nYou may use this Rmd file as a template (click here to download) or create your own file. Please submit your responses to Canvas.\nYou might start by writing down several questions of different forms about the same topic:\n\nWhy do people vote?\nWhy do people not vote?\nWhy do the rich vote at higher rates than the poor?\nWhen might people who don’t vote, be motivated to vote?\nWhat is the effect of encouraging someone to vote via a phone call?\nAre phone calls more or less effective than in-person contact for get-out the vote efforts?\n\nEach of these questions addresses a general topic that political scientists seem to think is important. Each carries some suppositions and assumptions that in turn influence the type of explanation we might find convincing. Why do people vote feels a bit broad to me. People probably vote for many reasons. How can we hope to adjudicate between all the possible reasons for voting? (Further are these the same reasons for not voting or do we need another set of explanations altogether?)\nWhether phone calls are more or less effective than in-person contacts for GOTV efforts seems more tractable, but also perhaps to narrow. Do we really care? If we’re confident we can identify an effect or difference in one study, are we sure we’ll see similar effects in a different study conducted under different circumstances?\nIn crafting your research questions, you want to strike a balance between things we actually care about (why do people vote) and things we can actually assess (what’s effect of a particularly type of encouragement to vote). A few thoughts on this process:\n\n“Why” questions tend to be more compelling than “What” or “How” or “Do” questions, I think in part because “why” questions often imply a theory and suggest a counterfactual (why this and not that), while other ways of asking questions feel more descriptive. For example, why do the rich vote at higher rates than the poor. Well, one explanation may be that their relative social and economic status means they are more likely to be targets of mobilization efforts by campaigns (among many things). So a natural follow up to this larger question might be, what’s the effect of providing similar mobilization efforts to the poor. Would they vote at similar rates to the rich? If so, then we’ve learned something about how mobilization explains class differences in participation.\nThinking about questions in terms of puzzles is another useful trick. Why do parties exist when politicians’ ideological preferences can explain the vast majority of their legislative behavior? Note this type of question contains a lot of presuppositions (how do we measure ideological preferences? Do they really explain legislative behavior? Is that what we care about?), but as point of departure for a study these type arguments can be useful\nTry to be simple and clear. Don’t worry about asking the perfect question right away. Your questions can and should evolve over time, and I suspect some of you will write a paper that has nothing to do with the questions you posed here.\n\nFor each question, please discuss the following:\n\nWhy do we care? Why we should care about the answer to this question. A strong justification is often that existing theories yield conflicting predictions and so your study will offer some insight into how to adjudicate betweeen these theories. A less strong justification is that no one has ever studied this before. Even if this is true (and it’s often not) it may be true for good reason. No need for formal citations, but if there are specific theories or claims your addressing feel free to name names.\nThe ideal experiment Please describe an “ideal” experiment that you could run that would give you some purchase on your question. Note the key feature of an experiment, is that you the researcher are able to manipulate (through random assignment) some facet of the world. Assume money, resources, physics, and even ethics are not an object. If you could randomly assign anything, what would you manipulate. At what level of analysis would your manipulation occur (i.e. are your units of analysis individuals or countries or something else). How would you measure your outcome, again assuming you were all power and all-seeing. If that manipulation isn’t feasible, what does that say about the ability to make a causal claim about your question?\nThe observational study Finally, considering some of the potential limitations that might prevent you from implementing your ideal experiment (it’s hard to randomly assign democratic government), what is one way you might address your research question with observational data. Would your study use cross-sectional or longitudinal data. What are some of the concerns (selection on observables) that arise in this setting. Is there a natural experiment or some sort of discontinuity you might leverage to approximate this experimental ideal.\n\nAgain, each paragraph should be brief and to the point. No need to specify a full research design–just give me the broad strokes. You’re writing for each question should not exceed a page.\nAfter you’ve thought through how you might go about answering your question, please find\n\nA published study that relates to this question. It need not be exactly your question as posed, but it should be in a similar area. Include a full citation, and link to the study. Then in a paragraph sentences try to summarize:\n\n\nThe study’s research question\nEmprical design\nCore findings.\n\nFinally on a scale of 1 (least feasible) to 10 (most feasible), please evaluate how likely you think it is you could write an empirical paper on this question for this course.\nDon’t worry about getting everything right. Your final projects can, will, and probably should change. The point of this exercise is to get some practice thinking about questions that interest you in the language of causal inference and potential outcomes.",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#why-do-we-care",
+    "href": "assignments/a1.html#why-do-we-care",
+    "title": "POLS 1600: Research Topics",
+    "section": "Why do we care:",
+    "text": "Why do we care:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-ideal-experiment",
+    "href": "assignments/a1.html#the-ideal-experiment",
+    "title": "POLS 1600: Research Topics",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-observational-study",
+    "href": "assignments/a1.html#the-observational-study",
+    "title": "POLS 1600: Research Topics",
+    "section": "The observational study:",
+    "text": "The observational study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#a-published-study",
+    "href": "assignments/a1.html#a-published-study",
+    "title": "POLS 1600: Research Topics",
+    "section": "A published study:",
+    "text": "A published study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#feasibility-x10",
+    "href": "assignments/a1.html#feasibility-x10",
+    "title": "POLS 1600: Research Topics",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#why-do-we-care-1",
+    "href": "assignments/a1.html#why-do-we-care-1",
+    "title": "POLS 1600: Research Topics",
+    "section": "Why do we care:",
+    "text": "Why do we care:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-ideal-experiment-1",
+    "href": "assignments/a1.html#the-ideal-experiment-1",
+    "title": "POLS 1600: Research Topics",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-observational-study-1",
+    "href": "assignments/a1.html#the-observational-study-1",
+    "title": "POLS 1600: Research Topics",
+    "section": "The observational study:",
+    "text": "The observational study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#a-published-study-1",
+    "href": "assignments/a1.html#a-published-study-1",
+    "title": "POLS 1600: Research Topics",
+    "section": "A published study:",
+    "text": "A published study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#feasibility-x10-1",
+    "href": "assignments/a1.html#feasibility-x10-1",
+    "title": "POLS 1600: Research Topics",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#why-do-we-care-2",
+    "href": "assignments/a1.html#why-do-we-care-2",
+    "title": "POLS 1600: Research Topics",
+    "section": "Why do we care:",
+    "text": "Why do we care:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-ideal-experiment-2",
+    "href": "assignments/a1.html#the-ideal-experiment-2",
+    "title": "POLS 1600: Research Topics",
+    "section": "The ideal experiment:",
+    "text": "The ideal experiment:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#the-observational-study-2",
+    "href": "assignments/a1.html#the-observational-study-2",
+    "title": "POLS 1600: Research Topics",
+    "section": "The observational study:",
+    "text": "The observational study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#a-published-study-2",
+    "href": "assignments/a1.html#a-published-study-2",
+    "title": "POLS 1600: Research Topics",
+    "section": "A published study:",
+    "text": "A published study:",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a1.html#feasibility-x10-2",
+    "href": "assignments/a1.html#feasibility-x10-2",
+    "title": "POLS 1600: Research Topics",
+    "section": "Feasibility: (X/10)",
+    "text": "Feasibility: (X/10)",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A1: Introductions"
+    ]
+  },
+  {
+    "objectID": "assignments/a3.html",
+    "href": "assignments/a3.html",
+    "title": "A3: Initial Analyses",
+    "section": "",
+    "text": "Check back soon",
+    "crumbs": [
+      "Assignments",
+      "Assignemnts",
+      "A3: Exploratory Analysis"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html",
+    "href": "class/02-class.html",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html#readings",
+    "href": "class/02-class.html#readings",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html#lecture",
+    "href": "class/02-class.html#lecture",
+    "title": "Data and Measurement",
+    "section": "Lecture",
+    "text": "Lecture\n\n View all slides in new window",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html#lab",
+    "href": "class/02-class.html#lab",
+    "title": "Data and Measurement",
+    "section": "Lab",
+    "text": "Lab\n\n Download this week’s here \n Upload the rendered html file to Canvas here\n Review the commented solutions after class here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html#assignments",
+    "href": "class/02-class.html#assignments",
+    "title": "Data and Measurement",
+    "section": "Assignments",
+    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"01-measurement1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/03-class.html",
+    "href": "class/03-class.html",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "3: Causation -- Experiments"
+    ]
+  },
+  {
+    "objectID": "class/03-class.html#readings",
+    "href": "class/03-class.html#readings",
+    "title": "Data and Measurement",
+    "section": "",
+    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "3: Causation -- Experiments"
+    ]
+  },
+  {
+    "objectID": "class/03-class.html#lecture",
+    "href": "class/03-class.html#lecture",
+    "title": "Data and Measurement",
+    "section": "Lecture",
+    "text": "Lecture\n\n View all slides in new window",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "3: Causation -- Experiments"
+    ]
+  },
+  {
+    "objectID": "class/03-class.html#lab",
+    "href": "class/03-class.html#lab",
+    "title": "Data and Measurement",
+    "section": "Lab",
+    "text": "Lab\n\n Download this week’s here \n Upload the rendered html file to Canvas here\n Review the commented solutions after class here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "3: Causation -- Experiments"
+    ]
+  },
+  {
+    "objectID": "class/03-class.html#assignments",
+    "href": "class/03-class.html#assignments",
+    "title": "Data and Measurement",
+    "section": "Assignments",
+    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"01-measurement1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "3: Causation -- Experiments"
+    ]
+  }
+]
