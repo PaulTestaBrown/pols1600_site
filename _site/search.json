@@ -1978,7 +1978,7 @@
     "href": "slides/00-slides.html#overview",
     "title": "Welcome to POLS 1600",
     "section": "Overview",
-    "text": "Overview\n\n\nGoals and Expectations\n\n\n\n\nCourse Structure\n\n\n\n\nCourse Policies\n\n\n\n\nA Few Fundamental Truths\n\nclass: middle, center"
+    "text": "Overview\n\n\nGoals and Expectations\n\n\n\n\nCourse Structure\n\n\n\n\nCourse Policies\n\n\n\n\nA Few Fundamental Truths"
   },
   {
     "objectID": "slides/00-slides.html#goals-and-expectations",
@@ -2265,7 +2265,7 @@
     "href": "slides/00-slides.html#course-policies",
     "title": "Welcome to POLS 1600",
     "section": "Course policies",
-    "text": "Course policies\n\nAcademic honesty\nCommunity standards\nIncomplete/late work\n\nclass: inverse, center, middle background-image=“https://media.giphy.com/media/xUOwGpVpFJHewjL1u0/giphy.gif”) background-size = cover background-position: 50% 50%"
+    "text": "Course policies\n\nAcademic honesty\nCommunity standards\nIncomplete/late work"
   },
   {
     "objectID": "slides/00-slides.html#introductions-1",
@@ -2286,7 +2286,7 @@
     "href": "slides/00-slides.html#testas-first-fundamental-truth",
     "title": "Welcome to POLS 1600",
     "section": "Testa’s first fundamental truth",
-    "text": "Testa’s first fundamental truth\nbackground-image=https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg) background-size =50%"
+    "text": "Testa’s first fundamental truth"
   },
   {
     "objectID": "slides/00-slides.html#testas-first-fundamental-truth-1",
@@ -2419,7 +2419,7 @@
     "href": "slides/00-slides.html#what-does-quantitative-research-do-3",
     "title": "Welcome to POLS 1600",
     "section": "What does quantitative research do?",
-    "text": "What does quantitative research do?\n\nDescriptions\nExplanations\nPredictions and Uncertainty\n\nbackground-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg”) background-size =cover"
+    "text": "What does quantitative research do?\n\nDescriptions\nExplanations\nPredictions and Uncertainty"
   },
   {
     "objectID": "slides/00-slides.html#two-kinds-of-people-in-this-world-1",
@@ -2440,7 +2440,7 @@
     "href": "slides/00-slides.html#my-research",
     "title": "Welcome to POLS 1600",
     "section": "My research",
-    "text": "My research\n\nI study American Poltical Behavior with focus on poltics of race and criminal justice\nHow do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?\nHow can we use methodological tools to better answer these questions?\n\nclass: inverse,center, bottom background-image=“https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg”) background-size =cover ## But Enough about me"
+    "text": "My research\n\nI study American Poltical Behavior with focus on poltics of race and criminal justice\nHow do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?\nHow can we use methodological tools to better answer these questions?"
   },
   {
     "objectID": "slides/00-slides.html#class-survey",
@@ -4814,7 +4814,7 @@
     "href": "index.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nCanvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors"
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
   },
   {
     "objectID": "slides/05-slides.html#general-plan",
@@ -9134,5 +9134,26 @@
       "Weekly Content",
       "9: Probability - Limit Theorems"
     ]
+  },
+  {
+    "objectID": "slides/00-slides.html#background-imagehttpswww.dropletmeasurement.comwp-contentuploads202006some-models-are-wrong-e1536948779198.jpg-background-size-cover",
+    "href": "slides/00-slides.html#background-imagehttpswww.dropletmeasurement.comwp-contentuploads202006some-models-are-wrong-e1536948779198.jpg-background-size-cover",
+    "title": "Welcome to POLS 1600",
+    "section": "{background-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg” background-size =“cover”}",
+    "text": "{background-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg” background-size =“cover”}"
+  },
+  {
+    "objectID": "slides/00-slides.html#background-imagehttpswww.dropletmeasurement.comwp-contentuploads202006some-models-are-wrong-e1536948779198.jpg-background-size-contain",
+    "href": "slides/00-slides.html#background-imagehttpswww.dropletmeasurement.comwp-contentuploads202006some-models-are-wrong-e1536948779198.jpg-background-size-contain",
+    "title": "Welcome to POLS 1600",
+    "section": "{background-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg” background-size =“contain”}",
+    "text": "{background-image=“https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg” background-size =“contain”}"
+  },
+  {
+    "objectID": "slides/00-slides.html#but-enough-about-me",
+    "href": "slides/00-slides.html#but-enough-about-me",
+    "title": "Welcome to POLS 1600",
+    "section": "But enough about me",
+    "text": "But enough about me"
   }
 ]

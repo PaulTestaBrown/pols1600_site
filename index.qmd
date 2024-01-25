@@ -20,7 +20,7 @@ We meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Bot
 
 ::: grid
 ::: g-col-4
-[{{< fa comments size=5x >}}](class/index.qmd)
+[{{< fa comments size=4x >}}](class/index.qmd)
 
 ### Lecture
 
@@ -28,7 +28,7 @@ Tuesdays 9-10:20 am
 :::
 
 ::: g-col-4
-[{{< fa laptop-file size=5x >}}](class/index.qmd)
+[{{< fa laptop-file size=4x >}}](class/index.qmd)
 
 ### Labs
 
@@ -36,21 +36,16 @@ Thursdays 9-10:20 am
 :::
 
 ::: g-col-4
-[{{< fa check-to-slot size=5x >}}](https://canvas.brown.edu/courses/1094972/assignments)
+[{{< fa check-to-slot size=4x >}}](https://canvas.brown.edu/courses/1094972/assignments)
 
 ### Assignments
 
-Due on Canvas
+Due on [Canvas](https://canvas.brown.edu/courses/1094972)
 :::
 
-::: g-col-4
-[{{< fa paintbrush size=5x >}}](https://canvas.brown.edu/courses/1094972)
-
-### Canvas
-:::
 
 ::: g-col-4
-[{{< fa map-location-dot size=5x >}}](https://brown.edu/Facilities/Facilities_Management/maps/index.php#building/BH)
+[{{< fa map-location-dot size=4x >}}](https://brown.edu/Facilities/Facilities_Management/maps/index.php#building/BH)
 
 ### Location
 
@@ -58,10 +53,18 @@ Barus & Holley 751
 :::
 
 ::: g-col-4
-[{{< fa video size=5x >}}](https://brown.zoom.us/j/94330157279)
+[{{< fa video size=4x >}}](https://brown.zoom.us/j/94330157279)
 
 ### Zoom
 :::
+
+::: g-col-4
+[{{< fa person-circle-question size=4x >}}](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UUg1TkI2bmtYWi1kfGRlZmF1bHR8OTkyODI5NjQzN2E3YzUwZjQwM2EyNGUyYzYyNGE4OWY)
+
+### Office Hours
+111 Thayer St Rm 339
+:::
+
 :::
 
 # Schedule
@@ -199,3 +202,39 @@ kable(schedule_tibble,
 ```
 
 # Instructors
+
+::: grid
+
+::: g-col-6
+
+[Paul Testa](https://paultesta.org)
+
+Assistant Professor
+
+Department of Political Science
+
+Brown University
+<paul\_testa@brown.edu>
+
+:::
+
+::: g-col-6
+![](files/img/testa_headshot.jpg){width="50%"}
+:::
+
+::: g-col-6
+[Manuel Moscoso Rojas](https://polisci.brown.edu/people/manuel-moscoso-rojas)
+
+Teaching Assistant
+
+Department of Political Science
+
+Brown University
+<Manuel\_Moscoso\_Rojas@Brown.edu>
+:::
+
+::: g-col-6
+![](https://polisci.brown.edu/sites/default/files/styles/portrait_classic_xsml/public/2021-11/Moscoso2019_crop.jpg?h=cd35fa64&itok=5rmo3r9m){width="50%"}
+:::
+
+:::

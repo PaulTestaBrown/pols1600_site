@@ -53,8 +53,6 @@ library(babynames)
 
 -   A Few Fundamental Truths
 
-class: middle, center
-
 ## Goals and Expectations
 
 ## What you will learn
@@ -403,9 +401,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
     -   Troubleshoot by Zoom or in-person (111 Thayer Room 339)
 -   Work through [00-software_setup](../resources/00-software-setup.qmd) before next class.
 
-
-
-## Portals of Discovery {background-image="https://rosenbach.org/wp-content/uploads/2018/05/joyce-in-field-825x447.jpg" background-size=cover}
+## Portals of Discovery {background-image="https://rosenbach.org/wp-content/uploads/2018/05/joyce-in-field-825x447.jpg" background-size="cover"}
 
 ## Errors
 
@@ -459,7 +455,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 -   Community standards
 -   Incomplete/late work
 
-class: inverse, center, middle background-image="https://media.giphy.com/media/xUOwGpVpFJHewjL1u0/giphy.gif") background-size = cover background-position: 50% 50%
+
 
 # Introductions
 
@@ -469,7 +465,10 @@ class: inverse, center, middle background-image="https://media.giphy.com/media/x
 
 ## Testa's first fundamental truth
 
-background-image=https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg) background-size =50%
+. . .
+
+![](https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg)
+
 
 ## Testa's first fundamental truth
 
@@ -584,7 +583,9 @@ knitr::include_graphics("images/stops2.png")
 -   Explanations
 -   Predictions and Uncertainty
 
-background-image="https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg") background-size =cover
+## 
+
+![](https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg)
 
 ## Two kinds of people in this world
 
@@ -600,16 +601,18 @@ background-image="https://www.dropletmeasurement.com/wp-content/uploads/2020/06/
 -   How do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?
 -   How can we use methodological tools to better answer these questions?
 
-class: inverse,center, bottom background-image="https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg") background-size =cover \## But Enough about me
+## But enough about me
+
+![](https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg)
 
 ## Class survey
 
-Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_3f8f8fyLg98Bwcm) to take a brief survey that will help me structure the class going forward.
+Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi) to take a brief survey that will help me structure the class going forward.
 
 ## Next Week:
 
--   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_3f8f8fyLg98Bwcm)
--   [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software_setup.html)
+-   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi)
+-   [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software-setup.html)
 -   Read Chapters 1 (Friday) and start Chapter 3 in QSS
 -   Tuesday: Lecture: Describing Data in R
 -   Thursday: Lab: Exploring COVID-19 data in the US
