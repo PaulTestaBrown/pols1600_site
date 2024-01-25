@@ -75,6 +75,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,18 +168,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">TLDR</a></li>
   </ul></li>
-  <li><a href="#download-r" id="toc-download-r" class="nav-link" data-scroll-target="#download-r"><span class="header-section-number">1</span> Download <code>R</code></a></li>
-  <li><a href="#download-rstudio" id="toc-download-rstudio" class="nav-link" data-scroll-target="#download-rstudio"><span class="header-section-number">2</span> Download RStudio</a></li>
-  <li><a href="#open-r-studio" id="toc-open-r-studio" class="nav-link" data-scroll-target="#open-r-studio"><span class="header-section-number">3</span> Open R Studio</a></li>
-  <li><a href="#create-your-first-quarto-markdown-document" id="toc-create-your-first-quarto-markdown-document" class="nav-link" data-scroll-target="#create-your-first-quarto-markdown-document"><span class="header-section-number">4</span> Create Your First Quarto Markdown Document</a></li>
-  <li><a href="#render-your-quarto-markdown-document-to-create-an-html-file" id="toc-render-your-quarto-markdown-document-to-create-an-html-file" class="nav-link" data-scroll-target="#render-your-quarto-markdown-document-to-create-an-html-file"><span class="header-section-number">5</span> “Render” your Quarto Markdown Document to create an HTML file</a></li>
-  <li><a href="#install-packages" id="toc-install-packages" class="nav-link" data-scroll-target="#install-packages"><span class="header-section-number">6</span> Install packages</a>
+  <li><a href="#update-your-operating-system" id="toc-update-your-operating-system" class="nav-link" data-scroll-target="#update-your-operating-system"><span class="header-section-number">1</span> Update your operating system</a></li>
+  <li><a href="#download-r" id="toc-download-r" class="nav-link" data-scroll-target="#download-r"><span class="header-section-number">2</span> Download <code>R</code></a></li>
+  <li><a href="#download-rstudio" id="toc-download-rstudio" class="nav-link" data-scroll-target="#download-rstudio"><span class="header-section-number">3</span> Download RStudio</a></li>
+  <li><a href="#open-r-studio" id="toc-open-r-studio" class="nav-link" data-scroll-target="#open-r-studio"><span class="header-section-number">4</span> Open R Studio</a></li>
+  <li><a href="#create-your-first-quarto-markdown-document" id="toc-create-your-first-quarto-markdown-document" class="nav-link" data-scroll-target="#create-your-first-quarto-markdown-document"><span class="header-section-number">5</span> Create Your First Quarto Markdown Document</a></li>
+  <li><a href="#render-your-quarto-markdown-document-to-create-an-html-file" id="toc-render-your-quarto-markdown-document-to-create-an-html-file" class="nav-link" data-scroll-target="#render-your-quarto-markdown-document-to-create-an-html-file"><span class="header-section-number">6</span> “Render” your Quarto Markdown Document to create an HTML file</a></li>
+  <li><a href="#install-packages" id="toc-install-packages" class="nav-link" data-scroll-target="#install-packages"><span class="header-section-number">7</span> Install packages</a>
   <ul class="collapse">
-  <li><a href="#install-the-devtools-and-remotes-packages" id="toc-install-the-devtools-and-remotes-packages" class="nav-link" data-scroll-target="#install-the-devtools-and-remotes-packages"><span class="header-section-number">6.1</span> Install the <code>devtools</code> and <code>remotes</code> packages</a></li>
-  <li><a href="#install-packages-for-course" id="toc-install-packages-for-course" class="nav-link" data-scroll-target="#install-packages-for-course"><span class="header-section-number">6.2</span> Install Packages for Course</a></li>
-  <li><a href="#optional-adding-a-tutorial-panel" id="toc-optional-adding-a-tutorial-panel" class="nav-link" data-scroll-target="#optional-adding-a-tutorial-panel"><span class="header-section-number">6.3</span> Optional: Adding a Tutorial Panel</a></li>
-  <li><a href="#optional-adjusting-quarto-r-markdown-display-options" id="toc-optional-adjusting-quarto-r-markdown-display-options" class="nav-link" data-scroll-target="#optional-adjusting-quarto-r-markdown-display-options"><span class="header-section-number">6.4</span> Optional: Adjusting Quarto / R Markdown Display Options</a></li>
-  <li><a href="#optional-dont-save-r-history" id="toc-optional-dont-save-r-history" class="nav-link" data-scroll-target="#optional-dont-save-r-history"><span class="header-section-number">6.5</span> Optional: Don’t Save R History</a></li>
+  <li><a href="#install-the-devtools-and-remotes-packages" id="toc-install-the-devtools-and-remotes-packages" class="nav-link" data-scroll-target="#install-the-devtools-and-remotes-packages"><span class="header-section-number">7.1</span> Install the <code>devtools</code> and <code>remotes</code> packages</a></li>
+  <li><a href="#install-packages-for-course" id="toc-install-packages-for-course" class="nav-link" data-scroll-target="#install-packages-for-course"><span class="header-section-number">7.2</span> Install Packages for Course</a></li>
+  <li><a href="#optional-adding-a-tutorial-panel" id="toc-optional-adding-a-tutorial-panel" class="nav-link" data-scroll-target="#optional-adding-a-tutorial-panel"><span class="header-section-number">7.3</span> Optional: Adding a Tutorial Panel</a></li>
+  <li><a href="#optional-adjusting-quarto-r-markdown-display-options" id="toc-optional-adjusting-quarto-r-markdown-display-options" class="nav-link" data-scroll-target="#optional-adjusting-quarto-r-markdown-display-options"><span class="header-section-number">7.4</span> Optional: Adjusting Quarto / R Markdown Display Options</a></li>
+  <li><a href="#optional-dont-save-r-history" id="toc-optional-dont-save-r-history" class="nav-link" data-scroll-target="#optional-dont-save-r-history"><span class="header-section-number">7.5</span> Optional: Don’t Save R History</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
@@ -231,6 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="unnumbered anchored" data-anchor-id="tldr">TLDR</h2>
 <p>If you’re pressed for time here’s the short version of what you should do before next class.</p>
 <ol type="1">
+<li>Update your operating system</li>
 <li>Download <a href="https://cran.r-project.org/">R</a></li>
 <li>Download <a href="https://www.rstudio.com/products/rstudio/download/">R Studio</a></li>
 <li>Open R Studio on your computer</li>
@@ -270,8 +274,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 </section>
 </section>
-<section id="download-r" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Download <code>R</code></h1>
+<section id="update-your-operating-system" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Update your operating system</h1>
+<p>Before you do anything, please make sure you have installed the latest version of your operating system that is available for your machine:</p>
+<ul>
+<li><p>On a PC: <strong>Start &gt; Settings &gt; Update &amp; Security &gt; Windows Update , and then select Check for updates</strong></p></li>
+<li><p>On a Mac: <i class="fa-solid fa-apple" aria-label="apple"></i> <strong>menu &gt; System Settings, click General in the sidebar (you may need to scroll down), then click Software Update on the right</strong>.</p></li>
+</ul>
+<p>A lot of installation errors that can occur in the steps below can often be solved by first updating your computer’s operating system (eg Windows, macOS).</p>
+<p>If you’re still getting errors / having trouble installing R, R Studio, or related packages just shoot me an email!</p>
+</section>
+<section id="download-r" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Download <code>R</code></h1>
 <ul>
 <li><strong>Download R here:</strong> <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>
 <ul>
@@ -285,8 +299,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/00_r01.png" class="img-fluid"> - Just click yes, on everything the installer asks</p>
 <p><img src="images/00_r02.png" class="img-fluid"></p>
 </section>
-<section id="download-rstudio" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Download RStudio</h1>
+<section id="download-rstudio" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Download RStudio</h1>
 <ul>
 <li><p><strong>Download the desktop version of RStudio here:</strong> <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p></li>
 <li><p>Scroll down till you get to something like this</p></li>
@@ -297,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><img src="images/00_r06.png" class="img-fluid"></p>
 </section>
-<section id="open-r-studio" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Open R Studio</h1>
+<section id="open-r-studio" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Open R Studio</h1>
 <ul>
 <li>Open your applications folder/start menu and <strong>Open R Studio on your computer.</strong></li>
 <li>There are four “panes” in R Studio corresponding to:
@@ -311,8 +325,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><img src="images/00_r07.png" class="img-fluid"></p>
 </section>
-<section id="create-your-first-quarto-markdown-document" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Create Your First Quarto Markdown Document</h1>
+<section id="create-your-first-quarto-markdown-document" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Create Your First Quarto Markdown Document</h1>
 <ul>
 <li>Next, create a Quarto Markdown document (.qmd) by clicking <strong>Click File &gt; New File &gt; Quarto Document</strong></li>
 </ul>
@@ -328,8 +342,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><img src="images/00_qmd.png" class="img-fluid"></p>
 </section>
-<section id="render-your-quarto-markdown-document-to-create-an-html-file" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> “Render” your Quarto Markdown Document to create an HTML file</h1>
+<section id="render-your-quarto-markdown-document-to-create-an-html-file" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> “Render” your Quarto Markdown Document to create an HTML file</h1>
 <p>-<strong>Click the render button</strong> in the Source/Text editor on the upper left and see what happens</p>
 <p><img src="images/00_qmd_knit.png" class="img-fluid"></p>
 <ul>
@@ -340,8 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Under the hood, it ran some software that ran your R code (stuff in the grey) and combined it with the markdown text (stuff in the white), to produce the final html file. If you click on that file, it will open in your web browser</p>
 <p><img src="images/00_qmd_browser.png" class="img-fluid"></p>
 </section>
-<section id="install-packages" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Install packages</h1>
+<section id="install-packages" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Install packages</h1>
 <ul>
 <li><strong>RStudio will likely ask you to install a bunch of packages on start up. Please do so. Get a coffee or check your email</strong>
 <ul>
@@ -349,8 +363,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>This may take a while and RStudio may ask you to choose a “mirror” (pick any one in the US). It may also give you an error. Don’t worry, email me.</li>
 </ul></li>
 </ul>
-<section id="install-the-devtools-and-remotes-packages" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="install-the-devtools-and-remotes-packages"><span class="header-section-number">6.1</span> Install the <code>devtools</code> and <code>remotes</code> packages</h2>
+<section id="install-the-devtools-and-remotes-packages" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="install-the-devtools-and-remotes-packages"><span class="header-section-number">7.1</span> Install the <code>devtools</code> and <code>remotes</code> packages</h2>
 <p>The version of R that you just downloaded is considered base R, which provides you with good but basic statistical computing and graphics powers.</p>
 <p>To get the most out of R, you’ll need to install add-on packages, which are user-written to extend/expand your R capabilities.</p>
 <p>Packages can live in one of two places:</p>
@@ -379,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You should be able to see the newly installed packages by scrolling through or searching the <code>Packages</code> pane on the bottom left</p>
 <p><img src="images/00_packages.png" class="img-fluid"></p>
 </section>
-<section id="install-packages-for-course" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="install-packages-for-course"><span class="header-section-number">6.2</span> Install Packages for Course</h2>
+<section id="install-packages-for-course" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="install-packages-for-course"><span class="header-section-number">7.2</span> Install Packages for Course</h2>
 <p>Now we’ll use the <code>intall_github()</code> function from the <code>remotes</code> package, to install some packages we’ll use for this course.</p>
 <p>Again, copy and paste each line of code into your console, and hit <code>Enter/Return</code> to run that code.</p>
 <div class="cell">
@@ -411,8 +425,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you run this code, you should see the following tutorial show up in the upper right panel:</p>
 <p><img src="images/00_qss_ps.png" class="img-fluid"></p>
 </section>
-<section id="optional-adding-a-tutorial-panel" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="optional-adding-a-tutorial-panel"><span class="header-section-number">6.3</span> Optional: Adding a Tutorial Panel</h2>
+<section id="optional-adding-a-tutorial-panel" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="optional-adding-a-tutorial-panel"><span class="header-section-number">7.3</span> Optional: Adding a Tutorial Panel</h2>
 <p>You can also add a “Tutorial” panel to R Studio.</p>
 <ul>
 <li>Click on “Tools &gt; Global Options”
@@ -427,8 +441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><img src="images/00_option_tutorial.png" class="img-fluid"></p>
 </section>
-<section id="optional-adjusting-quarto-r-markdown-display-options" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="optional-adjusting-quarto-r-markdown-display-options"><span class="header-section-number">6.4</span> Optional: Adjusting Quarto / R Markdown Display Options</h2>
+<section id="optional-adjusting-quarto-r-markdown-display-options" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="optional-adjusting-quarto-r-markdown-display-options"><span class="header-section-number">7.4</span> Optional: Adjusting Quarto / R Markdown Display Options</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -443,8 +457,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p><img src="images/00_opt_rmarkdown.png" class="img-fluid"></p>
 </section>
-<section id="optional-dont-save-r-history" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="optional-dont-save-r-history"><span class="header-section-number">6.5</span> Optional: Don’t Save R History</h2>
+<section id="optional-dont-save-r-history" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="optional-dont-save-r-history"><span class="header-section-number">7.5</span> Optional: Don’t Save R History</h2>
 <p>Finally, in the <code>R General</code> tab, I’d strongly recommend unchecking the box that says “Always save R History”</p>
 <p><img src="images/00_rdata.png" class="img-fluid"></p>
 <p>** Be sure to click OK** when you’re done updating these settings.</p>

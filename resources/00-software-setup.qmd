@@ -52,10 +52,11 @@ Below are some steps to get you set up so that we can get started next class.
 
 If you're pressed for time here's the short version of what you should do before next class.
 
-1.  Download [R](https://cran.r-project.org/)
-2.  Download [R Studio](https://www.rstudio.com/products/rstudio/download/)
-3.  Open R Studio on your computer
-4.  Create an Quarto Markdown Document (.qmd) in R Studio
+1.  Update your operating system
+2.  Download [R](https://cran.r-project.org/)
+3.  Download [R Studio](https://www.rstudio.com/products/rstudio/download/)
+4.  Open R Studio on your computer
+5.  Create an Quarto Markdown Document (.qmd) in R Studio
 
 -   File \> New File \> Quarto Document
 -   Install any requested packages
@@ -92,6 +93,18 @@ remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 To work, so make sure you've copied and pasted the code above into your console
 
 > If you have a question or somethings not working, don't hesitate to ask. Please email me at [paul_testa\@brown.edu](mailto:paul_testa@brown.edu){.email} or come to my office at 111 Thayer St Rm 339.
+
+# Update your operating system
+
+Before you do anything, please make sure you have installed the latest version of your operating system that is available for your machine:
+
+-   On a PC: **Start \> Settings \> Update & Security \> Windows Update , and then select Check for updates**
+
+-   On a Mac: {{< fa apple >}} **menu \> System Settings, click General in the sidebar (you may need to scroll down), then click Software Update on the right**.
+
+A lot of installation errors that can occur in the steps below can often be solved by first updating your computer's operating system (eg Windows, macOS).
+
+If you're still getting errors / having trouble installing R, R Studio, or related packages just shoot me an email!
 
 # Download `R`
 
