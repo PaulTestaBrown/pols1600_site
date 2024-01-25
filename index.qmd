@@ -197,3 +197,5 @@ kable(schedule_tibble,
  row_spec(seq(1,27,by=2), bold = T) 
 
 ```
+
+# Instructors
