@@ -7,3 +7,5 @@ public/
 static/labs/data/artworks.csv
 *_cache/
 Untitled.Rmd
+
+/.quarto/
