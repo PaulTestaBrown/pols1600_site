@@ -426,8 +426,10 @@ Paul Testa
 </ul>
 </div>
 </section>
-<section id="goals-and-expectations" class="slide level2">
-<h2>Goals and Expectations</h2>
+<section>
+<section id="goals-and-expectations" class="title-slide slide level1 center">
+<h1>Goals and Expectations</h1>
+
 </section>
 <section id="what-you-will-learn" class="slide level2">
 <h2>What you will learn</h2>
@@ -665,17 +667,8 @@ Paul Testa
 </section>
 <section id="textbook" class="slide level2">
 <h2>Textbook</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&amp;auto=format" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>&lt;!. . . <img data-src="https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&amp;auto=format" style="width:80.0%"> . . .&gt;</p>
-<p><a href="https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science" class="uri">https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science</a></p>
+
+<img data-src="https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&amp;auto=format" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%"><p><a href="https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science" class="uri">https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science</a></p>
 </section>
 <section id="how-to-read-imai" class="slide level2">
 <h2>How to Read Imai</h2>
@@ -683,13 +676,32 @@ Paul Testa
 <li><p>Active reading</p></li>
 <li><p>Copy and run the code in the text. To do so, do the following:</p></li>
 </ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"devtools"</span>)){</span>
+<span id="cb2-2"><a></a>  <span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb2-3"><a></a>  }</span>
+<span id="cb2-4"><a></a><span class="fu">library</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb2-5"><a></a><span class="fu">install_github</span>(<span class="st">"kosukeimai/qss-package"</span>,  </span>
+<span id="cb2-6"><a></a>               <span class="at">build_vignettes  =</span>  <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="how-to-read-imai-1" class="slide level2">
 <h2>How to Read Imai</h2>
 <p>Once you’ve rune the following</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
+<span id="cb3-2"><a></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb3-3"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"kosukeimai/qss-package"</span>, <span class="at">build_vignettes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Anywhere the text loads data:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>afghan <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"afgahn.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>You can do</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">library</span>(<span class="st">"qss"</span>)</span>
+<span id="cb5-2"><a></a><span class="fu">data</span>(<span class="st">"afghan"</span>)</span>
+<span id="cb5-3"><a></a><span class="fu">summary</span>(afghan<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   15.00   22.00   30.00   32.39   40.00   80.00 </code></pre>
@@ -699,9 +711,9 @@ Paul Testa
 <section id="additional-readings" class="slide level2">
 <h2>Additional Readings</h2>
 <ul>
-<li>Occasionally, I will provide additional readings, available on both Canvas and pols1600.paultesta.org</li>
+<li>Occasionally, I will provide additional readings, available on both Canvas and <a href="https://pols1600.paultesta.org">pols1600.paultesta.org</a></li>
 </ul>
-</section>
+</section></section>
 <section>
 <section id="assignments" class="title-slide slide level1 center">
 <h1>Assignments</h1>
@@ -856,20 +868,19 @@ Paul Testa
 <h1>Introductions</h1>
 
 </section>
-<section id="introductions-1" class="slide level2">
-<h2>Introductions</h2>
-</section>
 <section id="two-fundamental-truths" class="slide level2">
 <h2>Two Fundamental Truths</h2>
 </section>
 <section id="testas-first-fundamental-truth" class="slide level2">
 <h2>Testa’s first fundamental truth</h2>
 <div class="fragment">
-<p><img data-src="https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg"></p>
+<p><img data-src="https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg" style="width:50.0%"></p>
 </div>
 </section>
 <section id="testas-first-fundamental-truth-1" class="slide level2">
 <h2>Testa’s first fundamental truth</h2>
+<p>Why would I profess my utter ignorance on the first day of class?</p>
+<p>Four possible reasons…</p>
 </section>
 <section id="expectation-management" class="slide level2">
 <h2>1. Expectation Management</h2>
@@ -963,7 +974,7 @@ Paul Testa
 <h2>Two kinds of people in this world</h2>
 
 <img data-src="images/candy.png" class="r-stretch"></section>
-<section id="introductions-2" class="slide level2">
+<section id="introductions-1" class="slide level2">
 <h2>Introductions</h2>
 
 <img data-src="images/officehours.jpg" class="r-stretch"></section>

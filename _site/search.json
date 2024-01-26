@@ -2125,21 +2125,21 @@
     "href": "slides/00-slides.html#textbook",
     "title": "Welcome to POLS 1600",
     "section": "Textbook",
-    "text": "Textbook\n\n\n\n\n\n\n\n\n\n&lt;!. . .  . . .&gt;\nhttps://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science"
+    "text": "Textbook\n\nhttps://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science"
   },
   {
     "objectID": "slides/00-slides.html#how-to-read-imai",
     "href": "slides/00-slides.html#how-to-read-imai",
     "title": "Welcome to POLS 1600",
     "section": "How to Read Imai",
-    "text": "How to Read Imai\n\nActive reading\nCopy and run the code in the text. To do so, do the following:"
+    "text": "How to Read Imai\n\nActive reading\nCopy and run the code in the text. To do so, do the following:\n\n\nif (!require(\"devtools\")){\n  install.packages(\"devtools\")\n  }\nlibrary(\"devtools\")\ninstall_github(\"kosukeimai/qss-package\",  \n               build_vignettes  =  TRUE)"
   },
   {
     "objectID": "slides/00-slides.html#how-to-read-imai-1",
     "href": "slides/00-slides.html#how-to-read-imai-1",
     "title": "Welcome to POLS 1600",
     "section": "How to Read Imai",
-    "text": "How to Read Imai\nOnce you’ve rune the following\nAnywhere the text loads data:\nYou can do\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  15.00   22.00   30.00   32.39   40.00   80.00"
+    "text": "How to Read Imai\nOnce you’ve rune the following\n\ninstall.packages(\"devtools\")\ninstall.packages(\"remotes\")\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\n\nAnywhere the text loads data:\n\nafghan &lt;- read_csv(\"afgahn.csv\")\n\nYou can do\n\nlibrary(\"qss\")\ndata(\"afghan\")\nsummary(afghan$age)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  15.00   22.00   30.00   32.39   40.00   80.00"
   },
   {
     "objectID": "slides/00-slides.html#additional-readings",
@@ -2293,7 +2293,7 @@
     "href": "slides/00-slides.html#testas-first-fundamental-truth-1",
     "title": "Welcome to POLS 1600",
     "section": "Testa’s first fundamental truth",
-    "text": "Testa’s first fundamental truth"
+    "text": "Testa’s first fundamental truth\nWhy would I profess my utter ignorance on the first day of class?\nFour possible reasons…"
   },
   {
     "objectID": "slides/00-slides.html#expectation-management",
