@@ -53,9 +53,7 @@ library(babynames)
 
 -   A Few Fundamental Truths
 
-class: middle, center
-
-## Goals and Expectations
+# Goals and Expectations
 
 ## What you will learn
 
@@ -281,8 +279,6 @@ Email me with any issues (there are always issues), and drop by my office hours 
 knitr::include_graphics("https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format")
 ```
 
-\<!. . . ![](https://pup-assets.imgix.net/onix/images/9780691222288.jpg?w=1500&auto=format){width="80%"} . . .\>
-
 <https://press.princeton.edu/books/paperback/9780691222288/quantitative-social-science>
 
 ## How to Read Imai
@@ -292,7 +288,8 @@ knitr::include_graphics("https://pup-assets.imgix.net/onix/images/9780691222288.
 -   Copy and run the code in the text. To do so, do the following:
 
 ```{r}
-#| eval = F
+#| eval: false
+#| echo: true
 if (!require("devtools")){
   install.packages("devtools")
   }
@@ -306,7 +303,8 @@ install_github("kosukeimai/qss-package",
 Once you've rune the following
 
 ```{r}
-#| eval = F
+#| eval: false
+#| echo: true
 install.packages("devtools")
 install.packages("remotes")
 remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
@@ -315,13 +313,15 @@ remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 Anywhere the text loads data:
 
 ```{r}
-#| eval = F
+#| eval: false
+#| echo: true
 afghan <- read_csv("afgahn.csv")
 ```
 
 You can do
 
 ```{r}
+#| echo: true
 library("qss")
 data("afghan")
 summary(afghan$age)
@@ -329,7 +329,7 @@ summary(afghan$age)
 
 ## Additional Readings
 
--   Occasionally, I will provide additional readings, available on both Canvas and pols1600.paultesta.org
+-   Occasionally, I will provide additional readings, available on both Canvas and [pols1600.paultesta.org](https://pols1600.paultesta.org)
 
 # Assignments
 
@@ -403,9 +403,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
     -   Troubleshoot by Zoom or in-person (111 Thayer Room 339)
 -   Work through [00-software_setup](../resources/00-software-setup.qmd) before next class.
 
-
-
-## Portals of Discovery {background-image="https://rosenbach.org/wp-content/uploads/2018/05/joyce-in-field-825x447.jpg" background-size=cover}
+## Portals of Discovery {background-image="https://rosenbach.org/wp-content/uploads/2018/05/joyce-in-field-825x447.jpg" background-size="cover"}
 
 ## Errors
 
@@ -459,19 +457,25 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 -   Community standards
 -   Incomplete/late work
 
-class: inverse, center, middle background-image="https://media.giphy.com/media/xUOwGpVpFJHewjL1u0/giphy.gif") background-size = cover background-position: 50% 50%
+
 
 # Introductions
 
-## Introductions
 
 ## Two Fundamental Truths
 
 ## Testa's first fundamental truth
 
-background-image=https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg) background-size =50%
+. . .
+
+![](https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg){width="50%"}
+
 
 ## Testa's first fundamental truth
+
+Why would I profess my utter ignorance on the first day of class?
+
+Four possible reasons...
 
 ## 1. Expectation Management
 
@@ -584,7 +588,9 @@ knitr::include_graphics("images/stops2.png")
 -   Explanations
 -   Predictions and Uncertainty
 
-background-image="https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg") background-size =cover
+## 
+
+![](https://www.dropletmeasurement.com/wp-content/uploads/2020/06/some-models-are-wrong-e1536948779198.jpg)
 
 ## Two kinds of people in this world
 
@@ -600,16 +606,18 @@ background-image="https://www.dropletmeasurement.com/wp-content/uploads/2020/06/
 -   How do we break cycles of inequality when those most affected by injustice are the least likely to participate and those unaffected are the least likely to care?
 -   How can we use methodological tools to better answer these questions?
 
-class: inverse,center, bottom background-image="https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg") background-size =cover \## But Enough about me
+## But enough about me
+
+![](https://helios-i.mashable.com/imagery/articles/00jdsdJ5TJ5j9pExdUWjQaC/hero-image.fill.size_1200x900.v1611611940.jpg)
 
 ## Class survey
 
-Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_3f8f8fyLg98Bwcm) to take a brief survey that will help me structure the class going forward.
+Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi) to take a brief survey that will help me structure the class going forward.
 
 ## Next Week:
 
--   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_3f8f8fyLg98Bwcm)
--   [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software_setup.html)
+-   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi)
+-   [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software-setup.html)
 -   Read Chapters 1 (Friday) and start Chapter 3 in QSS
 -   Tuesday: Lecture: Describing Data in R
 -   Thursday: Lab: Exploring COVID-19 data in the US
