@@ -1,0 +1,37 @@
+---
+title: "POLS 1600"
+subtitle: "Topic"
+date: last-modified
+date-format: "[Updated ]MMM D, YYYY"
+format: 
+  revealjs:
+    theme: brownslides.scss
+    logo: brown.png
+    footer: "POLS 1600"
+    multiplex: false
+    transition: fade
+    slide-number: c
+    incremental: true
+    center: false
+    menu: true
+    scrollable: true
+    highlight-style: github
+    progress: true
+    code-overflow: wrap
+    # include-after-body: title-slide.html
+    title-slide-attributes:
+      align: left
+      data-background-image: brown.png
+      data-background-position: 90% 50%
+      data-background-size: 18%
+
+
+    # title-slide-attributes:
+    #   data-background-image: ../../assets/stat20-hex-bg.png
+    #   data-background-size = contain
+---
+
+# Hello world {.inverse}
+
+## Slide 1{.inverse}
+
