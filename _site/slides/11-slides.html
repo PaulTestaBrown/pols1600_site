@@ -393,7 +393,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">Week 11:</h1>
   <p class="subtitle">Quantifying Uncertainty with Hypothesis Testing</p>
 
@@ -413,22 +413,22 @@ Paul Testa
 <section id="general-plan" class="slide level2">
 <h2>General Plan</h2>
 <ul>
-<li><p>Setup</p></li>
-<li><p>Review: Confidence Intervals</p></li>
-<li><p>Lecture : Hypothesis Testing</p></li>
-<li><p>Demo: Final Projects</p></li>
+<li class="fragment"><p>Setup</p></li>
+<li class="fragment"><p>Review: Confidence Intervals</p></li>
+<li class="fragment"><p>Lecture : Hypothesis Testing</p></li>
+<li class="fragment"><p>Demo: Final Projects</p></li>
 </ul>
 </section>
 <section id="course-plan" class="slide level2">
 <h2>Course Plan</h2>
 <ul>
-<li><p>April 18: Lecture – Hypothesis Testing</p></li>
-<li><p>April 20 Lab – Hypothesis Testing and Interval Estimation</p></li>
-<li><p>April 25: Lecture – Course Review</p></li>
-<li><p>April 27: Workshop:</p></li>
-<li><p>April 30: Take Home Final Exam</p></li>
-<li><p>May ?: Tacos or Pizza with POLS 1140?</p></li>
-<li><p>May 7: Take Home Final Exam due</p></li>
+<li class="fragment"><p>April 18: Lecture – Hypothesis Testing</p></li>
+<li class="fragment"><p>April 20 Lab – Hypothesis Testing and Interval Estimation</p></li>
+<li class="fragment"><p>April 25: Lecture – Course Review</p></li>
+<li class="fragment"><p>April 27: Workshop:</p></li>
+<li class="fragment"><p>April 30: Take Home Final Exam</p></li>
+<li class="fragment"><p>May ?: Tacos or Pizza with POLS 1140?</p></li>
+<li class="fragment"><p>May 7: Take Home Final Exam due</p></li>
 </ul>
 <p>class:inverse, middle, center # 💪 ## Get set up to work</p>
 </section>
@@ -497,17 +497,17 @@ Paul Testa
 <section id="confidence-intervals" class="slide level2">
 <h2>Confidence Intervals</h2>
 <ul>
-<li><p>Statistical inference involves quantifying uncertainty about what could have happened</p></li>
-<li><p>We can describe this uncertainty in terms of a sampling distribution (what could have happened had we had a different sample)</p></li>
-<li><p>The standard deviation of a sampling distribution describes its width (spread) and is called a standard error</p></li>
-<li><p>Standard errors decrease with by the <span class="math inline">\(\sqrt{N}\)</span> where <span class="math inline">\(N\)</span> is the size of our sample</p></li>
-<li><p>We can estimate standard errors via simulation or analytically.</p>
+<li class="fragment"><p>Statistical inference involves quantifying uncertainty about what could have happened</p></li>
+<li class="fragment"><p>We can describe this uncertainty in terms of a sampling distribution (what could have happened had we had a different sample)</p></li>
+<li class="fragment"><p>The standard deviation of a sampling distribution describes its width (spread) and is called a standard error</p></li>
+<li class="fragment"><p>Standard errors decrease with by the <span class="math inline">\(\sqrt{N}\)</span> where <span class="math inline">\(N\)</span> is the size of our sample</p></li>
+<li class="fragment"><p>We can estimate standard errors via simulation or analytically.</p>
 <ul>
-<li><p>Simulations require fewer assumptions, but take more time.</p></li>
-<li><p>Analytic estimates are are quick, but require more assumptions.</p></li>
+<li class="fragment"><p>Simulations require fewer assumptions, but take more time.</p></li>
+<li class="fragment"><p>Analytic estimates are are quick, but require more assumptions.</p></li>
 </ul></li>
-<li><p>We use standard errors to construct confidence intervals which we interpret as describing a range of plausible values for the thing we’re trying to estimate.</p></li>
-<li><p>Any one 95% confidence interval may or may not contain the truth, but in repeated sampling, 95% of the intervals we construct would contain the truth.</p></li>
+<li class="fragment"><p>We use standard errors to construct confidence intervals which we interpret as describing a range of plausible values for the thing we’re trying to estimate.</p></li>
+<li class="fragment"><p>Any one 95% confidence interval may or may not contain the truth, but in repeated sampling, 95% of the intervals we construct would contain the truth.</p></li>
 </ul>
 </section>
 <section id="standard-errors-of-regression-coefficients" class="slide level2">
@@ -556,8 +556,8 @@ Paul Testa
 <p>The process starts by defining the quantity we want to know: the variance of our estimated coefficients <span class="math inline">\(\hat{\beta}\)</span> around their true values in the population <span class="math inline">\(\beta\)</span>:</p>
 <p><span class="math display">\[V(\hat{\beta}|X) =(E[(\hat{\beta} - \beta)(\hat{\beta} - \beta)' |X]\]</span></p>
 <p>Your textbook walks through the math to estimate this quantity on pages 375-380 for simple bivariate regression (i.e.&nbsp;a regression with 1 predictor)</p>
-<p><a href="https://pols1600.paultesta.org/notes/10-notes.html#Assymptotic_Standard_Errors">In the notes</a>, you’ll find some further discussion of the math for the more general case of with multiple predictors.</p>
-<p>This is also an excellent walk through of the <a href="https://towardsdatascience.com/a-deep-dive-into-the-variance-covariance-matrices-of-classical-linear-regression-models-4322b2cdc8e6">linear algebra</a></p>
+<p><a href="https://pols1600.paultesta.org/notes/10-notes.html#Assymptotic_Standard_Errors" target="_blank">In the notes</a>, you’ll find some further discussion of the math for the more general case of with multiple predictors.</p>
+<p>This is also an excellent walk through of the <a href="https://towardsdatascience.com/a-deep-dive-into-the-variance-covariance-matrices-of-classical-linear-regression-models-4322b2cdc8e6" target="_blank">linear algebra</a></p>
 </section>
 <section id="analytic-standard-errors.-1" class="slide level2">
 <h2>Analytic Standard Errors.</h2>
@@ -566,13 +566,13 @@ Paul Testa
 <p>make substitutions and some assumptions about the distribution of <span class="math inline">\(\epsilon\)</span>, you arrive at a formula for the “Variance Covariance Matrix” of the model:</p>
 <p><span class="math display">\[V(\hat{\beta}|X) = \sigma^2(X'X)^{-1}\]</span> Which is a function of</p>
 <ul>
-<li><span class="math inline">\(\sigma^2\)</span> the “Sum of Square Errors”</li>
-<li><span class="math inline">\((X'X)^{-1}\)</span> roughly captures the underlying variance and covariance of the predictors in your model, where:
+<li class="fragment"><span class="math inline">\(\sigma^2\)</span> the “Sum of Square Errors”</li>
+<li class="fragment"><span class="math inline">\((X'X)^{-1}\)</span> roughly captures the underlying variance and covariance of the predictors in your model, where:
 <ul>
-<li><span class="math inline">\(X\)</span> is a matrix of predictors (each row is an observation, each column a variable)</li>
-<li><span class="math inline">\(X'X\)</span> is a symmetric maxtrix (like squaring a variable, but in linear algerba)</li>
-<li><span class="math inline">\(X'X^{-1}\)</span> is the inverse of this matrix</li>
-<li><span class="math inline">\(sigma^2(X'X)^{-1}\)</span> is like dividing <span class="math inline">\(\sigma^2\)</span> by <span class="math inline">\(X'X\)</span></li>
+<li class="fragment"><span class="math inline">\(X\)</span> is a matrix of predictors (each row is an observation, each column a variable)</li>
+<li class="fragment"><span class="math inline">\(X'X\)</span> is a symmetric maxtrix (like squaring a variable, but in linear algerba)</li>
+<li class="fragment"><span class="math inline">\(X'X^{-1}\)</span> is the inverse of this matrix</li>
+<li class="fragment"><span class="math inline">\(sigma^2(X'X)^{-1}\)</span> is like dividing <span class="math inline">\(\sigma^2\)</span> by <span class="math inline">\(X'X\)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -580,8 +580,8 @@ Paul Testa
 <h2>Analytic Standard Errors.</h2>
 <p>The square root of the elements on the diagonal of <span class="math inline">\(V(\hat{\beta}|X)\)</span> provides the standard error for each coefficient, which is larger if:</p>
 <ul>
-<li>if <span class="math inline">\(\sigma^2\)</span> is large (When there’s a lot of unexplained variance, our uncertainty is high)</li>
-<li>the variance of <span class="math inline">\(X\)</span> is small (When predictors don’t vary much our uncertainty increases)</li>
+<li class="fragment">if <span class="math inline">\(\sigma^2\)</span> is large (When there’s a lot of unexplained variance, our uncertainty is high)</li>
+<li class="fragment">the variance of <span class="math inline">\(X\)</span> is small (When predictors don’t vary much our uncertainty increases)</li>
 </ul>
 </section>
 <section id="analytic-standard-errors.-3" class="slide level2">
@@ -622,14 +622,14 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <section id="constructing-confidence-intervals-for-regression-coefficients" class="slide level2 scrollable">
 <h2>Constructing Confidence Intervals for Regression Coefficients</h2>
 <ol type="1">
-<li><p>Estimate the model to obtain coefficients <span class="math inline">\(\hat{\beta}\)</span></p></li>
-<li><p>Calculate Standard Errors using simulation or asymptotic theory</p></li>
-<li><p>Choose desired confidence level <span class="math inline">\(\alpha\)</span> with a corresponding critical value <span class="math inline">\(z_{\alpha/2}\)</span> derived from an approximation of the hypotehtical sampling distribution</p></li>
-<li><p>Construct a <span class="math inline">\((1-\alpha)\times 100 \%\)</span> percent confidence interval:</p></li>
+<li class="fragment"><p>Estimate the model to obtain coefficients <span class="math inline">\(\hat{\beta}\)</span></p></li>
+<li class="fragment"><p>Calculate Standard Errors using simulation or asymptotic theory</p></li>
+<li class="fragment"><p>Choose desired confidence level <span class="math inline">\(\alpha\)</span> with a corresponding critical value <span class="math inline">\(z_{\alpha/2}\)</span> derived from an approximation of the hypotehtical sampling distribution</p></li>
+<li class="fragment"><p>Construct a <span class="math inline">\((1-\alpha)\times 100 \%\)</span> percent confidence interval:</p></li>
 </ol>
 <p><span class="math display">\[CI(\alpha) = [\hat{\beta} - z_{\alpha/2} \times \text{standard error}, \hat{\beta} + z_{\alpha/2} \times \text{standard error}]\]</span></p>
 <ol type="1">
-<li>Estimate the model to obtain coefficients <span class="math inline">\(\hat{\beta}\)</span></li>
+<li class="fragment">Estimate the model to obtain coefficients <span class="math inline">\(\hat{\beta}\)</span></li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>beta <span class="ot">&lt;-</span> <span class="fu">coef</span>(m1)</span>
@@ -640,7 +640,7 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
-<li>Calculate Standard Errors using simulation or asymptotic theory</li>
+<li class="fragment">Calculate Standard Errors using simulation or asymptotic theory</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>se <span class="ot">&lt;-</span> <span class="fu">summary</span>(m1)<span class="sc">$</span>coef[,<span class="dv">2</span>]</span>
@@ -665,7 +665,7 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <section id="constructing-confidence-intervals-for-regression-coefficients-1" class="slide level2 scrollable">
 <h2>Constructing Confidence Intervals for Regression Coefficients</h2>
 <ol start="3" type="1">
-<li>Calculate critical value</li>
+<li class="fragment">Calculate critical value</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>z_fs <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qt</span>(.<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>, m1<span class="sc">$</span>df.residual))</span>
@@ -675,7 +675,7 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 </div>
 </div>
 <ul>
-<li>Note: For finite samples we use a <span class="math inline">\(t\)</span> distribution…</li>
+<li class="fragment">Note: For finite samples we use a <span class="math inline">\(t\)</span> distribution…</li>
 </ul>
 </section>
 <section id="constructing-confidence-intervals-for-regression-coefficients-2" class="slide level2">
@@ -709,8 +709,7 @@ sexMale      0.050114390 0.138526568</code></pre>
 texreg::htmlreg(m1, 
   digits = 3, 
   ci.force = T)
-```
-</code></pre>
+```</code></pre>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(m1,</span>
 <span id="cb28-2"><a></a>        <span class="at">digits =</span> <span class="dv">3</span>, </span>
@@ -863,20 +862,20 @@ Num. obs.
 <span id="cb31-12"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="confidence-intervals-summary" class="slide level2">
 <h2>Confidence Intervals: Summary</h2>
 <p><strong>What is a sampling distribution?</strong></p>
 <ul>
-<li>A distribution of values we would have observed upon repeated sampling</li>
-<li>Bootstrapping (sampling from a sample) approximates the width of the sampling distribution</li>
+<li class="fragment">A distribution of values we would have observed upon repeated sampling</li>
+<li class="fragment">Bootstrapping (sampling from a sample) approximates the width of the sampling distribution</li>
 </ul>
 <p><strong>What is a standard error?</strong></p>
 <ul>
-<li>Standard deviation of the sampling distribution
+<li class="fragment">Standard deviation of the sampling distribution
 <ul>
-<li>Describes the width or range of plausible observations we would see.</li>
-<li>Decreases as the sample size increases</li>
+<li class="fragment">Describes the width or range of plausible observations we would see.</li>
+<li class="fragment">Decreases as the sample size increases</li>
 </ul></li>
 </ul>
 </section>
@@ -884,19 +883,19 @@ Num. obs.
 <h2>Confidence Intervals: Summary</h2>
 <p><strong>What is a confidence interval</strong></p>
 <ul>
-<li>Coverage interval for a sampling distribution
+<li class="fragment">Coverage interval for a sampling distribution
 <ul>
-<li>“A confidence interval is a way of expressing the precision or repeatability of a statistic, how much variation would likely be present across the possible different random samples from the population”</li>
+<li class="fragment">“A confidence interval is a way of expressing the precision or repeatability of a statistic, how much variation would likely be present across the possible different random samples from the population”</li>
 </ul></li>
-<li>Three components:
+<li class="fragment">Three components:
 <ul>
-<li>Point Estimate (i.e.&nbsp;a mean, or coefficient)</li>
-<li>Confidence Level (Often 95 percent by convention)</li>
-<li>Margin of Error (+/- some range (typically 2*SD for 95 percent CI))</li>
+<li class="fragment">Point Estimate (i.e.&nbsp;a mean, or coefficient)</li>
+<li class="fragment">Confidence Level (Often 95 percent by convention)</li>
+<li class="fragment">Margin of Error (+/- some range (typically 2*SD for 95 percent CI))</li>
 </ul></li>
-<li>Confidence is about the interval
+<li class="fragment">Confidence is about the interval
 <ul>
-<li>95 percent of the intervals construct in this manner would contain the truth.</li>
+<li class="fragment">95 percent of the intervals construct in this manner would contain the truth.</li>
 </ul></li>
 </ul>
 <p>class: inverse, center, middle # 💡 # Hypothesis Testing ## How likely is it that we would see what did if our hypothesis were true</p>
@@ -904,87 +903,87 @@ Num. obs.
 <section id="what-is-a-hypothesis-test" class="slide level2">
 <h2>What is a hypothesis test</h2>
 <ul>
-<li><p>A formal way of assessing statistical evidence. Combines</p>
+<li class="fragment"><p>A formal way of assessing statistical evidence. Combines</p>
 <ul>
-<li><p><strong>Deductive reasoning</strong> (distribution of a test statistic, if the a null hypothesis were true )</p></li>
-<li><p><strong>Inductive reasoning</strong> (based on the test statistic we observed, how likely is it that we would observe it if the null were true?)</p></li>
+<li class="fragment"><p><strong>Deductive reasoning</strong> (distribution of a test statistic, if the a null hypothesis were true )</p></li>
+<li class="fragment"><p><strong>Inductive reasoning</strong> (based on the test statistic we observed, how likely is it that we would observe it if the null were true?)</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="what-is-a-test-statistic" class="slide level2">
 <h2>What is a test statistic?</h2>
 <ul>
-<li><p>A way of summarizing data</p>
+<li class="fragment"><p>A way of summarizing data</p>
 <ul>
-<li><p>difference of means</p></li>
-<li><p>coefficients from a linear model</p></li>
-<li><p><strong>coefficients from a linear model divded by their standard errors</strong></p></li>
-<li><p>R^2</p></li>
+<li class="fragment"><p>difference of means</p></li>
+<li class="fragment"><p>coefficients from a linear model</p></li>
+<li class="fragment"><p><strong>coefficients from a linear model divded by their standard errors</strong></p></li>
+<li class="fragment"><p>R^2</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="what-is-a-null-hypothesis" class="slide level2">
 <h2>What is a null hypothesis?</h2>
 <ul>
-<li><p>A statement about the world</p>
+<li class="fragment"><p>A statement about the world</p>
 <ul>
-<li><p>Only interesting if we reject it</p></li>
-<li><p>Would yield a distribution of test statistics “under the null”</p></li>
-<li><p>Typically something like “X has no effect on Y” (Null = no effect)</p></li>
-<li><p>Never accept the null can only reject</p></li>
+<li class="fragment"><p>Only interesting if we reject it</p></li>
+<li class="fragment"><p>Would yield a distribution of test statistics “under the null”</p></li>
+<li class="fragment"><p>Typically something like “X has no effect on Y” (Null = no effect)</p></li>
+<li class="fragment"><p>Never accept the null can only reject</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="what-is-a-p-value" class="slide level2">
 <h2>What is a p-value?</h2>
 <ul>
-<li><p>A p-value is a conditional probability summarizing the likelihood of observing a test statistic as far from our hypothesis or farther, if our hypothesis were true.</p></li>
-<li><p>It’s the area in the “tails of the curve” of the distribution of the test statistic under the null.</p></li>
+<li class="fragment"><p>A p-value is a conditional probability summarizing the likelihood of observing a test statistic as far from our hypothesis or farther, if our hypothesis were true.</p></li>
+<li class="fragment"><p>It’s the area in the “tails of the curve” of the distribution of the test statistic under the null.</p></li>
 </ul>
 </section>
 <section id="how-do-we-do-hypothesis-testing" class="slide level2 scrollable">
 <h2>How do we do hypothesis testing?</h2>
 <ol start="0" type="1">
-<li>Posit a hypothesis (e.g.&nbsp;<span class="math inline">\(\beta = 0\)</span>)</li>
+<li class="fragment">Posit a hypothesis (e.g.&nbsp;<span class="math inline">\(\beta = 0\)</span>)</li>
 </ol>
 <p>–</p>
 <ol type="1">
-<li>Calculate the test statistic (e.g.&nbsp;<span class="math inline">\((\hat{\beta}-\beta)/se_\beta\)</span>)</li>
+<li class="fragment">Calculate the test statistic (e.g.&nbsp;<span class="math inline">\((\hat{\beta}-\beta)/se_\beta\)</span>)</li>
 </ol>
 <p>–</p>
 <ol start="2" type="1">
-<li>Derive the distribution of the test statistic under the null via</li>
+<li class="fragment">Derive the distribution of the test statistic under the null via</li>
 </ol>
 <ul>
-<li>Simulation</li>
-<li>Asymptotic theory</li>
+<li class="fragment">Simulation</li>
+<li class="fragment">Asymptotic theory</li>
 </ul>
 <p>–</p>
 <ol start="3" type="1">
-<li><p>Compare the test statistic to the distribution under the null</p>
+<li class="fragment"><p>Compare the test statistic to the distribution under the null</p>
 <ul>
-<li>If it’s in the tails <span class="math inline">\(\to\)</span> very unlikely that we would observe what we did if our hypothesis were true</li>
+<li class="fragment">If it’s in the tails <span class="math inline">\(\to\)</span> very unlikely that we would observe what we did if our hypothesis were true</li>
 </ul></li>
 </ol>
 <p>–</p>
 <ol start="4" type="1">
-<li>Calculate p-value
+<li class="fragment">Calculate p-value
 <ul>
-<li>Quantify how often we would see test statistics as big or bigger</li>
-<li>Two-side tests: how often do we see test statics as big or bigger in absolute value as our observed test statistic</li>
-<li>One-side test: how often do we see test statistics as extreme as our observed statistic in a particular direction (positive/negative)</li>
+<li class="fragment">Quantify how often we would see test statistics as big or bigger</li>
+<li class="fragment">Two-side tests: how often do we see test statics as big or bigger in absolute value as our observed test statistic</li>
+<li class="fragment">One-side test: how often do we see test statistics as extreme as our observed statistic in a particular direction (positive/negative)</li>
 </ul></li>
 </ol>
 <p>–</p>
 <ol start="5" type="1">
-<li>Reject or fail to reject/retain our hypothesis based on some threshold of statistical significance (e.g.&nbsp;p &lt; 0.05)</li>
+<li class="fragment">Reject or fail to reject/retain our hypothesis based on some threshold of statistical significance (e.g.&nbsp;p &lt; 0.05)</li>
 </ol>
 </section>
 <section id="outcomes-of-hypothesis-tests" class="slide level2">
 <h2>Outcomes of Hypothesis Tests</h2>
 <ul>
-<li><p>Two conclusions from of a hypothesis test: we can reject or fail to reject a hypothesis test.</p></li>
-<li><p><strong>We never “accept” a hypothesis</strong>, since there are, in theory, an infinite number of other hypotheses we could have tested.</p></li>
+<li class="fragment"><p>Two conclusions from of a hypothesis test: we can reject or fail to reject a hypothesis test.</p></li>
+<li class="fragment"><p><strong>We never “accept” a hypothesis</strong>, since there are, in theory, an infinite number of other hypotheses we could have tested.</p></li>
 </ul>
 <p>Our decision can produce four outcomes and two types of error:</p>
 <table>
@@ -1036,18 +1035,18 @@ Num. obs.
 <p>What we’re saying is that we’re willing to falsely reject our hypothesis 5 times out of 100.</p>
 <p>Typically we want to minimize this false positive rate (Type 1 error), but there’s a trade off:</p>
 <ul>
-<li>Reducing Type 1 error means, we’re more likely to make a Type 2 error – failing to reject when our null is false.</li>
+<li class="fragment">Reducing Type 1 error means, we’re more likely to make a Type 2 error – failing to reject when our null is false.</li>
 </ul>
 <p>class:inverse, middle, center # 💪 ## Application: Hypothesis Testing for Linear Models</p>
 </section>
 <section id="posit-a-null-hypothesis" class="slide level2">
 <h2>0. Posit a Null Hypothesis</h2>
 <ul>
-<li><p>Typically, we will test a null hypothesis that the coefficient for variable <span class="math inline">\(X\)</span> equals 0 (e.g.&nbsp;<span class="math inline">\(H_0: \beta_x = 0\)</span> )</p></li>
-<li><p>Our alternative hypothesis in a two sided test then is that <span class="math inline">\(\beta_0\)</span> doesn’t equal 0 (<span class="math inline">\(H_1: \beta_x \neq 0\)</span>)</p></li>
-<li><p>In a one-sided test, our alternative is directional (<span class="math inline">\(H_1: \beta_x &gt; 0\)</span> or <span class="math inline">\(H_1: \beta_x &lt; 0\)</span> )</p>
+<li class="fragment"><p>Typically, we will test a null hypothesis that the coefficient for variable <span class="math inline">\(X\)</span> equals 0 (e.g.&nbsp;<span class="math inline">\(H_0: \beta_x = 0\)</span> )</p></li>
+<li class="fragment"><p>Our alternative hypothesis in a two sided test then is that <span class="math inline">\(\beta_0\)</span> doesn’t equal 0 (<span class="math inline">\(H_1: \beta_x \neq 0\)</span>)</p></li>
+<li class="fragment"><p>In a one-sided test, our alternative is directional (<span class="math inline">\(H_1: \beta_x &gt; 0\)</span> or <span class="math inline">\(H_1: \beta_x &lt; 0\)</span> )</p>
 <ul>
-<li>One-sided tests are rare in practice – need a strong substantive reason for directional expectation</li>
+<li class="fragment">One-sided tests are rare in practice – need a strong substantive reason for directional expectation</li>
 </ul></li>
 </ul>
 </section>
@@ -1084,8 +1083,8 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>2. Derive the distribution of the test statistic under the null via</h2>
 <p>Two approaches:</p>
 <ul>
-<li><p>Simulation: Calculate test statistics in a world where <span class="math inline">\(H_0\)</span> is true</p></li>
-<li><p>Asymptotic theory: Use statistics to approximate this distribution</p></li>
+<li class="fragment"><p>Simulation: Calculate test statistics in a world where <span class="math inline">\(H_0\)</span> is true</p></li>
+<li class="fragment"><p>Asymptotic theory: Use statistics to approximate this distribution</p></li>
 </ul>
 </section>
 <section id="derive-the-distribution-of-the-test-statistic-under-the-null" class="slide level2">
@@ -1185,15 +1184,15 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <span id="cb49-6"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="compare-permutation-distribution-to-asymptotic-t-distribution" class="slide level2">
 <h2>2. Compare Permutation Distribution to Asymptotic t-Distribution</h2>
 <p>This simulated distribution (grey) can be approximated by a <span class="math inline">\(t\)</span> distribution (black), with <span class="math inline">\(n\)</span> (the number of observations) minus <span class="math inline">\(k\)</span> (the number of coefficients in our model) degrees of freedom.</p>
 <ul>
-<li>Roughly, you can think of “degrees of freedom” as a way of reflecting the fact that we have to estimate parameters of the distribution, and so we use up pieces of information (degrees of freedom),</li>
-<li>Because we’re estimating parameters our uncertainty (the spread of the distribution) increases as the degrees of freedom decreases</li>
-<li>For a small <span class="math inline">\(N\)</span> reducing degrees of freedom, can increase uncertainty a lot</li>
-<li>For a large <span class="math inline">\(N\)</span> the differences are minute</li>
+<li class="fragment">Roughly, you can think of “degrees of freedom” as a way of reflecting the fact that we have to estimate parameters of the distribution, and so we use up pieces of information (degrees of freedom),</li>
+<li class="fragment">Because we’re estimating parameters our uncertainty (the spread of the distribution) increases as the degrees of freedom decreases</li>
+<li class="fragment">For a small <span class="math inline">\(N\)</span> reducing degrees of freedom, can increase uncertainty a lot</li>
+<li class="fragment">For a large <span class="math inline">\(N\)</span> the differences are minute</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>m1_null <span class="sc">%&gt;%</span></span>
@@ -1206,12 +1205,12 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <span id="cb50-8"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="compare-the-test-statistic-to-the-distribution-assuming-the-null-were-true" class="slide level2">
 <h2>3. Compare the test statistic to the distribution assuming the null were true</h2>
 <p>Next we’ll compare our observed test statistic -1.45 to its hypothesized distribution under the null</p>
 <ul>
-<li>For a two sided test, we interested in absolute distance from the null, so we’ll put lines at both -1.45 and 1.45</li>
+<li class="fragment">For a two sided test, we interested in absolute distance from the null, so we’ll put lines at both -1.45 and 1.45</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>m1_null <span class="sc">%&gt;%</span></span>
@@ -1226,7 +1225,7 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <span id="cb51-10"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-33-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="calculate-p-value" class="slide level2">
 <h2>4. Calculate p-value</h2>
 <p>To quantify how often we would see test statistics as big or bigger, we can simply take the mean of a logical comparison of the absolute value of the test statistics under the null greater than the absolute value of our observed test statistic</p>
@@ -1286,7 +1285,7 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <span id="cb60-16"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-39-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="reject-or-fail-to-rejectretain-our-hypothesis" class="slide level2">
 <h2>Reject or fail to reject/retain our hypothesis</h2>
 <p>For an estimated p-value of 0.145 for coefficient on <code>education_n</code> and a significance threshold of p &lt; 0.05, we would…</p>
@@ -1301,95 +1300,95 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Timelines: This Week</h2>
 <p><strong>NOTE: I’m leaving these slides in for nw</strong></p>
 <ul>
-<li><p>Feedback on Data today</p></li>
-<li><p>Questions/office hours today tomorrow/by appointment</p></li>
-<li><p>Thursday: Work on analyzing your data</p></li>
-<li><p>Drafts are still due April 24th.</p></li>
-<li><p>Your draft need not, and probably will not, be a completed project.</p></li>
-<li><p>At a minimum what you want is:</p>
+<li class="fragment"><p>Feedback on Data today</p></li>
+<li class="fragment"><p>Questions/office hours today tomorrow/by appointment</p></li>
+<li class="fragment"><p>Thursday: Work on analyzing your data</p></li>
+<li class="fragment"><p>Drafts are still due April 24th.</p></li>
+<li class="fragment"><p>Your draft need not, and probably will not, be a completed project.</p></li>
+<li class="fragment"><p>At a minimum what you want is:</p>
 <ul>
-<li>A clean data set</li>
-<li>Exploratory descriptives</li>
-<li>Initial results</li>
+<li class="fragment">A clean data set</li>
+<li class="fragment">Exploratory descriptives</li>
+<li class="fragment">Initial results</li>
 </ul></li>
-<li><p>The rest can come later. Our goal on Thursday is to move you from the data portions of your projects, into the analysis.</p></li>
+<li class="fragment"><p>The rest can come later. Our goal on Thursday is to move you from the data portions of your projects, into the analysis.</p></li>
 </ul>
 </section>
 <section id="timelines-next-week" class="slide level2">
 <h2>Timelines: Next Week</h2>
 <ul>
-<li><p>Tuesday, April 26: Workshop: Review and Presentations</p></li>
-<li><p>Thursday April 28: Workshop: Producing Presentations</p>
+<li class="fragment"><p>Tuesday, April 26: Workshop: Review and Presentations</p></li>
+<li class="fragment"><p>Thursday April 28: Workshop: Producing Presentations</p>
 <ul>
-<li>7-10 Slides</li>
-<li>Drafts/Analysis, just need to fill those slides</li>
+<li class="fragment">7-10 Slides</li>
+<li class="fragment">Drafts/Analysis, just need to fill those slides</li>
 </ul></li>
-<li><p>Sunday, May 1: Presentations due (Monday at the latests)</p></li>
+<li class="fragment"><p>Sunday, May 1: Presentations due (Monday at the latests)</p></li>
 </ul>
 </section>
 <section id="timelines-first-week-of-may" class="slide level2">
 <h2>Timelines: First Week of May:</h2>
 <ul>
-<li><p>Tuesday, May 3: Presentations</p></li>
-<li><p>Thursday, May 5: Last class and Food?</p>
+<li class="fragment"><p>Tuesday, May 3: Presentations</p></li>
+<li class="fragment"><p>Thursday, May 5: Last class and Food?</p>
 <ul>
-<li>Class at Dolores at 5pm?</li>
-<li>Bagels/Treats in class</li>
+<li class="fragment">Class at Dolores at 5pm?</li>
+<li class="fragment">Bagels/Treats in class</li>
 </ul></li>
-<li><p>Sunday May 8: Final Papers Due</p></li>
+<li class="fragment"><p>Sunday May 8: Final Papers Due</p></li>
 </ul>
 </section>
 <section id="strucutre-of-final-paper-and-drafts" class="slide level2 scrollable">
 <h2>Strucutre of Final Paper and Drafts:</h2>
 <p>Seven sections:</p>
 <ol type="1">
-<li>Introduction (5 percent, ~ 4 paragraphs)</li>
-<li>Theory and Expectations (10 percent, ~4+ paragraphs)</li>
-<li>Data (20 percent ~ 4+ paragraphs)</li>
-<li>Design (25 percent ~ 5+ paragraphs)</li>
-<li>Results (25 percent ~ 5+ paragraphs)</li>
-<li>Conclusion (5 percent ~ 3+ paragraphs)</li>
-<li>Appendix (10 percent ~ Variable codebook and all the R code for your project)</li>
+<li class="fragment">Introduction (5 percent, ~ 4 paragraphs)</li>
+<li class="fragment">Theory and Expectations (10 percent, ~4+ paragraphs)</li>
+<li class="fragment">Data (20 percent ~ 4+ paragraphs)</li>
+<li class="fragment">Design (25 percent ~ 5+ paragraphs)</li>
+<li class="fragment">Results (25 percent ~ 5+ paragraphs)</li>
+<li class="fragment">Conclusion (5 percent ~ 3+ paragraphs)</li>
+<li class="fragment">Appendix (10 percent ~ Variable codebook and all the R code for your project)</li>
 </ol>
 </section>
 <section id="focus-on-for-sunday" class="slide level2 scrollable">
 <h2>Focus on for Sunday</h2>
 <p>Seven sections:</p>
 <ol type="1">
-<li>Introduction (5 percent, ~ 4 paragraphs)</li>
-<li>Theory and Expectations (10 percent, ~4+ paragraphs)</li>
-<li><strong>Data</strong> (20 percent ~ 4+ paragraphs)</li>
-<li><em>Design</em> (25 percent ~ 5+ paragraphs)</li>
-<li><strong>Results</strong> (25 percent ~ 5+ paragraphs)</li>
-<li>Conclusion (5 percent ~ 3+ paragraphs)</li>
-<li>Appendix (10 percent ~ Variable codebook and all the R code for your project)</li>
+<li class="fragment">Introduction (5 percent, ~ 4 paragraphs)</li>
+<li class="fragment">Theory and Expectations (10 percent, ~4+ paragraphs)</li>
+<li class="fragment"><strong>Data</strong> (20 percent ~ 4+ paragraphs)</li>
+<li class="fragment"><em>Design</em> (25 percent ~ 5+ paragraphs)</li>
+<li class="fragment"><strong>Results</strong> (25 percent ~ 5+ paragraphs)</li>
+<li class="fragment">Conclusion (5 percent ~ 3+ paragraphs)</li>
+<li class="fragment">Appendix (10 percent ~ Variable codebook and all the R code for your project)</li>
 </ol>
 </section>
 <section id="motivating-questions" class="slide level2">
 <h2>Motivating Questions:</h2>
 <p>In the reset of today’s class, we’ll get some practice putting together the various skills you need for your drafts by exploring the following:</p>
 <ul>
-<li><p>How does partisanship shape American’s perceptions of vaccines?</p></li>
-<li><p>Who is skeptical of the benefits of vaccination?</p></li>
-<li><p>Have these perceptions about vaccines changed over time?</p></li>
+<li class="fragment"><p>How does partisanship shape American’s perceptions of vaccines?</p></li>
+<li class="fragment"><p>Who is skeptical of the benefits of vaccination?</p></li>
+<li class="fragment"><p>Have these perceptions about vaccines changed over time?</p></li>
 </ul>
 </section>
 <section id="tasks" class="slide level2">
 <h2>Tasks:</h2>
 <p>To explore these questions, we need to</p>
 <ul>
-<li><p>Get setup to work</p></li>
-<li><p>Load our data</p></li>
-<li><p>Recode our data</p></li>
-<li><p>Summarize our data</p></li>
-<li><p>Specify our expectations</p></li>
-<li><p>Estimate models to test these expectations</p></li>
-<li><p>Present and interpret results using</p>
+<li class="fragment"><p>Get setup to work</p></li>
+<li class="fragment"><p>Load our data</p></li>
+<li class="fragment"><p>Recode our data</p></li>
+<li class="fragment"><p>Summarize our data</p></li>
+<li class="fragment"><p>Specify our expectations</p></li>
+<li class="fragment"><p>Estimate models to test these expectations</p></li>
+<li class="fragment"><p>Present and interpret results using</p>
 <ul>
-<li>Tables</li>
-<li>Figures</li>
-<li>Confidence intervals (review)</li>
-<li>Hypothesis tests (new!)</li>
+<li class="fragment">Tables</li>
+<li class="fragment">Figures</li>
+<li class="fragment">Confidence intervals (review)</li>
+<li class="fragment">Hypothesis tests (new!)</li>
 </ul></li>
 </ul>
 <p>class:inverse, middle, center # 💪 ## Get set up to work</p>
@@ -1535,15 +1534,15 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <p>What transformations do we need to make to <code>V162162x</code> in <code>nes16</code> and <code>V202383x</code> in <code>nes20</code> so that these variables are suitable for analysis?</p>
 <p>–</p>
 <ul>
-<li>Recode negative values to be <code>NA</code></li>
+<li class="fragment">Recode negative values to be <code>NA</code></li>
 </ul>
 <p>–</p>
 <ul>
-<li>Reverse code so that higher values indicate greater belief in the benefits of vaccines</li>
+<li class="fragment">Reverse code so that higher values indicate greater belief in the benefits of vaccines</li>
 </ul>
 <p>–</p>
 <ul>
-<li>Create an indicator of people who are skeptical of the benefits of vaccines</li>
+<li class="fragment">Create an indicator of people who are skeptical of the benefits of vaccines</li>
 </ul>
 </section>
 <section id="recoding-v162162x-in-2016-nes" class="slide level2">
@@ -1582,12 +1581,12 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Recoding Predictors</h2>
 <p>Now we repeat this process for our key predictor, partisanship.</p>
 <ul>
-<li><p>Recode the the summary partisanship variables <code>V161158x</code> in <code>nes16</code> and <code>V201231x</code> in <code>nes20</code></p></li>
-<li><p>Create indicators from this recoded variable that classify partisanship as categorical variable (with Democrats as the reference category)</p></li>
+<li class="fragment"><p>Recode the the summary partisanship variables <code>V161158x</code> in <code>nes16</code> and <code>V201231x</code> in <code>nes20</code></p></li>
+<li class="fragment"><p>Create indicators from this recoded variable that classify partisanship as categorical variable (with Democrats as the reference category)</p></li>
 </ul>
 <p>And our covariate, age variables <code>V161267</code> in <code>nes16</code> and <code>V201507x</code> in <code>nes20</code></p>
 <ul>
-<li>Recode negative values to be <code>NA</code></li>
+<li class="fragment">Recode negative values to be <code>NA</code></li>
 </ul>
 </section>
 <section id="recoding-partisanship-v161158x-in-2016-nes" class="slide level2">
@@ -1626,18 +1625,18 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Progress Report</h2>
 <p>To explore these questions, we need to</p>
 <ul>
-<li><p><em>Get setup to work</em> ✅</p></li>
-<li><p><em>Load our data</em> ✅</p></li>
-<li><p><em>Recode our data</em> ✅</p></li>
-<li><p><strong>Summarize our data</strong>📥</p></li>
-<li><p>Specify our expectations</p></li>
-<li><p>Estimate models to test these expectations</p></li>
-<li><p>Presenting and interpreting results using</p>
+<li class="fragment"><p><em>Get setup to work</em> ✅</p></li>
+<li class="fragment"><p><em>Load our data</em> ✅</p></li>
+<li class="fragment"><p><em>Recode our data</em> ✅</p></li>
+<li class="fragment"><p><strong>Summarize our data</strong>📥</p></li>
+<li class="fragment"><p>Specify our expectations</p></li>
+<li class="fragment"><p>Estimate models to test these expectations</p></li>
+<li class="fragment"><p>Presenting and interpreting results using</p>
 <ul>
-<li>Tables</li>
-<li>Figures</li>
-<li>Confidence intervals (review)</li>
-<li>Hypothesis tests (new!)</li>
+<li class="fragment">Tables</li>
+<li class="fragment">Figures</li>
+<li class="fragment">Confidence intervals (review)</li>
+<li class="fragment">Hypothesis tests (new!)</li>
 </ul></li>
 </ul>
 <p>class:inverse, center, middle # 💪 ## Summarizing data</p>
@@ -1645,11 +1644,11 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <section id="tables-of-descriptive-statistics" class="slide level2 scrollable">
 <h2>Tables of descriptive statistics</h2>
 <ol type="1">
-<li><p>Create a object with the names of the variables you want to summarize</p></li>
-<li><p>Select these variables</p></li>
-<li><p>Pivot the data</p></li>
-<li><p>Calculate summary statistics</p></li>
-<li><p>Format as an html table</p></li>
+<li class="fragment"><p>Create a object with the names of the variables you want to summarize</p></li>
+<li class="fragment"><p>Select these variables</p></li>
+<li class="fragment"><p>Pivot the data</p></li>
+<li class="fragment"><p>Calculate summary statistics</p></li>
+<li class="fragment"><p>Format as an html table</p></li>
 </ol>
 </section>
 <section id="tables-of-descriptive-statistics-1" class="slide level2">
@@ -1760,18 +1759,18 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Progress Report</h2>
 <p>To explore these questions, we need to</p>
 <ul>
-<li><p><em>Get setup to work</em> ✅</p></li>
-<li><p><em>Load our data</em> ✅</p></li>
-<li><p><em>Recode our data</em> ✅</p></li>
-<li><p><em>Summarize our data</em> ✅</p></li>
-<li><p><strong>Specify our expectations</strong> 📥</p></li>
-<li><p>Estimate models to test these expectations</p></li>
-<li><p>Presenting and interpreting results using</p>
+<li class="fragment"><p><em>Get setup to work</em> ✅</p></li>
+<li class="fragment"><p><em>Load our data</em> ✅</p></li>
+<li class="fragment"><p><em>Recode our data</em> ✅</p></li>
+<li class="fragment"><p><em>Summarize our data</em> ✅</p></li>
+<li class="fragment"><p><strong>Specify our expectations</strong> 📥</p></li>
+<li class="fragment"><p>Estimate models to test these expectations</p></li>
+<li class="fragment"><p>Presenting and interpreting results using</p>
 <ul>
-<li>Tables</li>
-<li>Figures</li>
-<li>Confidence intervals (review)</li>
-<li>Hypothesis tests (new!)</li>
+<li class="fragment">Tables</li>
+<li class="fragment">Figures</li>
+<li class="fragment">Confidence intervals (review)</li>
+<li class="fragment">Hypothesis tests (new!)</li>
 </ul></li>
 </ul>
 <p>class:inverse, center, middle # 💪 ## Specificying Expecations</p>
@@ -1780,14 +1779,14 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Specificying Expecations</h2>
 <p>Consider our first two motivating questions</p>
 <ul>
-<li><p>How does partisanship shape American’s perceptions of vaccines?</p></li>
-<li><p>Who is skeptical of the benefits of vaccination?</p></li>
+<li class="fragment"><p>How does partisanship shape American’s perceptions of vaccines?</p></li>
+<li class="fragment"><p>Who is skeptical of the benefits of vaccination?</p></li>
 </ul>
 <p>And some illustrative stereotypes:</p>
 <ul>
-<li>“Republicans are <em>anti-science</em>”</li>
-<li>“Liberal always for Goopy <em>pseudo-science</em>”</li>
-<li>“Independents love to <em>do their own research</em>”</li>
+<li class="fragment">“Republicans are <em>anti-science</em>”</li>
+<li class="fragment">“Liberal always for Goopy <em>pseudo-science</em>”</li>
+<li class="fragment">“Independents love to <em>do their own research</em>”</li>
 </ul>
 <p>What are the empirical implications of these claims?</p>
 </section>
@@ -1795,13 +1794,13 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Specificying Expecations</h2>
 <p>Similarly, consider our third question:</p>
 <ul>
-<li>Have these perceptions about vaccines changed over time?</li>
+<li class="fragment">Have these perceptions about vaccines changed over time?</li>
 </ul>
 <p>And some similar simplified claims:</p>
 <ul>
-<li>“The Covid-19 vaccine is a miracle of modern science”</li>
-<li>“Social media is rife with misinformation about the Covid-19 vaccine”</li>
-<li>“Politicians are politicizing vaccine politics for political benefits”</li>
+<li class="fragment">“The Covid-19 vaccine is a miracle of modern science”</li>
+<li class="fragment">“Social media is rife with misinformation about the Covid-19 vaccine”</li>
+<li class="fragment">“Politicians are politicizing vaccine politics for political benefits”</li>
 </ul>
 <p>What are the empirical implications of these claims?</p>
 </section>
@@ -1809,28 +1808,28 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Specificying Expecations</h2>
 <p>Our goal is to take claims/conventional wisdom/theories, and derive their empirical implications:</p>
 <ul>
-<li><strong>H1: Partisan Differences in Vaccine Skepticism</strong>
+<li class="fragment"><strong>H1: Partisan Differences in Vaccine Skepticism</strong>
 <ul>
-<li><strong>H1a:</strong> Republicans will be the most skeptical of vaccines</li>
-<li><strong>H1b:</strong> Democrats will be the most skeptical of vaccines</li>
-<li><strong>H1a:</strong> Independents will be the most skeptical of vaccines</li>
+<li class="fragment"><strong>H1a:</strong> Republicans will be the most skeptical of vaccines</li>
+<li class="fragment"><strong>H1b:</strong> Democrats will be the most skeptical of vaccines</li>
+<li class="fragment"><strong>H1a:</strong> Independents will be the most skeptical of vaccines</li>
 </ul></li>
-<li><strong>H2: Temporal Differences in Vaccine Skepticism</strong>
+<li class="fragment"><strong>H2: Temporal Differences in Vaccine Skepticism</strong>
 <ul>
-<li><strong>H2a:</strong> Vaccine skepticism will decrease from 2016 to 2020 with the widespread roll out of the Covid-19 vaccine</li>
-<li><strong>H2b:</strong> Vaccine skepticism will increase from 2016 to 2020 with increased amounts of misinformation about the Covid-19 vaccine</li>
+<li class="fragment"><strong>H2a:</strong> Vaccine skepticism will decrease from 2016 to 2020 with the widespread roll out of the Covid-19 vaccine</li>
+<li class="fragment"><strong>H2b:</strong> Vaccine skepticism will increase from 2016 to 2020 with increased amounts of misinformation about the Covid-19 vaccine</li>
 </ul></li>
-<li><strong>H3: Partisan Difference in Vaccine Skepticism Over Time</strong> Partisan differences in Vaccine Skepticism will increase from 2016 to 2020 with the politicization of Covid-19 policies</li>
+<li class="fragment"><strong>H3: Partisan Difference in Vaccine Skepticism Over Time</strong> Partisan differences in Vaccine Skepticism will increase from 2016 to 2020 with the politicization of Covid-19 policies</li>
 </ul>
 </section>
 <section id="motivating-your-expectations." class="slide level2">
 <h2>Motivating your expectations.</h2>
 <p>In your papers, unlike in these slides, your expectations should be grounded in existing theory, research, and evidence. For the present question, we might cite sources such as:</p>
 <ul>
-<li><p>Enders, Adam M., and Steven M. Smallpage. “Informational cues, partisan-motivated reasoning, and the manipulation of conspiracy beliefs.” Political Communication 36.1 (2019): 83-102.</p></li>
-<li><p>Stecula, Dominik A., and Mark Pickup. “How populism and conservative media fuel conspiracy beliefs about COVID-19 and what it means for COVID-19 behaviors.” Research &amp; Politics 8.1 (2021): 2053168021993979.</p></li>
-<li><p>Jennings, Will, et al.&nbsp;“Lack of trust, conspiracy beliefs, and social media use predict COVID-19 vaccine hesitancy.” Vaccines 9.6 (2021): 593.</p></li>
-<li><p>Hollander, Barry A. “Partisanship, individual differences, and news media exposure as predictors of conspiracy beliefs.” Journalism &amp; Mass Communication Quarterly 95.3 (2018): 691-713.</p></li>
+<li class="fragment"><p>Enders, Adam M., and Steven M. Smallpage. “Informational cues, partisan-motivated reasoning, and the manipulation of conspiracy beliefs.” Political Communication 36.1 (2019): 83-102.</p></li>
+<li class="fragment"><p>Stecula, Dominik A., and Mark Pickup. “How populism and conservative media fuel conspiracy beliefs about COVID-19 and what it means for COVID-19 behaviors.” Research &amp; Politics 8.1 (2021): 2053168021993979.</p></li>
+<li class="fragment"><p>Jennings, Will, et al.&nbsp;“Lack of trust, conspiracy beliefs, and social media use predict COVID-19 vaccine hesitancy.” Vaccines 9.6 (2021): 593.</p></li>
+<li class="fragment"><p>Hollander, Barry A. “Partisanship, individual differences, and news media exposure as predictors of conspiracy beliefs.” Journalism &amp; Mass Communication Quarterly 95.3 (2018): 691-713.</p></li>
 </ul>
 </section>
 <section id="model-specification" class="slide level2">
@@ -1838,37 +1837,37 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <p>Translate these expectations into empirical models requires choices about <strong>how to specify our models</strong></p>
 <p>–</p>
 <ul>
-<li><p>How should we measure/operationalize our outcome</p>
+<li class="fragment"><p>How should we measure/operationalize our outcome</p>
 <ul>
-<li>Should we measure beliefs about vaccines with 7-point ordinal scale or as a binary indicator of vaccine skepticism</li>
+<li class="fragment">Should we measure beliefs about vaccines with 7-point ordinal scale or as a binary indicator of vaccine skepticism</li>
 </ul></li>
-<li><p>How should we measure/operationalize our key predictor(s)</p>
+<li class="fragment"><p>How should we measure/operationalize our key predictor(s)</p>
 <ul>
-<li>Should we measure partisanship using a 7 point scale or as categorical variable?</li>
+<li class="fragment">Should we measure partisanship using a 7 point scale or as categorical variable?</li>
 </ul></li>
-<li><p>What should we control for in our model?</p>
+<li class="fragment"><p>What should we control for in our model?</p>
 <ul>
-<li>Factors likely to predict both our outcome and our key predictor of interest</li>
+<li class="fragment">Factors likely to predict both our outcome and our key predictor of interest</li>
 </ul></li>
 </ul>
 <p>–</p>
 <ul>
-<li><p>There are rarely definitive answers to these questions.</p></li>
-<li><p>In practice, we will often estimate <strong>multiple models</strong> to try and show that our findings are <strong>robust</strong> to alternative modeling strategies/specifications</p></li>
+<li class="fragment"><p>There are rarely definitive answers to these questions.</p></li>
+<li class="fragment"><p>In practice, we will often estimate <strong>multiple models</strong> to try and show that our findings are <strong>robust</strong> to alternative modeling strategies/specifications</p></li>
 </ul>
 </section>
 <section id="model-specification-1" class="slide level2 scrollable">
 <h2>Model Specification</h2>
 <p>For your projects, every group will almost surely estimate some form of the following:</p>
 <ol type="1">
-<li><p>Baseline bivariate model: The simplest test of the relationship between your outcome and key predictor</p></li>
-<li><p>Multiple regression model: A test of the robustness of this relationship, controlling for alternative explanations</p></li>
+<li class="fragment"><p>Baseline bivariate model: The simplest test of the relationship between your outcome and key predictor</p></li>
+<li class="fragment"><p>Multiple regression model: A test of the robustness of this relationship, controlling for alternative explanations</p></li>
 </ol>
 <p>In practice, I suspect you may estimate multiple regression models such as:</p>
 <ul>
-<li><p>Alternative specifications/operationalizations of outcomes and predictors</p></li>
-<li><p>Interaction models to test conditional relationships</p></li>
-<li><p>Polynomial models to test non-linear relationships</p></li>
+<li class="fragment"><p>Alternative specifications/operationalizations of outcomes and predictors</p></li>
+<li class="fragment"><p>Interaction models to test conditional relationships</p></li>
+<li class="fragment"><p>Polynomial models to test non-linear relationships</p></li>
 </ul>
 </section>
 <section id="translating-theoretical-expectations-into-empirical-models" class="slide level2">
@@ -1889,29 +1888,29 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <p>Testing Hypotheses 2 and 3 involve making comparisons across models estimated on data from different surveys.</p>
 <p>Formally, testing these expectations is a little more complicated</p>
 <ul>
-<li>we could pool our two surveys together include an interaction term for survey year</li>
+<li class="fragment">we could pool our two surveys together include an interaction term for survey year</li>
 </ul>
 <p>For our purposes, we’ll treat these as more qualitative/exploratory hypotheses:</p>
 <ul>
-<li><p>H2a/b implies overall rates of vaccine skepticism will be lower/higher in 2020 compared to 2016</p></li>
-<li><p>H3 implies that whatever partisan differences we find in 2016 should be larger in 2020.</p></li>
+<li class="fragment"><p>H2a/b implies overall rates of vaccine skepticism will be lower/higher in 2020 compared to 2016</p></li>
+<li class="fragment"><p>H3 implies that whatever partisan differences we find in 2016 should be larger in 2020.</p></li>
 </ul>
 </section>
 <section id="progress-report-2" class="slide level2">
 <h2>Progress Report</h2>
 <p>To explore these questions, we need to</p>
 <ul>
-<li><p><em>Get setup to work</em> ✅</p></li>
-<li><p><em>Load our data</em> ✅</p></li>
-<li><p><em>Recode our data</em> ✅</p></li>
-<li><p><em>Specify our expectations</em> ✅</p></li>
-<li><p><strong>Estimate models to test these expectations</strong> 📥</p></li>
-<li><p>Presenting and interpreting results using</p>
+<li class="fragment"><p><em>Get setup to work</em> ✅</p></li>
+<li class="fragment"><p><em>Load our data</em> ✅</p></li>
+<li class="fragment"><p><em>Recode our data</em> ✅</p></li>
+<li class="fragment"><p><em>Specify our expectations</em> ✅</p></li>
+<li class="fragment"><p><strong>Estimate models to test these expectations</strong> 📥</p></li>
+<li class="fragment"><p>Presenting and interpreting results using</p>
 <ul>
-<li>Tables</li>
-<li>Figures</li>
-<li>Confidence intervals (review)</li>
-<li>Hypothesis tests (new!)</li>
+<li class="fragment">Tables</li>
+<li class="fragment">Figures</li>
+<li class="fragment">Confidence intervals (review)</li>
+<li class="fragment">Hypothesis tests (new!)</li>
 </ul></li>
 </ul>
 <p>class:inverse, center, middle # 💪 ## Estimating Empirical Models</p>
@@ -1942,8 +1941,8 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Estimating Empirical Models</h2>
 <p>If you’ve</p>
 <ul>
-<li><p>coded your data correctly</p></li>
-<li><p>developed clear testable implications from your theoretical expectations</p></li>
+<li class="fragment"><p>coded your data correctly</p></li>
+<li class="fragment"><p>developed clear testable implications from your theoretical expectations</p></li>
 </ul>
 <p>Specifying and estimating empirical models is straightforward. Literally a few lines of code.</p>
 </section>
@@ -1951,17 +1950,17 @@ sexMale      0.094320479 0.0225358310  4.185356 3.017253e-05</code></pre>
 <h2>Progress Report</h2>
 <p>To explore these questions, we need to</p>
 <ul>
-<li><p><em>Get setup to work</em> ✅</p></li>
-<li><p><em>Load our data</em> ✅</p></li>
-<li><p><em>Recode our data</em> ✅</p></li>
-<li><p><em>Specify our expectations</em> ✅</p></li>
-<li><p><em>Estimate models to test these expectations</em> ✅</p></li>
-<li><p><em>Present our results</em> 📥</p>
+<li class="fragment"><p><em>Get setup to work</em> ✅</p></li>
+<li class="fragment"><p><em>Load our data</em> ✅</p></li>
+<li class="fragment"><p><em>Recode our data</em> ✅</p></li>
+<li class="fragment"><p><em>Specify our expectations</em> ✅</p></li>
+<li class="fragment"><p><em>Estimate models to test these expectations</em> ✅</p></li>
+<li class="fragment"><p><em>Present our results</em> 📥</p>
 <ul>
-<li>Tables</li>
-<li>Figures</li>
-<li>Confidence intervals (review)</li>
-<li>Hypothesis testing (new!)</li>
+<li class="fragment">Tables</li>
+<li class="fragment">Figures</li>
+<li class="fragment">Confidence intervals (review)</li>
+<li class="fragment">Hypothesis testing (new!)</li>
 </ul></li>
 </ul>
 <p>class:inverse, center, middle # 💪 ## Presenting and Interpreting Your Results</p>
@@ -2376,12 +2375,12 @@ Num. obs.
 <h2>Customizing our Regression Table</h2>
 <p>Let’s make this regression table more reader friendly and informative by:</p>
 <ul>
-<li><p>Giving the variables in substantive names</p></li>
-<li><p>Reporting coefficients to 3 decimal places</p></li>
-<li><p>Using a single significance threshold of <span class="math inline">\(p &lt; 0.05\)</span></p></li>
-<li><p>Giving the models custom names</p></li>
-<li><p>Adding a header to group models by year</p></li>
-<li><p>Changing the caption of the table</p></li>
+<li class="fragment"><p>Giving the variables in substantive names</p></li>
+<li class="fragment"><p>Reporting coefficients to 3 decimal places</p></li>
+<li class="fragment"><p>Using a single significance threshold of <span class="math inline">\(p &lt; 0.05\)</span></p></li>
+<li class="fragment"><p>Giving the models custom names</p></li>
+<li class="fragment"><p>Adding a header to group models by year</p></li>
+<li class="fragment"><p>Changing the caption of the table</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(</span>
@@ -2810,20 +2809,20 @@ Num. obs.
 <h2>Telling a Story with Regression</h2>
 <p>First, provide an overview the models presented in the table</p>
 <ul>
-<li>Explain what each model is doing conceptually</li>
+<li class="fragment">Explain what each model is doing conceptually</li>
 </ul>
 <p>Then, start with your simplest model (Typically the first column in your table).</p>
 <ul>
-<li>Use this as a chance to explain core concepts from the course
+<li class="fragment">Use this as a chance to explain core concepts from the course
 <ul>
-<li>What is regression</li>
-<li>How should I interpret a coefficient substantively</li>
-<li>How should I interepret the statistical signficance of a give coefficient</li>
+<li class="fragment">What is regression</li>
+<li class="fragment">How should I interpret a coefficient substantively</li>
+<li class="fragment">How should I interepret the statistical signficance of a give coefficient</li>
 </ul></li>
-<li>As you move from left to right (simple to more complex)
+<li class="fragment">As you move from left to right (simple to more complex)
 <ul>
-<li>you need not interpret every single coefficient in the model</li>
-<li>instead highlight the factors that are important for the reader to note (e.g.&nbsp;a comparison between one coefficient in model or another.)</li>
+<li class="fragment">you need not interpret every single coefficient in the model</li>
+<li class="fragment">instead highlight the factors that are important for the reader to note (e.g.&nbsp;a comparison between one coefficient in model or another.)</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -3227,34 +3226,34 @@ Num. obs.
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
 <ul>
-<li><p>Table 1 presents the results of three specifications exploring the relationship between partisanship and vaccine skepticism using data from the 2016 (Models 1-3) and 2020 (Models 4-5) National Election Studies.</p></li>
-<li><p>Models 1 and 4 operationalize partisanship as a 7-point scale, where 1 corresponds to Strong Democrats, 4 to Indepndents, and 7 to Strong Republicans in the 2016 (Model 1) and 2020 (Model 2) surveys.</p></li>
-<li><p>Models 2 and 5 allow the relationship between partisanship and vaccine skepticism to vary non-linear again for the 2016 (Model 2) and 2020 (Model 5) elections.</p></li>
-<li><p>Models 3 and 6 treat partisanship as categorical variable, describing how Independents and Republicans differ from Democrats, the reference category in these models.</p></li>
-<li><p>All models control age, since (put in substantive justification for controlling for age here)</p></li>
+<li class="fragment"><p>Table 1 presents the results of three specifications exploring the relationship between partisanship and vaccine skepticism using data from the 2016 (Models 1-3) and 2020 (Models 4-5) National Election Studies.</p></li>
+<li class="fragment"><p>Models 1 and 4 operationalize partisanship as a 7-point scale, where 1 corresponds to Strong Democrats, 4 to Indepndents, and 7 to Strong Republicans in the 2016 (Model 1) and 2020 (Model 2) surveys.</p></li>
+<li class="fragment"><p>Models 2 and 5 allow the relationship between partisanship and vaccine skepticism to vary non-linear again for the 2016 (Model 2) and 2020 (Model 5) elections.</p></li>
+<li class="fragment"><p>Models 3 and 6 treat partisanship as categorical variable, describing how Independents and Republicans differ from Democrats, the reference category in these models.</p></li>
+<li class="fragment"><p>All models control age, since (put in substantive justification for controlling for age here)</p></li>
 </ul>
 </section>
 <section id="story-testing-for-partisan-differences" class="slide level2">
 <h2>Story: Testing for Partisan Differences</h2>
 <ul>
-<li><p>The results from Model 1 provide little initial evidence for partisan differences in vaccine skepticism in the 2016 Election.</p>
+<li class="fragment"><p>The results from Model 1 provide little initial evidence for partisan differences in vaccine skepticism in the 2016 Election.</p>
 <ul>
-<li>The coefficient on the partisanship variable is -0.005, suggesting that a unit increase in partisanship (going from being a Strong Democrat to just a Democrat, or an Independent to an independent who leans Republican), is associated with just a 0.5 percentage point increase in the probability of being a vaccine skeptic (believing that the risks of vaccination outweigh the benefits or that their is no difference in the risks versus benefits).</li>
+<li class="fragment">The coefficient on the partisanship variable is -0.005, suggesting that a unit increase in partisanship (going from being a Strong Democrat to just a Democrat, or an Independent to an independent who leans Republican), is associated with just a 0.5 percentage point increase in the probability of being a vaccine skeptic (believing that the risks of vaccination outweigh the benefits or that their is no difference in the risks versus benefits).</li>
 </ul></li>
-<li><p>Furthermore the 95-percent confidence interval for this estimate (-0.011, 0.002) brackets 0, suggesting the true population estimate from this model could be either positive or negative. Similarly, we fail to reject the null hypothesis that the true coefficient on partisanship in this model is 0 as the test statistic for this estimate ( -1.38) corresponds to a p-value of 0.168 suggesting that we would see test statistics this large or larger fairly often when the true relationship was 0.</p></li>
-<li><p>In some the results from Model 1 provide little support for any of the expectations described by <em>H1</em></p></li>
+<li class="fragment"><p>Furthermore the 95-percent confidence interval for this estimate (-0.011, 0.002) brackets 0, suggesting the true population estimate from this model could be either positive or negative. Similarly, we fail to reject the null hypothesis that the true coefficient on partisanship in this model is 0 as the test statistic for this estimate ( -1.38) corresponds to a p-value of 0.168 suggesting that we would see test statistics this large or larger fairly often when the true relationship was 0.</p></li>
+<li class="fragment"><p>In some the results from Model 1 provide little support for any of the expectations described by <em>H1</em></p></li>
 </ul>
 </section>
 <section id="testing-for-partisan-differences-model-2" class="slide level2">
 <h2>Testing for Partisan Differences: Model 2</h2>
 <ul>
-<li>While coefficients from Model 1 suggest little evidence of partisan differences in vaccine skepticism, the coefficients on both partisanship, and partisanship squared are statistically significant (p &lt; 0.05).</li>
+<li class="fragment">While coefficients from Model 1 suggest little evidence of partisan differences in vaccine skepticism, the coefficients on both partisanship, and partisanship squared are statistically significant (p &lt; 0.05).</li>
 </ul>
 </section>
 <section id="interpreting-model-2" class="slide level2">
 <h2>Interpreting Model 2</h2>
 <ul>
-<li>The coefficients from polynomial regressions can be difficult to interpret jointly and so Figure 1 presents the predicted values from Model 2, holding age constant at its sample mean.</li>
+<li class="fragment">The coefficients from polynomial regressions can be difficult to interpret jointly and so Figure 1 presents the predicted values from Model 2, holding age constant at its sample mean.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a></a>pred_df_m2 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
@@ -3293,10 +3292,10 @@ Num. obs.
 <section id="interpreting-model-2-2" class="slide level2">
 <h2>Interpreting Model 2</h2>
 <ul>
-<li>We see from Model 2 that 29.7 percent [27.3%, 32.1%] of Independents in the 2016 NES were predicted to be vaccine skeptics compared to 23.7 percent [20.8%, 26.5%] of Strong Democrats and only 20.1 percent [16.9%, 23.3%] of Strong Republicans.</li>
+<li class="fragment">We see from Model 2 that 29.7 percent [27.3%, 32.1%] of Independents in the 2016 NES were predicted to be vaccine skeptics compared to 23.7 percent [20.8%, 26.5%] of Strong Democrats and only 20.1 percent [16.9%, 23.3%] of Strong Republicans.</li>
 </ul>
 
-<img data-src="11-slides_files/figure-html/unnamed-chunk-65-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="11-slides_files/figure-revealjs/unnamed-chunk-65-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="testing-for-partisan-differences-model-3" class="slide level2">
 <h2>Testing for Partisan Differences: Model 3</h2>
 <p>Model 3 tells a similar story to model 2. Again, adjusting for differences in vaccine skepticism explained by age, Model 3 predicts that 41.7 percent [37.7%, 45.6%] of Independents in the 2016 NES are vaccine skeptics compared to 24.2 percent [22.1%, 26.2%] of Democrats, and 22.6 percent [20.4%, 24.8%] of Republicans.</p>
@@ -3718,13 +3717,13 @@ Num. obs.
 </table>
 </div>
 <ul>
-<li><p>The coefficient on partisanship in model 4 is now positive and statistically significant (p &lt; 0.05), suggesting that as respondents become more Republican, they are more likely to be skeptical of vaccines</p></li>
-<li><p>The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.</p></li>
-<li><p>In Model 6, we see that independents remain the most skeptical of vaccines in 2020 <span class="math inline">\((\beta = 0.20,\, p &lt;0.05)\)</span>, but that Republicans now tend to be more skeptical of vaccines than Democrats <span class="math inline">\((\beta = 0.10,\, p &lt;0.05)\)</span></p></li>
+<li class="fragment"><p>The coefficient on partisanship in model 4 is now positive and statistically significant (p &lt; 0.05), suggesting that as respondents become more Republican, they are more likely to be skeptical of vaccines</p></li>
+<li class="fragment"><p>The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.</p></li>
+<li class="fragment"><p>In Model 6, we see that independents remain the most skeptical of vaccines in 2020 <span class="math inline">\((\beta = 0.20,\, p &lt;0.05)\)</span>, but that Republicans now tend to be more skeptical of vaccines than Democrats <span class="math inline">\((\beta = 0.10,\, p &lt;0.05)\)</span></p></li>
 </ul>
 
 <div class="quarto-auto-generated-content">
-<p><img src="brown.png" class="slide-logo"></p>
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>POLS 1600</p>
 </div>
@@ -3906,9 +3905,9 @@ Num. obs.
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1600,
+        width: 1050,
 
-        height: 900,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -3940,6 +3939,44 @@ Num. obs.
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

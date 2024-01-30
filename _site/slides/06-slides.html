@@ -391,7 +391,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">Week 06:</h1>
   <p class="subtitle">Linear Regression with Multiple Predictors</p>
 
@@ -412,23 +412,23 @@ Paul Testa
 <section id="general-plan" class="slide level2">
 <h2>General Plan</h2>
 <ul>
-<li>Group Assignment 2: Data</li>
-<li>Setup
+<li class="fragment">Group Assignment 2: Data</li>
+<li class="fragment">Setup
 <ul>
-<li>Packages</li>
-<li>Data</li>
+<li class="fragment">Packages</li>
+<li class="fragment">Data</li>
 </ul></li>
-<li>Feedback</li>
-<li>Review
+<li class="fragment">Feedback</li>
+<li class="fragment">Review
 <ul>
-<li>Causal Inference in Observational Designs</li>
-<li>Simple Linear Regression</li>
+<li class="fragment">Causal Inference in Observational Designs</li>
+<li class="fragment">Simple Linear Regression</li>
 </ul></li>
-<li>Multiple Regression
+<li class="fragment">Multiple Regression
 <ul>
-<li>Overview</li>
-<li>Estimating and Interpreting Multiple Regression</li>
-<li>Reading Regression Tables</li>
+<li class="fragment">Overview</li>
+<li class="fragment">Estimating and Interpreting Multiple Regression</li>
+<li class="fragment">Reading Regression Tables</li>
 </ul></li>
 </ul>
 <p>class: inverse, center, middle # Research Questions</p>
@@ -436,16 +436,16 @@ Paul Testa
 <section id="assignment-1-research-questions" class="slide level2">
 <h2>Assignment 1 Research Questions:</h2>
 <ul>
-<li><p>Feedback posted to Canvas.</p></li>
-<li><p>General Comments:</p>
+<li class="fragment"><p>Feedback posted to Canvas.</p></li>
+<li class="fragment"><p>General Comments:</p>
 <ul>
-<li><p>Really great questions!</p></li>
-<li><p>Feedback tries to balance interest/feasibility/data availability</p></li>
-<li><p>“Not an experiment” <span class="math inline">\(\to\)</span> What would you have to randomize to answer your question</p></li>
-<li><p>Not every question need to be causal</p></li>
-<li><p>“Make your theories elaborate” - R.A. Fisher to <a href="https://www.jstor.org/stable/2344179">William Cochran</a></p>
+<li class="fragment"><p>Really great questions!</p></li>
+<li class="fragment"><p>Feedback tries to balance interest/feasibility/data availability</p></li>
+<li class="fragment"><p>“Not an experiment” <span class="math inline">\(\to\)</span> What would you have to randomize to answer your question</p></li>
+<li class="fragment"><p>Not every question need to be causal</p></li>
+<li class="fragment"><p>“Make your theories elaborate” - R.A. Fisher to <a href="https://www.jstor.org/stable/2344179" target="_blank">William Cochran</a></p>
 <ul>
-<li>But keep your models simple - Testa to POLS 1600</li>
+<li class="fragment">But keep your models simple - Testa to POLS 1600</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -453,21 +453,21 @@ Paul Testa
 <section id="assignment-2-data-explorations" class="slide level2 scrollable">
 <h2>Assignment 2: Data Explorations</h2>
 <ul>
-<li><p>Prompt posted <a href="https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx">here</a></p></li>
-<li><p>Upload to <a href="https://canvas.brown.edu/courses/1087979/assignments/7870539">Canvas</a> next Sunday March 19</p></li>
+<li class="fragment"><p>Prompt posted <a href="https://pols1600.paultesta.org/files/assignments/A1_research_questions.docx" target="_blank">here</a></p></li>
+<li class="fragment"><p>Upload to <a href="https://canvas.brown.edu/courses/1087979/assignments/7870539" target="_blank">Canvas</a> next Sunday March 19</p></li>
 </ul>
 <ol type="1">
-<li>A revised description of your group’s research project</li>
-<li>A description of a linear model implied by your question</li>
-<li>R code that loads some potentially relevant data to your question and at least one descriptive summary of that data.</li>
-<li>Some information about your group such as:
+<li class="fragment">A revised description of your group’s research project</li>
+<li class="fragment">A description of a linear model implied by your question</li>
+<li class="fragment">R code that loads some potentially relevant data to your question and at least one descriptive summary of that data.</li>
+<li class="fragment">Some information about your group such as:
 <ul>
-<li>A group name<sup>1</sup></li>
-<li>A group color or color scheme</li>
-<li>A group motto, mascot, crest, etc.</li>
-<li>Your group’s theme song</li>
-<li>Your group’s astrological sign</li>
-<li>Anything else that you think well help you form strong ingroup bounds that facilitate collaboration</li>
+<li class="fragment">A group name<sup>1</sup></li>
+<li class="fragment">A group color or color scheme</li>
+<li class="fragment">A group motto, mascot, crest, etc.</li>
+<li class="fragment">Your group’s theme song</li>
+<li class="fragment">Your group’s astrological sign</li>
+<li class="fragment">Anything else that you think well help you form strong ingroup bounds that facilitate collaboration</li>
 </ul></li>
 </ol>
 <p>class:inverse, middle, center # 💪 ## Get set up to work</p>
@@ -476,23 +476,23 @@ Paul Testa
 <h2>Packages</h2>
 <p>Hopefully, you were all able to install the following packages</p>
 <ul>
-<li><code>dataverse</code> (necessary for this week)</li>
-<li><code>tidycensus</code> (necessary for this week)</li>
-<li><code>easystats</code> (useful later)</li>
-<li><code>DeclareDesign</code> (useful later)</li>
+<li class="fragment"><code>dataverse</code> (necessary for this week)</li>
+<li class="fragment"><code>tidycensus</code> (necessary for this week)</li>
+<li class="fragment"><code>easystats</code> (useful later)</li>
+<li class="fragment"><code>DeclareDesign</code> (useful later)</li>
 </ul>
 </section>
 <section id="census-api" class="slide level2 scrollable">
 <h2>Census API:</h2>
-<p>Additionally, I hope you have all followed the steps <a href="https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package">here</a>:</p>
+<p>Additionally, I hope you have all followed the steps <a href="https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package" target="_blank">here</a>:</p>
 <ol type="1">
-<li>Install the <code>tidycensus</code> package</li>
-<li>Load the installed package</li>
-<li>Request an API key from the Census</li>
-<li>Check your email</li>
-<li>Activate your key</li>
-<li>Install your API key in R</li>
-<li>Check that everything worked</li>
+<li class="fragment">Install the <code>tidycensus</code> package</li>
+<li class="fragment">Load the installed package</li>
+<li class="fragment">Request an API key from the Census</li>
+<li class="fragment">Check your email</li>
+<li class="fragment">Activate your key</li>
+<li class="fragment">Install your API key in R</li>
+<li class="fragment">Check that everything worked</li>
 </ol>
 <p>To install the an API key so we can download data directly from the US Census</p>
 </section>
@@ -735,7 +735,7 @@ DeclareDesign     easystats           zoo
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Always check dimensions before and after merging</span></span>
 <span id="cb20-2"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 54246    52</code></pre>
+<pre><code>[1] 52646    52</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">dim</span>(pres2020_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -748,7 +748,7 @@ DeclareDesign     easystats           zoo
 <span id="cb24-5"><a></a>)</span>
 <span id="cb24-6"><a></a><span class="fu">dim</span>(tmp) <span class="co"># Same number of rows as covid_us w/ 8 additional columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 54246    60</code></pre>
+<pre><code>[1] 52646    60</code></pre>
 </div>
 </div>
 </section>
@@ -757,7 +757,7 @@ DeclareDesign     easystats           zoo
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">dim</span>(tmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 54246    60</code></pre>
+<pre><code>[1] 52646    60</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">dim</span>(acs_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -770,7 +770,7 @@ DeclareDesign     easystats           zoo
 <span id="cb30-5"><a></a>)</span>
 <span id="cb30-6"><a></a><span class="fu">dim</span>(covid_df)  <span class="co"># Same number of rows as tmp w/ 2 additional columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 54246    62</code></pre>
+<pre><code>[1] 52646    62</code></pre>
 </div>
 </div>
 </section>
@@ -810,17 +810,17 @@ DeclareDesign     easystats           zoo
 <section id="standardizing-variables." class="slide level2">
 <h2>Standardizing variables.</h2>
 <ul>
-<li><p>When variables are measured in different units multiple regression coefficients can be hard to interpret</p>
+<li class="fragment"><p>When variables are measured in different units multiple regression coefficients can be hard to interpret</p>
 <ul>
-<li>Coefficients, <span class="math inline">\(\beta\)</span>, tell us about the predicted change in <span class="math inline">\(y\)</span> for a unit change in <span class="math inline">\(x\)</span> or <span class="math inline">\(z\)</span></li>
-<li>For example <span class="math inline">\(\beta_{age}\)</span></li>
+<li class="fragment">Coefficients, <span class="math inline">\(\beta\)</span>, tell us about the predicted change in <span class="math inline">\(y\)</span> for a unit change in <span class="math inline">\(x\)</span> or <span class="math inline">\(z\)</span></li>
+<li class="fragment">For example <span class="math inline">\(\beta_{age}\)</span></li>
 </ul></li>
-<li><p><em>z-scores</em> standardize variables so that their unit of measurement no longer matters (QSS p.&nbsp;103).</p></li>
-<li><p>To calculate the <em>z-score</em> of a variable <span class="math inline">\(x\)</span>, we simply, substract off the mean and divide by the standard deviaton</p></li>
+<li class="fragment"><p><em>z-scores</em> standardize variables so that their unit of measurement no longer matters (QSS p.&nbsp;103).</p></li>
+<li class="fragment"><p>To calculate the <em>z-score</em> of a variable <span class="math inline">\(x\)</span>, we simply, substract off the mean and divide by the standard deviaton</p></li>
 </ul>
 <p><span class="math display">\[z\text{-score of x} = \frac{x_i - \mu_{x}}{\sigma_x}\]</span></p>
 <ul>
-<li>The <em>z-score</em> of Age is</li>
+<li class="fragment">The <em>z-score</em> of Age is</li>
 </ul>
 <p><span class="math display">\[z\text{-score of Age} = \frac{\text{Age}_i - \mu_{Age}}{\sigma_{Age}}\]</span></p>
 </section>
@@ -875,58 +875,58 @@ DeclareDesign     easystats           zoo
 <section id="review" class="slide level2">
 <h2>Review</h2>
 <ul>
-<li>Casual Inference in Observational Designs
+<li class="fragment">Casual Inference in Observational Designs
 <ul>
-<li>Difference-in-Differences</li>
-<li>Regression Discontinuity Design</li>
-<li>Instrumental Variables</li>
+<li class="fragment">Difference-in-Differences</li>
+<li class="fragment">Regression Discontinuity Design</li>
+<li class="fragment">Instrumental Variables</li>
 </ul></li>
-<li>Simple Linear Regression</li>
+<li class="fragment">Simple Linear Regression</li>
 </ul>
 </section>
 <section id="review-1" class="slide level2">
 <h2>Review</h2>
 <ul>
-<li>Casual Inference in Observational Designs
+<li class="fragment">Casual Inference in Observational Designs
 <ul>
-<li><strong>Difference-in-Differences</strong></li>
-<li>Regression Discontinuity Design</li>
-<li>Instrumental Variables</li>
+<li class="fragment"><strong>Difference-in-Differences</strong></li>
+<li class="fragment">Regression Discontinuity Design</li>
+<li class="fragment">Instrumental Variables</li>
 </ul></li>
-<li>Simple Linear Regression</li>
+<li class="fragment">Simple Linear Regression</li>
 </ul>
 <p>class:inverse, middle, center # 🔍 ## Casual Inference in Observational Designs</p>
 </section>
 <section id="review-casual-inference-in-observational-designs" class="slide level2">
 <h2>Review: Casual Inference in Observational Designs</h2>
 <ul>
-<li>Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:</li>
+<li class="fragment">Observational designs that try to estimate causal effects need to justify assumptions about conditional independence:</li>
 </ul>
 <p><span class="math display">\[
 Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 \]</span></p>
 <p>–</p>
 <ul>
-<li>This assumption goes by many, jargony names: Selection on Observables, Conditional Independence, No unmeasured confounders.</li>
+<li class="fragment">This assumption goes by many, jargony names: Selection on Observables, Conditional Independence, No unmeasured confounders.</li>
 </ul>
 <p>–</p>
 <ul>
-<li>Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.</li>
+<li class="fragment">Credibility of this assumption depends less on having a lot of data, and more on how your data were generated.</li>
 </ul>
 <p>–</p>
 <ul>
-<li><p><span class="math inline">\(Y_i(1),Y_i(0) \perp D_i \mid X_i\)</span> doesn’t mean that D has no effect on <span class="math inline">\(Y\)</span></p></li>
-<li><p>Instead it means, that what we can estimate <span class="math inline">\(E[Y_i|D_i=1,X_i]\)</span> and treat this as a good (unbiased) estimate of <span class="math inline">\(E[Y_i(1)]\)</span> and similarly <span class="math inline">\(E[Y_i|D_i=0,X_i]\)</span> is a good estimate of <span class="math inline">\(E[Y_i(0)]\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(Y_i(1),Y_i(0) \perp D_i \mid X_i\)</span> doesn’t mean that D has no effect on <span class="math inline">\(Y\)</span></p></li>
+<li class="fragment"><p>Instead it means, that what we can estimate <span class="math inline">\(E[Y_i|D_i=1,X_i]\)</span> and treat this as a good (unbiased) estimate of <span class="math inline">\(E[Y_i(1)]\)</span> and similarly <span class="math inline">\(E[Y_i|D_i=0,X_i]\)</span> is a good estimate of <span class="math inline">\(E[Y_i(0)]\)</span></p></li>
 </ul>
 </section>
 <section id="observational-designs-for-causal-inference" class="slide level2">
 <h2>Observational Designs for Causal Inference</h2>
 <ul>
-<li><p>Three common research designs:</p>
+<li class="fragment"><p>Three common research designs:</p>
 <ul>
-<li><p>Difference in Difference Design</p></li>
-<li><p>Regression Discontinuity Designs</p></li>
-<li><p>Instrumental Variable Designs</p></li>
+<li class="fragment"><p>Difference in Difference Design</p></li>
+<li class="fragment"><p>Regression Discontinuity Designs</p></li>
+<li class="fragment"><p>Instrumental Variable Designs</p></li>
 </ul></li>
 </ul>
 <p>class: inverse, center, middle # 💡 Difference in Differences</p>
@@ -935,21 +935,21 @@ Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 <section id="motivating-example-what-causes-cholera" class="slide level2">
 <h2>Motivating Example: What causes Cholera?</h2>
 <ul>
-<li><p>In the 1800s, cholera was thought to be transmitted through the air.</p></li>
-<li><p>John Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.</p></li>
-<li><p>Leveraged a <strong>natural experiment</strong> in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location.</p></li>
+<li class="fragment"><p>In the 1800s, cholera was thought to be transmitted through the air.</p></li>
+<li class="fragment"><p>John Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.</p></li>
+<li class="fragment"><p>Leveraged a <strong>natural experiment</strong> in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location.</p></li>
 </ul>
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
 <p>Let’s adopt a little notation to help us think about the logic of Snow’s design:</p>
 <ul>
-<li><p><span class="math inline">\(D\)</span>: treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)</p></li>
-<li><p><span class="math inline">\(T\)</span>: period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).</p></li>
-<li><p><span class="math inline">\(Y_{di}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span></p>
+<li class="fragment"><p><span class="math inline">\(D\)</span>: treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)</p></li>
+<li class="fragment"><p><span class="math inline">\(T\)</span>: period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).</p></li>
+<li class="fragment"><p><span class="math inline">\(Y_{di}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span></p>
 <ul>
-<li><p><span class="math inline">\(Y_{1i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when treated between the two periods</p></li>
-<li><p><span class="math inline">\(Y_{0i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when control between the two periods</p></li>
+<li class="fragment"><p><span class="math inline">\(Y_{1i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when treated between the two periods</p></li>
+<li class="fragment"><p><span class="math inline">\(Y_{0i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when control between the two periods</p></li>
 </ul></li>
 </ul>
 </section>
@@ -977,7 +977,7 @@ Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 </section>
 <section id="data" class="slide level2">
 <h2>Data</h2>
-<p>Because potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from <a href="https://mixtape.scunning.com/difference-in-differences.html">Scott Cunningham</a>:</p>
+<p>Because potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from <a href="https://mixtape.scunning.com/difference-in-differences.html" target="_blank">Scott Cunningham</a>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table data-quarto-postprocess="true">
@@ -1015,17 +1015,17 @@ Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 <section id="before-vs-after-comparisons" class="slide level2">
 <h2>Before vs after comparisons:</h2>
 <ul>
-<li><p>Snow could have compared Labmeth in 1854 <span class="math inline">\((E[Y_i(1)|D_i = 1] = 19)\)</span> to Lambeth in 1849 <span class="math inline">\((E[Y_i(0)|D_i = 1]=85)\)</span>, and claimed that moving the pumps upstream led to 66 fewer cholera deaths.</p></li>
-<li><p>This comparison assumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span>.</p></li>
-<li><p>A skeptic might argue that Lambeth in 1849 <span class="math inline">\(\neq\)</span> Lambeth in 1854</p></li>
+<li class="fragment"><p>Snow could have compared Labmeth in 1854 <span class="math inline">\((E[Y_i(1)|D_i = 1] = 19)\)</span> to Lambeth in 1849 <span class="math inline">\((E[Y_i(0)|D_i = 1]=85)\)</span>, and claimed that moving the pumps upstream led to 66 fewer cholera deaths.</p></li>
+<li class="fragment"><p>This comparison assumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span>.</p></li>
+<li class="fragment"><p>A skeptic might argue that Lambeth in 1849 <span class="math inline">\(\neq\)</span> Lambeth in 1854</p></li>
 </ul>
 </section>
 <section id="treatment-control-comparisons-in-the-post-period." class="slide level2">
 <h2>Treatment-Control comparisons in the Post Period.</h2>
 <ul>
-<li><p>Snow could have compared outcomes between Lambeth and S&amp;V in 1954 (<span class="math inline">\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\)</span>), concluding that the change in pump locations led to 128 fewer deaths.</p></li>
-<li><p>Here the assumption is that the outcomes in S&amp;V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span></p></li>
-<li><p>Again, our skeptic could argue Lambeth <span class="math inline">\(\neq\)</span> S&amp;V</p></li>
+<li class="fragment"><p>Snow could have compared outcomes between Lambeth and S&amp;V in 1954 (<span class="math inline">\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\)</span>), concluding that the change in pump locations led to 128 fewer deaths.</p></li>
+<li class="fragment"><p>Here the assumption is that the outcomes in S&amp;V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span></p></li>
+<li class="fragment"><p>Again, our skeptic could argue Lambeth <span class="math inline">\(\neq\)</span> S&amp;V</p></li>
 </ul>
 </section>
 <section id="difference-in-differences" class="slide level2">
@@ -1034,14 +1034,14 @@ Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 <p>There are two, equivalent ways to view this design.</p>
 <p><span class="math display">\[\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]\}}^{\text{Treated-Control|Pre}}\]</span></p>
 <ul>
-<li>Difference 1: Average change between Treated and Control in Post Period</li>
-<li>Difference 2: Average change between Treated and Control in Pre Period</li>
+<li class="fragment">Difference 1: Average change between Treated and Control in Post Period</li>
+<li class="fragment">Difference 2: Average change between Treated and Control in Pre Period</li>
 </ul>
 <p>Which is equivalent to:</p>
 <p><span class="math display">\[\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]\}}^{\text{Post-Pre|Control}}\]</span></p>
 <ul>
-<li>Difference 1: Average change between Treated over time</li>
-<li>Difference 2: Average change between Control over time</li>
+<li class="fragment">Difference 1: Average change between Treated over time</li>
+<li class="fragment">Difference 2: Average change between Control over time</li>
 </ul>
 </section>
 <section id="difference-in-differences-1" class="slide level2">
@@ -1058,91 +1058,91 @@ Y_i(1),Y_i(0), Y_i, U_i \perp D_i |X_i
 <h2>Identifying Assumption of a Difference in Differences Design</h2>
 <p>The key assumption in this design is what’s known as the parallel trends assumption: <span class="math inline">\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\)</span></p>
 <ul>
-<li>In words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&amp;V</li>
+<li class="fragment">In words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&amp;V</li>
 </ul>
 
-<img data-src="06-slides_files/figure-html/paralleltrends-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Where:</p>
+<img data-src="06-slides_files/figure-revealjs/paralleltrends-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Where:</p>
 <ol type="1">
-<li><span class="math inline">\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\)</span></li>
-<li><span class="math inline">\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]\)</span></li>
-<li><span class="math inline">\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\)</span></li>
+<li class="fragment"><span class="math inline">\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\)</span></li>
+<li class="fragment"><span class="math inline">\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]\)</span></li>
+<li class="fragment"><span class="math inline">\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\)</span></li>
 </ol>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <ul>
-<li><p>A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated-control comparison</p>
+<li class="fragment"><p>A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated-control comparison</p>
 <ul>
-<li><p>Taking the pre-post difference removes any fixed differences between the units</p></li>
-<li><p>Then taking the difference between treated and control differences removes any common differences over time</p></li>
+<li class="fragment"><p>Taking the pre-post difference removes any fixed differences between the units</p></li>
+<li class="fragment"><p>Then taking the difference between treated and control differences removes any common differences over time</p></li>
 </ul></li>
-<li><p>The key identifying assumption of a DiD design is the “assumption of parallel trends”</p>
+<li class="fragment"><p>The key identifying assumption of a DiD design is the “assumption of parallel trends”</p>
 <ul>
-<li>Absent treatment, treated and control groups would see the same changes over time.</li>
-<li>Hard to prove, possible to test</li>
+<li class="fragment">Absent treatment, treated and control groups would see the same changes over time.</li>
+<li class="fragment">Hard to prove, possible to test</li>
 </ul></li>
 </ul>
 </section>
 <section id="extensions-and-limitations" class="slide level2">
 <h2>Extensions and limitations</h2>
 <ul>
-<li>DiD easy to estimate with linear regression</li>
-<li>Generalizes to multiple periods and treatment interventions
+<li class="fragment">DiD easy to estimate with linear regression</li>
+<li class="fragment">Generalizes to multiple periods and treatment interventions
 <ul>
-<li>More pre-treatment periods allow you assess “parallel trends” assumption</li>
+<li class="fragment">More pre-treatment periods allow you assess “parallel trends” assumption</li>
 </ul></li>
-<li>Alternative methods
+<li class="fragment">Alternative methods
 <ul>
-<li>Synthetic control</li>
-<li>Event Study Designs</li>
+<li class="fragment">Synthetic control</li>
+<li class="fragment">Event Study Designs</li>
 </ul></li>
-<li>What if you have multiple treatments or treatments that come and go?
+<li class="fragment">What if you have multiple treatments or treatments that come and go?
 <ul>
-<li>Panel Matching</li>
-<li>Generalized Synthetic control</li>
+<li class="fragment">Panel Matching</li>
+<li class="fragment">Generalized Synthetic control</li>
 </ul></li>
 </ul>
 </section>
 <section id="applications" class="slide level2">
 <h2>Applications</h2>
 <ul>
-<li><p><a href="https://www.nber.org/papers/w4509">Card and Krueger (1994)</a> What effect did raising the minimum wage in NJ have on employment</p></li>
-<li><p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12116?casa_token=_ceCu4SwzTEAAAAA%3AP9aeaZpT_Zh1VdWKXx_tEmzaJTtMJ1n0eG7EaYlvJZYN000re33cfMAI2O8N8htFJjOsln2GyVeQql4">Abadie, Diamond, &amp; Hainmueller (2014)</a> What effect did German Unification have on economic development in West Germany</p></li>
-<li><p><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/impact-of-recentralization-on-public-services-a-differenceindifferences-analysis-of-the-abolition-of-elected-councils-in-vietnam/3477854BAAFE152DC93C594169D64F58">Malesky, Nguyen and Tran (2014)</a> How does decentralization influence public services?</p></li>
+<li class="fragment"><p><a href="https://www.nber.org/papers/w4509" target="_blank">Card and Krueger (1994)</a> What effect did raising the minimum wage in NJ have on employment</p></li>
+<li class="fragment"><p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12116?casa_token=_ceCu4SwzTEAAAAA%3AP9aeaZpT_Zh1VdWKXx_tEmzaJTtMJ1n0eG7EaYlvJZYN000re33cfMAI2O8N8htFJjOsln2GyVeQql4" target="_blank">Abadie, Diamond, &amp; Hainmueller (2014)</a> What effect did German Unification have on economic development in West Germany</p></li>
+<li class="fragment"><p><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/impact-of-recentralization-on-public-services-a-differenceindifferences-analysis-of-the-abolition-of-elected-councils-in-vietnam/3477854BAAFE152DC93C594169D64F58" target="_blank">Malesky, Nguyen and Tran (2014)</a> How does decentralization influence public services?</p></li>
 </ul>
 <p>class:inverse, middle, center # 🔍 # Simple Linear Regression ### Linear regression provides a linear estimate of the CEF</p>
 </section>
 <section id="review-simple-linear-regression" class="slide level2">
 <h2>Review: Simple Linear Regression</h2>
 <ul>
-<li><strong>Conceptual</strong>
+<li class="fragment"><strong>Conceptual</strong>
 <ul>
-<li>Simple linear regression estimates a line of best fit that summarizes relationships between two variables</li>
+<li class="fragment">Simple linear regression estimates a line of best fit that summarizes relationships between two variables</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[
 y_i = \beta_0 + \beta_1x_i + \epsilon_i
 \]</span></p>
 <ul>
-<li><strong>Practical</strong>
+<li class="fragment"><strong>Practical</strong>
 <ul>
-<li>We estimate linear models in R using the <code>lm()</code> function</li>
+<li class="fragment">We estimate linear models in R using the <code>lm()</code> function</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><em>Technical/Definitional</em>
+<li class="fragment"><em>Technical/Definitional</em>
 <ul>
-<li>Linear regression chooses <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to minimize the Sum of Squared Residuals (SSR):</li>
+<li class="fragment">Linear regression chooses <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to minimize the Sum of Squared Residuals (SSR):</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2\]</span></p>
 <ul>
-<li><em>Theoretical</em>
+<li class="fragment"><em>Theoretical</em>
 <ul>
-<li>Linear regression provides a <strong>linear</strong> estimate of the conditional expectation function (CEF): <span class="math inline">\(E[Y|X]\)</span></li>
+<li class="fragment">Linear regression provides a <strong>linear</strong> estimate of the conditional expectation function (CEF): <span class="math inline">\(E[Y|X]\)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -1160,13 +1160,13 @@ lm(formula = new_deaths ~ winner, data = covid_df)
 
 Coefficients:
 (Intercept)  winnerBiden  
-      18.99         3.57  </code></pre>
+     19.349        3.519  </code></pre>
 </div>
 </div>
 <p><code>m1</code> is the equation for a very simple line defined by two points:</p>
 <ul>
-<li><span class="math inline">\(\beta_0\)</span> = E[new_deaths|winner = Trump]</li>
-<li><span class="math inline">\(\beta_0 + \beta_1\)</span> = E[new_deaths|winner = Biden]</li>
+<li class="fragment"><span class="math inline">\(\beta_0\)</span> = E[new_deaths|winner = Trump]</li>
+<li class="fragment"><span class="math inline">\(\beta_0 + \beta_1\)</span> = E[new_deaths|winner = Biden]</li>
 </ul>
 </section>
 <section id="linear-regression-and-the-cef-1" class="slide level2">
@@ -1189,8 +1189,8 @@ Coefficients:
 <section id="linear-regression-and-the-cef-2" class="slide level2">
 <h2>Linear Regression and the CEF</h2>
 <ul>
-<li>R doesn’t know how to calculate the mean of <code>Biden</code> (or any character or factor data).</li>
-<li>Instead it creates an indicator variable <code>winnerBiden</code> which equals 1 when <code>winner</code> equals <code>Biden</code> and 0 otherwise.</li>
+<li class="fragment">R doesn’t know how to calculate the mean of <code>Biden</code> (or any character or factor data).</li>
+<li class="fragment">Instead it creates an indicator variable <code>winnerBiden</code> which equals 1 when <code>winner</code> equals <code>Biden</code> and 0 otherwise.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(m1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1212,13 +1212,13 @@ Coefficients:
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Trump Biden 
-26538 26788 </code></pre>
+25738 25988 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">table</span>(<span class="fu">model.matrix</span>(m1)[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     0     1 
-26538 26788 </code></pre>
+25738 25988 </code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
@@ -1236,15 +1236,15 @@ Trump Biden
 <span id="cb52-12"><a></a>               <span class="at">col=</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="06-slides_files/figure-html/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="06-slides_files/figure-revealjs/unnamed-chunk-34-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="linear-regression-and-the-cef-4" class="slide level2">
 <h2>Linear Regression and the CEF</h2>
 <ul>
-<li>When the CEF function is linear, <code>lm()</code> provides you coefficients that give you conditional means like in <code>m1</code>
+<li class="fragment">When the CEF function is linear, <code>lm()</code> provides you coefficients that give you conditional means like in <code>m1</code>
 <ul>
-<li>The CEF is linear for <em>saturated models</em> in like <code>m1</code> where the coefficients define every possible category of comparison.</li>
+<li class="fragment">The CEF is linear for <em>saturated models</em> in like <code>m1</code> where the coefficients define every possible category of comparison.</li>
 </ul></li>
-<li>For continuous variables, like <code>m3</code> from the lab below, <code>lm()</code> provides a linear approximation to the CEF</li>
+<li class="fragment">For continuous variables, like <code>m3</code> from the lab below, <code>lm()</code> provides a linear approximation to the CEF</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(new_deaths_pc_14da <span class="sc">~</span> percent_vaccinated, covid_df,</span>
@@ -1258,7 +1258,7 @@ lm(formula = new_deaths_pc_14da ~ percent_vaccinated, data = covid_df,
 
 Coefficients:
        (Intercept)  percent_vaccinated  
-           2.41854            -0.03301  </code></pre>
+           2.41522            -0.03292  </code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
@@ -1274,23 +1274,23 @@ Coefficients:
 <span id="cb55-10"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span><span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="06-slides_files/figure-html/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>class: inverse, middle, center # 💡 ## Multiple Regression</p>
+<img data-src="06-slides_files/figure-revealjs/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>class: inverse, middle, center # 💡 ## Multiple Regression</p>
 </section>
 <section id="overiew-multiple-regression" class="slide level2">
 <h2>Overiew: Multiple Regression</h2>
 <ul>
-<li><strong>Conceptual</strong>
+<li class="fragment"><strong>Conceptual</strong>
 <ul>
-<li>Multiple linear regression generalizes simple regression to models with multiple predictors</li>
+<li class="fragment">Multiple linear regression generalizes simple regression to models with multiple predictors</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1x_{1,i} +\beta_2x_{2,i} + \epsilon_i\]</span></p>
 <p><span class="math display">\[y_i = X\beta + \epsilon_i\]</span></p>
 <ul>
-<li><strong>Practical</strong>
+<li class="fragment"><strong>Practical</strong>
 <ul>
-<li>We estimate linear models in R using the <code>lm()</code> function using the <code>+</code> to add predictors</li>
-<li>We use the <code>*</code> to include the main effects <span class="math inline">\((\beta_1 x, \beta_2z)\)</span> and interactions <span class="math inline">\((\beta_3 (x\cdot z))\)</span>of two predictors</li>
+<li class="fragment">We estimate linear models in R using the <code>lm()</code> function using the <code>+</code> to add predictors</li>
+<li class="fragment">We use the <code>*</code> to include the main effects <span class="math inline">\((\beta_1 x, \beta_2z)\)</span> and interactions <span class="math inline">\((\beta_3 (x\cdot z))\)</span>of two predictors</li>
 </ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -1302,36 +1302,36 @@ Coefficients:
 <section id="overiew-multiple-regression-1" class="slide level2">
 <h2>Overiew: Multiple Regression</h2>
 <ul>
-<li><em>Technical/Definitional</em>
+<li class="fragment"><em>Technical/Definitional</em>
 <ul>
-<li>Simple linear regression chooses a <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> to minimize the Sum of Squared Residuals (SSR):</li>
+<li class="fragment">Simple linear regression chooses a <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> to minimize the Sum of Squared Residuals (SSR):</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2\]</span> - Multiple linear regression chooses a vector of coefficients <span class="math inline">\(\hat{\beta}\)</span> to minimize the Sum of Squared Residuals (SSR):</p>
 <p><span class="math display">\[\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(Y-X\widehat{\beta})^\prime(Y-X\widehat{\beta})\]</span></p>
 <ul>
-<li><em>Theoretical</em>
+<li class="fragment"><em>Theoretical</em>
 <ul>
-<li>Multiple Linear regression provides a <strong>linear</strong> estimate of the conditional expectation function (CEF): <span class="math inline">\(E[Y|X]\)</span> where <span class="math inline">\(Y\)</span> is now a function of multiple predictors, <span class="math inline">\(X\)</span></li>
+<li class="fragment">Multiple Linear regression provides a <strong>linear</strong> estimate of the conditional expectation function (CEF): <span class="math inline">\(E[Y|X]\)</span> where <span class="math inline">\(Y\)</span> is now a function of multiple predictors, <span class="math inline">\(X\)</span></li>
 </ul></li>
 </ul>
 <p>class: inverse, middle, center # 💡 ## Estimating and Interpreting Multiple Regression Regression Models</p>
 </section>
 <section id="political-interest-and-partisan-evaluations" class="slide level2">
 <h2>Political Interest and Partisan Evaluations</h2>
-<p>Let’s load some data from the <a href="https://electionstudies.org/data-center/2016-time-series-study/">2016 NES</a> and explore the relationship between political interest and evaluations of presidential candidates:</p>
+<p>Let’s load some data from the <a href="https://electionstudies.org/data-center/2016-time-series-study/" target="_blank">2016 NES</a> and explore the relationship between political interest and evaluations of presidential candidates:</p>
 <ul>
-<li>Political Interest: “How interested are you in in politics?
+<li class="fragment">Political Interest: “How interested are you in in politics?
 <ul>
-<li>Very Interested</li>
-<li>Somewhat interested</li>
-<li>Not very Interested</li>
-<li>Not at all Interested</li>
+<li class="fragment">Very Interested</li>
+<li class="fragment">Somewhat interested</li>
+<li class="fragment">Not very Interested</li>
+<li class="fragment">Not at all Interested</li>
 </ul></li>
-<li>Feeling Thermometer: “… On the feeling thermometer scale of 0 to 100, how would you rate”
+<li class="fragment">Feeling Thermometer: “… On the feeling thermometer scale of 0 to 100, how would you rate”
 <ul>
-<li>Donald Trump</li>
-<li>Hillary Clinton</li>
+<li class="fragment">Donald Trump</li>
+<li class="fragment">Hillary Clinton</li>
 </ul></li>
 </ul>
 </section>
@@ -1453,7 +1453,7 @@ Coefficients:
 </div>
 <h4 id="m1-a-model-with-a-single-dichotomous-predictor-1"><code>m1</code> A model with a single dichotomous predictor</h4>
 <ul>
-<li>If we tell R not to include an intercept, it returns those conditional means exactly.</li>
+<li class="fragment">If we tell R not to include an intercept, it returns those conditional means exactly.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a></a>m1_alt <span class="ot">&lt;-</span> <span class="fu">lm</span>(tc_diff <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">+</span> interested, nes)</span>
@@ -1470,7 +1470,7 @@ Coefficients:
 </div>
 <h4 id="m1-a-model-with-a-single-dichotomous-predictor-2"><code>m1</code> A model with a single dichotomous predictor</h4>
 <ul>
-<li>When we compare the SSR from <code>m1</code> we see that it has decreased from <code>m0</code> reflecting the fact some of the total variation in <code>tc_diff</code> is being explained by the variation in <code>interested</code></li>
+<li class="fragment">When we compare the SSR from <code>m1</code> we see that it has decreased from <code>m0</code> reflecting the fact some of the total variation in <code>tc_diff</code> is being explained by the variation in <code>interested</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a></a><span class="co"># Save Sum of Squared Residuals</span></span>
@@ -1498,7 +1498,7 @@ pol_interest_fSomewhat Interested      pol_interest_fVery Interested
 </div>
 </div>
 <ul>
-<li>Woah, why did R turn a single variable into model with four coefficients?</li>
+<li class="fragment">Woah, why did R turn a single variable into model with four coefficients?</li>
 </ul>
 <p>When we give <code>lm()</code> factor or character data,</p>
 <div class="cell" data-layout-align="center">
@@ -1541,7 +1541,7 @@ pol_interest_fSomewhat Interested      pol_interest_fVery Interested
 </div>
 </div>
 <ul>
-<li><code>Not at all interested</code> is the <em>reference</em> or <em>excluded</em> category, described by the intercept coefficient in <code>m2</code></li>
+<li class="fragment"><code>Not at all interested</code> is the <em>reference</em> or <em>excluded</em> category, described by the intercept coefficient in <code>m2</code></li>
 </ul>
 </section>
 <section id="m2-a-model-with-a-single-categoical-predictor-2" class="slide level2">
@@ -1577,7 +1577,7 @@ pol_interest_fSomewhat Interested      pol_interest_fVery Interested
 <section id="m2-a-model-with-a-single-categorical-predictor" class="slide level2">
 <h2><code>m2</code> A model with a single categorical predictor</h2>
 <ul>
-<li>Again if we excluded the intercept <code>lm()</code> returns the conditional means</li>
+<li class="fragment">Again if we excluded the intercept <code>lm()</code> returns the conditional means</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a></a>m2_alt <span class="ot">&lt;-</span> <span class="fu">lm</span>(tc_diff <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">+</span> pol_interest_f, nes)</span>
@@ -1600,7 +1600,7 @@ pol_interest_fSomewhat Interested      pol_interest_fVery Interested
 <section id="m2-a-model-with-a-single-categorical-predictor-1" class="slide level2">
 <h2><code>m2</code> A model with a single categorical predictor</h2>
 <ul>
-<li>Finally, note that the SSR for <code>m2</code> is lower than that of <code>m1</code>. Including more information about varying levels of political interest helped us explain more variation in our outcome</li>
+<li class="fragment">Finally, note that the SSR for <code>m2</code> is lower than that of <code>m1</code>. Including more information about varying levels of political interest helped us explain more variation in our outcome</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a></a><span class="co"># Save Sum of Squared Residuals</span></span>
@@ -1647,7 +1647,7 @@ Coefficients:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-55-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-55-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1676,13 +1676,13 @@ Coefficients:
 </div>
 </div>
 <ul>
-<li>Mechanically, we sometimes say the coefficient on <code>interested</code> shifts the intercept of the line describing the relationship between <code>tc_diff</code> and age.</li>
+<li class="fragment">Mechanically, we sometimes say the coefficient on <code>interested</code> shifts the intercept of the line describing the relationship between <code>tc_diff</code> and age.</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-58-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-58-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1775,7 +1775,7 @@ Coefficients:
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-64-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-64-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1797,14 +1797,14 @@ Coefficients:
 </div>
 <p>We interpret this model as saying:</p>
 <ul>
-<li>Controlling for <code>income</code>, as <code>age</code> increases by 1 we can expect the predicted difference in <code>tc_diff</code> to increase by 0.40</li>
-<li>Controlling for <code>age</code>, as <code>income</code> increases by 1 we can expect the predicted difference in <code>tc_diff</code> to increase by 0.16</li>
+<li class="fragment">Controlling for <code>income</code>, as <code>age</code> increases by 1 we can expect the predicted difference in <code>tc_diff</code> to increase by 0.40</li>
+<li class="fragment">Controlling for <code>age</code>, as <code>income</code> increases by 1 we can expect the predicted difference in <code>tc_diff</code> to increase by 0.16</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-66-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-66-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1818,7 +1818,7 @@ Coefficients:
 Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
 \]</span></p>
 <ul>
-<li>The marginal effect of X on Y, now depends on the value of Z at which you evaluate the relationship</li>
+<li class="fragment">The marginal effect of X on Y, now depends on the value of Z at which you evaluate the relationship</li>
 </ul>
 <p><span class="math display">\[
 \frac{\partial Y}{\partial X}=\beta_1+\beta_3Z
@@ -1828,7 +1828,7 @@ Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-67-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-67-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1837,7 +1837,7 @@ Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="06-slides_files/figure-html/unnamed-chunk-68-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="06-slides_files/figure-revealjs/unnamed-chunk-68-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1847,11 +1847,11 @@ Y= \beta_0 + \beta_1X + \beta_2 +\beta_3X\times Z + \epsilon
 <section id="regression-tables" class="slide level2">
 <h2>Regression Tables</h2>
 <ul>
-<li><p>Academic articles are littered with regression tables.</p></li>
-<li><p>Below we’ll see how to produce regression tables in R</p></li>
-<li><p>Learn some heuristics for how to interpret regression tables</p>
+<li class="fragment"><p>Academic articles are littered with regression tables.</p></li>
+<li class="fragment"><p>Below we’ll see how to produce regression tables in R</p></li>
+<li class="fragment"><p>Learn some heuristics for how to interpret regression tables</p>
 <ul>
-<li>We’ll cover the theory behind these heuristics in the coming weeks</li>
+<li class="fragment">We’ll cover the theory behind these heuristics in the coming weeks</li>
 </ul></li>
 </ul>
 </section>
@@ -2030,8 +2030,7 @@ texreg::htmlreg(
   list(m0,m1,m3,m4,m5,m6)
 )
 
-```
-</code></pre>
+```</code></pre>
 <div class="cell" data-layout-align="center">
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
@@ -2422,14 +2421,14 @@ Num. obs.
 <section id="interpreting-regression-tables-stargazing" class="slide level2">
 <h2>Interpreting Regression Tables (Stargazing)</h2>
 <ul>
-<li>Each column is a model</li>
-<li>Each row is a coefficient from that model with its <strong>standard error</strong> (more to come) in parantheses below</li>
-<li>The bottom of the table shows summary stastitics of the model ( <span class="math inline">\(R^2\)</span> = proportion of variance explained)</li>
-<li>Coefficients with asterisks <code>*</code> are <strong>statistically significant</strong>
+<li class="fragment">Each column is a model</li>
+<li class="fragment">Each row is a coefficient from that model with its <strong>standard error</strong> (more to come) in parantheses below</li>
+<li class="fragment">The bottom of the table shows summary stastitics of the model ( <span class="math inline">\(R^2\)</span> = proportion of variance explained)</li>
+<li class="fragment">Coefficients with asterisks <code>*</code> are <strong>statistically significant</strong>
 <ul>
-<li>It is unlikely that we would see a coefficient this big or bigger if the true coefficient were 0</li>
+<li class="fragment">It is unlikely that we would see a coefficient this big or bigger if the true coefficient were 0</li>
 </ul></li>
-<li>Rule of thumb:</li>
+<li class="fragment">Rule of thumb:</li>
 </ul>
 <p><span class="math display">\[\text{If }\frac{\beta}{se} &gt; 2 \to \text{Statistically Significant}\]</span></p>
 <p>class: inverse, middle, center # 💡 ## Summary</p>
@@ -2438,8 +2437,8 @@ Num. obs.
 <h2>Summary</h2>
 <p>Today we estimated and interpreted a series of multiple regression models</p>
 <ul>
-<li><p>The coefficients in these models still describe slopes (partial derivatives), now for planes (and hyper planes)</p></li>
-<li><p>Controlling for variables is easy in <code>lm()</code></p></li>
+<li class="fragment"><p>The coefficients in these models still describe slopes (partial derivatives), now for planes (and hyper planes)</p></li>
+<li class="fragment"><p>Controlling for variables is easy in <code>lm()</code></p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb142"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data=</span>df)</span>
@@ -2447,13 +2446,13 @@ Num. obs.
 </div>
 <p>In the lab and next week, we will start to explore</p>
 <ul>
-<li>What it means to “control for x”</li>
-<li>How can we compare different models</li>
-<li>How can we interpret predictions from multiple regression</li>
+<li class="fragment">What it means to “control for x”</li>
+<li class="fragment">How can we compare different models</li>
+<li class="fragment">How can we interpret predictions from multiple regression</li>
 </ul>
 
 <div class="quarto-auto-generated-content">
-<p><img src="brown.png" class="slide-logo"></p>
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>POLS 1600</p>
 </div>
@@ -2636,9 +2635,9 @@ Num. obs.
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1600,
+        width: 1050,
 
-        height: 900,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -2670,6 +2669,44 @@ Num. obs.
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

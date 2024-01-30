@@ -4,26 +4,29 @@ subtitle: "Interpreting and Evaluating Linear Models"
 author: "Paul Testa"
 format: 
   revealjs:
-    author: "Paul Testa"
-    height: 900
-    width: 1600
-    # css: css/brown.css
-    theme: ../files/slides.scss
-    logo: brown.png
+    theme: [default, brownslides.scss]
+    logo: images/pols1600_hex.png
     footer: "POLS 1600"
     multiplex: false
     transition: fade
     slide-number: c
-    incremental: false
+    incremental: true
     center: false
     menu: true
     scrollable: true
     highlight-style: github
     progress: true
     code-overflow: wrap
-    # title-slide-attributes:
-    #   data-background-image: ../../assets/stat20-hex-bg.png
-    #   data-background-size = contain
+    # include-after-body: title-slide.html
+    title-slide-attributes:
+      align: left
+      data-background-image: images/pols1600_hex.png
+      data-background-position: 90% 50%
+      data-background-size: 40%
+execute: 
+  echo: true
+filters:
+  - openlinksinnewpage
 ---
 
 ```{r}

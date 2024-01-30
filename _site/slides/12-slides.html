@@ -391,7 +391,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">Week 12:</h1>
   <p class="subtitle">Review, Presentations, and Workshops</p>
 
@@ -411,16 +411,16 @@ Paul Testa
 <section id="general-plan" class="slide level2">
 <h2>General Plan</h2>
 <ul>
-<li>Setup</li>
-<li>Feedback</li>
-<li>Review
+<li class="fragment">Setup</li>
+<li class="fragment">Feedback</li>
+<li class="fragment">Review
 <ul>
-<li>Statistical Inference</li>
-<li>Causal Inference</li>
-<li>Linear Models</li>
-<li>Confidence intervals and Hypothesis tests</li>
+<li class="fragment">Statistical Inference</li>
+<li class="fragment">Causal Inference</li>
+<li class="fragment">Linear Models</li>
+<li class="fragment">Confidence intervals and Hypothesis tests</li>
 </ul></li>
-<li>Presentations</li>
+<li class="fragment">Presentations</li>
 </ul>
 <p>class:inverse, middle, center # 💪 ## Get set up to work</p>
 </section>
@@ -490,17 +490,17 @@ DeclareDesign     easystats           zoo
 <section id="feedback-on-drafts" class="slide level2">
 <h2>Feedback on Drafts</h2>
 <ul>
-<li><p>Posted before class on Thursday.</p></li>
-<li><p>If you haven’t submitted a file on Canvas, do it by COB today.</p></li>
-<li><p>For Thursday’s class:</p>
+<li class="fragment"><p>Posted before class on Thursday.</p></li>
+<li class="fragment"><p>If you haven’t submitted a file on Canvas, do it by COB today.</p></li>
+<li class="fragment"><p>For Thursday’s class:</p>
 <ul>
-<li><p>Today and tomorrow, work on translating your draft into a slide presentation</p></li>
-<li><p>Come to class with a set of tasks to work on for your presentation.</p></li>
+<li class="fragment"><p>Today and tomorrow, work on translating your draft into a slide presentation</p></li>
+<li class="fragment"><p>Come to class with a set of tasks to work on for your presentation.</p></li>
 </ul></li>
-<li><p>Sunday, May 1st, upload final presentations to Canvas</p></li>
-<li><p>Sunday, May 8, upload final papers to Canvas</p>
+<li class="fragment"><p>Sunday, May 1st, upload final presentations to Canvas</p></li>
+<li class="fragment"><p>Sunday, May 8, upload final papers to Canvas</p>
 <ul>
-<li>You can have a 1-week extension, just email, no questions asked, but must submit by May 15.</li>
+<li class="fragment">You can have a 1-week extension, just email, no questions asked, but must submit by May 15.</li>
 </ul></li>
 </ul>
 <p>class:inverse, middle, center # 🔍 ## Review</p>
@@ -509,132 +509,132 @@ DeclareDesign     easystats           zoo
 <h2>What I hope you’ve learned:</h2>
 <p>Core Concepts:</p>
 <ul>
-<li><p>Statistical Inference</p></li>
-<li><p>Causal Inference</p></li>
-<li><p>Linear Models</p></li>
-<li><p>Confidence intervals and Hypothesis tests</p></li>
+<li class="fragment"><p>Statistical Inference</p></li>
+<li class="fragment"><p>Causal Inference</p></li>
+<li class="fragment"><p>Linear Models</p></li>
+<li class="fragment"><p>Confidence intervals and Hypothesis tests</p></li>
 </ul>
 <p>Key Skills:</p>
 <ul>
-<li><p>How to load, transform, summarize, and visualize data</p></li>
-<li><p>How to estimate, evaluate, present, and interpret linear models</p></li>
+<li class="fragment"><p>How to load, transform, summarize, and visualize data</p></li>
+<li class="fragment"><p>How to estimate, evaluate, present, and interpret linear models</p></li>
 </ul>
 <p>class:inverse, middle, center # 🔍 # Core Concepts</p>
 </section>
 <section id="statistical-inference" class="slide level2">
 <h2>Statistical Inference:</h2>
 <ul>
-<li><p>Statistical inference involves quantifying uncertainty about what could have happened</p></li>
-<li><p>We describe uncertainty about what could have happened with distributions</p></li>
-<li><p>We can generate these distributions via</p>
+<li class="fragment"><p>Statistical inference involves quantifying uncertainty about what could have happened</p></li>
+<li class="fragment"><p>We describe uncertainty about what could have happened with distributions</p></li>
+<li class="fragment"><p>We can generate these distributions via</p>
 <ul>
-<li><p>simulation (Bootstrapping and permutations)</p></li>
-<li><p>analytic theory (Limit Theorems)</p></li>
+<li class="fragment"><p>simulation (Bootstrapping and permutations)</p></li>
+<li class="fragment"><p>analytic theory (Limit Theorems)</p></li>
 </ul></li>
-<li><p>We quantify uncertainty using confidence intervals and hypothesis tests</p></li>
+<li class="fragment"><p>We quantify uncertainty using confidence intervals and hypothesis tests</p></li>
 </ul>
 </section>
 <section id="causal-inference" class="slide level2">
 <h2>Causal Inference</h2>
 <ul>
-<li><p>Causal inference involves making counterfactual claims about what would have happened had some causal factor <span class="math inline">\((Z)\)</span> been present or absent.</p></li>
-<li><p>The fundamental problem of causal inference is that for an individual observation, we only observe one of many potential outcomes <span class="math inline">\((Y(Z))\)</span>.</p></li>
-<li><p>The statistical solution to this problem moves from individual causal effects (<span class="math inline">\(\tau_i = Y_i(1) - Y_i(0)\)</span>) to average causal effects <span class="math inline">\((\tau = ATE = E[Y(1)]-E[Y(0)])\)</span></p></li>
-<li><p>Experimental designs identify the ATE by randomly assigning treatment <span class="math inline">\(\to\)</span> <span class="math inline">\(Y(1), Y(0), X, U, \perp Z\)</span></p></li>
-<li><p>Observational designs approximate the experimental ideal based on identifying assumptions that claim conditional independence <span class="math inline">\(\to\)</span> <span class="math inline">\(Y(1), Y(0), X, U, \perp Z |X\)</span>.</p>
+<li class="fragment"><p>Causal inference involves making counterfactual claims about what would have happened had some causal factor <span class="math inline">\((Z)\)</span> been present or absent.</p></li>
+<li class="fragment"><p>The fundamental problem of causal inference is that for an individual observation, we only observe one of many potential outcomes <span class="math inline">\((Y(Z))\)</span>.</p></li>
+<li class="fragment"><p>The statistical solution to this problem moves from individual causal effects (<span class="math inline">\(\tau_i = Y_i(1) - Y_i(0)\)</span>) to average causal effects <span class="math inline">\((\tau = ATE = E[Y(1)]-E[Y(0)])\)</span></p></li>
+<li class="fragment"><p>Experimental designs identify the ATE by randomly assigning treatment <span class="math inline">\(\to\)</span> <span class="math inline">\(Y(1), Y(0), X, U, \perp Z\)</span></p></li>
+<li class="fragment"><p>Observational designs approximate the experimental ideal based on identifying assumptions that claim conditional independence <span class="math inline">\(\to\)</span> <span class="math inline">\(Y(1), Y(0), X, U, \perp Z |X\)</span>.</p>
 <ul>
-<li>Difference in Difference <span class="math inline">\(\to\)</span> Parallel Trends</li>
-<li>Regression Discontinuity <span class="math inline">\(\to\)</span> Continuity at the cut off</li>
-<li>Instrumental Variables <span class="math inline">\(\to\)</span> The exclusion restriction</li>
-<li>Regression <span class="math inline">\(\to\)</span> Selection on observable</li>
+<li class="fragment">Difference in Difference <span class="math inline">\(\to\)</span> Parallel Trends</li>
+<li class="fragment">Regression Discontinuity <span class="math inline">\(\to\)</span> Continuity at the cut off</li>
+<li class="fragment">Instrumental Variables <span class="math inline">\(\to\)</span> The exclusion restriction</li>
+<li class="fragment">Regression <span class="math inline">\(\to\)</span> Selection on observable</li>
 </ul></li>
 </ul>
 </section>
 <section id="linear-regression" class="slide level2">
 <h2>Linear Regression</h2>
 <ul>
-<li><p>Linear regression provides a linear estimate of the Conditional Expectation Function</p>
+<li class="fragment"><p>Linear regression provides a linear estimate of the Conditional Expectation Function</p>
 <ul>
-<li>Bivariate: <span class="math inline">\(E[Y|x] = \beta_0 + \beta_1 x +\epsilon\)</span></li>
-<li>Multiple regression: <span class="math inline">\(E[Y|X] = X\beta +\epsilon  = \beta_0 + \beta_1 x_1 \dots \beta_k x_k +\epsilon\)</span></li>
+<li class="fragment">Bivariate: <span class="math inline">\(E[Y|x] = \beta_0 + \beta_1 x +\epsilon\)</span></li>
+<li class="fragment">Multiple regression: <span class="math inline">\(E[Y|X] = X\beta +\epsilon = \beta_0 + \beta_1 x_1 \dots \beta_k x_k +\epsilon\)</span></li>
 </ul></li>
-<li><p>Ordinary Least Linear regression finds coefficients <span class="math inline">\(\beta\)</span> by minimizing the sum of squared errors <span class="math inline">\((\sum \epsilon^2)\)</span></p></li>
-<li><p>Linear regressions partition variance in the outcome into variance explained by the model <span class="math inline">\((X\beta)\)</span> and variance not explained by the model (<span class="math inline">\(\epsilon\)</span>).</p>
+<li class="fragment"><p>Ordinary Least Linear regression finds coefficients <span class="math inline">\(\beta\)</span> by minimizing the sum of squared errors <span class="math inline">\((\sum \epsilon^2)\)</span></p></li>
+<li class="fragment"><p>Linear regressions partition variance in the outcome into variance explained by the model <span class="math inline">\((X\beta)\)</span> and variance not explained by the model (<span class="math inline">\(\epsilon\)</span>).</p>
 <ul>
-<li>A model’s <span class="math inline">\(R^2\)</span> describes the proportion of the overall variance in outcome explained by the predictors</li>
+<li class="fragment">A model’s <span class="math inline">\(R^2\)</span> describes the proportion of the overall variance in outcome explained by the predictors</li>
 </ul></li>
 </ul>
 </section>
 <section id="linear-regression-1" class="slide level2">
 <h2>Linear Regression</h2>
 <ul>
-<li><p>The coefficient on a predictor describes how the outcome is expected to change with a 1-unit change in that predictor</p></li>
-<li><p>Controlling for multiple variables isolates the variation in the outcome explained by one predictor by removing (controlling for) the variation in the outcome and that predictor explained by the other predictors.</p>
+<li class="fragment"><p>The coefficient on a predictor describes how the outcome is expected to change with a 1-unit change in that predictor</p></li>
+<li class="fragment"><p>Controlling for multiple variables isolates the variation in the outcome explained by one predictor by removing (controlling for) the variation in the outcome and that predictor explained by the other predictors.</p>
 <ul>
-<li><p>We control for covariates that are common causes of both our key predictor and our outcome to address omitted variable bias (spurious correlation)</p></li>
-<li><p>We avoid controlling for covariates that our common consequences of our outcome and predictor (collider bias)</p></li>
+<li class="fragment"><p>We control for covariates that are common causes of both our key predictor and our outcome to address omitted variable bias (spurious correlation)</p></li>
+<li class="fragment"><p>We avoid controlling for covariates that our common consequences of our outcome and predictor (collider bias)</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="linear-regression-2" class="slide level2">
 <h2>Linear Regression</h2>
 <ul>
-<li><p>We present linear regression using regression tables where:</p>
+<li class="fragment"><p>We present linear regression using regression tables where:</p>
 <ul>
-<li>Each column corresponds to a model</li>
-<li>Each row corresponds to a coefficient in the model (with standard errors in parentheses and asterisks denoting p&lt;0.05)</li>
+<li class="fragment">Each column corresponds to a model</li>
+<li class="fragment">Each row corresponds to a coefficient in the model (with standard errors in parentheses and asterisks denoting p&lt;0.05)</li>
 </ul></li>
-<li><p>We use generalized linear models to help us incorporate information about our outcomes to improve our models’ predictions</p>
+<li class="fragment"><p>We use generalized linear models to help us incorporate information about our outcomes to improve our models’ predictions</p>
 <ul>
-<li><p>Logistic regression is commonly used to model binary outcomes</p></li>
-<li><p>Poisson regression is commonly used to model counts</p></li>
+<li class="fragment"><p>Logistic regression is commonly used to model binary outcomes</p></li>
+<li class="fragment"><p>Poisson regression is commonly used to model counts</p></li>
 </ul></li>
-<li><p>Plots of predicted values can help us interpret more complicated regression models such as:</p>
+<li class="fragment"><p>Plots of predicted values can help us interpret more complicated regression models such as:</p>
 <ul>
-<li><p>polynomial regressions where the marginal effect of one predictor varies non-linearly</p></li>
-<li><p>interaction models, where the marginal effect of one predictor varies with the value of another predictor</p></li>
-<li><p>generalized linear models</p></li>
+<li class="fragment"><p>polynomial regressions where the marginal effect of one predictor varies non-linearly</p></li>
+<li class="fragment"><p>interaction models, where the marginal effect of one predictor varies with the value of another predictor</p></li>
+<li class="fragment"><p>generalized linear models</p></li>
 </ul></li>
 </ul>
 </section>
 <section id="confidence-intervals" class="slide level2">
 <h2>Confidence intervals</h2>
 <ul>
-<li><p>A confidence interval describes a range of plausible values for the true (population) value of our estimate</p></li>
-<li><p>Our confidence is about the interval:</p>
+<li class="fragment"><p>A confidence interval describes a range of plausible values for the true (population) value of our estimate</p></li>
+<li class="fragment"><p>Our confidence is about the interval:</p>
 <ul>
-<li><span class="math inline">\((1-\alpha)\times 100%\)</span> of the intervals we could construct in repeated sampling are expected to contain the true (population) value of the thing we’re estimating</li>
+<li class="fragment"><span class="math inline">\((1-\alpha)\times 100%\)</span> of the intervals we could construct in repeated sampling are expected to contain the true (population) value of the thing we’re estimating</li>
 </ul></li>
-<li><p>To construct a confidence interval we need:</p>
+<li class="fragment"><p>To construct a confidence interval we need:</p>
 <ul>
-<li>An estimate <span class="math inline">\((\hat{\theta})\)</span></li>
-<li>A standard error <span class="math inline">\((\hat{\sigma_{\hat{\theta}}})\)</span> (the standard deviation of sampling distribution)</li>
-<li>A critical value derived from the hypothetical sampling <span class="math inline">\((z_{\alpha/2})\)</span></li>
+<li class="fragment">An estimate <span class="math inline">\((\hat{\theta})\)</span></li>
+<li class="fragment">A standard error <span class="math inline">\((\hat{\sigma_{\hat{\theta}}})\)</span> (the standard deviation of sampling distribution)</li>
+<li class="fragment">A critical value derived from the hypothetical sampling <span class="math inline">\((z_{\alpha/2})\)</span></li>
 </ul></li>
-<li><p>With these three components the <span class="math inline">\((1-\alpha)\times 100%\)</span> is <span class="math inline">\(\hat{\theta}\pm z_{\alpha/2} \times \hat{\sigma_{\hat{\theta}}}\)</span></p></li>
-<li><p>We report confidence intervals in text: <span class="math inline">\(\beta = 0.9\)</span> <span class="math inline">\([0.7, 0.11]\)</span></p></li>
-<li><p>We interpret estimates as being statistically significant, if 0 is outside the confidence interval</p></li>
+<li class="fragment"><p>With these three components the <span class="math inline">\((1-\alpha)\times 100%\)</span> is <span class="math inline">\(\hat{\theta}\pm z_{\alpha/2} \times \hat{\sigma_{\hat{\theta}}}\)</span></p></li>
+<li class="fragment"><p>We report confidence intervals in text: <span class="math inline">\(\beta = 0.9\)</span> <span class="math inline">\([0.7, 0.11]\)</span></p></li>
+<li class="fragment"><p>We interpret estimates as being statistically significant, if 0 is outside the confidence interval</p></li>
 </ul>
 </section>
 <section id="hypothesis-tests" class="slide level2">
 <h2>Hypothesis Tests</h2>
 <ul>
-<li><p>A hypothesis test quantifies how likely it is that we would observe what we did (our test statistic), if some claim about the world were true (our hypothesis).</p></li>
-<li><p>Typically, we test a null hypothesis that expresses our belief that their is no relationship between variables.</p>
+<li class="fragment"><p>A hypothesis test quantifies how likely it is that we would observe what we did (our test statistic), if some claim about the world were true (our hypothesis).</p></li>
+<li class="fragment"><p>Typically, we test a null hypothesis that expresses our belief that their is no relationship between variables.</p>
 <ul>
-<li><span class="math inline">\(\tau = E[Y|Z=1] - E[Y|Z=0] = 0 \to\)</span> No average treatment effect</li>
-<li><span class="math inline">\(\beta = 0 \to\)</span> No relationship between predictor and outcome</li>
+<li class="fragment"><span class="math inline">\(\tau = E[Y|Z=1] - E[Y|Z=0] = 0 \to\)</span> No average treatment effect</li>
+<li class="fragment"><span class="math inline">\(\beta = 0 \to\)</span> No relationship between predictor and outcome</li>
 </ul></li>
-<li><p>If our claim were true, then under the null, our test statistic would have a distribution centered around the truth.</p></li>
-<li><p>We can describe this distribution via:</p>
+<li class="fragment"><p>If our claim were true, then under the null, our test statistic would have a distribution centered around the truth.</p></li>
+<li class="fragment"><p>We can describe this distribution via:</p>
 <ul>
-<li>simulation (e.g.&nbsp;permuting the outcome)</li>
-<li>analytic theory (CLT)</li>
+<li class="fragment">simulation (e.g.&nbsp;permuting the outcome)</li>
+<li class="fragment">analytic theory (CLT)</li>
 </ul></li>
-<li><p>We quantify our uncertainty using a p-value which describes the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true</p>
+<li class="fragment"><p>We quantify our uncertainty using a p-value which describes the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true</p>
 <ul>
-<li><p>If our p-value is small (p &lt; 0.05), we reject the null hypothesis</p></li>
-<li><p>If our p-value is large (p &gt; 0.05), we fail to reject the null, or retain the null hypothesis</p></li>
+<li class="fragment"><p>If our p-value is small (p &lt; 0.05), we reject the null hypothesis</p></li>
+<li class="fragment"><p>If our p-value is large (p &gt; 0.05), we fail to reject the null, or retain the null hypothesis</p></li>
 </ul></li>
 </ul>
 <p>class:inverse, middle, center # 🔍 # Key Skills</p>
@@ -728,43 +728,43 @@ DeclareDesign     easystats           zoo
 <section id="final-presentations" class="slide level2">
 <h2>Final Presentations</h2>
 <ul>
-<li><p>Next Tuesday your groups will present some of the findings from your projects</p>
+<li class="fragment"><p>Next Tuesday your groups will present some of the findings from your projects</p>
 <ul>
-<li><p>10 Minutes per group</p></li>
-<li><p>8-12 slides (15 max)</p></li>
-<li><p>2 Minute Q&amp;A</p></li>
+<li class="fragment"><p>10 Minutes per group</p></li>
+<li class="fragment"><p>8-12 slides (15 max)</p></li>
+<li class="fragment"><p>2 Minute Q&amp;A</p></li>
 </ul></li>
-<li><p>On Thursday, we will work through the templates you’ve been provided</p></li>
-<li><p>Don’t have to present the finished product</p></li>
+<li class="fragment"><p>On Thursday, we will work through the templates you’ve been provided</p></li>
+<li class="fragment"><p>Don’t have to present the finished product</p></li>
 </ul>
 </section>
 <section id="final-presentation-structure" class="slide level2 scrollable">
 <h2>Final Presentation Structure</h2>
 <ol type="1">
-<li><p>Motivation</p></li>
-<li><p>Research Question</p></li>
-<li><p>Theory</p></li>
-<li><p>Expectations</p></li>
-<li><p>Data</p></li>
+<li class="fragment"><p>Motivation</p></li>
+<li class="fragment"><p>Research Question</p></li>
+<li class="fragment"><p>Theory</p></li>
+<li class="fragment"><p>Expectations</p></li>
+<li class="fragment"><p>Data</p></li>
 </ol>
 <ul>
-<li>Summary</li>
-<li>Descriptive Table and/or Figure (Optional)</li>
+<li class="fragment">Summary</li>
+<li class="fragment">Descriptive Table and/or Figure (Optional)</li>
 </ul>
 <ol start="6" type="1">
-<li><p>Design</p></li>
-<li><p>Results</p></li>
+<li class="fragment"><p>Design</p></li>
+<li class="fragment"><p>Results</p></li>
 </ol>
 <ul>
-<li>Summary</li>
-<li>Table (Optional)</li>
-<li>Figure (Optional)</li>
+<li class="fragment">Summary</li>
+<li class="fragment">Table (Optional)</li>
+<li class="fragment">Figure (Optional)</li>
 </ul>
 <ol start="8" type="1">
-<li>Conclusion</li>
+<li class="fragment">Conclusion</li>
 </ol>
 <ul>
-<li>Appendices (Extra Slides Optional)</li>
+<li class="fragment">Appendices (Extra Slides Optional)</li>
 </ul>
 </section>
 <section id="template" class="slide level2">
@@ -772,7 +772,7 @@ DeclareDesign     easystats           zoo
 <p>Let’s open up the template and explore.</p>
 
 <div class="quarto-auto-generated-content">
-<p><img src="brown.png" class="slide-logo"></p>
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>POLS 1600</p>
 </div>
@@ -954,9 +954,9 @@ DeclareDesign     easystats           zoo
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1600,
+        width: 1050,
 
-        height: 900,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -988,6 +988,44 @@ DeclareDesign     easystats           zoo
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

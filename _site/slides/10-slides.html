@@ -391,7 +391,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">Week 10:</h1>
   <p class="subtitle">Quantifying uncertainty with confidence intervals</p>
 
@@ -411,54 +411,54 @@ Paul Testa
 <section id="general-plan" class="slide level2">
 <h2>General Plan</h2>
 <ul>
-<li>Course Plan</li>
-<li>Setup</li>
-<li>Feedback</li>
-<li>Review</li>
-<li>Confidence Intervals</li>
+<li class="fragment">Course Plan</li>
+<li class="fragment">Setup</li>
+<li class="fragment">Feedback</li>
+<li class="fragment">Review</li>
+<li class="fragment">Confidence Intervals</li>
 </ul>
 <p>background-image: url(“https://i.kym-cdn.com/entries/icons/original/000/037/873/We’re_All_Trying_To_Find_The_Guy_Who_Did_This_banner_1.jpg”) background-size:contain</p>
 </section>
 <section id="two-options" class="slide level2">
 <h2>Two Options:</h2>
 <ul>
-<li>Proceed with group projects with condensed schedule/assignments</li>
+<li class="fragment">Proceed with group projects with condensed schedule/assignments</li>
 </ul>
 <p>–</p>
 <ul>
-<li>Replace group projects with a take home (open book/notes) final exam
+<li class="fragment">Replace group projects with a take home (open book/notes) final exam
 <ul>
-<li>Posted April 30</li>
-<li>Due May 7</li>
-<li>Mix of theory, concepts, and coding.</li>
+<li class="fragment">Posted April 30</li>
+<li class="fragment">Due May 7</li>
+<li class="fragment">Mix of theory, concepts, and coding.</li>
 </ul></li>
 </ul>
 </section>
 <section id="course-plan-option-1" class="slide level2">
 <h2>Course Plan: Option 1</h2>
 <ul>
-<li><p>April 13: No Class, Review Feedback to A2</p></li>
-<li><p>April 18: Lecture – Hypothesis Testing</p></li>
-<li><p>April 20 Workshop on Paper – Inference About Models: Counts as Assignment 3</p></li>
-<li><p>April 25: Lecture – Course Review</p></li>
-<li><p>April 27: Workshop: Paper drafts and Presentations</p></li>
-<li><p>April 30: Upload Presentations</p></li>
-<li><p>May 2: Class Presentations Part 1</p></li>
-<li><p>May 4: Class Presentations Part 2</p></li>
-<li><p>May ?: Tacos?</p></li>
+<li class="fragment"><p>April 13: No Class, Review Feedback to A2</p></li>
+<li class="fragment"><p>April 18: Lecture – Hypothesis Testing</p></li>
+<li class="fragment"><p>April 20 Workshop on Paper – Inference About Models: Counts as Assignment 3</p></li>
+<li class="fragment"><p>April 25: Lecture – Course Review</p></li>
+<li class="fragment"><p>April 27: Workshop: Paper drafts and Presentations</p></li>
+<li class="fragment"><p>April 30: Upload Presentations</p></li>
+<li class="fragment"><p>May 2: Class Presentations Part 1</p></li>
+<li class="fragment"><p>May 4: Class Presentations Part 2</p></li>
+<li class="fragment"><p>May ?: Tacos?</p></li>
 </ul>
 </section>
 <section id="course-plan-option-2" class="slide level2">
 <h2>Course Plan: Option 2</h2>
 <ul>
-<li><p>April 13: No Class,</p></li>
-<li><p>April 18: Lecture – Hypothesis Testing</p></li>
-<li><p>April 20 Lab – Hypothesis Testing and Interval Estimation</p></li>
-<li><p>April 25: Lecture – Course Review</p></li>
-<li><p>April 27: Workshop:</p></li>
-<li><p>April 30: Take Home Final Exam</p></li>
-<li><p>May ?: Tacos or Pizza with POLS 1140?</p></li>
-<li><p>May 7: Take Home Final Exam due</p></li>
+<li class="fragment"><p>April 13: No Class,</p></li>
+<li class="fragment"><p>April 18: Lecture – Hypothesis Testing</p></li>
+<li class="fragment"><p>April 20 Lab – Hypothesis Testing and Interval Estimation</p></li>
+<li class="fragment"><p>April 25: Lecture – Course Review</p></li>
+<li class="fragment"><p>April 27: Workshop:</p></li>
+<li class="fragment"><p>April 30: Take Home Final Exam</p></li>
+<li class="fragment"><p>May ?: Tacos or Pizza with POLS 1140?</p></li>
+<li class="fragment"><p>May 7: Take Home Final Exam due</p></li>
 </ul>
 </section>
 <section id="what-do-we-want-to-do" class="slide level2">
@@ -525,8 +525,8 @@ DeclareDesign           zoo          boot         purrr
 <h2>Generalized Linear Models</h2>
 <p>In last week’s lab we fit two models</p>
 <ul>
-<li>OLS</li>
-<li>Logistic regression</li>
+<li class="fragment">OLS</li>
+<li class="fragment">Logistic regression</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># OLS</span></span>
@@ -540,15 +540,15 @@ DeclareDesign           zoo          boot         purrr
 <section id="generalized-linear-model" class="slide level2">
 <h2>Generalized Linear Model</h2>
 <ul>
-<li><p>Logisitic regression is a type of <strong>generalized linear model</strong> used to model <strong>binary outcomes</strong></p></li>
-<li><p>We estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions</p></li>
-<li><p>Other common generalized linear models</p>
+<li class="fragment"><p>Logisitic regression is a type of <strong>generalized linear model</strong> used to model <strong>binary outcomes</strong></p></li>
+<li class="fragment"><p>We estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions</p></li>
+<li class="fragment"><p>Other common generalized linear models</p>
 <ul>
-<li>Probit regression (binary outcomes)</li>
-<li>Poisson regression (count data)</li>
-<li>Negative binomial regression (count data)</li>
+<li class="fragment">Probit regression (binary outcomes)</li>
+<li class="fragment">Poisson regression (count data)</li>
+<li class="fragment">Negative binomial regression (count data)</li>
 </ul></li>
-<li><p>It’s still “regression”, but interpretation typically requires transforming predictions (inverting the link function)</p></li>
+<li class="fragment"><p>It’s still “regression”, but interpretation typically requires transforming predictions (inverting the link function)</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
@@ -787,96 +787,96 @@ Deviance
 <span id="cb9-17"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="10-slides_files/figure-html/fig1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>class: inverse, center, middle # 💡 # Confidence Intervals ## The Basics</p>
+<img data-src="10-slides_files/figure-revealjs/fig1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>class: inverse, center, middle # 💡 # Confidence Intervals ## The Basics</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview:</h2>
 <ul>
-<li><p>Confidence intervals provide a way of quantifying uncertainty about <strong>estimates</strong></p></li>
-<li><p>Confidence intervals describe a range of plausible values</p></li>
-<li><p>That range is a function of the <strong>standard error</strong> of the estimate, and the a <strong>critical value</strong> determined <span class="math inline">\(\alpha\)</span>, which describes the degree of confidence we want</p>
+<li class="fragment"><p>Confidence intervals provide a way of quantifying uncertainty about <strong>estimates</strong></p></li>
+<li class="fragment"><p>Confidence intervals describe a range of plausible values</p></li>
+<li class="fragment"><p>That range is a function of the <strong>standard error</strong> of the estimate, and the a <strong>critical value</strong> determined <span class="math inline">\(\alpha\)</span>, which describes the degree of confidence we want</p>
 <ul>
-<li>A 95% confidence interval corresponds to an <span class="math inline">\(\alpha\)</span> of 0.05</li>
+<li class="fragment">A 95% confidence interval corresponds to an <span class="math inline">\(\alpha\)</span> of 0.05</li>
 </ul></li>
-<li><p>A <strong>standard error</strong> is the standard deviation of the sampling distribution of our estimate</p></li>
-<li><p>We can obtain the sampling distribution via:</p>
+<li class="fragment"><p>A <strong>standard error</strong> is the standard deviation of the sampling distribution of our estimate</p></li>
+<li class="fragment"><p>We can obtain the sampling distribution via:</p>
 <ul>
-<li>simulation (bootstrapping)</li>
-<li>asymptotic theory (the CLT)</li>
+<li class="fragment">simulation (bootstrapping)</li>
+<li class="fragment">asymptotic theory (the CLT)</li>
 </ul></li>
-<li><p>Our confidence is about the interval, not the estimate.</p></li>
+<li class="fragment"><p>Our confidence is about the interval, not the estimate.</p></li>
 </ul>
 </section>
 <section id="defintions-populations-and-samples" class="slide level2">
 <h2>Defintions: Populations and Samples</h2>
 <ul>
-<li><p><strong>Population</strong>: All the cases from which you could have sampled</p></li>
-<li><p><strong>Parameter:</strong> A quantity or quantities of interest often generically called <span class="math inline">\(\theta\)</span> (“theta”). Something we’d like to know about our population</p></li>
-<li><p><strong>Sample:</strong> A (random) draw from that population</p></li>
-<li><p><strong>Sample Size:</strong> The number of observations in your draw (without replacement)</p></li>
+<li class="fragment"><p><strong>Population</strong>: All the cases from which you could have sampled</p></li>
+<li class="fragment"><p><strong>Parameter:</strong> A quantity or quantities of interest often generically called <span class="math inline">\(\theta\)</span> (“theta”). Something we’d like to know about our population</p></li>
+<li class="fragment"><p><strong>Sample:</strong> A (random) draw from that population</p></li>
+<li class="fragment"><p><strong>Sample Size:</strong> The number of observations in your draw (without replacement)</p></li>
 </ul>
 </section>
 <section id="defintions-estimators-estimates-and-statistics" class="slide level2">
 <h2>Defintions: Estimators, Estimates, and Statistics</h2>
 <ul>
-<li><p><strong>Estimator:</strong> A rule for calculating an <em>estimate</em> of our parameter of interest.</p></li>
-<li><p><strong>Estimate:</strong> The value produced by some estimator for some parameter from some data. Often called <span class="math inline">\(\hat{\theta}\)</span></p></li>
-<li><p><strong>Unbiased estimators:</strong> <span class="math inline">\(E(\hat{\theta})=E(\theta)\)</span> On average, the estimates produced by some estimator will be centered around the truth</p></li>
-<li><p><strong>Consistent estimates:</strong> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
-<li><p><strong>Statistic:</strong> A summary of the data (mean, regression coefficient, <span class="math inline">\(R^2\)</span>). An estimator without a specified target of inference</p></li>
+<li class="fragment"><p><strong>Estimator:</strong> A rule for calculating an <em>estimate</em> of our parameter of interest.</p></li>
+<li class="fragment"><p><strong>Estimate:</strong> The value produced by some estimator for some parameter from some data. Often called <span class="math inline">\(\hat{\theta}\)</span></p></li>
+<li class="fragment"><p><strong>Unbiased estimators:</strong> <span class="math inline">\(E(\hat{\theta})=E(\theta)\)</span> On average, the estimates produced by some estimator will be centered around the truth</p></li>
+<li class="fragment"><p><strong>Consistent estimates:</strong> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
+<li class="fragment"><p><strong>Statistic:</strong> A summary of the data (mean, regression coefficient, <span class="math inline">\(R^2\)</span>). An estimator without a specified target of inference</p></li>
 </ul>
 </section>
 <section id="definitions-distrubtions-and-standard-errors" class="slide level2">
 <h2>Definitions: Distrubtions and Standard Errors</h2>
 <ul>
-<li><p><strong>Sampling Distribution:</strong> How some estimate would vary if you took repeated samples from the population</p></li>
-<li><p><strong>Standard Error:</strong> The standard deviation of the sampling distribution</p></li>
-<li><p><strong>Resampling Distribution:</strong> How some estimate would vary if you took repeated samples <strong>from your sample WITH REPLACEMENT</strong></p>
+<li class="fragment"><p><strong>Sampling Distribution:</strong> How some estimate would vary if you took repeated samples from the population</p></li>
+<li class="fragment"><p><strong>Standard Error:</strong> The standard deviation of the sampling distribution</p></li>
+<li class="fragment"><p><strong>Resampling Distribution:</strong> How some estimate would vary if you took repeated samples <strong>from your sample WITH REPLACEMENT</strong></p>
 <ul>
-<li>“Sampling from our sample, as the sample was sampled from the population.”</li>
+<li class="fragment">“Sampling from our sample, as the sample was sampled from the population.”</li>
 </ul></li>
 </ul>
 </section>
 <section id="confidence-intervals-interpretation" class="slide level2">
 <h2>Confidence Intervals: Interpretation</h2>
 <ul>
-<li><p>Confidence intervals give a range of values that are likely to include the true value of the parameter <span class="math inline">\(\theta\)</span> with probability <span class="math inline">\((1-\alpha) \times 100\%\)</span></p>
+<li class="fragment"><p>Confidence intervals give a range of values that are likely to include the true value of the parameter <span class="math inline">\(\theta\)</span> with probability <span class="math inline">\((1-\alpha) \times 100\%\)</span></p>
 <ul>
-<li><span class="math inline">\(\alpha = 0.05\)</span> corresponds to a “95-percent confidence interval”</li>
+<li class="fragment"><span class="math inline">\(\alpha = 0.05\)</span> corresponds to a “95-percent confidence interval”</li>
 </ul></li>
-<li><p>Our “confidence” is about the interval</p></li>
-<li><p>In repeated sampling, we expect that <span class="math inline">\((1-\alpha) \times 100\%\)</span> of the intervals we construct would contain the truth.</p></li>
-<li><p>For any one interval, the truth, <span class="math inline">\(\theta\)</span>, either falls within in the lower and upper bounds of the interval or it does not.</p></li>
+<li class="fragment"><p>Our “confidence” is about the interval</p></li>
+<li class="fragment"><p>In repeated sampling, we expect that <span class="math inline">\((1-\alpha) \times 100\%\)</span> of the intervals we construct would contain the truth.</p></li>
+<li class="fragment"><p>For any one interval, the truth, <span class="math inline">\(\theta\)</span>, either falls within in the lower and upper bounds of the interval or it does not.</p></li>
 </ul>
 </section>
 <section id="two-approaches-to-calculating-confidence-intervals" class="slide level2">
 <h2>Two Approaches to Calculating Confidence Intervals:</h2>
 <p>In general, there are two ways to calculate confidence intervals:</p>
 <ul>
-<li><p><strong>Simulation:</strong> Use our computers to simulate the idea of repeated sampling (e.g.&nbsp;bootstrapping)</p>
+<li class="fragment"><p><strong>Simulation:</strong> Use our computers to simulate the idea of repeated sampling (e.g.&nbsp;bootstrapping)</p>
 <ul>
-<li>Flexible, but more computationally intensive</li>
+<li class="fragment">Flexible, but more computationally intensive</li>
 </ul></li>
-<li><p><strong>Asymptotic Theory:</strong> Use math to derive the properties of the distributions that would arise under repeated sampling</p>
+<li class="fragment"><p><strong>Asymptotic Theory:</strong> Use math to derive the properties of the distributions that would arise under repeated sampling</p>
 <ul>
-<li>Faster, but requires more assumptions that may not hold</li>
+<li class="fragment">Faster, but requires more assumptions that may not hold</li>
 </ul></li>
 </ul>
 <p>We will consider both.</p>
 <ul>
-<li><p>The theory of CIs is easier to illustrate via simulation</p></li>
-<li><p>The practice of calculating CIs is (generally) easier using asymptotic theory</p></li>
+<li class="fragment"><p>The theory of CIs is easier to illustrate via simulation</p></li>
+<li class="fragment"><p>The practice of calculating CIs is (generally) easier using asymptotic theory</p></li>
 </ul>
 </section>
 <section id="steps-to-calculating-a-confidence-interval" class="slide level2 scrollable">
 <h2>Steps to Calculating a Confidence Interval</h2>
 <p>From QSS (p.&nbsp;330)</p>
 <ol type="1">
-<li><p>Choose the desired level of confidence <span class="math inline">\((1-\alpha)\times 100%\)</span> by specifying a value of α between 0 and 1: the most common choice is= <span class="math inline">\(\alpha = 0.05\)</span>, which gives a 95% confidence level.</p></li>
-<li><p>Derive the sampling distribution of the estimator by computing its mean and variance.</p></li>
-<li><p>Compute the standard error based on this sampling distribution. (square root of the variance)</p></li>
-<li><p>Compute the critical value <span class="math inline">\(z_{\alpha/2}\)</span> as the <span class="math inline">\((1-\alpha)\times 100\)</span> percentile value of the standard normal distribution</p></li>
-<li><p>Compute the lower and upper confidence limits as <span class="math inline">\(\hat{\theta} - z_{\alpha/2}\times SE\)</span> and <span class="math inline">\(\hat{\theta} + z_{\alpha/2}\times SE\)</span> standard error, respectively.</p></li>
+<li class="fragment"><p>Choose the desired level of confidence <span class="math inline">\((1-\alpha)\times 100%\)</span> by specifying a value of α between 0 and 1: the most common choice is= <span class="math inline">\(\alpha = 0.05\)</span>, which gives a 95% confidence level.</p></li>
+<li class="fragment"><p>Derive the sampling distribution of the estimator by computing its mean and variance.</p></li>
+<li class="fragment"><p>Compute the standard error based on this sampling distribution. (square root of the variance)</p></li>
+<li class="fragment"><p>Compute the critical value <span class="math inline">\(z_{\alpha/2}\)</span> as the <span class="math inline">\((1-\alpha)\times 100\)</span> percentile value of the standard normal distribution</p></li>
+<li class="fragment"><p>Compute the lower and upper confidence limits as <span class="math inline">\(\hat{\theta} - z_{\alpha/2}\times SE\)</span> and <span class="math inline">\(\hat{\theta} + z_{\alpha/2}\times SE\)</span> standard error, respectively.</p></li>
 </ol>
 <p>class: inverse, center, middle # 💡 # Confidence Intervals ## Simulating the Sampling Distribution through Bootstrapping</p>
 </section>
@@ -926,7 +926,7 @@ Deviance
 <span id="cb15-12"><a></a>p_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="10-slides_files/figure-html/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="10-slides_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="sample-estimates-of-average-age-n-25" class="slide level2">
 <h2>Sample Estimates of Average Age (N = 25)</h2>
 <p>Suppose we took three samples, <strong>without replacement</strong> of size 25, and calculated the average age in each sample:</p>
@@ -950,13 +950,13 @@ Deviance
 </div>
 </div>
 
-<img data-src="10-slides_files/figure-html/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="10-slides_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="repeated-sampling" class="slide level2">
 <h2>Repeated Sampling</h2>
 <ul>
-<li><p>Imagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.</p></li>
-<li><p>How much would our estimate of the average of age of the population vary?</p></li>
-<li><p>Let’s use our computers to simulate this process and find out!</p></li>
+<li class="fragment"><p>Imagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.</p></li>
+<li class="fragment"><p>How much would our estimate of the average of age of the population vary?</p></li>
+<li class="fragment"><p>Let’s use our computers to simulate this process and find out!</p></li>
 </ul>
 </section>
 <section id="simualting-repeated-sampling" class="slide level2">
@@ -1017,7 +1017,7 @@ Deviance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="10-slides_files/figure-html/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="10-slides_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1043,7 +1043,7 @@ Deviance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="10-slides_files/figure-html/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="10-slides_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1052,8 +1052,8 @@ Deviance
 <section id="standard-errors" class="slide level2">
 <h2>Standard Errors</h2>
 <ul>
-<li><p>A <strong>standard error</strong> is simply the standard deviation of the sampling distribution.</p></li>
-<li><p>The standard error for our simulation above:</p></li>
+<li class="fragment"><p>A <strong>standard error</strong> is simply the standard deviation of the sampling distribution.</p></li>
+<li class="fragment"><p>The standard error for our simulation above:</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>se_age_n25 <span class="ot">&lt;-</span> <span class="fu">sd</span>(mu_age_samp_dist_n25<span class="sc">$</span>estimate)</span>
@@ -1066,8 +1066,8 @@ Deviance
 <section id="coverage-intervals" class="slide level2">
 <h2>Coverage Intervals</h2>
 <ul>
-<li><p>From the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.</p></li>
-<li><p>From probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between <em>Two</em> Standard Deviations of the mean.</p></li>
+<li class="fragment"><p>From the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.</p></li>
+<li class="fragment"><p>From probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between <em>Two</em> Standard Deviations of the mean.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>ci_age_ul_n25 <span class="ot">&lt;-</span> mu_age <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>se_age_n25</span>
@@ -1098,14 +1098,14 @@ Deviance
 <span id="cb36-16"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
-<img data-src="10-slides_files/figure-html/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<img data-src="10-slides_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="boostrapped-standard-errors" class="slide level2">
 <h2>Boostrapped Standard Errors</h2>
 <ul>
-<li><p>A standard error is the standard deviation of a hypothetical sampling distribution</p></li>
-<li><p>How do we calculate a standard error from a single sample?</p></li>
-<li><p>It turns out that a random sample provides unbiased estimates of both the population mean <strong>and</strong> the standard deviation of the of the sampling distribution (i.e.&nbsp;the standard error).</p></li>
-<li><p>We can estimate this this standard error, by sampling with replacement from our sample to generate a <strong>bootstrapped</strong> sampling distribution</p></li>
+<li class="fragment"><p>A standard error is the standard deviation of a hypothetical sampling distribution</p></li>
+<li class="fragment"><p>How do we calculate a standard error from a single sample?</p></li>
+<li class="fragment"><p>It turns out that a random sample provides unbiased estimates of both the population mean <strong>and</strong> the standard deviation of the of the sampling distribution (i.e.&nbsp;the standard error).</p></li>
+<li class="fragment"><p>We can estimate this this standard error, by sampling with replacement from our sample to generate a <strong>bootstrapped</strong> sampling distribution</p></li>
 </ul>
 </section>
 <section id="boostrapped-standard-errors-1" class="slide level2">
@@ -1208,7 +1208,7 @@ Deviance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="10-slides_files/figure-html/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="10-slides_files/figure-revealjs/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1253,7 +1253,7 @@ Deviance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="10-slides_files/figure-html/unnamed-chunk-40-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="10-slides_files/figure-revealjs/unnamed-chunk-40-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1262,7 +1262,7 @@ Deviance
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="10-slides_files/figure-html/unnamed-chunk-41-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<p><img data-src="10-slides_files/figure-revealjs/unnamed-chunk-41-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -1292,12 +1292,12 @@ Deviance
 <section id="next-week-standard-errors-for-linear-models" class="slide level2">
 <h2>Next Week: Standard Errors for Linear Models</h2>
 <ul>
-<li><p>As you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression</p></li>
-<li><p>Next week, we’ll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing.</p></li>
+<li class="fragment"><p>As you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression</p></li>
+<li class="fragment"><p>Next week, we’ll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing.</p></li>
 </ul>
 
 <div class="quarto-auto-generated-content">
-<p><img src="brown.png" class="slide-logo"></p>
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>POLS 1600</p>
 </div>
@@ -1479,9 +1479,9 @@ Deviance
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1600,
+        width: 1050,
 
-        height: 900,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -1513,6 +1513,44 @@ Deviance
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
