@@ -7,8 +7,10 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.545">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -325,25 +327,75 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" align="left" data-background-image="brown.png" data-background-position="90% 50%" data-background-size="18%" class="quarto-title-block center">
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">POLS 1600</h1>
   <p class="subtitle">Topic</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Jan 26, 2024</p>
+  <p class="date">Updated Jan 29, 2024</p>
 </section>
 <section>
-<section id="hello-world" class="title-slide slide level1 inverse center">
-<h1>Hello world</h1>
+<section id="overview" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-map-location" aria-label="map-location"></i> Overview</h1>
 
 </section>
-<section id="slide-1" class="slide level2 inverse">
-<h2>Slide 1</h2>
+<section id="class-plan" class="slide level2">
+<h2>Class Plan</h2>
+<ul>
+<li class="fragment">Announcements</li>
+<li class="fragment">Feedback</li>
+<li class="fragment">Review</li>
+<li class="fragment">Class plan</li>
+</ul>
+</section>
+<section id="annoucements" class="slide level2">
+<h2>Annoucements</h2>
+</section>
+<section id="feedback" class="slide level2">
+<h2>Feedback</h2>
+</section>
+<section id="concepts" class="slide level2">
+<h2><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Concepts</h2>
+</section>
+<section id="code" class="slide level2">
+<h2><i class="fa-solid fa-code" aria-label="code"></i> Code</h2>
+</section></section>
+<section>
+<section id="review" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-magnifying-glass" aria-label="magnifying-glass"></i> Review</h1>
+
+</section>
+<section id="review-1" class="slide level2">
+<h2>Review</h2>
+</section></section>
+<section>
+<section id="concept" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Concept</h1>
+
+</section>
+<section id="concept-1" class="slide level2">
+<h2>Concept</h2>
+</section></section>
+<section>
+<section id="code-1" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-code" aria-label="code"></i> Code</h1>
+
+</section>
+<section id="code-2" class="slide level2">
+<h2>Code</h2>
+</section></section>
+<section>
+<section id="summary" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-home" aria-label="home"></i> Summary</h1>
+
+</section>
+<section id="summary-1" class="slide level2">
+<h2>Summary</h2>
 
 <div class="quarto-auto-generated-content">
-<p><img src="brown.png" class="slide-logo"></p>
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>POLS 1600</p>
 </div>
@@ -559,6 +611,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
