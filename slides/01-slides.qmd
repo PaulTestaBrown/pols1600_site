@@ -69,7 +69,11 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
 
 ## Annoucements
 
-- If you're still on the wait list, speak to me after class
+- If it's your first time here you'll need to work through [Software Setup](../resources/00-software-setup.qmd) to follow along today
+
+  - Talk to me after class if you're having installation issues
+
+- If you're still on the waitlist on CAB, speak to me after class
 
 ## Announcements
 

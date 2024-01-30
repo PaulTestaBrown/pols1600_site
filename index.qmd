@@ -43,7 +43,6 @@ Thursdays 9-10:20 am
 Due on [Canvas](https://canvas.brown.edu/courses/1094972)
 :::
 
-
 ::: g-col-4
 [{{< fa map-location-dot size=4x >}}](https://brown.edu/Facilities/Facilities_Management/maps/index.php#building/BH)
 
@@ -62,9 +61,9 @@ Barus & Holley 751
 [{{< fa person-circle-question size=4x >}}](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UUg1TkI2bmtYWi1kfGRlZmF1bHR8OTkyODI5NjQzN2E3YzUwZjQwM2EyNGUyYzYyNGE4OWY)
 
 ### Office Hours
+
 111 Thayer St Rm 339
 :::
-
 :::
 
 # Schedule
@@ -171,7 +170,7 @@ assignments <- c(
 #
 labs[2] <- " "
 comments[2] <- " "
-slides[seq(4,28, by=2)] <- as.character(fa("comments"))
+slides[seq(6,28, by=2)] <- as.character(fa("comments"))
 labs[seq(6,28, by=2)] <- as.character(fa("laptop-file"))
 comments[seq(6,28, by=2)] <- as.character(fa("graduation-cap"))
 assignments <- rep(" ", 28)
@@ -204,18 +203,14 @@ kable(schedule_tibble,
 # Instructors
 
 ::: grid
-
 ::: g-col-6
-
 [Paul Testa](https://paultesta.org)
 
 Assistant Professor
 
 Department of Political Science
 
-Brown University
-<paul\_testa@brown.edu>
-
+Brown University \<paul_testa\@brown.edu\>
 :::
 
 ::: g-col-6
@@ -229,12 +224,10 @@ Teaching Assistant
 
 Department of Political Science
 
-Brown University
-<Manuel\_Moscoso\_Rojas@Brown.edu>
+Brown University \<Manuel_Moscoso_Rojas\@Brown.edu\>
 :::
 
 ::: g-col-6
 ![](https://polisci.brown.edu/sites/default/files/styles/portrait_classic_xsml/public/2021-11/Moscoso2019_crop.jpg?h=cd35fa64&itok=5rmo3r9m){width="50%"}
 :::
-
 :::

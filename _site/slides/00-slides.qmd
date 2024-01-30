@@ -457,10 +457,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 -   Community standards
 -   Incomplete/late work
 
-
-
 # Introductions
-
 
 ## Two Fundamental Truths
 
@@ -469,7 +466,6 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 . . .
 
 ![](https://elephant.art/wp-content/uploads/2019/11/poop-emoji.jpg){width="50%"}
-
 
 ## Testa's first fundamental truth
 
