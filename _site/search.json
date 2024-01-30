@@ -2277,14 +2277,14 @@
     "href": "slides/01-slides.html#the-basics-of-r",
     "title": "POLS 1600",
     "section": "The Basics of R",
-    "text": "The Basics of R\n\nR is an interpreter (&gt;)\n“Everything that exists in R is an object”\n“Everything that happens in R is the result of a function”\nData come in different types, shapes and sizes\nPackages make R great"
+    "text": "The Basics of R\n\nR is an interpreter (&gt;)\n“Everything that exists in R is an object”\n“Everything that happens in R is the result of a function”\nData come in different types, shapes, and sizes\nPackages make R great"
   },
   {
     "objectID": "slides/01-slides.html#r-is-an-interpreter",
     "href": "slides/01-slides.html#r-is-an-interpreter",
     "title": "POLS 1600",
     "section": "R is an interpreter (>)",
-    "text": "R is an interpreter (&gt;)\nEnter commands line-by-line in the console\n\nThe &gt; means R is a ready for a command\nThe + means your last command isn’t complete\n\nIf you get stuck with a + use your escape key!\n\nSend code .qmd file to the console:\n\ncntrl + Enter (PC) | cmd + Return (Mac) -&gt; run current line\ncntrl + shift + Enter (PC) | cmd + shift  + Return (Mac) -&gt; run all code in current chunk"
+    "text": "R is an interpreter (&gt;)\nEnter commands line-by-line in the console\n\nThe &gt; means R is a ready for a command\nThe + means your last command isn’t complete\n\nIf you get stuck with a + use your escape key!\n\nSend code from .qmd file to the console:\n\ncntrl + Enter (PC) | cmd + Return (Mac) -&gt; run current line\ncntrl + shift + Enter (PC) | cmd + shift  + Return (Mac) -&gt; run all code in current chunk"
   },
   {
     "objectID": "slides/01-slides.html#r-is-a-calculator",
@@ -2361,7 +2361,7 @@
     "href": "slides/01-slides.html#three-sources-of-functions",
     "title": "POLS 1600",
     "section": "Three sources of functions",
-    "text": "Three sources of functions\nThree sources of functions:\n\nbase R &lt;-; mean(x); library(\"package_name\")\npackages remotes::intall_github(\"user/repository\")\nYou my_function &lt;- function(x){x^2}"
+    "text": "Three sources of functions\nThree sources of functions:\n\nbase R\n\n&lt;-; mean(x); library(\"package_name\")\n\npackages\n\ninstall.packages(\"packageName)\"\nremotes::intall_github(\"user/repository\")\n\nYou\n\nmy_function &lt;- function(x){x^2}"
   },
   {
     "objectID": "slides/01-slides.html#functions-are-like-recipes",
@@ -2473,14 +2473,14 @@
     "href": "slides/01-slides.html#looking-at-your-data",
     "title": "POLS 1600",
     "section": "Looking at your data",
-    "text": "Looking at your data\nAnytime you load data into R, try some combination of the following to get a high-level overview (HLO) of the data\n\ndim(data) gives you the dimensions (# of rows and columns)\nView(data) opens data in a separate pane\nprint(data); data will display a truncated view of data in your console\nglimpse(data) will show a transposed (switch columns and rows) version of data with information on variable type\nhead(data) shows you the first 5 rows\ntail(data) shows you the last 5 rows\nglimpse(data)\ndata$variable extracts variable from data\ntable(data$variable) creates a frequency table\n\nGood for categorical data\n\nsummary(data$variable) summary statistics\n\nGood for numeric data"
+    "text": "Looking at your data\nAnytime you load data into R, try some combination of the following to get a high-level overview (HLO) of the data\n\ndim(data) gives you the dimensions (# of rows and columns)\nView(data) opens data in a separate pane\nprint(data); data will display a truncated view of data in your console\nglimpse(data) will show a transposed (switch columns and rows) version of data with information on variable type\nhead(data) shows you the first 5 rows\ntail(data) shows you the last 5 rows\ndata$variable extracts variable from data\ntable(data$variable) creates a frequency table\n\nGood for categorical data\n\nsummary(data$variable) summary statistics\n\nGood for numeric data"
   },
   {
     "objectID": "slides/01-slides.html#hlos-allow-you-to",
     "href": "slides/01-slides.html#hlos-allow-you-to",
     "title": "POLS 1600",
     "section": "HLOs allow you to",
-    "text": "HLOs allow you to\n\nDescribe the structure of your data:\n\nHow many observations (rows)\nHow many variables (columns)\n\nDescribe the unit of analysis\n\nWhat does a row in your data correspond to\n\nIdentify the class and type of variables (columns)\n\nNumeric, categorical, logical\nIs there missing data (NAs)\n\nFigure out what transformations, cleaning, and recoding you need to do"
+    "text": "HLOs allow you to\n\nDescribe the structure of your data:\n\nHow many observations (rows)\nHow many variables (columns)\n\nDescribe the unit of analysis\n\nWhat does a row in your data correspond to\n\nIdentify the class and type of variables (columns)\n\nNumeric, character, logical\nIs there missing data (NAs)\n\nFigure out what transformations, cleaning, and recoding you need to do"
   },
   {
     "objectID": "slides/01-slides.html#the-tidyverse",
@@ -2641,7 +2641,7 @@
     "href": "slides/01-slides.html#congrats",
     "title": "POLS 1600",
     "section": "Congrats!",
-    "text": "Congrats!\n\nWe covered A LOT\nIt’s OK to feel overwhelmed\n\nBut please don’t suffer in silence\n\nDon’t worry if everything didn’t make sense.\n\nEventually it will, but this takes time and practice\nTesta’s 50-50 rule\n\n\n\n\n\n\nPOLS 1600"
+    "text": "Congrats!\n\nWe covered A LOT\nIt’s OK to feel overwhelmed\n\nBut please don’t suffer in silence\n\nDon’t worry if everything didn’t make sense.\n\nEventually it will, but this takes time and practice\nTesta’s 50-50 rule\nFAAFO\n\n\n\n\n\n\nPOLS 1600"
   },
   {
     "objectID": "slides/02-slides.html#today",

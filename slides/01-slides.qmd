@@ -111,7 +111,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 
 
 
-## "" {background-image=https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg background-size=contain}
+## {background-image=https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg background-size=contain}
 
 
 ## You've committed a murder
@@ -287,7 +287,7 @@ What are we [excited]{.blue} about?
 
 - "Everything that happens in R is the result of a function"
 
-- Data come in different types, shapes and sizes
+- Data come in different types, shapes, and sizes
 
 - Packages make R great
 
@@ -309,7 +309,7 @@ Enter commands line-by-line in the console
 
 
 
-* Send code .qmd file to the console:
+* Send code from .qmd file to the console:
 
   - `cntrl + Enter` (PC) |  `cmd + Return` (Mac) -> run current line
   - `cntrl + shift + Enter` (PC) |  `cmd + shift  + Return` (Mac) -> run all code in current chunk
@@ -522,11 +522,15 @@ Source: [Gaurav Tiwari](https://medium.com/@tiwarigaurav2512/r-data-types-847fff
 
 Three sources of functions:
 
-- base R `<-; mean(x); library("package_name")`
+- base R 
+  - `<-; mean(x); library("package_name")`
 
-- packages `remotes::intall_github("user/repository")`
+- packages 
+  - `install.packages("packageName)"`
+  - `remotes::intall_github("user/repository")`
 
-- You `my_function <- function(x){x^2}`
+- You 
+  - `my_function <- function(x){x^2}`
   
 
 ## Functions are like recipes {.smaller}
@@ -766,22 +770,21 @@ Anytime you load data into R, try some combination of the following to get a [hi
 - `glimpse(data)` will show a transposed (switch columns and rows) version of data with information on variable type
 - `head(data)` shows you the first 5 rows
 - `tail(data)` shows you the last 5 rows
-- `glimpse(data)`
 - `data$variable` extracts `variable` from `data`
 - `table(data$variable)` creates a frequency table
   - Good for categorical data
 - `summary(data$variable)` summary statistics
   - Good for numeric data
 
-## HLOs allow you to
+## HLOs allow you to {.smaller}
 
-- Describe the structure of your data:
+- Describe the [structure]{.blue} of your data:
   - How many observations (rows)
   - How many variables (columns)
 - Describe the [unit of analysis]{.blue}
   - What does a row in your data correspond to
-- Identify the class and type of variables (columns)
-  - Numeric, categorical, logical
+- Identify the [class and type]{.blue} of variables (columns)
+  - Numeric, character, logical
   - Is there missing data (`NA`s)
 - Figure out what  [transformations, cleaning, and recoding]{.blue} you need to do
   
@@ -1238,5 +1241,7 @@ After today, you should have a better sense of
 - Don't worry if everything didn't make sense.
   - Eventually it will, but this takes time and practice
   - Testa's 50-50 rule
+  - FAAFO
+
 
 
