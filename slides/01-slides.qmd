@@ -107,7 +107,7 @@ And start a specific tutorial by running:
 learnr::run_tutorial("00-intro", package = "qsslearnr")
 ```
 
-[Please upload tutorials 00-intro and 01-measurement1 to Canvas by Friday]
+[Please upload tutorials 00-intro and 01-measurement1 to Canvas by Friday]{.blue}
 
 
 

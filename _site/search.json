@@ -2193,7 +2193,7 @@
     "href": "slides/01-slides.html#tutorials-1",
     "title": "POLS 1600",
     "section": "Tutorials",
-    "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\n[Please upload tutorials 00-intro and 01-measurement1 to Canvas by Friday]"
+    "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nPlease upload tutorials 00-intro and 01-measurement1 to Canvas by Friday"
   },
   {
     "objectID": "slides/01-slides.html#section",
