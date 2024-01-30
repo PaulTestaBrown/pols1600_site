@@ -5,7 +5,7 @@ date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
   revealjs:
-    theme: brownslides.scss
+    theme: [default, brownslides.scss]
     logo: images/pols1600_hex.png
     footer: "POLS 1600"
     multiplex: false
