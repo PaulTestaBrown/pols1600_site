@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.545">
+
+  <meta name="author" content="Paul Testa">
+  <title>POLS 1600 - Week 10:</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 10:</h1>
+  <p class="subtitle">Quantifying uncertainty with confidence intervals</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Paul Testa 
+</div>
+</div>
+</div>
+
+</section>
+<section class="slide level2">
+
+<p>class: inverse, center, middle # Overview</p>
+</section>
+<section id="general-plan" class="slide level2">
+<h2>General Plan</h2>
+<ul>
+<li>Course Plan</li>
+<li>Setup</li>
+<li>Feedback</li>
+<li>Review</li>
+<li>Confidence Intervals</li>
+</ul>
+<p>background-image: url(“https://i.kym-cdn.com/entries/icons/original/000/037/873/We’re_All_Trying_To_Find_The_Guy_Who_Did_This_banner_1.jpg”) background-size:contain</p>
+</section>
+<section id="two-options" class="slide level2">
+<h2>Two Options:</h2>
+<ul>
+<li>Proceed with group projects with condensed schedule/assignments</li>
+</ul>
+<p>–</p>
+<ul>
+<li>Replace group projects with a take home (open book/notes) final exam
+<ul>
+<li>Posted April 30</li>
+<li>Due May 7</li>
+<li>Mix of theory, concepts, and coding.</li>
+</ul></li>
+</ul>
+</section>
+<section id="course-plan-option-1" class="slide level2">
+<h2>Course Plan: Option 1</h2>
+<ul>
+<li><p>April 13: No Class, Review Feedback to A2</p></li>
+<li><p>April 18: Lecture – Hypothesis Testing</p></li>
+<li><p>April 20 Workshop on Paper – Inference About Models: Counts as Assignment 3</p></li>
+<li><p>April 25: Lecture – Course Review</p></li>
+<li><p>April 27: Workshop: Paper drafts and Presentations</p></li>
+<li><p>April 30: Upload Presentations</p></li>
+<li><p>May 2: Class Presentations Part 1</p></li>
+<li><p>May 4: Class Presentations Part 2</p></li>
+<li><p>May ?: Tacos?</p></li>
+</ul>
+</section>
+<section id="course-plan-option-2" class="slide level2">
+<h2>Course Plan: Option 2</h2>
+<ul>
+<li><p>April 13: No Class,</p></li>
+<li><p>April 18: Lecture – Hypothesis Testing</p></li>
+<li><p>April 20 Lab – Hypothesis Testing and Interval Estimation</p></li>
+<li><p>April 25: Lecture – Course Review</p></li>
+<li><p>April 27: Workshop:</p></li>
+<li><p>April 30: Take Home Final Exam</p></li>
+<li><p>May ?: Tacos or Pizza with POLS 1140?</p></li>
+<li><p>May 7: Take Home Final Exam due</p></li>
+</ul>
+</section>
+<section id="what-do-we-want-to-do" class="slide level2">
+<h2>What do we want to do?</h2>
+<p>class:inverse, middle, center # 💪 ## Get set up to work</p>
+</section>
+<section id="packages-for-today" class="slide level2">
+<h2>Packages for today</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>the_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a></a>  <span class="do">## R Markdown</span></span>
+<span id="cb1-3"><a></a>  <span class="st">"kableExtra"</span>,<span class="st">"DT"</span>,<span class="st">"texreg"</span>,</span>
+<span id="cb1-4"><a></a>  <span class="do">## Tidyverse</span></span>
+<span id="cb1-5"><a></a>  <span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"forcats"</span>, <span class="st">"haven"</span>, <span class="st">"labelled"</span>,</span>
+<span id="cb1-6"><a></a>  <span class="st">"modelr"</span>,<span class="co"># &lt;&lt;</span></span>
+<span id="cb1-7"><a></a>  <span class="do">## Extensions for ggplot</span></span>
+<span id="cb1-8"><a></a>  <span class="st">"ggmap"</span>,<span class="st">"ggrepel"</span>, <span class="st">"ggridges"</span>, <span class="st">"ggthemes"</span>, <span class="st">"ggpubr"</span>, </span>
+<span id="cb1-9"><a></a>  <span class="st">"GGally"</span>, <span class="st">"scales"</span>, <span class="st">"dagitty"</span>, <span class="st">"ggdag"</span>, <span class="st">"ggforce"</span>,</span>
+<span id="cb1-10"><a></a>  <span class="co"># Data </span></span>
+<span id="cb1-11"><a></a>  <span class="st">"COVID19"</span>,<span class="st">"maps"</span>,<span class="st">"mapdata"</span>,<span class="st">"qss"</span>,<span class="st">"tidycensus"</span>, <span class="st">"dataverse"</span>, </span>
+<span id="cb1-12"><a></a>  <span class="co"># Analysis</span></span>
+<span id="cb1-13"><a></a>  <span class="st">"DeclareDesign"</span>, <span class="st">"zoo"</span>, <span class="st">"boot"</span>,<span class="st">"purrr"</span></span>
+<span id="cb1-14"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="define-a-function-to-load-and-if-needed-install-packages" class="slide level2">
+<h2>Define a function to load (and if needed install) packages</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg){</span>
+<span id="cb2-2"><a></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb2-3"><a></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) </span>
+<span id="cb2-4"><a></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-packages-for-today" class="slide level2">
+<h2>Load packages for today</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">ipak</span>(the_packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   kableExtra            DT        texreg     tidyverse     lubridate 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      forcats         haven      labelled        modelr         ggmap 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      ggrepel      ggridges      ggthemes        ggpubr        GGally 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+       scales       dagitty         ggdag       ggforce       COVID19 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+         maps       mapdata           qss    tidycensus     dataverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+DeclareDesign           zoo          boot         purrr 
+         TRUE          TRUE          TRUE          TRUE </code></pre>
+</div>
+</div>
+<p>class:inverse, center, middle # 💪 ## Load Data for today</p>
+<p>We’ll use data from last week’s lab to</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/df_drww.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>class:inverse, middle, center # 🔍 ## Review: Generalized Linear Models</p>
+</section>
+<section id="generalized-linear-models" class="slide level2">
+<h2>Generalized Linear Models</h2>
+<p>In last week’s lab we fit two models</p>
+<ul>
+<li>OLS</li>
+<li>Logistic regression</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># OLS</span></span>
+<span id="cb6-2"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(support_war01 <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> education_n, df_drww)</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="co"># Logisitic </span></span>
+<span id="cb6-5"><a></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(support_war01 <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> education_n, df_drww,</span>
+<span id="cb6-6"><a></a>          <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generalized-linear-model" class="slide level2">
+<h2>Generalized Linear Model</h2>
+<ul>
+<li><p>Logisitic regression is a type of <strong>generalized linear model</strong> used to model <strong>binary outcomes</strong></p></li>
+<li><p>We estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions</p></li>
+<li><p>Other common generalized linear models</p>
+<ul>
+<li>Probit regression (binary outcomes)</li>
+<li>Poisson regression (count data)</li>
+<li>Negative binomial regression (count data)</li>
+</ul></li>
+<li><p>It’s still “regression”, but interpretation typically requires transforming predictions (inverting the link function)</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.28<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-1.36<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.29)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+age
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.00)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.00)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sexMale
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.50<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+education_n
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1463
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1463
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1575.54
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1596.69
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-783.77
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1567.54
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="3">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</section>
+<section id="prediction-data-frame" class="slide level2">
+<h2>Prediction Data Frame</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>pred_df <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
+<span id="cb7-2"><a></a>  <span class="at">age =</span> <span class="dv">18</span> <span class="sc">:</span> <span class="dv">99</span>,</span>
+<span id="cb7-3"><a></a>  <span class="at">sex =</span> <span class="st">"Female"</span>,</span>
+<span id="cb7-4"><a></a>  <span class="at">education_n =</span> <span class="fu">mean</span>(df_drww<span class="sc">$</span>education_n, <span class="at">na.rm =</span> T)</span>
+<span id="cb7-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="predicted-values" class="slide level2">
+<h2>Predicted Values</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># #Predicted values for m1</span></span>
+<span id="cb8-2"><a></a>pred_df<span class="sc">$</span>pred_ols <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1,</span>
+<span id="cb8-3"><a></a>                            <span class="at">newdata =</span> pred_df)</span>
+<span id="cb8-4"><a></a><span class="co"># Predicted values for m2</span></span>
+<span id="cb8-5"><a></a><span class="co"># Remember to add type = "response"</span></span>
+<span id="cb8-6"><a></a>pred_df<span class="sc">$</span>pred_logit <span class="ot">&lt;-</span> <span class="fu">predict</span>(m2,</span>
+<span id="cb8-7"><a></a>                            <span class="at">newdata =</span> pred_df,</span>
+<span id="cb8-8"><a></a>                            <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="co"># data</span></span>
+<span id="cb9-2"><a></a>pred_df<span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a></a>  <span class="co"># aesthetics</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, pred_ols, <span class="at">col =</span> <span class="st">"OLS"</span>))<span class="sc">+</span></span>
+<span id="cb9-5"><a></a>  <span class="co"># geometries</span></span>
+<span id="cb9-6"><a></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb9-7"><a></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> pred_logit, <span class="at">col =</span> <span class="st">"Logistic"</span>))<span class="sc">+</span></span>
+<span id="cb9-8"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">data=</span>df_drww, <span class="fu">aes</span>(age, support_war01),</span>
+<span id="cb9-9"><a></a>              <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb9-10"><a></a>              <span class="at">height =</span> .<span class="dv">05</span>,</span>
+<span id="cb9-11"><a></a>              <span class="at">size =</span> .<span class="dv">5</span>,</span>
+<span id="cb9-12"><a></a>              <span class="at">alpha =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb9-13"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-14"><a></a>    <span class="at">col =</span> <span class="st">"Model"</span>,</span>
+<span id="cb9-15"><a></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
+<span id="cb9-16"><a></a>    <span class="at">y =</span> <span class="st">"Predicted Values"</span></span>
+<span id="cb9-17"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="10-slides_files/figure-html/fig1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>class: inverse, center, middle # 💡 # Confidence Intervals ## The Basics</p>
+</section>
+<section id="overview" class="slide level2">
+<h2>Overview:</h2>
+<ul>
+<li><p>Confidence intervals provide a way of quantifying uncertainty about <strong>estimates</strong></p></li>
+<li><p>Confidence intervals describe a range of plausible values</p></li>
+<li><p>That range is a function of the <strong>standard error</strong> of the estimate, and the a <strong>critical value</strong> determined <span class="math inline">\(\alpha\)</span>, which describes the degree of confidence we want</p>
+<ul>
+<li>A 95% confidence interval corresponds to an <span class="math inline">\(\alpha\)</span> of 0.05</li>
+</ul></li>
+<li><p>A <strong>standard error</strong> is the standard deviation of the sampling distribution of our estimate</p></li>
+<li><p>We can obtain the sampling distribution via:</p>
+<ul>
+<li>simulation (bootstrapping)</li>
+<li>asymptotic theory (the CLT)</li>
+</ul></li>
+<li><p>Our confidence is about the interval, not the estimate.</p></li>
+</ul>
+</section>
+<section id="defintions-populations-and-samples" class="slide level2">
+<h2>Defintions: Populations and Samples</h2>
+<ul>
+<li><p><strong>Population</strong>: All the cases from which you could have sampled</p></li>
+<li><p><strong>Parameter:</strong> A quantity or quantities of interest often generically called <span class="math inline">\(\theta\)</span> (“theta”). Something we’d like to know about our population</p></li>
+<li><p><strong>Sample:</strong> A (random) draw from that population</p></li>
+<li><p><strong>Sample Size:</strong> The number of observations in your draw (without replacement)</p></li>
+</ul>
+</section>
+<section id="defintions-estimators-estimates-and-statistics" class="slide level2">
+<h2>Defintions: Estimators, Estimates, and Statistics</h2>
+<ul>
+<li><p><strong>Estimator:</strong> A rule for calculating an <em>estimate</em> of our parameter of interest.</p></li>
+<li><p><strong>Estimate:</strong> The value produced by some estimator for some parameter from some data. Often called <span class="math inline">\(\hat{\theta}\)</span></p></li>
+<li><p><strong>Unbiased estimators:</strong> <span class="math inline">\(E(\hat{\theta})=E(\theta)\)</span> On average, the estimates produced by some estimator will be centered around the truth</p></li>
+<li><p><strong>Consistent estimates:</strong> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
+<li><p><strong>Statistic:</strong> A summary of the data (mean, regression coefficient, <span class="math inline">\(R^2\)</span>). An estimator without a specified target of inference</p></li>
+</ul>
+</section>
+<section id="definitions-distrubtions-and-standard-errors" class="slide level2">
+<h2>Definitions: Distrubtions and Standard Errors</h2>
+<ul>
+<li><p><strong>Sampling Distribution:</strong> How some estimate would vary if you took repeated samples from the population</p></li>
+<li><p><strong>Standard Error:</strong> The standard deviation of the sampling distribution</p></li>
+<li><p><strong>Resampling Distribution:</strong> How some estimate would vary if you took repeated samples <strong>from your sample WITH REPLACEMENT</strong></p>
+<ul>
+<li>“Sampling from our sample, as the sample was sampled from the population.”</li>
+</ul></li>
+</ul>
+</section>
+<section id="confidence-intervals-interpretation" class="slide level2">
+<h2>Confidence Intervals: Interpretation</h2>
+<ul>
+<li><p>Confidence intervals give a range of values that are likely to include the true value of the parameter <span class="math inline">\(\theta\)</span> with probability <span class="math inline">\((1-\alpha) \times 100\%\)</span></p>
+<ul>
+<li><span class="math inline">\(\alpha = 0.05\)</span> corresponds to a “95-percent confidence interval”</li>
+</ul></li>
+<li><p>Our “confidence” is about the interval</p></li>
+<li><p>In repeated sampling, we expect that <span class="math inline">\((1-\alpha) \times 100\%\)</span> of the intervals we construct would contain the truth.</p></li>
+<li><p>For any one interval, the truth, <span class="math inline">\(\theta\)</span>, either falls within in the lower and upper bounds of the interval or it does not.</p></li>
+</ul>
+</section>
+<section id="two-approaches-to-calculating-confidence-intervals" class="slide level2">
+<h2>Two Approaches to Calculating Confidence Intervals:</h2>
+<p>In general, there are two ways to calculate confidence intervals:</p>
+<ul>
+<li><p><strong>Simulation:</strong> Use our computers to simulate the idea of repeated sampling (e.g.&nbsp;bootstrapping)</p>
+<ul>
+<li>Flexible, but more computationally intensive</li>
+</ul></li>
+<li><p><strong>Asymptotic Theory:</strong> Use math to derive the properties of the distributions that would arise under repeated sampling</p>
+<ul>
+<li>Faster, but requires more assumptions that may not hold</li>
+</ul></li>
+</ul>
+<p>We will consider both.</p>
+<ul>
+<li><p>The theory of CIs is easier to illustrate via simulation</p></li>
+<li><p>The practice of calculating CIs is (generally) easier using asymptotic theory</p></li>
+</ul>
+</section>
+<section id="steps-to-calculating-a-confidence-interval" class="slide level2 scrollable">
+<h2>Steps to Calculating a Confidence Interval</h2>
+<p>From QSS (p.&nbsp;330)</p>
+<ol type="1">
+<li><p>Choose the desired level of confidence <span class="math inline">\((1-\alpha)\times 100%\)</span> by specifying a value of α between 0 and 1: the most common choice is= <span class="math inline">\(\alpha = 0.05\)</span>, which gives a 95% confidence level.</p></li>
+<li><p>Derive the sampling distribution of the estimator by computing its mean and variance.</p></li>
+<li><p>Compute the standard error based on this sampling distribution. (square root of the variance)</p></li>
+<li><p>Compute the critical value <span class="math inline">\(z_{\alpha/2}\)</span> as the <span class="math inline">\((1-\alpha)\times 100\)</span> percentile value of the standard normal distribution</p></li>
+<li><p>Compute the lower and upper confidence limits as <span class="math inline">\(\hat{\theta} - z_{\alpha/2}\times SE\)</span> and <span class="math inline">\(\hat{\theta} + z_{\alpha/2}\times SE\)</span> standard error, respectively.</p></li>
+</ol>
+<p>class: inverse, center, middle # 💡 # Confidence Intervals ## Simulating the Sampling Distribution through Bootstrapping</p>
+</section>
+<section id="populations" class="slide level2">
+<h2>Populations</h2>
+<p>Let’s load the data from the <em>Do Russians Want War</em> survey</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/df_drww.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To understand the logic of confidence intervals, let’s treat this data as our <strong>population</strong> from which we we could draw repeated samples.</p>
+</section>
+<section id="population-age" class="slide level2">
+<h2>Population Age</h2>
+<p>In our population, there are <strong>parameters</strong>, true values of things we want to know.</p>
+<p>Suppose we’re interested in the average age of our population.</p>
+<p>In our population, the true value of <span class="math inline">\(\mu_{age} = E[Age]\)</span> is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>mu_age <span class="ot">&lt;-</span> <span class="fu">mean</span>(df_drww<span class="sc">$</span>age)</span>
+<span id="cb11-2"><a></a>mu_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 46.64693</code></pre>
+</div>
+</div>
+<p>Similarly, the true <span class="math inline">\(\sigma_{age} = \sqrt{E[Age^2] - E[Age]^2}\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>sd_age <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((df_drww<span class="sc">$</span>age<span class="sc">-</span><span class="fu">mean</span>(df_drww<span class="sc">$</span>age))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb13-2"><a></a>sd_age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.81829</code></pre>
+</div>
+</div>
+</section>
+<section id="distribution-population-age" class="slide level2">
+<h2>Distribution Population Age</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>p_pop <span class="ot">&lt;-</span> df_drww <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age))<span class="sc">+</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">geom_density</span>(<span class="at">col=</span><span class="st">"grey"</span>)<span class="sc">+</span></span>
+<span id="cb15-4"><a></a>  <span class="fu">geom_rug</span>()<span class="sc">+</span></span>
+<span id="cb15-5"><a></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb15-6"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> mu_age, </span>
+<span id="cb15-7"><a></a>             <span class="at">col =</span> <span class="st">"Population Mean"</span>),</span>
+<span id="cb15-8"><a></a>    <span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb15-9"><a></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb15-10"><a></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Age"</span>)</span>
+<span id="cb15-11"><a></a></span>
+<span id="cb15-12"><a></a>p_pop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="10-slides_files/figure-html/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="sample-estimates-of-average-age-n-25" class="slide level2">
+<h2>Sample Estimates of Average Age (N = 25)</h2>
+<p>Suppose we took three samples, <strong>without replacement</strong> of size 25, and calculated the average age in each sample:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb16-2"><a></a>mean_age1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">sample</span>(df_drww<span class="sc">$</span>age, <span class="dv">25</span>, <span class="at">replace =</span> F))</span>
+<span id="cb16-3"><a></a>mean_age2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">sample</span>(df_drww<span class="sc">$</span>age, <span class="dv">25</span>, <span class="at">replace =</span> F))</span>
+<span id="cb16-4"><a></a>mean_age3 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">sample</span>(df_drww<span class="sc">$</span>age, <span class="dv">25</span>, <span class="at">replace =</span> F))</span>
+<span id="cb16-5"><a></a></span>
+<span id="cb16-6"><a></a>mean_age1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43.36</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>mean_age2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.36</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>mean_age3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 49.72</code></pre>
+</div>
+</div>
+
+<img data-src="10-slides_files/figure-html/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="repeated-sampling" class="slide level2">
+<h2>Repeated Sampling</h2>
+<ul>
+<li><p>Imagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.</p></li>
+<li><p>How much would our estimate of the average of age of the population vary?</p></li>
+<li><p>Let’s use our computers to simulate this process and find out!</p></li>
+</ul>
+</section>
+<section id="simualting-repeated-sampling" class="slide level2">
+<h2>Simualting Repeated Sampling</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>n_sims <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb22-2"><a></a>samp_size <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb22-3"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb22-4"><a></a></span>
+<span id="cb22-5"><a></a>mu_age_samp_dist_n25 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-6"><a></a>  <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>n_sims,</span>
+<span id="cb22-7"><a></a>  <span class="at">distribution =</span> <span class="st">"Sampling"</span>,</span>
+<span id="cb22-8"><a></a>  <span class="at">sample =</span> <span class="st">"Population"</span></span>
+<span id="cb22-9"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-10"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-11"><a></a>    <span class="at">samp =</span> purrr<span class="sc">::</span><span class="fu">map</span>(sim, <span class="sc">~</span> <span class="fu">slice_sample</span>(df_drww, <span class="at">n =</span> samp_size, <span class="at">replace =</span> F)),</span>
+<span id="cb22-12"><a></a>    <span class="at">estimate =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(samp, <span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>age))</span>
+<span id="cb22-13"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>mu_age_samp_dist_n25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 5
+     sim distribution sample     samp           estimate
+   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;list&gt;            &lt;dbl&gt;
+ 1     1 Sampling     Population &lt;df [25 × 42]&gt;     43.4
+ 2     2 Sampling     Population &lt;df [25 × 42]&gt;     39.4
+ 3     3 Sampling     Population &lt;df [25 × 42]&gt;     49.7
+ 4     4 Sampling     Population &lt;df [25 × 42]&gt;     46.2
+ 5     5 Sampling     Population &lt;df [25 × 42]&gt;     50.6
+ 6     6 Sampling     Population &lt;df [25 × 42]&gt;     47.8
+ 7     7 Sampling     Population &lt;df [25 × 42]&gt;     46.3
+ 8     8 Sampling     Population &lt;df [25 × 42]&gt;     41.4
+ 9     9 Sampling     Population &lt;df [25 × 42]&gt;     45.4
+10    10 Sampling     Population &lt;df [25 × 42]&gt;     48.8
+# ℹ 990 more rows</code></pre>
+</div>
+</div>
+</section>
+<section>
+<section id="one-sample" class="title-slide slide level1 center">
+<h1>One Sample</h1>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>mu_age_samp_dist_n25<span class="sc">$</span>samp[[<span class="dv">1</span>]]<span class="sc">$</span>age</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 35 31 58 26 56 25 53 26 36 35 83 52 41 61 38 29 30 36 60 70 40 32 28 58 45</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">mean</span>(mu_age_samp_dist_n25<span class="sc">$</span>samp[[<span class="dv">1</span>]]<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43.36</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>mu_age_samp_dist_n25<span class="sc">$</span>estimate[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43.36</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="10-slides_files/figure-html/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>p_dist <span class="ot">&lt;-</span> mu_age_samp_dist_n25 <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate))<span class="sc">+</span></span>
+<span id="cb31-3"><a></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb31-4"><a></a>  <span class="fu">geom_rug</span>()<span class="sc">+</span></span>
+<span id="cb31-5"><a></a>  <span class="fu">geom_density</span>(</span>
+<span id="cb31-6"><a></a>    <span class="at">data =</span> df_drww,</span>
+<span id="cb31-7"><a></a>    <span class="fu">aes</span>(<span class="at">x=</span>age),<span class="at">col =</span> <span class="st">"grey"</span></span>
+<span id="cb31-8"><a></a>  )<span class="sc">+</span></span>
+<span id="cb31-9"><a></a>   <span class="fu">geom_vline</span>(</span>
+<span id="cb31-10"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> mu_age, </span>
+<span id="cb31-11"><a></a>             <span class="at">col =</span> <span class="st">"Population Mean"</span>),</span>
+<span id="cb31-12"><a></a>    <span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb31-13"><a></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb31-14"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Sample Means (N=25)"</span>)</span>
+<span id="cb31-15"><a></a>p_dist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="10-slides_files/figure-html/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="standard-errors" class="slide level2">
+<h2>Standard Errors</h2>
+<ul>
+<li><p>A <strong>standard error</strong> is simply the standard deviation of the sampling distribution.</p></li>
+<li><p>The standard error for our simulation above:</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a>se_age_n25 <span class="ot">&lt;-</span> <span class="fu">sd</span>(mu_age_samp_dist_n25<span class="sc">$</span>estimate)</span>
+<span id="cb32-2"><a></a>se_age_n25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.146543</code></pre>
+</div>
+</div>
+</section>
+<section id="coverage-intervals" class="slide level2">
+<h2>Coverage Intervals</h2>
+<ul>
+<li><p>From the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.</p></li>
+<li><p>From probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between <em>Two</em> Standard Deviations of the mean.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>ci_age_ul_n25 <span class="ot">&lt;-</span> mu_age <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>se_age_n25</span>
+<span id="cb34-2"><a></a>ci_age_ll_n25 <span class="ot">&lt;-</span> mu_age <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>se_age_n25</span>
+<span id="cb34-3"><a></a></span>
+<span id="cb34-4"><a></a><span class="fu">mean</span>(mu_age_samp_dist_n25<span class="sc">$</span>estimate <span class="sc">&gt;</span>ci_age_ll_n25 <span class="sc">&amp;</span> </span>
+<span id="cb34-5"><a></a>       mu_age_samp_dist_n25<span class="sc">$</span>estimate <span class="sc">&lt;</span>ci_age_ul_n25)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.954</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>mu_age_samp_dist_n25 <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate))<span class="sc">+</span></span>
+<span id="cb36-3"><a></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb36-4"><a></a>  <span class="fu">geom_rug</span>(</span>
+<span id="cb36-5"><a></a>    <span class="fu">aes</span>(<span class="at">col =</span> estimate <span class="sc">&gt;</span>ci_age_ll_n25 <span class="sc">&amp;</span> </span>
+<span id="cb36-6"><a></a>          estimate <span class="sc">&lt;</span>ci_age_ul_n25)</span>
+<span id="cb36-7"><a></a>  )<span class="sc">+</span></span>
+<span id="cb36-8"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu_age,</span>
+<span id="cb36-9"><a></a>             <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb36-10"><a></a>             <span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb36-11"><a></a>  <span class="fu">guides</span>(<span class="at">col=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb36-12"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span>ci_age_ll_n25,</span>
+<span id="cb36-13"><a></a>                   <span class="at">xend =</span> ci_age_ul_n25,</span>
+<span id="cb36-14"><a></a>                   <span class="at">y =</span> .<span class="dv">15</span>,<span class="at">yend =</span> .<span class="dv">15</span> ),</span>
+<span id="cb36-15"><a></a>               <span class="at">col =</span> <span class="st">"#00BFC4"</span>)<span class="sc">+</span></span>
+<span id="cb36-16"><a></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="10-slides_files/figure-html/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="boostrapped-standard-errors" class="slide level2">
+<h2>Boostrapped Standard Errors</h2>
+<ul>
+<li><p>A standard error is the standard deviation of a hypothetical sampling distribution</p></li>
+<li><p>How do we calculate a standard error from a single sample?</p></li>
+<li><p>It turns out that a random sample provides unbiased estimates of both the population mean <strong>and</strong> the standard deviation of the of the sampling distribution (i.e.&nbsp;the standard error).</p></li>
+<li><p>We can estimate this this standard error, by sampling with replacement from our sample to generate a <strong>bootstrapped</strong> sampling distribution</p></li>
+</ul>
+</section>
+<section id="boostrapped-standard-errors-1" class="slide level2">
+<h2>Boostrapped Standard Errors</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb37-2"><a></a>bs_resamp_1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb37-3"><a></a>  <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>n_sims,</span>
+<span id="cb37-4"><a></a>  <span class="at">distribution =</span> <span class="st">"Bootstrap"</span>,</span>
+<span id="cb37-5"><a></a>  <span class="at">sample =</span> <span class="st">"Sample 1"</span>,</span>
+<span id="cb37-6"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb37-8"><a></a>    <span class="at">samp =</span> purrr<span class="sc">::</span><span class="fu">map</span>(sim, <span class="sc">~</span> <span class="fu">slice_sample</span>(</span>
+<span id="cb37-9"><a></a>      mu_age_samp_dist_n25<span class="sc">$</span>samp[[<span class="dv">1</span>]], <span class="at">n =</span> samp_size, <span class="at">replace =</span> T)),</span>
+<span id="cb37-10"><a></a>    <span class="at">estimate =</span>  purrr<span class="sc">::</span><span class="fu">map_dbl</span>(samp, <span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>age))</span>
+<span id="cb37-11"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="boostrapped-standard-errors-2" class="slide level2">
+<h2>Boostrapped Standard Errors</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>bs_resamp_2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb38-2"><a></a>  <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>n_sims,</span>
+<span id="cb38-3"><a></a>  <span class="at">distribution =</span> <span class="st">"Bootstrap"</span>,</span>
+<span id="cb38-4"><a></a>  <span class="at">sample =</span> <span class="st">"Sample 2"</span>,</span>
+<span id="cb38-5"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb38-7"><a></a>    <span class="at">samp =</span>  purrr<span class="sc">::</span><span class="fu">map</span>(sim, <span class="sc">~</span> <span class="fu">slice_sample</span>(</span>
+<span id="cb38-8"><a></a>      mu_age_samp_dist_n25<span class="sc">$</span>samp[[<span class="dv">2</span>]], <span class="at">n =</span> samp_size, <span class="at">replace =</span> T)),</span>
+<span id="cb38-9"><a></a>    <span class="at">estimate =</span>  purrr<span class="sc">::</span><span class="fu">map_dbl</span>(samp, <span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>age))</span>
+<span id="cb38-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="boostrapped-standard-errors-3" class="slide level2">
+<h2>Boostrapped Standard Errors</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>bs_resamp_3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb39-2"><a></a>  <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>n_sims,</span>
+<span id="cb39-3"><a></a>  <span class="at">distribution =</span> <span class="st">"Bootstrap"</span>,</span>
+<span id="cb39-4"><a></a>  <span class="at">sample =</span> <span class="st">"Sample 3"</span>,</span>
+<span id="cb39-5"><a></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-7"><a></a>    <span class="at">samp =</span>  purrr<span class="sc">::</span><span class="fu">map</span>(sim, <span class="sc">~</span> <span class="fu">slice_sample</span>(</span>
+<span id="cb39-8"><a></a>      mu_age_samp_dist_n25<span class="sc">$</span>samp[[<span class="dv">3</span>]], <span class="at">n =</span> samp_size, <span class="at">replace =</span> T)),</span>
+<span id="cb39-9"><a></a>    <span class="at">estimate =</span>  purrr<span class="sc">::</span><span class="fu">map_dbl</span>(samp, <span class="sc">~</span> <span class="fu">mean</span>(.<span class="sc">$</span>age))</span>
+<span id="cb39-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="boostrapped-standard-errors-4" class="slide level2">
+<h2>Boostrapped Standard Errors</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>bs_example <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb40-2"><a></a>  mu_age_samp_dist_n25,</span>
+<span id="cb40-3"><a></a>  bs_resamp_1,</span>
+<span id="cb40-4"><a></a>  bs_resamp_2,</span>
+<span id="cb40-5"><a></a>  bs_resamp_3</span>
+<span id="cb40-6"><a></a>)</span>
+<span id="cb40-7"><a></a></span>
+<span id="cb40-8"><a></a>df_se <span class="ot">&lt;-</span> bs_example <span class="sc">%&gt;%</span></span>
+<span id="cb40-9"><a></a>  <span class="fu">select</span>(sample, estimate)<span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sample)<span class="sc">%&gt;%</span></span>
+<span id="cb40-11"><a></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb40-12"><a></a>    <span class="at">se =</span> <span class="fu">sd</span>(estimate)</span>
+<span id="cb40-13"><a></a>  )</span>
+<span id="cb40-14"><a></a></span>
+<span id="cb40-15"><a></a></span>
+<span id="cb40-16"><a></a>df_ci <span class="ot">&lt;-</span> df_mn <span class="sc">%&gt;%</span></span>
+<span id="cb40-17"><a></a>  <span class="fu">left_join</span>(df_se)</span>
+<span id="cb40-18"><a></a></span>
+<span id="cb40-19"><a></a>df_ci<span class="sc">%&gt;%</span></span>
+<span id="cb40-20"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb40-21"><a></a>    <span class="at">ll =</span> xint <span class="sc">-</span> <span class="fu">qt</span>(<span class="at">df=</span><span class="dv">25</span>,.<span class="dv">975</span>)<span class="sc">*</span>se,</span>
+<span id="cb40-22"><a></a>    <span class="at">ul =</span> xint <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df=</span><span class="dv">25</span>,.<span class="dv">975</span>)<span class="sc">*</span>se,</span>
+<span id="cb40-23"><a></a>    <span class="at">y =</span> .<span class="dv">15</span>,</span>
+<span id="cb40-24"><a></a>    <span class="at">xint_pop =</span> xint[<span class="dv">1</span>]</span>
+<span id="cb40-25"><a></a>  ) <span class="ot">-&gt;</span> df_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>bs_example <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(estimate,<span class="at">col =</span> sample))<span class="sc">+</span></span>
+<span id="cb41-3"><a></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">linetype=</span>distribution))<span class="sc">+</span></span>
+<span id="cb41-4"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sample, <span class="at">ncol=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb41-5"><a></a>   <span class="fu">geom_vline</span>(</span>
+<span id="cb41-6"><a></a>    <span class="at">data =</span> df_ci,</span>
+<span id="cb41-7"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> xint, </span>
+<span id="cb41-8"><a></a>             <span class="at">col =</span> sample,</span>
+<span id="cb41-9"><a></a>        <span class="at">linetype=</span>distribution)</span>
+<span id="cb41-10"><a></a>    )<span class="sc">+</span></span>
+<span id="cb41-11"><a></a>    <span class="fu">geom_vline</span>(</span>
+<span id="cb41-12"><a></a>    <span class="at">data =</span> df_ci,</span>
+<span id="cb41-13"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> xint_pop), </span>
+<span id="cb41-14"><a></a>             <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb41-15"><a></a>        <span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb41-16"><a></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb41-17"><a></a>    <span class="at">data =</span> df_ci,</span>
+<span id="cb41-18"><a></a>    <span class="fu">aes</span>(<span class="at">x =</span>ll, <span class="at">xend =</span>ul, <span class="at">y=</span>y, <span class="at">yend=</span>y)</span>
+<span id="cb41-19"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="10-slides_files/figure-html/unnamed-chunk-37-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>sim_ci_fn<span class="ot">&lt;-</span><span class="cf">function</span>(x,</span>
+<span id="cb42-2"><a></a>                    <span class="at">samp_size=</span><span class="dv">100</span>,</span>
+<span id="cb42-3"><a></a>                    <span class="at">n_sims=</span><span class="dv">1000</span>,</span>
+<span id="cb42-4"><a></a>                    <span class="at">level=</span>.<span class="dv">95</span>,</span>
+<span id="cb42-5"><a></a>                    <span class="at">bs=</span>F){</span>
+<span id="cb42-6"><a></a>    <span class="co"># Take a sample of size "nsamp"</span></span>
+<span id="cb42-7"><a></a>    y<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="at">x=</span><span class="fu">na.omit</span>(x),<span class="at">size=</span>samp_size,<span class="at">replace=</span>F)</span>
+<span id="cb42-8"><a></a>    <span class="co"># Calculate the mean</span></span>
+<span id="cb42-9"><a></a>    mu<span class="ot">&lt;-</span><span class="fu">mean</span>(y,<span class="at">na.rm=</span>T)</span>
+<span id="cb42-10"><a></a>    <span class="co"># If bs=TRUE do bootstrapped SEs </span></span>
+<span id="cb42-11"><a></a>    <span class="cf">if</span>(bs<span class="sc">==</span>T){</span>
+<span id="cb42-12"><a></a>    mu_dist<span class="ot">&lt;-</span><span class="fu">rerun</span>(</span>
+<span id="cb42-13"><a></a>      n_sims,</span>
+<span id="cb42-14"><a></a>      <span class="fu">mean</span>(<span class="fu">sample</span>(y, samp_size, <span class="at">replace =</span> T)))<span class="sc">%&gt;%</span></span>
+<span id="cb42-15"><a></a>      <span class="fu">unlist</span>()</span>
+<span id="cb42-16"><a></a>    se<span class="ot">&lt;-</span><span class="fu">sd</span>(mu_dist)}<span class="cf">else</span>{</span>
+<span id="cb42-17"><a></a>    <span class="co"># Otherwise, just use assymptotic result (Quicker)</span></span>
+<span id="cb42-18"><a></a>    se<span class="ot">&lt;-</span><span class="fu">sd</span>(y,<span class="at">na.rm=</span>T)<span class="sc">/</span><span class="fu">sqrt</span>(samp_size<span class="dv">-1</span>)</span>
+<span id="cb42-19"><a></a>    }</span>
+<span id="cb42-20"><a></a>    <span class="co"># Significance level</span></span>
+<span id="cb42-21"><a></a>    the.p<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>level)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb42-22"><a></a>    <span class="co"># Calculate lower and upper limits of interval</span></span>
+<span id="cb42-23"><a></a>    ll<span class="ot">&lt;-</span>mu<span class="sc">-</span><span class="fu">qt</span>(<span class="at">p=</span>the.p,<span class="at">df=</span>samp_size<span class="dv">-1</span>)<span class="sc">*</span>se</span>
+<span id="cb42-24"><a></a>    ul<span class="ot">&lt;-</span>mu<span class="sc">+</span><span class="fu">qt</span>(<span class="at">p=</span>the.p,<span class="at">df=</span>samp_size<span class="dv">-1</span>)<span class="sc">*</span>se</span>
+<span id="cb42-25"><a></a>    results<span class="ot">&lt;-</span><span class="fu">tibble</span>(<span class="at">mu=</span>mu,<span class="at">ll=</span>ll,<span class="at">ul=</span>ul,<span class="at">se=</span>se)</span>
+<span id="cb42-26"><a></a>    <span class="fu">return</span>(results)</span>
+<span id="cb42-27"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb43-2"><a></a>samp25 <span class="ot">&lt;-</span>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span><span class="fu">sim_ci_fn</span>(df_drww<span class="sc">$</span>age, <span class="at">samp_size =</span> <span class="dv">25</span>)) <span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">sample =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>() )</span>
+<span id="cb43-3"><a></a>samp50 <span class="ot">&lt;-</span>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span><span class="fu">sim_ci_fn</span>(df_drww<span class="sc">$</span>age, <span class="at">samp_size =</span> <span class="dv">50</span>))<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">sample =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>() )</span>
+<span id="cb43-4"><a></a>samp100 <span class="ot">&lt;-</span>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span><span class="fu">sim_ci_fn</span>(df_drww<span class="sc">$</span>age, <span class="at">samp_size =</span> <span class="dv">100</span>))<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">sample =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>() )</span>
+<span id="cb43-5"><a></a>samp200 <span class="ot">&lt;-</span>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span><span class="fu">sim_ci_fn</span>(df_drww<span class="sc">$</span>age, <span class="at">samp_size =</span> <span class="dv">200</span>))<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">sample =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>() )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="10-slides_files/figure-html/unnamed-chunk-40-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="10-slides_files/figure-html/unnamed-chunk-41-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="standard-errors-and-sample-size" class="slide level2">
+<h2>Standard Errors and Sample Size</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="co"># Standard errors decrease as sample size increases</span></span>
+<span id="cb44-2"><a></a><span class="fu">c</span>(<span class="fu">mean</span>(samp25<span class="sc">$</span>se),</span>
+<span id="cb44-3"><a></a><span class="fu">mean</span>(samp50<span class="sc">$</span>se),</span>
+<span id="cb44-4"><a></a><span class="fu">mean</span>(samp100<span class="sc">$</span>se),</span>
+<span id="cb44-5"><a></a><span class="fu">mean</span>(samp200<span class="sc">$</span>se))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.193029 2.247602 1.588096 1.121755</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a><span class="co"># Specifically, by the square root of the sample size</span></span>
+<span id="cb46-2"><a></a><span class="fu">c</span>(sd_age<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">25</span>),</span>
+<span id="cb46-3"><a></a>sd_age<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">50</span>),</span>
+<span id="cb46-4"><a></a>sd_age<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">100</span>),</span>
+<span id="cb46-5"><a></a>sd_age<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.163659 2.237045 1.581829 1.118522</code></pre>
+</div>
+</div>
+</section>
+<section id="next-week-standard-errors-for-linear-models" class="slide level2">
+<h2>Next Week: Standard Errors for Linear Models</h2>
+<ul>
+<li><p>As you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression</p></li>
+<li><p>Next week, we’ll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing.</p></li>
+</ul>
+
+<div class="quarto-auto-generated-content">
+<p><img src="brown.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>POLS 1600</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
