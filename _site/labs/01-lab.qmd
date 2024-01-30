@@ -24,11 +24,6 @@ knitr::opts_chunk$set(error = TRUE,
                       tidy = FALSE)
 ```
 
-```{=html}
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
-```
 # Overview {.unnumbered}
 
 Today, we'll continuing exploring the COVID-19 data for the U.S.
@@ -56,6 +51,8 @@ To do this, we copied and pasted a lot of code. Today, we'll **get practice writ
 
 -   It's not vital today, but it's a good habit to develop.
 
+3.  Render your .qmd file to produce an `html` file
+
 # Install the some additional packages
 
 -   In the code chunk below, we'll use the `install.packages()` function to install the `lubridate` and `DT` package packages
@@ -64,19 +61,19 @@ To do this, we copied and pasted a lot of code. Today, we'll **get practice writ
 -   Once `lubridate` is installed, comment the code out by placing a \# at the start of the line
 
 ```{r}
-#| label = "install"
+#| label: install
 # install.packages(c("lubridate","DT"))
 ```
 
-The `'lubridate` package is a collection of functions that makes working with dates and time more simple.
+The `lubridate` package is a collection of functions that makes it easier to work with dates
 
 The `DT` package allows us to display data tables in a searchable format in our html output.
 
 # Load the packages we'll be using today
 
 -   Create a code chunk
--   Label your code chunk "packages"
--   Use the `library()` to load the following packages
+-   Label your code chunk `packages`
+-   Use `library()` to load the following packages
     -   `tidyverse`
     -   `COVID19`
     -   `lubridate`
@@ -84,19 +81,12 @@ The `DT` package allows us to display data tables in a searchable format in our 
 
 # Download the COVID19 Data for U.S.
 
-Open up the [slides](https://pols1600.paultesta.org/slides/01-slides.html#81) from last class and copy and paste the relevant code into the code chunk below.
+Open up the [slides](https://pols1600.paultesta.org/slides/01-slides#/loading-state-level-covid-data-1) from last class and copy and paste the relevant code into the code chunk below.
 
 ```{r}
 #| label = "covid"
-# Download the COVID-19 data
-# If you get a timeout error, uncomment the following:
-# options(timeout="120")
+# load the COVID-19 data
 
-# If that still doesn't work try
-# options(timeout="180")
-
-# And if all that fails you can run the following:
-# load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 
 
 ```
@@ -180,9 +170,13 @@ Uncomment the following code and replace the generic terms `data`, `variable1`, 
 
 You've just created a "crosstab" a frequency table showing the joint distribution of two variables.
 
-::: blue
-> Crosstabs are powerful tools for getting a sense of your data and for checking whether a recode did what you wanted it to do.
+
+
+::: callout-note
+Crosstabs are powerful tools for getting a sense of your data and for checking whether a recode did what you wanted it to do.
 :::
+
+
 
 Finally, let's create a few more variables called `year_month` from the `date` variable and a variable describing the percent of a state's population that is fully vaccinated (`percent_vaccinated`), which we'll use later in the lab.
 
@@ -394,7 +388,7 @@ The median would be the value in the exact middle of that sequence, also known a
 
 Formally, we can define that median as:
 
-\[ M_x = X_i : \int*{-*\infty}\^{x_i} f_x(X)dx=\int{x_i}\^\infty f_x(X)dx=1/2 \]
+\[ M_x = X_i : \int\*{-\*\\infty}\^{x_i} f_x(X)dx=\int{x_i}\^\infty f_x(X)dx=1/2 \]
 
 Which might look like Greek to you, which is fine. Just think of it as the middle value.
 
@@ -464,7 +458,7 @@ The range of a variable is simply it's minimum and maximum value
 
 The $p$-th percentile is the value of the observation such that 100\*p percent of the data are to the left and 100-100\*p are two the right.
 
-\[ p_x = X_i : \int*{-*\infty}\^{x_i} f_x(X)dx= p; \int{x_i}\^\infty f_x(X)dx=1-p \]
+\[ p_x = X_i : \int\*{-\*\\infty}\^{x_i} f_x(X)dx= p; \int{x_i}\^\infty f_x(X)dx=1-p \]
 
 The median is just the 50th percentile
 

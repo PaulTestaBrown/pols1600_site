@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name HERE">
-<meta name="dcterms.date" content="2024-01-25">
+<meta name="dcterms.date" content="2024-01-30">
 
 <title>POLS 1600 - Lab 01 - Exploring data on COVID-19 in the U.S.</title>
 <style>
@@ -197,7 +197,7 @@ window.Quarto = {
   <li><a href="#exploring-our-data" id="toc-exploring-our-data" class="nav-link" data-scroll-target="#exploring-our-data"><span class="header-section-number">6</span> Exploring our data</a>
   <ul class="collapse">
   <li><a href="#uncomment-and-run-the-code-below" id="toc-uncomment-and-run-the-code-below" class="nav-link" data-scroll-target="#uncomment-and-run-the-code-below"><span class="header-section-number">6.1</span> Uncomment and run the code below,</a></li>
-  <li><a href="#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" id="toc-please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" class="nav-link" data-scroll-target="#please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explain in words your best understanding of what each line of code is doing:</a></li>
+  <li><a href="#please-explainwhat-each-line-of-code-is-doing" id="toc-please-explainwhat-each-line-of-code-is-doing" class="nav-link" data-scroll-target="#please-explainwhat-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explainwhat each line of code is doing:</a></li>
   </ul></li>
   <li><a href="#look-at-the-source-data-for-face-mask-policies" id="toc-look-at-the-source-data-for-face-mask-policies" class="nav-link" data-scroll-target="#look-at-the-source-data-for-face-mask-policies"><span class="header-section-number">7</span> Look at the source data for face mask policies</a>
   <ul class="collapse">
@@ -242,7 +242,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 25, 2024</p>
+      <p class="date">January 30, 2024</p>
     </div>
   </div>
   
@@ -254,9 +254,6 @@ window.Quarto = {
 </header>
 
 
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
 <p>Today, we’ll continuing exploring the COVID-19 data for the U.S.</p>
@@ -286,6 +283,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <ul>
 <li>It’s not vital today, but it’s a good habit to develop.</li>
 </ul>
+<ol start="3" type="1">
+<li>Render your .qmd file to produce an <code>html</code> file</li>
+</ol>
 </section>
 <section id="install-the-some-additional-packages" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Install the some additional packages</h1>
@@ -298,15 +298,15 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("lubridate","DT"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>'lubridate</code> package is a collection of functions that makes working with dates and time more simple.</p>
+<p>The <code>lubridate</code> package is a collection of functions that makes it easier to work with dates</p>
 <p>The <code>DT</code> package allows us to display data tables in a searchable format in our html output.</p>
 </section>
 <section id="load-the-packages-well-be-using-today" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Load the packages we’ll be using today</h1>
 <ul>
 <li>Create a code chunk</li>
-<li>Label your code chunk “packages”</li>
-<li>Use the <code>library()</code> to load the following packages
+<li>Label your code chunk <code>packages</code></li>
+<li>Use <code>library()</code> to load the following packages
 <ul>
 <li><code>tidyverse</code></li>
 <li><code>COVID19</code></li>
@@ -317,17 +317,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </section>
 <section id="download-the-covid19-data-for-u.s." class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Download the COVID19 Data for U.S.</h1>
-<p>Open up the <a href="https://pols1600.paultesta.org/slides/01-slides.html#81">slides</a> from last class and copy and paste the relevant code into the code chunk below.</p>
+<p>Open up the <a href="https://pols1600.paultesta.org/slides/01-slides#/loading-state-level-covid-data-1">slides</a> from last class and copy and paste the relevant code into the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the COVID-19 data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># If you get a timeout error, uncomment the following:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># options(timeout="120")</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If that still doesn't work try</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># options(timeout="180")</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># And if all that fails you can run the following:</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># load(url("https://pols1600.paultesta.org/files/data/covid.rda"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the COVID-19 data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="replicate-the-data-cleaning-and-recoding-from-class" class="level1" data-number="5">
@@ -337,10 +329,10 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li>Create a object called <code>territories</code> that is a vector containing the names of U.S. territories</li>
 </ol>
 <ul>
-<li>Use <code>&lt;-</code> and <code>c()</code> (<a href="https://pols1600.paultesta.org/slides/01-slides#107">slides</a>)</li>
+<li>Use <code>&lt;-</code> and <code>c()</code> (<a href="https://pols1600.paultesta.org/slides/01-slides#/create-a-vector-of-the-territories-we-dont-want">slides</a></li>
 </ul>
 <ol start="2" type="1">
-<li>Create a new dataframe, called <code>covid_us</code>, by filtering out observations from the U.S. territories <code>- Use</code>&lt;-<code>,</code>%&gt;%<code>,</code>filter()<code>,</code>!<code>and</code>%in%` (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#108">slides</a>)</li>
+<li>Create a new dataframe, called <code>covid_us</code>, by filtering out observations from the U.S. territories <code>- Use</code>&lt;-<code>,</code>%&gt;%<code>,</code>filter()<code>,</code>!<code>and</code>%in%` (<a href="https://pols1600.paultesta.org/slides/01-slides#/use-the-filter-command-to-filter-out-these-territories">slides</a></li>
 <li>Create a <code>state</code> variable that is a copy of the <code>administrative_area_level_2</code></li>
 </ol>
 <ul>
@@ -350,10 +342,10 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li>Create a variable called <code>new_cases</code> from the <code>confirmed</code>. Create a variable called <code>new_cases_pc</code> that is the number of new Covid-19 cases per 100,000 citizens</li>
 </ol>
 <ul>
-<li>Use <code>%&gt;%</code>,<code>group_by()</code>,<code>mutate()</code> and <code>lag()</code>, `<code>/</code> and <code>*</code> (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#110">slides</a>)</li>
+<li>Use <code>%&gt;%</code>,<code>group_by()</code>,<code>mutate()</code> and <code>lag()</code>, `<code>/</code> and <code>*</code> (<a href="https://pols1600.paultesta.org/slides/01-slides#/calculate-new-covid-19-cases">slides</a></li>
 </ul>
 <ol start="5" type="1">
-<li>Create a variable called <code>face_masks</code> from the <code>facial_coverings</code> variable. (<a href="hhttps://pols1600.paultesta.org/slides/01-slides#111">slides</a>)</li>
+<li>Create a variable called <code>face_masks</code> from the <code>facial_coverings</code> variable. (<a href="https://pols1600.paultesta.org/slides/01-slides#/create-face-mask-policy-variable">slides</a></li>
 </ol>
 <ul>
 <li>Treat negative and positive values the same.</li>
@@ -408,10 +400,18 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table(data$variable1, data$variable2, useNA="ifany")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You’ve just created a “crosstab” a frequency table showing the joint distribution of two variables.</p>
-<div class="blue">
-<blockquote class="blockquote">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Crosstabs are powerful tools for getting a sense of your data and for checking whether a recode did what you wanted it to do.</p>
-</blockquote>
+</div>
 </div>
 <p>Finally, let’s create a few more variables called <code>year_month</code> from the <code>date</code> variable and a variable describing the percent of a state’s population that is fully vaccinated (<code>percent_vaccinated</code>), which we’ll use later in the lab.</p>
 <section id="uncomment-and-run-the-following-code" class="level2" data-number="5.1">
@@ -464,10 +464,10 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   arrange(earliest_date)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="please-explain-in-words-your-best-understanding-of-what-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explain in words your best understanding of what each line of code is doing:</h2>
+<section id="please-explainwhat-each-line-of-code-is-doing" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="please-explainwhat-each-line-of-code-is-doing"><span class="header-section-number">6.2</span> Please explainwhat each line of code is doing:</h2>
 <ul>
-<li><code>covid_us %&gt;%</code></li>
+<li><code>covid_us %&gt;%</code> Write your explanation here</li>
 <li><code>filter(facial_coverings == -4) %&gt;%</code></li>
 <li><code>select(date, state) %&gt;%</code></li>
 <li><code>group_by(state) %&gt;%</code></li>
@@ -481,10 +481,20 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>You may find this <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">cheatsheet</a> useful and you can find a more detailed discussion <a href="https://r4ds.had.co.nz/transform.html">here</a></p>
 <section id="substantively-what-does-the-previous-chunk-of-code-tell-us" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="substantively-what-does-the-previous-chunk-of-code-tell-us"><span class="header-section-number">6.2.1</span> Substantively, what does the previous chunk of code tell us?</h3>
-<div class="blue">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <blockquote class="blockquote">
 <p>Filtering data, selecting specific variables, and summarizing variables are important skills that let us “know our data”</p>
 </blockquote>
+</div>
 </div>
 </section>
 </section>
@@ -499,10 +509,20 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </div>
 </div>
 <p>Now let’s look at the policy on face masks for Illinois. From Oxford’s <a href="https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md">codebook</a>, we learn that variables describing face mask policies all begin with the prefix <code>H6_</code></p>
-<div class="blue">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <blockquote class="blockquote">
 <p>Using common prefixes for a variable is a good habit that will help you organize and work with your data</p>
 </blockquote>
+</div>
 </div>
 <section id="please-run-the-following-code" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="please-run-the-following-code"><span class="header-section-number">7.1</span> Please run the following code:</h2>
@@ -510,12 +530,14 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>oxford_us <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">ymd</span>(Date)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RegionName <span class="sc">==</span> <span class="st">"Illinois"</span>, </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         date <span class="sc">&gt;</span> <span class="st">"2020-08-01"</span>, </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         date <span class="sc">&lt;</span> <span class="st">"2021-01-01"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(H6_Notes)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date,<span class="fu">starts_with</span>(<span class="st">"H6_"</span>)) <span class="ot">-&gt;</span> il_facemasks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    RegionName <span class="sc">==</span> <span class="st">"Illinois"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    date <span class="sc">&gt;</span> <span class="st">"2020-08-01"</span>, </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    date <span class="sc">&lt;</span> <span class="st">"2021-01-01"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(H6_Notes)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date,<span class="fu">starts_with</span>(<span class="st">"H6_"</span>)) <span class="ot">-&gt;</span> il_facemasks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in oxford_us %&gt;% mutate(date = ymd(Date)) %&gt;% filter(RegionName == : could not find function "%&gt;%"</code></pre>
 </div>
@@ -568,14 +590,14 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="mean"><span class="header-section-number">8.1.1</span> Mean</h3>
 <p>One of the most frequent measures of central tendency we’ll use in this course is a mean or average.</p>
 <p>Suppose we have <span class="math inline">\(n\)</span> observations of some variable <span class="math inline">\(x\)</span>. We can calculate the mean of <span class="math inline">\(\bar{x}\)</span> (“x bar), by adding up all the values of x</p>
-<p>[ {x}=_{i=1}^n x_i ]</p>
+<p><span class="math display">\[ \bar{x}=\frac{1}{n}\sum\_{i=1}\^n x_i \]</span></p>
 <p>We’ll see later in the course that means are closely related to the concept of expected values in probability and that conditional means (which we’ll calculate below) are central to thinking about linear regression.</p>
 <p>For now, please calculate the mean (average) number of new cases per 100,000 residents in our data:</p>
 <p>Last class, when we calculated the the average number of new cases under each type of face mask policy, we were calculating a <strong>conditional mean</strong> the mean of some variable, conditional on some other variable taking a specific value.</p>
-<p>Formally, you’ll often see this written in terms of <strong>Expected Values</strong>: Something like</p>
-<p>[ E[Y|X=x] ]</p>
+<p>Later in the course we’ll talk about how we can use something like a mean to estimate an <strong>Expected Value</strong>: Something like</p>
+<p><span class="math display">\[ E[Y|X=x] \]</span></p>
 <p>Or to make it more concrete:</p>
-<p>[ E[ | ] ]</p>
+<p><span class="math display">\[ E[\text{New Cases} | \text{Policy = "recommended"}] \]</span></p>
 <p>In code, we could accomplish this manually, using the index operator:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -598,14 +620,26 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Imagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value</p>
 <p>The median would be the value in the exact middle of that sequence, also known as the 50th percentile.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Formally, we can define that median as:</p>
-<p>[ M_x = X_i : ^{x_i} f_x(X)dx=^f_x(X)dx=1/2 ]</p>
+<p><span class="math display">\[
+M_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx=\int_{x_i}^\infty f_x(X)dx=1/2
+\]</span></p>
 <p>Which might look like Greek to you, which is fine. Just think of it as the middle value.</p>
 <section id="please-calculate-the-median-number-of-new-covid-19-cases-per-100000-using-the-median-function.-how-does-it-compare-to-the-mean" class="level4" data-number="8.1.2.1">
 <h4 data-number="8.1.2.1" class="anchored" data-anchor-id="please-calculate-the-median-number-of-new-covid-19-cases-per-100000-using-the-median-function.-how-does-it-compare-to-the-mean"><span class="header-section-number">8.1.2.1</span> Please calculate the median number of new Covid-19 cases per 100,000 using the <code>median()</code> function. How does it compare to the mean?</h4>
-<div class="blue">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <blockquote class="blockquote">
 <p>Medians are less influenced by outliers than means</p>
 </blockquote>
+</div>
 </div>
 </section>
 </section>
@@ -619,16 +653,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </div>
 <p>For numeric data, modes correspond to the peak of a variable’s density function (more on this later in the class).</p>
 <p>You can get a sense of the relationship between, means, median’s and modes from this helpful figure from <a href="https://en.wikipedia.org/wiki/Mode_(statistics)">Wikipedia</a>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" class="img-fluid figure-img" width="200"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="measures-of-dispersion" class="level2" data-number="8.2">
@@ -653,7 +678,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <section id="percentiles-ranges" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="percentiles-ranges"><span class="header-section-number">8.2.2</span> Percentiles Ranges</h3>
 <p>The <span class="math inline">\(p\)</span>-th percentile is the value of the observation such that 100*p percent of the data are to the left and 100-100*p are two the right.</p>
-<p>[ p_x = X_i : ^{x_i} f_x(X)dx= p; ^f_x(X)dx=1-p ]</p>
+<p><span class="math display">\[
+p_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx= p; \int_{x_i}^\infty f_x(X)dx=1-p
+\]</span></p>
 <p>The median is just the 50th percentile</p>
 <p>In R we calculate the <span class="math inline">\(p\)</span>-th percentile using the <code>quantile()</code> setting the <code>probs</code> argument to the <span class="math inline">\(p/100\)</span> percentile that we we want.</p>
 <section id="please-use-the-quantile-function-to-calculate-the-25th-and-75th-percentiles-of-the-new_cases_pc-variable." class="level4" data-number="8.2.2.1">
@@ -665,7 +692,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="variance"><span class="header-section-number">8.2.3</span> Variance</h3>
 <p>Variance describes how much observations of a given measure vary around that measure’s mean.</p>
 <p>The variance in a given sample is calculated by taking the average of the sum of squared deviations (i.e.&nbsp;differences) around a measure’s mean.</p>
-<p>[ ^2_x=_{i=1}<sup>n(x_i-</sup>{x})2 ]</p>
+<p><span class="math display">\[
+\sigma^2_x=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2
+\]</span></p>
 <ul>
 <li><span class="math inline">\(x_i-\bar{x}\)</span> is the deviation of each observation from the overall mean</li>
 <li><span class="math inline">\((x_i-\bar{x})^2}\)</span> squaring this ensures that we treat positive and negative deviations the same when calculating the overall variance</li>
@@ -680,8 +709,10 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <section id="standard-deviations" class="level3" data-number="8.2.4">
 <h3 data-number="8.2.4" class="anchored" data-anchor-id="standard-deviations"><span class="header-section-number">8.2.4</span> Standard Deviations</h3>
 <p>A standard deviation is simply the square root of variable’s variance.</p>
-<p>[ _x== ]</p>
-<p>Standard deviations are easier to interpet because their units are the same as variable.</p>
+<p><span class="math display">\[
+\sigma_x=\sqrt{\sigma^2_x}=\sqrt{\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2}
+\]</span></p>
+<p>Standard deviations are easier to interpret because their units are the same as variable.</p>
 <p>Think of them as a measure of the typical amount of variation for variable.</p>
 <section id="lets-use-the-sd-function-to-calculate-the-standard-deviation-of-the-new_cases_pc-variable" class="level4" data-number="8.2.4.1">
 <h4 data-number="8.2.4.1" class="anchored" data-anchor-id="lets-use-the-sd-function-to-calculate-the-standard-deviation-of-the-new_cases_pc-variable"><span class="header-section-number">8.2.4.1</span> let’s use the <code>sd()</code> function to calculate the standard deviation of the <code>new_cases_pc</code> variable</h4>
@@ -697,7 +728,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>When <span class="math inline">\(x\)</span> is above its mean, <span class="math inline">\(y\)</span> also tends to be above it’s mean, these variables have a positive covariance.</p>
 <p>If when <span class="math inline">\(x\)</span> tends to be high, <span class="math inline">\(y\)</span> tends to be low, these variables have a negative variance</p>
 <p>Formally, the sample<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> covariance of two variables can written as follows:</p>
-<p>[ cov(x,y)=_{i=1}^n(x_i-{x})(y_i-{y}) ]</p>
+<p><span class="math display">\[
+cov(x,y)=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})
+\]</span></p>
 <section id="please-calculate-the-covariance-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-var-function" class="level4" data-number="8.3.1.1">
 <h4 data-number="8.3.1.1" class="anchored" data-anchor-id="please-calculate-the-covariance-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-var-function"><span class="header-section-number">8.3.1.1</span> Please calculate the covariance between the percent of state’s population that is fully vaccinated (<code>percent_vaccinated</code>) and <code>new_cases_pc</code> using the <code>var()</code> function</h4>
 </section>
@@ -707,7 +740,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Like variances, covariances don’t really have intrinsic meaning, since x and y can be measured on very different scales.</p>
 <p>The correlation between two variables takes their covariance and scales this by the standard deviation of each variable, creating a measure that can range from -1 (perfect negative correlation) to 1 perfect positive correlation.</p>
 <p>Again, we can write this formally</p>
-<p>[ _{x,y} = ]</p>
+<p><span class="math display">\[
+\rho_{x,y} = \frac{cov(x_y)}{\sigma_x,\sigma_y}
+\]</span></p>
 <p>But don’t sweat the formulas too much. I’m just contractually obligated to show you math.</p>
 <section id="calculate-the-correlation-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-cor-function." class="level4" data-number="8.3.2.1">
 <h4 data-number="8.3.2.1" class="anchored" data-anchor-id="calculate-the-correlation-between-the-percent-of-states-population-that-is-fully-vaccinated-percent_vaccinated-and-new_cases_pc-using-the-cor-function."><span class="header-section-number">8.3.2.1</span> Calculate the correlation between the percent of state’s population that is fully vaccinated (<code>percent_vaccinated</code>) and <code>new_cases_pc</code> using the <code>cor()</code> function.</h4>
@@ -717,14 +752,14 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <section id="uncomment-and-interpret-the-output-of-the-code-below" class="level4" data-number="8.3.2.2">
 <h4 data-number="8.3.2.2" class="anchored" data-anchor-id="uncomment-and-interpret-the-output-of-the-code-below"><span class="header-section-number">8.3.2.2</span> Uncomment and interpret the output of the code below</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(year &gt; 2020)%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(year,month)%&gt;%</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     mn_per_vax = mean(percent_vaccinated, na.rm=T),</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     cor = cor(new_cases_pc, percent_vaccinated, use = "complete.obs")</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(year &gt; 2020)%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ungroup() %&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(year,month)%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     mn_per_vax = mean(percent_vaccinated, na.rm=T),</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     cor = cor(new_cases_pc, percent_vaccinated, use = "complete.obs")</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -735,13 +770,13 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Let’s return to the question of the average number of new Covid-19 cases (per 100,000) for different types of face mask policies.</p>
 <p>We ended our previous class with this result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(!is.na(face_masks))%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(face_masks)%&gt;%</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases_pc = round(mean(new_cases_pc, na.rm=T),2)</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; face_mask_summary</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># face_mask_summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(!is.na(face_masks))%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(face_masks)%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     new_cases_pc = round(mean(new_cases_pc, na.rm=T),2)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; face_mask_summary</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># face_mask_summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="what-do-these-averages-really-tell-us" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="what-do-these-averages-really-tell-us"><span class="header-section-number">9.1</span> What do these averages really tell us?</h2>
@@ -758,20 +793,20 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <section id="uncomment-the-code-below-to-display-cases_by_month_and_policy-in-a-searchable-table" class="level3" data-number="9.2.2">
 <h3 data-number="9.2.2" class="anchored" data-anchor-id="uncomment-the-code-below-to-display-cases_by_month_and_policy-in-a-searchable-table"><span class="header-section-number">9.2.2</span> Uncomment the code below to display <code>cases_by_month_and_policy</code> in a searchable table</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DT::datatable(cases_by_month_and_policy,</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#               filter = "top")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DT::datatable(cases_by_month_and_policy,</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#               filter = "top")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="uncomment-the-code-below-to-visualize-this-cases_by_month_and_policy" class="level3" data-number="9.2.3">
 <h3 data-number="9.2.3" class="anchored" data-anchor-id="uncomment-the-code-below-to-visualize-this-cases_by_month_and_policy"><span class="header-section-number">9.2.3</span> Uncomment the code below to visualize this <code>cases_by_month_and_policy</code></h3>
 <p>What does this figure tell us?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cases_by_month_and_policy %&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     x= year_month,</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     y = new_cases_pc,</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     col=face_masks))+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point()+coord_flip()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cases_by_month_and_policy %&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     x= year_month,</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     y = new_cases_pc,</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     col=face_masks))+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point()+coord_flip()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>So this figure graphically displays the data <code>cases_by_month_and_policy</code></p>
 <p>From about August 2020 to October 2020 states with facemask requirements saw much lower rates of new cases than states that only recommended face masks.</p>
@@ -787,7 +822,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Like lecture, we covered a lot in this first lab. Specifically we:</p>
 <ul>
 <li>Practiced installing packages and setting up our workspace</li>
-<li>Downloaded multiplier data sets</li>
+<li>Downloaded multiple data sets</li>
 <li>Saw how we could use functions to transform and explore data. Specifically we used:
 <ul>
 <li><code>%&gt;%</code>, the pipe command, to chain together multiple functions</li>
@@ -811,8 +846,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>If there are particular parts of the lab where we went too fast, or things didn’t make sense. Take a moment to review these notes. Try re-running the code. Changing the code. Break the code and see if you can fix it.</p>
 <p>When you encounter a problem you can solve, send me an email, or ask your friends, or doctor Google. I guarantee you, someone else has had a similar question or problem.</p>
 <p>The only dumb question in this course is a question you don’t ask!</p>
-<p>Please upload the html file produced by your .Rmd file to <a href="https://canvas.brown.edu/courses/1091286/assignments/7925682?module_item_id=10882018">Canvas</a></p>
-<p>Finally, please take a moment to complete this weeks <a href="https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI">class survey</a></p>
+<p>Please upload the html file produced by your .Rmd file to <a href="https://canvas.brown.edu/courses/1094972/assignments">Canvas</a></p>
+<p>Finally, please take a moment to complete this weeks <a href="https://brown.co1.qualtrics.com/jfe/form/SV_bPGJjZUbZ55PR2K">class survey</a></p>
 
 
 </section>
