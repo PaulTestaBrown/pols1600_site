@@ -2571,7 +2571,7 @@
     "href": "slides/01-slides.html#use-the-filter-command-to-filter-out-these-territories",
     "title": "POLS 1600",
     "section": "2. Use the filter() command to “filter” out these territories",
-    "text": "2. Use the filter() command to “filter” out these territories\n\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories )\n\ndim(covid)\n\n[1] 60601    47\n\ndim(covid_us)\n\n[1] 55310    47"
+    "text": "2. Use the filter() command to “filter” out these territories\n\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories )\n\ndim(covid)\n\n[1] 58809    47\n\ndim(covid_us)\n\n[1] 53678    47"
   },
   {
     "objectID": "slides/01-slides.html#creating-new-variables-for-analysis",
@@ -2585,7 +2585,7 @@
     "href": "slides/01-slides.html#calculate-new-covid-19-cases",
     "title": "POLS 1600",
     "section": "Calculate new Covid-19 cases",
-    "text": "Calculate new Covid-19 cases\nPlease run and comment the following code:\n\ndim(covid_us)\n\n[1] 55310    47\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2,\n  ) %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases/population *100000\n    ) -&gt; covid_us\ndim(covid_us)\n\n[1] 55310    50"
+    "text": "Calculate new Covid-19 cases\nPlease run and comment the following code:\n\ndim(covid_us)\n\n[1] 53678    47\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2,\n  ) %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases/population *100000\n    ) -&gt; covid_us\ndim(covid_us)\n\n[1] 53678    50"
   },
   {
     "objectID": "slides/01-slides.html#create-face-mask-policy-variable",
@@ -2620,7 +2620,7 @@
     "href": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k-1",
     "title": "POLS 1600",
     "section": "Face Masks and New Covid-19 Cases (per 100k)",
-    "text": "Face Masks and New Covid-19 Cases (per 100k)\n\n\n\n\nWhat should we conclude?\nWhat’s wrong with this simple comparison?\nWhat’s a better comparison? (Thursday)\n\n\n\n\n\n\nFace Mask Policy\nAverage No. of New Cases\n\n\n\n\nNo policy\n10.26\n\n\nRecommended\n16.74\n\n\nSome requirements\n36.20\n\n\nRequired shared places\n29.46\n\n\nRequired all times\n32.18"
+    "text": "Face Masks and New Covid-19 Cases (per 100k)\n\n\n\n\nWhat should we conclude?\nWhat’s wrong with this simple comparison?\nWhat’s a better comparison? (Thursday)\n\n\n\n\n\n\nFace Mask Policy\nAverage No. of New Cases\n\n\n\n\nNo policy\n10.26\n\n\nRecommended\n16.61\n\n\nSome requirements\n36.18\n\n\nRequired shared places\n29.38\n\n\nRequired all times\n32.18"
   },
   {
     "objectID": "slides/01-slides.html#commented-code",
