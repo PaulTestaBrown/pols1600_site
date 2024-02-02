@@ -2681,21 +2681,21 @@
   {
     "objectID": "slides/02-slides.html#installing-and-loading-new-packages",
     "href": "slides/02-slides.html#installing-and-loading-new-packages",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Installing and loading new packages",
     "text": "Installing and loading new packages\nNext we’ll create a function called ipak (thanks Steven) which:\n\nTakes a list of packages (pkg)\nChecks to see if these packages are installed\nInstalls any new packages\nLoads all the packages so we can use them\n\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\nAgain, run this code on your machines"
   },
   {
     "objectID": "slides/02-slides.html#installing-and-loading-new-packages-1",
     "href": "slides/02-slides.html#installing-and-loading-new-packages-1",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Installing and loading new packages",
-    "text": "Installing and loading new packages\nFinally, let’s use ipak to install and load the_packages\nWhat should we replace some_function and some_input with to do this?\n\nsome_function(some_input)\n\n–\n\nipak(the_packages)\n\n   tinytex kableExtra  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally    COVID19 \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n      maps    mapdata         DT \n      TRUE       TRUE       TRUE \n\n\n\nR may ask you to install a package’s dependencies (other packages your package needs). Try entering the number 1 into your console\nR may tell you need to restart R Try saying yes. If it doesn’t start downloading, say no\nR may then ask if you want to compile some packages from source. Type Y into your console. If this doesn’t work, try again, but this time type N when asked\n\n–\nRemember, you only need to install packages once. Then when you work in R you need to load packages you want use with library(\"package\")"
+    "text": "Installing and loading new packages\nFinally, let’s use ipak to install and load the_packages\nWhat should we replace some_function and some_input with to do this?\n\nsome_function(some_input)\n\n\n\nipak(the_packages)\n\n   tinytex kableExtra  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally    COVID19 \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n      maps    mapdata         DT \n      TRUE       TRUE       TRUE \n\n\n\nR may ask you to install a package’s dependencies (other packages your package needs). Try entering the number 1 into your console\nR may tell you need to restart R Try saying yes. If it doesn’t start downloading, say no\nR may then ask if you want to compile some packages from source. Type Y into your console. If this doesn’t work, try again, but this time type N when asked"
   },
   {
     "objectID": "slides/02-slides.html#tutorials",
     "href": "slides/02-slides.html#tutorials",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Tutorials",
     "text": "Tutorials\n\nInstall tutorials:\n\n\n# Uncomment and install\n# install.packages(\"devtools\")\n# install.packages(\"remotes\")\nremotes::install_github(\"kosukeimai/qss-package\", build_vignettes = TRUE)\nremotes::install_github(\"rstudio/learnr\")\nremotes::install_github(\"rstudio-education/gradethis\")\nremotes::install_github(\"PaulTestaBrown/qsslearnr\")"
   },
@@ -2737,9 +2737,9 @@
   {
     "objectID": "slides/02-slides.html#the-grammar-of-graphics",
     "href": "slides/02-slides.html#the-grammar-of-graphics",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "The Grammar of Graphics",
-    "text": "The Grammar of Graphics\nInspired by Wilkinson (2005)\n\nA statistical graphic is a mapping of data variables to aes thetic attributes of geom etric objects.\n\nAt a minimum, a graphic contains three core components:\n\ndata: the dataset containing the variables of interest.\naes: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.\ngeom: the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.\n\nIsmay and Kim (2022)\nbackground-image:url(https://miro.medium.com/max/1400/1*ZdQ9wFwaA214ABiib7AygQ.png) background-size:contain ## Seven Layers of Graphics\n.source[ Kesari (2018)]"
+    "text": "The Grammar of Graphics"
   },
   {
     "objectID": "slides/02-slides.html#the-grammar-of-graphics-in-r",
@@ -2870,37 +2870,37 @@
   {
     "objectID": "slides/02-slides.html#two-kinds-of-errors",
     "href": "slides/02-slides.html#two-kinds-of-errors",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Two kinds of errors:",
-    "text": "Two kinds of errors:\n–\n\nSyntactic\n\nR doesn’t understand how to run your code\nMost common, easy to fix (eventually…)\n\n\n–\n\nSemantic\n\nR runs your code but doesn’t give you the expected result\nLess common, harder to fix\n\n\n–\nMost errors happen because R is looking for something that isn’t there.\nMore discussion here and here"
+    "text": "Two kinds of errors:\n\nSyntactic\n\nR doesn’t understand how to run your code\nMost common, easy to fix (eventually…)\n\n\n\n\nSemantic\n\nR runs your code but doesn’t give you the expected result\nLess common, harder to fix\n\n\n\n\nMost errors happen because R is looking for something that isn’t there.\nMore discussion here and here"
   },
   {
     "objectID": "slides/02-slides.html#common-syntactic-errors",
     "href": "slides/02-slides.html#common-syntactic-errors",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Common Syntactic Errors",
     "text": "Common Syntactic Errors\n\nUnmatched parentheses or brackets\nMisspelled a name\nForgot a comma\nForgot to install a package or load a library\nForgot to set the working directory/path to a file you want R to use.\nTried to select a column or row that doesn’t exist"
   },
   {
     "objectID": "slides/02-slides.html#fixing-syntactic-errors",
     "href": "slides/02-slides.html#fixing-syntactic-errors",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Fixing Syntactic Errors",
     "text": "Fixing Syntactic Errors\n\nR Studio’s script editor will show a red circle with a white x in next to a line of code it thinks has an error in it.\nHave someone else look at your code (Fresh eyes, paired programming)\nCopy and paste the “general part” of error message into Google.\nKnit your document after each completed code chunk\n\nThis will run the code from top to bottom, and stop when it encounters an error\nTry commenting out the whole chunk, and then uncommenting successive lines of code\n\nBe patient. Don’t be hard are yourself. Remember, errors are portals of discovery."
   },
   {
     "objectID": "slides/02-slides.html#semantic-errors",
     "href": "slides/02-slides.html#semantic-errors",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Semantic Errors",
-    "text": "Semantic Errors\n\nYour code runs, but doesn’t produce what you expected.\nLess common; can be harder to identify and fix\nOne example: Two packages have a function with the same name that do different things\n\n\n# dplyr::summarize\n# Hmisc::summarize"
+    "text": "Semantic Errors\n\nYour code runs, but doesn’t produce what you expected.\nLess common; can be harder to identify and fix\nOne example: Two packages have a function with the same name that do different things\n\n\n\n# dplyr::summarize\n# Hmisc::summarize"
   },
   {
     "objectID": "slides/02-slides.html#semantic-errors-1",
     "href": "slides/02-slides.html#semantic-errors-1",
-    "title": "Week 02:",
+    "title": "POLS 1600",
     "section": "Semantic Errors",
-    "text": "Semantic Errors\n\nSome general solutions/practices to avoid semantic errors:\n\nSpecify the package and the function you want: package_name::function_name()\nWrite helpful comments in your code.\nInclude “sanity” checks in your code.\nIf a function should produce an output that’s a data.frame, check to see if it is a data frame\n\n\n\n# Here's some pseudo code:\n\n# I expect my_function produces a data frame\nx &lt;- my_function(y) \n\n# Check to see if x is a data frame\n# If x is not a data frame, return an Error\nstopifnot(is.data.frame(x))\n\nclass: inverse, center, middle background-image:url(https://miro.medium.com/max/800/0*TXDoF8j-D3LuGbHP.jpg) background-size:contain # 🔍 # Data wrangling in R"
+    "text": "Semantic Errors\n\nSome general solutions/practices to avoid semantic errors:\n\nSpecify the package and the function you want: package_name::function_name()\nWrite helpful comments in your code.\nInclude “sanity” checks in your code.\nIf a function should produce an output that’s a data.frame, check to see if it is a data frame\n\n\n\n\n# Here's some pseudo code:\n\n# I expect my_function produces a data frame\nx &lt;- my_function(y) \n\n# Check to see if x is a data frame\n# If x is not a data frame, return an Error\nstopifnot(is.data.frame(x))"
   },
   {
     "objectID": "slides/02-slides.html#why-do-we-need-to-wrangle-data",
@@ -9454,5 +9454,152 @@
     "title": "Lab 01 - Exploring data on COVID-19 in the U.S.",
     "section": "6.2 Please explainwhat each line of code is doing:",
     "text": "6.2 Please explainwhat each line of code is doing:\n\ncovid_us %&gt;% Write your explanation here\nfilter(facial_coverings == -4) %&gt;%\nselect(date, state) %&gt;%\ngroup_by(state) %&gt;%\nsummarize(\nn = n(),\nearliest_date = min(date),\nlatest_date = max(date),\n)%&gt;%\narrange(earliest_date)\n\nYou may find this cheatsheet useful and you can find a more detailed discussion here\n\n6.2.1 Substantively, what does the previous chunk of code tell us?\n\n\n\n\n\n\nNote\n\n\n\n\nFiltering data, selecting specific variables, and summarizing variables are important skills that let us “know our data”"
+  },
+  {
+    "objectID": "slides/02-slides.html#class-plan",
+    "href": "slides/02-slides.html#class-plan",
+    "title": "POLS 1600",
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (15 min)\nDescriptive Statistics (10 min)\n\nFeedback (5 min)\nData Visualization\n\nThe grammar of graphics\nPlots to describe:\n\nDistributions\nAssociations"
+  },
+  {
+    "objectID": "slides/02-slides.html#annoucements",
+    "href": "slides/02-slides.html#annoucements",
+    "title": "POLS 1600",
+    "section": "Annoucements",
+    "text": "Annoucements"
+  },
+  {
+    "objectID": "slides/02-slides.html#review-1",
+    "href": "slides/02-slides.html#review-1",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review"
+  },
+  {
+    "objectID": "slides/02-slides.html#feedback",
+    "href": "slides/02-slides.html#feedback",
+    "title": "POLS 1600",
+    "section": "Feedback",
+    "text": "Feedback"
+  },
+  {
+    "objectID": "slides/02-slides.html#concepts",
+    "href": "slides/02-slides.html#concepts",
+    "title": "POLS 1600",
+    "section": " Concepts",
+    "text": "Concepts"
+  },
+  {
+    "objectID": "slides/02-slides.html#code",
+    "href": "slides/02-slides.html#code",
+    "title": "POLS 1600",
+    "section": " Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/02-slides.html#concept-1",
+    "href": "slides/02-slides.html#concept-1",
+    "title": "POLS 1600",
+    "section": "Concept",
+    "text": "Concept"
+  },
+  {
+    "objectID": "slides/02-slides.html#code-2",
+    "href": "slides/02-slides.html#code-2",
+    "title": "POLS 1600",
+    "section": "Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/02-slides.html#summary-1",
+    "href": "slides/02-slides.html#summary-1",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/02-slides.html#troubleshooting-errors-1",
+    "href": "slides/02-slides.html#troubleshooting-errors-1",
+    "title": "POLS 1600",
+    "section": "Troubleshooting Errors",
+    "text": "Troubleshooting Errors\n\nXKCD"
+  },
+  {
+    "objectID": "slides/02-slides.html#data-wrangling-in-r-1",
+    "href": "slides/02-slides.html#data-wrangling-in-r-1",
+    "title": "POLS 1600",
+    "section": "Data Wrangling in R",
+    "text": "Data Wrangling in R"
+  },
+  {
+    "objectID": "slides/02-slides.html#descriptive-statistics-1",
+    "href": "slides/02-slides.html#descriptive-statistics-1",
+    "title": "POLS 1600",
+    "section": "Descriptive Statistics",
+    "text": "Descriptive Statistics"
+  },
+  {
+    "objectID": "slides/02-slides.html#review",
+    "href": "slides/02-slides.html#review",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review"
+  },
+  {
+    "objectID": "slides/02-slides.html#setup-for-today",
+    "href": "slides/02-slides.html#setup-for-today",
+    "title": "POLS 1600",
+    "section": "Setup for today",
+    "text": "Setup for today"
+  },
+  {
+    "objectID": "slides/02-slides.html#code-1",
+    "href": "slides/02-slides.html#code-1",
+    "title": "POLS 1600",
+    "section": "Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/02-slides.html#what-we-liked",
+    "href": "slides/02-slides.html#what-we-liked",
+    "title": "POLS 1600",
+    "section": "What we liked",
+    "text": "What we liked"
+  },
+  {
+    "objectID": "slides/02-slides.html#what-we-disliked",
+    "href": "slides/02-slides.html#what-we-disliked",
+    "title": "POLS 1600",
+    "section": "What we disliked",
+    "text": "What we disliked"
+  },
+  {
+    "objectID": "slides/02-slides.html#describing-distributions",
+    "href": "slides/02-slides.html#describing-distributions",
+    "title": "POLS 1600",
+    "section": "Describing Distributions",
+    "text": "Describing Distributions"
+  },
+  {
+    "objectID": "slides/02-slides.html#describing-associations",
+    "href": "slides/02-slides.html#describing-associations",
+    "title": "POLS 1600",
+    "section": "Describing Associations",
+    "text": "Describing Associations"
+  },
+  {
+    "objectID": "slides/02-slides.html#libraries",
+    "href": "slides/02-slides.html#libraries",
+    "title": "POLS 1600",
+    "section": "Libraries",
+    "text": "Libraries\nThis week we’ll use the following libraries.\n\nthe_packages &lt;- c(\n  ## R Markdown\n  \"tinytex\", \"kableExtra\",\n  \n  ## Tidyverse\n  \"tidyverse\",\"lubridate\", \"forcats\", \"haven\",\"labelled\",\n  \n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\",\"ggpubr\",\n  \"GGally\",\n  \n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"DT\"\n)\nthe_packages\n\n [1] \"tinytex\"    \"kableExtra\" \"tidyverse\"  \"lubridate\"  \"forcats\"   \n [6] \"haven\"      \"labelled\"   \"ggmap\"      \"ggrepel\"    \"ggridges\"  \n[11] \"ggthemes\"   \"ggpubr\"     \"GGally\"     \"COVID19\"    \"maps\"      \n[16] \"mapdata\"    \"DT\""
+  },
+  {
+    "objectID": "slides/02-slides.html#section",
+    "href": "slides/02-slides.html#section",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "XKCD"
   }
 ]
