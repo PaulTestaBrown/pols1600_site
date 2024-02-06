@@ -67,7 +67,6 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
         -   Distributions
         -   Associations
 
-
 # {{< fa code>}} Setup {.inverse}
 
 ## Setup for today
@@ -754,6 +753,8 @@ mean(
 
 ```
 
+::::
+
 ## {{< fa lightbulb >}} Concept check {.smaller}
 
 Suppose you want to do the following, what function or functions would you use:
@@ -871,21 +872,26 @@ knitr::kable(summary_table, format = "html")
 
 All of these functions have an argument called `na.rm=F`. If your data have missing values, you'll need to set `na.rm=F` (e.g. `mean(x, na.rm=T)`)
 
-## What you need to know for POLS 1600
+## What you need to know for POLS 1600{.smaller}
 
 **Measures of typical values**
 
 -   **Means** (`mean()`) all the time
 -   **Medians** (`median()`) useful for describing distributions of variables particularly those with [extreme values]{.blue}
--   \*\*Mode\* useful for characterizing [categorical]{.blue} data
+-   **Mode** useful for characterizing [categorical]{.blue} data
 
-. . .
+## What you need to know for POLS 1600{.smaller}
+
+
 
 **Measures of typical variation**
 
 -   `var()` important for quantifying uncertainty, but rarely will you be calculating this directly
 -   `sd()` a good summary of a [typical change]{.blue} in the data.
 -   `range()`, `min()`, `max()` useful for exploring data, detecting outliers and potential values that need to be recoded
+
+## What you need to know for POLS 1600{.smaller}
+
 
 **Measures of association**
 
@@ -929,7 +935,7 @@ Today, we will:
     -   Univariate distributions
     -   Bivariate relations
 
-## The Grammar of Graphics
+## The Grammar of Graphics {.smaller}
 
 Inspired by [Wilkinson (2005)](https://link.springer.com/book/10.1007/0-387-28695-0)
 
@@ -953,7 +959,6 @@ In R, we'll implement this grammar of graphics using the `ggplot` package
 
 -   Let's take a look at your feedback to last week's survey and see how we can visualize some of the in formation you provided
 
-## The Grammar of Graphics
 
 # {{< fa bullhorn >}} Feedback {.inverse}
 
@@ -1203,38 +1208,41 @@ fig_roadtrip
 df %>%
   filter(!is.na(trip)) %>% 
   mutate(
-    Playlist = str_wrap(forcats::as_factor(trip),20)
+    Playlist =str_wrap(forcats::as_factor(trip),20)
   ) %>%
   ggplot(aes(x = Playlist,
              fill = Playlist))+
   geom_bar(stat = "count")+
+   scale_fill_brewer(guide="none")+
   coord_flip()+
-  scale_fill_brewer()+
-  labs(title = "Who controls the playlist on a roadtrip")+
-  theme_bw()
+  labs(title = "Who controls the playlist",
+       x= "",
+       y = "")+
+  theme_bw() -> fig_roadtrip
 ```
 
-# {{< fa lightbulb >}} DataViz: Describing Distributions and Associations{.inverse}
+# {{< fa lightbulb >}} DataViz: Describing Distributions and Associations {.inverse}
 
 ## Describing Distributions and Associations
 
-- In the remaining slides, we' see how to visualize some distributions and associations in the Covid data using:
+-   In the remaining slides, we' see how to visualize some distributions and associations in the Covid data using:
 
-    - barplots
-    - histograms
-    - density plots
-    - boxplots
-    - line plots
-    - scatter plots
-    
+    -   barplots
+    -   histograms
+    -   density plots
+    -   boxplots
+    -   line plots
+    -   scatter plots
+
 ## General advice for making figures
 
-- Think through conceptually how you want to figure to look
-  - Draw it out buy hand
-- Make a basic plot and iterate
-- Don't let the perfect be the enemy of the good
-- Use `summarize()` and other data wrangling skills to transform data for plotting
-- Use `factor()` and related functions to control order of labels on axis
+-   Think through conceptually how you want to figure to look
+    -   Draw it out by hand
+-   Make a basic plot and iterate
+-   Use `summarize()` and other data wrangling skills to transform data for plotting
+-   Use `factor()` and related functions to control order of labels on axis
+- Use google to figure out arcane options of `ggplot`
+-   Don't let the perfect be the enemy of the good
 
 ## Barplots {.smaller}
 
@@ -1285,7 +1293,7 @@ fig_barplot
 ## Histogram {.smaller}
 
 ::: panel-tabset
-## Question 
+## Question
 
 What does the distribution new Covid-19 cases look like in June 2021
 
@@ -1362,7 +1370,7 @@ covid_us %>%
 ## Ex 1
 
 ```{r}
-fig_hist1
+fig_density1
 ```
 
 ## Better Code
@@ -1448,7 +1456,6 @@ covid_us %>%
 fig_boxplot2
 ```
 :::
-
 
 ## Line graphs {.smaller}
 
@@ -1583,9 +1590,6 @@ covid_us %>%
 fig_scatter2
 ```
 :::
-
-
-
 
 # {{< fa home >}} Summary {.inverse}
 
