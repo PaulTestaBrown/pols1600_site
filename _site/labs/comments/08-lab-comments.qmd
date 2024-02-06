@@ -4,7 +4,6 @@ author: "Your Group Members Names Here"
 date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
-    theme: journal
     toc: true
     toc-float: true
     toc-depth: 2

@@ -12,9 +12,9 @@ format:
 ---
 
 ```{r}
-#| label = "setup",
-#| include = FALSE,
-#| cache = FALSE
+#| label: setup
+#| include: FALSE
+#| cache: FALSE
 knitr::opts_chunk$set(error = TRUE, 
                       comment = NA, 
                       warnings = FALSE, 
@@ -59,7 +59,7 @@ To do this, we copied and pasted a lot of code. Today, we'll **get practice writ
 -   Once `lubridate` is installed, comment the code out by placing a \# at the start of the line
 
 ```{r}
-#| label = "install"
+#| label: install
 # install.packages(c("lubridate","DT"))
 ```
 
@@ -78,7 +78,7 @@ The `DT` package allows us to display data tables in a searchable format in our 
     -   `DT`
 
 ```{r}
-#| label = "packages"
+#| label: packages
 
 library(tidyverse)
 library(COVID19)
@@ -92,15 +92,23 @@ library(DT)
 Open up the [slides](https://pols1600.paultesta.org/slides/01-slides.html#81) from last class and copy and paste the relevant code into the code chunk below.
 
 ```{r}
-#| label = "covid"
+#| label: covid
 # Download the COVID-19 data
 
-covid <- COVID19::covid19(
-  country = "US",
-  level = 2,
-  verbose = F
-)
+# # Code below produces:
+# 
+# covid <- COVID19::covid19(
+#   country = "US",
+#   start = "2020-01-01",
+#   end = "2022-12-31",
+#   level = 2,
+#   verbose = F
+# 
+# )
+# 
+# # Produces file saved here:
 
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 
 ```
 
@@ -128,7 +136,7 @@ Specifically please do the following:
 -   Save as a factor variable so that the labels are ordered in terms of increasing levels of severity/restrictions
 
 ```{r}
-#| label = "recode"
+#| label: recode
 # ---- 1. Create territories object
 
 territories <- c(
@@ -177,12 +185,12 @@ Next let's compare our new `face_mask` variable to the original `facial_covering
 Uncomment the following code and replace the generic terms `data`, `variable1`, and `variable2` with appropriate terms.
 
 ```{r}
-#| label = "crosstab"
+#| label: crosstab
 # table(data$variable1, data$variable2, useNA="ifany")
 ```
 
 ```{r}
-#| label = "crosstab_sol"
+#| label: crosstab_sol
 table(covid_us$face_masks, covid_us$facial_coverings,useNA="ifany")
 ```
 
@@ -199,7 +207,7 @@ Finally, let's create a few more variables called `year_month` from the `date` v
 Highlight the commented code below from `# covid_us %>%` to `#   ) -> covid_us` and press `shift + cmd + C` on a mac or `shift + ctrl + C` on PC to uncomment the code.
 
 ```{r}
-#| label = "dates"
+#| label: dates
 covid_us %>%
   mutate(
     year = year(date),
@@ -233,7 +241,7 @@ Let's get some practice using the `filter()`, `select()` `group_by()` and `summa
 ## Uncomment and run the code below,
 
 ```{r}
-#| label = "negvals"
+#| label: negvals
 covid_us %>%
   filter(facial_coverings == -4) %>%
   select(date, state) %>%
@@ -274,7 +282,7 @@ Substantively, what does the previous chunk of code tell us?
 To make sure we understand what this policy variable `facial_coverings` is measuring, let's download the source data from Oxford
 
 ```{r}
-#| label = "oxford"
+#| label: oxford
 oxford_us <- read_csv("https://github.com/OxCGRT/USA-covid-policy/raw/master/data/OxCGRT_US_latest.csv")
 ```
 
@@ -287,7 +295,7 @@ Now let's look at the policy on face masks for Illinois. From Oxford's [codebook
 ## Please run the following code:
 
 ```{r}
-#| label = "ilfacemask"
+#| label: ilfacemask
 oxford_us %>%
   mutate(
     date = ymd(Date)
@@ -314,15 +322,15 @@ il_facemasks
 Let's take a look at the `H6_Notes` variable for 2020-09-18
 
 ```{r}
-#| label = "ilpol1"
+#| label: ilpol1
 il_facemasks$H6_Notes[3]
 ```
 
 Now update the code to select `H6_Notes` variable for 2020-10-01
 
 ```{r}
-#| label = "ilpol2"
-# il_facemasks$H6_Notes[???]
+#| label: ilpol2
+il_facemasks$H6_Notes[il_facemasks$date == "2020-10-01"]
 ```
 
 ## What have we learned about our variables measuring `face_mask` policy
@@ -356,7 +364,7 @@ We'll see later in the course that means are closely related to the concept of e
 For now, please calculate the mean (average) number of new cases per 100,000 residents in our data:
 
 ```{r}
-#| label = "mean"
+#| label: mean
 mean(covid_us$new_cases_pc, na.rm=T)
 ```
 
@@ -373,7 +381,7 @@ Or to make it more concrete:
 In code, we could accomplish this manually, using the index operator:
 
 ```{r}
-#| label = "conmean1"
+#| label: conmean1
 mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)
 
 ```
@@ -381,7 +389,7 @@ mean(covid_us$new_cases_pc[covid_us$face_masks == "No policy"], na.rm=T)
 #### How would we calculate the conditional mean of `new_cases_pc` when `face_masks` equals "Recommend"
 
 ```{r}
-#| label = "conmean2"
+#| label: conmean2
 mean(covid_us$new_cases_pc[covid_us$face_masks == "Recommended"], na.rm=T)
 
 ```
@@ -389,7 +397,7 @@ mean(covid_us$new_cases_pc[covid_us$face_masks == "Recommended"], na.rm=T)
 By using `group_by()` with `summarise()` we can accomplish this more quickly:
 
 ```{r}
-#| label = "conmeangroup"
+#| label: conmeangroup
 covid_us%>%
   group_by(face_masks)%>%
   summarise(
@@ -416,7 +424,7 @@ Which might look like Greek to you, which is fine. Just think of it as the middl
 #### Please calculate the median number of new Covid-19 cases per 100,000 using the `median()` function. How does it compare to the mean?
 
 ```{r}
-#| label = "median"
+#| label: median
 median(covid_us$new_cases_pc, na.rm=T)
 ```
 
@@ -427,7 +435,7 @@ Interesting the median is much lower than the mean. If we were to look at a hist
 :::
 
 ```{r}
-#| label = "hist"
+#| label: hist
 hist(covid_us$new_cases_pc, breaks = 100)
 ```
 
@@ -440,7 +448,7 @@ Modes are useful for describing what's typical of "nominal" or categorical data 
 To calculate the mode of our `face_masks` variable, wrap the output of `table()` with the `sort()` function
 
 ```{r}
-#| label = "mode"
+#| label: mode
 sort(table(covid_us$face_masks))
 ```
 
@@ -448,11 +456,7 @@ For numeric data, modes correspond to the peak of a variable's density function 
 
 You can get a sense of the relationship between, means, median's and modes from this helpful figure from [Wikipedia](https://en.wikipedia.org/wiki/Mode_(statistics)):
 
-```{r}
-#| label = "wikifig",
-#| out.width = 200
-knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png")
-```
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Visualisation_mode_median_mean.svg/240px-Visualisation_mode_median_mean.svg.png)
 
 ## Measures of Dispersion
 
@@ -470,7 +474,7 @@ The range of a variable is simply it's minimum and maximum value
 #### Please calculate the range of our `new_cases_pc` using the `range()` function
 
 ```{r}
-#| label = "range"
+#| label: range
 range(covid_us$new_cases_pc,na.rm = T)
 min(covid_us$new_cases_pc,na.rm = T)
 max(covid_us$new_cases_pc,na.rm = T)
@@ -479,7 +483,7 @@ max(covid_us$new_cases_pc,na.rm = T)
 #### What states on what dates observed these minimum and maximum values?
 
 ```{r}
-#| label = "staterange"
+#| label: staterange
 covid_us %>%
   filter(
     new_cases_pc < -188 |
@@ -502,7 +506,7 @@ In R we calculate the $p$-th percentile using the `quantile()` setting the `prob
 #### Please use the `quantile()` function to calculate the 25th and 75th percentiles of the `new_cases_pc` variable.
 
 ```{r}
-#| label = "quantile"
+#| label: quantile
 quantile(covid_us$new_cases_pc, probs = c(.25,.75), na.rm=T)
 ```
 
@@ -524,7 +528,7 @@ The variance in a given sample is calculated by taking the average of the sum of
 Use the `var()` function to calculate the variance of the `new_cases_pc` variable.
 
 ```{r}
-#| label = "var"
+#| label: var
 var(covid_us$new_cases_pc,na.rm=T)
 
 # Calculate by hand
@@ -551,7 +555,7 @@ Think of them as a measure of the typical amount of variation for variable.
 Again, let's use the `sd()` function to calculate the standard deviation of the `new_cases_pc` variable
 
 ```{r}
-#| label = "sd"
+#| label: sd
 sd(covid_us$new_cases_pc,na.rm=T)
 ```
 
@@ -576,7 +580,7 @@ Formally, the sample[^2] covariance of two variables can written as follows:
 #### Please calculate the covariance between the percent of state's population that is fully vaccinated (`percent_vaccinated`) and `new_cases_pc` using the `var()` function
 
 ```{r}
-#| label = "covar"
+#| label: covar
 var(covid_us$new_cases_pc,covid_us$percent_vaccinated,na.rm = T)
 ```
 
@@ -597,7 +601,7 @@ But don't sweat the formulas too much. I'm just contractually obligated to show 
 You'll need to set the argument `use="complete.obs`
 
 ```{r}
-#| label = "cor"
+#| label: cor
 cor(covid_us$percent_vaccinated, covid_us$new_cases_pc, use = "complete.obs")
 
 ```
@@ -607,7 +611,7 @@ Hmm... That seems a little strange. What if we calculated the correlation betwee
 #### Uncomment and interpret the output of the code below
 
 ```{r}
-#| label = "cormonth"
+#| label: cormonth
 
 covid_us %>%
   filter(year > 2020)%>%
@@ -628,7 +632,7 @@ Let's return to the question of the average number of new Covid-19 cases (per 10
 We ended our previous class with this result:
 
 ```{r}
-#| label = "facemasks"
+#| label: facemasks
 covid_us %>%
   filter(!is.na(face_masks))%>%
   group_by(face_masks)%>%
@@ -645,7 +649,7 @@ Probably not that much. Different Face mask policies are implemented at differen
 In short, those simple conditional means across the full data don't really provide an apples to apples comparison.
 
 ```{r}
-#| label = "fmplots"
+#| label: fmplots
 covid_us%>%
   group_by(date,face_masks)%>%
   summarise(
@@ -673,7 +677,7 @@ If we limit our comparison to a more narrow time period, say one month in one ye
 So when we compare states in September 2020, we see that rates of new cases tend to be much higher in states with only recommend face mask policies compared to states with at least some requirements.
 
 ```{r}
-#| label = "facemasks1month"
+#| label: facemasks1month"
 covid_us %>%
   filter(!is.na(face_masks))%>%
   filter(year_month == "2020-09")%>%
@@ -688,7 +692,7 @@ covid_us %>%
 -   Save the output of summarize into an object called `cases_by_month_and_policy`
 
 ```{r}
-#| label = "casemonths"
+#| label: casemonths"
 covid_us %>%
   filter(!is.na(face_masks))%>%
   group_by(year_month,face_masks) %>%
@@ -702,7 +706,7 @@ covid_us %>%
 ### Uncomment the code below to display `cases_by_month_and_policy` in a searchable table
 
 ```{r}
-#| label = "dt"
+#| label: dt
 DT::datatable(cases_by_month_and_policy,
               filter = "top")
 ```
@@ -712,7 +716,7 @@ DT::datatable(cases_by_month_and_policy,
 What does this figure tell us?
 
 ```{r}
-#| label = "fmfig"
+#| label: fmfig
 cases_by_month_and_policy %>%
   ggplot(aes(
     x= year_month,
@@ -739,7 +743,7 @@ Next week, we'll explore how to make this figure and many more from our data
 Like lecture, we covered a lot in this first lab. Specifically we:
 
 -   Practiced installing packages and setting up our workspace
--   Downloaded multiplier data sets
+-   Downloaded multiple data sets
 -   Saw how we could use functions to transform and explore data. Specifically we used:
     -   `%>%`, the pipe command, to chain together multiple functions
     -   `filter()` to filter data based on logical comparisons
@@ -764,4 +768,6 @@ When you encounter a problem you can solve, send me an email, or ask your friend
 
 The only dumb question in this course is a question you don't ask!
 
-Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI)
+Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1094972/assignments)
+
+Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bPGJjZUbZ55PR2K)

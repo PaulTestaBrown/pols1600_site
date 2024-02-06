@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.4.545">
+
+  <meta name="author" content="Paul Testa">
+  <title>POLS 1600 - Week 04:</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
+  <h1 class="title">Week 04:</h1>
+  <p class="subtitle">Casual Inference in Observational Designs</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Paul Testa 
+</div>
+</div>
+</div>
+
+</section>
+<section class="slide level2">
+
+<p>class: inverse, center, middle background-image:url(https://images.gnwcdn.com/2021/articles/2021-11-02-21-59/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg/EG11/resize/1200x-1/overwatch-2-and-diablo-4-have-been-delayed-1635890355123.jpg) background-size:cover</p>
+</section>
+<section>
+<section id="overview" class="title-slide slide level1 center">
+<h1>Overview</h1>
+
+</section>
+<section id="general-plan" class="slide level2">
+<h2>General Plan</h2>
+<ul>
+<li class="fragment">Setup
+<ul>
+<li class="fragment">Packages</li>
+<li class="fragment">Data</li>
+</ul></li>
+<li class="fragment">Review
+<ul>
+<li class="fragment">Statistical programming</li>
+<li class="fragment">Descriptive statistics</li>
+<li class="fragment">Data visualization</li>
+<li class="fragment">Causal inference</li>
+</ul></li>
+<li class="fragment">Experimental vs Observational Studies</li>
+<li class="fragment">Three Approaches to Covariate Adjustment
+<ul>
+<li class="fragment">Subclassification</li>
+<li class="fragment">Matching</li>
+<li class="fragment">Regression</li>
+</ul></li>
+</ul>
+<p>Tuesday:</p>
+<ul>
+<li class="fragment">Three Designs for Causal Inference in Observational Studies
+<ul>
+<li class="fragment">Difference in Differences</li>
+<li class="fragment">Regression Discontinuity</li>
+<li class="fragment">Instrumental Variables</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-youll-learn" class="slide level2">
+<h2>What you’ll learn</h2>
+<ul>
+<li class="fragment">Causal inference in observational and experimental studies is about counterfactual comparisons</li>
+<li class="fragment">In observational studies, to make causal claims we generally make some assumption of conditional independence:</li>
+</ul>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></p>
+<ul>
+<li class="fragment">The credibility of this assumption depends less on the data, and more on how the data were generated.
+<ul>
+<li class="fragment"><strong>Selection on Observables</strong> is rarely a credible assumption</li>
+</ul></li>
+<li class="fragment">Observational designs that produce credible causal inference, leverage aspects of the world that create <em>natural experiments</em></li>
+<li class="fragment">You should be able to describe the logic and assumptions of common designs in social science
+<ul>
+<li class="fragment"><strong>Difference-in-Differences:</strong> <em>Parallel Trends</em></li>
+<li class="fragment"><strong>Regression Discontiniuity:</strong> <em>Continuity at the cutoff</em></li>
+<li class="fragment"><strong>Instrumental Variables:</strong> Instruments need to be <em>Relevant and Exogenous</em></li>
+</ul></li>
+</ul>
+<p>class:inverse, middle, center # 💪 ## Get set up to work</p>
+</section>
+<section id="new-packages" class="slide level2">
+<h2>New packages</h2>
+<p>Let’s try installing these packages manually:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">install.packages</span>(<span class="st">"dataverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">install.packages</span>(<span class="st">"tidycensus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">install.packages</span>(<span class="st">"easystats"</span>, <span class="at">repos =</span> <span class="st">"https://easystats.r-universe.dev"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">install.packages</span>(<span class="st">"DeclareDesign"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li class="fragment"><p>Some further guidance available <a href="https://pols1600.paultesta.org/slides/04-packages.html" target="_blank">here</a></p></li>
+<li class="fragment"><p>Particular, for next week, please follow the instructions to <a href="https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package" target="_blank">install a Census API key in R</a></p></li>
+</ul>
+</section>
+<section id="packages-for-today" class="slide level2">
+<h2>Packages for today</h2>
+</section>
+<section id="define-a-function-to-load-and-if-needed-install-packages" class="slide level2">
+<h2>Define a function to load (and if needed install) packages</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg){</span>
+<span id="cb5-2"><a></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb5-3"><a></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) </span>
+<span id="cb5-4"><a></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-5"><a></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-packages-for-today" class="slide level2">
+<h2>Load packages for today</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">ipak</span>(the_packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   kableExtra            DT     tidyverse     lubridate       forcats 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        haven      labelled         ggmap       ggrepel      ggridges 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+     ggthemes        ggpubr        GGally        scales       dagitty 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+        ggdag       ggforce       COVID19          maps       mapdata 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+          qss    tidycensus     dataverse DeclareDesign     easystats 
+         TRUE          TRUE          TRUE          TRUE          TRUE </code></pre>
+</div>
+</div>
+<p>class:inverse, center, middle # 💪 ## Load Data for today</p>
+</section>
+<section id="load-data-for-today" class="slide level2">
+<h2>Load Data for today</h2>
+<p>We’ll load the data we need in some of the examples below as well:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="do">## Lab data</span></span>
+<span id="cb8-2"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/03_lab.rda"</span>))</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a><span class="do">## RDD data</span></span>
+<span id="cb8-5"><a></a><span class="fu">library</span>(qss)</span>
+<span id="cb8-6"><a></a><span class="fu">data</span>(MPs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="review-what-have-we-covered" class="slide level2">
+<h2>Review: What have we covered</h2>
+<ul>
+<li class="fragment">Statistical Programming
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/slides/02-slides.html#72" target="_blank">Slides 02</a> on Data Wrangling</li>
+<li class="fragment"><a href="https://www.rstudio.com/resources/cheatsheets/" target="_blank">Cheat sheets</a></li>
+<li class="fragment">QSS: Chapter 1.3, Chapter 2.2</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment"><p>Descriptive statistics</p>
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/slides/01-slides.html#112" target="_blank">Slides 01</a>, <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#8_Explore_R%E2%80%99s_functions_for_generating_summary_statistics" target="_blank">Lab 01</a></li>
+<li class="fragment">QSS: Chapter 2.6, Chapter 3,6, Exercises 1.5,</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment"><p>Data visualization as tool for descriptive inference</p>
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/slides/02-slides.html#16" target="_blank">Slides 02</a>, <a href="https://pols1600.paultesta.org/labs/02-lab-comments.html#Outline_the_steps_you_will_need_to_complete_this_process" target="_blank">Lab 02</a></li>
+<li class="fragment"><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf" target="_blank">ggplot2</a> cheat sheet</li>
+<li class="fragment">QSS: Chapter 1.3, Chapter 2.2, Chapter 3.3, 3.6</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">Causal inference in experimental designs
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/slides/03-slides.html#39" target="_blank">Slides 03</a>, <a href="https://pols1600.paultesta.org/labs/03-lab-comments.html#8_Calculate_the_Average_Treatment_Effect" target="_blank">Lab 03</a></li>
+<li class="fragment">QSS: Chapter 2.3, 2.4</li>
+</ul></li>
+</ul>
+<p>class:inverse, middle, center # 🔍 ## Statistical Programming</p>
+</section>
+<section id="mapping-concepts-to-code" class="slide level2">
+<h2>Mapping Concepts to Code</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<caption>You're learning how to map conceptual tasks to commands in R</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Skill</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Common Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Setup R</td>
+<td style="text-align: left;">library(), ipak()</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Load data</td>
+<td style="text-align: left;">read_csv(), load()</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Get HLO of data</td>
+<td style="text-align: left;">df$x, glimpse(), table(), summary()</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Transform data</td>
+<td style="text-align: left;">&lt;-, mutate(), ifelse(), case_when()</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reshape data</td>
+<td style="text-align: left;">pivot_longer(), left_join()</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Summarize data numerically</td>
+<td style="text-align: left;">mean(), median(), summarise(), group_by()</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Summarize data graphically</td>
+<td style="text-align: left;">ggplot(), aes(), geom_</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="mapping-concepts-to-code-1" class="slide level2">
+<h2>Mapping Concepts to Code</h2>
+<ul>
+<li class="fragment"><p>Takes time and practice</p></li>
+<li class="fragment"><p>Don’t be afraid to FAAFO</p></li>
+<li class="fragment"><p>Don’t worry about memorizing everything.</p></li>
+<li class="fragment"><p>Statistical programming is necessary to actually <strong>do</strong> empirical research</p></li>
+<li class="fragment"><p>Learning to code will help us understand statistical concepts.</p></li>
+<li class="fragment"><p>Learning to think programmatically and algorithmically will help us tackle complex problems</p></li>
+</ul>
+</section>
+<section id="data-wrangling-from-the-lab" class="slide level2">
+<h2>Data Wrangling from the Lab:</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">group_by</span>(treatment_assigned) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(treatment_assigned)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a></a>  <span class="co"># Calculate means for variables that start with "therm_trans"</span></span>
+<span id="cb9-6"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a></a>  <span class="co"># Transpose (flip) data</span></span>
+<span id="cb9-8"><a></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb9-9"><a></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>),</span>
+<span id="cb9-10"><a></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb9-11"><a></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb9-12"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a></a>  <span class="co"># Gather means into separate columns by treatment status</span></span>
+<span id="cb9-14"><a></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb9-15"><a></a>    <span class="at">names_from =</span> treatment_assigned,</span>
+<span id="cb9-16"><a></a>    <span class="at">values_from =</span> Means</span>
+<span id="cb9-17"><a></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb9-18"><a></a>  <span class="co"># Calculate ATEs, add labels</span></span>
+<span id="cb9-19"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-20"><a></a>    <span class="at">ATE =</span> <span class="st">`</span><span class="at">Trans-Equality</span><span class="st">`</span> <span class="sc">-</span> Recycling,</span>
+<span id="cb9-21"><a></a>    <span class="at">Days =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">21</span>,<span class="dv">42</span>,<span class="dv">90</span>)</span>
+<span id="cb9-22"><a></a>    )<span class="ot">-&gt;</span> ate_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb10-3"><a></a>  <span class="fu">group_by</span>(treatment_assigned) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(treatment_assigned)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a></a>  <span class="co"># Calculate means for variables that start with "therm_trans"</span></span>
+<span id="cb10-6"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  treatment_assigned therm_trans_t0 therm_trans_t1 therm_trans_t2 therm_trans_t3
+  &lt;chr&gt;                       &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+1 Recycling                    52.9           54.1           54.6           52.5
+2 Trans-Equality               53.6           60.8           59.1           58.7
+# ℹ 1 more variable: therm_trans_t4 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a></a>  <span class="co"># Calculate difference between Survey and Non-Survey Takers</span></span>
+<span id="cb12-3"><a></a>  <span class="fu">group_by</span>(treatment_assigned) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(treatment_assigned)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a></a>  <span class="co"># Calculate means for variables that start with "therm_trans"</span></span>
+<span id="cb12-6"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a></a>  <span class="co"># Transpose (flip) data</span></span>
+<span id="cb12-8"><a></a>  <span class="fu">pivot_longer</span>(  <span class="co">#&lt;&lt;</span></span>
+<span id="cb12-9"><a></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), <span class="co">#&lt;&lt;</span></span>
+<span id="cb12-10"><a></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>, <span class="co">#&lt;&lt;</span></span>
+<span id="cb12-11"><a></a>    <span class="at">values_to =</span> <span class="st">"Means"</span> <span class="co">#&lt;&lt;</span></span>
+<span id="cb12-12"><a></a>  ) <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   treatment_assigned Covariate      Means
+   &lt;chr&gt;              &lt;chr&gt;          &lt;dbl&gt;
+ 1 Recycling          therm_trans_t0  52.9
+ 2 Recycling          therm_trans_t1  54.1
+ 3 Recycling          therm_trans_t2  54.6
+ 4 Recycling          therm_trans_t3  52.5
+ 5 Recycling          therm_trans_t4  53.4
+ 6 Trans-Equality     therm_trans_t0  53.6
+ 7 Trans-Equality     therm_trans_t1  60.8
+ 8 Trans-Equality     therm_trans_t2  59.1
+ 9 Trans-Equality     therm_trans_t3  58.7
+10 Trans-Equality     therm_trans_t4  58.7</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">group_by</span>(treatment_assigned) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(treatment_assigned)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-6"><a></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>),</span>
+<span id="cb14-7"><a></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb14-8"><a></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb14-9"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a></a>  <span class="co"># Gather means into separate columns by treatment status</span></span>
+<span id="cb14-11"><a></a>  <span class="fu">pivot_wider</span>(  <span class="co">#&lt;&lt;</span></span>
+<span id="cb14-12"><a></a>    <span class="at">names_from =</span> treatment_assigned,  <span class="co">#&lt;&lt;</span></span>
+<span id="cb14-13"><a></a>    <span class="at">values_from =</span> Means  <span class="co">#&lt;&lt;</span></span>
+<span id="cb14-14"><a></a>  )  <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  Covariate      Recycling `Trans-Equality`
+  &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt;
+1 therm_trans_t0      52.9             53.6
+2 therm_trans_t1      54.1             60.8
+3 therm_trans_t2      54.6             59.1
+4 therm_trans_t3      52.5             58.7
+5 therm_trans_t4      53.4             58.7</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">group_by</span>(treatment_assigned) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(treatment_assigned)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>), \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))<span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb16-6"><a></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>),</span>
+<span id="cb16-7"><a></a>    <span class="at">names_to =</span> <span class="st">"Covariate"</span>,</span>
+<span id="cb16-8"><a></a>    <span class="at">values_to =</span> <span class="st">"Means"</span></span>
+<span id="cb16-9"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb16-11"><a></a>    <span class="at">names_from =</span> treatment_assigned,</span>
+<span id="cb16-12"><a></a>    <span class="at">values_from =</span> Means</span>
+<span id="cb16-13"><a></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb16-14"><a></a>  <span class="co"># Calculate ATEs, add labels, save output</span></span>
+<span id="cb16-15"><a></a>  <span class="fu">mutate</span>(  <span class="co">#&lt;&lt;</span></span>
+<span id="cb16-16"><a></a>    <span class="at">ATE =</span> <span class="st">`</span><span class="at">Trans-Equality</span><span class="st">`</span> <span class="sc">-</span> Recycling, <span class="co">#&lt;&lt;</span></span>
+<span id="cb16-17"><a></a>    <span class="at">Days =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">21</span>,<span class="dv">42</span>,<span class="dv">90</span>) <span class="co">#&lt;&lt;</span></span>
+<span id="cb16-18"><a></a>    )<span class="ot">-&gt;</span> ate_df <span class="co">#&lt;&lt;</span></span>
+<span id="cb16-19"><a></a>ate_df <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  Covariate      Recycling `Trans-Equality`   ATE  Days
+  &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 therm_trans_t0      52.9             53.6 0.664     0
+2 therm_trans_t1      54.1             60.8 6.76      3
+3 therm_trans_t2      54.6             59.1 4.49     21
+4 therm_trans_t3      52.5             58.7 6.23     42
+5 therm_trans_t4      53.4             58.7 5.30     90</code></pre>
+</div>
+</div>
+<p>class: inverse, middle, center # 🔍 ## Descriptive statistics</p>
+</section>
+<section id="descriptive-statistics" class="slide level2">
+<h2>Descriptive statistics</h2>
+<ul>
+<li class="fragment">Descriptive statistics help us describe what’s typical of our data</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>- What’s a typical value in our data - <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency" target="_blank">Mean</a> - <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency" target="_blank">Median</a> - <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#81_Measures_of_Central_Tendency" target="_blank">Mode</a></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>- How much do our data vary? - <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion" target="_blank">Variance</a> - <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#82_Measures_of_Dispersion" target="_blank">Standard deviation</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">As one variable changes how does another change?
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association" target="_blank">Covariance</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#83_Measures_of_Association" target="_blank">Correlation</a></li>
+</ul></li>
+</ul>
+<table>
+<tbody>
+<tr class="odd">
+<td>- Descriptive statistics are: - Diagnostic - Generative</td>
+</tr>
+<tr class="even">
+<td>## Descriptive statistics: Levels of understanding</td>
+</tr>
+<tr class="odd">
+<td>- Conceptual</td>
+</tr>
+<tr class="even">
+<td>- Practical</td>
+</tr>
+<tr class="odd">
+<td>- Definitional</td>
+</tr>
+<tr class="even">
+<td>- Theoretical</td>
+</tr>
+<tr class="odd">
+<td>## Descriptive statistics: Levels of understanding</td>
+</tr>
+<tr class="even">
+<td>- <strong>Conceptual</strong></td>
+</tr>
+<tr class="odd">
+<td>- <strong>Practical</strong></td>
+</tr>
+<tr class="even">
+<td>- Definitional</td>
+</tr>
+<tr class="odd">
+<td>- Theoretical</td>
+</tr>
+<tr class="even">
+<td>## Mean: Conceptual Understanding</td>
+</tr>
+<tr class="odd">
+<td>A mean is:</td>
+</tr>
+<tr class="even">
+<td>- A common and important measure of central tendency (what’s typical)</td>
+</tr>
+<tr class="odd">
+<td>- It’s the arithmetic average you learned in school</td>
+</tr>
+<tr class="even">
+<td>- We can think of it as the balancing point of a distribution</td>
+</tr>
+<tr class="odd">
+<td>- A conditional mean is the average of one variable <span class="math inline">\(X\)</span>, when some other variable, <span class="math inline">\(Z\)</span> takes a value <span class="math inline">\(z\)</span></td>
+</tr>
+<tr class="even">
+<td>- Think about the average height in our class (unconditional mean) vs the average height among men and women (conditional means)</td>
+</tr>
+<tr class="odd">
+<td>## Mean as a balancing point</td>
+</tr>
+<tr class="even">
+<td><img data-src="https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg"></td>
+</tr>
+<tr class="odd">
+<td><a href="https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html" target="_blank">Source</a></td>
+</tr>
+<tr class="even">
+<td>## Mean: Practical</td>
+</tr>
+<tr class="odd">
+<td>There are lots of ways to calculate means in <code>R</code></td>
+</tr>
+<tr class="even">
+<td>- The simplest is to use the <code>mean()</code> function</td>
+</tr>
+<tr class="odd">
+<td>- If our data have missing values, we need to to tell <code>R</code> to remove them</td>
+</tr>
+<tr class="even">
+<td>::: {.cell layout-align=“center”}</td>
+</tr>
+<tr class="odd">
+<td><code>{.r .cell-code} mean(df$x, na.rm=T)</code> :::</td>
+</tr>
+<tr class="even">
+<td>## Conditional Means: Practical</td>
+</tr>
+<tr class="odd">
+<td>- To calculate a conditional mean we could us a logical index <code>[df$z == 1]</code></td>
+</tr>
+<tr class="even">
+<td>::: {.cell layout-align=“center”}</td>
+</tr>
+<tr class="odd">
+<td><code>{.r .cell-code} mean(df$x[df$z == 1], na.rm=T)</code> :::</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">If we wanted to a calculate a lot of conditional means we could use the <code>mean()</code> in combination with <code>group_by()</code> and <code>summarise()</code></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a></a>  <span class="fu">group_by</span>(z)<span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-4"><a></a>    <span class="at">x =</span> <span class="fu">mean</span>(x, <span class="at">na.rm=</span>T)</span>
+<span id="cb18-5"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mean-definitional" class="slide level2">
+<h2>Mean: Definitional</h2>
+<p>Formally, we define the arithmetic mean of <span class="math inline">\(x\)</span> as <span class="math inline">\(\bar{x}\)</span>:</p>
+<p><span class="math display">\[
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
+\]</span></p>
+<p>In words, this formula says, to calculate the average of x, we sum up all the values of <span class="math inline">\(x_i\)</span> from observation <span class="math inline">\(i=1\)</span> to <span class="math inline">\(i=n\)</span> and then divide by the total number of observations <span class="math inline">\(n\)</span></p>
+</section>
+<section id="mean-definitional-1" class="slide level2">
+<h2>Mean: Definitional</h2>
+<ul>
+<li class="fragment"><p>In this class, I don’t put a lot of weight on memorizing definitions (that’s what Google’s for).</p></li>
+<li class="fragment"><p>But being comfortable with “the math” is important and useful</p></li>
+<li class="fragment"><p>Definitional knowledge is a prerequisite for understanding more theoretical claims.</p></li>
+</ul>
+</section>
+<section id="mean-theoretical" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Suppose I asked you to show that the sum of deviations from a mean equals 0?</p>
+<p><span class="math display">\[
+\text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
+\]</span></p>
+</section>
+<section id="mean-theoretical-1" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Knowing the definition of an arithmetic mean, we could write:</p>
+<p><span class="math display">\[\begin{aligned}
+\sum_{i=1}^n (x_i -\bar{x}) &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n\bar{x} &amp; \text{Distribute Summation}\\
+              &amp;= \sum_{i=1}^n x_i - n\bar{x} &amp; \text{Summing a constant, } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - n\times \left ( \frac{1}{n} \sum_{i=1}^n{x_i}\right ) &amp; \text{Definition of } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n{x_i} &amp; n \times \frac{1}{n}=1\\
+              &amp;= 0             
+\end{aligned}\]</span></p>
+</section>
+<section id="mean-theoretical-2" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Why do we care?</p>
+<ul>
+<li class="fragment"><p>Showing the deviations sum to 0 is another way of saying the mean is a “balancing point.”</p></li>
+<li class="fragment"><p>This turns out to be a useful property of means that will reappear throughout the course</p></li>
+<li class="fragment"><p>If I asked you to make a prediction, <span class="math inline">\(\hat{x}\)</span> of a random person’s height in this class, the mean would have the lowest “mean squared error” (MSE <span class="math inline">\(=\frac{1}{n}\sum (x_i - \hat{x_i})^2)\)</span></p></li>
+</ul>
+</section>
+<section id="mean-theoretical-3" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Occasionally, you’ll read or here me say say things like:</p>
+<blockquote>
+<p>The sample mean is an unbiased estimator of the population mean</p>
+</blockquote>
+<p>In a statistics class, we would take time to prove this.</p>
+</section>
+<section id="the-sample-mean-is-an-unbiased-estimator-of-the-population-mean" class="slide level2">
+<h2>The sample mean is an unbiased estimator of the population mean</h2>
+<p>Claim:</p>
+<p>Let <span class="math inline">\(x_1, x_2, \dots x_n\)</span> from a random sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span></p>
+<p>Then:</p>
+<p><span class="math display">\[
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n x_i\right )
+\]</span></p>
+<p>is an unbiased estimator of <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[
+E[\bar{x}] = \mu
+\]</span></p>
+</section>
+<section id="the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1" class="slide level2">
+<h2>The sample mean is an unbiased estimator of the population mean</h2>
+<p>Proof:</p>
+<p><span class="math display">\[\begin{aligned}
+E\left [\bar{x} \right] &amp;= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \right] &amp; \text{Definition of } \bar{x} \\
+&amp;= \frac{1}{n} \sum_{i=1}^nE\left [ x_i \right]  &amp; \text{Linearity of Expectations} \\
+&amp;= \frac{1}{n} \sum_{i=1}^n \mu  &amp; E[x_i] = \mu \\
+&amp;= \frac{n}{n}  \mu  &amp; \sum_{i=1}^n \mu = n\mu \\
+&amp;= \mu  &amp; \blacksquare \\
+\end{aligned}\]</span></p>
+</section>
+<section id="levels-of-understanding" class="slide level2">
+<h2>Levels of understanding</h2>
+<p>In this course, we tend to emphasize the</p>
+<ul>
+<li class="fragment"><p><strong>Conceptual</strong></p></li>
+<li class="fragment"><p><strong>Practical</strong></p></li>
+</ul>
+<p>Over</p>
+<ul>
+<li class="fragment"><p>Definitional</p></li>
+<li class="fragment"><p>Theoretical</p></li>
+</ul>
+<p>In an intro statistics class, the ordering might be reversed.</p>
+<p>Trade offs:</p>
+<ul>
+<li class="fragment">Pro: We actually get to <em>work with data</em> and <em>do empirical research</em> much sooner</li>
+<li class="fragment">Cons: We substitute intuitive understandings for more rigorous proofs</li>
+</ul>
+<p>class:inverse, middle, center # 🔍 ## Data visualization</p>
+</section>
+<section id="data-visualization-as-a-tool-for-descriptive-inference" class="slide level2">
+<h2>Data visualization as a tool for descriptive inference</h2>
+<p>A statistical graphic is a mapping of <code>data</code> variables to <code>aes</code> thetic attributes of <code>geom</code> etric objects.</p>
+<p>At a minimum, a graphic contains three core components:</p>
+<ul>
+<li class="fragment"><code>data:</code> the dataset containing the variables of interest.</li>
+<li class="fragment"><code>aes</code>: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.</li>
+<li class="fragment"><code>geom:</code> the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.</li>
+</ul>
+<p><a href="https://moderndive.com/2-viz.html#grammarofgraphics" target="_blank">Ismay and Kim (2022)</a></p>
+</section>
+<section id="data-visualization-from-the-lab" class="slide level2">
+<h2>Data Visualization from the Lab</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>ate_df <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Days, ATE))<span class="sc">+</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,<span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb19-5"><a></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Days Since Treatment"</span>,</span>
+<span id="cb19-7"><a></a>       <span class="at">y =</span> <span class="st">"ATE on Feeling Thermometers</span><span class="sc">\n</span><span class="st"> toward Transgender People"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="04-slides-old_files/figure-html/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="ates-with-confidence-intervals" class="slide level2">
+<h2>ATEs with Confidence Intervals</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a></a>  <span class="co"># Get the select the columns whose names start with vf_</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"therm_trans"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a></a>  <span class="co"># Extract the column names</span></span>
+<span id="cb20-5"><a></a>  <span class="fu">names</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a></a>  <span class="co"># Create the formulas to calculate the diff in means for</span></span>
+<span id="cb20-7"><a></a>  <span class="co"># Each variable</span></span>
+<span id="cb20-8"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="sc">~</span> <span class="fu">formula</span>(<span class="fu">paste0</span>(.,<span class="st">" ~ treatment_group"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a></a>  <span class="co"># Caclulate the difference in means for each variable</span></span>
+<span id="cb20-10"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="sc">~</span><span class="fu">difference_in_means</span>(., <span class="at">data =</span> df)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a></a>  <span class="co"># Put the output into a tidy data frame.</span></span>
+<span id="cb20-12"><a></a>  <span class="fu">map_df</span>(tidy)<span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-14"><a></a>    <span class="at">ATE =</span> estimate,</span>
+<span id="cb20-15"><a></a>    <span class="at">Days =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">21</span>,<span class="dv">42</span>,<span class="dv">90</span>)</span>
+<span id="cb20-16"><a></a>  ) <span class="ot">-&gt;</span> ate_df</span>
+<span id="cb20-17"><a></a>ate_df[,<span class="sc">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    estimate std.error  statistic    p.value  conf.low conf.high       df
+1 -0.6101865  2.470775 -0.2469616 0.80504095 -5.464758  4.244385 492.0410
+2  6.4618301  2.690313  2.4018875 0.01675624  1.173250 11.750410 408.6734
+3  4.0591652  2.718401  1.4932177 0.13618853 -1.285385  9.403716 390.1030
+4  6.3459985  2.633331  2.4098747 0.01641918  1.168734 11.523263 390.8996
+5  5.2990725  2.782481  1.9044419 0.05762449 -0.172306 10.770451 371.6676
+         outcome        ATE Days
+1 therm_trans_t0 -0.6101865    0
+2 therm_trans_t1  6.4618301    3
+3 therm_trans_t2  4.0591652   21
+4 therm_trans_t3  6.3459985   42
+5 therm_trans_t4  5.2990725   90</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>ate_df <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Days, ATE))<span class="sc">+</span></span>
+<span id="cb22-3"><a></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb22-4"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high))<span class="sc">+</span> <span class="co">#&lt;&lt;</span></span>
+<span id="cb22-5"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>,<span class="at">linetype=</span><span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb22-6"><a></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb22-7"><a></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Days Since Treatment"</span>,</span>
+<span id="cb22-8"><a></a>       <span class="at">y =</span> <span class="st">"ATE on Feeling Thermometers</span><span class="sc">\n</span><span class="st"> toward Transgender People"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="04-slides-old_files/figure-html/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="data-visualization-is-an-iterative-process" class="slide level2">
+<h2>Data visualization is an iterative process</h2>
+<ul>
+<li class="fragment"><p>Data visualization is an iterative process</p></li>
+<li class="fragment"><p>Good data viz requires lots of data transformations</p></li>
+<li class="fragment"><p>Start with a minimum working example and build from there</p></li>
+<li class="fragment"><p>Don’t let the perfect be the enemy of the good enough.</p></li>
+</ul>
+<p>class:inverse, middle, center # 🔍 ## Causal inference</p>
+</section>
+<section id="causal-inference-is-about-counterfactual-comparisons" class="slide level2">
+<h2>Causal inference is about counterfactual comparisons</h2>
+<ul>
+<li class="fragment"><p>Causal inference is about counterfactual comparisons</p>
+<ul>
+<li class="fragment">What would have happened if some aspect of the world either had or had not been present</li>
+</ul></li>
+</ul>
+</section>
+<section id="causal-inference-is-about-counterfactual-comparisons-1" class="slide level2">
+<h2>Causal inference is about counterfactual comparisons</h2>
+<p>Two ways to represent causal claims</p>
+<p>–</p>
+<ul>
+<li class="fragment">DAGs helped illustrate types of bias
+<ul>
+<li class="fragment"><strong>Confounder bias:</strong> Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)</li>
+<li class="fragment"><strong>Collider bias:</strong> Controlling for a common consequence</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">Potential Outcomes Notation helped illustrate the <strong>Fundamental Problem of Causal Inference</strong></li>
+</ul>
+</section>
+<section id="fundamental-problem-of-causal-inference" class="slide level2">
+<h2>Fundamental Problem of Causal Inference</h2>
+<ul>
+<li class="fragment"><p>For an individual, we only observe one of potential many potential outcomes.</p>
+<ul>
+<li class="fragment"><p>Did taking an aspirin make your headache go away?</p></li>
+<li class="fragment"><p>Need to compare you with aspirin and without, but only see one version of the world.</p></li>
+</ul></li>
+<li class="fragment"><p>Individual Causal Effects are <strong>unidentified</strong></p></li>
+</ul>
+</section>
+<section id="causal-identification" class="slide level2">
+<h2>Causal Identification</h2>
+<ul>
+<li class="fragment"><p>Causal Identification: What do we need to assume for your causal claim to be credible</p></li>
+<li class="fragment"><p>Randomization offers a solution to the fundamental problem by ensuring that treatment is independent of potential outcomes <span class="math inline">\((Y(1), Y(0))\)</span>, observed <span class="math inline">\((X)\)</span>, and unobserved covariates <span class="math inline">\((U)\)</span>.</p></li>
+</ul>
+<p><span class="math display">\[
+Y(1), Y(0),X,U, \perp D
+\]</span></p>
+</section>
+<section id="randomization-creates-credible-counterfactual-comparisons" class="slide level2">
+<h2>Randomization creates credible counterfactual comparisons</h2>
+<p>If treatment has been randomly assigned, then:</p>
+<ul>
+<li class="fragment">The only thing that differs between treatment and control is that one group got the treatment, and another did not.</li>
+<li class="fragment">We can estimate the Average Treatment Effect (ATE) using the difference of sample means</li>
+</ul>
+<p><span class="math display">\[\begin{aligned}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&amp;= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{aligned}\]</span></p>
+</section>
+<section id="whats-the-counterfactual" class="slide level2">
+<h2>What’s the counterfactual?</h2>
+<blockquote>
+<p>Broadly speaking, I don’t like computers. I don’t like bending over the small desks, staring at a screen, etc. The class is fine: it’s something I have to do, all things worth doing are difficult, and I’m learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. Would the world be a better place if everyone learned how to code? I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn’t really a practical concern, but rather a question about, y’know, what we’re doing here.</p>
+</blockquote>
+<blockquote>
+<p>More concretely, I found the lab hard to complete, but I’ll look over the notes and review. Part of me thinks I’d learn better if I started the labs before class. I’d ask better questions, be less confused, etc.</p>
+</blockquote>
+<blockquote>
+<p>In sum: the class is fine. It’s good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.”</p>
+</blockquote>
+</section>
+<section id="whats-the-counterfactual-1" class="slide level2">
+<h2>What’s the counterfactual?</h2>
+<blockquote>
+<p>Broadly speaking, I don’t like computers. I don’t like bending over the small desks, staring at a screen, etc. The class is fine: it’s something I have to do, all things worth doing are difficult, and I’m learning to think in new ways. That said, I tend to doubt that computer programing is conducive to human flourishing. <strong>Would the world be a better place if everyone learned how to code?</strong> I tend to think no. Would the world be a better place if everyone read Shakespeare? Probably. This isn’t really a practical concern, but rather a question about, y’know, what we’re doing here.</p>
+</blockquote>
+<blockquote>
+<p>More concretely, I found the lab hard to complete, but I’ll look over the notes and review. Part of me thinks I’d learn better if I started the labs before class. I’d ask better questions, be less confused, etc.</p>
+</blockquote>
+<blockquote>
+<p>In sum: the class is fine. It’s good to learn to think in new ways and good to be challenged, even if I have some broader questions about coding as a human activity.”</p>
+</blockquote>
+</section>
+<section id="would-the-world-be-a-better-place-if-everyone-learned-how-to-code" class="slide level2">
+<h2>Would the world be a better place if everyone learned how to code?</h2>
+<p>–</p>
+<ul>
+<li class="fragment">How should we define/measure human flourishing?</li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">What are some counterfactuals we might make?
+<ul>
+<li class="fragment">Everyone learns to code:</li>
+<li class="fragment">You learning to code:</li>
+<li class="fragment">Learning to code vs reading Shakespeare</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">Why might these comparisons be misleading?
+<ul>
+<li class="fragment">CS concentrators to POLS concentrators</li>
+<li class="fragment">POLS 1600 takers to POLS 0500</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">How could we assess the “effects” of POLS 1600?</li>
+</ul>
+<p>class:,bottom, center background-image:url(“https://media.giphy.com/media/dUaHl1MDcaGLGtVBbI/giphy-downsized-large.gif”) background-size:contain</p>
+</section>
+<section id="learning-to-code" class="slide level2">
+<h2>Learning to code</h2>
+<p>class: inverse, bottom, center background-image:url(“https://media.giphy.com/media/h5pRkbOXAH66zlZVML/giphy.gif”) background-size:contain ## Thinking Programatically</p>
+<p>class: inverse, center, middle # 💡 # Casual Inference in Experimental and Observational Designs</p>
+</section>
+<section id="experimental-and-observational-designs" class="slide level2">
+<h2>Experimental and Observational Designs</h2>
+<ul>
+<li class="fragment"><p><strong>Experimental designs</strong> are studies in which a causal variable of interest, the <em>treatement</em>, is manipulated by the researcher to examine its causal effects on some <em>outcome</em> of interest</p>
+<ul>
+<li class="fragment"><strong>Randomized Controlled Trial</strong> (RCTs) each unit is <strong>randomly</strong> assigned to a treatment(s) or control group</li>
+</ul></li>
+<li class="fragment"><p><strong>Observational designs</strong> are studies in which a causal variable of interest is assigned by someone other than the researcher (nature, governments, people)</p></li>
+</ul>
+</section>
+<section id="causal-identification-1" class="slide level2">
+<h2>Causal Identification</h2>
+<ul>
+<li class="fragment"><strong>Casual Identification</strong> refers to “the assumptions needed for statistical estimates to be given a causal interpretation” <a href="http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf" target="_blank">Keele (2015)</a></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment"><strong>What’s Your Casual Identification Strategy:</strong> What are the assumptions that make your research design credible?</li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">Identification &gt; Estimation</li>
+</ul>
+</section>
+<section id="causal-identification-with-experimental-designs" class="slide level2">
+<h2>Causal Identification with Experimental Designs</h2>
+<p>Causal identification for an experiment, requires relatively few assumptions:</p>
+<ul>
+<li class="fragment"><strong>Independence</strong> (Satisfied by Randomization)
+<ul>
+<li class="fragment"><span class="math inline">\(Y(1), Y(0),X,U, \perp D\)</span></li>
+</ul></li>
+<li class="fragment"><strong>SUTVA</strong> Stable Unit Treatment Value Assumption (Depends on features of the design)
+<ul>
+<li class="fragment">No interference between units <span class="math inline">\(Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)\)</span></li>
+<li class="fragment">No hidden values of the treatment/Variation in the treatment</li>
+</ul></li>
+</ul>
+</section>
+<section id="internal-vs-external-validity" class="slide level2">
+<h2>Internal vs External Validity</h2>
+<ul>
+<li class="fragment"><p><strong>Internal validity</strong> the extent to which causal assumptions are satisfied in a study</p></li>
+<li class="fragment"><p><strong>External validity</strong> the extent to which conclusions can be generalized beyond a particular study</p></li>
+</ul>
+</section>
+<section id="internal-vs-external-validity-1" class="slide level2">
+<h2>Internal vs External Validity</h2>
+<p>Experimental designs are said to have high <strong>internal</strong> validity, but may lack <strong>external</strong> validity</p>
+<ul>
+<li class="fragment"><p><a href="https://psycnet.apa.org/doiLanding?doi=10.1037%2F0022-3514.51.3.515" target="_blank">The college sophomore problem</a></p></li>
+<li class="fragment"><p><a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17" target="_blank">The weirdest people in the world</a></p></li>
+<li class="fragment"><p><strong>The Hawthorne Effect</strong> refers to the phenomenon where study subjects behave differently because they know they are being observed by researchers. (QSS Ch 2 p.&nbsp;52)</p></li>
+</ul>
+</section>
+<section id="causal-identification-in-observational-designs" class="slide level2">
+<h2>Causal Identification in Observational Designs</h2>
+<ul>
+<li class="fragment"><p>In an <em>observational study</em> the researcher does not control the treatment assignment</p></li>
+<li class="fragment"><p>No guarantee that treatment (D=1) and control groups (D=0) are comparable (That is that we’re comparing like with like)</p></li>
+<li class="fragment"><p>Instead, we have justify our claims by theory and assumption rather than direct manipulation through random assignment.</p></li>
+</ul>
+</section>
+<section id="conditional-independence-ignorability" class="slide level2">
+<h2>Conditional Independence (ignorability)</h2>
+<p>If treatment is not randomly assigned then in general:</p>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \text{ is not} \perp D_i
+\]</span></p>
+<p>However, in some situations, it may be plausible to claim that <em>conditional</em> on some variable(s) <span class="math inline">\(X\)</span>, the distribution of potential outcomes <span class="math inline">\(Y\)</span> is the same (independent) across levels of treatment <span class="math inline">\(D\)</span> (<strong>conditional ignorability</strong>)</p>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></p>
+<ul>
+<li class="fragment">Conditional on a some covariate(s) <span class="math inline">\(X_i\)</span> our treatment is <strong>as-if randomized</strong></li>
+</ul>
+</section>
+<section id="as-if-randomized" class="slide level2">
+<h2>As-if randomized</h2>
+
+<img data-src="https://media.makeameme.org/created/dx-59c7bd.jpg" class="r-stretch"></section>
+<section id="causal-identification-in-observational-designs-1" class="slide level2">
+<h2>Causal Identification in Observational Designs</h2>
+<ul>
+<li class="fragment">The claim that treatment is as-if randomized requires further justification in the theory and design of your study</li>
+</ul>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></p>
+<ul>
+<li class="fragment"><p>While we can’t “prove” this assumption, we typically can test some observable implications of this claim,</p>
+<ul>
+<li class="fragment">For example, in <a href="https://pols1600.paultesta.org/labs/03-lab-comments.html#7_Examine_the_difference_in_covariates_between_those_assigned_to_each_treatment_condition_in_the_study" target="_blank">lab 03</a> we tested for <strong>covariate balance</strong> by comparing the average values of pre-treatment covariates from the voter file.</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-experimental-ideal" class="slide level2">
+<h2>The Experimental Ideal</h2>
+<blockquote>
+<p>“The planner of an observational study should always ask himself: How would the study be conducted if it were possible to do it by controlled experimentation” (Cochran 1965)</p>
+</blockquote>
+<ul>
+<li class="fragment"><p>What would you have to randomly assign to answer your question as posed?</p></li>
+<li class="fragment"><p>Is it feasible to imagine changing just the treatment and nothing else?</p>
+<ul>
+<li class="fragment"><p>If yes, maybe we should do an experiment</p></li>
+<li class="fragment"><p>If not, maybe we should rethink our question and ask what about the design of observational study allows us to make the credible comparisons that an experiment would generate?</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="observational-designs" class="slide level2">
+<h2>Observational Designs</h2>
+<p>Observational designs all involve covariate adjustment</p>
+<p>We will discuss three approaches to covariate adjustment</p>
+<ul>
+<li class="fragment">Subclassification</li>
+<li class="fragment">Matching</li>
+<li class="fragment">Regression</li>
+</ul>
+<p>Then we will consider three types of observational desings that can produce credible causal claims:</p>
+<ul>
+<li class="fragment">Difference in Difference</li>
+<li class="fragment">Regression Discontinuities</li>
+<li class="fragment">Instrumental Variables</li>
+</ul>
+<p>class: inverse, center, middle background-image:url(“https://m.media-amazon.com/images/I/71lsG3fCaOL._SL1200_.jpg”) background-size:cover # Break ## <a href="https://brown.co1.qualtrics.com/jfe/form/SV_7PZrwVs9hVxzOZg" target="_blank">Take the survey</a></p>
+<p>class: inverse, center, middle</p>
+</section></section>
+<section>
+<section id="section" class="title-slide slide level1 center">
+<h1>💡</h1>
+
+</section>
+<section id="covariate-adjustment" class="slide level2">
+<h2>Covariate Adjustment</h2>
+</section>
+<section id="covariate-adjustment-1" class="slide level2">
+<h2>Covariate Adjustment</h2>
+<p>Covariate adjustment refers a broad class of procedures that try to make a comparison more credible or meaningful by adjusting for some other potentially confounding factor.</p>
+</section>
+<section id="covariate-adjustment-2" class="slide level2">
+<h2>Covariate Adjustment</h2>
+<p>When you hear people talk about</p>
+<ul>
+<li class="fragment">Controlling for age</li>
+<li class="fragment">Conditional on income</li>
+<li class="fragment">Holding age and income constant</li>
+<li class="fragment">Ceteris paribus (All else equal)</li>
+</ul>
+<p>They are typically talking about some sort of covariate adjustment.</p>
+</section>
+<section id="three-approaches-to-for-covariate-adjustment" class="slide level2">
+<h2>Three approaches to for covariate adjustment</h2>
+<ul>
+<li class="fragment"><p>Subclassification</p></li>
+<li class="fragment"><p>Matching</p></li>
+<li class="fragment"><p>Regression</p></li>
+</ul>
+</section>
+<section id="causal-identification-through-subclassification" class="slide level2">
+<h2>Causal Identification through Subclassification</h2>
+<p>Motivation: Treatment, <span class="math inline">\(D\)</span> is not randomly assigned</p>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \text{ is not} \perp D_i
+\]</span></p>
+<p>Identifying assumptions</p>
+<p><span class="math display">\[\begin{aligned}
+Y_i(1),Y_i(0) \perp D_i |X_i &amp;&amp; \text{Selection on Observables}\\
+0 &lt; Pr(D_i = 1|X_i) &lt; 1  &amp;&amp; \text{Common Support}
+\end{aligned}\]</span></p>
+</section>
+<section id="causal-identification-through-subclassification-1" class="slide level2">
+<h2>Causal Identification through Subclassification</h2>
+<p>If these assumptions hold, we can estimate the average treatment effect:</p>
+<p><span class="math display">\[\begin{aligned}
+ATE = E[Y_i(1)- Y_i(0)|X_i] &amp;= E[Y_i(1)- Y_i(0)|X_i, D_i=1]\\
+&amp; = E[Y_i |X_i, D_i=1] - E[Y_i |X_i, D_i=0]
+\end{aligned}\]</span></p>
+<p>The average treatment effect is identified by the observed difference of means between treatment and control conditional on the values of <span class="math inline">\(X\)</span></p>
+</section>
+<section id="causal-identification-through-subclassification-2" class="slide level2">
+<h2>Causal Identification through Subclassification</h2>
+<ul>
+<li class="fragment"><p>Economists call <span class="math inline">\(Y_i(1),Y_i(0) \perp D_i |X_i\)</span> an assumption of <strong>Selection on Observables</strong></p>
+<ul>
+<li class="fragment"><p>Controlling for what we can observe <span class="math inline">\(X\)</span>, <span class="math inline">\(D\)</span> is conditionally independent of Potential Outcomes</p></li>
+<li class="fragment"><p>Violated if there were some other factor, <span class="math inline">\(U\)</span> that influenced both <span class="math inline">\(D\)</span> and <span class="math inline">\(Y\)</span></p></li>
+</ul></li>
+<li class="fragment"><p><span class="math inline">\(0 &lt; Pr(D = 1|X) &lt; 1\)</span> is called an assumption of <strong>Common Support</strong></p>
+<ul>
+<li class="fragment"><p>There is a non-zero probability of receiving the treatment for all values of X</p></li>
+<li class="fragment"><p>Violated if only one subgroup had access to the treatment (Vaccine by age group comparisons)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-of-subclassification" class="slide level2">
+<h2>Example of Subclassification</h2>
+<ul>
+<li class="fragment">We used subclassification when we compared the unconditional rates of new Covid-19 cases by face mask policy to the conditional rates new cases by policy regime in each month of our data.
+<ul>
+<li class="fragment">Overall rates are misleading.</li>
+<li class="fragment">Lots of things differ between January 2020 and January 2022</li>
+<li class="fragment">Subclassification by month provides a “fairer” comparison</li>
+<li class="fragment">But is it “causal”</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">- Even controlling for “month” there are other omitted variables: - Other policies in place? - Socio-economic differences between states - Others?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">- Trying to subclassify (stratify) comparisons on more than one or two variables gets hard - <strong>The Curse of Dimensionality</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## The Curse of Dimensionality</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- As we try to control for more factors, the number of observations per dimension declines rapidly - Men vs Women - Men, ages 20-30 vs Men ages 30-40 - Men, ages 20-30 with college degrees and blue eyes vs Men ages 20-30 with college degrees and green eyes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- Subclassification with more than a few variables, will often produce a lack of common support: - Not enough observations to make credible counterfactual comparisons</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Matching</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- Matching refers to a broad set of procedures that essentially try to generalize subclassification to - address to <strong>curse of dimensionality</strong> - achieve balance on a range of observable covariates between <strong>treated</strong> and <strong>control</strong> groups</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- Many different types of matching procedures:</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- <strong>Exact matching:</strong> Find exact matches between treatment and control observations for all covariates <span class="math inline">\(X\)</span> - <strong>Coarsened exact matching:</strong> Find approximate matches within ranges of values for <span class="math inline">\(X\)</span> - <strong>Distance-metric matching:</strong> Calculate a distance metric between observations based on their values of <span class="math inline">\(X\)</span>, and match treated and control to minimize that distance - <strong>Propensity score matching:</strong> Calculate the propsenity to receive treatment using <span class="math inline">\(X\)</span> to predict <span class="math inline">\(D\)</span> and treated and control based on their <em>propensity scores</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: {.cell layout-align=“center”} ::: {.cell-output-display} <img data-src="https://cdn2.hubspot.net/hubfs/355318/images/Propensity-Score-Graphic.jpg" class="quarto-figure quarto-figure-center" style="width:80.0%"> ::: :::</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><a href="https://www.summitllc.us/propensity-score-matching" target="_blank">Source</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Causal Identification with Matching (ICYI)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Matching again requires an assumption of <strong>selection on observables</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[\begin{aligned}
+Y_i(1),Y_i(0) \perp D_i |X_i &amp;&amp; \text{Selection on Observables}\\
+0 &lt; Pr(D_i = 1|X_i) &lt; 1  &amp;&amp; \text{Common Support}
+\end{aligned}\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Matching procedures like propensity score matching, allow us to match treated and control observations based on a <em>propensity score</em>, a predicted value of receiving the treatment, <span class="math inline">\(D\)</span> based on observed variables, <span class="math inline">\(X\)</span>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[
+p(X_i) = Pr(D=1|X_i) = \pi_i
+\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Allowing us to estimate an ATE conditional on <span class="math inline">\(\pi_i\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[\begin{aligned}
+ATE &amp;= E[Y_i(1)- Y_i(0)|p(X_i) = \pi_i] \\
+&amp;= E[Y_i(1)- Y_i(0)|p(X_i) = \pi_i, D_i=1]\\
+&amp; = E[Y_i |p(X_i) = \pi_i, D_i=1] - E[Y_i |p(X_i) = \pi_i, D_i=0]
+\end{aligned}\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## What to Know about Matching</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- The mechanics of matching are beyond the scope of this course</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- Just think of it as a generalization of subclassification when we want to condition on multiple variables</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- “Solves” the curse of dimensionality, creating Treatment-Control comparisons between groups that are similar on <strong>observed covariates</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- But <strong>no guarantee</strong> that matching produces balance on <strong>unobserved covariates</strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Regression</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- We will spend the next two weeks talking in detail about regression, in general and linear regression in particular.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- Today we’ll introduce some basic notation and simple examples</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- Conceptually, think of regression as - a tool to make predictions - by fitting lines to data</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- Theoretically, we will build towards an understanding of linear regression as a “linear estimate of the conditional expectation function <span class="math inline">\((CEF = E[Y|X])\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## Regression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Broadly regression is a statistical procedural to help us model relationships that consists of:</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- <span class="math inline">\(Y\)</span> an <strong>outcome variable</strong> or thing we’re trying to explain - AKA: The Dependent Variable, The Response Variable, The Lefthand side of the model</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- <span class="math inline">\(X\)</span> a set of <strong>predictor variables</strong> or things we think explain variation in our outcome - AKA: The independent variable, covariates, the right hand side of the model.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- <span class="math inline">\(\beta\)</span> a set of <strong>unknown parameters</strong> that describe the relationship between our outcome <span class="math inline">\(Y\)</span> and our predictors <span class="math inline">\(X\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- <span class="math inline">\(\epsilon\)</span> the <strong>error term</strong> representing variation in <span class="math inline">\(Y\)</span> not explained by our model.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## Linear Regression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Next week, we will start to consider simple (bivariate) linear regressions of the form:</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+\]</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- We call this a bivariate regression, because there are only two variables.</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- We call this a linear regression, because <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i\)</span> is the equation for a line, where: - <span class="math inline">\(\beta_0\)</span> corresponds to the <span class="math inline">\(y\)</span> intercept, or the model’s prediction when <span class="math inline">\(x = 0\)</span>. - <span class="math inline">\(\beta_1\)</span> corresponds to the slope, or how <span class="math inline">\(y\)</span> is predicted to change as <span class="math inline">\(x\)</span> changes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Linear Regression</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- If you find this notation confusing, try plugging in substantive concepts for what <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> represent - Say we wanted to know how attitudes to transgender people varied with age in the baseline survey from Lab 03.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">The generic linear model</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \epsilon\]</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Reflects:</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i\]</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Estimating a Linear Regression</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- We estimate linear regressions in <code>R</code> using the <code>lm()</code> function. - <code>lm()</code> requires two arguments: - a formula of the general form <code>y ~ x</code> read as “Y modeled by X” or below “Transgender Feeling Thermometer’s modeled by Age - a <code>data</code> telling R</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: {.cell layout-align=“center”}</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>{.r .cell-code} load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))</code> :::</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: {.cell layout-align=“center”}</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>{.r .cell-code} m1 &lt;- lm(therm_trans_t0 ~ vf_age, data = df) m1</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: {.cell-output .cell-output-stdout}</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">```</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Call: lm(formula = therm_trans_t0 ~ vf_age, data = df)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Coefficients: (Intercept) vf_age 62.8196 -0.2031 ```</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: :::</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">::: {.cell layout-align=“center”} ::: {.cell-output-display} <img data-src="04-slides-old_files/figure-html/figlm1code-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"> ::: :::</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">::: {.cell layout-align=“center”} ::: {.cell-output-display} <img data-src="04-slides-old_files/figure-html/figlm1-1.png" class="quarto-figure quarto-figure-center" style="width:80.0%"> ::: :::</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## Multiple Regression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">In two weeks, we will generalize this to include multiple predictors</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2  x_{2i} + \epsilon\]</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- <span class="math inline">\(\beta_0\)</span> in this model still corresponds to the y intercept the model’s prediction when everything else is 0 - <span class="math inline">\(\beta_1\)</span> now describes the relationship between <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[\text{FT}_{Trans} = \beta_0 + \beta_1 \text{Age}_{1i} + \beta_2  \text{Party ID}_{2i} + \epsilon\]</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Multiple Regression with Matrix Notation</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">With more than two predictors, we will write equations using Matrix notation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[y_i = X\beta + \epsilon\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">.pull-left[ Where X is a matrix of variables:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[X=
+\begin{bmatrix}
+1  &amp; X_{1,1}&amp;\dots &amp; X_{1,k}\\
+1  &amp; X_{2,1}&amp;\dots &amp; X_{2,k}\\
+\vdots&amp;\vdots&amp;  &amp; \vdots \\
+1  &amp; X_{n,1}&amp;\dots &amp; X_{n,k}\\
+\end{bmatrix}\]</span> ] .pull-right[ And <span class="math inline">\(\beta\)</span> is a vector of coefficients</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math display">\[\beta=
+\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots \\
+\beta_k\\
+\end{bmatrix}\]</span> ]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">## Causal Identification with Regression</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Like subclassification and matching, causal identification with Linear Regression requires us to believe the assumption of <strong>Selection on Observables</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">And additionally asks us to make assumptions about the “functional form”:</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math display">\[
+Y = \beta_0 + \tau D + X\beta + \epsilon
+\]</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">## Causal Identification with Regression</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- To interpret a linear regression’s estimate of <span class="math inline">\(\tau\)</span> as the causal effect of <span class="math inline">\(D\)</span> on <span class="math inline">\(Y\)</span>, we need to believe we’ve got the <em>right model</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">- The only factors that predict both <span class="math inline">\(Y\)</span> and <span class="math inline">\(D\)</span> are those factors <span class="math inline">\(X\)</span> which we control for in our model.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">- The relationship between <span class="math inline">\(Y\)</span> and these predictors is <em>linear</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">We almost never have the right model.
+<ul>
+<li class="fragment">Do we think age is the only factor that influences attitudes toward Trangendered folk? Probably not.</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">Regression is still a robust and useful tool
+<ul>
+<li class="fragment">Why do we see negative relationship between age and transgender attitudes?</li>
+</ul></li>
+</ul>
+<p>–</p>
+<ul>
+<li class="fragment">But for causal inference, there’s nothing inherent about estimating a regression, or controlling for a lot of variables that makes for particularly credible causal claims.</li>
+</ul>
+</section>
+<section id="methods-for-covariate-adjustment" class="slide level2">
+<h2>Methods for covariate adjustment</h2>
+<ul>
+<li class="fragment">Subclassification
+<ul>
+<li class="fragment">👍: Easy to implement and interpret</li>
+<li class="fragment">👎: Curse of dimensionality, Selection on observables</li>
+</ul></li>
+<li class="fragment">Matching
+<ul>
+<li class="fragment">👍: Balance on multiple covariates, Mirrors logic of experimental design</li>
+<li class="fragment">👎: Selection on observables, Only provides balance on observed variables, Lot’s of technical details…</li>
+</ul></li>
+<li class="fragment">Regression
+<ul>
+<li class="fragment">👍: Easy to implement, control for many factors (good and bad)</li>
+<li class="fragment">👎: Selection on observables, easy to fit “bad” models</li>
+</ul></li>
+</ul>
+<p>class: inverse, center, middle</p>
+</section></section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1>💡</h1>
+
+</section>
+
+<section>
+<section id="three-designs-for-causal-inference-in-observational-studies" class="title-slide slide level1 center">
+<h1>Three Designs for Causal Inference in Observational Studies</h1>
+
+</section>
+<section id="credible-cauasal-inference-in-observational-studies" class="slide level2">
+<h2>Credible Cauasal Inference in Observational Studies</h2>
+<p>Subclassification, matching, and regression all require an assumption of selection on observables:</p>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></p>
+<p>But how do we know if we’ve got the right model or we’ve controlled for the right variables?</p>
+<p>–</p>
+<p>Typically, we don’t</p>
+</section>
+<section id="credible-cauasal-inference-in-observational-studies-1" class="slide level2">
+<h2>Credible Cauasal Inference in Observational Studies</h2>
+<p>Instead, social scientists look for situations where the credibility of</p>
+<p><span class="math display">\[
+Y_i(1),Y_i(0) \perp D_i |X_i
+\]</span></p>
+<p>depends less on how much data you have and much more on how your data were generated.</p>
+<p>class: middle</p>
+<p>.pull-left[ &gt; Empirical microeconomics has experienced a credibility revolution, with a consequent increase in policy relevance and scientific impact. … [T]he primary engine driving improvement has been a focus on the <strong>quality of empirical research designs.</strong> (p.&nbsp;4)</p>
+<p>]</p>
+<p>.pull-right[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04_cred.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.24.2.3" target="_blank">Source</a></p>
+<p>]</p>
+<p>class: middle</p>
+<p>.pull-left[ &gt; Design-based studies are distinguished by their prima facie credibility and by the attention investigators devote to making both an <strong>institutional</strong> and a <strong>data-driven</strong> case for causality (p.&nbsp;5)</p>
+<p>]</p>
+<p>.pull-right[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04_cred.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.24.2.3" target="_blank">Source</a> ]</p>
+<p>class: middle</p>
+<p>.pull-left[ &gt; The econometric methods that feature most prominently in quasi-experimental studies are <strong>instrumental variables</strong>, <strong>regression discontinuity</strong> methods,and <strong>differences-in-differences</strong>-style policy analysis. … The best of today’s design-based studies make a strong institutional case, backed up with empirical evidence, for the variation thought to generate a useful <strong>natural experiment</strong>.(p.&nbsp;12)</p>
+<p>]</p>
+<p>.pull-right[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./images/04_cred.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.24.2.3" target="_blank">Source</a> ]</p>
+</section>
+<section id="three-designs-for-causal-inference-in-observational-studies-1" class="slide level2">
+<h2>Three Designs for Causal Inference in Observational Studies</h2>
+<ul>
+<li class="fragment"><p>Difference in Differences</p></li>
+<li class="fragment"><p>Regression Discontinuity</p></li>
+<li class="fragment"><p>Instrumental Variables</p></li>
+</ul>
+</section>
+<section id="three-designs-for-causal-inference-in-observational-studies-2" class="slide level2">
+<h2>Three Designs for Causal Inference in Observational Studies</h2>
+<ul>
+<li class="fragment"><p><strong>Difference in Differences (Today)</strong></p></li>
+<li class="fragment"><p>Regression Discontinuity</p></li>
+<li class="fragment"><p>Instrumental Variables</p></li>
+</ul>
+</section>
+<section id="three-designs-for-causal-inference-in-observational-studies-3" class="slide level2">
+<h2>Three Designs for Causal Inference in Observational Studies</h2>
+<ul>
+<li class="fragment"><p><strong>Difference in Differences</strong></p></li>
+<li class="fragment"><p><em>Regression Discontinuity (Next Week)</em></p></li>
+<li class="fragment"><p><em>Instrumental Variables (Next Week)</em></p></li>
+</ul>
+<p>class: inverse, center, middle # 💡 Difference in Differences</p>
+<p>class: inverse, center, middle background-image:url(https://www.finebooksmagazine.com/sites/default/files/styles/gallery_item/public/media-images/2020-11/map-lead-4.jpg?h=2ded5a3f&amp;itok=Mn-K5rQc) background-size: cover ## London in the Time of Cholera</p>
+</section>
+<section id="motivating-example-what-causes-cholera" class="slide level2">
+<h2>Motivating Example: What causes Cholera?</h2>
+<ul>
+<li class="fragment"><p>In the 1800s, cholera was thought to be transmitted through the air.</p></li>
+<li class="fragment"><p>John Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.</p></li>
+<li class="fragment"><p>Leveraged a <strong>natural experiment</strong> in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location.</p></li>
+</ul>
+</section>
+<section id="notation" class="slide level2">
+<h2>Notation</h2>
+<p>Let’s adopt a little notation to help us think about the logic of Snow’s design:</p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(D\)</span>: treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)</p></li>
+<li class="fragment"><p><span class="math inline">\(T\)</span>: period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).</p></li>
+<li class="fragment"><p><span class="math inline">\(Y_{di}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(Y_{1i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when treated between the two periods</p></li>
+<li class="fragment"><p><span class="math inline">\(Y_{0i}(t)\)</span> the potential outcome of unit <span class="math inline">\(i\)</span> when control between the two periods</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="causal-effects" class="slide level2">
+<h2>Causal Effects</h2>
+<p>The individual causal effect for unit i at time t is:</p>
+<p><span class="math display">\[\tau_{it} = Y_{1i}(t) − Y_{0i}(t)\]</span></p>
+<p>What we observe is</p>
+<p><span class="math display">\[Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)\]</span></p>
+<p><span class="math inline">\(D\)</span> only equals 1, when <span class="math inline">\(T\)</span> equals 1, so we never observe <span class="math inline">\(Y_0i(1)\)</span> for the treated units.</p>
+<p>In words, we don’t know what Lambeth’s outcome would have been in the second period, had they not been treated.</p>
+</section>
+<section id="average-treatment-on-treated" class="slide level2">
+<h2>Average Treatment on Treated</h2>
+<p>Our goal is to estimate the average effect of treatment on treated (ATT):</p>
+<p><span class="math display">\[\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\]</span></p>
+<p>That is, what would have happened in Lambeth, had their water company not moved their pipes</p>
+</section>
+<section id="average-treatment-on-treated-1" class="slide level2">
+<h2>Average Treatment on Treated</h2>
+<p>Our goal is to estimate the average effect of treatment on treated (ATT):</p>
+<p>We we can observe is:</p>
+<div class="line-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Pre-Period (T=0) | Post-Period (T=1) |</div>
+<p>||–|-| | Treated <span class="math inline">\(D_{i}=1\)</span> | <span class="math inline">\(E[Y_{0i}(0)\vert D_i = 1]\)</span> | <span class="math inline">\(E[Y_{1i}(1)\vert D_i = 1]\)</span> | | Control <span class="math inline">\(D_i=0\)</span> | <span class="math inline">\(E[Y_{0i}(0)\vert D_i = 0]\)</span> | <span class="math inline">\(E[Y_{0i}(1)\vert D_i = 0]\)</span> |</p>
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<p>Because potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from <a href="https://mixtape.scunning.com/difference-in-differences.html" target="_blank">Scott Cunningham</a>:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Company</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1849 (T=0)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1854 (T=1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lambeth (D=1)</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Southwark and Vauxhall (D=0</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">147</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+<section id="how-can-we-estimate-the-effect-of-moving-pumps-upstream" class="slide level2">
+<h2>How can we estimate the effect of moving pumps upstream?</h2>
+<p>Recall, our goal is to estimate the effect of the the treatment on the treated:</p>
+<p><span class="math display">\[\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\]</span></p>
+<p>Let’s conisder some strategies Snow could take to estimate this quantity:</p>
+</section>
+<section id="before-vs-after-comparisons" class="slide level2">
+<h2>Before vs after comparisons:</h2>
+<ul>
+<li class="fragment"><p>Snow could have compared Labmeth in 1854 <span class="math inline">\((E[Y_i(1)|D_i = 1] = 19)\)</span> to Lambeth in 1849 <span class="math inline">\((E[Y_i(0)|D_i = 1]=85)\)</span>, and claimed that moving the pumps upstream led to <strong>66 fewer cholera deaths.</strong></p></li>
+<li class="fragment"><p>Assumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span>.</p></li>
+<li class="fragment"><p>A skeptic might argue that Lambeth in 1849 <span class="math inline">\(\neq\)</span> Lambeth in 1854</p></li>
+</ul>
+</section>
+<section id="treatment-control-comparisons-in-the-post-period." class="slide level2">
+<h2>Treatment-Control comparisons in the Post Period.</h2>
+<ul>
+<li class="fragment"><p>Snow could have compared outcomes between Lambeth and S&amp;V in 1954 (<span class="math inline">\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\)</span>), concluding that the change in pump locations led to <strong>128 fewer deaths.</strong></p></li>
+<li class="fragment"><p>Here the assumption is that the outcomes in S&amp;V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved <span class="math inline">\((E[Y_{0i}(1)|D_i = 1])\)</span></p></li>
+<li class="fragment"><p>Again, our skeptic could argue Lambeth <span class="math inline">\(\neq\)</span> S&amp;V</p></li>
+</ul>
+</section>
+<section id="difference-in-differences" class="slide level2">
+<h2>Difference in Differences</h2>
+<p>To address these concerns, Snow employed what we now call a difference-in-differences design,</p>
+<p>There are two, equivalent ways to view this design.</p>
+<p><span class="math display">\[\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}\]</span></p>
+<ul>
+<li class="fragment">Difference 1: Average change between Treated and Control in Post Period</li>
+<li class="fragment">Difference 2: Average change between Treated and Control in Pre Period</li>
+</ul>
+<p>Which is equivalent to:</p>
+<p><span class="math display">\[\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}\]</span></p>
+<ul>
+<li class="fragment">Difference 1: Average change between Treated over time</li>
+<li class="fragment">Difference 2: Average change between Control over time</li>
+</ul>
+</section>
+<section id="difference-in-differences-1" class="slide level2">
+<h2>Difference in Differences</h2>
+<p>You’ll see the DiD design represented both ways, but they produce the same result:</p>
+<p><span class="math display">\[
+\tau_{ATT} = (19-147) - (85-135) = -78
+\]</span></p>
+<p><span class="math display">\[
+\tau_{ATT} = (19-85) - (147-135) = -78
+\]</span></p>
+</section>
+<section id="identifying-assumption-of-a-difference-in-differences-design" class="slide level2 scrollable">
+<h2>Identifying Assumption of a Difference in Differences Design</h2>
+<p>The key assumption in this design is what’s known as the parallel trends assumption: <span class="math inline">\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\)</span></p>
+<ul>
+<li class="fragment">In words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&amp;V</li>
+</ul>
+
+<img data-src="04-slides-old_files/figure-html/paralleltrends-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Where:</p>
+<ol type="1">
+<li class="fragment"><span class="math inline">\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\)</span></li>
+<li class="fragment"><span class="math inline">\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\} = 0]\)</span></li>
+<li class="fragment"><span class="math inline">\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\)</span></li>
+</ol>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li class="fragment"><p>A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison</p>
+<ul>
+<li class="fragment"><p>Taking the pre-post difference removes any fixed differences between the units</p></li>
+<li class="fragment"><p>Then taking the difference between treated and control differences removes any common differences over time</p></li>
+</ul></li>
+<li class="fragment"><p>The key identifying assumption of a DiD design is the “assumption of parallel trends”</p>
+<ul>
+<li class="fragment">Absent treatment, treated and control groups would see the same changes over time.</li>
+<li class="fragment">Hard to prove, possible to test</li>
+</ul></li>
+</ul>
+</section>
+<section id="extensions-and-limitations" class="slide level2">
+<h2>Extensions and limitations</h2>
+<ul>
+<li class="fragment">DiD easy to estimate with linear regression</li>
+<li class="fragment">Generalizes to multiple periods and treatment interventions
+<ul>
+<li class="fragment">More pre-treatment periods allow you assess “parallel trends” assumption</li>
+</ul></li>
+<li class="fragment">Alternative methods
+<ul>
+<li class="fragment">Synthetic control</li>
+<li class="fragment">Event Study Designs</li>
+</ul></li>
+<li class="fragment">What if you have multiple treatments or treatments that come and go?
+<ul>
+<li class="fragment">Panel Matching</li>
+<li class="fragment">Generalized Synthetic control</li>
+</ul></li>
+</ul>
+</section>
+<section id="applications" class="slide level2">
+<h2>Applications</h2>
+<ul>
+<li class="fragment"><p><a href="https://www.nber.org/papers/w4509" target="_blank">Card and Krueger (1994)</a> What effect did raising the minimum wage in NJ have on employment</p></li>
+<li class="fragment"><p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12116?casa_token=_ceCu4SwzTEAAAAA%3AP9aeaZpT_Zh1VdWKXx_tEmzaJTtMJ1n0eG7EaYlvJZYN000re33cfMAI2O8N8htFJjOsln2GyVeQql4" target="_blank">Abadie, Diamond, &amp; Hainmueller (2014)</a> What effect did German Unification have on economic development in West Germany</p></li>
+<li class="fragment"><p><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/impact-of-recentralization-on-public-services-a-differenceindifferences-analysis-of-the-abolition-of-elected-councils-in-vietnam/3477854BAAFE152DC93C594169D64F58" target="_blank">Malesky, Nguyen and Tran (2014)</a> How does decentralization influence public services?</p></li>
+</ul>
+<p>class: inverse, center, middle # 💡 Regression Discontinuity Design</p>
+</section>
+<section id="motivating-example" class="slide level2">
+<h2>Motivating Example</h2>
+<p>.pull-left[ - Do Members of Parliament in the UK get richer from holding office (QSS Chapter 4.3.4)] .pull-right[</p>
+
+<img data-src="./images/04_eggers.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/abs/mps-for-sale-returns-to-office-in-postwar-british-politics/E4C2B102194AA1EA0D2F1F777EAE3C08" target="_blank">Eggers and Hainmueller (2009)</a> ]</p>
+</section>
+<section id="logic-of-the-regression-discontinuity-design-rdd" class="slide level2">
+<h2>Logic of the Regression Discontinuity Design (RDD)</h2>
+<ul>
+<li class="fragment"><p>What’s the effect of holding elected office in the UK on personal wealth?</p></li>
+<li class="fragment"><p>People who win elections differ in many ways from people who lose elections.</p></li>
+<li class="fragment"><p>Logic of an RDD:</p>
+<ul>
+<li class="fragment"><p>Just look at the wealth of individuals who either narrowly won or lost elections.</p></li>
+<li class="fragment"><p>Candidates close to 50 percent cutoff (discontinuity) should be more comparable (better counterfactuals)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="data-from-eggers-and-hainmueller-2009" class="slide level2">
+<h2>Data from Eggers and Hainmueller (2009)</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">library</span>(qss)</span>
+<span id="cb23-2"><a></a><span class="fu">data</span>(MPs)</span>
+<span id="cb23-3"><a></a><span class="fu">glimpse</span>(MPs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 427
+Columns: 10
+$ surname    &lt;chr&gt; "Llewellyn", "Morris", "Walker", "Walker", "Waring", "Brown…
+$ firstname  &lt;chr&gt; "David", "Claud", "George", "Harold", "John", "Ronald", "Le…
+$ party      &lt;chr&gt; "tory", "labour", "tory", "labour", "tory", "labour", "tory…
+$ ln.gross   &lt;dbl&gt; 12.13591, 12.44809, 12.42845, 11.91845, 13.52022, 12.46052,…
+$ ln.net     &lt;dbl&gt; 12.135906, 12.448091, 10.349009, 12.395034, 13.520219, 9.63…
+$ yob        &lt;int&gt; 1916, 1920, 1914, 1927, 1923, 1921, 1907, 1912, 1905, 1920,…
+$ yod        &lt;int&gt; 1992, 2000, 1999, 2003, 1989, 2002, 1987, 1984, 1998, 2004,…
+$ margin.pre &lt;dbl&gt; NA, NA, -0.057168204, -0.072508894, -0.269689620, 0.3409586…
+$ region     &lt;chr&gt; "Wales", "South West England", "North East England", "Yorks…
+$ margin     &lt;dbl&gt; 0.05690404, -0.04973833, -0.04158868, 0.02329524, -0.230005…</code></pre>
+</div>
+</div>
+</section>
+<section id="variables" class="slide level2">
+<h2>Variables</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">surname</td>
+<td style="text-align: left;">surname of the candidate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">firstname</td>
+<td style="text-align: left;">first name of the candidate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">party</td>
+<td style="text-align: left;">party of the candidate (labour or tory)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ln.gross</td>
+<td style="text-align: left;">log gross wealth at the time of death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ln.net</td>
+<td style="text-align: left;">log net wealth at the time of death</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yob</td>
+<td style="text-align: left;">year of birth of the candidate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yod</td>
+<td style="text-align: left;">year of death of the candidate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">margin.pre</td>
+<td style="text-align: left;">margin of the candidate’s party in the previous election electoral</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">region</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">margin</td>
+<td style="text-align: left;">margin of victory (vote share)</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(margin, ln.net))<span class="sc">+</span></span>
+<span id="cb25-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb25-4"><a></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>party)<span class="sc">+</span></span>
+<span id="cb25-5"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a></a>                <span class="fu">filter</span>(margin <span class="sc">&lt;</span><span class="dv">0</span>),</span>
+<span id="cb25-7"><a></a>              <span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb25-8"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb25-9"><a></a>                <span class="fu">filter</span>(margin <span class="sc">&gt;</span><span class="dv">0</span>),</span>
+<span id="cb25-10"><a></a>              <span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb25-11"><a></a>  <span class="fu">theme_bw</span>() <span class="ot">-&gt;</span> fig_rdd</span>
+<span id="cb25-12"><a></a>fig_rdd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="04-slides-old_files/figure-html/rddfig-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="rdd-notation" class="slide level2">
+<h2>RDD Notation</h2>
+<ul>
+<li class="fragment"><span class="math inline">\(X\)</span> is a <strong>forcing</strong> variable</li>
+<li class="fragment">Treatment <span class="math inline">\(D\)</span> is a determined by <span class="math inline">\(X\)</span></li>
+</ul>
+<p><span class="math display">\[
+D_i = 1\{X_i &gt; c\}
+\]</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(X\)</span> is the <code>margin</code> variable in the example data, and <span class="math inline">\(D=1\)</span> if <code>margin</code> is greater than 0 (i.e.&nbsp;the candidate won the election)</p></li>
+<li class="fragment"><p>Interested in the differences in the outcome at the threshold</p></li>
+</ul>
+<p><span class="math display">\[\lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x]\]</span></p>
+</section>
+<section id="causal-identification-with-an-rdd" class="slide level2">
+<h2>Causal Identification with an RDD</h2>
+<p>If we assume <span class="math inline">\(E[Y_i(0)|X=x]\)</span> and <span class="math inline">\(E[Y_i(1)|X=x]\)</span> are continuous in x, then we can estimate a (local) ATE at the threshold:</p>
+<p><span class="math display">\[\begin{align}
+ATE_{RDD} &amp;= E[Y(1)-Y(0)|X_i=c] \\
+&amp;=  E[Y(1)|X_i=c] -  E[Y(0)|X_i=c]\\
+&amp;= \lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x] \\
+\end{align}\]</span></p>
+</section>
+<section id="continuity-assumption" class="slide level2">
+<h2>Continuity Assumption</h2>
+
+<img data-src="https://mixtape.scunning.com/graphics/rdd_simul_ex.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><a href="https://mixtape.scunning.com/regression-discontinuity.html#continuity-assumption" target="_blank">Cunningham (2022)</a></p>
+</section>
+<section id="causal-identification-with-an-rdd-1" class="slide level2">
+<h2>Causal Identification with an RDD</h2>
+<ul>
+<li class="fragment"><p>The continuity assumption is a formal way of saying that observations close to the threshold are good counterfactuals for each other</p></li>
+<li class="fragment"><p>We can’t prove this assumption</p></li>
+<li class="fragment"><p>But if it holds, we should observe</p>
+<ul>
+<li class="fragment"><p>no sorting around the cutoff (no self selection)</p></li>
+<li class="fragment"><p>similar distributions of covariates around the cutoff (balance tests)</p></li>
+<li class="fragment"><p>no effect of treatment on things measured pre-treatment (placebo tests)</p></li>
+</ul></li>
+</ul>
+<p>class: inverse, center, middle # 💡 ## Instrumental Variables</p>
+</section>
+<section id="instrumental-variables" class="slide level2">
+<h2>Instrumental Variables</h2>
+<p>Instrumental variables are an economists favorite tool for dealing with <strong>omitted variable bias</strong></p>
+<ul>
+<li class="fragment">We have some non random treatment whose effects we’d like to assess</li>
+<li class="fragment">We’re worried that these effects are <strong>confounded</strong> by some unobserved, omitted variable, that influences both the treatment and the outcome</li>
+<li class="fragment">We find an <strong>instrumental variable</strong> that satisfies the following:
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relatioship</li>
+<li class="fragment">Monotonicity</li>
+</ul></li>
+<li class="fragment">Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is <strong>exogenous</strong> (uncorrelated with ommited variables)</li>
+</ul>
+<p>class: center ## IV Assumption: Randomization</p>
+<p>.left-column[ - No path from <span class="math inline">\(U\)</span> to <span class="math inline">\(Z\)</span>] .right-column[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://book.declaredesign.org/figures/figure_16.7.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+<p>]</p>
+<p>class: center ## IV Assumption: Excludability</p>
+<p>.left-column[ - No path from <span class="math inline">\(Z\)</span> to <span class="math inline">\(Y\)</span>]</p>
+<p>.right-column[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://book.declaredesign.org/figures/figure_16.7.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+<p>]</p>
+<p>class: center ## IV Assumption: First Stage</p>
+<p>.left-column[ - Path from <span class="math inline">\(Z\)</span> to <span class="math inline">\(D\)</span>] .right-column[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://book.declaredesign.org/figures/figure_16.7.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+<p>]</p>
+<p>class: center ## IV Assumption: Monotonicity</p>
+<p>.left-column[</p>
+<ul>
+<li class="fragment"><span class="math inline">\(D_i(Z=1)\geq D_i(Z=0)\)</span></li>
+<li class="fragment">“No Defiers”</li>
+</ul>
+<p>]</p>
+<p>.right-column[</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://book.declaredesign.org/figures/figure_16.7.svg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a> ]</p>
+<p>class: center ## Compliance</p>
+<p>With a binary treatment, <span class="math inline">\(D\)</span> and binary instrument <span class="math inline">\(Z\)</span> there are four types of compliance</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<table data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">$D_i(Z=1)$</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">$D_i(Z=0)$</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Always Takers</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Never Takers</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compliers</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Defiers</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<ul>
+<li class="fragment">Assuming Monotonicity means there are “No Defiers”</li>
+</ul>
+</section>
+<section id="estimating-the-local-average-treatment-effect" class="slide level2">
+<h2>Estimating the Local Average Treatment Effect</h2>
+<p>If we believe our assumptions of:</p>
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relationship</li>
+<li class="fragment">Monotonicity</li>
+</ul>
+<p>Then we can estimate Local Average Treatment Effect (LATE) sometimes called the Complier Average Treatment Effect CATE)</p>
+</section>
+<section id="estimating-the-local-average-treatment-effect-1" class="slide level2">
+<h2>Estimating the Local Average Treatment Effect</h2>
+<p>It can be <a href="https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf" target="_blank">shown</a> that the LATE:</p>
+<p><span class="math display">\[LATE = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[D|Z=1]-E[D|Z=0]}= \frac{ATE_{Z\to Y}}{ATE_{Z\to D}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(ATE_{Z\to Y}\)</span> is the known as the “Intent to Treat” effect (ITT) (i.e.&nbsp;the effect of being assigned to treatment)</p></li>
+<li class="fragment"><p><span class="math inline">\(ATE_{Z\to D}\)</span> is the “effect” of being assigned to treatment on actually receiving treatment</p></li>
+</ul>
+</section>
+<section id="example-earnings-and-military-service" class="slide level2">
+<h2>Example: Earnings and Military Service</h2>
+<p>Adapted from <a href="https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#42" target="_blank">Edward Rubin</a></p>
+<p><em>Example:</em> If we want to estimate the effect of veteran status on earnings, <span class="math display">\[\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1}
+\end{align}\]</span></p>
+<p>–</p>
+<p>We would love to calculate <span class="math inline">\(\color{#e64173}{\text{Earnings}_{1i}} - \color{#6A5ACD}{\text{Earnings}_{0i}}\)</span>, but we can’t.</p>
+<p>–</p>
+<p>And OLS will likely be biased for <span class="math inline">\((1)\)</span> due to selection/omitted-variable bias.</p>
+</section>
+<section id="introductory-example" class="slide level2">
+<h2>Introductory example</h2>
+<p>Imagine that we can split veteran status into an exogenous (as-if random, unbiased) part and an endogenous (non-random, biased) part…</p>
+<p>–</p>
+<p><span class="math display">\[\begin{align}
+  \text{Earnings}_i
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1} \\
+  &amp;= \beta_0 + \beta_1 \left(\text{Veteran}_i^{\text{Exog.}} + \text{Veteran}_i^{\text{Endog.}}\right) + u_i \\
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + \underbrace{\beta_1 \text{Veteran}_i^{\text{Endog.}} + u_i}_{w_i} \\
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + w_i
+\end{align}\]</span></p>
+<p>–</p>
+<p>We could use this exogenous variation in veteran status to consistently estimate <span class="math inline">\(\beta_1\)</span>.</p>
+<p>–</p>
+<p><strong>Q:</strong> What would exogenous variation in veteran status mean?</p>
+</section>
+<section id="introductory-example-1" class="slide level2">
+<h2>Introductory example</h2>
+<p><strong>Q:</strong> What would exogenous variation in veteran status mean?</p>
+<p>–</p>
+<p><strong>A.sub[1]:</strong> Choices to enlist in the military that are essentially random—or at least uncorrelated with omitted variables and the disturbance.</p>
+<p>–</p>
+<p><strong>A.sub[2]:</strong> .No selection bias: <span class="math display">\[\begin{align}
+  \color{#e64173}{\mathop{E}\left(\text{Earnings}_{0i}\mid\text{Veteran}_i = 1\right)} - \color{#6A5ACD}{\mathop{E}\left( \text{Earnings}_{0i} \mid \text{Veteran}_i = 0 \right)} = 0
+\end{align}\]</span></p>
+</section>
+<section id="instruments" class="slide level2">
+<h2>Instruments</h2>
+</section>
+<section id="q-how-do-we-isolate-this-exogenous-variation-in-our-explanatory-variable" class="slide level2">
+<h2><strong>Q:</strong> How do we isolate this <em>exogenous variation</em> in our explanatory variable?</h2>
+<p><br><strong>A:</strong> Find an instrument (an instrumental variable).</p>
+<p>–</p>
+</section>
+<section id="q-whats-an-instrument" class="slide level2 scrollable">
+<h2><strong>Q:</strong> What’s an instrument?</h2>
+<p><br><strong>A:</strong> An <strong>instrument</strong> is a variable that is</p>
+<ol type="1">
+<li class="fragment"><strong>correlated</strong> with the <strong>explanatory variable</strong> of interest (<em>relevant</em>),</li>
+<li class="fragment"><strong>uncorrelated</strong> with the <strong>error</strong> term (<em>exogenous</em>).</li>
+</ol>
+</section>
+<section id="instruments-1" class="slide level2 scrollable">
+<h2>Instruments</h2>
+<p>So if we want an instrument <span class="math inline">\(z_i\)</span> for endogenous veteran status in</p>
+<p><span class="math display">\[\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i
+\end{align}\]</span></p>
+<ol type="1">
+<li class="fragment"><strong>Relevant:</strong> <span class="math inline">\(\mathop{\text{Cov}} \left( \text{Veteran}_i,\, z_i \right) \neq 0\)</span></li>
+<li class="fragment"><strong>Exogenous:</strong> <span class="math inline">\(\mathop{\text{Cov}} \left( z_i,\, u_i \right) = 0\)</span></li>
+</ol>
+</section>
+<section id="instruments-relevance" class="slide level2 scrollable">
+<h2>Instruments: Relevance</h2>
+<p><strong>Relevance:</strong> We need the instrument to cause a change in (correlate with) our endogenous explanatory variable.</p>
+<p>We can actually test this requirement using regression and a <em>t</em> test.</p>
+<p>–</p>
+<p><strong><em>Example:</em></strong> For the veteran status, consider three potential instruments:</p>
+<p>.pull-left[ 1. Social security number</p>
+<ol start="2" type="1">
+<li class="fragment"><p>Physical fitness</p></li>
+<li class="fragment"><p>Vietnam War draft ]</p></li>
+</ol>
+<p>–</p>
+<p>.pull-right[ - <strong>Probably not relevant</strong> uncorrelated with military service</p>
+<ul>
+<li class="fragment"><p><em>Potentially relevant</em> service may correlate with fitness</p></li>
+<li class="fragment"><p><strong>Relevant</strong> being drafted led to service ]</p></li>
+</ul>
+</section>
+<section id="instruments-exogeneity" class="slide level2 scrollable">
+<h2>Instruments: Exogeneity</h2>
+<p>.hi[Exogeneity:] The instrument to be independent of omitted factors that affect our outcome variable—as good as randomly assigned.</p>
+<p><span class="math inline">\(z_i\)</span> must be uncorrelated with our disturbance <span class="math inline">\(u_i\)</span>. .hi[Not testable.]</p>
+<p>–</p>
+<p><strong><em>Example:</em></strong> For the .pink[veteran status], consider three potential instruments:</p>
+<p>.pull-left[ 1. Social security number</p>
+<ol start="2" type="1">
+<li class="fragment"><p>Physical fitness</p></li>
+<li class="fragment"><p>Vietnam War draft ]</p></li>
+</ol>
+<p>–</p>
+<p>.pull-right[ - <strong>Exogenous</strong> SSN essentially random</p>
+<ul>
+<li class="fragment"><p><em>Not Exogenous</em> fitness correlated with many things</p></li>
+<li class="fragment"><p><strong>Exogenous</strong> draft via lottery ]</p></li>
+</ul>
+</section>
+<section id="relevant-and-exogenous" class="slide level2">
+<h2>Relevant and Exogenous</h2>
+
+<img data-src="04-slides-old_files/figure-html/venn_iv-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="relevant-not-exogenous" class="slide level2">
+<h2>Relevant, Not Exogenous</h2>
+
+<img data-src="04-slides-old_files/figure-html/venn_iv_endog-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="not-relevant-and-not-exogenous" class="slide level2">
+<h2>Not Relevant and Not Exogenous</h2>
+
+<img data-src="04-slides-old_files/figure-html/venn_iv_irrelevant-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="relevant-not-exogenous-1" class="slide level2">
+<h2>Relevant, Not Exogenous</h2>
+
+<img data-src="04-slides-old_files/figure-html/venn_iv_endog2-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section></section>
+<section>
+<section id="venn-diagram-explanation" class="title-slide slide level1 center">
+<h1>Venn diagram explanation</h1>
+<p>In these figures (Venn diagrams)</p>
+<ul>
+<li class="fragment">Each circle illustrates a variable.</li>
+<li class="fragment">Overlap gives the share of correlatation between two variables.</li>
+<li class="fragment">Dotted borders denote <em>omitted</em> variables.</li>
+</ul>
+<p>Take-aways</p>
+<ul>
+<li class="fragment">Figure 1: .hi-pink[Valid instrument] (relevant; exogenous)</li>
+<li class="fragment">Figure 2: .hi-slate[Invalid instrument] (relevant; not exogenous)</li>
+<li class="fragment">Figure 3: .hi-slate[Invalid instrument] (not relevant; not exogenous)</li>
+<li class="fragment">Figure 4: .hi-slate[Invalid instrument] (relevant; not exogenous)</li>
+</ul>
+</section>
+<section id="iv-applications" class="slide level2">
+<h2>IV Applications</h2>
+
+<img data-src="https://pbs.twimg.com/media/EJGyHnyUYAA-yhM?format=jpg&amp;name=large.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p><a href="https://twitter.com/andrewheiss/status/1193931226865901569?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1193931226865901569%7Ctwgr%5E%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fpublish.twitter.com%2F%3Fquery%3Dhttps3A2F2Ftwitter.com2Fandrewheiss2Fstatus2F1193931226865901569widget%3DTweet" target="_blank"><span class="citation" data-cites="AndrewHeiss">(<span><strong>AndrewHeiss?</strong></span>)</span></a></p>
+</section>
+<section id="iv-summary" class="slide level2">
+<h2>IV Summary</h2>
+<p>Instrumental variables require a number of assumptions to yield credible causal claims:</p>
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relationship</li>
+<li class="fragment">Monotonicity</li>
+</ul>
+<p>Estimation and inference of IVs is beyond the scope of this course.</p>
+<ul>
+<li class="fragment"><p>See Edward Rubin’s excellent <a href="https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#85" target="_blank">slides</a></p></li>
+<li class="fragment"><p>And Matt Blackwells <a href="https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf" target="_blank">notes</a></p></li>
+<li class="fragment"><p>Understanding the identifying assumptions of IV can help you critique a study (even if the you don’t fully understand the math)</p></li>
+</ul>
+<p>class: inverse, middle, center # 💡 ## Summary</p>
+</section>
+<section id="what-you-need-to-know" class="slide level2">
+<h2>What you need to know</h2>
+<ul>
+<li class="fragment">Causal inference in observational and experimental studies is about counterfactual comparisons</li>
+<li class="fragment">In observational studies, to make causal claims we generally make some assumption of conditional independence:</li>
+</ul>
+<p><span class="math display">\[
+Y_i(1),Y_i(0), \perp D_i |X_i
+\]</span></p>
+<ul>
+<li class="fragment">The credibility of this assumption depends less on the data, and more on how the data were generated.</li>
+<li class="fragment"><strong>Selection on Observables</strong> is rarely a credible assumption</li>
+<li class="fragment">Observational designs that produce credible causal inference, leverage aspects of the world that create <em>natural experiments</em></li>
+<li class="fragment">You should be able to describe the logic and assumptions of common designs in social science
+<ul>
+<li class="fragment"><strong>Difference-in-Differences:</strong> <em>Parallel Trends</em></li>
+<li class="fragment"><strong>Regression Discontiniuity:</strong> <em>Continuity at the cutoff</em></li>
+<li class="fragment"><strong>Instrumental Variables:</strong> Instruments need to be <em>Relevant and Exogenous</em></li>
+</ul></li>
+</ul>
+
+<div class="quarto-auto-generated-content">
+<p><img src="images/pols1600_hex.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>POLS 1600</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

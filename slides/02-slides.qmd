@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600"
-subtitle: "Topic"
+subtitle: "Data Visualization"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
@@ -56,19 +56,17 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
 
 ## Class Plan {.smaller}
 
--   Announcements
+-   Setup (5 minutes)
 -   Review
     -   Troubleshooting Errors (5 min)
-    -   Data wrangling in R (15 min)
+    -   Data wrangling in R (20 min)
     -   Descriptive Statistics (10 min)
--   Feedback (5 min)
--   Data Visualization
+-   Data Visualization (40 min)
     -   The grammar of graphics
-    -   Plots to describe:
+    -   Basic plots to describe:
         -   Distributions
         -   Associations
 
-## Annoucements
 
 # {{< fa code>}} Setup {.inverse}
 
@@ -142,23 +140,6 @@ ipak(the_packages)
 -   `R` may ask you to install a package's dependencies (other packages your package needs). Try entering the number `1` into your console
 -   `R` may tell you need to restart `R` Try saying yes. If it doesn't start downloading, say no
 -   `R` may then ask if you want to compile some packages from source. Type `Y` into your console. If this doesn't work, try again, but this time type `N` when asked
-
-## Tutorials
-
--   Install tutorials:
-
-```{r}
-#| eval: false
-
-
-# Uncomment and install
-# install.packages("devtools")
-# install.packages("remotes")
-remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
-remotes::install_github("rstudio/learnr")
-remotes::install_github("rstudio-education/gradethis")
-remotes::install_github("PaulTestaBrown/qsslearnr")
-```
 
 ## Loading the Covid-19 Data
 
@@ -259,21 +240,21 @@ x <- my_function(y)
 stopifnot(is.data.frame(x))
 ```
 
-# {{< fa magnifying-glass>}} Data Wrangling in R {.inverse}
+# {{< fa magnifying-glass >}} Data Wrangling in R {.inverse}
 
 ## Why do we need to "wrangle" data
 
-- Rarely, if ever, do we get data in the exact format we need.
+-   Rarely, if ever, do we get data in the exact format we need.
 
-- Instead, before we can get to work, we often need to transform our data in various ways
+-   Instead, before we can get to work, we often need to transform our data in various ways
 
-- Sometimes called:
+-   Sometimes called:
 
-  - Data cleaning/recoding
-  - Data wrangling
-  - Data carpentry
+    -   Data cleaning/recoding
+    -   Data wrangling
+    -   Data carpentry
 
-- The end goal is the same: [make messy data tidy]{.blue}
+-   The end goal is the same: [make messy data tidy]{.blue}
 
 ## Tidy data
 
@@ -352,8 +333,8 @@ df %>%
 
 To work with the Covid-19 data we did the following:
 
-- Subsetted/Filtered the data to exclude US Territories
-- Created new variables from existing variables in the data to use in our final analysis
+-   Subsetted/Filtered the data to exclude US Territories
+-   Created new variables from existing variables in the data to use in our final analysis
 
 ## Wrangling the Covid-19 data {.smaller}
 
@@ -364,7 +345,7 @@ Specifically, we did the following:
 3.  Created a `state` variable that is a copy of the `administrative_area_level_2`
 4.  Created a variable called `new_cases` from the `confirmed`. Create a variable called `new_cases_pc` that is the number of new Covid-19 cases per 100,000 citizens
 5.  Created a variable called `face_masks` from the `facial_coverings` variable.
-6. Calculated the average number of new cases, by different levels of `face_masks`
+6.  Calculated the average number of new cases, by different levels of `face_masks`
 
 . . .
 
@@ -384,7 +365,7 @@ territories <- c(
   )
 ```
 
-- The object `territories` now exists in our environment.
+-   The object `territories` now exists in our environment.
 
 ## Created a new dataframe, called `covid_us`
 
@@ -471,9 +452,9 @@ The `confirmed` variable contains a running total of confirmed cases in a given 
 
 ## Visualize `confirmed` variable for Rhode Island
 
-:::panel-tabset
+::: panel-tabset
+## Code
 
-## Code 
 ```{r}
 options(scipen = 999) # No scientific notation
 covid_us %>% 
@@ -508,23 +489,19 @@ ri_df <- covid_us %>%
 
 DT::datatable(ri_df)
 ```
-
-
 :::
 
 ## Create a variable called `new_cases` from the `confirmed` variable {.smaller}
 
-:::: panel-tabset
-
+::: panel-tabset
 ## Task
 
-Take the difference between a given day's value of `confirmed` and yesterday's value of `confirmed`  to create a measure of `new_cases` on a given date for each state 
+Take the difference between a given day's value of `confirmed` and yesterday's value of `confirmed` to create a measure of `new_cases` on a given date for each state
 
 ::: callout-note
-- Use `lag()` to shift values in a column down one row in the data 
-- Use `group_by()` to respect the state-date structure of the data
+-   Use `lag()` to shift values in a column down one row in the data
+-   Use `group_by()` to respect the state-date structure of the data
 :::
-
 
 ## Code
 
@@ -557,24 +534,19 @@ lag_df <- covid_us %>%
   select(state,date, confirmed, lag_no_grp,lag_grp,new_cases_no_grp, new_cases)
 DT::datatable(lag_df)
 ```
-
-::::
-
-
+:::
 
 ## Create a variable called `new_cases_pc` {.smaller}
 
-::::: nonincremental
-:::: panel-tabset
-
+::: nonincremental
+::: panel-tabset
 ## Task
- 
-- Scale `new_cases` by `population` to create a per capita measure (`new_cases_pc`) 
+
+-   Scale `new_cases` by `population` to create a per capita measure (`new_cases_pc`)
 
 ::: callout-note
 We can create [multiple]{.blue} variables in a single `mutate()` by separating lines of code with a `,`
 :::
-
 
 ## Code - Wrangling
 
@@ -591,6 +563,7 @@ covid_us %>%
 ```
 
 ## Code - Checking
+
 ```{r}
 # Check recoding
 covid_us %>% 
@@ -608,22 +581,20 @@ covid_us %>%
 ```{r}
 hlo_df
 ```
-::::
-:::::
+:::
+:::
 
 ## Created a variable called `face_masks` {.smaller}
 
-::::: nonincremental
-
-:::: panel-tabset
-
+::: nonincremental
+::: panel-tabset
 ## Task
 
 Create a variable called `face_masks` from the `facial_coverings` that describes the face mask policy experienced by most people in a given state on a given date.
 
 ::: callout-note
-- Use `case_when()` inside of `mutate()` to create a variable that takes certain values when certain logical statements are true
-- Seting the `levels = c(value1, value2, etc.)` argument in `factor()` lets us control the [ordering]{.blue} of categorical/character data.
+-   Use `case_when()` inside of `mutate()` to create a variable that takes certain values when certain logical statements are true
+-   Seting the `levels = c(value1, value2, etc.)` argument in `factor()` lets us control the [ordering]{.blue} of categorical/character data.
 :::
 
 ## HLO
@@ -662,13 +633,8 @@ covid_us%>%
   select(state, date, facial_coverings, face_masks) %>% 
   slice(1:5)
 ```
-
-
-::::
-:::::
-
-
-
+:::
+:::
 
 ## {{< fa face-meh >}} Addtional recoding
 
@@ -722,17 +688,15 @@ paste(year(covid_us$date[1:3]),
       )
 ```
 
-
 ## Summarizing the averge number of `new_cases` by `face_mask` policy {.smaller}
 
-:::: panel-tabset
-
-
+::: panel-tabset
 ## Task
+
 Calculate the mean (average) number of `new_cases` of Covid-19 when each type of `face_mask` policy was in effect
 
 ::: callout-note
-- The `group_by()` command will do each calculation inside of `summarise()` for each level of the grouping variable
+-   The `group_by()` command will do each calculation inside of `summarise()` for each level of the grouping variable
 :::
 
 ## Code
@@ -752,22 +716,20 @@ covid_us %>%
 ```{r}
 face_mask_summary
 ```
-
-::::
-
+:::
 
 ## Summarizing the averge number of `new_cases` by `face_mask` policy by month {.smaller}
 
 :::: panel-tabset
 
-
 ## Task
+
 Calculate the mean (average) number of `new_cases` of Covid-19 when each type of `face_mask` policy was in effect for each `year_month` in our dataset
 
 ::: callout-note
-- The `group_by()` command can group on [multiple]{.blue} variables
+-   The `group_by()` command can group on [multiple]{.blue} variables
 :::
- 
+
 ## Code
 
 ```{r}
@@ -791,7 +753,6 @@ mean(
       covid_us$year_month == "2020-01"], na.rm = T)
 
 ```
-
 
 ## {{< fa lightbulb >}} Concept check {.smaller}
 
@@ -848,23 +809,22 @@ How will you learn how do these things?
 
 **With lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about**
 
-## Advice on learning how to code{.smaller}
+## Advice on learning how to code {.smaller}
 
-- It takes lots of practice and lots of errors
-  - Break long blocks of code into individual steps to see what's happening
-- Create code chunks and FAFO
-  - Just clean up when you're done...
-- Only dumb question is one you don't ask
-- Google, Stack Exchange are your friends
-- Try writing out in comments what you want to do in code
-- Learn to recognize patterns in the questions/tasks I give you:
-  - Copy and paste code I give
-  - Change one thing
-  - Fix the error
-  - Adapt code from class to do a similar thing
-- Learning to code is much less painful when you have a reason to do it
-  - Let me know what interests you
-
+-   It takes lots of practice and lots of errors
+    -   Break long blocks of code into individual steps to see what's happening
+-   Create code chunks and FAFO
+    -   Just clean up when you're done...
+-   Only dumb question is one you don't ask
+-   Google, Stack Exchange are your friends
+-   Try writing out in comments what you want to do in code
+-   Learn to recognize patterns in the questions/tasks I give you:
+    -   Copy and paste code I give
+    -   Change one thing
+    -   Fix the error
+    -   Adapt code from class to do a similar thing
+-   Learning to code is much less painful when you have a reason to do it
+    -   Let me know what interests you
 
 # {{< fa magnifying-glass>}} Descriptive Statistics {.inverse}
 
@@ -915,66 +875,59 @@ All of these functions have an argument called `na.rm=F`. If your data have miss
 
 **Measures of typical values**
 
-- **Means** (`mean()`) all the time
-- **Medians** (`median()`) useful for describing distributions of variables particularly those with [extreme values]{.blue}
-- **Mode* useful for characterizing [categorical]{.blue} data
-
+-   **Means** (`mean()`) all the time
+-   **Medians** (`median()`) useful for describing distributions of variables particularly those with [extreme values]{.blue}
+-   \*\*Mode\* useful for characterizing [categorical]{.blue} data
 
 . . .
 
 **Measures of typical variation**
 
-- `var()` important for quantifying uncertainty, but rarely will you be calculating this directly
-- `sd()` a good summary of a [typical change]{.blue} in the data.
-- `range()`, `min()`, `max()` useful for exploring data, detecting outliers and potential values that need to be recoded
+-   `var()` important for quantifying uncertainty, but rarely will you be calculating this directly
+-   `sd()` a good summary of a [typical change]{.blue} in the data.
+-   `range()`, `min()`, `max()` useful for exploring data, detecting outliers and potential values that need to be recoded
 
 **Measures of association**
 
-- Covariance (`var()`) central to describing relationships but generally not something you'll calculate or interpret directly
-- Correlation (`cor()`) useful for describing [bivariate] relationships (positive or negative relationships).
+-   Covariance (`var()`) central to describing relationships but generally not something you'll calculate or interpret directly
+-   Correlation (`cor()`) useful for describing \[bivariate\] relationships (positive or negative relationships).
 
+## What you don't really need to know for POLS 1600 {smaller}
 
-## What you don't really need to know for POLS 1600
-
-We won't spend much time on the formal definitions or math behind
+We won't spend much time on the formal definitions, math, and proofs
 
 $$
 \bar{x}=\frac{1}{n}\sum_{i=1}^n x_i 
 $$
 
-
 $$
 M_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx=\int_{x_i}^\infty f_x(X)dx=1/2
 $$
 
+. . .
 
-
-# {{< fa bullhorn >}} Feedback {.inverse}
-
-## What we liked
-
-## What we disliked
+Useful eventually. Not necessary right now.
 
 # {{< fa lightbulb >}} Data Visualization: The Grammar of Graphics {.inverse}
 
-## Data visualizaiton 
+## Data visualizaiton
 
 Data visualization is an incredibly valuable tool that helps us to
 
-- Explore data, uncovering new relationships, as well as potential problems
-- Communicate our results clearly and precisely
+-   Explore data, uncovering new relationships, as well as potential problems
+-   Communicate our results clearly and precisely
 
 Take a look at how the [BBC](https://medium.com/bbc-visual-and-data-journalism/how-the-bbc-visual-and-data-journalism-team-works-with-graphics-in-r-ed0b35693535) uses R to produce its graphics
 
-## Data visualization 
+## Data visualization
 
 Today, we will:
 
-- Introduce the `grammar of graphics`
-- Learn how to apply this grammar with `ggplot()`
-- Introduce basic plots to describe
-  - Univariate distributions
-  - Bivariate relations
+-   Introduce the `grammar of graphics`
+-   Learn how to apply this grammar with `ggplot()`
+-   Introduce basic plots to describe
+    -   Univariate distributions
+    -   Bivariate relations
 
 ## The Grammar of Graphics
 
@@ -984,31 +937,23 @@ Inspired by [Wilkinson (2005)](https://link.springer.com/book/10.1007/0-387-2869
 
 At a minimum, a graphic contains three core components:
 
-- `data:` the dataset containing the variables of interest.
-- `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
-- `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
+-   `data:` the dataset containing the variables of interest.
+-   `aes`: aesthetic attributes of the geometric object. For example, x/y position, color, shape, and size. Aesthetic attributes are mapped to variables in the dataset.
+-   `geom:` the geometric object in question. This refers to the type of object we can observe in a plot For example: points, lines, and bars.
 
 [Ismay and Kim (2022)](https://moderndive.com/2-viz.html#grammarofgraphics)
 
-## Seven Layers of Graphics{background-image=https://miro.medium.com/max/1400/1*ZdQ9wFwaA214ABiib7AygQ.png
-background-size=contain}
+## Seven Layers of Graphics {background-image="https://miro.medium.com/max/1400/1*ZdQ9wFwaA214ABiib7AygQ.png" background-size="contain"}
 
 [Kesari (2018)](https://gkesari.medium.com/my-talk-on-grammar-of-graphics-the-secret-sauce-of-powerful-data-stories-3da618cf1bbf)
-
-
 
 ## The grammar of graphics in R
 
 In R, we'll implement this grammar of graphics using the `ggplot` package
 
-- Let's take a look at your feedback to last week's survey and see how we can visualize some of the in formation you provided
-
-
-
+-   Let's take a look at your feedback to last week's survey and see how we can visualize some of the in formation you provided
 
 ## The Grammar of Graphics
-
-
 
 # {{< fa bullhorn >}} Feedback {.inverse}
 
@@ -1021,9 +966,7 @@ DT::datatable(df %>%
                 select(like))
 ```
 
-
-## What we disliked{.smaller}
-
+## What we disliked {.smaller}
 
 ```{r}
 #| echo: false
@@ -1032,9 +975,7 @@ DT::datatable(df %>%
                 select(dislike))
 ```
 
-##
-
-
+## 
 
 ```{r}
 #| echo: false
@@ -1047,29 +988,26 @@ df %>%
   ggplot(aes(x = Playlist,
              fill = Playlist))+
   geom_bar(stat = "count")+
-  scale_fill_brewer()+
+  scale_fill_brewer(guide="none")+
   coord_flip()+
-  labs(title = "Who controls the playlist")+
+  labs(title = "Who controls the playlist",
+       x= "",
+       y = "")+
   theme_bw()
 ```
 
-
-
 ## Building that figure
 
-1. Look at the raw data
-2. Recode the raw data
-3. Make a basic plot, telling R the `data`, `aes`thetics, `geom`etries, and `stat`istics I want it to plot
-4. Tinker with the data and plot's scales, coordinates, labels and theme to make the figure look better
-
-
+1.  Look at the raw data
+2.  Recode the raw data
+3.  Make a basic plot, telling R the `data`, `aes`thetics, `geom`etries, and `stat`istics I want it to plot
+4.  Tinker with the data and plot's scales, coordinates, labels and theme to make the figure look better
 
 ## 1. Look at the raw data
 
 ```{r}
 df$trip
 ```
-
 
 ## 2. Recode the raw data
 
@@ -1082,12 +1020,11 @@ df %>%
   select(Playist)
 ```
 
-
 ## 3. Make a basic plot
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
 #|
 df %>% #<< Raw data
@@ -1106,17 +1043,13 @@ df %>% #<< Raw data
 ```{r}
 fig_roadtrip
 ```
-
 :::
-
-
 
 ## 4.1 Tinker with data
 
 ::: panel-tabset
-
-
 ## Code
+
 ```{r}
 #| code-line-numbers: "2|4"
  
@@ -1138,16 +1071,13 @@ df %>%
 fig_roadtrip
 
 ```
-
 :::
-
-
 
 ## 4.2 Tinker with `fill` aesthetic
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
 #| code-line-numbers: "9"
 
@@ -1169,15 +1099,13 @@ df %>%
 fig_roadtrip
 
 ```
-
 :::
-
 
 ## 4.3 Tinker with coordinates
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
 #| code-line-numbers: "10"
 
@@ -1200,19 +1128,15 @@ df %>%
 fig_roadtrip
 
 ```
-
 :::
-
-
-
 
 ## 4.4 Tinker with labels
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
-#| code-line-numbers: "11"
+#| code-line-numbers: "9|11-13"
 
 df %>%
   filter(!is.na(trip)) %>% 
@@ -1222,9 +1146,11 @@ df %>%
   ggplot(aes(x = Playlist,
              fill = Playlist))+
   geom_bar(stat = "count")+
-  scale_fill_brewer() +
-  coord_flip() +
-  labs(title = "Who controls the playlist on a roadtrip") -> fig_roadtrip
+  scale_fill_brewer(guide="none")+
+  coord_flip()+
+  labs(title = "Who controls the playlist",
+       x= "",
+       y = "")-> fig_roadtrip
 ```
 
 ## Plot
@@ -1234,17 +1160,15 @@ df %>%
 fig_roadtrip
 
 ```
-
 :::
-
 
 ## 4.4 Tinker with theme
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
-#| code-line-numbers: "12"
+#| code-line-numbers: "14"
 
 df %>%
   filter(!is.na(trip)) %>% 
@@ -1254,9 +1178,11 @@ df %>%
   ggplot(aes(x = Playlist,
              fill = Playlist))+
   geom_bar(stat = "count")+
-  scale_fill_brewer() +
-  coord_flip() +
-  labs(title = "Who controls the playlist on a roadtrip")+
+   scale_fill_brewer(guide="none")+
+  coord_flip()+
+  labs(title = "Who controls the playlist",
+       x= "",
+       y = "")+
   theme_bw() -> fig_roadtrip
 ```
 
@@ -1267,10 +1193,10 @@ df %>%
 fig_roadtrip
 
 ```
-
 :::
 
 ## The final code
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -1288,28 +1214,34 @@ df %>%
   theme_bw()
 ```
 
+# {{< fa lightbulb >}} DataViz: Describing Distributions and Associations{.inverse}
 
-# {{< fa lightbulb >}} DataViz: Describing Distributions {.inverse}
+## Describing Distributions and Associations
 
-## Describing Distributions
+- In the remaining slides, we' see how to visualize some distributions and associations in the Covid data using:
 
-- Visualizing distributions helps us understand both typical values and variation.
+    - barplots
+    - histograms
+    - density plots
+    - boxplots
+    - line plots
+    - scatter plots
+    
+## General advice for making figures
 
-- Today let's see how to visualize some distributions in the Covid data using:
-
-  - barplots
-  - histograms
-  - density plots
-  - boxplots
+- Think through conceptually how you want to figure to look
+  - Draw it out buy hand
+- Make a basic plot and iterate
+- Don't let the perfect be the enemy of the good
+- Use `summarize()` and other data wrangling skills to transform data for plotting
+- Use `factor()` and related functions to control order of labels on axis
 
 ## Barplots {.smaller}
 
 ::: panel-tabset
-
 ## Question
 
 What was the most common face mask policy in the data?
-
 
 ## Basic Code
 
@@ -1341,7 +1273,6 @@ covid_us %>%
   
 ```
 
-
 ## Figure
 
 ```{r}
@@ -1349,17 +1280,14 @@ covid_us %>%
 
 fig_barplot
 ```
-
 :::
 
-## Barplots{.smaller}
+## Histogram {.smaller}
 
 ::: panel-tabset
-
-## Question 1
+## Question 
 
 What does the distribution new Covid-19 cases look like in June 2021
-
 
 ## Basic Code
 
@@ -1375,7 +1303,6 @@ covid_us %>%
 ```{r}
 fig_hist1
 ```
-
 
 ## Better Code
 
@@ -1403,24 +1330,21 @@ fig_hist2 <- ggarrange(fig_hist2a, fig_hist2b)
 
 ```
 
+## Ex 2
 
-## Example 2
 ```{r}
 #| echo: false
 
 fig_hist2
 ```
-
 :::
 
-## Density Plots{.smaller}
+## Density Plots {.smaller}
 
 ::: panel-tabset
-
-## Question 
+## Question
 
 What does the distribution of Covid-19 deaths look like?
-
 
 ## Basic Code
 
@@ -1441,44 +1365,42 @@ covid_us %>%
 fig_hist1
 ```
 
-
 ## Better Code
 
 ```{r}
 covid_us %>% 
   mutate(
     new_deaths = deaths - lag(deaths),
-    new_deaths_pc = deaths - lag(deaths)
+    new_deaths_pc = deaths - lag(deaths),
+    year_f = factor(year)
   ) %>% 
   filter(new_deaths > 0) %>% 
-  filter(year == 2021) %>% 
-  ggplot(aes(x=new_deaths_pc))+
+  ggplot(aes(x=new_deaths_pc,
+             col = year_f))+
   geom_density() +
   geom_rug() +
   scale_x_log10() +
-    facet_wrap(~month)-> 
+    facet_wrap(~month)+
+  theme(legend.position = "bottom")-> 
   fig_density2
 
 ```
 
+## Ex 2
 
-## Example 2
 ```{r}
 #| echo: false
 
 fig_density2
 ```
-
 :::
 
-## Box plots{.smaller}
+## Box plots {.smaller}
 
 ::: panel-tabset
-
-## Question 
+## Question
 
 How did the distribution of Covid-19 cases vary by face mask policy?
-
 
 ## Basic Code
 
@@ -1496,7 +1418,6 @@ covid_us %>%
 fig_boxplot1
 ```
 
-
 ## Better Code
 
 ```{r}
@@ -1510,6 +1431,7 @@ covid_us %>%
             y=new_cases_pc,
             col = face_masks))+
   scale_y_log10()+
+  coord_flip() +
   geom_boxplot()  +
     facet_wrap(~Month) +
   theme(
@@ -1518,23 +1440,152 @@ covid_us %>%
 
 ```
 
-
 ## Ex 2
+
 ```{r}
 #| echo: false
 
 fig_boxplot2
 ```
+:::
 
+
+## Line graphs {.smaller}
+
+::: panel-tabset
+## Question
+
+How did vaccination rates vary by state?
+
+## Basic Code
+
+```{r}
+covid_us %>%
+  ggplot(
+    aes(x= date,
+        y=percent_vaccinated,
+        group = state
+        ))+
+  geom_line() -> fig_line1
+```
+
+## Ex 1
+
+```{r}
+fig_line1
+```
+
+## Better Code
+
+```{r}
+
+covid_us %>%
+  ungroup() %>%
+  mutate(
+    Label = case_when(
+      date == max(date) & percent_vaccinated == max(percent_vaccinated[date == max(date)], na.rm = T) ~ state,
+      date == max(date) & percent_vaccinated == median(percent_vaccinated[date == max(date)], na.rm = T) ~ state,
+      date == max(date) & percent_vaccinated == min(percent_vaccinated[date == max(date)], na.rm = T) ~ state,
+      TRUE ~ NA_character_
+    ),
+    line_alpha = case_when(
+      state %in% c("District of Columbia", "Nebraska", "Wyoming") ~ 1,
+      T ~ .3
+    ),
+    line_col = case_when(
+      state %in% c("District of Columbia", "Nebraska", "Wyoming") ~ "black",
+      T ~ "grey"
+    )
+  ) %>%
+  ggplot(
+    aes(x= date,
+        y=percent_vaccinated,
+        group = state
+        ))+
+  geom_line(
+    aes(alpha = line_alpha,
+        col =line_col)) +
+  geom_text_repel(aes(label = Label),
+                  direction = "x",
+                  nudge_y = 2) +
+  guides(
+    alpha = "none",
+    col = "none"
+  )+
+  xlim(ym("2021-01"), ym("2023-01")) +
+  labs(
+    y = "Percent Vacinated",
+    x = "Date"
+  ) +
+  theme_bw()-> fig_line2
+
+
+```
+
+## Ex 2
+
+```{r}
+#| echo: false
+
+fig_line2
+```
+:::
+
+## Scatterplots {.smaller}
+
+::: panel-tabset
+## Question
+
+What's the relationship between vaccination rates and new cases of Covid-19?
+
+## Basic Code
+
+```{r}
+covid_us %>%
+  ggplot(
+    aes(x= percent_vaccinated,
+        y=new_cases_pc,
+        ))+
+  geom_point() -> fig_scatter1
+```
+
+## Ex 1
+
+```{r}
+fig_scatter1
+```
+
+## Better Code
+
+```{r}
+
+covid_us %>%
+  filter(year > 2020) %>%
+  filter(month == 6) %>%
+  filter(new_cases_pc > 0) %>%
+  ggplot(
+    aes(x= percent_vaccinated,
+        y=new_cases_pc,
+        ))+
+  geom_point() +
+  geom_smooth(method = "lm")+
+  facet_wrap(~year_month,ncol =1,
+             scales = "free_y")-> fig_scatter2
+
+
+```
+
+## Ex 2
+
+```{r}
+#| echo: false
+
+fig_scatter2
+```
 :::
 
 
 
-
-
-# {{< fa lightbulb >}} DataViz: Describing Associations {.inverse}
-
-## Describing Associations
 
 # {{< fa home >}} Summary {.inverse}
 
