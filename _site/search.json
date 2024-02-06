@@ -2018,7 +2018,14 @@
     "href": "slides/02-slides.html#class-plan",
     "title": "POLS 1600",
     "section": "Class Plan",
-    "text": "Class Plan\n\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations"
+    "text": "Class Plan\n\nAnnouncments\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations"
+  },
+  {
+    "objectID": "slides/02-slides.html#announcements",
+    "href": "slides/02-slides.html#announcements",
+    "title": "POLS 1600",
+    "section": "Announcements",
+    "text": "Announcements\n\nManuel’s office hours today\nPaul’s office hours on Thursday\nSubmit tutorials from last week for full credit by this Sunday.\nGroups for the course assigned next week"
   },
   {
     "objectID": "slides/02-slides.html#setup-for-today",
@@ -2256,28 +2263,7 @@
     "href": "slides/02-slides.html#summarizing-the-averge-number-of-new_cases-by-face_mask-policy-by-month",
     "title": "POLS 1600",
     "section": "Summarizing the averge number of new_cases by face_mask policy by month",
-    "text": "Summarizing the averge number of new_cases by face_mask policy by month\n:::: panel-tabset"
-  },
-  {
-    "objectID": "slides/02-slides.html#task-6",
-    "href": "slides/02-slides.html#task-6",
-    "title": "POLS 1600",
-    "section": "Task",
-    "text": "Task\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect for each year_month in our dataset\n\n\n\n\n\n\nNote\n\n\n\nThe group_by() command can group on multiple variables"
-  },
-  {
-    "objectID": "slides/02-slides.html#code-6",
-    "href": "slides/02-slides.html#code-6",
-    "title": "POLS 1600",
-    "section": "Code",
-    "text": "Code\n\ncovid_us %&gt;%\n  group_by(face_masks, year_month) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; cases_by_month_and_policy"
-  },
-  {
-    "objectID": "slides/02-slides.html#results-1",
-    "href": "slides/02-slides.html#results-1",
-    "title": "POLS 1600",
-    "section": "Results",
-    "text": "Results\n\ncases_by_month_and_policy\n\n# A tibble: 102 × 3\n# Groups:   face_masks [5]\n   face_masks year_month new_cases_pc\n   &lt;fct&gt;      &lt;chr&gt;             &lt;dbl&gt;\n 1 No policy  2020-01        0.000463\n 2 No policy  2020-02        0.00188 \n 3 No policy  2020-03        1.70    \n 4 No policy  2020-04        6.50    \n 5 No policy  2022-04       19.8     \n 6 No policy  2022-05       20.4     \n 7 No policy  2022-06       37.6     \n 8 No policy  2022-07       36.2     \n 9 No policy  2022-08       35.7     \n10 No policy  2022-09       19.0     \n# ℹ 92 more rows\n\n# In base R:\nmean(\n  covid_us$new_cases_pc[\n    covid_us$face_masks == \"No policy\" &\n      covid_us$year_month == \"2020-01\"], na.rm = T)\n\n[1] 0.0004626161"
+    "text": "Summarizing the averge number of new_cases by face_mask policy by month\n\nTaskCodeResults\n\n\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect for each year_month in our dataset\n\n\n\n\n\n\nNote\n\n\n\nThe group_by() command can group on multiple variables\n\n\n\n\n\n\n\ncovid_us %&gt;%\n  group_by(face_masks, year_month) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; cases_by_month_and_policy\n\n\n\n\ncases_by_month_and_policy\n\n# A tibble: 102 × 3\n# Groups:   face_masks [5]\n   face_masks year_month new_cases_pc\n   &lt;fct&gt;      &lt;chr&gt;             &lt;dbl&gt;\n 1 No policy  2020-01        0.000463\n 2 No policy  2020-02        0.00188 \n 3 No policy  2020-03        1.70    \n 4 No policy  2020-04        6.50    \n 5 No policy  2022-04       19.8     \n 6 No policy  2022-05       20.4     \n 7 No policy  2022-06       37.6     \n 8 No policy  2022-07       36.2     \n 9 No policy  2022-08       35.7     \n10 No policy  2022-09       19.0     \n# ℹ 92 more rows\n\n# In base R:\nmean(\n  covid_us$new_cases_pc[\n    covid_us$face_masks == \"No policy\" &\n      covid_us$year_month == \"2020-01\"], na.rm = T)\n\n[1] 0.0004626161"
   },
   {
     "objectID": "slides/02-slides.html#concept-check",
@@ -2326,7 +2312,21 @@
     "href": "slides/02-slides.html#what-you-need-to-know-for-pols-1600",
     "title": "POLS 1600",
     "section": "What you need to know for POLS 1600",
-    "text": "What you need to know for POLS 1600\nMeasures of typical values\n\nMeans (mean()) all the time\nMedians (median()) useful for describing distributions of variables particularly those with extreme values\n**Mode* useful for characterizing categorical data\n\n\nMeasures of typical variation\n\nvar() important for quantifying uncertainty, but rarely will you be calculating this directly\nsd() a good summary of a typical change in the data.\nrange(), min(), max() useful for exploring data, detecting outliers and potential values that need to be recoded\n\nMeasures of association\n\nCovariance (var()) central to describing relationships but generally not something you’ll calculate or interpret directly\nCorrelation (cor()) useful for describing [bivariate] relationships (positive or negative relationships)."
+    "text": "What you need to know for POLS 1600\nMeasures of typical values\n\nMeans (mean()) all the time\nMedians (median()) useful for describing distributions of variables particularly those with extreme values\nMode useful for characterizing categorical data"
+  },
+  {
+    "objectID": "slides/02-slides.html#what-you-need-to-know-for-pols-1600-1",
+    "href": "slides/02-slides.html#what-you-need-to-know-for-pols-1600-1",
+    "title": "POLS 1600",
+    "section": "What you need to know for POLS 1600",
+    "text": "What you need to know for POLS 1600\nMeasures of typical variation\n\nvar() important for quantifying uncertainty, but rarely will you be calculating this directly\nsd() a good summary of a typical change in the data.\nrange(), min(), max() useful for exploring data, detecting outliers and potential values that need to be recoded"
+  },
+  {
+    "objectID": "slides/02-slides.html#what-you-need-to-know-for-pols-1600-2",
+    "href": "slides/02-slides.html#what-you-need-to-know-for-pols-1600-2",
+    "title": "POLS 1600",
+    "section": "What you need to know for POLS 1600",
+    "text": "What you need to know for POLS 1600\nMeasures of association\n\nCovariance (var()) central to describing relationships but generally not something you’ll calculate or interpret directly\nCorrelation (cor()) useful for describing [bivariate] relationships (positive or negative relationships)."
   },
   {
     "objectID": "slides/02-slides.html#what-you-dont-really-need-to-know-for-pols-1600-smaller",
@@ -2369,13 +2369,6 @@
     "title": "POLS 1600",
     "section": "The grammar of graphics in R",
     "text": "The grammar of graphics in R\nIn R, we’ll implement this grammar of graphics using the ggplot package\n\nLet’s take a look at your feedback to last week’s survey and see how we can visualize some of the in formation you provided"
-  },
-  {
-    "objectID": "slides/02-slides.html#the-grammar-of-graphics-1",
-    "href": "slides/02-slides.html#the-grammar-of-graphics-1",
-    "title": "POLS 1600",
-    "section": "The Grammar of Graphics",
-    "text": "The Grammar of Graphics"
   },
   {
     "objectID": "slides/02-slides.html#what-we-liked",
@@ -2459,7 +2452,7 @@
     "href": "slides/02-slides.html#the-final-code",
     "title": "POLS 1600",
     "section": "The final code",
-    "text": "The final code\n\ndf %&gt;%\n  filter(!is.na(trip)) %&gt;% \n  mutate(\n    Playlist = str_wrap(forcats::as_factor(trip),20)\n  ) %&gt;%\n  ggplot(aes(x = Playlist,\n             fill = Playlist))+\n  geom_bar(stat = \"count\")+\n  coord_flip()+\n  scale_fill_brewer()+\n  labs(title = \"Who controls the playlist on a roadtrip\")+\n  theme_bw()"
+    "text": "The final code\n\ndf %&gt;%\n  filter(!is.na(trip)) %&gt;% \n  mutate(\n    Playlist =str_wrap(forcats::as_factor(trip),20)\n  ) %&gt;%\n  ggplot(aes(x = Playlist,\n             fill = Playlist))+\n  geom_bar(stat = \"count\")+\n   scale_fill_brewer(guide=\"none\")+\n  coord_flip()+\n  labs(title = \"Who controls the playlist\",\n       x= \"\",\n       y = \"\")+\n  theme_bw() -&gt; fig_roadtrip"
   },
   {
     "objectID": "slides/02-slides.html#describing-distributions-and-associations",
@@ -2473,7 +2466,7 @@
     "href": "slides/02-slides.html#general-advice-for-making-figures",
     "title": "POLS 1600",
     "section": "General advice for making figures",
-    "text": "General advice for making figures\n\nThink through conceptually how you want to figure to look\n\nDraw it out buy hand\n\nMake a basic plot and iterate\nDon’t let the perfect be the enemy of the good\nUse summarize() and other data wrangling skills to transform data for plotting\nUse factor() and related functions to control order of labels on axis"
+    "text": "General advice for making figures\n\nThink through conceptually how you want to figure to look\n\nDraw it out by hand\n\nMake a basic plot and iterate\nUse summarize() and other data wrangling skills to transform data for plotting\nUse factor() and related functions to control order of labels on axis\nUse google to figure out arcane options of ggplot\nDon’t let the perfect be the enemy of the good"
   },
   {
     "objectID": "slides/02-slides.html#barplots",
@@ -2494,7 +2487,7 @@
     "href": "slides/02-slides.html#density-plots",
     "title": "POLS 1600",
     "section": "Density Plots",
-    "text": "Density Plots\n\nQuestionBasic CodeEx 1Better CodeEx 2\n\n\nWhat does the distribution of Covid-19 deaths look like?\n\n\n\ncovid_us %&gt;% \n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = deaths - lag(deaths)\n  ) %&gt;% \n  filter(new_deaths &gt; 0) %&gt;% \n  ggplot(aes(x=new_deaths_pc))+\n  geom_density() -&gt; fig_density1\n\n\n\n\nfig_hist1\n\n\n\n\n\n\n\n\n\n\n\ncovid_us %&gt;% \n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = deaths - lag(deaths),\n    year_f = factor(year)\n  ) %&gt;% \n  filter(new_deaths &gt; 0) %&gt;% \n  ggplot(aes(x=new_deaths_pc,\n             col = year_f))+\n  geom_density() +\n  geom_rug() +\n  scale_x_log10() +\n    facet_wrap(~month)+\n  theme(legend.position = \"bottom\")-&gt; \n  fig_density2"
+    "text": "Density Plots\n\nQuestionBasic CodeEx 1Better CodeEx 2\n\n\nWhat does the distribution of Covid-19 deaths look like?\n\n\n\ncovid_us %&gt;% \n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = deaths - lag(deaths)\n  ) %&gt;% \n  filter(new_deaths &gt; 0) %&gt;% \n  ggplot(aes(x=new_deaths_pc))+\n  geom_density() -&gt; fig_density1\n\n\n\n\nfig_density1\n\n\n\n\n\n\n\n\n\n\n\ncovid_us %&gt;% \n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = deaths - lag(deaths),\n    year_f = factor(year)\n  ) %&gt;% \n  filter(new_deaths &gt; 0) %&gt;% \n  ggplot(aes(x=new_deaths_pc,\n             col = year_f))+\n  geom_density() +\n  geom_rug() +\n  scale_x_log10() +\n    facet_wrap(~month)+\n  theme(legend.position = \"bottom\")-&gt; \n  fig_density2"
   },
   {
     "objectID": "slides/02-slides.html#box-plots",
@@ -2522,7 +2515,7 @@
     "href": "slides/02-slides.html#summary-1",
     "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\n\n\n\nPOLS 1600"
+    "text": "Summary\n\nThe grammar of graphics provides a language for translating data into figures\nAt a minimum figures with ggplot() require three things:\n\ndata\naesthetic mappings\ngeometries\n\nTo produce a figure:\n\nthink about what the end product will look like\ntransform your data\nmap variables onto corresponding aesthetics\ntell R what to do with these aesthetic mappings\nRevise and iterate!\n\nLearning to code is hard, but the more errors you make now, the easier your life will be in the future\n\n\n\n\n\nPOLS 1600"
   },
   {
     "objectID": "slides/11-slides.html#general-plan",

@@ -56,6 +56,7 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
 
 ## Class Plan {.smaller}
 
+- Announcments
 -   Setup (5 minutes)
 -   Review
     -   Troubleshooting Errors (5 min)
@@ -66,6 +67,16 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
     -   Basic plots to describe:
         -   Distributions
         -   Associations
+
+## Announcements
+
+- Manuel's [office hours](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UU1kMTREWlJTbW50fGRlZmF1bHR8NDkxYmJjYmM0OTBlY2I3MzhhNjk4MGQ4ZDdjNDg0OWE) today
+
+- Paul's [office hours](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UU50c3dUNS1IVy04fGRlZmF1bHR8ZmRjZjI4YWI5YmE2YmFlZDg3ZjA4ZmFhNzcxNjdkZWY) on Thursday
+
+- Submit tutorials from last week for full credit by this Sunday.
+
+- Groups for the course assigned next week
 
 # {{< fa code>}} Setup {.inverse}
 
@@ -1594,3 +1605,19 @@ fig_scatter2
 # {{< fa home >}} Summary {.inverse}
 
 ## Summary
+
+- The grammar of graphics provides a language for translating data into figures
+
+- At a minimum figures with `ggplot()` require three things:
+  - data
+  - aesthetic mappings
+  - geometries
+
+- To produce a figure:
+  - think about what the end product will look like
+  - transform your data
+  - map variables onto corresponding aesthetics
+  - tell R what to do with these aesthetic mappings
+  - Revise and iterate!
+  
+- Learning to code is hard, but the more errors you make now, the easier your life will be in the future
