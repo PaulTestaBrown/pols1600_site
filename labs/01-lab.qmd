@@ -332,7 +332,9 @@ One of the most frequent measures of central tendency we'll use in this course i
 
 Suppose we have $n$ observations of some variable $x$. We can calculate the mean of $\bar{x}$ ("x bar), by adding up all the values of x
 
-$$ \bar{x}=\frac{1}{n}\sum\_{i=1}\^n x_i $$
+$$ 
+\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i 
+$$
 
 We'll see later in the course that means are closely related to the concept of expected values in probability and that conditional means (which we'll calculate below) are central to thinking about linear regression.
 
