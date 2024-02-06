@@ -1306,7 +1306,7 @@ fig_barplot
 ::: panel-tabset
 ## Question
 
-What does the distribution new Covid-19 cases look like in June 2021
+What does the distribution of new Covid-19 cases look like in June 2021
 
 ## Basic Code
 
