@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name HERE">
-<meta name="dcterms.date" content="2024-01-24">
+<meta name="dcterms.date" content="2024-02-07">
 
 <title>POLS 1600 - Lab 02 - Visualizing data on COVID-19 in the U.S.</title>
 <style>
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,28 +150,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#please-knit-this-.rmd-file" id="toc-please-knit-this-.rmd-file" class="nav-link" data-scroll-target="#please-knit-this-.rmd-file">Please knit this .Rmd file</a></li>
+  <li><a href="#please-render-this-.qmd-file-to-produce-a-.html-file" id="toc-please-render-this-.qmd-file-to-produce-a-.html-file" class="nav-link" data-scroll-target="#please-render-this-.qmd-file-to-produce-a-.html-file">Please render this .qmd file to produce a .html file</a></li>
   <li><a href="#describe-the-components-of-the-figure-youre-trying-to-reprodce" id="toc-describe-the-components-of-the-figure-youre-trying-to-reprodce" class="nav-link" data-scroll-target="#describe-the-components-of-the-figure-youre-trying-to-reprodce"><span class="header-section-number">1</span> Describe the components of the figure you’re trying to reprodce</a></li>
-  <li><a href="#outline-the-steps-you-will-need-to-complete-this-process" id="toc-outline-the-steps-you-will-need-to-complete-this-process" class="nav-link" data-scroll-target="#outline-the-steps-you-will-need-to-complete-this-process">Outline the steps you will need to complete this process</a></li>
+  <li><a href="#outline-and-implement-the-steps-you-will-need-to-complete-this-process" id="toc-outline-and-implement-the-steps-you-will-need-to-complete-this-process" class="nav-link" data-scroll-target="#outline-and-implement-the-steps-you-will-need-to-complete-this-process">Outline and implement the steps you will need to complete this process</a></li>
   <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1"><span class="header-section-number">2</span> Step 1</a></li>
   <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2"><span class="header-section-number">3</span> Step 2</a>
   <ul class="collapse">
   <li><a href="#step-2.1" id="toc-step-2.1" class="nav-link" data-scroll-target="#step-2.1"><span class="header-section-number">3.1</span> Step 2.1</a></li>
   <li><a href="#step-2.2" id="toc-step-2.2" class="nav-link" data-scroll-target="#step-2.2"><span class="header-section-number">3.2</span> Step 2.2</a></li>
   </ul></li>
-  <li><a href="#class-survey" id="toc-class-survey" class="nav-link" data-scroll-target="#class-survey"><span class="header-section-number">4</span> CLASS SURVEY</a></li>
+  <li><a href="#revise-the-figure-in-some-way" id="toc-revise-the-figure-in-some-way" class="nav-link" data-scroll-target="#revise-the-figure-in-some-way"><span class="header-section-number">4</span> Revise the figure in some way</a></li>
+  <li><a href="#class-survey" id="toc-class-survey" class="nav-link" data-scroll-target="#class-survey"><span class="header-section-number">5</span> CLASS SURVEY</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -195,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 24, 2024</p>
+      <p class="date">February 7, 2024</p>
     </div>
   </div>
   
@@ -207,12 +205,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
-<p>Our goal for today is to reproduce this figure:</p>
+<p>Our goal for today is to first, reproduce this figure:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -222,19 +217,24 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </div>
 </div>
 </div>
+<p>And then adapt and improve this figure (or other figures) to explore questions we have about the data</p>
 <p>I don’t expect anyone to be able to recite from memory the exact code, functions, and syntax to accomplish this task.</p>
 <p>That said, you’ve already seen the code you need.</p>
-<p>It’s available to you in multiple places like the slides (week 1 <a href="https://pols1600.paultesta.org/slides/01-slides.html#1">here</a>, week 2 <a href="https://pols1600.paultesta.org/slides/02-slides.html">here</a>) and last week’s <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html">labs</a></p>
+<p>It’s available to you in multiple places like the <a href="https://pols1600.paultesta.org/slides/01-slides#/commented-code">slides</a> and the comments to last week’s <a href="https://pols1600.paultesta.org/labs/01-lab-comments.html">labs</a></p>
 <p>My hope is that this lab will help you do the following:</p>
 <ul>
 <li><strong>Chunk big tasks into smaller concrete steps</strong>
 <ul>
-<li>Learn how to take a complex problem (“How do I produce a figure that shows the average rate of new cases per month for states with a particular type of face mask policy”) which you may think you have no idea how to do and break this challenge down into concrete tasks which you do know how do (“Well first, I’ll need to load some packages to work with and visualize data. Then, I’ll need to get the data. And then…”)</li>
+<li><em>How do I produce a figure that shows the average rate of new cases pe month for states with a particular type of face mask policy?</em>
+<ul>
+<li>Well first, I’ll need to load some packages to work with and visualize data.</li>
+<li>Then, I’ll need to get the data. And then…</li>
+</ul></li>
 </ul></li>
 <li><strong>Think and write programmatically</strong>
 <ul>
-<li>In this .Rmd file, I’ll first ask you to outline, conceptually, all the steps you’ll need to do to produce this figure.</li>
-<li>Don’t worry if you can’t think of all the necessary steps or aren’t sure of the order. We’ll produce a collective outline of what we need to do before getting to the actual coding</li>
+<li>In this .qmd file, I’ll first ask you to outline, conceptually, all the steps you’ll need to do to produce this figure.</li>
+<li>Don’t worry if you can’t think of all the necessary steps or aren’t sure of the order. We’ll be working through this collectively</li>
 <li>When we do code, I’ll ask you to organize your code as outlined below:
 <ul>
 <li>Separate your steps into sections using the <code>#</code> headers in Markdown</li>
@@ -246,13 +246,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ul></li>
 <li><strong>Mapping concepts to code</strong>
 <ul>
-<li>Again you shouldn’t have to write much code. Just copy and paste from the labs and slides.</li>
+<li>You shouldn’t have to write much new code. Just copy and paste from the labs and slides.</li>
 <li>Your goal for today is to interpret that code and develop a mental map that allows you to say when I want to do this type of task (say “recode data”), I need to use some combination of these functions (<code>%&gt;%</code>, <code>mutate()</code>, maybe <code>group_by()</code> or <code>case_when()</code>)</li>
-<li>But shouldn’t we be writing our own code?! Yes. Sure. Eventually.</li>
-<li>The tutorials give you practice writing single commands, and by the end of the class you should be able write this code like this for to accomplish similar tasks</li>
-<li>But even then, you will not be writing code from memory. I still have to Google functions, and often search my old code to find a clever solution to task.</li>
-<li>Everyone starts learning to code by copying and pasting other people’s code.</li>
-<li>This will help minimize (but not eliminate) syntactic errors, while over time we get better writing code from scratch and fixing errors as the develop.</li>
 </ul></li>
 <li><strong>Practice wrangling data</strong>
 <ul>
@@ -277,39 +272,32 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ul></li>
 </ul>
 <p>We’ll work in pairs and periodically check in as a class to check our progress, review concepts, and share insights.</p>
-<p>For fun, let’s say that the first group that successfully recreates this figure gets to choose one of the following non-monetary prizes:</p>
-<ul>
-<li>I’ll tell them a joke</li>
-<li>One AMA I will answer truthfully</li>
-<li>One question to be asked on the weekly class survey</li>
-<li>0.00001% extra credit added to their final grade for the course.</li>
-</ul>
 <p>If we finish early, you’re free to go. If you want, we can take some time to <a href="https://www.r-graph-gallery.com/index.html" target="_blank">explore some additional figures</a> we might produce like <a href="https://jtr13.github.io/cc19/different-ways-of-plotting-u-s-map-in-r.html" target="_blank">maps</a> or <a href="https://www.r-graph-gallery.com/lollipop-plot.html" target="_blank">lollipop</a> plots.</p>
 <p>Ok, let’s begin!</p>
 </section>
-<section id="please-knit-this-.rmd-file" class="level1 unnumbered">
-<h1 class="unnumbered">Please knit this .Rmd file</h1>
+<section id="please-render-this-.qmd-file-to-produce-a-.html-file" class="level1 unnumbered">
+<h1 class="unnumbered">Please render this .qmd file to produce a .html file</h1>
 <p>For every lab:</p>
 <ul>
 <li>Download the file</li>
 <li>Save it in your course folder</li>
-<li>Knit the document</li>
+<li>Render the document</li>
 <li>Open the html file in your browser (Easier to read)</li>
-<li>Knit the document again after completing a section or chunk (Error checking)</li>
-<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1091286/assignments/7925685?module_item_id=10882025" target="_blank">Canvas</a>.</li>
+<li>Check <code>Render on Save</code> and render the document again after completing a section or chunk (Error checking)</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1094972/assignments" target="_blank">Canvas</a>.</li>
 </ul>
 </section>
 <section id="describe-the-components-of-the-figure-youre-trying-to-reprodce" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Describe the components of the figure you’re trying to reprodce</h1>
-<p>Recall, that we need <code>data</code>, <code>aesthetic</code> mappings and <code>geometries</code> to produce a figure</p>
+<p>Recall, that we need <code>data</code>, <code>aesthetic</code> mappings and <code>geometries</code> to produce a figure. You can find the code from lab 1 <a href="https://pols1600.paultesta.org/labs/01-lab-comments#uncomment-the-code-below-to-visualize-this-cases_by_month_and_policy">here</a></p>
 <ul>
+<li>What is the data set used? (Hint it’s a transformation of <code>covid_us</code>)</li>
 <li>What are the aesthetic mappings in this plot</li>
 <li>What is the geometry?</li>
-<li>What is the data set used? (Hint it’s a transformation of <code>covid_us</code>)</li>
 </ul>
 </section>
-<section id="outline-the-steps-you-will-need-to-complete-this-process" class="level1 unnumbered">
-<h1 class="unnumbered">Outline the steps you will need to complete this process</h1>
+<section id="outline-and-implement-the-steps-you-will-need-to-complete-this-process" class="level1 unnumbered">
+<h1 class="unnumbered">Outline and implement the steps you will need to complete this process</h1>
 </section>
 <section id="step-1" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Step 1</h1>
@@ -337,9 +325,16 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </div>
 </section>
 </section>
-<section id="class-survey" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> CLASS SURVEY</h1>
-<p>Finally, please take a moment to complete this week’s <a href="https://brown.co1.qualtrics.com/jfe/form/SV_cYlY1R3DBzmFthI">class survey</a></p>
+<section id="revise-the-figure-in-some-way" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Revise the figure in some way</h1>
+<ul>
+<li><p>Perhaps add a title and label. Or change the aesthetic mappings. Or maybe facet the figure by some other variable.</p></li>
+<li><p>Check out the examples from <a href="https://pols1600.paultesta.org/slides/02-slides#/dataviz-describing-distributions-and-associations">Tuesday’s slides</a></p></li>
+</ul>
+</section>
+<section id="class-survey" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> CLASS SURVEY</h1>
+<p>Finally, please take a moment to complete this week’s <a href="https://brown.co1.qualtrics.com/jfe/form/SV_a3ixUUmIktNBd7E">class survey</a></p>
 
 
 </section>
