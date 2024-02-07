@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Paul Testa">
   <title>POLS 1600 - Week 08:</title>
@@ -386,6 +386,8 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/kePrint/kePrint.js"></script>
+  <link href="../site_libs/lightable/lightable.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -766,21 +768,14 @@ Paul Testa
 <li class="fragment"><p>repeats are or are not allowed.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<table>
-<colgroup>
-<col style="width: 4%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 30%">
-<col style="width: 51%">
-</colgroup>
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">Order Matters</th>
-<th style="text-align: left;">Repetition Allowed</th>
-<th style="text-align: left;">Formula</th>
-<th style="text-align: left;">Example = {abc}</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Order Matters</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Repetition Allowed</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Formula</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Example = {abc}</th>
 </tr>
 </thead>
 <tbody>
@@ -788,32 +783,34 @@ Paul Testa
 <td style="text-align: left;">Permutation</td>
 <td style="text-align: left;">Yes</td>
 <td style="text-align: left;">Yes</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\({}_{n}P_k =  n^k\)</span></td>
-<td style="text-align: left;">P(3,3) = Pick three letters in order with replacement = <span class="math inline">\(3^3 = 27\)</span> permutations</td>
+<td style="text-align: left;">&amp;nbsp; ${}_{n}P_k = n^k$</td>
+<td style="text-align: left;">P(3,3) = Pick three letters in order with replacement = $3^3 = 27$ permutations</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Perumation</td>
 <td style="text-align: left;">Yes</td>
 <td style="text-align: left;">No</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\({}_{n}P_k = \frac{n!}{(n-k)!}\)</span></td>
-<td style="text-align: left;">P(3,3) = Pick three letters in order without replacement = <span class="math inline">\(\frac{3!}{(3-3)!} = \frac{3*2*1}{1} = 6\)</span> permutations</td>
+<td style="text-align: left;">&amp;nbsp; ${}_{n}P_k = \frac{n!}{(n-k)!}$</td>
+<td style="text-align: left;">P(3,3) = Pick three letters in order without replacement = $\frac{3!}{(3-3)!} = \frac{3*2*1}{1} = 6$ permutations</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Combination</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">No</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\({}_{n}C_k = \binom{n}{k} = \frac{{}_{n}P_k}{k!} \frac{n!}{k!(n-k)!}\)</span></td>
-<td style="text-align: left;">C(3,3) = Choose three letters without replacement = <span class="math inline">\(\frac{3!}{3!(3-3)!} = \frac{3*2*1}{3*2*1} = 1\)</span> combination</td>
+<td style="text-align: left;">&amp;nbsp; ${}_{n}C_k = \binom{n}{k} = \frac{{}_{n}P_k}{k!} \frac{n!}{k!(n-k)!}$</td>
+<td style="text-align: left;">C(3,3) = Choose three letters without replacement = $\frac{3!}{3!(3-3)!} = \frac{3*2*1}{3*2*1} = 1$ combination</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Combination</td>
 <td style="text-align: left;">No</td>
 <td style="text-align: left;">Yes</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\({}_{n}C_k = \binom{n + k - 1}{k} =\frac{(n + k -1)!}{k!(n-1)!}\)</span></td>
-<td style="text-align: left;">C(3,3) = Choose three letters with replacement = <span class="math inline">\(\frac{3+3 -1!}{3!(3-1)!} = \frac{5*4*3*2*1}{(3*2*1)(2*1)} = 10\)</span> combinations</td>
+<td style="text-align: left;">&amp;nbsp; ${}_{n}C_k = \binom{n + k - 1}{k} =\frac{(n + k -1)!}{k!(n-1)!}$</td>
+<td style="text-align: left;">C(3,3) = Choose three letters with replacement = $\frac{3+3 -1!}{3!(3-1)!} = \frac{5*4*3*2*1}{(3*2*1)(2*1)} = 10$ combinations</td>
 </tr>
 </tbody>
 </table>
+
+
 </div>
 </section>
 <section id="permutations-and-combinations" class="slide level2">
@@ -829,47 +826,42 @@ Paul Testa
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<table>
-<colgroup>
-<col style="width: 31%">
-<col style="width: 47%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 10%">
-</colgroup>
+<table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Randomization</th>
-<th style="text-align: left;">Total # of Treatment Assignments</th>
-<th style="text-align: left;">N=4</th>
-<th style="text-align: left;">N=8</th>
-<th style="text-align: left;">N=16</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Randomization</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Total # of Treatment Assignments</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">N=4</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">N=8</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">N=16</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Coin Flip</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\(N^2\)</span></td>
+<td style="text-align: left;">&amp;nbsp; $N^2$</td>
 <td style="text-align: left;">16</td>
 <td style="text-align: left;">256</td>
 <td style="text-align: left;">65,536</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Completely Randomized</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\(\binom{N}{N/2}\)</span></td>
+<td style="text-align: left;">&amp;nbsp; $\binom{N}{N/2}$</td>
 <td style="text-align: left;">6</td>
 <td style="text-align: left;">70</td>
 <td style="text-align: left;">12870</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Pair-Randomized</td>
-<td style="text-align: left;">&nbsp; <span class="math inline">\(2^{N/2}\)</span></td>
+<td style="text-align: left;">&amp;nbsp; $2^{N/2}$</td>
 <td style="text-align: left;">4</td>
 <td style="text-align: left;">16</td>
 <td style="text-align: left;">256</td>
 </tr>
 </tbody>
 </table>
+
+
 </div>
 </div>
 </section>
