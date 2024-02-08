@@ -171,8 +171,8 @@ assignments <- c(
 labs[2] <- " "
 comments[2] <- " "
 slides[seq(8,28, by=2)] <- as.character(fa("comments"))
-labs[seq(6,28, by=2)] <- as.character(fa("laptop-file"))
-comments[seq(6,28, by=2)] <- as.character(fa("graduation-cap"))
+labs[seq(8,28, by=2)] <- as.character(fa("laptop-file"))
+comments[seq(8,28, by=2)] <- as.character(fa("graduation-cap"))
 assignments <- rep(" ", 28)
 
 
