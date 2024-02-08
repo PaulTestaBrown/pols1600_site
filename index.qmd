@@ -71,13 +71,14 @@ Barus & Holley 751
 ```{r}
 #| echo: false
 #| include: false
+
 library(knitr)
 library(tidyverse)
 library(kableExtra)
-library(icons)
+# library(icons)
 library(fontawesome)
 start_date <- "2024-01-25"
-
+fa_html_dependency()
 week <- paste0("Week ", 0:13)
 topic <- c(
   "Introductions",
@@ -194,12 +195,12 @@ schedule_tibble <- tibble(
 #| results: asis
 kable(schedule_tibble,
       escape = F,
+      format = "html",
       align = "lcccc") |> 
   kable_styling(bootstrap_options = "striped") |> 
  row_spec(seq(1,27,by=2), bold = T) 
 
 ```
-
 # Instructors
 
 ::: grid
