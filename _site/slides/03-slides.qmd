@@ -95,7 +95,7 @@ groups_df |>
   pivot_wider(id_cols = Group,
               names_from = id,
               values_from = Name) -> groups_df
-
+# save(groups_df, file = "../files/groups.rda" )
 DT::datatable(groups_df)
 ```
 
