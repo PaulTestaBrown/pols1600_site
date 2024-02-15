@@ -64,8 +64,9 @@ library(easystats)
 
 -   Revised Schedule
     -   Lecture 3 today
+    -   Read {{< fa book >}} @Broockman2016-pi [pdf](../files/readings/broockman_kalla_2016.pdf){target="blank"}
     -   Lab 3 next week
-    -   Week 6/7 condensed
+    -   Week 4 content spread out over weeks 5/6/7 condensed
     -   More updates to come
 
 ## Group Assignments {.smaller}
