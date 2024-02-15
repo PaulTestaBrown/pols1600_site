@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600"
-subtitle: "Causal Inference in<br>o Experimental Designs"
+subtitle: "Causal Inference in<br>Experimental Designs"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
@@ -47,29 +47,28 @@ library(easystats)
 
 # {{< fa map-location>}} Overview {.inverse}
 
-## Class Plan{.smaller}
+## Class Plan {.smaller}
 
-- Announcements
-- Feedback
-- Review
-- Class plan
-  - Causal Inference
-  - Notation for Causal Inference
-  - Causal Identification
-  - Causal Identification in Experiments
-  - `resume` data from QSS
-  - Explore Broockman and Kalla (2016)
-
+-   Announcements
+-   Feedback
+-   Review
+-   Class plan
+    -   Causal Inference
+    -   Notation for Causal Inference
+    -   Causal Identification
+    -   Causal Identification in Experiments
+    -   `resume` data from QSS
+    -   Explore Broockman and Kalla (2016)
 
 ## Annoucements
 
-- Revised Schedule
-  - Lecture 3 today
-  - Lab 3 next week
-  - Week 6/7 condensed
-  - More updates to come
+-   Revised Schedule
+    -   Lecture 3 today
+    -   Lab 3 next week
+    -   Week 6/7 condensed
+    -   More updates to come
 
-## Group Assignments{.smaller}
+## Group Assignments {.smaller}
 
 ```{r}
 #| echo: false
@@ -100,7 +99,6 @@ groups_df |>
 DT::datatable(groups_df)
 ```
 
-
 # Feedback
 
 ```{r}
@@ -114,7 +112,7 @@ df %>%
   ) -> df
 ```
 
-## What did we like{.smaller}
+## What did we like {.smaller}
 
 ```{r}
 DT::datatable(df %>% 
@@ -140,7 +138,6 @@ DT::datatable(df %>%
               )
               )
 ```
-
 
 ## Setup
 
@@ -216,15 +213,14 @@ ipak <- function(pkg){
 ipak(the_packages)
 ```
 
-
 # {{< fa magnifying-glass>}} Review {.inverse}
 
 ## Review: Data wrangling
 
-## Data transformations{.smaller}
+## Data transformations {.smaller}
 
-:::::{.columns}
-::::{.column width=30%}
+::: columns
+::: {.column width="30%"}
 You want to:
 
 -   Load some data
@@ -236,13 +232,11 @@ You want to:
 -   Recode your data
 
 -   Transform your data
-::::
+:::
 
-
-
-::::{.column width=70%}
-::: {.fragment}
- You could use
+::: {.column width="70%"}
+::: fragment
+You could use
 
 -   `read_*` functions
 
@@ -253,57 +247,52 @@ You want to:
 -   `mutate()`, `case_when()`, `ifelse()`
 
 -   `summarize()`, `group_by()`
-
 :::
-::::
-:::::
+:::
+:::
 
-## Data Visualization{.smaller}
+## Data Visualization {.smaller}
 
-- The grammar of graphics
+-   The grammar of graphics
 
-- At minimum you need:
-  - `data`
-  - `aesthetic` mappings
-  - `geometries`
-  
-- Hey Jude, make a sad plot and make it better by:
-  - `labels`
-  - `themes`
-  - `statistics`
-  - `cooridnates`
-  - `facets`
-  - transforming your data before plotting
+-   At minimum you need:
+
+    -   `data`
+    -   `aesthetic` mappings
+    -   `geometries`
+
+-   Hey Jude, make a sad plot and make it better by:
+
+    -   `labels`
+    -   `themes`
+    -   `statistics`
+    -   `cooridnates`
+    -   `facets`
+    -   transforming your data before plotting
 
 # {{< fa lightbulb >}} Causal Inference {.inverse}
 
 ## Causal claims imply counterfactual comparisons
 
-::::{.columns}
-:::{.column width=40%}
-- Causal claims imply claims about counterfactuals
+::: columns
+::: {.column width="40%"}
+-   Causal claims imply claims about counterfactuals
 
-- What would have happened if we were to change some aspect of the world?
+-   What would have happened if we were to change some aspect of the world?
 :::
 
-:::{.column width=60%}
+::: {.column width="60%"}
 ![](https://media.philly.com/images/20150621-Groundhog-day.jpg){.fragment}
 :::
-::::
+:::
+
 ## What's the counter factual for these claims:
-
-
 
 -   Foreign aid increases develop
 
-
-
 -   Wikileaks cost Hillary Clinton the 2016 election
 
-
-
 -   Democracies don't fight wars with other democracies
-
 
 -   Universal Pre-K improves child development
 
@@ -361,8 +350,7 @@ In this course, we will use two forms of notation to describe our causal claims.
 
 ## Expected Values
 
-:::{.nonincremental}
-
+::: nonincremental
 -   The $E[Y]$ reads as "the expected value of Y"
 
 -   $E[Y]$ is defined as a probability weighted average based on the unconditional probability of Y ( $f(y)$ )
@@ -372,13 +360,12 @@ $$\operatorname{E}[Y] = \int_{-\infty}^\infty y f(y)\, dy$$
 
 ## Conditional Expectations
 
-:::{.nonincremental}
+::: nonincremental
 -   The $E[Y|X=x]$ reads as "the expected value of Y conditional on the value of X"
 
 -   $E[Y|X=x]$ is defined as a probability weighted average of Y based on the conditional probability of Y given X ( $y f_{Y|X}(y|x)$ )
 
 $$\operatorname{E}[Y \vert X=x] = \int_{-\infty}^\infty y f (y\vert x) \, dy$$
-
 :::
 
 ## Estimands, Estimators and Estimates {.smaller}
@@ -433,7 +420,6 @@ knitr::include_graphics("https://www.cs.cornell.edu/courses/cs4780/2018fa/lectur
 knitr::include_graphics("http://scott.fortmann-roe.com/docs/docs/BiasVariance/biasvariance.png")
 ```
 
-
 ## Potential outcomes notation {.smaller}
 
 -   $Y_i(1)$ describes individual $i$'s outcome, $Y_i$ if they [received the treatment]{.blue} $(D_i = 1)$
@@ -465,20 +451,19 @@ $$
 
 -   The ICE is [unidentified]{.blue}
 
-
 # {{< fa lightbulb >}} Causal Identification {.inverse}
 
 ## Identification
 
--  Identification refers to [what we can learn]{.blue} from the data available
+-   Identification refers to [what we can learn]{.blue} from the data available
 
-- A quantity of interest is [identified]{.blue} if, with infinite data it can only take one value
+-   A quantity of interest is [identified]{.blue} if, with infinite data it can only take one value
 
-- Mathematically, we'll sometimes say a coefficient in an equation is [unidentified]{.blue} if
+-   Mathematically, we'll sometimes say a coefficient in an equation is [unidentified]{.blue} if
 
-  - We have more predictors than observations, or
+    -   We have more predictors than observations, or
 
-  - Some of predictors are linear combinations of other predictors.
+    -   Some of predictors are linear combinations of other predictors.
 
 ## Causal Identification
 
@@ -508,7 +493,7 @@ The problem is that for any one individual, we only observe $Y_i(1)$ or $Y_i(0)$
 
 -   If Paul got the vaccine $(Y_{Paul}(Vaxxed)=\text{Covid Free})$, then we don't know what Paul's health status would have been, had he not got the vaccine $(Y_{Paul}(Unvaxxed) =???)$
 
-## A statistical solution to the FPoCI{.smaller}
+## A statistical solution to the FPoCI {.smaller}
 
 Rather than focus individual causal effects:
 
@@ -516,14 +501,11 @@ $$
 \tau_i \equiv Y_i(1) - Y_i(0)
 $$
 
-
-
-We focus on average causal effects (Average Treatment Effects [ATEs]):
+We focus on average causal effects (Average Treatment Effects \[ATEs\]):
 
 $$
 E[\tau_i] = \overbrace{E[Y_i(1) - Y_i(0)]}^{\text{Average of a difference}} = \overbrace{E[Y_i(1)] - E[Y_i(0)]}^{\text{Difference of Averages}}
 $$
-
 
 When does the difference of averages provide us with a good estimate of the average difference?
 
@@ -535,11 +517,11 @@ Let's consider a simple example
 
 -   $D_i$ whether a person ate [chocolate]{style="color: chocolate"} $(D=1)$ or [fruit]{style="color: purple"} $(D = 0)$
 
--   $Y_i(1)$ a person's happiness eating [chocolate]{style="color: chocolate"} 
+-   $Y_i(1)$ a person's happiness eating [chocolate]{style="color: chocolate"}
 
--   $Y_i(0)$ a person's happiness eating [fruit]{style="color: purple"} 
+-   $Y_i(0)$ a person's happiness eating [fruit]{style="color: purple"}
 
-- $X_i$ a person's self-reported preference $(X_i \in$ \{[chocolate]{style="color: chocolate"}, [fruit]{style="color:purple"} \})
+-   $X_i$ a person's self-reported preference $(X_i \in$ {[chocolate]{style="color: chocolate"}, [fruit]{style="color:purple"} })
 
 ```{r}
 #| echo=F
@@ -592,12 +574,10 @@ candy_tab$y <- cell_spec(
 
 ```
 
+##  {.smaller}
 
-## {.smaller}
-
-::::{.columns}
-
-:::{.column width=45%}
+::: columns
+::: {.column width="45%"}
 #### Potential Outcomes:
 
 ```{r}
@@ -624,25 +604,19 @@ kable(estimand_df,escape = F,
 ```
 :::
 
-:::{.column width=45%}
+::: {.column width="45%"}
+-   If we could observe everyone's potential outcomes, we could calculate the ICE
 
-- If we could observe everyone's potential outcomes, we could calculate the ICE 
+-   On average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)
 
-- On average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)
-
-- Suppose we conducted a study and let folks [select]{.blue} what they wanted to eat.
-
-
-
+-   Suppose we conducted a study and let folks [select]{.blue} what they wanted to eat.
+:::
 :::
 
-::::
+##  {.smaller}
 
-## {.smaller}
-
-::::{.columns}
-
-:::{.column width=45%}
+::: columns
+::: {.column width="45%"}
 #### Potential Outcomes:
 
 ```{r}
@@ -669,8 +643,38 @@ kable(estimand_df,escape = F,
 ```
 :::
 
-:::{.column width=45%}
-#### Observed Treatment: 
+::: {.column width="45%"}
+#### Observed Treatment:
+
+```{r}
+kable(candy_tab |> 
+        select(x, d,y)
+      ,escape = F,
+      format = "markdown",
+      col.names = c(
+        "$x_i$",
+        "$d_i$",
+        "$y_i$"
+      )) |> kable_styling()
+```
+
+```{r}
+kable(effects_df,escape = F,
+      format = "markdown",
+      digits = 2,
+      col.names = c("$\\bar{y}_{d=1}$",
+        "$\\bar{y}_{d=0}$",
+        "$\\hat{ATE}$")
+      ) |> kable_styling()
+```
+:::
+:::
+
+##  {.smaller}
+
+::: columns
+::: {.column width="45%"}
+#### Observed Treatment:
 
 ```{r}
 kable(candy_tab |> 
@@ -695,51 +699,19 @@ kable(effects_df,escape = F,
 ```
 :::
 
-::::
-
-## {.smaller}
-
-::::{.columns}
-
-
-:::{.column width=45%}
-#### Observed Treatment: 
-
-```{r}
-kable(candy_tab |> 
-        select(x, d,y)
-      ,escape = F,
-      format = "markdown",
-      col.names = c(
-        "$x_i$",
-        "$d_i$",
-        "$y_i$"
-      )) |> kable_styling()
-```
-
-```{r}
-kable(effects_df,escape = F,
-      format = "markdown",
-      digits = 2,
-      col.names = c("$\\bar{y}_{d=1}$",
-        "$\\bar{y}_{d=0}$",
-        "$\\hat{ATE}$")
-      ) |> kable_styling()
-```
-:::
-
-:::{.column width=45%}
+::: {.column width="45%"}
 #### Selection Bias
 
-- Our estimate of the ATE is [biased]{.blue} by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example
+-   Our estimate of the ATE is [biased]{.blue} by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example
 
-- In general, [selection bias]{.blue} occurs when folks who receive the treatment differ systematically from folks who don't
+-   In general, [selection bias]{.blue} occurs when folks who receive the treatment differ systematically from folks who don't
 
-- What if instead of letting people pick and choose, we [randomly assigned]{.blue} half our respondents to [chocolate]{style="color: chocolate"} and half to receive [fruit]{style="color: purple"}
+-   What if instead of letting people pick and choose, we [randomly assigned]{.blue} half our respondents to [chocolate]{style="color: chocolate"} and half to receive [fruit]{style="color: purple"}
 :::
-::::
+:::
 
-## {.smaller}
+##  {.smaller}
+
 ```{r}
 set.seed(12)
 candy_df |> 
@@ -782,10 +754,8 @@ candy_tab$y <- cell_spec(
 
 ```
 
-
-::::{.columns}
-
-:::{.column width=45%}
+::: columns
+::: {.column width="45%"}
 #### Potential Outcomes:
 
 ```{r}
@@ -812,7 +782,37 @@ kable(estimand_df,escape = F,
 ```
 :::
 
-:::{.column width=45%}
+::: {.column width="45%"}
+#### Randomly Assigned Treatment:
+
+```{r}
+kable(candy_tab |> 
+        select(x, d,y)
+      ,escape = F,
+      format = "markdown",
+      col.names = c(
+        "$x_i$",
+        "$d_i$",
+        "$y_i$"
+      )) |> kable_styling()
+```
+
+```{r}
+kable(effects_df,escape = F,
+      format = "markdown",
+      digits = 2,
+      col.names = c("$\\bar{y}_{d=1}$",
+        "$\\bar{y}_{d=0}$",
+        "$\\hat{ATE}$")
+      ) |> kable_styling()
+```
+:::
+:::
+
+##  {.smaller}
+
+::: columns
+::: {.column width="45%"}
 #### Randomly Assigned Treatment:
 
 ```{r}
@@ -838,58 +838,24 @@ kable(effects_df,escape = F,
 ```
 :::
 
-::::
-
-## {.smaller}
-
-::::{.columns}
-
-
-:::{.column width=45%}
-#### Randomly Assigned Treatment: 
-
-```{r}
-kable(candy_tab |> 
-        select(x, d,y)
-      ,escape = F,
-      format = "markdown",
-      col.names = c(
-        "$x_i$",
-        "$d_i$",
-        "$y_i$"
-      )) |> kable_styling()
-```
-
-```{r}
-kable(effects_df,escape = F,
-      format = "markdown",
-      digits = 2,
-      col.names = c("$\\bar{y}_{d=1}$",
-        "$\\bar{y}_{d=0}$",
-        "$\\hat{ATE}$")
-      ) |> kable_styling()
-```
-:::
-
-:::{.column width=45%}
+::: {.column width="45%"}
 #### Random Assignment
 
-- When treatment has been [randomly assigned]{.blue}, a difference in sample means provides an [unbiased]{.blue} estimate of the [ATE]{.blue}
+-   When treatment has been [randomly assigned]{.blue}, a difference in sample means provides an [unbiased]{.blue} estimate of the [ATE]{.blue}
 
-- The fact that our $\hat{ATE} = ATE$ in this example is pure coincidence. 
+-   The fact that our $\hat{ATE} = ATE$ in this example is pure coincidence.
 
-- If we randomly assigned treatment a different way, we'd get a different estimate.
+-   If we randomly assigned treatment a different way, we'd get a different estimate.
 
-- In general unbiased estimators will tend to be neither too high nor too low (e.g. $E[\hat{\theta} - \theta] = 0$])
+-   In general unbiased estimators will tend to be neither too high nor too low (e.g. $E[\hat{\theta} - \theta] = 0$\])
 :::
-::::
+:::
 
-## {.smaller}
+##  {.smaller}
 
-::::{.columns}
-
-:::{.column width=30%}
-#### Random Assignment 1 
+::: columns
+::: {.column width="30%"}
+#### Random Assignment 1
 
 ```{r}
 kable(candy_tab |> 
@@ -914,8 +880,8 @@ kable(effects_df,escape = F,
 ```
 :::
 
-:::{.column width=30%}
-#### Random Assignment 2 
+::: {.column width="30%"}
+#### Random Assignment 2
 
 ```{r}
 set.seed(123)
@@ -980,8 +946,8 @@ kable(effects_df,escape = F,
 ```
 :::
 
-:::{.column width=30%}
-#### Random Assignment 3 
+::: {.column width="30%"}
+#### Random Assignment 3
 
 ```{r}
 set.seed(123456)
@@ -1044,8 +1010,7 @@ kable(effects_df,escape = F,
       ) |> kable_styling()
 ```
 :::
-
-::::
+:::
 
 ## Distribution of Sample ATEs
 
@@ -1079,7 +1044,7 @@ plot_df |>
 
 ```
 
-## Why Random Assignment Matters?{.smaller}
+## Why Random Assignment Matters? {.smaller}
 
 Formally, randomly assigning treatments creates [statistical independence]{.blue} $(\unicode{x2AEB})$ between treatment ( $D$ ) and potential outcomes ( $Y(1),Y(0)$ ) as well as any observed ( $X$ ) or unobserved confounders ( $U$ ):
 
@@ -1087,38 +1052,38 @@ $$Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i$$
 
 Practically, what this means is that what we can observe ( differences in conditional means for [treated]{.blue} and [control]{.blue} ), provide good ([unbiased]{.blue}) estimates of what we're trying to learn about ([Average Treatment Effects]{.blue})
 
-
-## Causal Identification with Experimental Designs{.smaller}
+## Causal Identification with Experimental Designs {.smaller}
 
 Causal identification for experimental designs requires very few assumptions:
 
+-   [Independence]{.blue} (Satisfied by Randomization)
 
-- [Independence]{.blue} (Satisfied by Randomization)
+    -   $Y(1), Y(0),X,U, \perp D$
 
-  - $Y(1), Y(0),X,U, \perp D$
+-   [SUTVA]{.blue} Stable Unit Treatment Value Assumption (Depends on features of the design)
 
-- [SUTVA]{.blue} Stable Unit Treatment Value Assumption (Depends on features of the design)
-  - No interference between units $Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)$
-  - No hidden values of the treatment/Variation in the treatment
+    -   No interference between units $Y_i(d_1, d_2, \dots, d_N) = Y_i(d_i)$
+    -   No hidden values of the treatment/Variation in the treatment
 
 ## Random assignment creates testable implications {.smaller}
 
-- If treatment has been randomly assigned, we would expect treatment and control groups to [look similar]{.blue} in terms of [pre-treatment covariates]{.blue}
-  - We can show [covariate balance]{.blue} by comparing the means in each treatment group
+-   If treatment has been randomly assigned, we would expect treatment and control groups to [look similar]{.blue} in terms of [pre-treatment covariates]{.blue}
 
-- If the treatment had an effect, than we can credibly claim that that effect was due to the presence or absence of the treatment, and not some alternative explanation.
+    -   We can show [covariate balance]{.blue} by comparing the means in each treatment group
 
-- This type of clean [apples-to-apples]{.blue} counterfactual comparison is what people mean when they talk about an *experimental ideal*
+-   If the treatment had an effect, than we can credibly claim that that effect was due to the presence or absence of the treatment, and not some alternative explanation.
+
+-   This type of clean [apples-to-apples]{.blue} counterfactual comparison is what people mean when they talk about an *experimental ideal*
 
 ## No Causation without Manipulation?
 
-- "No causation without manipulation" - [Holland (1986)](https://www.jstor.org/stable/2289064)
-- Causal effects are well defined when we can imagine manipulating (changing) the value of $D_i$ and only $D_i$
-- But what about the "effects" of things like:
-  - Race
-  - Sex
-  - Democracy
-- Studying the effects of these factors requires strong theory and clever design [Sen and Wasow (2016)](https://scholar.harvard.edu/files/msen/files/race_causality.pdf)
+-   "No causation without manipulation" - [Holland (1986)](https://www.jstor.org/stable/2289064)
+-   Causal effects are well defined when we can imagine manipulating (changing) the value of $D_i$ and only $D_i$
+-   But what about the "effects" of things like:
+    -   Race
+    -   Sex
+    -   Democracy
+-   Studying the effects of these factors requires strong theory and clever design [Sen and Wasow (2016)](https://scholar.harvard.edu/files/msen/files/race_causality.pdf)
 
 # {{< fa code>}} Estimating ATEs with the `resume` data {.inverse}
 
@@ -1246,8 +1211,8 @@ table(base= resume$type, tidy= resume$type_tidy)
 ## Visualizing Call Back Rates by Name
 
 ::: panel-tabset
-
 ## Code
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -1267,6 +1232,7 @@ resume %>%
 ```
 
 ## Figure
+
 ```{r}
 #| echo: false
 resume %>%
@@ -1366,9 +1332,9 @@ pretreatment_balance
 
 ## Assessing balance in covariates
 
-:::panel-tabset
-
+::: panel-tabset
 ## Code
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -1411,13 +1377,8 @@ pretreatment_balance %>%
 
 -   Causal Claims involve [counterfactual comparisons]{.blue}
 
-
 -   The [fundamental problem of causal inference]{.blue} is that for an individual only observe one of many potential outcomes
-
-
 
 -   [Causal identification]{.blue} refers to the assumptions necessary to generate credible causal estimates
 
-
-
--  Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blueo}
+-   Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blueo}

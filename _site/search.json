@@ -543,11 +543,23 @@
     ]
   },
   {
+    "objectID": "class/01-class.html#slides",
+    "href": "class/01-class.html#slides",
+    "title": "Data and Measurement",
+    "section": "Slides",
+    "text": "Slides\n\n View all slides in new window",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "1: Data & Measurement"
+    ]
+  },
+  {
     "objectID": "class/01-class.html#lecture",
     "href": "class/01-class.html#lecture",
     "title": "Data and Measurement",
     "section": "Lecture",
-    "text": "Lecture\n\n View all slides in new window",
+    "text": "Lecture",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -4321,7 +4333,7 @@
     "href": "index.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
   },
   {
     "objectID": "assignments/A1_Research_Questions.html",
@@ -4784,7 +4796,7 @@
     "href": "labs/03-lab.html",
     "title": "Lab 03 - Replicating Broockman and Kalla (2016)",
     "section": "",
-    "text": "Today we will explore the logic and design of Broockman and Kalla’s 2016 study, “Durably reducing transphobia: A field experiment on door-to-door canvassing”, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore whether the intervention had any effect on respondents’ feelings toward transgender individuals.\nTo accomplish this we will:\n\nSummarize the study (5 Minutes)\nSet up our work space (2-3 Minutes)\nLoad a portion of the replication data (1-2 Minutes)\nGet a high level overview of the data (5 minutes)\nDescribe the distribution of covariates in the full dataset (5 minutes)\nExamine the difference in covariates between those who did and did not complete the survey (10 minutes)\nExamine the difference in covariates between those assigned to each treatment condition in the study. (10 minutes)\nEstimate the average treatment effect of the intervention (10 minutes)\nPlot the results and comment on the study (10 minutes)\nTake the weekly survey (3-5 minutes)\n\nOne of these 9 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.\nYou will work in your assigned groups. Only one member of each group needs to submit the html file of lab.\nThis lab must contain the names of the group members in attendance.\nIf you are attending remotely, you will submit your labs individually.\nHere are your assigned groups for the semester.\n\n\nError in `tibble::tibble()`:\n! Tibble columns must have compatible sizes.\n• Size 4: Existing data.\n• Size 5: Column `Group 7`.\nℹ Only values of size one are recycled.\n\n\nError in eval(expr, envir, enclos): object 'groups_df' not found"
+    "text": "Today we will explore the logic and design of Broockman and Kalla’s 2016 study, “Durably reducing transphobia: A field experiment on door-to-door canvassing”, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore whether the intervention had any effect on respondents’ feelings toward transgender individuals.\nTo accomplish this we will:\n\nSummarize the study (5 Minutes)\nSet up our work space (2-3 Minutes)\nLoad a portion of the replication data (1-2 Minutes)\nGet a high level overview of the data (5 minutes)\nDescribe the distribution of covariates in the full dataset (5 minutes)\nExamine the difference in covariates between those who did and did not complete the survey (10 minutes)\nExamine the difference in covariates between those assigned to each treatment condition in the study. (10 minutes)\nEstimate the average treatment effect of the intervention (10 minutes)\nPlot the results and comment on the study (10 minutes)\nTake the weekly survey (3-5 minutes)\n\nOne of these 9 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.\nYou will work in your assigned groups. Only one member of each group needs to submit the html file of lab.\nThis lab must contain the names of the group members in attendance.\nIf you are attending remotely, you will submit your labs individually.\nHere are your assigned groups for the semester.\n\n\nWarning in load(url(\"https://pols1600.paultesta.org/files/groups.rda\")): cannot\nopen URL 'https://pols1600.paultesta.org/files/groups.rda': HTTP status was\n'404 Not Found'\n\n\nError in load(url(\"https://pols1600.paultesta.org/files/groups.rda\")): cannot open the connection to 'https://pols1600.paultesta.org/files/groups.rda'\n\n\nError in eval(expr, envir, enclos): object 'groups_df' not found"
   },
   {
     "objectID": "labs/03-lab.html#footnotes",
@@ -8896,9 +8908,9 @@
   {
     "objectID": "class/03-class.html",
     "href": "class/03-class.html",
-    "title": "Data and Measurement",
+    "title": "Causation I",
     "section": "",
-    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "text": "Imai (2022) Chapter 2\n Broockman and Kalla (2016) pdf",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -8908,9 +8920,9 @@
   {
     "objectID": "class/03-class.html#readings",
     "href": "class/03-class.html#readings",
-    "title": "Data and Measurement",
+    "title": "Causation I",
     "section": "",
-    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "text": "Imai (2022) Chapter 2\n Broockman and Kalla (2016) pdf",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -8920,7 +8932,7 @@
   {
     "objectID": "class/03-class.html#lecture",
     "href": "class/03-class.html#lecture",
-    "title": "Data and Measurement",
+    "title": "Causation I",
     "section": "Lecture",
     "text": "Lecture\n\n View all slides in new window",
     "crumbs": [
@@ -8932,7 +8944,7 @@
   {
     "objectID": "class/03-class.html#lab",
     "href": "class/03-class.html#lab",
-    "title": "Data and Measurement",
+    "title": "Causation I",
     "section": "Lab",
     "text": "Lab\n\n Download this week’s here \n Upload the rendered html file to Canvas here\n Review the commented solutions after class here",
     "crumbs": [
@@ -8944,9 +8956,9 @@
   {
     "objectID": "class/03-class.html#assignments",
     "href": "class/03-class.html#assignments",
-    "title": "Data and Measurement",
+    "title": "Causation I",
     "section": "Assignments",
-    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"01-measurement1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
+    "text": "Assignments\n\n Complete QSS Tutorial 3: Causality 1\n\n\nlearnr::run_tutorial(\"03-causality1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -9016,9 +9028,9 @@
   {
     "objectID": "class/02-class.html",
     "href": "class/02-class.html",
-    "title": "Data and Measurement",
+    "title": "Data Visualization",
     "section": "",
-    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "text": "Imai (2022) Chapter 3\n R 4 Data Science Chapter 3 (Optional but very helpful)",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -9028,9 +9040,21 @@
   {
     "objectID": "class/02-class.html#readings",
     "href": "class/02-class.html#readings",
-    "title": "Data and Measurement",
+    "title": "Data Visualization",
     "section": "",
-    "text": "Imai (2022) Chapter 1 here’s a free version of an older, non-tidyverse version",
+    "text": "Imai (2022) Chapter 3\n R 4 Data Science Chapter 3 (Optional but very helpful)",
+    "crumbs": [
+      "Class",
+      "Weekly Content",
+      "2: Data Visualization"
+    ]
+  },
+  {
+    "objectID": "class/02-class.html#slides",
+    "href": "class/02-class.html#slides",
+    "title": "Data Visualization",
+    "section": "Slides",
+    "text": "Slides\n\n View all slides in new window",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -9040,9 +9064,9 @@
   {
     "objectID": "class/02-class.html#lecture",
     "href": "class/02-class.html#lecture",
-    "title": "Data and Measurement",
+    "title": "Data Visualization",
     "section": "Lecture",
-    "text": "Lecture\n\n View all slides in new window",
+    "text": "Lecture",
     "crumbs": [
       "Class",
       "Weekly Content",
@@ -9052,7 +9076,7 @@
   {
     "objectID": "class/02-class.html#lab",
     "href": "class/02-class.html#lab",
-    "title": "Data and Measurement",
+    "title": "Data Visualization",
     "section": "Lab",
     "text": "Lab\n\n Download this week’s here \n Upload the rendered html file to Canvas here\n Review the commented solutions after class here",
     "crumbs": [
@@ -9064,9 +9088,9 @@
   {
     "objectID": "class/02-class.html#assignments",
     "href": "class/02-class.html#assignments",
-    "title": "Data and Measurement",
+    "title": "Data Visualization",
     "section": "Assignments",
-    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"01-measurement1\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
+    "text": "Assignments\n\n Work through Software Setup before class next week\n Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 2: Measurement II\n\n\n# After completing the software setup you should be able to to run the following to launch the tutorials\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\nlearnr::run_tutorial(\"02-measurement2\", package = \"qsslearnr\")\n\n\n Upload the rendered html tutorial files to Canvas here",
     "crumbs": [
       "Class",
       "Weekly Content",

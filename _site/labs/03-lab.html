@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Group Members Names Here">
-<meta name="dcterms.date" content="2024-01-24">
+<meta name="dcterms.date" content="2024-02-15">
 
 <title>POLS 1600 - Lab 03 - Replicating Broockman and Kalla (2016)</title>
 <style>
@@ -136,7 +136,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -179,8 +179,9 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
@@ -196,13 +197,9 @@ window.Quarto = {
   <li><a href="#examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study." id="toc-examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study." class="nav-link" data-scroll-target="#examine-the-difference-in-covariates-between-those-assigned-to-each-treatment-condition-in-the-study."><span class="header-section-number">7</span> Examine the difference in covariates between those assigned to each treatment condition in the study.</a></li>
   <li><a href="#calculate-the-average-treatment-effect" id="toc-calculate-the-average-treatment-effect" class="nav-link" data-scroll-target="#calculate-the-average-treatment-effect"><span class="header-section-number">8</span> Calculate the Average Treatment Effect</a></li>
   <li><a href="#plot-the-results-and-comment-on-the-study" id="toc-plot-the-results-and-comment-on-the-study" class="nav-link" data-scroll-target="#plot-the-results-and-comment-on-the-study"><span class="header-section-number">9</span> Plot the results and comment on the study</a></li>
-  <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey"><span class="header-section-number">10</span> Take the Class Survey</a></li>
+  <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey">Take the Class Survey</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -226,7 +223,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 24, 2024</p>
+      <p class="date">February 15, 2024</p>
     </div>
   </div>
   
@@ -238,9 +235,6 @@ window.Quarto = {
 </header>
 
 
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
 <p>Today we will explore <strong>the logic and design</strong> of Broockman and Kalla’s 2016 study, <a href="https://www.science.org/doi/10.1126/science.aad9713" target="_blank">“Durably reducing transphobia: A field experiment on door-to-door canvassing”</a>, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore <strong>whether the intervention had any effect on respondents’ feelings toward transgender individuals.</strong></p>
@@ -263,12 +257,13 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>If you are attending remotely, you will submit your labs individually.</p>
 <p>Here are your assigned groups for the semester.</p>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in load(url("https://pols1600.paultesta.org/files/groups.rda")): cannot
+open URL 'https://pols1600.paultesta.org/files/groups.rda': HTTP status was
+'404 Not Found'</code></pre>
+</div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `tibble::tibble()`:
-! Tibble columns must have compatible sizes.
-• Size 4: Existing data.
-• Size 5: Column `Group 7`.
-ℹ Only values of size one are recycled.</code></pre>
+<pre><code>Error in load(url("https://pols1600.paultesta.org/files/groups.rda")): cannot open the connection to 'https://pols1600.paultesta.org/files/groups.rda'</code></pre>
 </div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'groups_df' not found</code></pre>
@@ -328,22 +323,10 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbr
 <h1 data-number="2"><span class="header-section-number">2</span> Set up your workspace</h1>
 <p>Here is some minimal code so that your lab will compile when you first knit it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
-<li><strong>In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides <a href="https://pols1600.paultesta.org/slides/03-slides.html#14" target="_blank">here</a></strong></li>
+<li><strong>In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides <a href="https://pols1600.paultesta.org/slides/03-slides#/packages-for-today" target="_blank">here</a></strong></li>
 </ol>
 <hr>
 </section>
@@ -643,9 +626,9 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&amp;=\overbr
 <li><strong>Do you think the results would “travel” to other topics and issues?</strong></li>
 </ul>
 </section>
-<section id="take-the-class-survey" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Take the Class Survey</h1>
-<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_0f8mrDmAAwGpcpw" target="_blank">class survey</a> for this week.</p>
+<section id="take-the-class-survey" class="level1 unnumbered">
+<h1 class="unnumbered">Take the Class Survey</h1>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_b4bgr3yL24atI1M" target="_blank">class survey</a> for this week.</p>
 
 
 </section>

@@ -35,7 +35,7 @@ comments <- paste0(
 
 -   {{< fa book >}} @Imai2022-pm Chapter 1 [here's a free version of an older, non-tidyverse version](files/readings/QSS_ch01_and_ch03.pdf)
 
-## Lecture
+## Slides
 
 ```{r }
 #| label: show-slide-tabs
@@ -45,6 +45,10 @@ slide_buttons(paste0("/slides/", wk, "-slides"))
 slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ```
+
+## Lecture
+
+<iframe src="https://brown.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=adbbafc1-00f5-4794-bc8a-b10701052715&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen allow="autoplay" aria-label="Panopto Embedded Video Player"></iframe>
 
 ## Lab
 

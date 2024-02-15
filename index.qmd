@@ -171,8 +171,8 @@ assignments <- c(
 #
 labs[2] <- " "
 comments[2] <- " "
-slides[seq(8,28, by=2)] <- as.character(fa("comments"))
-labs[seq(8,28, by=2)] <- as.character(fa("laptop-file"))
+slides[seq(10,28, by=2)] <- as.character(fa("comments"))
+labs[seq(10,28, by=2)] <- as.character(fa("laptop-file"))
 comments[seq(8,28, by=2)] <- as.character(fa("graduation-cap"))
 assignments <- rep(" ", 28)
 
@@ -201,6 +201,7 @@ kable(schedule_tibble,
  row_spec(seq(1,27,by=2), bold = T) 
 
 ```
+
 # Instructors
 
 ::: grid

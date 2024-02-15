@@ -1,14 +1,14 @@
 ---
-title: "Data and Measurement"
+title: "Causation I"
 date: "2024-01-30"
 bibliography: ../files/paperpile.bib
-subtitle: "How do we describe the world around us."
+subtitle: "Making Causal Claims with Experimental Designs"
 image: "featured.jpg"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
-wk <- "01"
+wk <- "03"
 lab <- paste0(
     "<a href=\"",
     paste0(
@@ -31,16 +31,12 @@ comments <- paste0(
   )
 ```
 
-
-
 ## Readings
 
--   {{< fa book >}} @Imai2022-pm Chapter 1 [here's a free version of an older, non-tidyverse version](files/readings/QSS_ch01_and_ch03.pdf)
-
-
+-   {{< fa book >}} @Imai2022-pm Chapter 2
+-   {{< fa book >}} @Broockman2016-pi [pdf](../files/readings/broockman_kalla_2016.pdf){target="blank"}
 
 ## Lecture
-
 
 ```{r }
 #| label: show-slide-tabs
@@ -51,34 +47,24 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ```
 
-
-
 ## Lab
-
 
 -   {{< fa laptop-file >}} Download this week's `r lab`
 
-- {{< fa paintbrush >}} Upload the rendered html file to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments) 
-- {{< fa graduation-cap >}} Review the commented solutions after class `r comments`
+-   {{< fa paintbrush >}} Upload the rendered html file to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments)
 
+-   {{< fa graduation-cap >}} Review the commented solutions after class `r comments`
 
 ## Assignments
 
-- {{< fa lightbulb >}} Work through [Software Setup](../resources/00-software-setup.qmd) before class next week
 
-- {{< fa chalkboard-user >}} Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1
+-   {{< fa chalkboard-user >}} Complete QSS Tutorial 3: Causality 1
 
 ```{r}
 #| eval: false
 
-# After completing the software setup you should be able to to run the following to launch the tutorials
-
-learnr::run_tutorial("00-intro", package = "qsslearnr")
-
-learnr::run_tutorial("01-measurement1", package = "qsslearnr")
+learnr::run_tutorial("03-causality1", package = "qsslearnr")
 
 ```
 
-- {{< fa paintbrush >}} Upload the rendered html tutorial files to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments) 
-
-
+-   {{< fa paintbrush >}} Upload the rendered html tutorial files to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments)
