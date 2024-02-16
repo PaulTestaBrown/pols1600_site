@@ -9182,5 +9182,12 @@
     "title": "POLS 1600",
     "section": "References",
     "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nBroockman, David, and Joshua Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing.” Science 352 (6282): 220–24."
+  },
+  {
+    "objectID": "slides/03-slides.html#estimating-an-average-treatment-effect",
+    "href": "slides/03-slides.html#estimating-an-average-treatment-effect",
+    "title": "POLS 1600",
+    "section": "Estimating an Average Treatment Effect",
+    "text": "Estimating an Average Treatment Effect\nIf we treatment has been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:\n\\[\n\\begin{align*}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{align*}\n\\]\nThat is, the ATE is causally identified by the difference of means estimator in an experimental design"
   }
 ]
