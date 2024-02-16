@@ -85,7 +85,7 @@ format:
     css: styles.css
     toc: false
 
-editor: visual
+editor: source
 
 resources:
   - "/assets"
