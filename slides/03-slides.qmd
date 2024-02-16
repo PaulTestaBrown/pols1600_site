@@ -1382,4 +1382,6 @@ pretreatment_balance %>%
 
 -   [Causal identification]{.blue} refers to the assumptions necessary to generate credible causal estimates
 
--   Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blueo}
+-   Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blue}
+
+## References

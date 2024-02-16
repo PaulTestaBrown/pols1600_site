@@ -1533,7 +1533,7 @@
     "href": "slides/03-slides.html#summary-1",
     "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\nCausal Claims involve counterfactual comparisons\nThe fundamental problem of causal inference is that for an individual only observe one of many potential outcomes\nCausal identification refers to the assumptions necessary to generate credible causal estimates\nIdentification for experimental designs follows from the random assignment of treatment which allows us to produce unbiased estimates of the Average Treatment Effect\n\n\n\n\n\nPOLS 1600\n\n\n\n\nBroockman, David, and Joshua Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing.” Science 352 (6282): 220–24."
+    "text": "Summary\n\nCausal Claims involve counterfactual comparisons\nThe fundamental problem of causal inference is that for an individual only observe one of many potential outcomes\nCausal identification refers to the assumptions necessary to generate credible causal estimates\nIdentification for experimental designs follows from the random assignment of treatment which allows us to produce unbiased estimates of the Average Treatment Effect"
   },
   {
     "objectID": "slides/09-slides.html#general-plan",
@@ -9175,5 +9175,12 @@
       "Weekly Content",
       "3: Causation -- Experiments"
     ]
+  },
+  {
+    "objectID": "slides/03-slides.html#references",
+    "href": "slides/03-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nBroockman, David, and Joshua Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing.” Science 352 (6282): 220–24."
   }
 ]
