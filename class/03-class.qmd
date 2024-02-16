@@ -36,7 +36,7 @@ comments <- paste0(
 -   {{< fa book >}} @Imai2022-pm Chapter 2
 -   {{< fa book >}} @Broockman2016-pi [pdf](../files/readings/broockman_kalla_2016.pdf){target="blank"}
 
-## Lecture
+## Slides
 
 ```{r }
 #| label: show-slide-tabs
@@ -46,6 +46,10 @@ slide_buttons(paste0("/slides/", wk, "-slides"))
 slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ```
+
+## Lecture
+
+<iframe src="https://brown.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=c4552193-24fa-480c-a70e-b11701054c21&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" height="405" width="720" style="border: 1px solid #464646;" allowfullscreen allow="autoplay" aria-label="Panopto Embedded Video Player"></iframe>
 
 ## Lab
 
