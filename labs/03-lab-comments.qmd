@@ -5,16 +5,16 @@ date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
 ---
 
 ```{r}
-#| label = "setup",
-#| include = FALSE,
-#| cache = FALSE
+#| label: setup
+#| include: false
+#| cache: false
 knitr::opts_chunk$set(error = TRUE, 
                       comment = NA, 
                       warnings = FALSE, 
@@ -22,13 +22,9 @@ knitr::opts_chunk$set(error = TRUE,
                       messages = FALSE, 
                       cache = TRUE,
                       tidy = FALSE)
+
 ```
 
-```{=html}
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
-```
 # Overview {.unnumbered}
 
 Today we will explore **the logic and design** of Broockman and Kalla's 2016 study, ["Durably reducing transphobia: A field experiment on door-to-door canvassing"](https://www.science.org/doi/10.1126/science.aad9713){target="_blank"}, from the recruitment of subjects for the study to the delivery of their interventions. Then we will explore **whether the intervention had any effect on respondents' feelings toward transgender individuals.**
@@ -46,11 +42,12 @@ To accomplish this we will:
 9.  Plot the results and comment on the study (10 minutes)
 10. Take the weekly survey (3-5 minutes)
 
-One of these 9 tasks (excluding the weekly) will be randomly selected as the graded question for the lab.
+One of these 9 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
 
 ```{r}
-#| label = "graded"
-set.seed(20220217)
+#| label: graded
+
+set.seed(22022024)
 graded_question <- sample(1:9,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
@@ -64,17 +61,11 @@ If you are attending remotely, you will submit your labs individually.
 Here are your assigned groups for the semester.
 
 ```{r}
-#| label = "groups",
-#| echo = F
-groups_df <- tibble::tibble(
-`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman"),
-`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo"),
-`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier"),
-`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen"),
-`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky"),
-`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama"),
-`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
-)
+#| label: groups
+#| echo: false
+#| message: false
+
+groups_df <- read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```
@@ -102,20 +93,20 @@ We'll see that these quantities can be calculated quickly for multiple variables
 
 -   We will use the `group_by` and `summarise` commands to quickly calculate average values for different groups, and the `mutate` function to calculate differences between these averages
 -   We will introduce the `across()` and `starts_with()` functions to calculate summaries like a `mean` across multiple variables that start the the same pre-fixes.
--   We will introduce the `pivot_longer()`, `pivot_wider()` and `left_join` commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column
--   We will use functions from the `ggplot` package to graphically display our results.
+-   We will introduce the `pivot_longer()`, `pivot_wider()` and `left_join()` commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column
+-   We will use `ggplot()` and related functions to graphically display our results.
 
-# Please knit this .Rmd file {.unnumbered}
+# Please render this .qmd file {.unnumbered}
 
 As with every lab, you should:
 
 -   Download the file
 -   Save it in your course folder
 -   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
--   Knit the document
+-   Render the document (Check `[X] Render on Save`)
 -   Open the html file in your browser (Easier to read)
--   Knit the document again after completing a section or chunk (Error checking)
--   Upload the final lab to \[Canvas\]https://canvas.brown.edu/courses/1091286/assignments/7925686?module_item_id=10882030){target="\_blank"}.
+-   Render the document again after completing a section or chunk (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
 
 # Summarize the study
 
@@ -131,15 +122,15 @@ Before we get started working with the data, please provide some brief answers (
 Here is some minimal code so that your lab will compile when you first knit it.
 
 ```{r}
-#| label = "tidverse"
+#| label:  tidverse
 library(tidyverse)
 ```
 
 1.  **In the code chunk below, please set up your work space by loading more packages, following the steps outlined in the slides [here](https://pols1600.paultesta.org/slides/03-slides.html#13){target="_blank"}**
 
 ```{r}
-#| label = "extendedsetup",
-#| message = F
+#| label: extendedsetup
+#| message: false
 # Set working directory
 wd <- "." # Change to file path on your computer
 setwd(wd)
@@ -182,7 +173,7 @@ Next we'll load the data for today, which is a subset of Broockman and Kalla's f
 1.  **Please run the code chunk below to load the data** That's it. That's the task for this question
 
 ```{r}
-#| label = "data"
+#| label: data
 load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
 ```
 
@@ -227,7 +218,8 @@ And a placebo condition in which canvassers instead delivered a message about re
 8.  **How many participants actually received each treatment condition?** `r scales::comma(table(df$treatment_group)[2])` registered voters received the Trans-Equality treatment and `r scales::comma(table(df$treatment_group)[1])` received the placebo message about recycling.
 
 ```{r}
-#| label = "hlo"
+#| label: hlo
+
 # 1. How many observations are there in `df`?
 dim(df)[1]
 
@@ -277,7 +269,8 @@ The code below quickly calculates the mean for each of these voter file variable
 -   `across()` tells `summarise()` to calculate the `mean` for every column in `df` that `starts_with()` `vf_`
 
 ```{r}
-#| label = "cov_vf1"
+#| label: cov_vf1
+
 df %>%
   # Calculate means for voter file variables
   summarise(across(starts_with("vf_"), mean))
@@ -286,7 +279,8 @@ df %>%
 Next I [**gather**](https://r4ds.had.co.nz/tidy-data.html?q=gather%20#pivoting){target="_blank"} the columns together using the `pivot_longer()` command which pivots the columns which `starts_with("vf")` into a column named `Covariates` and puts their associated values into a column named `Voter File Means`
 
 ```{r}
-#| label = "cov_vf2"
+#| label: cov_vf2
+
 df %>%
   # Calculate means for voter file variables
   summarise(across(starts_with("vf_"), mean))%>%
@@ -309,7 +303,8 @@ Now let's examine the difference in these covariates between registered voters w
 The code below uses `group_by(completed_baseline)` to adapt the code from the previous section to calculate the covariate averages **separately** for respondents who did and did not complete the baseline survey.
 
 ```{r}
-#| label = "cov_baseline1"
+#| label: cov_baseline1
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
@@ -320,7 +315,8 @@ df %>%
 Next we **reshape the data** gathering the values for all the columns **except** the `completed_baseline` column
 
 ```{r}
-#| label = "cov_baseline2"
+#| label: cov_baseline2
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
@@ -339,7 +335,8 @@ Then we spread the values of the `completed_baseline` into separate columns usin
 The column `No Survey` contains the mean value of each covariate for registered voters who did not complete the survey, and the `Survey` column contains averages for registered voters who completed the baseline.
 
 ```{r}
-#| label = "cov_baseline3"
+#| label: cov_baseline3
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
@@ -361,7 +358,8 @@ df %>%
 Next we calculate the difference in means between Non Survey takers and survey takers using the `mutate()` function to create a column called `Difference` and save this output to an an object called `cov_baseline`
 
 ```{r}
-#| label = "cov_baseline4"
+#| label: cov_baseline4
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
@@ -389,7 +387,8 @@ cov_baseline
 Finally, I [**join**](https://r4ds.had.co.nz/relational-data.html#outer-join){target="blank"} the values from `cov_baseline` into `cov_vf` using the shared column `Covariate`
 
 ```{r}
-#| label = "cov_baseline5"
+#| label: cov_baseline5
+
 cov_balance <- cov_vf %>% 
   left_join(cov_baseline,
             by = c("Covariate" = "Covariate")
@@ -411,7 +410,8 @@ Again, we'll talk about this later, but the `Estimate` divided by its standard e
 We quantify this evidence with a `p value` (`Pr(>|t|)`) which is a conditional probablity (again more to come) of observing the test statistic we did, if some claim about the world (here a null hypotesis that there's no difference between survey takers and non survey takers) was true. Again by convention, we take a `p value` less than 0.05 has evidence that the difference we observed was unlikely to happen by chance. The p-values for all of these differences are below that threshold, suggesting a substantive difference between people who did and did not take the survey.
 
 ```{r}
-#| label = "diff1"
+#| label: diff1
+
 # If needed install the estimator package
 if(!require(estimatr)){install.packages("estimatr")}
 library(estimatr)
@@ -425,7 +425,7 @@ difference_in_means(vf_vg_12 ~ completed_baseline, df)
 Just for *fun* here's some code to calculate lots of differences in means programatically.
 
 ```{r}
-#| label = "diff2"
+#| label: diff2
 # If you don't have the purrr package, install it
 if(!require(purrr)){install.packages("purrr")}
 # Load the purr package
@@ -467,7 +467,8 @@ To accomplish this you will need to do the following:
 -   Change `-> cov_baseline` to `-> cov_treatment`
 
 ```{r}
-#| label = "baltreat"
+#| label: baltreat
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(treatment_assigned) %>%
@@ -507,7 +508,8 @@ A more formal test of these differences show none rise to conventional levels of
 In short, randomization appears to have succeeded in creating groups that are balanced on observable covariates
 
 ```{r}
-#| label = "baltreat1"
+#| label: baltreat1
+
 df %>%
   # Get the select the columns whose names start with vf_
   select(starts_with("vf_"))%>%
@@ -525,7 +527,8 @@ df %>%
 Among those who actually answered the door when canvassers came, we see that that those who received the Trans Equality treatment tended to be less likely to have voted in the 2012 election and this difference seems unlikely to have occurred just by chance (p \< 0.05).
 
 ```{r}
-#| label = "baltreat2"
+#| label: baltreat2
+
 df %>%
   # Get the select the columns whose names start with vf_
   select(starts_with("vf_"))%>%
@@ -544,14 +547,15 @@ If there there large differences across multiple covariates, we might worry that
 
 Even if we're confident these differences aren't something systematic, we can, as Broockman and Kalla do, adjust our estimates to control for these small differences to ensure that we're isolating the effect of the treatment and not conflating this with other chance variations the voting histories or demographics of the subjects in the treatment and the control.
 
-Statistically significant differences happen do happen by chance: 1 time out of 20 we'd expect a p-value below 0.05 even when there was no real difference.
+Statistically significant differences do happen by chance: 1 time out of 20 we'd expect a p-value below 0.05 even when there was no real difference.
 
-The probablity of a false positive (i.e. of detecting a difference that isn't there) increases as we make more comparisons (test multiple differences)
+The probability of a false positive (i.e. of detecting a difference that isn't there) increases as we make more comparisons (test multiple differences)
 
 We can [adjust our p values for these multiple](https://benwhalley.github.io/just-enough-r/multiple-comparisons.html){target="_blank"} to control for this increased probablity of making false discoveries. When we do, the differences in voting rates are no longer statistically significant.
 
 ```{r}
-#| label = "baltreat3"
+#| label: baltreat3
+
 df %>%
   # Get the select the columns whose names start with vf_
   select(starts_with("vf_"))%>%
@@ -576,7 +580,7 @@ Now let's take the same approach to calculate the Average Treatment Effect (ATE)
 Using the code from the previous sections as a template,
 
 -   Add a `filter(!is.na(treatment_group))%>%` after `df%>%` to filter out subjects who didn't receive the treatment.[^3]
--   Change `summarise(across(starts_with("vf_"), mean))%>%` code to select variables that start with `therm_trans`
+-   Change `summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T))%>%` code to select variables that start with `therm_trans`
 -   Change the `cols` argument in `pivot_longer()` to select the columns that start with `therm_trans`
 -   Everywhere you see `treatment_assigned` in the code replace it with `treatement_group`
 -   In the `mutate()` function, change:
@@ -587,13 +591,14 @@ Using the code from the previous sections as a template,
 [^3]: Recall that only some people who completed the baseline and were assigned to receive the treatment actually answered the door when canvassers came knocking.
 
 ```{r}
-#| label = "ate"
+#| label: ate
+
 df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(treatment_assigned) %>%
   filter(!is.na(treatment_assigned)) %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("therm_trans"), mean, na.rm=T))%>%
+  summarise(across(starts_with("therm_trans"), \(x) mean(x, na.rm=T)))%>%
   pivot_longer(
     cols = starts_with("therm_trans"),
     names_to = "Covariate",
@@ -627,7 +632,8 @@ Using `ate_df` with commands from the `ggplot` package please produce a figure t
 Here's a simple plot visualzing the ATE's
 
 ```{r}
-#| label = "plotate"
+#| label: plotate
+
 ate_df %>%
   ggplot(aes(Days, ATE))+
   geom_point()+
@@ -642,7 +648,8 @@ If we wanted to produce something more simlar to Figure 1, we'd need to calculat
 Below we see that the ATE appears non significant 21 days and 90 days after the intervention. The confidence intervals reported by Broockman and Kalla in figure 1 are generally much farther from 0. They're using multiple measures to capture a more general measure of transgender tolerance. In general, using multiple measures of a complex concept [reduces measurement error](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/strength-of-issues-using-multiple-measures-to-gauge-preference-stability-ideological-constraint-and-issue-voting/16F6AF97F7B71AA0112EC9ADF78B553A){target="_blank"}, resulting in more precise estimates.
 
 ```{r}
-#| label = "atecis"
+#| label: atecis
+
 df %>%
   # Get the select the columns whose names start with vf_
   select(starts_with("therm_trans"))%>%
@@ -677,7 +684,8 @@ ate_df %>%
 -   **Are there things you would do differently?** I do wonder a bit about attrition across multiple waves (some people who completed the baseline survey don't respond to future surveys), and what the proper way scale their multiple measures into a single outcome measure is. There aren't huge differences on our observable covariates between those who participated in the baseline and those who participated in the final wave, so maybe it doesn't make a huge difference, but in theory, you could try and bound the results, imputing extreme values to those who drop out, to get a sense of how much attrition might change the conclusions.
 
 ```{r}
-#| label = "attrition"
+#| label: attrition
+
 sum(is.na(df$therm_trans_t0[!is.na(df$treatment_group)]))
 sum(is.na(df$therm_trans_t1[!is.na(df$treatment_group)]))
 sum(is.na(df$therm_trans_t2[!is.na(df$treatment_group)]))
@@ -734,7 +742,7 @@ cov_bal_t4
 
 # Take the Class Survey
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_3n0J3Rb8I7LjoSW){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_b4bgr3yL24atI1M){target="_blank"} for this week.
 
 If you're interested, the intellectual history of this study is quite the tail:
 

@@ -55,8 +55,9 @@ Here are your assigned groups for the semester.
 ```{r}
 #| label: groups
 #| echo: false
+#| message: false
 
-load(url("https://pols1600.paultesta.org/files/groups.rda"))
+groups_df <- read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```
@@ -84,20 +85,20 @@ We'll see that these quantities can be calculated quickly for multiple variables
 
 -   We will use the `group_by` and `summarise` commands to quickly calculate average values for different groups, and the `mutate` function to calculate differences between these averages
 -   We will introduce the `across()` and `starts_with()` functions to calculate summaries like a `mean` across multiple variables that start the the same pre-fixes.
--   We will introduce the `pivot_longer()`, `pivot_wider()` and `left_join` commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column
--   We will use functions from the `ggplot` package to graphically display our results.
+-   We will introduce the `pivot_longer()`, `pivot_wider()` and `left_join()` commands to gather, spread, and merge data so that we can calculate the difference of means simply by subtracting means for one group in one column from means for another group in a different column
+-   We will use `ggplot()` and related functions to graphically display our results.
 
-# Please knit this .Rmd file {.unnumbered}
+# Please render this .qmd file {.unnumbered}
 
 As with every lab, you should:
 
 -   Download the file
 -   Save it in your course folder
 -   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
--   Knit the document
+-   Render the document (Check `[X] Render on Save`)
 -   Open the html file in your browser (Easier to read)
--   Knit the document again after completing a section or chunk (Error checking)
--   Upload the final lab to \[Canvas\]https://canvas.brown.edu/courses/1091286/assignments/7925686?module_item_id=10882030){target="\_blank"}.
+-   Render the document again after completing a section or chunk (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
 
 # Summarize the study
 
@@ -153,7 +154,7 @@ The will load a data frame called `df` containing the following variables:
 -   `vf_democrat` whether the person was a registered Democract (Democrat=1, 0 otherwise)
 -   `vf_white` whether the person was white (White=1, 0 otherwise)
 -   `vf_vg_12` whether the person voted in the 2012 general election (voted = 1, 0 otherwise)
--   `therm_trans_tX` a feeling thermometer[^2], where respondents are asked to rate how warmly they feel toward transgender people on a scale of 0 (Very Cold) to 100 (Very Warm), with 50 corresponding to neither warm nor cold. The `_tX` corresponds to the time the measure was taken:
+-   `therm_trans_tX` a feeling thermometer,[^2] where respondents are asked to rate how warmly they feel toward transgender people on a scale of 0 (Very Cold) to 100 (Very Warm), with 50 corresponding to neither warm nor cold. The `_tX` corresponds to the time the measure was taken:
     -   `_t0` pre-treatment measure from baseline survey
     -   `_t1` post-treatment measure 3-days after intervention
     -   `_t2` post-treatment measure 3-weeks after intervention
@@ -205,7 +206,7 @@ The code below quickly calculates the mean for each of these voter file variable
 
 df %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))
 ```
 
 Next I [**gather**](https://r4ds.had.co.nz/tidy-data.html?q=gather%20#pivoting){target="_blank"} the columns together using the `pivot_longer()` command which pivots the columns which `starts_with("vf")` into a column named `Covariates` and puts their associated values into a column named `Voter File Means`
@@ -215,7 +216,7 @@ Next I [**gather**](https://r4ds.had.co.nz/tidy-data.html?q=gather%20#pivoting){
 
 df %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))%>%
   # Gather covariate means into `Voter File Means` column
   pivot_longer(
     cols = starts_with("vf_"),
@@ -241,7 +242,7 @@ df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))
 ```
 
 Next we **reshape the data** gathering the values for all the columns **except** the `completed_baseline` column
@@ -253,7 +254,7 @@ df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))%>%
   # Gather columns containing means, exclude column for groups
   pivot_longer(
     cols = starts_with("vf_"),
@@ -273,7 +274,7 @@ df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))%>%
   # Gather columns containing means, exclude column for groups
   pivot_longer(
     cols = starts_with("vf_"),
@@ -296,7 +297,7 @@ df %>%
   # Calculate difference between Survey and Non-Survey Takers
   group_by(completed_baseline) %>%
   # Calculate means for voter file variables
-  summarise(across(starts_with("vf_"), mean))%>%
+  summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T)))%>%
   # Gather columns containing means, exclude column for groups
   pivot_longer(
     cols = starts_with("vf_"),
@@ -364,7 +365,7 @@ Now let's take the same approach to calculate the Average Treatment Effect (ATE)
 Using the code from the previous sections as a template,
 
 -   Add a `filter(!is.na(treatment_group))%>%` after `df%>%` to filter out subjects who didn't receive the treatment.[^3]
--   Change `summarise(across(starts_with("vf_"), mean))%>%` code to select variables that start with `therm_trans`
+-   Change `summarise(across(starts_with("vf_"), \(x) mean(x, na.rm=T))%>%` code to select variables that start with `therm_trans`
 -   Change the `cols` argument in `pivot_longer()` to select the columns that start with `therm_trans`
 -   Everywhere you see `treatment_assigned` in the code replace it with `treatement_group`
 -   In the `mutate()` function, change:
@@ -398,6 +399,6 @@ Using `ate_df` with commands from the `ggplot` package please produce a figure t
 -   **Are there things you would do differently?**
 -   **Do you think the results would "travel" to other topics and issues?**
 
-# Take the Class Survey{.unnumbered}
+# Take the Class Survey {.unnumbered}
 
 Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_b4bgr3yL24atI1M){target="_blank"} for this week.
