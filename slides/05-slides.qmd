@@ -1,0 +1,1722 @@
+---
+title: "POLS 1600"
+subtitle: "Casual Inference in<br>Observational Designs & <br> Simple Linear Regression"
+date: last-modified
+date-format: "[Updated ]MMM D, YYYY"
+format: 
+  revealjs:
+    theme: brownslides.scss
+    logo: images/pols1600_hex.png
+    footer: "POLS 1600"
+    multiplex: false
+    transition: fade
+    slide-number: c
+    incremental: true
+    center: false
+    menu: true
+    scrollable: true
+    highlight-style: github
+    progress: true
+    code-overflow: wrap
+    # include-after-body: title-slide.html
+    title-slide-attributes:
+      align: left
+      data-background-image: images/pols1600_hex.png
+      data-background-position: 90% 50%
+      data-background-size: 40%
+filters:
+    - openlinksinnewpage
+
+    # title-slide-attributes:
+    #   data-background-image: ../../assets/stat20-hex-bg.png
+    #   data-background-size = contain
+---
+
+```{r}
+#| echo: false
+#| results: hide
+#| warning: false 
+#| message: false
+
+library(tidyverse)
+library(labelled)
+library(haven)
+library(DeclareDesign)
+library(easystats)
+```
+
+# {{< fa map-location>}} Overview {.inverse}
+
+## Overview
+
+- Announcements
+- Setup
+- Feedback
+- Review
+- Class plan
+
+## Annoucements
+
+- Sit with your groups (for now)
+
+## Group Assignments {.smaller}
+
+```{r}
+#| label: groups
+#| echo: false
+groups_df <- tibble::tibble(
+`Group 1` = c("Maia Eng","Guadalupe Herrera","Stephen Robinson","Jeremiah Harrington"),
+`Group 2` = c("Andrew Rovinsky", "Spencer Lorin","Lucinda Anderson","Serenity Hamilton"),
+`Group 3` = c("Serafym Rybachkivskyi","Rachel Kim","Kai Blades","Emma Coleman"),
+`Group 4` = c("Tiffany Eddy","Daniel Solomon","Zoe Smith","Lorena Calderon"),
+`Group 5` = c("Christopher Maron","Daniel Baker","Neve Diaz-Carr","Olivia Hanley"),
+`Group 6` = c("Mia Hamilton","Emily Colon","Davis Kelly","Talia Levine"),
+`Group 7` = c("Mariana Melzer","Kahrie Langham", "Shannon Feerick-Hillenbrand","Jarret Fernandes"),
+`Group 8` = c("Logan Szittai", "Keiley Thompson","Lydell Dyer","Mahir Arora")
+)
+
+groups_df |> 
+  pivot_longer(cols = starts_with("Group"),
+               names_to = "Group",
+               values_to = "Name") |> 
+  arrange(Group) |>
+  group_by(Group) |> 
+  mutate(
+    id = 1:n()
+  ) |> 
+  pivot_wider(id_cols = Group,
+              names_from = id,
+              values_from = Name) -> groups_df
+# write_csv(groups_df, file = "../files/groups.csv" )
+DT::datatable(groups_df)
+```
+
+
+## {{< fa bullhorn >}} Feedback {top=50%   background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg"}
+
+
+```{r}
+#| label: feeback
+df <- haven::read_spss("../files/data/class_surveys/wk02.sav")
+
+df %>%
+  mutate(
+    Likes = like,
+    Dislikes = dislike,
+  ) -> df
+```
+
+## What did we like {.smaller}
+
+```{r}
+#| label: likes
+DT::datatable(df %>% 
+                select(Likes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 5
+              )
+              )
+```
+
+## What did we dislike {.smaller}
+
+```{r}
+#| label: dislikes
+
+DT::datatable(df %>% 
+                select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 4
+              )
+              )
+```
+
+# Setup
+
+## Packages for the lab
+
+Hopefully, you were all able to install the following packages
+
+```{r}
+#| label: installpacks
+#| eval: false
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+
+```
+
+## Census API
+
+Additionally, I hope you have all followed the steps [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+
+1.  Install the `tidycensus` package
+2.  Load the installed package
+3.  Request an API key from the Census
+4.  Check your email
+5.  Activate your key
+6.  Install your API key in R
+7.  Check that everything worked
+
+To install the an API key so we can download data directly from the US Census
+
+## Packages for today
+
+```{r}
+#| label: packages
+#| echo: true
+
+## Pacakges for today
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", #<<
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"#<<
+)
+
+## Define a function to load (and if needed install) packages
+
+#| label = "ipak"
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+## Install (if needed) and load libraries in the_packages
+ipak(the_packages)
+```
+
+## Packages for the Lab
+
+
+
+# {{< fa magnifying-glass>}} Review {.inverse}
+
+## Review
+
+- Data wrangling and visualization
+
+- Descriptive Statistics 
+
+- Levels of understanding
+
+
+
+## Data wrangling and visualization{.smaller}
+
+```{r}
+#| label: spdf
+#| echo: false
+sp_df <- tibble(
+  Skill = c("Setup R",
+            "Load data",
+            "Get HLO of data",
+            "Transform data",
+            "Reshape data",
+            "Summarize data numerically",
+            "Summarize data graphically"),
+  `Common Commands` = c("library(), ipak()",
+               "read_csv(), load()",
+               "df$x, glimpse(), table(), summary()",
+               "<-, mutate(), ifelse(), case_when()",
+               "pivot_longer(), left_join()",
+               "mean(), median(), summarise(), group_by()",
+               "ggplot(), aes(), geom_")
+)
+
+kable(sp_df, 
+      caption = "You're learning how to map conceptual tasks to commands in R",
+      caption.above=T)
+
+```
+
+
+##  Mapping Concepts to Code
+
+- Takes time and practice
+
+- Don't be afraid to FAAFO
+
+- Don't worry about memorizing everything. 
+
+- Statistical programming is necessary to actually **do** empirical research
+
+- Learning to code will help us understand statistical concepts.
+
+- Learning to think programmatically and algorithmically will help us tackle complex problems
+
+
+## Descriptive statistics{.smaller}
+
+- Descriptive statistics help us describe what's typical of our data
+
+- [What's a typical value in our data]{.blue}
+  - [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#mean)
+  - [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#median)
+  - [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#modes)
+
+- [How much do our data vary?]{.blue}
+  - [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#variance)
+  - [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations)
+
+- As one variable changes [how does another change]{.blue}?
+  - [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance)
+  - [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation)
+
+- Descriptive statistics are:
+  - Diagnostic
+  - Generative
+
+## Levels of understanding in POLS 1600
+
+- Conceptual
+
+- Practical
+
+- Definitional
+
+- Theoretical
+
+
+## Descriptive statistics: Levels of understanding
+
+- **Conceptual**
+
+- **Practical**
+
+- Definitional
+
+- Theoretical
+
+
+
+## Mean: Conceptual Understanding
+
+A mean is:
+  
+- A common and important [measure of central tendency]{.blue} (what's typical)
+
+- It's the [arithmetic average]{.blue} you learned in school
+
+- We can think of it as the [balancing point]{.blue} of a distribution
+
+- A conditional mean is the average of one variable $X$, when some other variable, $Z$ takes a value $z$
+
+  - Think about the average height in our class ([unconditional mean]{.blue}) vs the average height among men and women ([conditional means].{blue})
+
+
+
+## Mean as a balancing point
+
+
+![](https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg)
+
+[Source](https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html)
+
+
+## Mean: Practical
+
+There are lots of ways to calculate means in `R`
+
+- The simplest is to use the `mean()` function
+  
+  - If our data have missing values, we need to to tell `R` to remove them 
+  
+```{r}
+#| label: meanex
+#| eval: false
+mean(df$x, na.rm=T)
+```
+
+
+## Conditional Means: Practical
+
+  
+- To calculate a conditional mean we could us a logical index `[df$z == 1]` 
+
+```{r}
+#| label: conmean
+#| eval: false
+mean(df$x[df$z == 1], na.rm=T)
+```
+
+
+  
+- If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
+
+```{r}
+#| label: grpmean
+#| eval: false
+df %>% 
+  group_by(z)%>%
+  summarise(
+    x = mean(x, na.rm=T)
+  )
+```
+
+
+
+## Mean: Definitional
+
+Formally, we  define the arithmetic mean of $x$ as $\bar{x}$:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
+$$
+
+In words, this formula says, to calculate the average of x, we sum up all the values of $x_i$ from observation $i=1$ to $i=n$ and then divide by the total number of observations $n$
+
+
+
+## Mean: Definitional
+
+- In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
+
+- But being comfortable with "the math" is important and useful
+
+- Definitional knowledge is a prerequisite for understanding more theoretical claims.
+
+
+## Mean: Theoretical
+
+Suppose I asked you to show that the sum of deviations from a mean equals 0?
+
+$$
+\text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
+$$
+
+
+## Mean: Theoretical{.smaller}
+
+Knowing the definition of an arithmetic mean, we could write: 
+
+
+$$
+\begin{aligned}
+\sum_{i=1}^n (x_i -\bar{x}) &= \sum_{i=1}^n x_i - \sum_{i=1}^n\bar{x} & \text{Distribute Summation}\\
+              &= \sum_{i=1}^n x_i - n\bar{x} & \text{Summing a constant, } \bar{x}\\
+              &= \sum_{i=1}^n x_i - n\times \left ( \frac{1}{n} \sum_{i=1}^n{x_i}\right ) & \text{Definition of } \bar{x}\\
+              &= \sum_{i=1}^n x_i - \sum_{i=1}^n{x_i} & n \times \frac{1}{n}=1\\
+              &= 0             
+\end{aligned}
+$$
+
+
+
+## Mean: Theoretical
+
+Why do we care?
+
+- Showing the deviations sum to 0 is another way of saying the mean is a [balancing point]{.blue}.
+
+- This turns out to be a useful property of means that will reappear throughout the course
+
+- If I asked you to make a prediction, $\hat{x}$ of a random person's height in this class, the mean would have the lowest [mean squared error]{.blue} (MSE $=\frac{1}{n}\sum (x_i - \hat{x_i})^2)$ 
+
+
+
+
+## Mean: Theoretical
+
+Occasionally, you'll read or here me say  say things like:
+
+> The sample mean is an unbiased estimator of the population mean
+
+In a statistics class, we would take time to prove this.
+
+
+
+## The sample mean is an unbiased estimator of the population mean
+
+Claim:
+
+Let $x_1, x_2, \dots x_n$ from a random sample from a population with mean $\mu$ and variance $\sigma^2$
+
+Then:
+
+$$
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n x_i\right )
+$$
+
+is an unbiased estimator of $\mu$
+
+$$
+E[\bar{x}] = \mu
+$$
+
+
+## The sample mean is an unbiased estimator of the population mean {.smaller}
+
+
+Proof:
+
+$$
+\begin{aligned}
+E\left [\bar{x} \right] &= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \right] & \text{Definition of } \bar{x} \\
+&= \frac{1}{n} \sum_{i=1}^nE\left [ x_i \right]  & \text{Linearity of Expectations} \\
+&= \frac{1}{n} \sum_{i=1}^n \mu  & E[x_i] = \mu \\
+&= \frac{n}{n}  \mu  & \sum_{i=1}^n \mu = n\mu \\
+&= \mu  & \blacksquare \\
+\end{aligned}
+$$
+
+
+
+## Levels of understanding {.smaller}
+:::{.nonincremental}
+In this course, we tend to emphasize the 
+
+- **Conceptual**
+
+- **Practical**
+
+Over
+
+- Definitional
+
+- Theoretical
+
+
+In an intro statistics class, the ordering might be reversed.
+
+Trade offs:
+
+:::
+
+- Pro: We actually get to *work with data* and *do empirical research* much sooner
+- Cons: We substitute intuitive understandings for more rigorous proofs
+
+
+# {{< fa eye >}}Previewing the Lab{.inverse}
+
+```{r}
+#| label: red_covid
+#| echo: false
+#| 
+knitr::include_graphics("./images/05_covid.png")
+```
+
+[Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
+
+## Preview of the Lab
+
+Conceptually, this lab is designed to help reinforce the relationship between linear models like $y=\beta_0 + \beta_1x$ and the conditional expectation function $E[Y|X]$.
+
+-   Questions 1-5 are designed to reinforce your **data wrangling** skills. In particular, you will get practice:
+
+    -   Creating and recoding variables using `mutate()`
+    -   Calculating a [moving average](https://en.wikipedia.org/wiki/Moving_average) or rolling mean using the `rollmean()` function from the `zoo` package
+    -   Transforming the data on presidential elections so that it can be merged with the data on Covid-19 using the `pivot_wider()` function.
+    -   [Merging data](https://r4ds.had.co.nz/relational-data.html) together using the `left_join()` function.
+
+
+## Preview of the Lab
+
+-   In question 6, you will see how calculating conditional means provides a simple test of "Red Covid" claim.
+
+-   In question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)
+
+-   In question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)
+
+-   In question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.
+
+-   Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
+
+
+
+
+## Load the Covid-19 Data
+
+```{r}
+#| label: covid
+# covid <- COVID19::covid19(
+#   country = "US",
+#   level = 2,
+#   verbose = F
+# )
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
+```
+
+## Filter Covid-19 Data to US States
+
+```{r}
+#| label: covidus
+# Vector containing of US territories
+territories <- c(
+  "American Samoa",
+  "Guam",
+  "Northern Mariana Islands",
+  "Puerto Rico",
+  "Virgin Islands"
+  )
+
+# Filter out Territories and create state variable
+covid_us <- covid %>%
+  filter(!administrative_area_level_2 %in% territories)%>%
+  mutate(
+    state = administrative_area_level_2
+  )
+```
+
+## Mutate: Calculate New Cases
+
+```{r}
+#| label: newcases
+covid_us %>%
+  dplyr::group_by(state) %>%
+  mutate(
+    new_cases = confirmed - lag(confirmed),
+    new_cases_pc = new_cases / population *100000,
+    new_cases_pc_7da = zoo::rollmean(new_cases_pc, 
+                                     k = 7, 
+                                     align = "right",
+                                     fill=NA )
+    ) -> covid_us
+```
+
+## Calculating a Rolling Average New Cases
+
+```{r}
+#| label: rollmean
+covid_us %>%
+  filter(date > "2020-03-05") %>%
+  select(date,new_cases_pc,new_cases_pc_7da)
+```
+
+## New Case Per Capita
+
+
+
+```{r }
+#| label: plotmean
+covid_us %>%
+  filter(date > "2020-03-05", 
+         state == "Minnesota") %>%
+  select(date,
+         new_cases_pc,
+         new_cases_pc_7da)%>%
+  ggplot(aes(date,new_cases_pc ))+
+  geom_line(aes(col="Daily"))+
+  theme(legend.position="bottom")+
+    labs( col = "Measure",
+    y = "New Cases Per 100k", x = "",
+    title = "Minnesota"
+  ) -> fig_covid_mn 
+```
+
+
+
+```{r}
+#| label: plotmean2
+#| echo: false
+fig_covid_mn
+```
+
+
+## New Case Per Capita vs 7-day average
+
+
+
+```{r}
+#| label: plotmean7d
+#| eval: false
+fig_covid_mn +
+  geom_line(aes(y = new_cases_pc_7da,
+                col = "7-day average")
+            ) -> fig_covid_mn
+```
+
+
+
+
+
+```{r}
+#| label: plotmean7d2
+#| echo: false
+fig_covid_mn +
+  geom_line(aes(y = new_cases_pc_7da,
+                col = "7-day average")
+            ) -> fig_covid_mn
+fig_covid_mn
+```
+
+
+
+## Facemask Policy
+
+```{r}
+#| label: recode_facemasks
+covid_us %>%
+mutate(
+  # Recode facial_coverings to create face_masks
+    face_masks = case_when(
+      facial_coverings == 0 ~ "No policy",
+      abs(facial_coverings) == 1 ~ "Recommended",
+      abs(facial_coverings) == 2 ~ "Some requirements",
+      abs(facial_coverings) == 3 ~ "Required shared places",
+      abs(facial_coverings) == 4 ~ "Required all times",
+    ),
+    # Turn face_masks into a factor with ordered policy levels
+    face_masks = factor(face_masks,
+      levels = c("No policy","Recommended",
+                 "Some requirements",
+                 "Required shared places",
+                 "Required all times")
+    ) 
+    ) -> covid_us
+```
+
+## Mutate: Dates and Vaccinations
+
+```{r}
+#| label: dates
+covid_us %>%
+  mutate(
+    year = year(date),
+    month = month(date),
+    year_month = paste(year, 
+                       str_pad(month, width = 2, pad=0), 
+                       sep = "-"),
+    percent_vaccinated = people_fully_vaccinated/population*100  
+    ) -> covid_us
+```
+
+## Load Data on Presidential Elections
+
+```{r}
+#| label: pres_data
+# Try this code first
+Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")
+
+pres_df <- get_dataframe_by_name(
+  "1976-2020-president.tab",
+  "doi:10.7910/DVN/42MVDX"
+)
+
+# If the code above fails, comment out and uncomment the code below:
+
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
+```
+
+## HLO of Presidential Elections Data
+
+```{r}
+#| label: pres_hlo
+head(pres_df)
+```
+
+## Transform Data to get just 2020 Election
+
+```{r}
+#| label: pres_wrangle
+pres_df %>%
+  mutate(
+    year_election = year,
+    state = str_to_title(state),
+    # Fix DC
+    state = ifelse(state == "District Of Columbia", "District of Columbia", state)
+  ) %>%
+  filter(party_simplified %in% c("DEMOCRAT","REPUBLICAN"))%>%
+  filter(year == 2020) %>%
+  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes
+         ) %>%
+  pivot_wider(names_from = party_simplified,
+              values_from = candidatevotes) %>%
+  mutate(
+    dem_voteshare = DEMOCRAT/totalvotes *100,
+    rep_voteshare = REPUBLICAN/totalvotes*100,
+    winner = forcats::fct_rev(factor(ifelse(rep_voteshare > dem_voteshare,"Trump","Biden")))
+  ) -> pres2020_df
+```
+
+## Transform Data to get just 2020 Election
+
+```{r}
+head(pres2020_df)
+```
+
+## Load Data on Median State Income from the Census
+
+```{r}
+#| label: acs_data
+acs_df <- get_acs(geography = "state", 
+              variables = c(med_income = "B19013_001",
+                            med_age = "B01002_001"), 
+              year = 2019)
+```
+
+## HLO: Census Data
+
+```{r}
+#| label: acs_hlo
+head(acs_df)
+```
+
+## Tidy Census Data
+
+```{r}
+#| label: acs_tidy
+acs_df %>%
+  mutate(
+    state = NAME,
+  ) %>%
+  select(state, variable, estimate) %>%
+  pivot_wider(names_from = variable,
+              values_from = estimate) -> acs_df
+```
+
+## Tidy Census Data
+
+```{r}
+head(acs_df)
+```
+
+## Merge election data and covid data into single `df`
+
+ - We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()`
+
+-   Always check the matches in your joining variable (i.e. `state`)
+
+-   Below we see that our recoding of state to title case in created a mismatch
+
+
+
+
+
+```{r}
+#| label: merge_check
+# Should be 51
+sum(pres2020_df$state %in% covid_us$state)
+# Find the mismatch:
+pres2020_df$state[!pres2020_df$state %in% covid_us$state]
+# Fix
+pres2020_df$state[pres2020_df$state == "District Of Columbia"] <- "District of Columbia"
+# Problem Solved
+sum(pres2020_df$state %in% covid_us$state)
+
+```
+
+
+
+## Merge election data into Covid data
+
+```{r}
+#| label: merge_pres
+dim(covid_us)
+dim(pres2020_df)
+covid_us <- covid_us %>% left_join(
+  pres2020_df,
+  by = c("state" = "state")
+)
+dim(covid_us) 
+```
+
+## Merge Census data into Covid data
+
+```{r}
+#| label: acs_merge
+dim(covid_us)
+dim(acs_df)
+covid_us <- covid_us %>% left_join(
+  acs_df,
+  by = c("state" = "state")
+)
+dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
+
+```
+
+
+
+
+
+
+# {{< fa lightbulb >}} Causal Identification with Observational Designs {.inverse}
+
+## Causal inference is about counterfactual comparisons
+
+- Causal inference is about counterfactual comparisons
+  
+  - What would have happened if some aspect of the world either had or had not been present
+
+- [Casual Identification]{.blue} refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)]
+  - What do we need to assume to make our claims about cause and effect credible
+
+## Experimental Designs
+
+-   [Experimental designs]{.blue} are studies in which a causal variable of interest, the *treatement*, is [manipulated by the researcher]{.blue} to examine its causal effects on some *outcome* of interest
+
+  - Random assignment is the key to causal identification in experiments because it creates [statistical independence]{.blue} between [treatment]{.blue} and [potential outcomes]{.blue} any potential [confounding factors]{.blue}
+  
+$$
+Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
+$$  
+## Randomization creates credible counterfactual comparisons
+
+If treatment has been randomly assigned, then:
+
+- The only thing that differs between treatment and control is that one group got the treatment, and another did not.
+- We can estimate the Average Treatment Effect (ATE) using the difference of sample means
+
+
+$$
+\begin{aligned}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{aligned}
+$$
+
+## Observational Designs{.smaller}
+
+-   [Observational designs]{.blue} are studies in which a causal variable of interest is determined by someone/thing [other than the researcher]{.blue} (nature, governments, people, etc.)
+
+  - Since treatment has not been randomly assigned, observational studies typically require [stronger assumptions]{.blue} to make causal claims.
+  
+- Generally speaking, these assumptions amount to a claim about conditional independence
+
+$$
+Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i | K_i
+$$ 
+
+- Where after conditioning on $K_i$, some [knowledge about the world]{.blue} and how the [data were generated]{.blue}, our [treatment]{.blue} is as good as (as-if) randomly assigned (hence [conditionally independent]{.blue})
+
+## Causal Inference in Observational Studies{.smaller}
+
+To understand how to make causal claims in observational studies we will:
+
+- Introduce the concept of Directed Acyclic Graphs to describe causal relationships
+
+- Discuss three approaches to [covariate adjustment]{.blue}
+
+  - Subclassification
+  - Matching
+  - [Linear Regression]{.blue}
+
+- Three research designs for observational data
+
+  - [Differences-in-Differences]{.blue}
+  - Regression Discontinuity Designs
+  - Instrumental Variables
+
+
+# Directed Acyclic Graphs {.inverse}
+
+## Describing Casual Claims
+
+Two ways to represent causal claims:
+
+- Potential Outcomes Notation helped illustrate the **Fundamental Problem of Causal Inference**
+
+
+- [Directed Acyclic Graphs]{.blue} provide a way of encoding assumptions about casual relationships and are useful for illustrating [types of bias]{.blue}
+  - **Confounder bias:** Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)
+  - **Collider bias:** Controlling for a common consequence 
+
+## Directed Acyclic Graphs
+
+- Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
+
+  - **Directed** Arrows $\to$ describe a direct causal effect 
+
+  - Arrow from $D\to Y$ means $Y_i(d) \neq Y_i(d^\prime)$ "The outcome ( $Y$) for person $i$ when D happens ( $Y_i(d)$ ) is different than the the outcome when $D$ doesn't happen ( $Y_i(d^\prime)$ )
+
+  - No arrow = no effect ( $Y_i(d) = Y_i(d^\prime)$ )
+
+  - **Acyclic:** No cycles. A variable can't cause itself
+
+
+## Types of variables in a DAG
+
+![](https://book.declaredesign.org/figures/figure-6-2.svg)
+
+@Blair2023-yg [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
+
+
+
+## When to control for a variable:
+
+![](https://book.declaredesign.org/figures/figure-16-3.svg)
+
+[@Blair2023-yg] [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
+
+
+# {{< fa lightbulb >}} Covariate Adjustment {.inverse}
+
+# {{< fa lightbulb >}} Simple Linear Regression {.inverse}
+
+
+## Understanding Linear Regression
+
+-   **Conceptual**
+    -   Simple linear regression estimates "a line of best fit" that summarizes relationships between two variables
+
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
+-   **Practical**
+    -   We estimate linear models in R using the `lm()` function
+
+```{r}
+#| eval: false
+lm(y ~ x, data = df)
+```
+
+-   *Technical/Definitional*
+    -   Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR):
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+-   *Theoretical*
+    -   Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
+
+class: inverse, center, middle \# 💡\
+\# Conceptual: Linear Regression \## Linear Regression Provides an Estimate of the Line of Best Fit
+
+## Conceptual: Linear Regression
+
+-   Regression is a tool for describing relationships.
+
+    -   How does some outcome we're interested in tend to change as some predictor of that outcome changes?
+
+    -   How does economic development vary with democracy?
+
+    -   How does economic development vary with democracy, adjusting for natural resources like oil and gas
+
+-   Formally:
+
+$$
+y_i = f(x_i) + \epsilon
+$$
+
+-   Y is a function of X plus some error, $\epsilon$
+
+-   Linear regression assumes that relationship between an outcome and a predictor can be by a [linear](https://en.wikipedia.org/wiki/Linearity) function
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+$$
+
+## Linear Regression and the Line of Best Fit
+
+-   The goal of linear regression is to choose coefficients $\beta_0$ and $\beta_1$ to summarizes the relationship between $y$ and $x$
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+$$
+
+-   To accomplish this we need some sort of criteria.
+
+-   For linear regression, that criteria is minimizing the error between what our model predicts $\hat{y_i} = \beta_0 + \beta_1 x_i$ and what we actually observed $(y_i)$
+
+-   More on this to come. But first...
+
+## Regression Notation
+
+-   $y_i$ an **outcome variable** or thing we're trying to explain
+
+    -   AKA: The dependent variable, The response Variable, The left hand side of the model
+
+-   $x_i$ a **predictor variables** or things we think explain variation in our outcome
+
+    -   AKA: The independent variable, covariates, the right hand side of the model.
+
+    -   Cap or No Cap: I'll use $X$ (should be $\mathbf{X}$) to denote a set (matrix) of predictor variables. $y$ vs $Y$ can also have technical distinctions (Sample vs Population, observed value vs Random Variable, ...)
+
+-   $\beta$ a set of **unknown parameters** that describe the relationship between our outcome $y_i$ and our predictors $x_i$
+
+-   $\epsilon$ the **error term** representing variation in $y_i$ not explained by our model.
+
+## Linear Regression
+
+Let's return to the simple (bivariate) linear regressions we introduced last week:
+
+$$
+y_i = \beta_0 + \beta_1 x_i + \epsilon
+$$
+
+-   We call this a bivariate regression, because there are only two variables.
+
+-   We call this a linear regression, because $y_i = \beta_0 + \beta_1 x_i$ is the equation for a line, where:
+
+    -   $\beta_0$ corresponds to the $y$ intercept, or the model's prediction when $x = 0$.
+
+    -   $\beta_1$ corresponds to the slope, or how $y$ is predicted to change as $x$ changes.
+
+## Linear Regression
+
+-   If you find this notation confusing, try plugging in substantive concepts for what $y$ and $x$ represent
+-   Say we wanted to know how attitudes to transgender people varied with age in the baseline survey from Lab 03.
+
+The generic linear model
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon$$
+
+Reflects:
+
+$$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i$$
+
+## Practical: Estimating a Linear Regression
+
+-   We estimate linear regressions in `R` using the `lm()` function.
+-   `lm()` requires two arguments:
+    -   a `formula` argument of the general form `y ~ x` read as "Y modeled by X" or below "Transgender Feeling Thermometer (`y`) modeled by (`~`) Age (`x`)
+    -   a `data` argument telling R where to find the variables in the formula
+
+```{r}
+#| label: lmdata
+load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
+m1 <- lm(therm_trans_t0 ~ vf_age, data = df)
+m1
+
+```
+
+The coefficients from `lm()` are saved in object called `m1`
+
+```{r}
+#| label: printm1
+m1
+```
+
+`m1` actually contains a lot of information
+
+```{r}
+#| label: m1info
+names(m1)
+m1$coefficients
+```
+
+## Practical: Interpreting a Linear Regression
+
+We can extract the intercept and slope from this simple bivariate model, using the `coef()` function
+
+```{r}
+#| label: m1coef
+
+# All the coefficients
+coef(m1)
+# Just the intercept
+coef(m1)[1]
+# Just the slope
+coef(m1)[2]
+```
+
+## Practical: Interpreting a Linear Regression
+
+The two coefficients from `m1` define a line of best fit, summarizing how feelings toward transgender individuals change with age
+
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon$$
+
+$$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i$$
+
+$$\text{Transgender Feeling Thermometer}_i = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \text{Age}_i + \epsilon_i$$
+
+## Practical: Predicted values from a Linear Regression
+
+-   Often it's useful for interpretation to obtain predicted values from a regression.
+
+-   To obtain predicted vales $(\hat{y})$, we simply plug in a value for $x$ (In this case, $Age$) and evaluate our equation.
+
+-   For example, might we expect attitudes to differ among an 18-year-old college student and their 68-year-old grandparent?
+
+$$\hat{FT}_{x=18} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 18  = 59.16$$ $$\hat{FT}_{x=65} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 68  = 49.01$$
+
+## Practical: Predicted values from a Linear Regression
+
+We could do this by hand
+
+```{r}
+#| label: pred_man
+coef(m1)[1] + coef(m1)[2] * 18
+coef(m1)[1] + coef(m1)[2] * 68
+
+```
+
+## Practical: Predicted values from a Linear Regression
+
+More often we will:
+
+-   Make a prediction data frame (called `pred_df` below) with the values of interests
+-   Use the `predict()` function with our linear model (`m1`) and `pred_df`
+-   Save the predicted values to our new column in our prediction data frame
+
+## Practical: Predicted values from a Linear Regression
+
+```{r}
+#| label: pred_df
+
+# Make prediction data frame
+pred_df <- data.frame(
+  vf_age = c(18, 68)
+)
+# Predict FT for 18 and 68 year-olds
+predict(m1, newdata = pred_df)
+
+# Save predictions to data frame
+pred_df$ft_trans_hat <- predict(m1, newdata = pred_df)
+pred_df
+```
+
+## Practical: Visualizing Linear Regression
+
+We can visualize simple regression by:
+
+-   plotting a scatter plot of the outcome (y-axis) and predictors (x-axis)
+
+-   overlaying the line defined by `lm()`
+
+```{r}
+#| label: fig_lm_code
+#| eval: false
+
+fig_lm <- df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  geom_abline(intercept = coef(m1)[1],
+              slope = coef(m1)[2],
+              col = "blue"
+              )+
+  geom_vline(xintercept = 0,linetype = 2)+
+  xlim(0,100)+
+  annotate("point",
+           x = 0, y = coef(m1)[1],
+           col= "red",
+           )+
+  annotate("text",
+           label = expression(paste(beta[0],"= 62.81" )),
+           x = 1, y = coef(m1)[1]+5,
+           hjust = "left",
+           )+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People"
+  )+
+  theme_classic()
+fig_lm
+```
+
+```{r}
+#| label: fig_lm_plot
+#| echo: false
+fig_lm <- df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  geom_abline(intercept = coef(m1)[1],
+              slope = coef(m1)[2],
+              col = "blue"
+              )+
+  geom_vline(xintercept = 0,linetype = 2)+
+  xlim(0,100)+
+  annotate("point",
+           x = 0, y = coef(m1)[1],
+           col= "red",
+           )+
+  annotate("text",
+           label = expression(paste(beta[0],"= 62.81" )),
+           x = 1, y = coef(m1)[1]+5,
+           hjust = "left",
+           )+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People"
+  )+
+  theme_classic()
+fig_lm
+```
+
+```{r}
+#| label: figlm1code
+#| echo: false
+
+fig_lm+
+  geom_segment(aes(x=47, xend = 47,
+                   y=53.27526, yend=74),
+               col="red")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=74, yend=74),
+               col="darkgrey",linetype = 2)+
+  annotate("text",label = expression(paste(Y[i],"= 74" )),
+           x = 55.5, y = 74,
+           hjust = "left")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=63.5, yend=63.5),
+               col="red",linetype = 2)+
+  annotate("text",label = expression(paste(epsilon[i],"=", Y[i] - hat(Y[i]),"= 74 - 53.27 = 20.73" )),
+           x = 55.5, y = 63.5,
+           col = "red",
+           hjust = "left")+
+  geom_segment(aes(x=47, xend = 55,
+                   y=53.27526, yend=53.27526),
+               col="blue",linetype = 2)+
+  annotate("text",label = expression(paste(hat(Y[i]),"=", beta[0] + beta[1],"Age = 62.81 -0.20*47 = 53.27" )),
+           x = 55.5, y = 53.27526,
+           col = "blue",
+           hjust = "left")
+
+
+
+```
+
+```{r}
+#| label: figlm1
+#| echo: false
+# devtools::install_github("nicolash2/ggbrace")
+library(ggbrace)
+fig_lm +
+  ylim(48, 52)+
+  xlim(58, 62)+
+  geom_segment(aes(
+    y = coef(m1)[1] + coef(m1)[2]*61,
+    yend = coef(m1)[1] + coef(m1)[2]*60,
+    x = 60, xend = 60),
+    arrow = arrow(ends = "first",length = unit(0.015, "npc")),
+    col = "red"
+    )+
+    geom_segment(aes(
+    y = coef(m1)[1] + coef(m1)[2]*61,
+    yend = coef(m1)[1] + coef(m1)[2]*61,
+    x = 60, xend = 61),
+    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
+    col = "red"
+    )+
+   geom_curve(aes(
+    y = 49.7,
+    yend = 50.53,
+    x = 59.43, xend = 59.8),
+    curvature = -.2,
+    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
+    col = "black",
+    )+
+    annotate("text",
+           label = expression(paste(beta[1],"= -0.21" )),
+           x = 59, y = 49.5,
+           hjust = "left",
+           )+
+  geom_brace(aes(c(59.9, 59.98),c(50.43, 50.63)), 
+             inherit.data=F,
+             rotate = 270)
+```
+
+
+
+## How did `lm()` choose $\beta_0$ and $\beta_1$
+
+--
+
+-   P: By minimizing the sum of squared errors, in procedure called Ordinary Least Squares (OLS) regression
+
+--
+
+-   Q: Ok, that's not really that helpful...
+
+    -   What's an error?
+    -   Why would we square and sum them
+    -   How do we minimize them.
+
+P: Good questions!
+
+## What's an error?
+
+An error, $\epsilon_i$ is simply the difference between the observed value of $y_i$ and what our model would predict, $\hat{y_i}$ given some value of $x_i$. So for a model:
+
+$$y_i=\beta_0+\beta_1 x_{i} + \epsilon_i$$
+
+We simply subtract our model's prediction $\beta_0+\beta_1 x_{i}$ from the the observed value, $y_i$
+
+$$\hat{\epsilon_i}=y_i-\hat{y_i}=(Y_i-(\beta_0+\beta_1 x_{i}))$$
+
+To get $\epsilon_i$
+
+## Why are we squaring and summing $\epsilon$
+
+There are more mathy reasons for this, but at intuitive level, the Sum of Squared Residuals (SSR)
+
+-   Squaring $\epsilon$ treats positive and negative residuals equally.
+
+-   Summing produces single value summarizing our models overall performance.
+
+There are other criteria we could use (e.g. minimizing the sum of absolute errors), but SSR has some nice properties
+
+## How do we minimize $\sum \epsilon^2$
+
+OLS chooses $\beta_0$ and $\beta_1$ to minimize $\sum \epsilon^2$, the Sum of Squared Residuals (SSR)
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+## How did `lm()` choose $\beta_0$ and $\beta_1$
+
+In an intro stats course, we would walk through the process of finding
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$ Which involves a little bit of calculus. The big payoff is that
+
+$$\beta_0 = \bar{y} - \beta_1 \bar{x}$$ And
+
+$$ \beta_1 = \frac{Cov(x,y)}{Var(x)}$$ Which is never quite the epiphany, I think we think it is...
+
+The following slides walk you through the mechanics of this exercise. We're gonna skip through them in class, but they're there for your reference
+
+## How do we minimize $\sum \epsilon^2$
+
+To understand what's going on under the hood, you need a broad understanding of some basic calculus.
+
+The next few slides provide a brief review of derivatives and differential calculus.
+
+## Derivatives
+
+The derivative of $f$ at $x$ is its rate of change at $x$
+
+-   For a line: the slope
+-   For a curve: the slope of a line tangent to the curve
+
+You'll see two notations for derivatives:
+
+1.  Leibniz notation:
+
+$$
+\frac{df}{dx}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{(x+h)-x}
+$$
+
+2.  Lagrange: $f^{\prime}(x)$
+
+## Some useful Facts about Derivatives
+
+Derivative of a constant
+
+$$
+f^{\prime}(c)=0
+$$
+
+Derivative of a line f(x)=2x
+
+$$
+f^{\prime}(2x)=2
+$$
+
+Derivative of $f(x)=x^2$
+
+$$
+f^{\prime}(x^2)=2x
+$$
+
+Chain rule: y= f(g(x)). The derivative of y with respect to x is
+
+$$
+\frac{d}{dx}(f(g(x)))=f^{\prime}(g(x))g^{\prime}(x)
+$$
+
+The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
+
+## Finding a Local Minimums
+
+ Local minimum:
+
+$$
+f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
+$$ 
+
+
+
+```{r}
+#| label: derivatives
+#| echo: false
+knitr::include_graphics("https://copingwithcalculus.com/SecondDeriv1.png")
+```
+
+[Source](https://copingwithcalculus.com/SecondDerivativeTest.html) 
+
+## Partial Derivatives
+
+Let $f$ be a function of the variables $(x, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
+
+$$\begin{align*}
+\frac{\partial f(x, \dots, X_n)}{\partial X_i}=\lim_{h\to0}\frac{f(x, \dots X_i+h \dots, X_n)-f(x, \dots X_i \dots, X_n)}{h}
+\end{align*}$$
+
+```{r}
+#| label: partial
+#| echo: false
+knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6WrQ.png")
+```
+
+[Source](https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86)
+
+## Minimizing the sum of squared errors
+
+Our model
+
+$$y_i =\beta_0+\beta_1x_{i}+\epsilon_i$$
+
+Finds coefficients $\beta_0$ and $\beta_1$ to to minimize the sum of squared residuals, $\hat{\epsilon}_i$:
+
+$$\begin{aligned}
+\sum \hat{\epsilon_i}^2 &= \sum (y_i-\beta_0-\beta_1 x_{i})^2
+\end{aligned}$$
+
+## Minimizing the sum of squared errors
+
+We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
+
+$$\begin{aligned}
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial \beta_0} &= -2\sum (y_i-\beta_0-\beta_1 x_{i})=0 & f'(-x^2) = -2x\\
+\frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (y_i-\beta_0-\beta_1 x_{i})x_{i}=0 & \text{chain rule}
+\end{aligned}$$
+
+## Solving for $\beta_0$
+
+First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
+
+$$\begin{aligned}
+0 &= -2\sum (y_i-\beta_0-\beta_1 x_{i})\\
+\sum \beta_0 &= \sum y_i - \sum \beta_1 x_{i}\\
+N \beta_0 &= \sum y_i -\sum \beta_1 x_{i}\\
+\beta_0 &= \frac{\sum y_i}{N} - \frac{\beta_1 \sum x_{i}}{N}\\
+\beta_0 &= \bar{y} - \beta_1 \bar{x}
+\end{aligned}$$
+
+## Solving for $\beta_1$
+
+Now, we can solve for $\beta_1$ plugging in $\beta_0$.
+
+$$\begin{aligned}
+0 &= -2\sum [(y_i-\beta_0-\beta_1 x_{i})x_{i}]\\
+0 &= \sum [y_ix_i-(\bar{y} - \beta_1 \bar{x})x_{i}-\beta_1 x_{i}^2]\\
+0 &= \sum [y_ix_i-\bar{y}x_{i} + \beta_1 \bar{x}x_{i}-\beta_1 x_{i}^2]
+\end{aligned}$$
+
+## Solving for $\beta_1$
+
+Now we'll rearrange some terms and pull out an $x_{i}$ to get
+
+$$\begin{aligned}
+0 &= \sum [(y_i -\bar{y} + \beta_1 \bar{x}-\beta_1 x_{i})x_{i}]
+\end{aligned}$$
+
+Dividing both sides by $x_{i}$ and distributing the summation, we can isolate $\beta_1$
+
+$$\begin{aligned}
+\beta_1 \sum (x_{i}-\bar{x}) &= \sum (y_i -\bar{y})
+\end{aligned}$$
+
+Dividing by $\sum (x_{i}-\bar{x})$ to get
+
+$$\begin{aligned}
+\beta_1  &= \frac{\sum (y_i -\bar{y})}{\sum (x_{i}-\bar{x})}
+\end{aligned}$$
+
+## Solving for $\beta_1$
+
+Finally, by multiplying by $\frac{(x_{i}-\bar{x})}{(x_{i}-\bar{x})}$ we get
+
+$$\begin{aligned}
+\beta_1  &= \frac{\sum (y_i -\bar{y})(x_{i}-\bar{x})}{\sum (\bar{x}-x_{i})^2}
+\end{aligned}$$
+
+Which has a nice interpretation:
+
+$$\begin{aligned}
+\beta_1 &= \frac{Cov(x,y)}{Var(x)}
+\end{aligned}$$
+
+So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat!
+
+class: inverse, center, middle \# 💡\
+\# Theoretical: Linear Regression \## OLS provides a linear estimate of CEF: E\[Y\|X\]
+
+## Linear Regression is a many splendored thing
+
+[Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of the various interpretations/motivations for linear regression.
+
+-   A [least squares estimator](https://www.timlrx.com/blog/notes-on-regression-ols)
+
+-   A [linear projection](https://www.timlrx.com/blog/notes-on-regression-geometry) of $y$ on the subspace spanned by $X\beta$
+
+-   A [method of moments estimator](https://www.timlrx.com/blog/notes-on-regression-method-of-moments)
+
+-   A [maximum likelihood estimator](https://www.timlrx.com/blog/notes-on-regression-maximum-likelihood)
+
+-   A [singular vector decomposition](https://www.timlrx.com/blog/notes-on-regression-singular-vector-decomposition)
+
+-   A [linear approximation of the conditional expectation function](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)
+
+## Linear Regression is a many splendored thing
+
+[Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of various interpretations/motivations for linear regression.
+
+-   A [least squares estimator](https://www.timlrx.com/blog/notes-on-regression-ols)
+
+-   A [linear projection](https://www.timlrx.com/blog/notes-on-regression-geometry) of $y$ on the subspace spanned by $X\beta$
+
+-   A [method of moments estimator](https://www.timlrx.com/blog/notes-on-regression-method-of-moments)
+
+-   A [maximum likelihood estimator](https://www.timlrx.com/blog/notes-on-regression-maximum-likelihood)
+
+-   A [singular vector decomposition](https://www.timlrx.com/blog/notes-on-regression-singular-vector-decomposition)
+
+-   A [**linear approximation of the conditional expectation function**](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)
+
+## The Conditional Expectation Function
+
+Of all the functions we could choose to describe the relationship between $Y$ and $X$,
+
+$$
+Y_i = f(X_i) + \epsilon_i
+$$
+
+the conditional expectation of $Y$ given $X$ $(E[Y|X])$, has some appealing properties
+
+$$
+Y_i = E[Y_i|X_i] + \epsilon
+$$
+
+The error, by definition, is uncorrelated with X and $E[\epsilon|X]=0$
+
+$$
+E[\epsilon|X] = E[Y - E[Y|X]|X]= E[Y|X] - E[Y|X] = 0
+$$
+
+Of all the possible functions $g(X)$, we can show that \$E\[Y_i\|X_i\] \$ is the best predictor in terms of minimizing **mean squared error**
+
+$$
+E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2] 
+$$
+
+## Linear Approximations to the Conditional Expectation Function
+
+-   We can then show (in a different class) that linear regression provides the best linear predictor of the CEF
+    -   Chapter 3, of [Mostly Harmless Econometrics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991028523169706966)
+    -   Chapter 4 of [Foundations of Agnostic Statistics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991000736119706966)
+-   Furthermore, when the CEF is linear, it's equal exactly to OLS regression
+
+```{r}
+#| label: cef1code
+#| echo: true
+#| eval: false
+
+
+df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  stat_summary(geom="point", aes(col="CEF"))+
+  stat_summary(geom="line", aes(col="CEF"))+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People",
+    col = ""
+  )+
+  theme_classic() -> plot_cef
+
+
+
+```
+
+```{r}
+#| label: cef1
+#| echo: false
+df %>%
+  ggplot(aes(vf_age,therm_trans_t0))+
+  geom_point(size=.5, alpha=.5)+
+  stat_summary(geom="point", aes(col="CEF"))+
+  stat_summary(geom="line", aes(col="CEF"))+
+  labs(
+    x = "Age",
+    y = "Feeling Thermometer toward\nTransgender People",
+    col = ""
+  )+
+  theme_classic() -> plot_cef
+
+plot_cef
+```
+
+```{r}
+#| label: cef2code
+#| echo: true
+#| eval: false
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
+
+
+
+
+```
+
+```{r}
+#| label: cef2
+#| echo: false
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
+```
+
+```{r}
+#| label: cef3code
+#| echo: true
+#| eval: false
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
+
+
+
+
+```
+
+```{r}
+#| label: cef3
+#| echo: false
+plot_cef+
+  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
+plot_cef
+```
+
+## What you need to know about Regression
+
+-   **Conceptual**
+    -   Simple linear regression estimates a line of best fit that summarizes relationships between two variables
+
+$$
+y_i = \beta_0 + \beta_1x_i + \epsilon_i
+$$
+
+-   **Practical**
+    -   We estimate linear models in R using the `lm()` function
+
+```{r}
+#| label: ols
+#| eval: false
+lm(y ~ x, data = df)
+```
+
+-   *Technical/Definitional*
+    -   Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR):
+
+$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
+
+-   *Theoretical*
+    -   Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
+
+
+# {{< fa lightbulb >}} Difference-in-Differences {.inverse}
+
+
+
+
+## Summary
+
+## References
