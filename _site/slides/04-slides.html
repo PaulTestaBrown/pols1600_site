@@ -322,6 +322,15 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+  <script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+  <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+  <script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+  <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+  <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -329,22 +338,23 @@
 
 <section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">POLS 1600</h1>
-  <p class="subtitle">Topic</p>
+  <p class="subtitle">Casual Inference in<br>Observational Designs &amp; <br> Simple Linear Regression</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Feb 14, 2024</p>
+  <p class="date">Updated Feb 16, 2024</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
 <h1><i class="fa-solid fa-map-location" aria-label="map-location"></i> Overview</h1>
 
 </section>
-<section id="class-plan" class="slide level2">
-<h2>Class Plan</h2>
+<section id="overview-1" class="slide level2">
+<h2>Overview</h2>
 <ul>
 <li class="fragment">Announcements</li>
+<li class="fragment">Setup</li>
 <li class="fragment">Feedback</li>
 <li class="fragment">Review</li>
 <li class="fragment">Class plan</li>
@@ -352,15 +362,39 @@
 </section>
 <section id="annoucements" class="slide level2">
 <h2>Annoucements</h2>
+<ul>
+<li class="fragment">Sit with your groups (for now)</li>
+</ul>
 </section>
-<section id="feedback" class="slide level2">
-<h2>Feedback</h2>
+<section id="group-assignments" class="slide level2 smaller">
+<h2>Group Assignments</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-13509d42b95fd9e3c4ef" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-13509d42b95fd9e3c4ef">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 </section>
-<section id="concepts" class="slide level2">
-<h2><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Concepts</h2>
+<section id="feedback" class="slide level2" data-top="50%" data-background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg">
+<h2><i class="fa-solid fa-bullhorn" aria-label="bullhorn"></i> Feedback</h2>
 </section>
-<section id="code" class="slide level2">
-<h2><i class="fa-solid fa-code" aria-label="code"></i> Code</h2>
+<section id="what-did-we-like" class="slide level2 smaller">
+<h2>What did we like</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-9850bccc4779c015b04a" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9850bccc4779c015b04a">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["Data mapping is very interesting","I like making pretty graphs!","I like that we were able to create a plot and visualize our date, that was pretty cool.","It was fun to get to experiment with code ourselves, and figure out how we can change plots and their visuals","turning data into visual","This week has been the best week so far and learning about graphs has been really fun. The most useful thing so far was outlining and implementing the steps to complete today's lab-- I felt like I was keeping up and able to ask a few questions as well.","I thought that the lab was much easier to follow","I liked cleaning the data and mutating it to make it more understandable","I liked that you went over the process of HLOs because I was not sure how to approach them. Now i feel better on how to start the HLO process.","I enjoyed learning about how to employ certain functions to labels we created. It was much clearer in class than it was in the textbook and made me feel comfortable during the lab.","","I liked working in groups and also having the opportunity to ask lots of questions. I also liked being able to talk through the code as a class since I don't have a lot of (any) coding experience. I feel a little more confident after this class.","","I enjoyed making plots and graphs. It's fun to watch something be created from the messy code.","Being able to visualize the data","I liked creating the plot.","I thought it was interesting to create the data plot.","This week I enjoyed messing around with different characteristics of the graphics.","I liked being able to keep up for the most part. I think it a lot more fun when I am able to keep up!",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Likes","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="what-did-we-dislike" class="slide level2 smaller">
+<h2>What did we dislike</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-0fc840ec8d48c4b0f23f" style="width:100%;height:90%;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0fc840ec8d48c4b0f23f">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["Data mapping also happens to be quite confusing and can become rather difficult","I'm still getting the hang of things, so sometimes it's hard to follow along.","That I'm still confused about each of the functions and I don't know exactly what I'm coding.","I feel like we haven't done a lot of coding ourselves, but have mostly just copied existing code. I am also not certain, but I felt like the tutorials were in base r, and not tidyverse r, and that made completing the tutorial harder. \n","NOTHING. i thought this week's lab was super duper helpful\n","The tutorial this week was a little confusing/frustrating.","","I had a hard time reloading the packages before every time we used the code","I wish we could go over a bit more in depth of what each code is doing for each part so that I have a better understanding of whats going on.","I didn't fully understand where some of the complex code chunks were coming from or why we were using them.","","I think you sometimes go through instructions too fast and me and my group would miss sections of code because you would switch tabs away from the code. If possible, it would be great to leave the code up for an extra minute or to repeat the instructions so everyone catches them.","","Labs still move quite quickly sometimes.","Getting error messages and not knowing how to solve them on my own","I felt like I was playing catch-up sometimes on Tuesday.","I kept getting errors on Tuesday when we were walking through steps which made it difficult to follow.","I found it difficult when parts of my code weren't working and I had no idea where to start in finding the problem.","One thing I didn't like is when I get an error code, it is so frustrating and I have no idea what to do.",""]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dislikes","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 </section></section>
 <section>
 <section id="review" class="title-slide slide level1 inverse center">
@@ -369,30 +403,226 @@
 </section>
 <section id="review-1" class="slide level2">
 <h2>Review</h2>
+<ul>
+<li class="fragment"><p>Data wrangling</p></li>
+<li class="fragment"><p>Data visualization</p></li>
+<li class="fragment"><p>Descriptive Statistics</p></li>
+<li class="fragment"><p>Levels of understanding</p></li>
+</ul>
+</section>
+<section id="data-wrangling" class="slide level2">
+<h2>Data wrangling</h2>
+</section>
+<section id="data-visualization" class="slide level2">
+<h2>Data visualization</h2>
+</section>
+<section id="descriptive-statistics" class="slide level2 smaller">
+<h2>Descriptive statistics</h2>
+<ul>
+<li class="fragment"><p>Descriptive statistics help us describe what’s typical of our data</p></li>
+<li class="fragment"><p><span class="blue">What’s a typical value in our data</span></p>
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#mean" target="_blank">Mean</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#median" target="_blank">Median</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#modes" target="_blank">Mode</a></li>
+</ul></li>
+<li class="fragment"><p><span class="blue">How much do our data vary?</span></p>
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#variance" target="_blank">Variance</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations" target="_blank">Standard deviation</a></li>
+</ul></li>
+<li class="fragment"><p>As one variable changes <span class="blue">how does another change</span>?</p>
+<ul>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance" target="_blank">Covariance</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation" target="_blank">Correlation</a></li>
+</ul></li>
+<li class="fragment"><p>Descriptive statistics are:</p>
+<ul>
+<li class="fragment">Diagnostic</li>
+<li class="fragment">Generative</li>
+</ul></li>
+</ul>
+</section>
+<section id="levels-of-understanding-in-pols-1600" class="slide level2">
+<h2>Levels of understanding in POLS 1600</h2>
+<ul>
+<li class="fragment"><p>Conceptual</p></li>
+<li class="fragment"><p>Practical</p></li>
+<li class="fragment"><p>Definitional</p></li>
+<li class="fragment"><p>Theoretical</p></li>
+</ul>
+</section>
+<section id="descriptive-statistics-levels-of-understanding" class="slide level2">
+<h2>Descriptive statistics: Levels of understanding</h2>
+<ul>
+<li class="fragment"><p><strong>Conceptual</strong></p></li>
+<li class="fragment"><p><strong>Practical</strong></p></li>
+<li class="fragment"><p>Definitional</p></li>
+<li class="fragment"><p>Theoretical</p></li>
+</ul>
+</section>
+<section id="mean-conceptual-understanding" class="slide level2">
+<h2>Mean: Conceptual Understanding</h2>
+<p>A mean is:</p>
+<ul>
+<li class="fragment"><p>A common and important <span class="blue">measure of central tendency</span> (what’s typical)</p></li>
+<li class="fragment"><p>It’s the <span class="blue">arithmetic average</span> you learned in school</p></li>
+<li class="fragment"><p>We can think of it as the <span class="blue">balancing point</span> of a distribution</p></li>
+<li class="fragment"><p>A conditional mean is the average of one variable <span class="math inline">\(X\)</span>, when some other variable, <span class="math inline">\(Z\)</span> takes a value <span class="math inline">\(z\)</span></p>
+<ul>
+<li class="fragment">Think about the average height in our class (<span class="blue">unconditional mean</span>) vs the average height among men and women ([conditional means].{blue})</li>
+</ul></li>
+</ul>
+</section>
+<section id="mean-as-a-balancing-point" class="slide level2">
+<h2>Mean as a balancing point</h2>
+
+<img data-src="https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg" class="r-stretch"><p><a href="https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html" target="_blank">Source</a></p>
+</section>
+<section id="mean-practical" class="slide level2">
+<h2>Mean: Practical</h2>
+<p>There are lots of ways to calculate means in <code>R</code></p>
+<ul>
+<li class="fragment"><p>The simplest is to use the <code>mean()</code> function</p>
+<ul>
+<li class="fragment">If our data have missing values, we need to to tell <code>R</code> to remove them</li>
+</ul></li>
+</ul>
+</section>
+<section id="conditional-means-practical" class="slide level2">
+<h2>Conditional Means: Practical</h2>
+<ul>
+<li class="fragment">To calculate a conditional mean we could us a logical index <code>[df$z == 1]</code></li>
+</ul>
+<ul>
+<li class="fragment">If we wanted to a calculate a lot of conditional means we could use the <code>mean()</code> in combination with <code>group_by()</code> and <code>summarise()</code></li>
+</ul>
+</section>
+<section id="mean-definitional" class="slide level2">
+<h2>Mean: Definitional</h2>
+<p>Formally, we define the arithmetic mean of <span class="math inline">\(x\)</span> as <span class="math inline">\(\bar{x}\)</span>:</p>
+<p><span class="math display">\[
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
+\]</span></p>
+<p>In words, this formula says, to calculate the average of x, we sum up all the values of <span class="math inline">\(x_i\)</span> from observation <span class="math inline">\(i=1\)</span> to <span class="math inline">\(i=n\)</span> and then divide by the total number of observations <span class="math inline">\(n\)</span></p>
+</section>
+<section id="mean-definitional-1" class="slide level2">
+<h2>Mean: Definitional</h2>
+<ul>
+<li class="fragment"><p>In this class, I don’t put a lot of weight on memorizing definitions (that’s what Google’s for).</p></li>
+<li class="fragment"><p>But being comfortable with “the math” is important and useful</p></li>
+<li class="fragment"><p>Definitional knowledge is a prerequisite for understanding more theoretical claims.</p></li>
+</ul>
+</section>
+<section id="mean-theoretical" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Suppose I asked you to show that the sum of deviations from a mean equals 0?</p>
+<p><span class="math display">\[
+\text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
+\]</span></p>
+</section>
+<section id="mean-theoretical-1" class="slide level2 smaller">
+<h2>Mean: Theoretical</h2>
+<p>Knowing the definition of an arithmetic mean, we could write:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum_{i=1}^n (x_i -\bar{x}) &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n\bar{x} &amp; \text{Distribute Summation}\\
+              &amp;= \sum_{i=1}^n x_i - n\bar{x} &amp; \text{Summing a constant, } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - n\times \left ( \frac{1}{n} \sum_{i=1}^n{x_i}\right ) &amp; \text{Definition of } \bar{x}\\
+              &amp;= \sum_{i=1}^n x_i - \sum_{i=1}^n{x_i} &amp; n \times \frac{1}{n}=1\\
+              &amp;= 0             
+\end{aligned}
+\]</span></p>
+</section>
+<section id="mean-theoretical-2" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Why do we care?</p>
+<ul>
+<li class="fragment"><p>Showing the deviations sum to 0 is another way of saying the mean is a “balancing point.”</p></li>
+<li class="fragment"><p>This turns out to be a useful property of means that will reappear throughout the course</p></li>
+<li class="fragment"><p>If I asked you to make a prediction, <span class="math inline">\(\hat{x}\)</span> of a random person’s height in this class, the mean would have the lowest “mean squared error” (MSE <span class="math inline">\(=\frac{1}{n}\sum (x_i - \hat{x_i})^2)\)</span></p></li>
+</ul>
+</section>
+<section id="mean-theoretical-3" class="slide level2">
+<h2>Mean: Theoretical</h2>
+<p>Occasionally, you’ll read or here me say say things like:</p>
+<blockquote>
+<p>The sample mean is an unbiased estimator of the population mean</p>
+</blockquote>
+<p>In a statistics class, we would take time to prove this.</p>
+</section>
+<section id="the-sample-mean-is-an-unbiased-estimator-of-the-population-mean" class="slide level2">
+<h2>The sample mean is an unbiased estimator of the population mean</h2>
+<p>Claim:</p>
+<p>Let <span class="math inline">\(x_1, x_2, \dots x_n\)</span> from a random sample from a population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span></p>
+<p>Then:</p>
+<p><span class="math display">\[
+\bar{x} = \frac{1}{n}\left (\sum_{i=1}^n x_i\right )
+\]</span></p>
+<p>is an unbiased estimator of <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[
+E[\bar{x}] = \mu
+\]</span></p>
+</section>
+<section id="the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1" class="slide level2 smaller">
+<h2>The sample mean is an unbiased estimator of the population mean</h2>
+<p>Proof:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E\left [\bar{x} \right] &amp;= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \right] &amp; \text{Definition of } \bar{x} \\
+&amp;= \frac{1}{n} \sum_{i=1}^nE\left [ x_i \right]  &amp; \text{Linearity of Expectations} \\
+&amp;= \frac{1}{n} \sum_{i=1}^n \mu  &amp; E[x_i] = \mu \\
+&amp;= \frac{n}{n}  \mu  &amp; \sum_{i=1}^n \mu = n\mu \\
+&amp;= \mu  &amp; \blacksquare \\
+\end{aligned}
+\]</span></p>
+</section>
+<section id="levels-of-understanding" class="slide level2 smaller">
+<h2>Levels of understanding</h2>
+<div>
+<p>In this course, we tend to emphasize the</p>
+<ul>
+<li><p><strong>Conceptual</strong></p></li>
+<li><p><strong>Practical</strong></p></li>
+</ul>
+<p>Over</p>
+<ul>
+<li><p>Definitional</p></li>
+<li><p>Theoretical</p></li>
+</ul>
+<p>In an intro statistics class, the ordering might be reversed.</p>
+<p>Trade offs:</p>
+</div>
+<ul>
+<li class="fragment">Pro: We actually get to <em>work with data</em> and <em>do empirical research</em> much sooner</li>
+<li class="fragment">Cons: We substitute intuitive understandings for more rigorous proofs</li>
+</ul>
 </section></section>
-<section>
-<section id="concept" class="title-slide slide level1 inverse center">
-<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Concept</h1>
+<section id="causal-identification-with-observational-designs" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Causal Identification with Observational Designs</h1>
 
 </section>
-<section id="concept-1" class="slide level2">
-<h2>Concept</h2>
-</section></section>
-<section>
-<section id="code-1" class="title-slide slide level1 inverse center">
-<h1><i class="fa-solid fa-code" aria-label="code"></i> Code</h1>
+
+<section id="covariate-adjustment" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Covariate Adjustment</h1>
 
 </section>
-<section id="code-2" class="slide level2">
-<h2>Code</h2>
-</section></section>
-<section>
-<section id="summary" class="title-slide slide level1 inverse center">
-<h1><i class="fa-solid fa-home" aria-label="home"></i> Summary</h1>
+
+<section id="simple-linear-regression" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Simple Linear Regression</h1>
 
 </section>
-<section id="summary-1" class="slide level2">
+
+<section>
+<section id="difference-in-differences" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Difference-in-Differences</h1>
+
+</section>
+<section id="summary" class="slide level2">
 <h2>Summary</h2>
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
 
 <div class="quarto-auto-generated-content">
 <p><img src="images/pols1600_hex.png" class="slide-logo"></p>

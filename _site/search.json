@@ -8513,13 +8513,13 @@
     "href": "slides/04-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements"
+    "text": "Annoucements\n\nSit with your groups (for now)"
   },
   {
     "objectID": "slides/04-slides.html#feedback",
     "href": "slides/04-slides.html#feedback",
     "title": "POLS 1600",
-    "section": "Feedback",
+    "section": " Feedback",
     "text": "Feedback"
   },
   {
@@ -8541,7 +8541,7 @@
     "href": "slides/04-slides.html#review-1",
     "title": "POLS 1600",
     "section": "Review",
-    "text": "Review"
+    "text": "Review\n\nData wrangling\nData visualization\nDescriptive Statistics\nLevels of understanding"
   },
   {
     "objectID": "slides/04-slides.html#concept-1",
@@ -9189,5 +9189,908 @@
     "title": "POLS 1600",
     "section": "Estimating an Average Treatment Effect",
     "text": "Estimating an Average Treatment Effect\nIf we treatment has been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:\n\\[\n\\begin{align*}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{align*}\n\\]\nThat is, the ATE is causally identified by the difference of means estimator in an experimental design"
+  },
+  {
+    "objectID": "slides/04-slides.html#overview-1",
+    "href": "slides/04-slides.html#overview-1",
+    "title": "POLS 1600",
+    "section": "Overview",
+    "text": "Overview\n\nAnnouncements\nSetup\nFeedback\nReview\nClass plan"
+  },
+  {
+    "objectID": "slides/04-slides.html#group-assignments",
+    "href": "slides/04-slides.html#group-assignments",
+    "title": "POLS 1600",
+    "section": "Group Assignments",
+    "text": "Group Assignments"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-did-we-like",
+    "href": "slides/04-slides.html#what-did-we-like",
+    "title": "POLS 1600",
+    "section": "What did we like",
+    "text": "What did we like"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-did-we-dislike",
+    "href": "slides/04-slides.html#what-did-we-dislike",
+    "title": "POLS 1600",
+    "section": "What did we dislike",
+    "text": "What did we dislike"
+  },
+  {
+    "objectID": "slides/04-slides.html#review-data-wrangling",
+    "href": "slides/04-slides.html#review-data-wrangling",
+    "title": "POLS 1600",
+    "section": "Review: Data wrangling",
+    "text": "Review: Data wrangling"
+  },
+  {
+    "objectID": "slides/04-slides.html#review-2",
+    "href": "slides/04-slides.html#review-2",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review"
+  },
+  {
+    "objectID": "slides/04-slides.html#feedback-.inverse-.absolute-10-10-10-10-bottom50-background-imagehttpsjplilley.comimageseasyblog_articles145holding-ears-300x196.jpg",
+    "href": "slides/04-slides.html#feedback-.inverse-.absolute-10-10-10-10-bottom50-background-imagehttpsjplilley.comimageseasyblog_articles145holding-ears-300x196.jpg",
+    "title": "POLS 1600",
+    "section": " Feedback {.inverse .absolute 10 10 10 10 bottom=50% background-image=“https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg”}",
+    "text": "Feedback {.inverse .absolute 10 10 10 10 bottom=50% background-image=“https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg”}"
+  },
+  {
+    "objectID": "slides/04-slides.html#data-wrangling",
+    "href": "slides/04-slides.html#data-wrangling",
+    "title": "POLS 1600",
+    "section": "Data wrangling",
+    "text": "Data wrangling"
+  },
+  {
+    "objectID": "slides/04-slides.html#data-visualization",
+    "href": "slides/04-slides.html#data-visualization",
+    "title": "POLS 1600",
+    "section": "Data visualization",
+    "text": "Data visualization"
+  },
+  {
+    "objectID": "slides/04-slides.html#descriptive-statistics",
+    "href": "slides/04-slides.html#descriptive-statistics",
+    "title": "POLS 1600",
+    "section": "Descriptive statistics",
+    "text": "Descriptive statistics\n\nDescriptive statistics help us describe what’s typical of our data\nWhat’s a typical value in our data\n\nMean\nMedian\nMode\n\nHow much do our data vary?\n\nVariance\nStandard deviation\n\nAs one variable changes how does another change?\n\nCovariance\nCorrelation\n\nDescriptive statistics are:\n\nDiagnostic\nGenerative"
+  },
+  {
+    "objectID": "slides/04-slides.html#levels-of-understanding-in-pols-1600",
+    "href": "slides/04-slides.html#levels-of-understanding-in-pols-1600",
+    "title": "POLS 1600",
+    "section": "Levels of understanding in POLS 1600",
+    "text": "Levels of understanding in POLS 1600\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+  },
+  {
+    "objectID": "slides/04-slides.html#descriptive-statistics-levels-of-understanding",
+    "href": "slides/04-slides.html#descriptive-statistics-levels-of-understanding",
+    "title": "POLS 1600",
+    "section": "Descriptive statistics: Levels of understanding",
+    "text": "Descriptive statistics: Levels of understanding\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-conceptual-understanding",
+    "href": "slides/04-slides.html#mean-conceptual-understanding",
+    "title": "POLS 1600",
+    "section": "Mean: Conceptual Understanding",
+    "text": "Mean: Conceptual Understanding\nA mean is:\n\nA common and important measure of central tendency (what’s typical)\nIt’s the arithmetic average you learned in school\nWe can think of it as the balancing point of a distribution\nA conditional mean is the average of one variable \\(X\\), when some other variable, \\(Z\\) takes a value \\(z\\)\n\nThink about the average height in our class (unconditional mean) vs the average height among men and women ([conditional means].{blue})"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-as-a-balancing-point",
+    "href": "slides/04-slides.html#mean-as-a-balancing-point",
+    "title": "POLS 1600",
+    "section": "Mean as a balancing point",
+    "text": "Mean as a balancing point\n\nSource"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-practical",
+    "href": "slides/04-slides.html#mean-practical",
+    "title": "POLS 1600",
+    "section": "Mean: Practical",
+    "text": "Mean: Practical\nThere are lots of ways to calculate means in R\n\nThe simplest is to use the mean() function\n\nIf our data have missing values, we need to to tell R to remove them"
+  },
+  {
+    "objectID": "slides/04-slides.html#conditional-means-practical",
+    "href": "slides/04-slides.html#conditional-means-practical",
+    "title": "POLS 1600",
+    "section": "Conditional Means: Practical",
+    "text": "Conditional Means: Practical\n\nTo calculate a conditional mean we could us a logical index [df$z == 1]\n\n\nIf we wanted to a calculate a lot of conditional means we could use the mean() in combination with group_by() and summarise()"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-definitional",
+    "href": "slides/04-slides.html#mean-definitional",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\nFormally, we define the arithmetic mean of \\(x\\) as \\(\\bar{x}\\):\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n{x_i}\\right ) = \\frac{x_1+x_2+\\cdots +x_n}{n}\n\\]\nIn words, this formula says, to calculate the average of x, we sum up all the values of \\(x_i\\) from observation \\(i=1\\) to \\(i=n\\) and then divide by the total number of observations \\(n\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-definitional-1",
+    "href": "slides/04-slides.html#mean-definitional-1",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\n\nIn this class, I don’t put a lot of weight on memorizing definitions (that’s what Google’s for).\nBut being comfortable with “the math” is important and useful\nDefinitional knowledge is a prerequisite for understanding more theoretical claims."
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical",
+    "href": "slides/04-slides.html#mean-theoretical",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nSuppose I asked you to show that the sum of deviations from a mean equals 0?\n\\[\n\\text{Claim:} \\sum_{i=1}^n (x_i -\\bar{x}) = 0\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-1",
+    "href": "slides/04-slides.html#mean-theoretical-1",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nKnowing the definition of an arithmetic mean, we could write:\n\\[\n\\begin{aligned}\n\\sum_{i=1}^n (x_i -\\bar{x}) &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n\\bar{x} & \\text{Distribute Summation}\\\\\n              &= \\sum_{i=1}^n x_i - n\\bar{x} & \\text{Summing a constant, } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - n\\times \\left ( \\frac{1}{n} \\sum_{i=1}^n{x_i}\\right ) & \\text{Definition of } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n{x_i} & n \\times \\frac{1}{n}=1\\\\\n              &= 0             \n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-2",
+    "href": "slides/04-slides.html#mean-theoretical-2",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nWhy do we care?\n\nShowing the deviations sum to 0 is another way of saying the mean is a “balancing point.”\nThis turns out to be a useful property of means that will reappear throughout the course\nIf I asked you to make a prediction, \\(\\hat{x}\\) of a random person’s height in this class, the mean would have the lowest “mean squared error” (MSE \\(=\\frac{1}{n}\\sum (x_i - \\hat{x_i})^2)\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-3",
+    "href": "slides/04-slides.html#mean-theoretical-3",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nOccasionally, you’ll read or here me say say things like:\n\nThe sample mean is an unbiased estimator of the population mean\n\nIn a statistics class, we would take time to prove this."
+  },
+  {
+    "objectID": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "href": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nClaim:\nLet \\(x_1, x_2, \\dots x_n\\) from a random sample from a population with mean \\(\\mu\\) and variance \\(\\sigma^2\\)\nThen:\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n x_i\\right )\n\\]\nis an unbiased estimator of \\(\\mu\\)\n\\[\nE[\\bar{x}] = \\mu\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "href": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nProof:\n\\[\n\\begin{aligned}\nE\\left [\\bar{x} \\right] &= E\\left [\\frac{1}{n}\\left (\\sum_{i=1}^n x_i \\right) \\right] & \\text{Definition of } \\bar{x} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^nE\\left [ x_i \\right]  & \\text{Linearity of Expectations} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^n \\mu  & E[x_i] = \\mu \\\\\n&= \\frac{n}{n}  \\mu  & \\sum_{i=1}^n \\mu = n\\mu \\\\\n&= \\mu  & \\blacksquare \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#levels-of-understanding",
+    "href": "slides/04-slides.html#levels-of-understanding",
+    "title": "POLS 1600",
+    "section": "Levels of understanding",
+    "text": "Levels of understanding\n\nIn this course, we tend to emphasize the\n\nConceptual\nPractical\n\nOver\n\nDefinitional\nTheoretical\n\nIn an intro statistics class, the ordering might be reversed.\nTrade offs:\n\n\nPro: We actually get to work with data and do empirical research much sooner\nCons: We substitute intuitive understandings for more rigorous proofs"
+  },
+  {
+    "objectID": "slides/04-slides.html#summary",
+    "href": "slides/04-slides.html#summary",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/04-slides.html#references",
+    "href": "slides/04-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "resources/04-packages.html",
+    "href": "resources/04-packages.html",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "",
+    "text": "This document provides instructions for installing the following packages:\n\ndataverse a package to download and read files from dataverses like Harvard’s Dataverse\nDeclareDesign a set of packages useful for describing the properities of experimetnal and observational design\ntidycensus set of functions of that allow us to download data from the US Census’ API\neasystats a set of packages like the tidyverse but for statistics.\n\nThese are useful packages, but in the past, I’ve found they don’t play nicely with the simple the_packages ipak(the_packages) approach we take in class.\nAdditionally, for tidycensus, each of you will need to request an API key from the Census and install it locally to your computers."
+  },
+  {
+    "objectID": "resources/04-packages.html#request-an-api-key-from-the-census",
+    "href": "resources/04-packages.html#request-an-api-key-from-the-census",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "3.1 Request an API key from the Census",
+    "text": "3.1 Request an API key from the Census\nClick on this link: https://api.census.gov/data/key_signup.html\nAnd fill in the following information\n\nOrganization: “Brown University”\nEmail: firstname_lastname@brown.edu\nAgree to terms of service\nSubmit request\n\n\nknitr::include_graphics(\"images/census1.png\")"
+  },
+  {
+    "objectID": "resources/04-packages.html#check-email",
+    "href": "resources/04-packages.html#check-email",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "3.2 Check Email",
+    "text": "3.2 Check Email\nYou should receive an email like this:\n\n\n\n\n\n\n\n\n\n\nClick on the link to activate your API key"
+  },
+  {
+    "objectID": "resources/04-packages.html#activate-api-key",
+    "href": "resources/04-packages.html#activate-api-key",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "3.3 Activate API key",
+    "text": "3.3 Activate API key\n\nClicking the link should take you to a page that looks like this"
+  },
+  {
+    "objectID": "resources/04-packages.html#save-api-key-in-r",
+    "href": "resources/04-packages.html#save-api-key-in-r",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "3.4 Save API key in R",
+    "text": "3.4 Save API key in R\nGo back to the email from the census\n\nCopy the string of letters and digits from the email (blocked out in red in the image above)\nThis is your unique census API key\nPaste that string in between the quotation marks below and run census_api_key()\n\n\ncensus_api_key(\"YOUR API KEY GOES HERE\")"
+  },
+  {
+    "objectID": "resources/04-packages.html#check-that-everything-worked",
+    "href": "resources/04-packages.html#check-that-everything-worked",
+    "title": "Installing the tidycensus, DeclareDesign, and dataverse packages",
+    "section": "3.5 Check that everything worked",
+    "text": "3.5 Check that everything worked\n\ncensus_api_key() should save your unique API to your .Renviron file which tidycensus will use whenever you make ask the Census to Download data.\nIf everything worked as planned, running Sys.getenv(\"CENSUS_API_KEY\") should display your long API key\n\n\nSys.getenv(\"CENSUS_API_KEY\")\n\n[1] \"cad56d0c712406cfe825878e3bd0de256d19f2aa\"\n\n\nAnd you should be able to use functions from tidycensus to download census data:\n\nage10 &lt;- tidycensus::get_decennial(geography = \"state\", \n                       variables = \"P013001\", \n                       year = 2010)\n\nGetting data from the 2010 decennial Census\n\n\nUsing Census Summary File 1\n\nhead(age10)\n\n# A tibble: 6 × 4\n  GEOID NAME       variable value\n  &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt;\n1 01    Alabama    P013001   37.9\n2 02    Alaska     P013001   33.8\n3 04    Arizona    P013001   35.9\n4 05    Arkansas   P013001   37.4\n5 06    California P013001   35.2\n6 22    Louisiana  P013001   35.8\n\n\nYou can read more about what tidycensus can do here"
+  },
+  {
+    "objectID": "slides/05-slides.html#overview-1",
+    "href": "slides/05-slides.html#overview-1",
+    "title": "POLS 1600",
+    "section": "Overview",
+    "text": "Overview\n\nAnnouncements\nSetup\nFeedback\nReview\nClass plan"
+  },
+  {
+    "objectID": "slides/05-slides.html#annoucements",
+    "href": "slides/05-slides.html#annoucements",
+    "title": "POLS 1600",
+    "section": "Annoucements",
+    "text": "Annoucements\n\nSit with your groups (for now)"
+  },
+  {
+    "objectID": "slides/05-slides.html#group-assignments",
+    "href": "slides/05-slides.html#group-assignments",
+    "title": "POLS 1600",
+    "section": "Group Assignments",
+    "text": "Group Assignments"
+  },
+  {
+    "objectID": "slides/05-slides.html#feedback",
+    "href": "slides/05-slides.html#feedback",
+    "title": "POLS 1600",
+    "section": " Feedback",
+    "text": "Feedback"
+  },
+  {
+    "objectID": "slides/05-slides.html#what-did-we-like",
+    "href": "slides/05-slides.html#what-did-we-like",
+    "title": "POLS 1600",
+    "section": "What did we like",
+    "text": "What did we like"
+  },
+  {
+    "objectID": "slides/05-slides.html#what-did-we-dislike",
+    "href": "slides/05-slides.html#what-did-we-dislike",
+    "title": "POLS 1600",
+    "section": "What did we dislike",
+    "text": "What did we dislike"
+  },
+  {
+    "objectID": "slides/05-slides.html#packages-for-the-lab",
+    "href": "slides/05-slides.html#packages-for-the-lab",
+    "title": "POLS 1600",
+    "section": "Packages for the lab",
+    "text": "Packages for the lab\nHopefully, you were all able to install the following packages"
+  },
+  {
+    "objectID": "slides/05-slides.html#census-api",
+    "href": "slides/05-slides.html#census-api",
+    "title": "POLS 1600",
+    "section": "Census API",
+    "text": "Census API\nAdditionally, I hope you have all followed the steps here:\n\nInstall the tidycensus package\nLoad the installed package\nRequest an API key from the Census\nCheck your email\nActivate your key\nInstall your API key in R\nCheck that everything worked\n\nTo install the an API key so we can download data directly from the US Census"
+  },
+  {
+    "objectID": "slides/05-slides.html#packages-for-today",
+    "href": "slides/05-slides.html#packages-for-today",
+    "title": "POLS 1600",
+    "section": "Packages for today",
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", #&lt;&lt;\n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"#&lt;&lt;\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
+  },
+  {
+    "objectID": "slides/05-slides.html#packages-for-the-lab-1",
+    "href": "slides/05-slides.html#packages-for-the-lab-1",
+    "title": "POLS 1600",
+    "section": "Packages for the Lab",
+    "text": "Packages for the Lab"
+  },
+  {
+    "objectID": "slides/05-slides.html#preview-of-the-lab",
+    "href": "slides/05-slides.html#preview-of-the-lab",
+    "title": "POLS 1600",
+    "section": "Preview of the Lab",
+    "text": "Preview of the Lab\nConceptually, this lab is designed to help reinforce the relationship between linear models like \\(y=\\beta_0 + \\beta_1x\\) and the conditional expectation function \\(E[Y|X]\\).\n\nQuestions 1-5 are designed to reinforce your data wrangling skills. In particular, you will get practice:\n\nCreating and recoding variables using mutate()\nCalculating a moving average or rolling mean using the rollmean() function from the zoo package\nTransforming the data on presidential elections so that it can be merged with the data on Covid-19 using the pivot_wider() function.\nMerging data together using the left_join() function."
+  },
+  {
+    "objectID": "slides/05-slides.html#preview-of-the-lab-1",
+    "href": "slides/05-slides.html#preview-of-the-lab-1",
+    "title": "POLS 1600",
+    "section": "Preview of the Lab",
+    "text": "Preview of the Lab\n\nIn question 6, you will see how calculating conditional means provides a simple test of “Red Covid” claim.\nIn question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)\nIn question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)\nIn question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.\nQuestion 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week’s lab."
+  },
+  {
+    "objectID": "slides/05-slides.html#load-the-covid-19-data",
+    "href": "slides/05-slides.html#load-the-covid-19-data",
+    "title": "POLS 1600",
+    "section": "Load the Covid-19 Data",
+    "text": "Load the Covid-19 Data"
+  },
+  {
+    "objectID": "slides/05-slides.html#filter-covid-19-data-to-us-states",
+    "href": "slides/05-slides.html#filter-covid-19-data-to-us-states",
+    "title": "POLS 1600",
+    "section": "Filter Covid-19 Data to US States",
+    "text": "Filter Covid-19 Data to US States"
+  },
+  {
+    "objectID": "slides/05-slides.html#mutate-calculate-new-cases",
+    "href": "slides/05-slides.html#mutate-calculate-new-cases",
+    "title": "POLS 1600",
+    "section": "Mutate: Calculate New Cases",
+    "text": "Mutate: Calculate New Cases"
+  },
+  {
+    "objectID": "slides/05-slides.html#calculating-a-rolling-average-new-cases",
+    "href": "slides/05-slides.html#calculating-a-rolling-average-new-cases",
+    "title": "POLS 1600",
+    "section": "Calculating a Rolling Average New Cases",
+    "text": "Calculating a Rolling Average New Cases\n\n\n# A tibble: 52,580 × 4\n# Groups:   state [51]\n   state     date       new_cases_pc new_cases_pc_7da\n   &lt;chr&gt;     &lt;date&gt;            &lt;dbl&gt;            &lt;dbl&gt;\n 1 Minnesota 2020-03-06      NA               NA     \n 2 Minnesota 2020-03-07       0               NA     \n 3 Minnesota 2020-03-08       0.0177          NA     \n 4 Minnesota 2020-03-09       0               NA     \n 5 Minnesota 2020-03-10       0.0177          NA     \n 6 Minnesota 2020-03-11       0.0355          NA     \n 7 Minnesota 2020-03-12       0.0709          NA     \n 8 Minnesota 2020-03-13       0.0887           0.0329\n 9 Minnesota 2020-03-14       0.124            0.0507\n10 Minnesota 2020-03-15       0.248            0.0836\n# ℹ 52,570 more rows"
+  },
+  {
+    "objectID": "slides/05-slides.html#new-case-per-capita",
+    "href": "slides/05-slides.html#new-case-per-capita",
+    "title": "POLS 1600",
+    "section": "New Case Per Capita",
+    "text": "New Case Per Capita"
+  },
+  {
+    "objectID": "slides/05-slides.html#new-case-per-capita-vs-7-day-average",
+    "href": "slides/05-slides.html#new-case-per-capita-vs-7-day-average",
+    "title": "POLS 1600",
+    "section": "New Case Per Capita vs 7-day average",
+    "text": "New Case Per Capita vs 7-day average"
+  },
+  {
+    "objectID": "slides/05-slides.html#facemask-policy",
+    "href": "slides/05-slides.html#facemask-policy",
+    "title": "POLS 1600",
+    "section": "Facemask Policy",
+    "text": "Facemask Policy"
+  },
+  {
+    "objectID": "slides/05-slides.html#mutate-dates-and-vaccinations",
+    "href": "slides/05-slides.html#mutate-dates-and-vaccinations",
+    "title": "POLS 1600",
+    "section": "Mutate: Dates and Vaccinations",
+    "text": "Mutate: Dates and Vaccinations"
+  },
+  {
+    "objectID": "slides/05-slides.html#load-data-on-presidential-elections",
+    "href": "slides/05-slides.html#load-data-on-presidential-elections",
+    "title": "POLS 1600",
+    "section": "Load Data on Presidential Elections",
+    "text": "Load Data on Presidential Elections"
+  },
+  {
+    "objectID": "slides/05-slides.html#hlo-of-presidential-elections-data",
+    "href": "slides/05-slides.html#hlo-of-presidential-elections-data",
+    "title": "POLS 1600",
+    "section": "HLO of Presidential Elections Data",
+    "text": "HLO of Presidential Elections Data\n\n\n# A tibble: 6 × 15\n   year state   state_po state_fips state_cen state_ic office       candidate   \n  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       \n1  1976 ALABAMA AL                1        63       41 US PRESIDENT \"CARTER, JI…\n2  1976 ALABAMA AL                1        63       41 US PRESIDENT \"FORD, GERA…\n3  1976 ALABAMA AL                1        63       41 US PRESIDENT \"MADDOX, LE…\n4  1976 ALABAMA AL                1        63       41 US PRESIDENT \"BUBAR, BEN…\n5  1976 ALABAMA AL                1        63       41 US PRESIDENT \"HALL, GUS\" \n6  1976 ALABAMA AL                1        63       41 US PRESIDENT \"MACBRIDE, …\n# ℹ 7 more variables: party_detailed &lt;chr&gt;, writein &lt;lgl&gt;,\n#   candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;, version &lt;dbl&gt;, notes &lt;lgl&gt;,\n#   party_simplified &lt;chr&gt;"
+  },
+  {
+    "objectID": "slides/05-slides.html#transform-data-to-get-just-2020-election",
+    "href": "slides/05-slides.html#transform-data-to-get-just-2020-election",
+    "title": "POLS 1600",
+    "section": "Transform Data to get just 2020 Election",
+    "text": "Transform Data to get just 2020 Election"
+  },
+  {
+    "objectID": "slides/05-slides.html#transform-data-to-get-just-2020-election-1",
+    "href": "slides/05-slides.html#transform-data-to-get-just-2020-election-1",
+    "title": "POLS 1600",
+    "section": "Transform Data to get just 2020 Election",
+    "text": "Transform Data to get just 2020 Election\n\n\n# A tibble: 6 × 9\n  state      state_po year_election totalvotes DEMOCRAT REPUBLICAN dem_voteshare\n  &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;\n1 Alabama    AL                2020    2323282   849624    1441170          36.6\n2 Alaska     AK                2020     359530   153778     189951          42.8\n3 Arizona    AZ                2020    3387326  1672143    1661686          49.4\n4 Arkansas   AR                2020    1219069   423932     760647          34.8\n5 California CA                2020   17500881 11110250    6006429          63.5\n6 Colorado   CO                2020    3279980  1804352    1364607          55.0\n# ℹ 2 more variables: rep_voteshare &lt;dbl&gt;, winner &lt;fct&gt;"
+  },
+  {
+    "objectID": "slides/05-slides.html#load-data-on-median-state-income-from-the-census",
+    "href": "slides/05-slides.html#load-data-on-median-state-income-from-the-census",
+    "title": "POLS 1600",
+    "section": "Load Data on Median State Income from the Census",
+    "text": "Load Data on Median State Income from the Census"
+  },
+  {
+    "objectID": "slides/05-slides.html#hlo-census-data",
+    "href": "slides/05-slides.html#hlo-census-data",
+    "title": "POLS 1600",
+    "section": "HLO: Census Data",
+    "text": "HLO: Census Data\n\n\n# A tibble: 6 × 5\n  GEOID NAME    variable   estimate    moe\n  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;\n1 01    Alabama med_age        39      0.2\n2 01    Alabama med_income  50536    304  \n3 02    Alaska  med_age        34.3    0.1\n4 02    Alaska  med_income  77640   1015  \n5 04    Arizona med_age        37.7    0.2\n6 04    Arizona med_income  58945    266"
+  },
+  {
+    "objectID": "slides/05-slides.html#tidy-census-data",
+    "href": "slides/05-slides.html#tidy-census-data",
+    "title": "POLS 1600",
+    "section": "Tidy Census Data",
+    "text": "Tidy Census Data"
+  },
+  {
+    "objectID": "slides/05-slides.html#tidy-census-data-1",
+    "href": "slides/05-slides.html#tidy-census-data-1",
+    "title": "POLS 1600",
+    "section": "Tidy Census Data",
+    "text": "Tidy Census Data\n\n\n# A tibble: 6 × 3\n  state      med_age med_income\n  &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;\n1 Alabama       39        50536\n2 Alaska        34.3      77640\n3 Arizona       37.7      58945\n4 Arkansas      38.1      47597\n5 California    36.5      75235\n6 Colorado      36.7      72331"
+  },
+  {
+    "objectID": "slides/05-slides.html#merge-election-data-and-covid-data-into-single-df",
+    "href": "slides/05-slides.html#merge-election-data-and-covid-data-into-single-df",
+    "title": "POLS 1600",
+    "section": "Merge election data and covid data into single df",
+    "text": "Merge election data and covid data into single df\n\nWe’re going to take our covid_us data and merge into this data on the 2020 election from pres2020_df using the common state variable in each data set for a left_join()\nAlways check the matches in your joining variable (i.e. state)\nBelow we see that our recoding of state to title case in created a mismatch\n\n\n\n[1] 51\n\n\ncharacter(0)\n\n\n[1] 51"
+  },
+  {
+    "objectID": "slides/05-slides.html#merge-election-data-into-covid-data",
+    "href": "slides/05-slides.html#merge-election-data-into-covid-data",
+    "title": "POLS 1600",
+    "section": "Merge election data into Covid data",
+    "text": "Merge election data into Covid data\n\n\n[1] 53678    56\n\n\n[1] 51  9\n\n\n[1] 53678    64"
+  },
+  {
+    "objectID": "slides/05-slides.html#merge-census-data-into-covid-data",
+    "href": "slides/05-slides.html#merge-census-data-into-covid-data",
+    "title": "POLS 1600",
+    "section": "Merge Census data into Covid data",
+    "text": "Merge Census data into Covid data\n\n\n[1] 53678    64\n\n\n[1] 52  3\n\n\n[1] 53678    66"
+  },
+  {
+    "objectID": "slides/05-slides.html#review-1",
+    "href": "slides/05-slides.html#review-1",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review\n\nData wrangling and visualization\nDescriptive Statistics\nLevels of understanding"
+  },
+  {
+    "objectID": "slides/05-slides.html#data-wrangling-and-visualization",
+    "href": "slides/05-slides.html#data-wrangling-and-visualization",
+    "title": "POLS 1600",
+    "section": "Data wrangling and visualization",
+    "text": "Data wrangling and visualization\n\n\n\nYou're learning how to map conceptual tasks to commands in R\n\n\nSkill\nCommon Commands\n\n\n\n\nSetup R\nlibrary(), ipak()\n\n\nLoad data\nread_csv(), load()\n\n\nGet HLO of data\ndf$x, glimpse(), table(), summary()\n\n\nTransform data\n&lt;-, mutate(), ifelse(), case_when()\n\n\nReshape data\npivot_longer(), left_join()\n\n\nSummarize data numerically\nmean(), median(), summarise(), group_by()\n\n\nSummarize data graphically\nggplot(), aes(), geom_"
+  },
+  {
+    "objectID": "slides/05-slides.html#mapping-concepts-to-code",
+    "href": "slides/05-slides.html#mapping-concepts-to-code",
+    "title": "POLS 1600",
+    "section": "Mapping Concepts to Code",
+    "text": "Mapping Concepts to Code\n\nTakes time and practice\nDon’t be afraid to FAAFO\nDon’t worry about memorizing everything.\nStatistical programming is necessary to actually do empirical research\nLearning to code will help us understand statistical concepts.\nLearning to think programmatically and algorithmically will help us tackle complex problems"
+  },
+  {
+    "objectID": "slides/05-slides.html#descriptive-statistics",
+    "href": "slides/05-slides.html#descriptive-statistics",
+    "title": "POLS 1600",
+    "section": "Descriptive statistics",
+    "text": "Descriptive statistics\n\nDescriptive statistics help us describe what’s typical of our data\nWhat’s a typical value in our data\n\nMean\nMedian\nMode\n\nHow much do our data vary?\n\nVariance\nStandard deviation\n\nAs one variable changes how does another change?\n\nCovariance\nCorrelation\n\nDescriptive statistics are:\n\nDiagnostic\nGenerative"
+  },
+  {
+    "objectID": "slides/05-slides.html#levels-of-understanding-in-pols-1600",
+    "href": "slides/05-slides.html#levels-of-understanding-in-pols-1600",
+    "title": "POLS 1600",
+    "section": "Levels of understanding in POLS 1600",
+    "text": "Levels of understanding in POLS 1600\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+  },
+  {
+    "objectID": "slides/05-slides.html#descriptive-statistics-levels-of-understanding",
+    "href": "slides/05-slides.html#descriptive-statistics-levels-of-understanding",
+    "title": "POLS 1600",
+    "section": "Descriptive statistics: Levels of understanding",
+    "text": "Descriptive statistics: Levels of understanding\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-conceptual-understanding",
+    "href": "slides/05-slides.html#mean-conceptual-understanding",
+    "title": "POLS 1600",
+    "section": "Mean: Conceptual Understanding",
+    "text": "Mean: Conceptual Understanding\nA mean is:\n\nA common and important measure of central tendency (what’s typical)\nIt’s the arithmetic average you learned in school\nWe can think of it as the balancing point of a distribution\nA conditional mean is the average of one variable \\(X\\), when some other variable, \\(Z\\) takes a value \\(z\\)\n\nThink about the average height in our class (unconditional mean) vs the average height among men and women ([conditional means].{blue})"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-as-a-balancing-point",
+    "href": "slides/05-slides.html#mean-as-a-balancing-point",
+    "title": "POLS 1600",
+    "section": "Mean as a balancing point",
+    "text": "Mean as a balancing point\n\nSource"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-practical",
+    "href": "slides/05-slides.html#mean-practical",
+    "title": "POLS 1600",
+    "section": "Mean: Practical",
+    "text": "Mean: Practical\nThere are lots of ways to calculate means in R\n\nThe simplest is to use the mean() function\n\nIf our data have missing values, we need to to tell R to remove them"
+  },
+  {
+    "objectID": "slides/05-slides.html#conditional-means-practical",
+    "href": "slides/05-slides.html#conditional-means-practical",
+    "title": "POLS 1600",
+    "section": "Conditional Means: Practical",
+    "text": "Conditional Means: Practical\n\nTo calculate a conditional mean we could us a logical index [df$z == 1]\n\n\nIf we wanted to a calculate a lot of conditional means we could use the mean() in combination with group_by() and summarise()"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-definitional",
+    "href": "slides/05-slides.html#mean-definitional",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\nFormally, we define the arithmetic mean of \\(x\\) as \\(\\bar{x}\\):\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n{x_i}\\right ) = \\frac{x_1+x_2+\\cdots +x_n}{n}\n\\]\nIn words, this formula says, to calculate the average of x, we sum up all the values of \\(x_i\\) from observation \\(i=1\\) to \\(i=n\\) and then divide by the total number of observations \\(n\\)"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-definitional-1",
+    "href": "slides/05-slides.html#mean-definitional-1",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\n\nIn this class, I don’t put a lot of weight on memorizing definitions (that’s what Google’s for).\nBut being comfortable with “the math” is important and useful\nDefinitional knowledge is a prerequisite for understanding more theoretical claims."
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-theoretical",
+    "href": "slides/05-slides.html#mean-theoretical",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nSuppose I asked you to show that the sum of deviations from a mean equals 0?\n\\[\n\\text{Claim:} \\sum_{i=1}^n (x_i -\\bar{x}) = 0\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-theoretical-1",
+    "href": "slides/05-slides.html#mean-theoretical-1",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nKnowing the definition of an arithmetic mean, we could write:\n\\[\n\\begin{aligned}\n\\sum_{i=1}^n (x_i -\\bar{x}) &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n\\bar{x} & \\text{Distribute Summation}\\\\\n              &= \\sum_{i=1}^n x_i - n\\bar{x} & \\text{Summing a constant, } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - n\\times \\left ( \\frac{1}{n} \\sum_{i=1}^n{x_i}\\right ) & \\text{Definition of } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n{x_i} & n \\times \\frac{1}{n}=1\\\\\n              &= 0             \n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-theoretical-2",
+    "href": "slides/05-slides.html#mean-theoretical-2",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nWhy do we care?\n\nShowing the deviations sum to 0 is another way of saying the mean is a balancing point.\nThis turns out to be a useful property of means that will reappear throughout the course\nIf I asked you to make a prediction, \\(\\hat{x}\\) of a random person’s height in this class, the mean would have the lowest mean squared error (MSE \\(=\\frac{1}{n}\\sum (x_i - \\hat{x_i})^2)\\)"
+  },
+  {
+    "objectID": "slides/05-slides.html#mean-theoretical-3",
+    "href": "slides/05-slides.html#mean-theoretical-3",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nOccasionally, you’ll read or here me say say things like:\n\nThe sample mean is an unbiased estimator of the population mean\n\nIn a statistics class, we would take time to prove this."
+  },
+  {
+    "objectID": "slides/05-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "href": "slides/05-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nClaim:\nLet \\(x_1, x_2, \\dots x_n\\) from a random sample from a population with mean \\(\\mu\\) and variance \\(\\sigma^2\\)\nThen:\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n x_i\\right )\n\\]\nis an unbiased estimator of \\(\\mu\\)\n\\[\nE[\\bar{x}] = \\mu\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "href": "slides/05-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nProof:\n\\[\n\\begin{aligned}\nE\\left [\\bar{x} \\right] &= E\\left [\\frac{1}{n}\\left (\\sum_{i=1}^n x_i \\right) \\right] & \\text{Definition of } \\bar{x} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^nE\\left [ x_i \\right]  & \\text{Linearity of Expectations} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^n \\mu  & E[x_i] = \\mu \\\\\n&= \\frac{n}{n}  \\mu  & \\sum_{i=1}^n \\mu = n\\mu \\\\\n&= \\mu  & \\blacksquare \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#levels-of-understanding",
+    "href": "slides/05-slides.html#levels-of-understanding",
+    "title": "POLS 1600",
+    "section": "Levels of understanding",
+    "text": "Levels of understanding\n\nIn this course, we tend to emphasize the\n\nConceptual\nPractical\n\nOver\n\nDefinitional\nTheoretical\n\nIn an intro statistics class, the ordering might be reversed.\nTrade offs:\n\n\nPro: We actually get to work with data and do empirical research much sooner\nCons: We substitute intuitive understandings for more rigorous proofs"
+  },
+  {
+    "objectID": "slides/05-slides.html#understanding-linear-regression",
+    "href": "slides/05-slides.html#understanding-linear-regression",
+    "title": "POLS 1600",
+    "section": "Understanding Linear Regression",
+    "text": "Understanding Linear Regression\n\nConceptual\n\nSimple linear regression estimates “a line of best fit” that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)\n\n\nclass: inverse, center, middle # 💡\n# Conceptual: Linear Regression ## Linear Regression Provides an Estimate of the Line of Best Fit"
+  },
+  {
+    "objectID": "slides/05-slides.html#conceptual-linear-regression",
+    "href": "slides/05-slides.html#conceptual-linear-regression",
+    "title": "POLS 1600",
+    "section": "Conceptual: Linear Regression",
+    "text": "Conceptual: Linear Regression\n\nRegression is a tool for describing relationships.\n\nHow does some outcome we’re interested in tend to change as some predictor of that outcome changes?\nHow does economic development vary with democracy?\nHow does economic development vary with democracy, adjusting for natural resources like oil and gas\n\nFormally:\n\n\\[\ny_i = f(x_i) + \\epsilon\n\\]\n\nY is a function of X plus some error, \\(\\epsilon\\)\nLinear regression assumes that relationship between an outcome and a predictor can be by a linear function\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-regression-and-the-line-of-best-fit",
+    "href": "slides/05-slides.html#linear-regression-and-the-line-of-best-fit",
+    "title": "POLS 1600",
+    "section": "Linear Regression and the Line of Best Fit",
+    "text": "Linear Regression and the Line of Best Fit\n\nThe goal of linear regression is to choose coefficients \\(\\beta_0\\) and \\(\\beta_1\\) to summarizes the relationship between \\(y\\) and \\(x\\)\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]\n\nTo accomplish this we need some sort of criteria.\nFor linear regression, that criteria is minimizing the error between what our model predicts \\(\\hat{y_i} = \\beta_0 + \\beta_1 x_i\\) and what we actually observed \\((y_i)\\)\nMore on this to come. But first…"
+  },
+  {
+    "objectID": "slides/05-slides.html#regression-notation",
+    "href": "slides/05-slides.html#regression-notation",
+    "title": "POLS 1600",
+    "section": "Regression Notation",
+    "text": "Regression Notation\n\n\\(y_i\\) an outcome variable or thing we’re trying to explain\n\nAKA: The dependent variable, The response Variable, The left hand side of the model\n\n\\(x_i\\) a predictor variables or things we think explain variation in our outcome\n\nAKA: The independent variable, covariates, the right hand side of the model.\nCap or No Cap: I’ll use \\(X\\) (should be \\(\\mathbf{X}\\)) to denote a set (matrix) of predictor variables. \\(y\\) vs \\(Y\\) can also have technical distinctions (Sample vs Population, observed value vs Random Variable, …)\n\n\\(\\beta\\) a set of unknown parameters that describe the relationship between our outcome \\(y_i\\) and our predictors \\(x_i\\)\n\\(\\epsilon\\) the error term representing variation in \\(y_i\\) not explained by our model."
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-regression",
+    "href": "slides/05-slides.html#linear-regression",
+    "title": "POLS 1600",
+    "section": "Linear Regression",
+    "text": "Linear Regression\nLet’s return to the simple (bivariate) linear regressions we introduced last week:\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]\n\nWe call this a bivariate regression, because there are only two variables.\nWe call this a linear regression, because \\(y_i = \\beta_0 + \\beta_1 x_i\\) is the equation for a line, where:\n\n\\(\\beta_0\\) corresponds to the \\(y\\) intercept, or the model’s prediction when \\(x = 0\\).\n\\(\\beta_1\\) corresponds to the slope, or how \\(y\\) is predicted to change as \\(x\\) changes."
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-regression-1",
+    "href": "slides/05-slides.html#linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\nIf you find this notation confusing, try plugging in substantive concepts for what \\(y\\) and \\(x\\) represent\nSay we wanted to know how attitudes to transgender people varied with age in the baseline survey from Lab 03.\n\nThe generic linear model\n\\[y_i = \\beta_0 + \\beta_1 x_i + \\epsilon\\]\nReflects:\n\\[\\text{Transgender Feeling Thermometer}_i = \\beta_0 + \\beta_1\\text{Age}_i + \\epsilon_i\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-estimating-a-linear-regression",
+    "href": "slides/05-slides.html#practical-estimating-a-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Estimating a Linear Regression",
+    "text": "Practical: Estimating a Linear Regression\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nThe coefficients from lm() are saved in object called m1\n\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nm1 actually contains a lot of information\n\n\n [1] \"coefficients\"  \"residuals\"     \"effects\"       \"rank\"         \n [5] \"fitted.values\" \"assign\"        \"qr\"            \"df.residual\"  \n [9] \"na.action\"     \"xlevels\"       \"call\"          \"terms\"        \n[13] \"model\"        \n\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-interpreting-a-linear-regression",
+    "href": "slides/05-slides.html#practical-interpreting-a-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Interpreting a Linear Regression",
+    "text": "Practical: Interpreting a Linear Regression\nWe can extract the intercept and slope from this simple bivariate model, using the coef() function\n\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711 \n\n\n(Intercept) \n    62.8196 \n\n\n    vf_age \n-0.2030711"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-interpreting-a-linear-regression-1",
+    "href": "slides/05-slides.html#practical-interpreting-a-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Practical: Interpreting a Linear Regression",
+    "text": "Practical: Interpreting a Linear Regression\nThe two coefficients from m1 define a line of best fit, summarizing how feelings toward transgender individuals change with age\n\\[y_i = \\beta_0 + \\beta_1 x_i + \\epsilon\\]\n\\[\\text{Transgender Feeling Thermometer}_i = \\beta_0 + \\beta_1\\text{Age}_i + \\epsilon_i\\]\n\\[\\text{Transgender Feeling Thermometer}_i = 62.82 + -0.2 \\text{Age}_i + \\epsilon_i\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression",
+    "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\n\nOften it’s useful for interpretation to obtain predicted values from a regression.\nTo obtain predicted vales \\((\\hat{y})\\), we simply plug in a value for \\(x\\) (In this case, \\(Age\\)) and evaluate our equation.\nFor example, might we expect attitudes to differ among an 18-year-old college student and their 68-year-old grandparent?\n\n\\[\\hat{FT}_{x=18} = 62.82 + -0.2 \\times 18  = 59.16\\] \\[\\hat{FT}_{x=65} = 62.82 + -0.2 \\times 68  = 49.01\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-1",
+    "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\nWe could do this by hand\n\n\n(Intercept) \n   59.16432 \n\n\n(Intercept) \n   49.01076"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-2",
+    "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-2",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\nMore often we will:\n\nMake a prediction data frame (called pred_df below) with the values of interests\nUse the predict() function with our linear model (m1) and pred_df\nSave the predicted values to our new column in our prediction data frame"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-3",
+    "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-3",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\n\n\n       1        2 \n59.16432 49.01076 \n\n\n  vf_age ft_trans_hat\n1     18     59.16432\n2     68     49.01076"
+  },
+  {
+    "objectID": "slides/05-slides.html#practical-visualizing-linear-regression",
+    "href": "slides/05-slides.html#practical-visualizing-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Visualizing Linear Regression",
+    "text": "Practical: Visualizing Linear Regression\nWe can visualize simple regression by:\n\nplotting a scatter plot of the outcome (y-axis) and predictors (x-axis)\noverlaying the line defined by lm()"
+  },
+  {
+    "objectID": "slides/05-slides.html#how-did-lm-choose-beta_0-and-beta_1",
+    "href": "slides/05-slides.html#how-did-lm-choose-beta_0-and-beta_1",
+    "title": "POLS 1600",
+    "section": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)",
+    "text": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)\n–\n\nP: By minimizing the sum of squared errors, in procedure called Ordinary Least Squares (OLS) regression\n\n–\n\nQ: Ok, that’s not really that helpful…\n\nWhat’s an error?\nWhy would we square and sum them\nHow do we minimize them.\n\n\nP: Good questions!"
+  },
+  {
+    "objectID": "slides/05-slides.html#whats-an-error",
+    "href": "slides/05-slides.html#whats-an-error",
+    "title": "POLS 1600",
+    "section": "What’s an error?",
+    "text": "What’s an error?\nAn error, \\(\\epsilon_i\\) is simply the difference between the observed value of \\(y_i\\) and what our model would predict, \\(\\hat{y_i}\\) given some value of \\(x_i\\). So for a model:\n\\[y_i=\\beta_0+\\beta_1 x_{i} + \\epsilon_i\\]\nWe simply subtract our model’s prediction \\(\\beta_0+\\beta_1 x_{i}\\) from the the observed value, \\(y_i\\)\n\\[\\hat{\\epsilon_i}=y_i-\\hat{y_i}=(Y_i-(\\beta_0+\\beta_1 x_{i}))\\]\nTo get \\(\\epsilon_i\\)"
+  },
+  {
+    "objectID": "slides/05-slides.html#why-are-we-squaring-and-summing-epsilon",
+    "href": "slides/05-slides.html#why-are-we-squaring-and-summing-epsilon",
+    "title": "POLS 1600",
+    "section": "Why are we squaring and summing \\(\\epsilon\\)",
+    "text": "Why are we squaring and summing \\(\\epsilon\\)\nThere are more mathy reasons for this, but at intuitive level, the Sum of Squared Residuals (SSR)\n\nSquaring \\(\\epsilon\\) treats positive and negative residuals equally.\nSumming produces single value summarizing our models overall performance.\n\nThere are other criteria we could use (e.g. minimizing the sum of absolute errors), but SSR has some nice properties"
+  },
+  {
+    "objectID": "slides/05-slides.html#how-do-we-minimize-sum-epsilon2",
+    "href": "slides/05-slides.html#how-do-we-minimize-sum-epsilon2",
+    "title": "POLS 1600",
+    "section": "How do we minimize \\(\\sum \\epsilon^2\\)",
+    "text": "How do we minimize \\(\\sum \\epsilon^2\\)\nOLS chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize \\(\\sum \\epsilon^2\\), the Sum of Squared Residuals (SSR)\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#how-did-lm-choose-beta_0-and-beta_1-1",
+    "href": "slides/05-slides.html#how-did-lm-choose-beta_0-and-beta_1-1",
+    "title": "POLS 1600",
+    "section": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)",
+    "text": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)\nIn an intro stats course, we would walk through the process of finding\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\] Which involves a little bit of calculus. The big payoff is that\n\\[\\beta_0 = \\bar{y} - \\beta_1 \\bar{x}\\] And\n\\[ \\beta_1 = \\frac{Cov(x,y)}{Var(x)}\\] Which is never quite the epiphany, I think we think it is…\nThe following slides walk you through the mechanics of this exercise. We’re gonna skip through them in class, but they’re there for your reference"
+  },
+  {
+    "objectID": "slides/05-slides.html#how-do-we-minimize-sum-epsilon2-1",
+    "href": "slides/05-slides.html#how-do-we-minimize-sum-epsilon2-1",
+    "title": "POLS 1600",
+    "section": "How do we minimize \\(\\sum \\epsilon^2\\)",
+    "text": "How do we minimize \\(\\sum \\epsilon^2\\)\nTo understand what’s going on under the hood, you need a broad understanding of some basic calculus.\nThe next few slides provide a brief review of derivatives and differential calculus."
+  },
+  {
+    "objectID": "slides/05-slides.html#derivatives",
+    "href": "slides/05-slides.html#derivatives",
+    "title": "POLS 1600",
+    "section": "Derivatives",
+    "text": "Derivatives\nThe derivative of \\(f\\) at \\(x\\) is its rate of change at \\(x\\)\n\nFor a line: the slope\nFor a curve: the slope of a line tangent to the curve\n\nYou’ll see two notations for derivatives:\n\nLeibniz notation:\n\n\\[\n\\frac{df}{dx}(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{(x+h)-x}\n\\]\n\nLagrange: \\(f^{\\prime}(x)\\)"
+  },
+  {
+    "objectID": "slides/05-slides.html#some-useful-facts-about-derivatives",
+    "href": "slides/05-slides.html#some-useful-facts-about-derivatives",
+    "title": "POLS 1600",
+    "section": "Some useful Facts about Derivatives",
+    "text": "Some useful Facts about Derivatives\nDerivative of a constant\n\\[\nf^{\\prime}(c)=0\n\\]\nDerivative of a line f(x)=2x\n\\[\nf^{\\prime}(2x)=2\n\\]\nDerivative of \\(f(x)=x^2\\)\n\\[\nf^{\\prime}(x^2)=2x\n\\]\nChain rule: y= f(g(x)). The derivative of y with respect to x is\n\\[\n\\frac{d}{dx}(f(g(x)))=f^{\\prime}(g(x))g^{\\prime}(x)\n\\]\nThe derivative of the “outside” times the derivative of the “inside,” remembering that the derivative of the outside function is evaluated at the value of the inside function."
+  },
+  {
+    "objectID": "slides/05-slides.html#finding-a-local-minimums",
+    "href": "slides/05-slides.html#finding-a-local-minimums",
+    "title": "POLS 1600",
+    "section": "Finding a Local Minimums",
+    "text": "Finding a Local Minimums\nLocal minimum:\n\\[\nf^{\\prime}(x)=0 \\text{ and } f^{\\prime\\prime}(x)&gt;0\n\\]\n\nSource"
+  },
+  {
+    "objectID": "slides/05-slides.html#partial-derivatives",
+    "href": "slides/05-slides.html#partial-derivatives",
+    "title": "POLS 1600",
+    "section": "Partial Derivatives",
+    "text": "Partial Derivatives\nLet \\(f\\) be a function of the variables \\((x, \\dots, X_n)\\). The partial derivative of \\(f\\) with respect to \\(X_i\\) is\n\\[\\begin{align*}\n\\frac{\\partial f(x, \\dots, X_n)}{\\partial X_i}=\\lim_{h\\to0}\\frac{f(x, \\dots X_i+h \\dots, X_n)-f(x, \\dots X_i \\dots, X_n)}{h}\n\\end{align*}\\]\n\nSource"
+  },
+  {
+    "objectID": "slides/05-slides.html#minimizing-the-sum-of-squared-errors",
+    "href": "slides/05-slides.html#minimizing-the-sum-of-squared-errors",
+    "title": "POLS 1600",
+    "section": "Minimizing the sum of squared errors",
+    "text": "Minimizing the sum of squared errors\nOur model\n\\[y_i =\\beta_0+\\beta_1x_{i}+\\epsilon_i\\]\nFinds coefficients \\(\\beta_0\\) and \\(\\beta_1\\) to to minimize the sum of squared residuals, \\(\\hat{\\epsilon}_i\\):\n\\[\\begin{aligned}\n\\sum \\hat{\\epsilon_i}^2 &= \\sum (y_i-\\beta_0-\\beta_1 x_{i})^2\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#minimizing-the-sum-of-squared-errors-1",
+    "href": "slides/05-slides.html#minimizing-the-sum-of-squared-errors-1",
+    "title": "POLS 1600",
+    "section": "Minimizing the sum of squared errors",
+    "text": "Minimizing the sum of squared errors\nWe solve for \\(\\beta_0\\) and \\(\\beta_1\\), by taking the partial derivatives with respect to \\(\\beta_0\\) and \\(\\beta_1\\), and setting them equal to zero\n\\[\\begin{aligned}\n\\frac{\\partial \\sum \\hat{\\epsilon_i}^2}{\\partial \\beta_0} &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})=0 & f'(-x^2) = -2x\\\\\n\\frac{\\partial \\sum \\hat{\\epsilon_i}^2}{\\partial\\beta_1} &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})x_{i}=0 & \\text{chain rule}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#solving-for-beta_0",
+    "href": "slides/05-slides.html#solving-for-beta_0",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_0\\)",
+    "text": "Solving for \\(\\beta_0\\)\nFirst, we’ll solve for \\(\\beta_0\\), by multiplying both sides by -1/2 and distributing the \\(\\sum\\):\n\\[\\begin{aligned}\n0 &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})\\\\\n\\sum \\beta_0 &= \\sum y_i - \\sum \\beta_1 x_{i}\\\\\nN \\beta_0 &= \\sum y_i -\\sum \\beta_1 x_{i}\\\\\n\\beta_0 &= \\frac{\\sum y_i}{N} - \\frac{\\beta_1 \\sum x_{i}}{N}\\\\\n\\beta_0 &= \\bar{y} - \\beta_1 \\bar{x}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#solving-for-beta_1",
+    "href": "slides/05-slides.html#solving-for-beta_1",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nNow, we can solve for \\(\\beta_1\\) plugging in \\(\\beta_0\\).\n\\[\\begin{aligned}\n0 &= -2\\sum [(y_i-\\beta_0-\\beta_1 x_{i})x_{i}]\\\\\n0 &= \\sum [y_ix_i-(\\bar{y} - \\beta_1 \\bar{x})x_{i}-\\beta_1 x_{i}^2]\\\\\n0 &= \\sum [y_ix_i-\\bar{y}x_{i} + \\beta_1 \\bar{x}x_{i}-\\beta_1 x_{i}^2]\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#solving-for-beta_1-1",
+    "href": "slides/05-slides.html#solving-for-beta_1-1",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nNow we’ll rearrange some terms and pull out an \\(x_{i}\\) to get\n\\[\\begin{aligned}\n0 &= \\sum [(y_i -\\bar{y} + \\beta_1 \\bar{x}-\\beta_1 x_{i})x_{i}]\n\\end{aligned}\\]\nDividing both sides by \\(x_{i}\\) and distributing the summation, we can isolate \\(\\beta_1\\)\n\\[\\begin{aligned}\n\\beta_1 \\sum (x_{i}-\\bar{x}) &= \\sum (y_i -\\bar{y})\n\\end{aligned}\\]\nDividing by \\(\\sum (x_{i}-\\bar{x})\\) to get\n\\[\\begin{aligned}\n\\beta_1  &= \\frac{\\sum (y_i -\\bar{y})}{\\sum (x_{i}-\\bar{x})}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#solving-for-beta_1-2",
+    "href": "slides/05-slides.html#solving-for-beta_1-2",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nFinally, by multiplying by \\(\\frac{(x_{i}-\\bar{x})}{(x_{i}-\\bar{x})}\\) we get\n\\[\\begin{aligned}\n\\beta_1  &= \\frac{\\sum (y_i -\\bar{y})(x_{i}-\\bar{x})}{\\sum (\\bar{x}-x_{i})^2}\n\\end{aligned}\\]\nWhich has a nice interpretation:\n\\[\\begin{aligned}\n\\beta_1 &= \\frac{Cov(x,y)}{Var(x)}\n\\end{aligned}\\]\nSo the coefficient in a simple linear regression of \\(Y\\) on \\(X\\) is simply the ratio of the covariance between \\(X\\) and \\(Y\\) over the variance of \\(X\\). Neat!\nclass: inverse, center, middle # 💡\n# Theoretical: Linear Regression ## OLS provides a linear estimate of CEF: E[Y|X]"
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-regression-is-a-many-splendored-thing",
+    "href": "slides/05-slides.html#linear-regression-is-a-many-splendored-thing",
+    "title": "POLS 1600",
+    "section": "Linear Regression is a many splendored thing",
+    "text": "Linear Regression is a many splendored thing\nTimothy Lin provides a great overview of the various interpretations/motivations for linear regression.\n\nA least squares estimator\nA linear projection of \\(y\\) on the subspace spanned by \\(X\\beta\\)\nA method of moments estimator\nA maximum likelihood estimator\nA singular vector decomposition\nA linear approximation of the conditional expectation function"
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-regression-is-a-many-splendored-thing-1",
+    "href": "slides/05-slides.html#linear-regression-is-a-many-splendored-thing-1",
+    "title": "POLS 1600",
+    "section": "Linear Regression is a many splendored thing",
+    "text": "Linear Regression is a many splendored thing\nTimothy Lin provides a great overview of various interpretations/motivations for linear regression.\n\nA least squares estimator\nA linear projection of \\(y\\) on the subspace spanned by \\(X\\beta\\)\nA method of moments estimator\nA maximum likelihood estimator\nA singular vector decomposition\nA linear approximation of the conditional expectation function"
+  },
+  {
+    "objectID": "slides/05-slides.html#the-conditional-expectation-function",
+    "href": "slides/05-slides.html#the-conditional-expectation-function",
+    "title": "POLS 1600",
+    "section": "The Conditional Expectation Function",
+    "text": "The Conditional Expectation Function\nOf all the functions we could choose to describe the relationship between \\(Y\\) and \\(X\\),\n\\[\nY_i = f(X_i) + \\epsilon_i\n\\]\nthe conditional expectation of \\(Y\\) given \\(X\\) \\((E[Y|X])\\), has some appealing properties\n\\[\nY_i = E[Y_i|X_i] + \\epsilon\n\\]\nThe error, by definition, is uncorrelated with X and \\(E[\\epsilon|X]=0\\)\n\\[\nE[\\epsilon|X] = E[Y - E[Y|X]|X]= E[Y|X] - E[Y|X] = 0\n\\]\nOf all the possible functions \\(g(X)\\), we can show that $E[Y_i|X_i] $ is the best predictor in terms of minimizing mean squared error\n\\[\nE[ (Y - g(Y))^2] \\geq E[(Y - E[Y|X])^2]\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#linear-approximations-to-the-conditional-expectation-function",
+    "href": "slides/05-slides.html#linear-approximations-to-the-conditional-expectation-function",
+    "title": "POLS 1600",
+    "section": "Linear Approximations to the Conditional Expectation Function",
+    "text": "Linear Approximations to the Conditional Expectation Function\n\nWe can then show (in a different class) that linear regression provides the best linear predictor of the CEF\n\nChapter 3, of Mostly Harmless Econometrics\nChapter 4 of Foundations of Agnostic Statistics\n\nFurthermore, when the CEF is linear, it’s equal exactly to OLS regression\n\n\ndf %&gt;%\n  ggplot(aes(vf_age,therm_trans_t0))+\n  geom_point(size=.5, alpha=.5)+\n  stat_summary(geom=\"point\", aes(col=\"CEF\"))+\n  stat_summary(geom=\"line\", aes(col=\"CEF\"))+\n  labs(\n    x = \"Age\",\n    y = \"Feeling Thermometer toward\\nTransgender People\",\n    col = \"\"\n  )+\n  theme_classic() -&gt; plot_cef\n\n\n\n\n\n\n\n\n\n\n\nplot_cef+\n  geom_smooth(method = \"lm\", se=F, aes(col = \"OLS\")) -&gt; plot_cef\nplot_cef\n\n\n\n\n\n\n\n\n\n\n\nplot_cef+\n  geom_smooth(method = \"lm\", se=F, aes(col = \"OLS\")) -&gt; plot_cef\nplot_cef"
+  },
+  {
+    "objectID": "slides/05-slides.html#what-you-need-to-know-about-regression",
+    "href": "slides/05-slides.html#what-you-need-to-know-about-regression",
+    "title": "POLS 1600",
+    "section": "What you need to know about Regression",
+    "text": "What you need to know about Regression\n\nConceptual\n\nSimple linear regression estimates a line of best fit that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
+  },
+  {
+    "objectID": "slides/05-slides.html#summary",
+    "href": "slides/05-slides.html#summary",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/05-slides.html#references",
+    "href": "slides/05-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nBlair, Graeme, Alexander Coppock, and Macartan Humphreys. 2023. Research Design in the Social Sciences: Declaration, Diagnosis, and Redesign. Princeton University Press."
+  },
+  {
+    "objectID": "slides/05-slides.html#causal-inference-is-about-counterfactual-comparisons",
+    "href": "slides/05-slides.html#causal-inference-is-about-counterfactual-comparisons",
+    "title": "POLS 1600",
+    "section": "Causal inference is about counterfactual comparisons",
+    "text": "Causal inference is about counterfactual comparisons\n\nCausal inference is about counterfactual comparisons\n\nWhat would have happened if some aspect of the world either had or had not been present\n\nCasual Identification refers to “the assumptions needed for statistical estimates to be given a causal interpretation” Keele (2015)]\n\nWhat do we need to assume to make our claims about cause and effect credible"
+  },
+  {
+    "objectID": "slides/05-slides.html#experimental-designs",
+    "href": "slides/05-slides.html#experimental-designs",
+    "title": "POLS 1600",
+    "section": "Experimental Designs",
+    "text": "Experimental Designs\n\nExperimental designs are studies in which a causal variable of interest, the treatement, is manipulated by the researcher to examine its causal effects on some outcome of interest\nRandom assignment is the key to causal identification in experiments because it creates statistical independence between treatment and potential outcomes any potential confounding factors\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i\n\\]\n## Randomization creates credible counterfactual comparisons\nIf treatment has been randomly assigned, then:\n\nThe only thing that differs between treatment and control is that one group got the treatment, and another did not.\nWe can estimate the Average Treatment Effect (ATE) using the difference of sample means\n\n\\[\n\\begin{aligned}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#observational-designs",
+    "href": "slides/05-slides.html#observational-designs",
+    "title": "POLS 1600",
+    "section": "Observational Designs",
+    "text": "Observational Designs\n\nObservational designs are studies in which a causal variable of interest is determined by someone/thing other than the researcher (nature, governments, people, etc.)\nSince treatment has not been randomly assigned, observational studies typically require stronger assumptions to make causal claims.\nGenerally speaking, these assumptions amount to a claim about conditional independence\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i | K_i\n\\]\n\nWhere after conditioning on \\(K_i\\), some knowledge about the world and how the data were generated, our treatment is as good as (as-if) randomly assigned (hence conditionally independent)"
+  },
+  {
+    "objectID": "slides/05-slides.html#causal-inference-in-observational-studies",
+    "href": "slides/05-slides.html#causal-inference-in-observational-studies",
+    "title": "POLS 1600",
+    "section": "Causal Inference in Observational Studies",
+    "text": "Causal Inference in Observational Studies\nTo understand how to make causal claims in observational studies we will:\n\nIntroduce the concept of Directed Acyclic Graphs to describe causal relationships\nDiscuss three approaches to covariate adjustment\n\nSubclassification\nMatching\nLinear Regression\n\nThree research designs for observational data\n\nDifferences-in-Differences\nRegression Discontinuity Designs\nInstrumental Variables"
+  },
+  {
+    "objectID": "slides/05-slides.html#causal-inference-is-about-counterfactual-comparisons-1",
+    "href": "slides/05-slides.html#causal-inference-is-about-counterfactual-comparisons-1",
+    "title": "POLS 1600",
+    "section": "Causal inference is about counterfactual comparisons",
+    "text": "Causal inference is about counterfactual comparisons\nTwo ways to represent causal claims:\n\nPotential Outcomes Notation helped illustrate the Fundamental Problem of Causal Inference\nDAGs helped illustrate types of bias\n\nConfounder bias: Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)\nCollider bias: Controlling for a common consequence"
+  },
+  {
+    "objectID": "slides/05-slides.html#describing-casual-claims",
+    "href": "slides/05-slides.html#describing-casual-claims",
+    "title": "POLS 1600",
+    "section": "Describing Casual Claims",
+    "text": "Describing Casual Claims\nTwo ways to represent causal claims:\n\nPotential Outcomes Notation helped illustrate the Fundamental Problem of Causal Inference\nDirected Acyclic Graphs provide a way of encoding assumptions about casual relationships and are useful for illustrating types of bias\n\nConfounder bias: Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)\nCollider bias: Controlling for a common consequence"
+  },
+  {
+    "objectID": "slides/05-slides.html#directed-acyclic-graphs-1",
+    "href": "slides/05-slides.html#directed-acyclic-graphs-1",
+    "title": "POLS 1600",
+    "section": "Directed Acyclic Graphs",
+    "text": "Directed Acyclic Graphs\n\nDirected Acyclic Graphs provide a way of encoding assumptions about casual relationships\n\nDirected Arrows \\(\\to\\) describe a direct causal effect\nArrow from \\(D\\to Y\\) means \\(Y_i(d) \\neq Y_i(d^\\prime)\\) “The outcome ( \\(Y\\)) for person \\(i\\) when D happens ( \\(Y_i(d)\\) ) is different than the the outcome when \\(D\\) doesn’t happen ( \\(Y_i(d^\\prime)\\) )\nNo arrow = no effect ( \\(Y_i(d) = Y_i(d^\\prime)\\) )\nAcyclic: No cycles. A variable can’t cause itself"
+  },
+  {
+    "objectID": "slides/05-slides.html#types-of-variables-in-a-dag",
+    "href": "slides/05-slides.html#types-of-variables-in-a-dag",
+    "title": "POLS 1600",
+    "section": "Types of variables in a DAG",
+    "text": "Types of variables in a DAG\n\nBlair, Coppock, and Humphreys (2023) (Chap. 6.2)"
+  },
+  {
+    "objectID": "slides/05-slides.html#when-to-control-for-a-variable",
+    "href": "slides/05-slides.html#when-to-control-for-a-variable",
+    "title": "POLS 1600",
+    "section": "When to control for a variable:",
+    "text": "When to control for a variable:\n\n(Blair, Coppock, and Humphreys 2023) (Chap. 6.2)"
   }
 ]
