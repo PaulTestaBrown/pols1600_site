@@ -9650,7 +9650,7 @@
     "href": "slides/05-slides.html#data-wrangling-and-visualization",
     "title": "POLS 1600",
     "section": "Data wrangling and visualization",
-    "text": "Data wrangling and visualization\n\n\n\nYou're learning how to map conceptual tasks to commands in R\n\n\nSkill\nCommon Commands\n\n\n\n\nSetup R\nlibrary(), ipak()\n\n\nLoad data\nread_csv(), load()\n\n\nGet HLO of data\ndf$x, glimpse(), table(), summary()\n\n\nTransform data\n&lt;-, mutate(), ifelse(), case_when()\n\n\nReshape data\npivot_longer(), left_join()\n\n\nSummarize data numerically\nmean(), median(), summarise(), group_by()\n\n\nSummarize data graphically\nggplot(), aes(), geom_"
+    "text": "Data wrangling and visualization\n\n\n\nYou’re learning how to map conceptual tasks to commands in R\n\n\nSkill\nCommon Commands\n\n\n\n\nSetup R\nlibrary(), ipak()\n\n\nLoad data\nread_csv(), load()\n\n\nGet HLO of data\ndf$x, glimpse(), table(), summary()\n\n\nTransform data\n&lt;-, mutate(), ifelse(), case_when()\n\n\nReshape data\npivot_longer(), left_join()\n\n\nSummarize data numerically\nmean(), median(), summarise(), group_by()\n\n\nSummarize data graphically\nggplot(), aes(), geom_"
   },
   {
     "objectID": "slides/05-slides.html#mapping-concepts-to-code",

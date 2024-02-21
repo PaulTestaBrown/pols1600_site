@@ -49,15 +49,15 @@ library(easystats)
 
 ## Overview
 
-- Announcements
-- Setup
-- Feedback
-- Review
-- Class plan
+-   Announcements
+-   Setup
+-   Feedback
+-   Review
+-   Class plan
 
 ## Annoucements
 
-- Sit with your groups (for now)
+-   Sit with your groups (for now)
 
 ## Group Assignments {.smaller}
 
@@ -91,9 +91,7 @@ groups_df |>
 DT::datatable(groups_df)
 ```
 
-
-## {{< fa bullhorn >}} Feedback {top=50%   background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg"}
-
+## {{< fa bullhorn >}} Feedback {top="50%" background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg"}
 
 ```{r}
 #| label: feeback
@@ -202,21 +200,17 @@ ipak(the_packages)
 
 ## Packages for the Lab
 
-
-
 # {{< fa magnifying-glass>}} Review {.inverse}
 
 ## Review
 
-- Data wrangling and visualization
+-   Data wrangling and visualization
 
-- Descriptive Statistics 
+-   Descriptive Statistics
 
-- Levels of understanding
+-   Levels of understanding
 
-
-
-## Data wrangling and visualization{.smaller}
+## Data wrangling and visualization {.smaller}
 
 ```{r}
 #| label: spdf
@@ -244,109 +238,102 @@ kable(sp_df,
 
 ```
 
+## Mapping Concepts to Code
 
-##  Mapping Concepts to Code
+-   Takes time and practice
 
-- Takes time and practice
+-   Don't be afraid to FAAFO
 
-- Don't be afraid to FAAFO
+-   Don't worry about memorizing everything.
 
-- Don't worry about memorizing everything. 
+-   Statistical programming is necessary to actually **do** empirical research
 
-- Statistical programming is necessary to actually **do** empirical research
+-   Learning to code will help us understand statistical concepts.
 
-- Learning to code will help us understand statistical concepts.
+-   Learning to think programmatically and algorithmically will help us tackle complex problems
 
-- Learning to think programmatically and algorithmically will help us tackle complex problems
+## Descriptive statistics {.smaller}
 
+-   Descriptive statistics help us describe what's typical of our data
 
-## Descriptive statistics{.smaller}
+-   [What's a typical value in our data]{.blue}
 
-- Descriptive statistics help us describe what's typical of our data
+    -   [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#mean)
+    -   [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#median)
+    -   [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#modes)
 
-- [What's a typical value in our data]{.blue}
-  - [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#mean)
-  - [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#median)
-  - [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#modes)
+-   [How much do our data vary?]{.blue}
 
-- [How much do our data vary?]{.blue}
-  - [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#variance)
-  - [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations)
+    -   [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#variance)
+    -   [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations)
 
-- As one variable changes [how does another change]{.blue}?
-  - [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance)
-  - [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation)
+-   As one variable changes [how does another change]{.blue}?
 
-- Descriptive statistics are:
-  - Diagnostic
-  - Generative
+    -   [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance)
+    -   [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation)
+
+-   Descriptive statistics are:
+
+    -   Diagnostic
+    -   Generative
 
 ## Levels of understanding in POLS 1600
 
-- Conceptual
+-   Conceptual
 
-- Practical
+-   Practical
 
-- Definitional
+-   Definitional
 
-- Theoretical
-
+-   Theoretical
 
 ## Descriptive statistics: Levels of understanding
 
-- **Conceptual**
+-   **Conceptual**
 
-- **Practical**
+-   **Practical**
 
-- Definitional
+-   Definitional
 
-- Theoretical
-
-
+-   Theoretical
 
 ## Mean: Conceptual Understanding
 
 A mean is:
-  
-- A common and important [measure of central tendency]{.blue} (what's typical)
 
-- It's the [arithmetic average]{.blue} you learned in school
+-   A common and important [measure of central tendency]{.blue} (what's typical)
 
-- We can think of it as the [balancing point]{.blue} of a distribution
+-   It's the [arithmetic average]{.blue} you learned in school
 
-- A conditional mean is the average of one variable $X$, when some other variable, $Z$ takes a value $z$
+-   We can think of it as the [balancing point]{.blue} of a distribution
 
-  - Think about the average height in our class ([unconditional mean]{.blue}) vs the average height among men and women ([conditional means].{blue})
+-   A conditional mean is the average of one variable $X$, when some other variable, $Z$ takes a value $z$
 
-
+    -   Think about the average height in our class ([unconditional mean]{.blue}) vs the average height among men and women (\[conditional means\].{blue})
 
 ## Mean as a balancing point
-
 
 ![](https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg)
 
 [Source](https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html)
 
-
 ## Mean: Practical
 
 There are lots of ways to calculate means in `R`
 
-- The simplest is to use the `mean()` function
-  
-  - If our data have missing values, we need to to tell `R` to remove them 
-  
+-   The simplest is to use the `mean()` function
+
+    -   If our data have missing values, we need to to tell `R` to remove them
+
 ```{r}
 #| label: meanex
 #| eval: false
 mean(df$x, na.rm=T)
 ```
 
-
 ## Conditional Means: Practical
 
-  
-- To calculate a conditional mean we could us a logical index `[df$z == 1]` 
+-   To calculate a conditional mean we could us a logical index `[df$z == 1]`
 
 ```{r}
 #| label: conmean
@@ -354,9 +341,7 @@ mean(df$x, na.rm=T)
 mean(df$x[df$z == 1], na.rm=T)
 ```
 
-
-  
-- If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
+-   If we wanted to a calculate a lot of conditional means we could use the `mean()` in combination with `group_by()` and `summarise()`
 
 ```{r}
 #| label: grpmean
@@ -368,11 +353,9 @@ df %>%
   )
 ```
 
-
-
 ## Mean: Definitional
 
-Formally, we  define the arithmetic mean of $x$ as $\bar{x}$:
+Formally, we define the arithmetic mean of $x$ as $\bar{x}$:
 
 $$
 \bar{x} = \frac{1}{n}\left (\sum_{i=1}^n{x_i}\right ) = \frac{x_1+x_2+\cdots +x_n}{n}
@@ -380,16 +363,13 @@ $$
 
 In words, this formula says, to calculate the average of x, we sum up all the values of $x_i$ from observation $i=1$ to $i=n$ and then divide by the total number of observations $n$
 
-
-
 ## Mean: Definitional
 
-- In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
+-   In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
 
-- But being comfortable with "the math" is important and useful
+-   But being comfortable with "the math" is important and useful
 
-- Definitional knowledge is a prerequisite for understanding more theoretical claims.
-
+-   Definitional knowledge is a prerequisite for understanding more theoretical claims.
 
 ## Mean: Theoretical
 
@@ -399,11 +379,9 @@ $$
 \text{Claim:} \sum_{i=1}^n (x_i -\bar{x}) = 0
 $$
 
+## Mean: Theoretical {.smaller}
 
-## Mean: Theoretical{.smaller}
-
-Knowing the definition of an arithmetic mean, we could write: 
-
+Knowing the definition of an arithmetic mean, we could write:
 
 $$
 \begin{aligned}
@@ -415,30 +393,23 @@ $$
 \end{aligned}
 $$
 
-
-
 ## Mean: Theoretical
 
 Why do we care?
 
-- Showing the deviations sum to 0 is another way of saying the mean is a [balancing point]{.blue}.
+-   Showing the deviations sum to 0 is another way of saying the mean is a [balancing point]{.blue}.
 
-- This turns out to be a useful property of means that will reappear throughout the course
+-   This turns out to be a useful property of means that will reappear throughout the course
 
-- If I asked you to make a prediction, $\hat{x}$ of a random person's height in this class, the mean would have the lowest [mean squared error]{.blue} (MSE $=\frac{1}{n}\sum (x_i - \hat{x_i})^2)$ 
-
-
-
+-   If I asked you to make a prediction, $\hat{x}$ of a random person's height in this class, the mean would have the lowest [mean squared error]{.blue} (MSE $=\frac{1}{n}\sum (x_i - \hat{x_i})^2)$
 
 ## Mean: Theoretical
 
-Occasionally, you'll read or here me say  say things like:
+Occasionally, you'll read or here me say say things like:
 
 > The sample mean is an unbiased estimator of the population mean
 
 In a statistics class, we would take time to prove this.
-
-
 
 ## The sample mean is an unbiased estimator of the population mean
 
@@ -458,9 +429,7 @@ $$
 E[\bar{x}] = \mu
 $$
 
-
 ## The sample mean is an unbiased estimator of the population mean {.smaller}
-
 
 Proof:
 
@@ -474,34 +443,30 @@ E\left [\bar{x} \right] &= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \r
 \end{aligned}
 $$
 
-
-
 ## Levels of understanding {.smaller}
-:::{.nonincremental}
-In this course, we tend to emphasize the 
 
-- **Conceptual**
+::: nonincremental
+In this course, we tend to emphasize the
 
-- **Practical**
+-   **Conceptual**
+
+-   **Practical**
 
 Over
 
-- Definitional
+-   Definitional
 
-- Theoretical
-
+-   Theoretical
 
 In an intro statistics class, the ordering might be reversed.
 
 Trade offs:
-
 :::
 
-- Pro: We actually get to *work with data* and *do empirical research* much sooner
-- Cons: We substitute intuitive understandings for more rigorous proofs
+-   Pro: We actually get to *work with data* and *do empirical research* much sooner
+-   Cons: We substitute intuitive understandings for more rigorous proofs
 
-
-# {{< fa eye >}}Previewing the Lab{.inverse}
+# {{< fa eye >}}Previewing the Lab {.inverse}
 
 ```{r}
 #| label: red_covid
@@ -523,7 +488,6 @@ Conceptually, this lab is designed to help reinforce the relationship between li
     -   Transforming the data on presidential elections so that it can be merged with the data on Covid-19 using the `pivot_wider()` function.
     -   [Merging data](https://r4ds.had.co.nz/relational-data.html) together using the `left_join()` function.
 
-
 ## Preview of the Lab
 
 -   In question 6, you will see how calculating conditional means provides a simple test of "Red Covid" claim.
@@ -535,9 +499,6 @@ Conceptually, this lab is designed to help reinforce the relationship between li
 -   In question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.
 
 -   Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week's lab.
-
-
-
 
 ## Load the Covid-19 Data
 
@@ -599,8 +560,6 @@ covid_us %>%
 
 ## New Case Per Capita
 
-
-
 ```{r }
 #| label: plotmean
 covid_us %>%
@@ -618,18 +577,13 @@ covid_us %>%
   ) -> fig_covid_mn 
 ```
 
-
-
 ```{r}
 #| label: plotmean2
 #| echo: false
 fig_covid_mn
 ```
 
-
 ## New Case Per Capita vs 7-day average
-
-
 
 ```{r}
 #| label: plotmean7d
@@ -640,10 +594,6 @@ fig_covid_mn +
             ) -> fig_covid_mn
 ```
 
-
-
-
-
 ```{r}
 #| label: plotmean7d2
 #| echo: false
@@ -653,8 +603,6 @@ fig_covid_mn +
             ) -> fig_covid_mn
 fig_covid_mn
 ```
-
-
 
 ## Facemask Policy
 
@@ -787,15 +735,11 @@ head(acs_df)
 
 ## Merge election data and covid data into single `df`
 
- - We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()`
+-   We're going to take our `covid_us` data and **merge** into this data on the 2020 election from `pres2020_df` using the common `state` variable in each data set for a `left_join()`
 
 -   Always check the matches in your joining variable (i.e. `state`)
 
 -   Below we see that our recoding of state to title case in created a mismatch
-
-
-
-
 
 ```{r}
 #| label: merge_check
@@ -809,8 +753,6 @@ pres2020_df$state[pres2020_df$state == "District Of Columbia"] <- "District of C
 sum(pres2020_df$state %in% covid_us$state)
 
 ```
-
-
 
 ## Merge election data into Covid data
 
@@ -839,38 +781,33 @@ dim(covid_us)  # Same number of rows as covid_us w/ 2 additional columns
 
 ```
 
-
-
-
-
-
 # {{< fa lightbulb >}} Causal Identification with Observational Designs {.inverse}
 
 ## Causal inference is about counterfactual comparisons
 
-- Causal inference is about counterfactual comparisons
-  
-  - What would have happened if some aspect of the world either had or had not been present
+-   Causal inference is about counterfactual comparisons
 
-- [Casual Identification]{.blue} refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)]
-  - What do we need to assume to make our claims about cause and effect credible
+    -   What would have happened if some aspect of the world either had or had not been present
+
+-   [Casual Identification]{.blue} refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)\]
+
+    -   What do we need to assume to make our claims about cause and effect credible
 
 ## Experimental Designs
 
 -   [Experimental designs]{.blue} are studies in which a causal variable of interest, the *treatement*, is [manipulated by the researcher]{.blue} to examine its causal effects on some *outcome* of interest
 
-  - Random assignment is the key to causal identification in experiments because it creates [statistical independence]{.blue} between [treatment]{.blue} and [potential outcomes]{.blue} any potential [confounding factors]{.blue}
-  
+-   Random assignment is the key to causal identification in experiments because it creates [statistical independence]{.blue} between [treatment]{.blue} and [potential outcomes]{.blue} any potential [confounding factors]{.blue}
+
 $$
 Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
-$$  
-## Randomization creates credible counterfactual comparisons
+$$\
+\## Randomization creates credible counterfactual comparisons
 
 If treatment has been randomly assigned, then:
 
-- The only thing that differs between treatment and control is that one group got the treatment, and another did not.
-- We can estimate the Average Treatment Effect (ATE) using the difference of sample means
-
+-   The only thing that differs between treatment and control is that one group got the treatment, and another did not.
+-   We can estimate the Average Treatment Effect (ATE) using the difference of sample means
 
 $$
 \begin{aligned}
@@ -882,38 +819,37 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{
 \end{aligned}
 $$
 
-## Observational Designs{.smaller}
+## Observational Designs {.smaller}
 
 -   [Observational designs]{.blue} are studies in which a causal variable of interest is determined by someone/thing [other than the researcher]{.blue} (nature, governments, people, etc.)
 
-  - Since treatment has not been randomly assigned, observational studies typically require [stronger assumptions]{.blue} to make causal claims.
-  
-- Generally speaking, these assumptions amount to a claim about conditional independence
+-   Since treatment has not been randomly assigned, observational studies typically require [stronger assumptions]{.blue} to make causal claims.
+
+-   Generally speaking, these assumptions amount to a claim about conditional independence
 
 $$
 Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i | K_i
-$$ 
+$$
 
-- Where after conditioning on $K_i$, some [knowledge about the world]{.blue} and how the [data were generated]{.blue}, our [treatment]{.blue} is as good as (as-if) randomly assigned (hence [conditionally independent]{.blue})
+-   Where after conditioning on $K_i$, some [knowledge about the world]{.blue} and how the [data were generated]{.blue}, our [treatment]{.blue} is as good as (as-if) randomly assigned (hence [conditionally independent]{.blue})
 
-## Causal Inference in Observational Studies{.smaller}
+## Causal Inference in Observational Studies {.smaller}
 
 To understand how to make causal claims in observational studies we will:
 
-- Introduce the concept of Directed Acyclic Graphs to describe causal relationships
+-   Introduce the concept of Directed Acyclic Graphs to describe causal relationships
 
-- Discuss three approaches to [covariate adjustment]{.blue}
+-   Discuss three approaches to [covariate adjustment]{.blue}
 
-  - Subclassification
-  - Matching
-  - [Linear Regression]{.blue}
+    -   Subclassification
+    -   Matching
+    -   [Linear Regression]{.blue}
 
-- Three research designs for observational data
+-   Three research designs for observational data
 
-  - [Differences-in-Differences]{.blue}
-  - Regression Discontinuity Designs
-  - Instrumental Variables
-
+    -   [Differences-in-Differences]{.blue}
+    -   Regression Discontinuity Designs
+    -   Instrumental Variables
 
 # Directed Acyclic Graphs {.inverse}
 
@@ -921,25 +857,24 @@ To understand how to make causal claims in observational studies we will:
 
 Two ways to represent causal claims:
 
-- Potential Outcomes Notation helped illustrate the **Fundamental Problem of Causal Inference**
+-   Potential Outcomes Notation helped illustrate the **Fundamental Problem of Causal Inference**
 
+-   [Directed Acyclic Graphs]{.blue} provide a way of encoding assumptions about casual relationships and are useful for illustrating [types of bias]{.blue}
 
-- [Directed Acyclic Graphs]{.blue} provide a way of encoding assumptions about casual relationships and are useful for illustrating [types of bias]{.blue}
-  - **Confounder bias:** Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)
-  - **Collider bias:** Controlling for a common consequence 
+    -   **Confounder bias:** Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)
+    -   **Collider bias:** Controlling for a common consequence
 
 ## Directed Acyclic Graphs
 
-- Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
+-   Directed Acyclic Graphs provide a way of encoding assumptions about casual relationships
 
-  - **Directed** Arrows $\to$ describe a direct causal effect 
+    -   **Directed** Arrows $\to$ describe a direct causal effect
 
-  - Arrow from $D\to Y$ means $Y_i(d) \neq Y_i(d^\prime)$ "The outcome ( $Y$) for person $i$ when D happens ( $Y_i(d)$ ) is different than the the outcome when $D$ doesn't happen ( $Y_i(d^\prime)$ )
+    -   Arrow from $D\to Y$ means $Y_i(d) \neq Y_i(d^\prime)$ "The outcome ( $Y$) for person $i$ when D happens ( $Y_i(d)$ ) is different than the the outcome when $D$ doesn't happen ( $Y_i(d^\prime)$ )
 
-  - No arrow = no effect ( $Y_i(d) = Y_i(d^\prime)$ )
+    -   No arrow = no effect ( $Y_i(d) = Y_i(d^\prime)$ )
 
-  - **Acyclic:** No cycles. A variable can't cause itself
-
+    -   **Acyclic:** No cycles. A variable can't cause itself
 
 ## Types of variables in a DAG
 
@@ -947,19 +882,15 @@ Two ways to represent causal claims:
 
 @Blair2023-yg [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
 
-
-
 ## When to control for a variable:
 
 ![](https://book.declaredesign.org/figures/figure-16-3.svg)
 
 [@Blair2023-yg] [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
 
-
 # {{< fa lightbulb >}} Covariate Adjustment {.inverse}
 
 # {{< fa lightbulb >}} Simple Linear Regression {.inverse}
-
 
 ## Understanding Linear Regression
 
@@ -1313,8 +1244,6 @@ fig_lm +
              rotate = 270)
 ```
 
-
-
 ## How did `lm()` choose $\beta_0$ and $\beta_1$
 
 --
@@ -1424,13 +1353,11 @@ The derivative of the "outside" times the derivative of the "inside," rememberin
 
 ## Finding a Local Minimums
 
- Local minimum:
+Local minimum:
 
 $$
 f^{\prime}(x)=0 \text{ and } f^{\prime\prime}(x)>0 
-$$ 
-
-
+$$
 
 ```{r}
 #| label: derivatives
@@ -1438,7 +1365,7 @@ $$
 knitr::include_graphics("https://copingwithcalculus.com/SecondDeriv1.png")
 ```
 
-[Source](https://copingwithcalculus.com/SecondDerivativeTest.html) 
+[Source](https://copingwithcalculus.com/SecondDerivativeTest.html)
 
 ## Partial Derivatives
 
@@ -1711,11 +1638,7 @@ $$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1}
 -   *Theoretical*
     -   Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
-
 # {{< fa lightbulb >}} Difference-in-Differences {.inverse}
-
-
-
 
 ## Summary
 
