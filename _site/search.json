@@ -1091,15 +1091,15 @@
     "objectID": "slides/03-slides.html#class-plan",
     "href": "slides/03-slides.html#class-plan",
     "title": "POLS 1600",
-    "section": "Class Plan",
-    "text": "Class Plan\n\nAnnouncements\nFeedback\nReview\nClass plan\n\nCausal Inference\nNotation for Causal Inference\nCausal Identification\nCausal Identification in Experiments\nresume data from QSS\nExplore Broockman and Kalla (2016)"
+    "section": "",
+    "text": "Announcements\nFeedback\nReview\nClass plan\n\nCausal Inference\nNotation for Causal Inference\nCausal Identification\nCausal Identification in Experiments\nresume data from QSS\nExplore Broockman and Kalla (2016)"
   },
   {
     "objectID": "slides/03-slides.html#annoucements",
     "href": "slides/03-slides.html#annoucements",
     "title": "POLS 1600",
-    "section": "Annoucements",
-    "text": "Annoucements\n\nRevised Schedule\n\nLecture 3 today\nRead  Broockman and Kalla (2016) pdf\nLab 3 next week\nWeek 4 content spread out over weeks 5/6/7 condensed\nMore updates to come"
+    "section": "",
+    "text": "Revised Schedule\n\nLecture 3 today\nRead  Broockman and Kalla (2016) pdf\nLab 3 next week\nWeek 4 content spread out over weeks 5/6/7 condensed\nMore updates to come"
   },
   {
     "objectID": "slides/03-slides.html#group-assignments",
@@ -1260,7 +1260,7 @@
     "href": "slides/03-slides.html#potential-outcomes-notation",
     "title": "POLS 1600",
     "section": "Potential outcomes notation",
-    "text": "Potential outcomes notation\n\n\\(Y_i(1)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they received the treatment \\((D_i = 1)\\)\n\nShorthand for \\(Y_i(D_i=1)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) with the vaccine (\\(D_i = 1\\))\n\n\\(Y_i(0)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they did not receive the treatment \\((D_i = 0)_i\\)\n\nShorthand for \\(Y_i(D_i=0)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) without the vaccine (\\(D_i=0\\))\n\n\n\nThe treatment received determines which potential outcome we actually observe:\n\\[\nY_i = (1 - D_i)*Y_i(0) + D_i*Y_i(1)\n\\]\nPotential outcomes are fixed, but we only observe one (of many) potential outcomes \\(\\to\\) Fundamental Problem of Causal Inference"
+    "text": "Potential outcomes notation\n\n\\(Y_i(1)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they received the treatment \\((D_i = 1)\\)\n\nShorthand for \\(Y_i(D_i=1)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) with the vaccine (\\(D_i = 1\\))\n\n\\(Y_i(0)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they did not receive the treatment \\((D_i = 0)_i\\)\n\nShorthand for \\(Y_i(D_i=0)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) without the vaccine (\\(D_i=0\\))\n\n\n. . .\nThe treatment received determines which potential outcome we actually observe:\n\\[\nY_i = (1 - D_i)*Y_i(0) + D_i*Y_i(1)\n\\]\nPotential outcomes are fixed, but we only observe one (of many) potential outcomes \\(\\to\\) Fundamental Problem of Causal Inference"
   },
   {
     "objectID": "slides/03-slides.html#fundamental-problem-of-causal-inference",
@@ -1316,42 +1316,42 @@
     "href": "slides/03-slides.html#section",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(E[\\tau_i]\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\nIf we could observe everyone’s potential outcomes, we could calculate the ICE\nOn average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)\nSuppose we conducted a study and let folks select what they wanted to eat."
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(E[\\tau_i]\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nIf we could observe everyone’s potential outcomes, we could calculate the ICE\nOn average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)\nSuppose we conducted a study and let folks select what they wanted to eat."
   },
   {
     "objectID": "slides/03-slides.html#section-1",
     "href": "slides/03-slides.html#section-1",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\nObserved Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43"
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nObserved Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43"
   },
   {
     "objectID": "slides/03-slides.html#section-2",
     "href": "slides/03-slides.html#section-2",
     "title": "POLS 1600",
     "section": "",
-    "text": "Observed Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43\n\n\n\n\n\n\nSelection Bias\n\nOur estimate of the ATE is biased by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example\nIn general, selection bias occurs when folks who receive the treatment differ systematically from folks who don’t\nWhat if instead of letting people pick and choose, we randomly assigned half our respondents to chocolate and half to receive fruit"
+    "text": "Observed Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43\n\n\n\n\n\n\n\n\nSelection Bias\n\nOur estimate of the ATE is biased by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example\nIn general, selection bias occurs when folks who receive the treatment differ systematically from folks who don’t\nWhat if instead of letting people pick and choose, we randomly assigned half our respondents to chocolate and half to receive fruit"
   },
   {
     "objectID": "slides/03-slides.html#section-3",
     "href": "slides/03-slides.html#section-3",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\nRandomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1"
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nRandomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1"
   },
   {
     "objectID": "slides/03-slides.html#section-4",
     "href": "slides/03-slides.html#section-4",
     "title": "POLS 1600",
     "section": "",
-    "text": "Randomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\nRandom Assignment\n\nWhen treatment has been randomly assigned, a difference in sample means provides an unbiased estimate of the ATE\nThe fact that our \\(\\hat{ATE} = ATE\\) in this example is pure coincidence.\nIf we randomly assigned treatment a different way, we’d get a different estimate.\nIn general unbiased estimators will tend to be neither too high nor too low (e.g. \\(E[\\hat{\\theta} - \\theta] = 0\\)])"
+    "text": "Randomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\n\n\nRandom Assignment\n\nWhen treatment has been randomly assigned, a difference in sample means provides an unbiased estimate of the ATE\nThe fact that our \\(\\hat{ATE} = ATE\\) in this example is pure coincidence.\nIf we randomly assigned treatment a different way, we’d get a different estimate.\nIn general unbiased estimators will tend to be neither too high nor too low (e.g. \\(E[\\hat{\\theta} - \\theta] = 0\\)])"
   },
   {
     "objectID": "slides/03-slides.html#section-5",
     "href": "slides/03-slides.html#section-5",
     "title": "POLS 1600",
     "section": "",
-    "text": "Random Assignment 1\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\nRandom Assignment 2\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n0\n3\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n1\n6\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n0\n3\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.6\n2.8\n3.8\n\n\n\n\n\n\nRandom Assignment 3\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n0\n6\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.4\n5.8\n-0.4"
+    "text": "Random Assignment 1\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\n\n\nRandom Assignment 2\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n0\n3\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n1\n6\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n0\n3\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.6\n2.8\n3.8\n\n\n\n\n\n\n\n\nRandom Assignment 3\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n0\n6\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.4\n5.8\n-0.4"
   },
   {
     "objectID": "slides/03-slides.html#distribution-of-sample-ates",
@@ -5923,7 +5923,7 @@
     "href": "labs/05-lab.html",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "",
-    "text": "Today we will explore the phenomena of “Red Covid” discussed by the NYT’s David Leonhardt in articles last fall here and more recently here.\nThe core thesis of Red Covid is something like the following:\nSince Covid-19 vaccines became widely available to the general public in the spring of 2021, Republicans have been less likely to get the vaccine. Lower rates of vaccination among Republicans have in turn led to higher rates of death from Covid-19 in Red States compared to Blue States.\nIn this lab, we’ll reproduce some basic evidence of this phenomena, using bivariate linear regression as a tool to summarize and describe relationships.\nNext week, we’ll see how multiple regression (linear regression with multiple predictors) can be used to assess alternative explanations for the patterns we see.\nTo accomplish this we will:\n\nSet up our work space (2-3 Minutes)\nLoad data on Covid-19 and the 2020 Election. (5 Minutes)\nDescribe the structure of these two datasets (5 Minutes)\nTransform the datasets so we can analyze them (10 minutes)\nMerge the election data into our Covid-19 data (5 minues)\nCalculate the average number new Covid-19 deaths in Red and Blue States (5 minutes)\nCalculate the average number new Covid-19 deaths in Red and B Blue States using linear regression (10 minutes)\nExplore the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (10 minutes)\nVisualize the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (15-20 minutes)\nDiscuss some alternative explanations for these relationships (5-10 minutes)\nTake the weekly survey (2-3 minutes)\n\nOne of these 10 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.\nYou will work in your assigned groups. Only one member of each group needs to submit the html file of lab.\nThis lab must contain the names of the group members in attendance.\nIf you are attending remotely, you will submit your labs individually.\nHere are your assigned groups for the semester."
+    "text": "Today we will explore the phenomena of “Red Covid” discussed by the NYT’s David Leonhardt in articles last fall here and more recently here.\nThe core thesis of Red Covid is something like the following:\nSince Covid-19 vaccines became widely available to the general public in the spring of 2021, Republicans have been less likely to get the vaccine. Lower rates of vaccination among Republicans have in turn led to higher rates of death from Covid-19 in Red States compared to Blue States.\nIn this lab, we’ll reproduce some basic evidence of this phenomena, using bivariate linear regression as a tool to summarize and describe relationships.\nNext week, we’ll see how multiple regression (linear regression with multiple predictors) can be used to assess alternative explanations for the patterns we see.\nTo accomplish this we will:\n\nSet up our work space (2-3 Minutes)\nLoad data on Covid-19 and the 2020 Election. (5 Minutes)\nDescribe the structure of these two datasets (5 Minutes)\nTransform the datasets so we can analyze them (10 minutes)\nMerge the election data into our Covid-19 data (5 minues)\nCalculate the average number new Covid-19 deaths in Red and Blue States (5 minutes)\nCalculate the average number new Covid-19 deaths in Red and B Blue States using linear regression (10 minutes)\nExplore the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (10 minutes)\nVisualize the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (15-20 minutes)\nDiscuss some alternative explanations for these relationships (5-10 minutes)\nTake the weekly survey (2-3 minutes)\n\nOne of these 10 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.\nYou will work in your assigned groups. Only one member of each group needs to submit the html file of lab.\nThis lab must contain the names of the group members in attendance.\nIf you are attending remotely, you will submit your labs individually.\nHere are your assigned groups for the semester.\n\n\nRows: 8 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (5): Group, 1, 2, 3, 4\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "labs/05-lab.html#load-covid-19-data",
@@ -5944,14 +5944,14 @@
     "href": "labs/05-lab.html#recode-the-covid-19-data",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "4.1 Recode the Covid-19 data",
-    "text": "4.1 Recode the Covid-19 data\nIn the chunk below, please recode the covid data to create a covid_us data set, again using code from the slides as your guide, starting here and ending here\n\n# Create a vector containing of US territories\n\n\n# Filter out Territories and create state variable\n\n\n# Calculate new cases, new cases per capita, and 7-day average\n\n\n\n# Recode facemask policy (Not strictly necessary so feel free to skip)\n\n\n# Create year-month and percent vaccinated variables"
+    "text": "4.1 Recode the Covid-19 data\nIn the chunk below, please recode the covid data to create a covid_us data set, again using code from the slides as your guide: here\n\n# Create a vector containing of US territories\n\n\n# Filter out Territories and create state variable\n\n\n# Calculate new cases, new cases per capita, and 7-day average\n\n\n\n# Recode facemask policy (Not strictly necessary so feel free to skip)\n\n\n# Create year-month and percent vaccinated variables"
   },
   {
     "objectID": "labs/05-lab.html#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents",
     "href": "labs/05-lab.html#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "4.2 Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents",
-    "text": "4.2 Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nUsing the code from this slide as a guide:\n\nAnywhere you see new_cases write new_deaths\nAnywhere you see confirmed write deaths\nFor the 14-day average, copy the code for new_deaths_pc_7da change the new_deaths_pc_7da to new_deaths_pc_14da and set k=14 in the zoo::rollmean()\nRemember to save the output of mutate() back into covid_us\n\n\n# Create the following variables:\n# new_deaths\n# new_deaths_pc\n# new_deaths_pc_7da\n# new_deaths_pc_14da"
+    "text": "4.2 Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nUsing the code from this slide as a guide:\n\nAnywhere you see new_cases write new_deaths\nAnywhere you see confirmed write deaths\nFor the 14-day average, copy the code for new_deaths_pc_7day change the new_deaths_pc_7day to new_deaths_pc_14day and set k=14 in the zoo::rollmean()\nRemember to save the output of mutate() back into covid_us\n\n\n# Create the following variables:\n# new_deaths\n# new_deaths_pc\n# new_deaths_pc_7day\n# new_deaths_pc_14day"
   },
   {
     "objectID": "labs/05-lab.html#reshape-and-recode-the-presidential-election-data.",
@@ -5965,21 +5965,21 @@
     "href": "labs/05-lab.html#for-all-the-observations",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "6.1 For all the observations",
-    "text": "6.1 For all the observations\nWith the covid_us data set:\n\nuse the group_by() command to have summarise() calculate values separately by the winner of each state.\nuse the summarise() command with mean() function to calculate the average number of new deaths (new_deaths) and the average of the 7-day rolling average of new deaths per 100,000 citizens (new_deaths_pc_7da)\n\nRemember to tell mean() what to do with NAs using the na.rm argument.\n\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7da"
+    "text": "6.1 For all the observations\nWith the covid_us data set:\n\nuse the group_by() command to have summarise() calculate values separately by the winner of each state.\nuse the summarise() command with mean() function to calculate the average number of new deaths (new_deaths) and the average of the 7-day rolling average of new deaths per 100,000 citizens (new_deaths_pc_7day)\n\nRemember to tell mean() what to do with NAs using the na.rm argument.\n\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7day"
   },
   {
     "objectID": "labs/05-lab.html#for-the-all-the-observations-before-april-19-2021",
     "href": "labs/05-lab.html#for-the-all-the-observations-before-april-19-2021",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "6.2 For the all the observations before April 19, 2021",
-    "text": "6.2 For the all the observations before April 19, 2021\nNow let’s compare one of the empirical implications of Leonhardt’s claims, specifically that “Red Covid” emerged as a phenomena because Republicans were less willing to take the vaccine.\nIf that’s true, then the differences between Red and Blue states in terms of new deaths and new deaths per 100,000 residents should be smaller or reversed (i.e. more deaths in Blue states compared to Red States)\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date less than \"2021-04-19\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021"
+    "text": "6.2 For the all the observations before April 19, 2021\nNow let’s compare one of the empirical implications of Leonhardt’s claims, specifically that “Red Covid” emerged as a phenomena because Republicans were less willing to take the vaccine.\nIf that’s true, then the differences between Red and Blue states in terms of new deaths and new deaths per 100,000 residents should be smaller or reversed (i.e. more deaths in Blue states compared to Red States)\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date less than \"2021-04-19\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7day before April 19, 2021"
   },
   {
     "objectID": "labs/05-lab.html#for-the-all-the-observations-after-april-19-2021",
     "href": "labs/05-lab.html#for-the-all-the-observations-after-april-19-2021",
     "title": "Lab 05 - Examining the Phenomena of Red Covid",
     "section": "6.3 For the all the observations after April 19, 2021",
-    "text": "6.3 For the all the observations after April 19, 2021\nSimilarly, if Leonhardt’s claim is true, then the differences between Red and Blue states should be more evident in the period after the vaccine became widely available.\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date greater than \"2021-04-19\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7da after April 19, 2021\n\n\nPlease interpret the results of this analysis here\nWhen we look at the difference in the average number of new deaths between Red and Blue States in the full dataset, we see that …\nHowever, when we consider differences in the 7-day average of new deaths per 100,000 residents, we see that …\nWhen we limit our analysis, to just observations before April 19, 2021 …\nWhen we look at observations after the vaccine became widely available …"
+    "text": "6.3 For the all the observations after April 19, 2021\nSimilarly, if Leonhardt’s claim is true, then the differences between Red and Blue states should be more evident in the period after the vaccine became widely available.\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date greater than \"2021-04-19\n\n\n# Calculate the mean number of new_deaths and new_deaths_pc_7day after April 19, 2021\n\n\nPlease interpret the results of this analysis here\nWhen we look at the difference in the average number of new deaths between Red and Blue States in the full dataset, we see that …\nHowever, when we consider differences in the 7-day average of new deaths per 100,000 residents, we see that …\nWhen we limit our analysis, to just observations before April 19, 2021 …\nWhen we look at observations after the vaccine became widely available …"
   },
   {
     "objectID": "labs/05-lab.html#footnotes",
@@ -9468,21 +9468,21 @@
     "href": "slides/05-slides.html#packages-for-the-lab",
     "title": "POLS 1600",
     "section": "Packages for the lab",
-    "text": "Packages for the lab\nHopefully, you were all able to install the following packages"
+    "text": "Packages for the lab\nHopefully, you were all able to install the following packages\n\ninstall.packages(\"dataverse\")\ninstall.packages(\"tidycensus\")\ninstall.packages(\"easystats\")\ninstall.packages(\"DeclareDesign\")"
   },
   {
     "objectID": "slides/05-slides.html#census-api",
     "href": "slides/05-slides.html#census-api",
     "title": "POLS 1600",
     "section": "Census API",
-    "text": "Census API\nAdditionally, I hope you have all followed the steps here:\n\nInstall the tidycensus package\nLoad the installed package\nRequest an API key from the Census\nCheck your email\nActivate your key\nInstall your API key in R\nCheck that everything worked\n\nTo install the an API key so we can download data directly from the US Census"
+    "text": "Census API\nPlease follow these steps so you can download data directly from the U.S. Census here:\n\nInstall the tidycensus package\nLoad the installed package\nRequest an API key from the Census\nCheck your email\nActivate your key\nInstall your API key in R\nCheck that everything worked"
   },
   {
     "objectID": "slides/05-slides.html#packages-for-today",
     "href": "slides/05-slides.html#packages-for-today",
     "title": "POLS 1600",
     "section": "Packages for today",
-    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", #&lt;&lt;\n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"#&lt;&lt;\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
   },
   {
     "objectID": "slides/05-slides.html#packages-for-the-lab-1",
@@ -9496,7 +9496,7 @@
     "href": "slides/05-slides.html#preview-of-the-lab",
     "title": "POLS 1600",
     "section": "Preview of the Lab",
-    "text": "Preview of the Lab\nConceptually, this lab is designed to help reinforce the relationship between linear models like \\(y=\\beta_0 + \\beta_1x\\) and the conditional expectation function \\(E[Y|X]\\).\n\nQuestions 1-5 are designed to reinforce your data wrangling skills. In particular, you will get practice:\n\nCreating and recoding variables using mutate()\nCalculating a moving average or rolling mean using the rollmean() function from the zoo package\nTransforming the data on presidential elections so that it can be merged with the data on Covid-19 using the pivot_wider() function.\nMerging data together using the left_join() function."
+    "text": "Preview of the Lab\nPlease download Thursday’s lab here\n\nConceptually, this lab is designed to help reinforce the relationship between linear models like \\(y=\\beta_0 + \\beta_1x\\) and the conditional expectation function \\(E[Y|X]\\).\nSubstantively, we will explore whether David Leonhardt’s claims about Red Covid the political polarization of vaccines and its consequences"
   },
   {
     "objectID": "slides/05-slides.html#preview-of-the-lab-1",
@@ -9538,7 +9538,7 @@
     "href": "slides/05-slides.html#new-case-per-capita",
     "title": "POLS 1600",
     "section": "New Case Per Capita",
-    "text": "New Case Per Capita"
+    "text": "New Case Per Capita\nThe following code illustrates how a 7-day rolling mean smooths (new_cases_pc_7da) over the [noisiness] of daily measure\n\nCodeFigure\n\n\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\", \n         state == \"Minnesota\") %&gt;%\n  select(date,\n         new_cases_pc,\n         new_cases_pc_7day)%&gt;%\n  ggplot(aes(date,new_cases_pc ))+\n  geom_line(aes(col=\"Daily\"))+\n  # set y aesthetic for second line of rolling average\n  geom_line(aes(y = new_cases_pc_7day,\n                col = \"7-day average\")\n            ) -&gt; fig_covid_mn\n  theme(legend.position=\"bottom\")+\n    labs( col = \"Measure\",\n    y = \"New Cases Per 100k\", x = \"\",\n    title = \"Minnesota\"\n  ) -&gt; fig_covid_mn \n\n\n\n\n\nList of 5\n $ legend.position: chr \"bottom\"\n $ colour         : chr \"Measure\"\n $ y              : chr \"New Cases Per 100k\"\n $ x              : chr \"\"\n $ title          : chr \"Minnesota\"\n - attr(*, \"class\")= chr [1:2] \"theme\" \"gg\"\n - attr(*, \"complete\")= logi FALSE\n - attr(*, \"validate\")= logi TRUE"
   },
   {
     "objectID": "slides/05-slides.html#new-case-per-capita-vs-7-day-average",
@@ -9629,7 +9629,7 @@
     "href": "slides/05-slides.html#merge-election-data-into-covid-data",
     "title": "POLS 1600",
     "section": "Merge election data into Covid data",
-    "text": "Merge election data into Covid data\n\n\n[1] 53678    56\n\n\n[1] 51  9\n\n\n[1] 53678    64"
+    "text": "Merge election data into Covid data\n\ndim(covid_us)\n\n[1] 53678    61\n\ndim(pres2020_df)\n\n[1] 51  9\n\ncovid_us &lt;- covid_us %&gt;% left_join(\n  pres2020_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_us) \n\n[1] 53678    69"
   },
   {
     "objectID": "slides/05-slides.html#merge-census-data-into-covid-data",
@@ -9643,7 +9643,7 @@
     "href": "slides/05-slides.html#review-1",
     "title": "POLS 1600",
     "section": "Review",
-    "text": "Review\n\nData wrangling and visualization\nDescriptive Statistics\nLevels of understanding"
+    "text": "Review\n\nData wrangling\nDescriptive Statistics\nLevels of understanding\nData visualization"
   },
   {
     "objectID": "slides/05-slides.html#data-wrangling-and-visualization",
@@ -9671,14 +9671,14 @@
     "href": "slides/05-slides.html#levels-of-understanding-in-pols-1600",
     "title": "POLS 1600",
     "section": "Levels of understanding in POLS 1600",
-    "text": "Levels of understanding in POLS 1600\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+    "text": "Levels of understanding in POLS 1600\n\nConceptual\nPractical\nDefinitional\nTheoretical\n\n\nLet’s illustrate these different levels of understanding about our old friend the mean"
   },
   {
     "objectID": "slides/05-slides.html#descriptive-statistics-levels-of-understanding",
     "href": "slides/05-slides.html#descriptive-statistics-levels-of-understanding",
     "title": "POLS 1600",
     "section": "Descriptive statistics: Levels of understanding",
-    "text": "Descriptive statistics: Levels of understanding\n\nConceptual\nPractical\nDefinitional\nTheoretical"
+    "text": "Descriptive statistics: Levels of understanding\n\n\nConceptual\nPractical\nDefinitional\nTheoretical"
   },
   {
     "objectID": "slides/05-slides.html#mean-conceptual-understanding",
@@ -9699,14 +9699,14 @@
     "href": "slides/05-slides.html#mean-practical",
     "title": "POLS 1600",
     "section": "Mean: Practical",
-    "text": "Mean: Practical\nThere are lots of ways to calculate means in R\n\nThe simplest is to use the mean() function\n\nIf our data have missing values, we need to to tell R to remove them"
+    "text": "Mean: Practical\nThere are lots of ways to calculate means in R\n\nThe simplest is to use the mean() function\n\nIf our data have missing values, we need to to tell R to remove them\n\n\n\nmean(df$x, na.rm=T)"
   },
   {
     "objectID": "slides/05-slides.html#conditional-means-practical",
     "href": "slides/05-slides.html#conditional-means-practical",
     "title": "POLS 1600",
     "section": "Conditional Means: Practical",
-    "text": "Conditional Means: Practical\n\nTo calculate a conditional mean we could us a logical index [df$z == 1]\n\n\nIf we wanted to a calculate a lot of conditional means we could use the mean() in combination with group_by() and summarise()"
+    "text": "Conditional Means: Practical\n\nTo calculate a conditional mean we could us a logical index [df$z == 1]\n\n\nmean(df$x[df$z == 1], na.rm=T)\n\n\nIf we wanted to a calculate a lot of conditional means we could use the mean() in combination with group_by() and summarise()\n\n\ndf %&gt;% \n  group_by(z)%&gt;%\n  summarise(\n    x = mean(x, na.rm=T)\n  )"
   },
   {
     "objectID": "slides/05-slides.html#mean-definitional",
@@ -9776,7 +9776,7 @@
     "href": "slides/05-slides.html#understanding-linear-regression",
     "title": "POLS 1600",
     "section": "Understanding Linear Regression",
-    "text": "Understanding Linear Regression\n\nConceptual\n\nSimple linear regression estimates “a line of best fit” that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)\n\n\nclass: inverse, center, middle # 💡\n# Conceptual: Linear Regression ## Linear Regression Provides an Estimate of the Line of Best Fit"
+    "text": "Understanding Linear Regression\n\nConceptual\n\nSimple linear regression estimates “a line of best fit” that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nlm(y ~ x, data = df)\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)\n\n\nclass: inverse, center, middle # 💡\n# Conceptual: Linear Regression ## Linear Regression Provides an Estimate of the Line of Best Fit"
   },
   {
     "objectID": "slides/05-slides.html#conceptual-linear-regression",
@@ -9818,14 +9818,14 @@
     "href": "slides/05-slides.html#practical-estimating-a-linear-regression",
     "title": "POLS 1600",
     "section": "Practical: Estimating a Linear Regression",
-    "text": "Practical: Estimating a Linear Regression\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nThe coefficients from lm() are saved in object called m1\n\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nm1 actually contains a lot of information\n\n\n [1] \"coefficients\"  \"residuals\"     \"effects\"       \"rank\"         \n [5] \"fitted.values\" \"assign\"        \"qr\"            \"df.residual\"  \n [9] \"na.action\"     \"xlevels\"       \"call\"          \"terms\"        \n[13] \"model\"        \n\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711"
+    "text": "Practical: Estimating a Linear Regression\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\nload(url(\"https://pols1600.paultesta.org/files/data/03_lab.rda\"))\nm1 &lt;- lm(therm_trans_t0 ~ vf_age, data = df)\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nThe coefficients from lm() are saved in object called m1\n\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nm1 actually contains a lot of information\n\nnames(m1)\n\n [1] \"coefficients\"  \"residuals\"     \"effects\"       \"rank\"         \n [5] \"fitted.values\" \"assign\"        \"qr\"            \"df.residual\"  \n [9] \"na.action\"     \"xlevels\"       \"call\"          \"terms\"        \n[13] \"model\"        \n\nm1$coefficients\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711"
   },
   {
     "objectID": "slides/05-slides.html#practical-interpreting-a-linear-regression",
     "href": "slides/05-slides.html#practical-interpreting-a-linear-regression",
     "title": "POLS 1600",
     "section": "Practical: Interpreting a Linear Regression",
-    "text": "Practical: Interpreting a Linear Regression\nWe can extract the intercept and slope from this simple bivariate model, using the coef() function\n\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711 \n\n\n(Intercept) \n    62.8196 \n\n\n    vf_age \n-0.2030711"
+    "text": "Practical: Interpreting a Linear Regression\nWe can extract the intercept and slope from this simple bivariate model, using the coef() function\n\n# All the coefficients\ncoef(m1)\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711 \n\n# Just the intercept\ncoef(m1)[1]\n\n(Intercept) \n    62.8196 \n\n# Just the slope\ncoef(m1)[2]\n\n    vf_age \n-0.2030711"
   },
   {
     "objectID": "slides/05-slides.html#practical-interpreting-a-linear-regression-1",
@@ -9846,7 +9846,7 @@
     "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-1",
     "title": "POLS 1600",
     "section": "Practical: Predicted values from a Linear Regression",
-    "text": "Practical: Predicted values from a Linear Regression\nWe could do this by hand\n\n\n(Intercept) \n   59.16432 \n\n\n(Intercept) \n   49.01076"
+    "text": "Practical: Predicted values from a Linear Regression\nWe could do this by hand\n\ncoef(m1)[1] + coef(m1)[2] * 18\n\n(Intercept) \n   59.16432 \n\ncoef(m1)[1] + coef(m1)[2] * 68\n\n(Intercept) \n   49.01076"
   },
   {
     "objectID": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-2",
@@ -9860,14 +9860,14 @@
     "href": "slides/05-slides.html#practical-predicted-values-from-a-linear-regression-3",
     "title": "POLS 1600",
     "section": "Practical: Predicted values from a Linear Regression",
-    "text": "Practical: Predicted values from a Linear Regression\n\n\n       1        2 \n59.16432 49.01076 \n\n\n  vf_age ft_trans_hat\n1     18     59.16432\n2     68     49.01076"
+    "text": "Practical: Predicted values from a Linear Regression\n\n# Make prediction data frame\npred_df &lt;- data.frame(\n  vf_age = c(18, 68)\n)\n# Predict FT for 18 and 68 year-olds\npredict(m1, newdata = pred_df)\n\n       1        2 \n59.16432 49.01076 \n\n# Save predictions to data frame\npred_df$ft_trans_hat &lt;- predict(m1, newdata = pred_df)\npred_df\n\n  vf_age ft_trans_hat\n1     18     59.16432\n2     68     49.01076"
   },
   {
     "objectID": "slides/05-slides.html#practical-visualizing-linear-regression",
     "href": "slides/05-slides.html#practical-visualizing-linear-regression",
     "title": "POLS 1600",
     "section": "Practical: Visualizing Linear Regression",
-    "text": "Practical: Visualizing Linear Regression\nWe can visualize simple regression by:\n\nplotting a scatter plot of the outcome (y-axis) and predictors (x-axis)\noverlaying the line defined by lm()"
+    "text": "Practical: Visualizing Linear Regression\nWe can visualize simple regression by:\n\nplotting a scatter plot of the outcome (y-axis) and predictors (x-axis)\noverlaying the line defined by lm()\n\n\nfig_lm &lt;- df %&gt;%\n  ggplot(aes(vf_age,therm_trans_t0))+\n  geom_point(size=.5, alpha=.5)+\n  geom_abline(intercept = coef(m1)[1],\n              slope = coef(m1)[2],\n              col = \"blue\"\n              )+\n  geom_vline(xintercept = 0,linetype = 2)+\n  xlim(0,100)+\n  annotate(\"point\",\n           x = 0, y = coef(m1)[1],\n           col= \"red\",\n           )+\n  annotate(\"text\",\n           label = expression(paste(beta[0],\"= 62.81\" )),\n           x = 1, y = coef(m1)[1]+5,\n           hjust = \"left\",\n           )+\n  labs(\n    x = \"Age\",\n    y = \"Feeling Thermometer toward\\nTransgender People\"\n  )+\n  theme_classic()\nfig_lm"
   },
   {
     "objectID": "slides/05-slides.html#how-did-lm-choose-beta_0-and-beta_1",
@@ -10014,7 +10014,7 @@
     "href": "slides/05-slides.html#what-you-need-to-know-about-regression",
     "title": "POLS 1600",
     "section": "What you need to know about Regression",
-    "text": "What you need to know about Regression\n\nConceptual\n\nSimple linear regression estimates a line of best fit that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
+    "text": "What you need to know about Regression\n\nConceptual\n\nSimple linear regression estimates a line of best fit that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nlm(y ~ x, data = df)\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
   },
   {
     "objectID": "slides/05-slides.html#summary",
@@ -10035,21 +10035,21 @@
     "href": "slides/05-slides.html#causal-inference-is-about-counterfactual-comparisons",
     "title": "POLS 1600",
     "section": "Causal inference is about counterfactual comparisons",
-    "text": "Causal inference is about counterfactual comparisons\n\nCausal inference is about counterfactual comparisons\n\nWhat would have happened if some aspect of the world either had or had not been present\n\nCasual Identification refers to “the assumptions needed for statistical estimates to be given a causal interpretation” Keele (2015)]\n\nWhat do we need to assume to make our claims about cause and effect credible"
+    "text": "Causal inference is about counterfactual comparisons\n\nCausal inference is about counterfactual comparisons\n\nWhat would have happened if some aspect of the world either had or had not been present"
   },
   {
     "objectID": "slides/05-slides.html#experimental-designs",
     "href": "slides/05-slides.html#experimental-designs",
     "title": "POLS 1600",
     "section": "Experimental Designs",
-    "text": "Experimental Designs\n\nExperimental designs are studies in which a causal variable of interest, the treatement, is manipulated by the researcher to examine its causal effects on some outcome of interest\nRandom assignment is the key to causal identification in experiments because it creates statistical independence between treatment and potential outcomes any potential confounding factors\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i\n\\]\n## Randomization creates credible counterfactual comparisons\nIf treatment has been randomly assigned, then:\n\nThe only thing that differs between treatment and control is that one group got the treatment, and another did not.\nWe can estimate the Average Treatment Effect (ATE) using the difference of sample means\n\n\\[\n\\begin{aligned}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{aligned}\n\\]"
+    "text": "Experimental Designs\n\nExperimental designs are studies in which a causal variable of interest, the treatement, is manipulated by the researcher to examine its causal effects on some outcome of interest\nRandom assignment is the key to causal identification in experiments because it creates statistical independence between treatment and potential outcomes any potential confounding factors\n\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i\n\\]"
   },
   {
     "objectID": "slides/05-slides.html#observational-designs",
     "href": "slides/05-slides.html#observational-designs",
     "title": "POLS 1600",
     "section": "Observational Designs",
-    "text": "Observational Designs\n\nObservational designs are studies in which a causal variable of interest is determined by someone/thing other than the researcher (nature, governments, people, etc.)\nSince treatment has not been randomly assigned, observational studies typically require stronger assumptions to make causal claims.\nGenerally speaking, these assumptions amount to a claim about conditional independence\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i | K_i\n\\]\n\nWhere after conditioning on \\(K_i\\), some knowledge about the world and how the data were generated, our treatment is as good as (as-if) randomly assigned (hence conditionally independent)"
+    "text": "Observational Designs\n\nObservational designs are studies in which a causal variable of interest is determined by someone/thing other than the researcher (nature, governments, people, etc.)\nSince treatment has not been randomly assigned, observational studies typically require stronger assumptions to make causal claims.\nGenerally speaking, these assumptions amount to a claim about conditional independence\n\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i | K_i\n\\]\n\n\nWhere after conditioning on \\(K_i\\), some knowledge about the world and how the data were generated, our treatment is as good as (as-if) randomly assigned (hence conditionally independent)"
   },
   {
     "objectID": "slides/05-slides.html#causal-inference-in-observational-studies",
@@ -10084,7 +10084,7 @@
     "href": "slides/05-slides.html#types-of-variables-in-a-dag",
     "title": "POLS 1600",
     "section": "Types of variables in a DAG",
-    "text": "Types of variables in a DAG\n\nBlair, Coppock, and Humphreys (2023) (Chap. 6.2)"
+    "text": "Types of variables in a DAG\n\nDAGVariables\n\n\n\nBlair, Coppock, and Humphreys (2023) (Chap. 6.2)\n\n\n\nCausal Explanations Involve:\n\nY our outcome\nD A possible cause of Y\nM A mediator or mechanism through which D effects Y\nZ An instrument that can help us isolate the effects of D on `Y\nX2 a covariate that may moderate the effect of D on Y\n\nThreats to causal claims/Sources of bias:\n\nX1 an observed confounder that is a common cause of both D & Y\nU an unobserved confounder a common cause of both D & Y\nK a collider that is a common consequence of both D & Y"
   },
   {
     "objectID": "slides/05-slides.html#when-to-control-for-a-variable",
@@ -10092,5 +10092,474 @@
     "title": "POLS 1600",
     "section": "When to control for a variable:",
     "text": "When to control for a variable:\n\n(Blair, Coppock, and Humphreys 2023) (Chap. 6.2)"
+  },
+  {
+    "objectID": "slides/05-slides.html#grinding-an-iron-pestle-into-a-needle-background-imagehttpsmiro.medium.comv2resizefit1400formatwebp1w5oqzwz1hmocy5v_31xq9a2x.jpeg-background-opacity.5",
+    "href": "slides/05-slides.html#grinding-an-iron-pestle-into-a-needle-background-imagehttpsmiro.medium.comv2resizefit1400formatwebp1w5oqzwz1hmocy5v_31xq9a2x.jpeg-background-opacity.5",
+    "title": "POLS 1600",
+    "section": "Grinding an Iron Pestle into a Needle {background-image=“https://miro.medium.com/v2/resize:fit:1400/format:webp/1*w5OqZwz1hmoCY5v_31xQ9A@2x.jpeg”, background-opacity=.5}",
+    "text": "Grinding an Iron Pestle into a Needle {background-image=“https://miro.medium.com/v2/resize:fit:1400/format:webp/1*w5OqZwz1hmoCY5v_31xQ9A@2x.jpeg”, background-opacity=.5}\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/05-slides.html#grinding-an-iron-pestle-into-a-needle",
+    "href": "slides/05-slides.html#grinding-an-iron-pestle-into-a-needle",
+    "title": "POLS 1600",
+    "section": "Grinding an Iron Pestle into a Needle",
+    "text": "Grinding an Iron Pestle into a Needle\n\n\n\nMe\n\nLess is more\nGo slow\nProvide labs/code earlier\nAdapt assignments/policies\n\n\n\nYou\n\nActive reading\nDo tutorials\nReview labs before class\nReview comments after class\nAsk for help\nDon’t give up!"
+  },
+  {
+    "objectID": "slides/05-slides.html#data-wrangling-1",
+    "href": "slides/05-slides.html#data-wrangling-1",
+    "title": "POLS 1600",
+    "section": "Data wrangling",
+    "text": "Data wrangling\n\n\n\nYou’re learning how to map conceptual tasks to commands in R\n\n\nSkill\nCommon Commands\n\n\n\n\nSetup R\nlibrary(), ipak()\n\n\nLoad data\nread_csv(), load()\n\n\nGet HLO of data\ndf$x, glimpse(), table(), summary()\n\n\nTransform data\n&lt;-, mutate(), ifelse(), case_when()\n\n\nReshape data\npivot_longer(), left_join()\n\n\nSummarize data numerically\nmean(), median(), summarise(), group_by()\n\n\nSummarize data graphically\nggplot(), aes(), geom_"
+  },
+  {
+    "objectID": "slides/05-slides.html#levels-of-understanding-1",
+    "href": "slides/05-slides.html#levels-of-understanding-1",
+    "title": "POLS 1600",
+    "section": "Levels of understanding",
+    "text": "Levels of understanding\n\nIn this course, we tend to emphasize the\n\nConceptual\nPractical\n\nOver\n\nDefinitional\nTheoretical\n\nIn an intro statistics class, the ordering might be reversed.\nTrade offs:\n\n\nPro: We actually get to work with data and do empirical research much sooner\nCons: We substitute intuitive understandings for more rigorous proofs"
+  },
+  {
+    "objectID": "slides/05-slides.html#you-are-about-to-be-reincarnated-hlo",
+    "href": "slides/05-slides.html#you-are-about-to-be-reincarnated-hlo",
+    "title": "POLS 1600",
+    "section": "You are about to be reincarnated: HLO",
+    "text": "You are about to be reincarnated: HLO\n\ndf$reincarnation\n\n&lt;labelled&lt;double&gt;[10]&gt;: You're about to be re-incarnated. Do you want to come back as a:\n [1] 1 1 1 7 6 1 6 6 7 1\n\nLabels:\n value                  label\n     1    Animal/land dweller\n     6       Bird/air dweller\n     7     Fish/water dweller\n     2                 Insect\n     9                  Plant\n    10 Single-celled organism\n\ntable(df$reincarnation)\n\n\n1 6 7 \n5 3 2"
+  },
+  {
+    "objectID": "slides/05-slides.html#youre-about-to-be-reincarnated-basic-plot",
+    "href": "slides/05-slides.html#youre-about-to-be-reincarnated-basic-plot",
+    "title": "POLS 1600",
+    "section": "You’re about to be reincarnated: Basic Plot",
+    "text": "You’re about to be reincarnated: Basic Plot\n\nCodeFigure\n\n\n\ndf %&gt;%\n  ggplot(aes(x = reincarnation, \n             fill = reincarnation))+\n  geom_bar(\n    stat = \"count\"\n  )"
+  },
+  {
+    "objectID": "slides/05-slides.html#use-a-factor-to-label-and-order-responses",
+    "href": "slides/05-slides.html#use-a-factor-to-label-and-order-responses",
+    "title": "POLS 1600",
+    "section": "Use a factor to label and order responses",
+    "text": "Use a factor to label and order responses\n\nRecodeCheck recoding\n\n\n\ndf %&gt;%\n  mutate(\n    # Turn numeric values into factor labels \n    Reincarnation = forcats::as_factor(reincarnation),\n    # Order factor in decreasing frequency of levels\n    Reincarnation = forcats::fct_infreq(Reincarnation),\n    # Reverse order so levels are increasing in frequency\n    Reincarnation = forcats::fct_rev(Reincarnation),\n    # Rename explanations\n    Why = reincarnation_why\n  ) -&gt; df\n\n\n\n\ntable(recode= df$Reincarnation, original = df$reincarnation)\n\n                        original\nrecode                   1 6 7\n  Single-celled organism 0 0 0\n  Plant                  0 0 0\n  Insect                 0 0 0\n  Fish/water dweller     0 0 2\n  Bird/air dweller       0 3 0\n  Animal/land dweller    5 0 0"
+  },
+  {
+    "objectID": "slides/05-slides.html#revised-figure",
+    "href": "slides/05-slides.html#revised-figure",
+    "title": "POLS 1600",
+    "section": "Revised figure",
+    "text": "Revised figure\n\nCodeRevised Figure\n\n\n\ndf %&gt;% # Data\n  # Aesthetics\n  ggplot(aes(x = Reincarnation, \n             fill = Reincarnation))+\n  # Geometry\n  geom_bar(stat = \"count\")+ # Statistic\n  ## Include levels of Reincarnation w/ no values\n  scale_x_discrete(drop=FALSE)+\n  # Don't include a legend\n  scale_fill_discrete(drop=FALSE, guide=\"none\")+\n  # Flip x and y\n  coord_flip()+\n  # Remove lines\n  theme_classic() -&gt; fig1"
+  },
+  {
+    "objectID": "slides/05-slides.html#what-creature-and-why",
+    "href": "slides/05-slides.html#what-creature-and-why",
+    "title": "POLS 1600",
+    "section": "What creature and why?",
+    "text": "What creature and why?"
+  },
+  {
+    "objectID": "slides/05-slides.html#adding-labelled-values",
+    "href": "slides/05-slides.html#adding-labelled-values",
+    "title": "POLS 1600",
+    "section": "Adding labelled values",
+    "text": "Adding labelled values\n\nRecodesRecode OutputAggregate Data\n\n\n\ndf %&gt;%\n  mutate(\n    # Create numeric id\n    id = 1:n(),\n    # Create a label with 3 answers and NA elsewhere\n    Label = case_when(\n      id == 10 ~ str_wrap(reincarnation_why[10],30),\n      id == 4 ~ str_wrap(reincarnation_why[4],30),\n      id == 7 ~ str_wrap(reincarnation_why[7],30),\n      TRUE ~ NA_character_\n\n    )\n\n  ) -&gt; df\n\n\n\n\n\n\n\n\n\n\n\n\n# Calculate totals before calling ggplot\nplot_df &lt;- df %&gt;%\n  group_by(Reincarnation)%&gt;% \n  summarise( \n    Count = n(), \n    Why = na.omit(unique(Label)) \n  )"
+  },
+  {
+    "objectID": "slides/05-slides.html#youre-about-to-be-reincarnated",
+    "href": "slides/05-slides.html#youre-about-to-be-reincarnated",
+    "title": "POLS 1600",
+    "section": "You’re about to be reincarnated:",
+    "text": "You’re about to be reincarnated:\n\nAggregate dfRevised Figure CodeLabelled Figure\n\n\n\n\n\n\n\n\n\n\n\nplot_df %&gt;%\n  ggplot(aes(x = Reincarnation, \n             y = Count,\n             fill = Reincarnation, \n             label=Why))+\n  geom_bar(stat = \"identity\")+ #&lt;&lt;\n  ## Include levels of Reincarnation w/ no values\n  scale_x_discrete(drop=FALSE)+\n  # Don't include a legend\n  scale_fill_discrete(drop=FALSE, guide=\"none\")+\n  coord_flip()+\n  labs(x = \"\",y=\"\",title=\"You're about to be reincarnated.\\nWhat do you want to come back as?\")+\n  theme_classic()+\n  ggrepel::geom_label_repel(\n    fill=\"white\",\n    nudge_y = 1, \n    hjust = \"left\",\n    size=3,\n    arrow = arrow(length = unit(0.015, \"npc\"))\n    )+ \n  scale_y_continuous(\n    breaks = c(0,2,4,6,8,10,12),\n    expand = expansion(add =c(0,6))\n    ) -&gt; fig1"
+  },
+  {
+    "objectID": "slides/05-slides.html#data-visualization-is-an-iterative-process",
+    "href": "slides/05-slides.html#data-visualization-is-an-iterative-process",
+    "title": "POLS 1600",
+    "section": "Data visualization is an iterative process",
+    "text": "Data visualization is an iterative process\n\nData visualization is an iterative process\nGood data viz requires lots of data transformations\nStart with a minimum working example and build from there\nDon’t let the perfect be the enemy of the good enough."
+  },
+  {
+    "objectID": "slides/05-slides.html#section",
+    "href": "slides/05-slides.html#section",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "What creature and why?"
+  },
+  {
+    "objectID": "slides/05-slides.html#lab-questions-6-10-simple-linear-regression",
+    "href": "slides/05-slides.html#lab-questions-6-10-simple-linear-regression",
+    "title": "POLS 1600",
+    "section": "Lab: Questions 6-10: Simple Linear Regression",
+    "text": "Lab: Questions 6-10: Simple Linear Regression\n\nIn question 6, you will see how calculating conditional means provides a simple test of “Red Covid” claim.\nIn question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)\nIn question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)\nIn question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.\nQuestion 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week’s lab."
+  },
+  {
+    "objectID": "slides/05-slides.html#q1-setup-your-workspace",
+    "href": "slides/05-slides.html#q1-setup-your-workspace",
+    "title": "POLS 1600",
+    "section": "Q1: Setup your workspace",
+    "text": "Q1: Setup your workspace\n\nTaskCode for Q1\n\n\nQ1 asks you to setup your workspace\nThis means loading and, if needed, installing the packages you will use.\n\n\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)"
+  },
+  {
+    "objectID": "slides/05-slides.html#q2-load-the-data",
+    "href": "slides/05-slides.html#q2-load-the-data",
+    "title": "POLS 1600",
+    "section": "Q2 Load the data",
+    "text": "Q2 Load the data\nTo explore Leonhardt’s claims about Red Covid, we’ll need data on:\n\nCovid-19\nThe 2020 Presidential Election"
+  },
+  {
+    "objectID": "slides/05-slides.html#q2.1-load-the-covid-19-data",
+    "href": "slides/05-slides.html#q2.1-load-the-covid-19-data",
+    "title": "POLS 1600",
+    "section": "Q2.1 Load the Covid-19 Data",
+    "text": "Q2.1 Load the Covid-19 Data\nTo load data on Covid-19 just run this\n\nload(url(\"https://pols1600.paultesta.org/files/data/covid.rda\"))"
+  },
+  {
+    "objectID": "slides/05-slides.html#q2.2-load-election-data",
+    "href": "slides/05-slides.html#q2.2-load-election-data",
+    "title": "POLS 1600",
+    "section": "Q2.2 Load Election Data",
+    "text": "Q2.2 Load Election Data\n\nTaskCode for Q2.2\n\n\nQ2.2. asks you to write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse\n\nOnce you’ve installed the dataverse package you should be able to do this:\n\n\n\n\n# Try this code first\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\")\n\npres_df &lt;- dataverse::get_dataframe_by_name(\n  \"1976-2020-president.tab\",\n  \"doi:10.7910/DVN/42MVDX\"\n)\n\n# If the code above fails, comment out and uncomment the code below:\n\n# load(url(\"https://pols1600.paultesta.org/files/data/pres_df.rda\"))"
+  },
+  {
+    "objectID": "slides/05-slides.html#q3-describe-the-structure-of-each-dataset",
+    "href": "slides/05-slides.html#q3-describe-the-structure-of-each-dataset",
+    "title": "POLS 1600",
+    "section": "Q3 Describe the structure of each dataset",
+    "text": "Q3 Describe the structure of each dataset\nQuestion 3 asks you to describe the structure of each dataset.\n\nSpecifically, it asks you to get a high level overview of covid and pres_df and describe the unit of analysis in each dataset:\n\nDescribe substantively what specific, observation each row in the dataset corresponds to\nIn covid covid dataset, the unit of analysis is a state-date"
+  },
+  {
+    "objectID": "slides/05-slides.html#q3-describe-the-structure-of-each-dataset-1",
+    "href": "slides/05-slides.html#q3-describe-the-structure-of-each-dataset-1",
+    "title": "POLS 1600",
+    "section": "Q3 Describe the structure of each dataset",
+    "text": "Q3 Describe the structure of each dataset\nHere’s some possible code you could use to get a quick HLO of each dataset:\n\nHLO covidHLO pres_df\n\n\n\n# check names in `covid`\nnames(covid)\n\n# take a quick look values of each variable\n\nglimpse(covid)\n\n# Look at first few observations for:\n# date, administrative_area_level_2, \n\ncovid %&gt;% \n  select(date, administrative_area_level_2) %&gt;%\n  head()\n\n# Summarize data to get a better sense of the unit of observastion\n\ncovid %&gt;% \n  group_by(administrative_area_level_2) %&gt;%\n  summarise(\n    n = n(), # Number of observations for each state\n    start_date = min(date, na.rm = T),\n    end_date = max(date, na.rm=T)\n  ) -&gt; hlo_covid_df\n\nhlo_covid_df\n\n\n# How many unique values of date and state are their:\n\nn_dates &lt;- length(unique(covid$date))\nn_states &lt;- length(unique(covid$administrative_area_level_2))\nn_dates\nn_states\n\n# If we had observations for every state on every date then the number of rows \n# in the data \ndim(covid)[1]\n# Should equal\ndim(covid)[1] == n_dates * n_states\n\n# This is what economists would call an unbalanced panel\n\n\n\n\n# check names in `pres_df`\nnames(pres_df)\n\n# take a quick look values of each variable\n\nglimpse(pres_df)\n\n# Unit of analysis is a year-state-candidate\npres_df %&gt;% \n  select(year, state_po, candidate) %&gt;%\n  head()\n\n# How many states?\nlength(unique(pres_df$state_po))\n\n\n\n# How many candidates and parties on the ballot in a given election year\npres_df %&gt;% \n  group_by(year) %&gt;%\n  summarise(\n    n_candidates = length(unique(candidate)),\n    # Look at both party_detailed and party_simplified\n    n_parties_detailed = length(unique(party_detailed)),\n    n_parties_simplified = length(unique(party_simplified))\n  ) -&gt; hlo_pres_df\nhlo_pres_df\n\n# Look at 2020\n# pres_df$candidate[pres_df$year == \"2020\"]"
+  },
+  {
+    "objectID": "slides/05-slides.html#q4-recode-the-data-for-analysis",
+    "href": "slides/05-slides.html#q4-recode-the-data-for-analysis",
+    "title": "POLS 1600",
+    "section": "Q4 Recode the data for analysis",
+    "text": "Q4 Recode the data for analysis\nUsing our understanding of the structure of the data, Q4 asks you to:\n\nRecode the Covid-19 data like we’ve done before plus\nCalculate rolling means, 7 and 14 day averages\nReshape, recode, and filter the presidential election data"
+  },
+  {
+    "objectID": "slides/05-slides.html#q4.1-recode-the-covid-19",
+    "href": "slides/05-slides.html#q4.1-recode-the-covid-19",
+    "title": "POLS 1600",
+    "section": "Q4.1 Recode the Covid-19",
+    "text": "Q4.1 Recode the Covid-19\n\nTaskCode for Q4.1Template Code for Q4.2\n\n\nThis is the same code we’ve used before to create covid_us from covid with the addition of code to calculate a rolling mean or moving average of the number of new cases\n\n\n\n# Create a vector containing of US territories\nterritories &lt;- c(\n  \"American Samoa\",\n  \"Guam\",\n  \"Northern Mariana Islands\",\n  \"Puerto Rico\",\n  \"Virgin Islands\"\n  )\n\n# Filter out Territories and create state variable\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories)%&gt;%\n  mutate(\n    state = administrative_area_level_2\n  )\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7da = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us\n\n# Recode facemask policy\n\ncovid_us %&gt;%\nmutate(\n  # Recode facial_coverings to create face_masks\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ),\n    # Turn face_masks into a factor with ordered policy levels\n    face_masks = factor(face_masks,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n# Create year-month and percent vaccinated variables\n\ncovid_us %&gt;%\n  mutate(\n    year = year(date),\n    month = month(date),\n    year_month = paste(year, \n                       str_pad(month, width = 2, pad=0), \n                       sep = \"-\"),\n    percent_vaccinated = people_fully_vaccinated/population*100  \n    ) -&gt; covid_us\n\n\n\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7day = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "slides/05-slides.html#q4.2-calculate-rolling-means-of-covid-deaths",
+    "href": "slides/05-slides.html#q4.2-calculate-rolling-means-of-covid-deaths",
+    "title": "POLS 1600",
+    "section": "Q4.2 Calculate Rolling Means of Covid Deaths",
+    "text": "Q4.2 Calculate Rolling Means of Covid Deaths\n\nTaskCode for Q4.2\n\n\nQ4.2 asks you to create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nIt encourages you to use the code new_cases_pc_7da as a template\nTo build your coding skills, try writing this yourself, then comparing it to the code in the next tab:\n\n\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = new_deaths / population *100000,\n    new_deaths_pc_7day = zoo::rollmean(new_deaths_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA ),\n    new_deaths_pc_14day = zoo::rollmean(new_deaths_pc, \n                                     k = 14, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "slides/05-slides.html#task-1",
+    "href": "slides/05-slides.html#task-1",
+    "title": "POLS 1600",
+    "section": "Task",
+    "text": "Task\nQ4.2 asks you to create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nIt encourages you to use the code new_cases_pc_7da as a template\nTo build your coding skills, try writing this yourself, then comparing it to the code in the next tab:"
+  },
+  {
+    "objectID": "slides/05-slides.html#code-for-q4.2",
+    "href": "slides/05-slides.html#code-for-q4.2",
+    "title": "POLS 1600",
+    "section": "Code for Q4.2",
+    "text": "Code for Q4.2\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = new_deaths / population *100000,\n    new_deaths_pc_7day = zoo::rollmean(new_deaths_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA ),\n    new_deaths_pc_14day = zoo::rollmean(new_deaths_pc, \n                                     k = 14, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "slides/05-slides.html#rolling-average",
+    "href": "slides/05-slides.html#rolling-average",
+    "title": "POLS 1600",
+    "section": "Rolling Average",
+    "text": "Rolling Average\nThe next slides aren’t necessary for the lab but are designed to illustrate:\n\nthe concept of a rolling mean\nwhat the code does\n[why]{blue} might prefer rolling averages over daily values"
+  },
+  {
+    "objectID": "slides/05-slides.html#look-at-the-output-of-zoorollmean",
+    "href": "slides/05-slides.html#look-at-the-output-of-zoorollmean",
+    "title": "POLS 1600",
+    "section": "Look at the output of zoo::rollmean()",
+    "text": "Look at the output of zoo::rollmean()\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\") %&gt;%\n  select(date,new_cases_pc,new_cases_pc_7day)\n\n# A tibble: 52,580 × 4\n# Groups:   state [51]\n   state     date       new_cases_pc new_cases_pc_7day\n   &lt;chr&gt;     &lt;date&gt;            &lt;dbl&gt;             &lt;dbl&gt;\n 1 Minnesota 2020-03-06      NA                NA     \n 2 Minnesota 2020-03-07       0                NA     \n 3 Minnesota 2020-03-08       0.0177           NA     \n 4 Minnesota 2020-03-09       0                NA     \n 5 Minnesota 2020-03-10       0.0177           NA     \n 6 Minnesota 2020-03-11       0.0355           NA     \n 7 Minnesota 2020-03-12       0.0709           NA     \n 8 Minnesota 2020-03-13       0.0887            0.0329\n 9 Minnesota 2020-03-14       0.124             0.0507\n10 Minnesota 2020-03-15       0.248             0.0836\n# ℹ 52,570 more rows"
+  },
+  {
+    "objectID": "slides/05-slides.html#code-2",
+    "href": "slides/05-slides.html#code-2",
+    "title": "POLS 1600",
+    "section": "Code",
+    "text": "Code\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\", \n         state == \"Minnesota\") %&gt;%\n  select(date,\n         new_cases_pc,\n         new_cases_pc_7day)%&gt;%\n  ggplot(aes(date,new_cases_pc ))+\n  geom_line(aes(col=\"Daily\"))+\n  # set y aesthetic for second line of rolling average\n  geom_line(aes(y = new_cases_pc_7day,\n                col = \"7-day average\")\n            ) -&gt; fig_covid_mn\n  theme(legend.position=\"bottom\")+\n    labs( col = \"Measure\",\n    y = \"New Cases Per 100k\", x = \"\",\n    title = \"Minnesota\"\n  ) -&gt; fig_covid_mn"
+  },
+  {
+    "objectID": "slides/05-slides.html#figure-1",
+    "href": "slides/05-slides.html#figure-1",
+    "title": "POLS 1600",
+    "section": "Figure",
+    "text": "Figure\n\n\nList of 5\n $ legend.position: chr \"bottom\"\n $ colour         : chr \"Measure\"\n $ y              : chr \"New Cases Per 100k\"\n $ x              : chr \"\"\n $ title          : chr \"Minnesota\"\n - attr(*, \"class\")= chr [1:2] \"theme\" \"gg\"\n - attr(*, \"complete\")= logi FALSE\n - attr(*, \"validate\")= logi TRUE"
+  },
+  {
+    "objectID": "slides/05-slides.html#q4.3-recode-presidential-data",
+    "href": "slides/05-slides.html#q4.3-recode-presidential-data",
+    "title": "POLS 1600",
+    "section": "Q4.3 Recode Presidential data",
+    "text": "Q4.3 Recode Presidential data\n\nTaskCode for Q4.3\n\n\nQ4.3 Gives you a long list of steps to recode, reshape, and filter pres_df to produce pres_df2020\nMost of this is review but it can seem like a lot.\nWalk through the provided code and see if you can map each conceptual step in Q4.3 to its implementation in the code\n\n\n\npres_df %&gt;%\n  mutate(\n    year_election = year,\n    state = str_to_title(state),\n    # Fix DC\n    state = ifelse(state == \"District Of Columbia\", \"District of Columbia\", state)\n  ) %&gt;%\n  filter(party_simplified %in% c(\"DEMOCRAT\",\"REPUBLICAN\"))%&gt;%\n  filter(year == 2020) %&gt;%\n  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes\n         ) %&gt;%\n  pivot_wider(names_from = party_simplified,\n              values_from = candidatevotes) %&gt;%\n  mutate(\n    dem_voteshare = DEMOCRAT/totalvotes *100,\n    rep_voteshare = REPUBLICAN/totalvotes*100,\n    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,\"Trump\",\"Biden\")))\n  ) -&gt; pres2020_df\n\n# Check Output:\n\nglimpse(pres2020_df)\n\nRows: 51\nColumns: 9\n$ state         &lt;chr&gt; \"Alabama\", \"Alaska\", \"Arizona\", \"Arkansas\", \"California\"…\n$ state_po      &lt;chr&gt; \"AL\", \"AK\", \"AZ\", \"AR\", \"CA\", \"CO\", \"CT\", \"DE\", \"DC\", \"F…\n$ year_election &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 20…\n$ totalvotes    &lt;dbl&gt; 2323282, 359530, 3387326, 1219069, 17500881, 3279980, 18…\n$ DEMOCRAT      &lt;dbl&gt; 849624, 153778, 1672143, 423932, 11110250, 1804352, 1080…\n$ REPUBLICAN    &lt;dbl&gt; 1441170, 189951, 1661686, 760647, 6006429, 1364607, 7147…\n$ dem_voteshare &lt;dbl&gt; 36.56999, 42.77195, 49.36469, 34.77506, 63.48395, 55.011…\n$ rep_voteshare &lt;dbl&gt; 62.031643, 52.833143, 49.055981, 62.395730, 34.320724, 4…\n$ winner        &lt;fct&gt; Trump, Trump, Biden, Trump, Biden, Biden, Biden, Biden, …"
+  },
+  {
+    "objectID": "slides/05-slides.html#task-2",
+    "href": "slides/05-slides.html#task-2",
+    "title": "POLS 1600",
+    "section": "Task",
+    "text": "Task\nQ4.3 Gives you a long list of tasks to recode, reshape, and filter pres_df to produce pres_df2020\nWalk through the provided code and see if you can map each conceptual step to its implementation in the code"
+  },
+  {
+    "objectID": "slides/05-slides.html#code-3",
+    "href": "slides/05-slides.html#code-3",
+    "title": "POLS 1600",
+    "section": "Code",
+    "text": "Code\n\npres_df %&gt;%\n  mutate(\n    year_election = year,\n    state = str_to_title(state),\n    # Fix DC\n    state = ifelse(state == \"District Of Columbia\", \"District of Columbia\", state)\n  ) %&gt;%\n  filter(party_simplified %in% c(\"DEMOCRAT\",\"REPUBLICAN\"))%&gt;%\n  filter(year == 2020) %&gt;%\n  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes\n         ) %&gt;%\n  pivot_wider(names_from = party_simplified,\n              values_from = candidatevotes) %&gt;%\n  mutate(\n    dem_voteshare = DEMOCRAT/totalvotes *100,\n    rep_voteshare = REPUBLICAN/totalvotes*100,\n    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,\"Trump\",\"Biden\")))\n  ) -&gt; pres2020_df\n\n# Check Output:\n\nglimpse(pres2020_df)\n\nRows: 51\nColumns: 9\n$ state         &lt;chr&gt; \"Alabama\", \"Alaska\", \"Arizona\", \"Arkansas\", \"California\"…\n$ state_po      &lt;chr&gt; \"AL\", \"AK\", \"AZ\", \"AR\", \"CA\", \"CO\", \"CT\", \"DE\", \"DC\", \"F…\n$ year_election &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 20…\n$ totalvotes    &lt;dbl&gt; 2323282, 359530, 3387326, 1219069, 17500881, 3279980, 18…\n$ DEMOCRAT      &lt;dbl&gt; 849624, 153778, 1672143, 423932, 11110250, 1804352, 1080…\n$ REPUBLICAN    &lt;dbl&gt; 1441170, 189951, 1661686, 760647, 6006429, 1364607, 7147…\n$ dem_voteshare &lt;dbl&gt; 36.56999, 42.77195, 49.36469, 34.77506, 63.48395, 55.011…\n$ rep_voteshare &lt;dbl&gt; 62.031643, 52.833143, 49.055981, 62.395730, 34.320724, 4…\n$ winner        &lt;fct&gt; Trump, Trump, Biden, Trump, Biden, Biden, Biden, Biden, …"
+  },
+  {
+    "objectID": "slides/05-slides.html#q5-merging-data",
+    "href": "slides/05-slides.html#q5-merging-data",
+    "title": "POLS 1600",
+    "section": "Q5 merging data",
+    "text": "Q5 merging data\n\nTaskMerge election data into Covid data\n\n\nQ5 asks you to merge the 2020 election data from pres2020_df into covid_us using the common state variable in each dataset using the function left_join()\n\n\n\ndim(covid_us)\n\n[1] 53678    61\n\ndim(pres2020_df)\n\n[1] 51  9\n\ncovid_us &lt;- covid_us %&gt;% left_join(\n  pres2020_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_us) \n\n[1] 53678    69"
+  },
+  {
+    "objectID": "slides/05-slides.html#task-3",
+    "href": "slides/05-slides.html#task-3",
+    "title": "POLS 1600",
+    "section": "Task",
+    "text": "Task\nQ5 asks you to merge the 2020 election data from pres2020_df into covid_us using the common state variable in each dataset using the function left_join()"
+  },
+  {
+    "objectID": "slides/05-slides.html#advice-for-merging",
+    "href": "slides/05-slides.html#advice-for-merging",
+    "title": "POLS 1600",
+    "section": "Advice for merging",
+    "text": "Advice for merging\n\nAdviceIllustration\n\n\nWhen merging datasets:\n\nCheck the matches in your joining variables\n\nMake sure the values state are the same in each dataset\nCheck for differences in spelling, punctuation, etc.\n\nCheck the dimensions of output of your left_join()\n\nIf there is a 1-1 match the number of rows should be the same before after\n\n\n\n\n\n# Should be 51 states and DC in each\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 0\n\n# Look at each state variable\n## With [] index\npres_df$state[1:5]\n\n[1] \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\"\n\ncovid_us$state[1:5]\n\n[1] \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\"\n\n# Matching is case sensitive \n\n# make pres_df$state title case\n\n## Base R:\npres_df$state &lt;- str_to_title(pres_df$state )\n## Tidy R:\npres_df %&gt;% \n  mutate(\n    state = str_to_title(state )\n  ) -&gt; pres_df\n\n# Should be 51\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 50\n\n# Find the mismatch:\nunique(pres_df$state[!pres_df$state %in% covid_us$state])\n\n[1] \"District Of Columbia\"\n\n# Two equivalent ways to fix this mismatch\n## Base R: Quick fix to change spelling of DC\npres_df$state[pres2020_df$state == \"District Of Columbia\"] &lt;- \"District of Columbia\"\n\n## Tidy R: Quick fix to change spelling of DC\n\npres_df %&gt;% \n  mutate(\n    state = ifelse(test = state == \"District Of Columbia\",\n                   yes = \"District of Columbia\",\n                   no = state\n                   )\n  ) -&gt; pres_df\n\n\n# Problem Solved\nsum(unique(pres2020_df$state) %in% covid_us$state)\n\n[1] 51"
+  },
+  {
+    "objectID": "slides/05-slides.html#advice",
+    "href": "slides/05-slides.html#advice",
+    "title": "POLS 1600",
+    "section": "Advice",
+    "text": "Advice\nWhen merging datasets:\n\nCheck the matches in your joining variables\n\nMake sure the values state are the same in each dataset\nCheck for differences in spelling, punctuation, etc.\n\nCheck the dimensions of output of your left_join()\n\nIf there is a 1-1 match the number of rows should be the same before after"
+  },
+  {
+    "objectID": "slides/05-slides.html#illustration",
+    "href": "slides/05-slides.html#illustration",
+    "title": "POLS 1600",
+    "section": "Illustration",
+    "text": "Illustration\n\n# Should be 51 states and DC in each\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 0\n\n# Look at each state variable\n## With [] index\npres_df$state[1:5]\n\n[1] \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\"\n\ncovid_us$state[1:5]\n\n[1] \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\"\n\n# Matching is case sensitive \n\n# make pres_df$state title case\n\n## Base R:\npres_df$state &lt;- str_to_title(pres_df$state )\n## Tidy R:\npres_df %&gt;% \n  mutate(\n    state = str_to_title(state )\n  ) -&gt; pres_df\n\n# Should be 51\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 50\n\n# Find the mismatch:\nunique(pres_df$state[!pres_df$state %in% covid_us$state])\n\n[1] \"District Of Columbia\"\n\n# Two equivalent ways to fix this mismatch\n## Base R: Quick fix to change spelling of DC\npres_df$state[pres2020_df$state == \"District Of Columbia\"] &lt;- \"District of Columbia\"\n\n## Tidy R: Quick fix to change spelling of DC\n\npres_df %&gt;% \n  mutate(\n    state = ifelse(test = state == \"District Of Columbia\",\n                   yes = \"District of Columbia\",\n                   no = state\n                   )\n  ) -&gt; pres_df\n\n\n# Problem Solved\nsum(unique(pres2020_df$state) %in% covid_us$state)\n\n[1] 51"
+  },
+  {
+    "objectID": "slides/05-slides.html#red-covid",
+    "href": "slides/05-slides.html#red-covid",
+    "title": "POLS 1600",
+    "section": "Red Covid",
+    "text": "Red Covid\n\n\n\nRed Covid New York Times, 27 September, 2021\n\n Red Covid, an Update New York Times, 18 February, 2022"
+  },
+  {
+    "objectID": "slides/05-slides.html#lab-questions-1-5-review",
+    "href": "slides/05-slides.html#lab-questions-1-5-review",
+    "title": "POLS 1600",
+    "section": "Lab: Questions 1-5: Review",
+    "text": "Lab: Questions 1-5: Review\nQuestions 1-5 are designed to reinforce your data wrangling skills. In particular, you will get practice:\n\nCreating and recoding variables using mutate()\nCalculating a moving average or rolling mean using the rollmean() function from the zoo package\nTransforming the data on presidential elections so that it can be merged with the data on Covid-19 using the pivot_wider() function.\nMerging data together using the left_join() function."
+  },
+  {
+    "objectID": "slides/05-slides.html#before-thursday",
+    "href": "slides/05-slides.html#before-thursday",
+    "title": "POLS 1600",
+    "section": "Before Thursday",
+    "text": "Before Thursday\nThe following slides provide detailed explanations of all the code you’ll need for each question.\n\nPlease run this code before class on Thursday\nWe will review this material together at the start of class, but you will spend most of our time on the Questions 6-10"
+  },
+  {
+    "objectID": "slides/05-slides.html#rolling-averages",
+    "href": "slides/05-slides.html#rolling-averages",
+    "title": "POLS 1600",
+    "section": "Rolling Averages",
+    "text": "Rolling Averages\nThe next slides aren’t necessary for the lab but are designed to illustrate:\n\nthe concept of a rolling mean\nwhat the code does\nwhy might prefer rolling averages over daily values"
+  },
+  {
+    "objectID": "slides/05-slides.html#comparing-daily-cases-to-rolling-average",
+    "href": "slides/05-slides.html#comparing-daily-cases-to-rolling-average",
+    "title": "POLS 1600",
+    "section": "Comparing Daily Cases to Rolling Average",
+    "text": "Comparing Daily Cases to Rolling Average\nThe following code illustrates how a 7-day rolling mean smooths (new_cases_pc_7da) over the noisiness of the daily measure\n\nCodeFigure\n\n\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\", \n         state == \"Minnesota\") %&gt;%\n  select(date,\n         new_cases_pc,\n         new_cases_pc_7day)%&gt;%\n  ggplot(aes(date,new_cases_pc ))+\n  geom_line(aes(col=\"Daily\"))+\n  # set y aesthetic for second line of rolling average\n  geom_line(aes(y = new_cases_pc_7day,\n                col = \"7-day average\")\n            ) +\n  theme(legend.position=\"bottom\")+\n    labs( col = \"Measure\",\n    y = \"New Cases Per 100k\", x = \"\",\n    title = \"Minnesota\"\n  ) -&gt; fig_covid_mn"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html",
+    "href": "labs/05-lab-comments.html",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "",
+    "text": "Today we will explore the phenomena of “Red Covid” discussed by the NYT’s David Leonhardt in articles last fall here and more recently here.\nThe core thesis of Red Covid is something like the following:\nSince Covid-19 vaccines became widely available to the general public in the spring of 2021, Republicans have been less likely to get the vaccine. Lower rates of vaccination among Republicans have in turn led to higher rates of death from Covid-19 in Red States compared to Blue States.\nIn this lab, we’ll reproduce some basic evidence of this phenomena, using bivariate linear regression as a tool to summarize and describe relationships.\nNext week, we’ll see how multiple regression (linear regression with multiple predictors) can be used to assess alternative explanations for the patterns we see.\nTo accomplish this we will:\n\nSet up our work space (2-3 Minutes)\nLoad data on Covid-19 and the 2020 Election. (5 Minutes)\nDescribe the structure of these two datasets (5 Minutes)\nTransform the datasets so we can analyze them (10 minutes)\nMerge the election data into our Covid-19 data (5 minues)\nCalculate the average number new Covid-19 deaths in Red and Blue States (5 minutes)\nCalculate the average number new Covid-19 deaths in Red and B Blue States using linear regression (10 minutes)\nExplore the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (10 minutes)\nVisualize the relationships between Republican vote share, vaccination rates, and deaths from Covid-19 on September 23, 2021 (15-20 minutes)\nDiscuss some alternative explanations for these relationships (5-10 minutes)\nTake the weekly survey (2-3 minutes)\n\nOne of these 10 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.\n\nset.seed(3032022)\ngraded_question &lt;- sample(1:10,size = 1)\npaste(\"Question\",graded_question,\"is the graded question for this week\")\n\n[1] \"Question 9 is the graded question for this week\"\n\n\n\nGrading Questin 9: Basically, if you made any changes to fig_m5 100 percent. If you simply recreated fig_m5 80 percent. If you didn’t create figure fig_m5 0 percent. Sorry! But don’t fret, remember your 3 lowest lab scores are dropped from your lab grade.\n\nYou will work in your assigned groups. Only one member of each group needs to submit the html file of lab.\nThis lab must contain the names of the group members in attendance.\nIf you are attending remotely, you will submit your labs individually.\nHere are your assigned groups for the semester.\n\n\nError in `tibble::tibble()`:\n! Tibble columns must have compatible sizes.\n• Size 4: Existing data.\n• Size 5: Column `Group 7`.\nℹ Only values of size one are recycled.\n\n\nError in eval(expr, envir, enclos): object 'groups_df' not found"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#load-covid-19-data",
+    "href": "labs/05-lab-comments.html#load-covid-19-data",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "2.1 Load Covid-19 data",
+    "text": "2.1 Load Covid-19 data\nFirst we’ll need data on Covid-19 cases and deaths that we’ve worked with throughout the course.\nIn the chunk below, please write code to load data on Covid-19 in the states using the covid19() function from the COVID19 package. (slides)\n\n# Load covid data\nload(url(\"https://pols1600.paultesta.org/files/data/covid.rda\"))"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#load-election-data",
+    "href": "labs/05-lab-comments.html#load-election-data",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "2.2 Load Election Data",
+    "text": "2.2 Load Election Data\nNext we need data on the 2020 presidential election.\nIn the code chunk below, write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse.\nThe code you’ll need is here\n\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\")\n\npres_df &lt;- dataverse::get_dataframe_by_name(\n  \"1976-2020-president.tab\",\n  \"doi:10.7910/DVN/42MVDX\"\n)\n\n# Backup\n# load(url(\"https://pols1600.paultesta.org/files/data/pres_df.rda\"))\n\n\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\") sets a parameter in your R enivornment that tells the dataverse package to use Harvard’s dataverse\nget_dataframe_by_name() downloads the \"1976-2020-president.tab\" file from the U.S. President 1976–2020 dataverse using its digital object identifier (DOI): doi:10.7910/DVN/42MVDX\nIf this doesn’t work, you can use load(url(\"https://pols1600.paultesta.org/files/data/pres_df.rda\")) instead"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#recode-the-covid-19-data",
+    "href": "labs/05-lab-comments.html#recode-the-covid-19-data",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "4.1 Recode the Covid-19 data",
+    "text": "4.1 Recode the Covid-19 data\nIn the chunk below, please recode the covid data to create a covid_us data set, again using code from the slides as your guide: here\n\n# Create a vector containing of US territories\nterritories &lt;- c(\n  \"American Samoa\",\n  \"Guam\",\n  \"Northern Mariana Islands\",\n  \"Puerto Rico\",\n  \"Virgin Islands\"\n  )\n\n# Filter out Territories and create state variable\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories)%&gt;%\n  mutate(\n    state = administrative_area_level_2\n  )\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7day = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us\n\n# Recode facemask policy\n\ncovid_us %&gt;%\nmutate(\n  # Recode facial_coverings to create face_masks\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ),\n    # Turn face_masks into a factor with ordered policy levels\n    face_masks = factor(face_masks,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n# Create year-month and percent vaccinated variables\n\ncovid_us %&gt;%\n  mutate(\n    year = year(date),\n    month = month(date),\n    year_month = paste(year, \n                       str_pad(month, width = 2, pad=0), \n                       sep = \"-\"),\n    percent_vaccinated = people_fully_vaccinated/population*100  \n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents",
+    "href": "labs/05-lab-comments.html#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "4.2 Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents",
+    "text": "4.2 Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nUsing the code from this slide as a guide:\n\nAnywhere you see new_cases write new_deaths\nAnywhere you see confirmed write deaths\nFor the 14-day average, change the new_deaths_pc_7day to new_deaths_pc_14day and set k=14 in the zoo::rollmean()\nRemember to save the output of mutate() back into covid_us\n\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = new_deaths / population *100000,\n    new_deaths_pc_7day = zoo::rollmean(new_deaths_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA ),\n    new_deaths_pc_14day = zoo::rollmean(new_deaths_pc, \n                                     k = 14, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#reshape-and-recode-the-presidential-election-data.",
+    "href": "labs/05-lab-comments.html#reshape-and-recode-the-presidential-election-data.",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "4.3 Reshape and recode the presidential election data.",
+    "text": "4.3 Reshape and recode the presidential election data.\nWe want to add election data to our Covid-19 data. To do this, we need to transform our election data, which is structured by candidate-state-election, into a data set that contains the election results by state for 2020.\nUsing the code from this slide transform pres_df to create a new data frame called pres2020_df by\n\nCreating a copy of the year variable called year_election\n\nThis is a stupid technical thing for merging later…\n\nTaking the state variable which was ALLCAPS and turning into Title Case using the str_to_title() function\nChanging the observations of state which are now \"District Of Columbia\" to \"District Of Columbia\"\nFiltering the data to include only candidates from the Democratic and Republican Parties\nFiltering the data to inlcude only the results from the 2020 election.\nSelecting the state, state_po, year_election, party_simplified, candidatevotes and totalvotes columns from pres_df\nPivoting the candidatevotes into two new columns with names from the party_simplified column\nCreating measures of the Democratic (dem_voteshare)and Republican (rep_voteshare) canditdates’ vote shares in each state by dividing the new DEMOCRAT and REPUBLICAN columns by the values from the totalvotes column\nCreating a variable called winner which takes a value of \"Trump\" if the rep_voteshare variable for a state is greater than the dem_voteshare for a state.\nMaking the winner variable a factor, with Trump as the first level and Biden as the second level\n\nThis is a trick for ggplot so that if we want to use winner to color points on a scatter plot, the points for Trump observations will show up as red and the points for Biden observations will show as blue.\n\nSaving the output of these transformations to an data frame called pres2020_df\n\nWhich, I know sounds like a lot, but…\nAll you need to do is copy and paste the code from this slide.\n\n# Transform Presidential Election data\npres_df %&gt;%\n  mutate(\n    year_election = year,\n    state = str_to_title(state),\n    # Fix DC\n    state = ifelse(state == \"District Of Columbia\", \"District of Columbia\", state)\n  ) %&gt;%\n  filter(party_simplified %in% c(\"DEMOCRAT\",\"REPUBLICAN\"))%&gt;%\n  filter(year == 2020) %&gt;%\n  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes\n         ) %&gt;%\n  pivot_wider(names_from = party_simplified,\n              values_from = candidatevotes) %&gt;%\n  mutate(\n    dem_voteshare = DEMOCRAT/totalvotes*100,\n    rep_voteshare = REPUBLICAN/totalvotes*100,\n    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,\"Trump\",\"Biden\")))\n  ) -&gt; pres2020_df"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#for-all-the-observations",
+    "href": "labs/05-lab-comments.html#for-all-the-observations",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "6.1 For all the observations",
+    "text": "6.1 For all the observations\nWith the covid_us data set:\n\nuse the group_by() command to have summarise() calculate values separately by the winner of each state.\nuse the summarise() command with mean() function to calculate the average number of new deaths (new_deaths) and the average of the 7-day rolling average of new deaths per 100,000 citizens (new_deaths_pc_7day)\n\nRemember to tell mean() what to do with NAs using the na.rm argument.\n\n\n\ncovid_us %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  )\n\n# A tibble: 2 × 3\n  winner new_deaths new_deaths_pc_7day\n  &lt;fct&gt;       &lt;dbl&gt;              &lt;dbl&gt;\n1 Trump        19.3              0.340\n2 Biden        22.0              0.287"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#for-the-all-the-observations-before-april-19-2021",
+    "href": "labs/05-lab-comments.html#for-the-all-the-observations-before-april-19-2021",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "6.2 For the all the observations before April 19, 2021",
+    "text": "6.2 For the all the observations before April 19, 2021\nNow let’s compare one of the empirical implications of Leonhardt’s claims, specifically that “Red Covid” emerged as a phenomena because Republicans were less willing to take the vaccine.\nIf that’s true, then the differences between Red and Blue states in terms of new deaths and new deaths per 100,000 residents should be smaller or reversed (i.e. more deaths in Blue states compared to Red States)\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date less than \"2021-04-19\n\n\ncovid_us %&gt;%\n  filter(date &lt; \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  )\n\n# A tibble: 2 × 3\n  winner new_deaths new_deaths_pc_7day\n  &lt;fct&gt;       &lt;dbl&gt;              &lt;dbl&gt;\n1 Trump        22.8              0.400\n2 Biden        30.6              0.380"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#for-the-all-the-observations-after-april-19-2021",
+    "href": "labs/05-lab-comments.html#for-the-all-the-observations-after-april-19-2021",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "6.3 For the all the observations after April 19, 2021",
+    "text": "6.3 For the all the observations after April 19, 2021\nSimilarly, if Leonhardt’s claim is true, then the differences between Red and Blue states should be more evident in the period after the vaccine became widely available.\n\nIn the code chunk below, take the your code from the previous chunk, and use the filter() command to subset the data to include only obsevations with a value of date greater than \"2021-04-19\n\n\ncovid_us %&gt;%\n  filter(date &gt; \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  )\n\n# A tibble: 2 × 3\n  winner new_deaths new_deaths_pc_7day\n  &lt;fct&gt;       &lt;dbl&gt;              &lt;dbl&gt;\n1 Trump        17.1              0.302\n2 Biden        16.3              0.226\n\n\n\nPlease interpret the results of this analysis here\nWhen we look at the difference in the average number of new deaths between Red and Blue States in the full dataset, we see that states which Biden won had about 27 new deaths compared to 23.8 new deaths in states which Trump one.\nHowever, when we consider differences in the 7-day average of new deaths per 100,000 residents, we see that rates tend to be higher in Red States (0.415 deaths per 100k) than Blue States (0.349 deaths per 100k). This difference reflects the fact that Biden tended to win more populous states than trump, so simply looking at the average number of new deaths is bit misleading. Comparing 7-day averages per 100,000 residents adjusts for differences in population between Red and Blue States.\nWhen we limit our analysis, to just observations before April 19, 2021, the difference in the 7-day average rate of new Covid-19 deaths per 100,000 residents is relatively small (0.02 more deaths per 100,000 residents in Red States)\nWhen we look at observations after the vaccine became widely available the difference is more than 6 times as big (0.125 more deaths per 100,000 residents in Red States)"
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#recreating-the-nyt-figures",
+    "href": "labs/05-lab-comments.html#recreating-the-nyt-figures",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "9.1 Recreating the NYT Figures",
+    "text": "9.1 Recreating the NYT Figures\nThis turned out to be more annoying than I thought, but if you really wanted to recreate the figures from the articles, this was as close as I could get:\n\n# Vector containing labeled states\nthe_labs &lt;- c(\"WV\",\"WY\",\"MS\",\"KY\",\"TX\",\"FL\",\"GA\",\"IL\",\"NY\",\"VT\",\"MD\",\"CA\")\n\ncovid_us %&gt;%\n  # Only include labels for states in the the_labs\n  mutate(\n    nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)\n  )%&gt;%\n  # Subset data\n  filter(date == \"2021-09-23\") %&gt;%\n  filter(state != \"District of Columbia\") %&gt;%\n  # Set aesthetics, flipping vax to % unvaxxed\n  ggplot(aes(x = rep_voteshare,\n             y = (100-percent_vaccinated),\n             label = nyt_labs\n             ))+\n  # points coloreded by vote share\n  geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+\n  # color gradient\n  scale_color_gradient2(\n    midpoint = 50,\n    low = \"blue\", mid = \"grey\", high = \"red\",\n    guide = \"none\")+\n  # add simple regression line\n  geom_smooth(method = \"lm\", \n              se=F,\n              linetype = 2,\n              col =\"grey\")+\n  # add labels\n  geom_text_repel()+\n  # futz with limits\n  ylim(15,60)+\n  # add grid lines by hand\n  geom_hline(yintercept = 60, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = 40, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = 20, col = \"lightgrey\", size = .25)+\n  geom_segment(aes(x = 50, xend = 50, y=20, yend = 60), col = \"lightgrey\", size = .25)+\n  # Add arrows\n  geom_segment(aes(x = 34, xend = 32, y=18.5, yend = 18.5),\n               arrow = arrow(length = unit(0.2, \"cm\")),\n               col = \"#95959c\")+\n  # Add biden text\n  annotate(\"text\",x = 34.5, y=18.5 ,label = \"Larger vote\",\n           hjust=0,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 34.5, y=17.1 ,label = \"share for\",\n           hjust=0,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 38.7, y=17.1 ,label = \"Biden\",\n           colour = \"#494ca6\", \n           fontface =2,\n           hjust=0,vjust=0)+\n  # Add trump arrow\n  geom_segment(aes(x = 70, xend = 72, y=18.5, yend = 18.5),\n               arrow = arrow(length = unit(0.2, \"cm\")),\n               col = \"#95959c\")+\n  # Add trump text\n  annotate(\"text\",x = 69.5, y=18.5 ,label = \"Larger vote\",\n           hjust=1,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 66.1, y=17.1 ,label = \"share for\",\n           hjust=1,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 69.5, y=17.1 ,label = \"Trump\",\n           colour = \"#991a38\", \n           fontface =2,\n           hjust=1,vjust=0)+\n  # Label y-axis\n  annotate(\"text\",x = 30, y=20 ,label = \"20%\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  annotate(\"text\",x = 30, y=40 ,label = \"40%\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  annotate(\"text\",x = 30, y=60 ,label = \"60% of residents not fully vaccinated\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  # get rid of default theme\n  theme_void()\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: The following aesthetics were dropped during statistical transformation: label\nℹ This can happen when ggplot fails to infer the correct grouping structure in\n  the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n  variable into a factor?\n\n\nWarning: Removed 38 rows containing missing values (`geom_text_repel()`).\n\n\n\n\n\n\n\n\n\n\n# Same as above, but now modeling deaths with rep vote share\n\ncovid_us %&gt;%\n  mutate(\n    nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)\n  )%&gt;%\n  filter(date == \"2021-09-23\") %&gt;%\n  filter(state != \"District of Columbia\") %&gt;%\n  ggplot(aes(x = rep_voteshare,\n             y = new_deaths_pc_14day,\n             label = nyt_labs\n             ))+\n  geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+\n  scale_color_gradient2(\n    midpoint = 50,\n    low = \"blue\", mid = \"grey\", high = \"red\",\n    guide = \"none\")+\n  geom_smooth(method = \"lm\", \n              se=F,\n              linetype = 2,\n              col =\"grey\")+\n  geom_text_repel()+\n  # theme_void()+\n  ylim(-.2,2.2)+\n  geom_hline(yintercept = 0, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = .5, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = 1, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = 1.5, col = \"lightgrey\", size = .25)+\n  geom_hline(yintercept = 2, col = \"lightgrey\", size = .25)+\n  geom_segment(aes(x = 50, xend = 50, y=0, yend = 2), col = \"lightgrey\", size = .25)+\n  geom_segment(aes(x = 34, xend = 32, y=-.12, yend = -.12),\n               arrow = arrow(length = unit(0.2, \"cm\")),\n               col = \"#95959c\")+\n  annotate(\"text\",x = 34.5, y=-.1 ,label = \"Larger vote\",\n           hjust=0,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 34.5, y=-.2 ,label = \"share for\",\n           hjust=0,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 38.82, y=-.2 ,label = \"Biden\",\n           colour = \"#494ca6\", \n           fontface =2,\n           hjust=0,vjust=0)+\n  geom_segment(aes(x = 70, xend = 72, y=-.12, yend = -.12),\n               arrow = arrow(length = unit(0.2, \"cm\")),\n               col = \"#95959c\")+\n  annotate(\"text\",x = 69.5, y=-.1 ,label = \"Larger vote\",\n           hjust=1,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 66.09, y=-.2 ,label = \"share for\",\n           hjust=1,vjust=0, col = \"#95959c\")+\n  annotate(\"text\",x = 69.5, y=-.2 ,label = \"Trump\",\n           colour = \"#991a38\", \n           fontface =2,\n           hjust=1,vjust=0)+\n  annotate(\"text\",x = 30, y=0.5 ,label = \"0.5\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  annotate(\"text\",x = 30, y=1 ,label = \"1\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  annotate(\"text\",x = 30, y=1.5 ,label = \"1.5\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  annotate(\"text\",x = 30, y=2 ,label = \"2 deaths per 100,000 residents\",col = \"#95959c\",\n           vjust = -0.5, hjust = 0)+\n  theme_void()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: The following aesthetics were dropped during statistical transformation: label\nℹ This can happen when ggplot fails to infer the correct grouping structure in\n  the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n  variable into a factor?\n\n\nWarning: Removed 38 rows containing missing values (`geom_text_repel()`)."
+  },
+  {
+    "objectID": "labs/05-lab-comments.html#footnotes",
+    "href": "labs/05-lab-comments.html#footnotes",
+    "title": "Lab 05 - Examining the Phenomena of Red Covid",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWhich is why so much of the start of this course has been focused on developing our coding skills↩︎"
+  },
+  {
+    "objectID": "slides/03-slides.html",
+    "href": "slides/03-slides.html",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Announcements\nFeedback\nReview\nClass plan\n\nCausal Inference\nNotation for Causal Inference\nCausal Identification\nCausal Identification in Experiments\nresume data from QSS\nExplore Broockman and Kalla (2016)\n\n\n\n\n\n\nRevised Schedule\n\nLecture 3 today\nRead  Broockman and Kalla (2016) pdf\nLab 3 next week\nWeek 4 content spread out over weeks 5/6/7 condensed\nMore updates to come"
+  },
+  {
+    "objectID": "slides/05-slides.html#data-visualization-1",
+    "href": "slides/05-slides.html#data-visualization-1",
+    "title": "POLS 1600",
+    "section": "Data Visualization",
+    "text": "Data Visualization\n\nThe grammar of graphics\nAt minimum you need:\n\ndata\naesthetic mappings\ngeometries\n\nTake a sad plot and make it better by:\n\nlabels\nthemes\nstatistics\ncooridnates\nfacets\ntransforming your data before plotting"
+  },
+  {
+    "objectID": "slides/05-slides.html#new-packages",
+    "href": "slides/05-slides.html#new-packages",
+    "title": "POLS 1600",
+    "section": "New packages",
+    "text": "New packages\nThis week’s lab we’ll be using the dataverse package to download data on presidential elections\nNext week’s lab, we’ll be using the tidycensus package to download census data.\nWe’ll also need to install a census API to get the data.\nHere’s a detailed guide of what we’ll do in class right now."
+  },
+  {
+    "objectID": "slides/05-slides.html#install-new-packages",
+    "href": "slides/05-slides.html#install-new-packages",
+    "title": "POLS 1600",
+    "section": "Install new packages",
+    "text": "Install new packages\nThese packages are easier to install live:\n\ninstall.packages(\"dataverse\")\ninstall.packages(\"tidycensus\")\ninstall.packages(\"easystats\")\ninstall.packages(\"DeclareDesign\")"
+  },
+  {
+    "objectID": "slides/05-slides.html#basic-plot",
+    "href": "slides/05-slides.html#basic-plot",
+    "title": "POLS 1600",
+    "section": "Basic Plot",
+    "text": "Basic Plot\n\nCodeFigure\n\n\n\ndf %&gt;%\n  ggplot(aes(x = reincarnation, \n             fill = reincarnation))+\n  geom_bar(\n    stat = \"count\"\n  )"
+  },
+  {
+    "objectID": "slides/05-slides.html#causal-identification",
+    "href": "slides/05-slides.html#causal-identification",
+    "title": "POLS 1600",
+    "section": "Causal Identification",
+    "text": "Causal Identification\n\nCasual Identification refers to “the assumptions needed for statistical estimates to be given a causal interpretation” Keele (2015)]\n\nWhat do we need to assume to make our claims about cause and effect credible\n\nExperimental Designs rely on randomization of treatment to justify their causal claims\nObservational Designs require additional assumptions and knowledge to make causal claims"
+  },
+  {
+    "objectID": "slides/05-slides.html#randomization-creates-credible-counterfactual-comparisons",
+    "href": "slides/05-slides.html#randomization-creates-credible-counterfactual-comparisons",
+    "title": "POLS 1600",
+    "section": "Randomization creates credible counterfactual comparisons",
+    "text": "Randomization creates credible counterfactual comparisons\nIf treatment has been randomly assigned, then:\n\nThe only thing that differs between treatment and control is that one group got the treatment, and another did not.\nWe can estimate the Average Treatment Effect (ATE) using the difference of sample means\n\n\n\\[\n\\begin{aligned}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/05-slides.html#two-ways-to-describe-causal-claims",
+    "href": "slides/05-slides.html#two-ways-to-describe-causal-claims",
+    "title": "POLS 1600",
+    "section": "Two Ways to Describe Causal Claims",
+    "text": "Two Ways to Describe Causal Claims\nIn this course, we will use two forms of notation to describe our causal claims.\n\nPotential Outcomes Notation (last lecture)\nDirected Acyclic Graphs (DAGs)"
+  },
+  {
+    "objectID": "slides/05-slides.html#describing-casual-claims-with-dags",
+    "href": "slides/05-slides.html#describing-casual-claims-with-dags",
+    "title": "POLS 1600",
+    "section": "Describing Casual Claims with DAGs",
+    "text": "Describing Casual Claims with DAGs\nDirected Acyclic Graphs provide a way of encoding assumptions about casual relationships and are useful for illustrating types of bias\n\nConfounder bias: Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)\nCollider bias: Controlling for a common consequence"
+  },
+  {
+    "objectID": "slides/05-slides.html#dag",
+    "href": "slides/05-slides.html#dag",
+    "title": "POLS 1600",
+    "section": "DAG",
+    "text": "DAG\n\nBlair, Coppock, and Humphreys (2023) (Chap. 6.2)"
+  },
+  {
+    "objectID": "slides/05-slides.html#variables",
+    "href": "slides/05-slides.html#variables",
+    "title": "POLS 1600",
+    "section": "Variables",
+    "text": "Variables\n\nCausal Explanations Involve:\n\nY our outcome\nD A possible cause of Y\nM A mediator or mechanism through which D effects Y\nZ An instrument that can help us isolate the effects of D on `Y\nX2 a covariate that may moderate the effect of D on Y\n\nThreats to causal claims/Sources of bias:\n\nX1 an observed confounder that is a common cause of both D & Y\nU an unobserved confounder a common cause of both D & Y\nK a collider that is a common consequence of both D & Y"
+  },
+  {
+    "objectID": "slides/05-slides.html#dags-illustrate-two-sources-of-bias",
+    "href": "slides/05-slides.html#dags-illustrate-two-sources-of-bias",
+    "title": "POLS 1600",
+    "section": "DAGs illustrate two sources of bias:",
+    "text": "DAGs illustrate two sources of bias:\n\nConfounder bias: Failing to control for a common cause of D and Y (aka Selection Bias, Omitted Variable Bias)\nCollider bias: Controlling for a common consequence"
+  },
+  {
+    "objectID": "slides/05-slides.html#confounding-bias-the-coffee-example",
+    "href": "slides/05-slides.html#confounding-bias-the-coffee-example",
+    "title": "POLS 1600",
+    "section": "Confounding Bias: The Coffee Example",
+    "text": "Confounding Bias: The Coffee Example"
+  },
+  {
+    "objectID": "slides/05-slides.html#collider-bias-the-dating-example",
+    "href": "slides/05-slides.html#collider-bias-the-dating-example",
+    "title": "POLS 1600",
+    "section": "Collider Bias: The Dating Example",
+    "text": "Collider Bias: The Dating Example\n\ndating_dag &lt;- collider_triangle(\n  x = \"Looks\",\n  y = \"Personality\",\n  m = \"Dateability\"\n)\ndating_dag %&gt;% \n  tidy_dagitty() -&gt;\n  dating_dag\ndating_dag %&gt;% \n  mutate(colour = ifelse(name == \"m\", \"Collider\",\"Non-Collider\"))-&gt;dating_dag\nggdag(dating_dag, use_labels = \"label\")\n\nggdag(dating_dag,text = F, use_labels = \"label\")+\n  theme_void()-&gt; collider_fig1\n\nggdag_collider(dating_dag,text = F, use_labels = \"label\",\n               ) -&gt; tmp\ntmp$layers\nggdag_dseparated(dating_dag, \n                 text = F, \n                 controlling_for = \"m\",\n                 use_labels = \"label\")+\n  theme_void()\n\n\nn &lt;- 100\nset.seed(123)\ncollider_df &lt;- tibble(\n  Looks = rnorm(n),\n  Personality = rnorm(n)\n) %&gt;% \n  mutate(\n    date = case_when(\n      Looks &gt; .5  ~ \"Date\",\n      Looks &lt; .5 & Personality &gt;.75 ~ 1,\n      T ~ 0\n    )\n  )\ncollider_df %&gt;% \n  filter(date==1) %&gt;% \n  ggplot(aes(Looks, Personality))+\n  geom_point(aes(col = \"People you date\"))+\n  stat_smooth(\n    method = \"lm\"\n  )+\n  guides(color = \"none\")+\n  theme_minimal() -&gt; collider_fig1\n \ncollider_fig1+\n  geom_point(\n    data = collider_df,\n    col = \"grey\",\n    alpha = .5\n  )+\n  stat_smooth(\n    data = collider_df,\n    col = \"grey\",\n    method = \"lm\"\n  )\n  geom_point(\n    data = collider_df %&gt;% \n      filter(date == 1),\n    col = \"black\"\n  )"
   }
 ]

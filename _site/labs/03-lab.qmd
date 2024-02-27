@@ -57,7 +57,7 @@ Here are your assigned groups for the semester.
 #| echo: false
 #| message: false
 
-groups_df <- read_csv("https://pols1600.paultesta.org/files/groups.csv")
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```

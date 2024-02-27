@@ -852,6 +852,22 @@ kable(effects_df,escape = F,
 :::
 :::
 
+## Estimating an Average Treatment Effect
+
+If we treatment has been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:
+
+$$
+\begin{align*}
+E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{E \left[ \frac{\sum_1^m Y_i}{m}\right]}^{\substack{\text{Average outcome}\\
+\text{among treated}\\ \text{units}}}
+-\overbrace{E \left[\frac{\sum_{m+1}^N Y_i}{N-m}\right]}^{\substack{\text{Average outcome}\\
+\text{among control}\\ \text{units}}}\\
+&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]
+\end{align*}
+$$
+
+That is, the ATE is causally identified by the **difference of means** estimator in an experimental design
+
 ##  {.smaller}
 
 ::: columns
@@ -1382,4 +1398,6 @@ pretreatment_balance %>%
 
 -   [Causal identification]{.blue} refers to the assumptions necessary to generate credible causal estimates
 
--   Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blueo}
+-   Identification for experimental designs follows from the [random assignment of treatment]{.blue} which allows us to produce unbiased estimates of the [Average Treatment Effect]{.blue}
+
+## References

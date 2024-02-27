@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -194,7 +194,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#please-knit-this-.rmd-file" id="toc-please-knit-this-.rmd-file" class="nav-link" data-scroll-target="#please-knit-this-.rmd-file">Please knit this .Rmd file</a></li>
+  <li><a href="#please-render-this-.qmd-file" id="toc-please-render-this-.qmd-file" class="nav-link" data-scroll-target="#please-render-this-.qmd-file">Please render this .qmd file</a></li>
   <li><a href="#set-up-your-workspace" id="toc-set-up-your-workspace" class="nav-link" data-scroll-target="#set-up-your-workspace"><span class="header-section-number">1</span> Set up your workspace</a></li>
   <li><a href="#load-the-data-for-today." id="toc-load-the-data-for-today." class="nav-link" data-scroll-target="#load-the-data-for-today."><span class="header-section-number">2</span> Load the data for today.</a>
   <ul class="collapse">
@@ -202,7 +202,7 @@ window.Quarto = {
   <li><a href="#load-election-data" id="toc-load-election-data" class="nav-link" data-scroll-target="#load-election-data"><span class="header-section-number">2.2</span> Load Election Data</a></li>
   </ul></li>
   <li><a href="#describe-the-structure-of-each-dataset" id="toc-describe-the-structure-of-each-dataset" class="nav-link" data-scroll-target="#describe-the-structure-of-each-dataset"><span class="header-section-number">3</span> Describe the structure of each dataset</a></li>
-  <li><a href="#transform-data-for-analysis." id="toc-transform-data-for-analysis." class="nav-link" data-scroll-target="#transform-data-for-analysis."><span class="header-section-number">4</span> Transform data for analysis.</a>
+  <li><a href="#recode-the-data-for-analysis." id="toc-recode-the-data-for-analysis." class="nav-link" data-scroll-target="#recode-the-data-for-analysis."><span class="header-section-number">4</span> Recode the data for analysis.</a>
   <ul class="collapse">
   <li><a href="#recode-the-covid-19-data" id="toc-recode-the-covid-19-data" class="nav-link" data-scroll-target="#recode-the-covid-19-data"><span class="header-section-number">4.1</span> Recode the Covid-19 data</a></li>
   <li><a href="#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents" id="toc-create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents" class="nav-link" data-scroll-target="#create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents"><span class="header-section-number">4.2</span> Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents</a></li>
@@ -255,9 +255,6 @@ window.Quarto = {
 </header>
 
 
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
 <p>Today we will explore the phenomena of “Red Covid” discussed by the <em>NYT</em>’s David Leonhardt in articles last fall <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html">here</a> and more recently <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html">here</a>.</p>
@@ -285,9 +282,18 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>If you are attending remotely, you will submit your labs individually.</p>
 <p>Here are your assigned groups for the semester.</p>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 8 Columns: 5
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (5): Group, 1, 2, 3, 4
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7de0dae89107d8e2e359" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7de0dae89107d8e2e359">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5"],["Anna Lister","Kate Kuli","Andreas Young","Claudia Spelman",""],["Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney","Ariana Palomo",""],["Will Lake","Taha Siddiqui","Amanda Page","Noah Soutier",""],["Georgia Kennedy-Bailey","Samuel Levine","Elie Lubin","Bianca Rosen",""],["Theo Simmons","Fengyu Seah","Hunter Keneley","Schuyler Dubitsky",""],["Logan Torres","Jonathan Zhang","Osiris Russell-Delano","Aicha Sama",""],["Natalia Ibarra","Khaled Abdo","Starrchild Jackson","Selene Luna","Yoo Min Lee"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group 1<\/th>\n      <th>Group 2<\/th>\n      <th>Group 3<\/th>\n      <th>Group 4<\/th>\n      <th>Group 5<\/th>\n      <th>Group 6<\/th>\n      <th>Group 7<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group 1","targets":1},{"name":"Group 2","targets":2},{"name":"Group 3","targets":3},{"name":"Group 4","targets":4},{"name":"Group 5","targets":5},{"name":"Group 6","targets":6},{"name":"Group 7","targets":7}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b79ed443310be0365131" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b79ed443310be0365131">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -309,33 +315,33 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li><p>Question 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week’s lab.</p></li>
 </ul>
 </section>
-<section id="please-knit-this-.rmd-file" class="level1 unnumbered">
-<h1 class="unnumbered">Please knit this .Rmd file</h1>
+<section id="please-render-this-.qmd-file" class="level1 unnumbered">
+<h1 class="unnumbered">Please render this .qmd file</h1>
 <p>As with every lab, you should:</p>
 <ul>
 <li>Download the file</li>
 <li>Save it in your course folder</li>
 <li><strong>Update the <code>author:</code> section of the YAML header to include the names of your group members in attendance.</strong></li>
-<li>Knit the document</li>
+<li>Render the document (Check <code>[X] Render on Save</code>)</li>
 <li>Open the html file in your browser (Easier to read)</li>
-<li>Knit the document again after completing a section or chunk (Error checking)</li>
-<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1087979/assignments/7870523?module_item_id=10762397" target="_blank">Canvas</a>.</li>
+<li>Render the document again after completing a section or chunk (Error checking)</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1094972/assignments" target="_blank">Canvas</a>.</li>
 </ul>
 </section>
 <section id="set-up-your-workspace" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Set up your workspace</h1>
 <ol type="1">
-<li><strong>In the code chunk below, please set up your work space by loading more packages, using the <a href="https://pols1600.paultesta.org/slides/05-slides.html#9" target="_blank">code from slides 9-11 from Tuesday’s class</a></strong></li>
+<li><strong>In the code chunk below, please set up your work space by loading more packages, using the <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q1-setup-your-workspace" target="_blank">code from Tuesday’s class</a></strong></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define ipak function to load packages</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ipak function to load packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define ipak function to load packages</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use ipak function to load packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -345,18 +351,18 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <section id="load-covid-19-data" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="load-covid-19-data"><span class="header-section-number">2.1</span> Load Covid-19 data</h2>
 <p>First we’ll need data on Covid-19 cases and deaths that we’ve worked with throughout the course.</p>
-<p><strong>In the chunk below, please write code to load data on Covid-19 in the states using the <code>covid19()</code> function from the <code>COVID19</code> package. (<a href="https://pols1600.paultesta.org/slides/05-slides.html#13" target="_blank">slides</a>)</strong></p>
+<p><strong>In the chunk below, please write code to load data on Covid-19 in the states using the <code>covid19()</code> function from the <code>COVID19</code> package. (<a href="https://pols1600.paultesta.org/slides/05-slides.html#/q2.1-load-the-covid-19-data" target="_blank">slides</a>)</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load covid-19 data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load covid-19 data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-election-data" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="load-election-data"><span class="header-section-number">2.2</span> Load Election Data</h2>
 <p>Next we need data on the 2020 presidential election.</p>
 <p><strong>In the code chunk below, write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse.</strong></p>
-<p>The code you’ll need is <a href="https://pols1600.paultesta.org/slides/05-slides.html#21" target="_blank">here</a></p>
+<p>The code you’ll need is <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q2.2-load-election-data" target="_blank">here</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load election data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load election data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")</code> sets a parameter in your <code>R</code> enivornment that tells the <code>dataverse</code> package to use Harvard’s dataverse</li>
@@ -372,58 +378,58 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ol>
 <p>You may want to use the code chunk below to get a quick high-level overview of the data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a quick look at your two data sets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a quick look at your two data sets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="transform-data-for-analysis." class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Transform data for analysis.</h1>
+<section id="recode-the-data-for-analysis." class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Recode the data for analysis.</h1>
 <p>Ok, so our main data set on Covid-19 describes the state of the pandemic in a given state on a given date. To explore the concept of <em>Red Covid</em>, we’ll need to add data on the 2020 election to distinguish Red States from Blue States.</p>
 <p>To accomplish this, we’re going to need to:</p>
 <ul>
 <li>Recode the Covid-19 data like we’ve done before</li>
-<li>Reshape and recode the presidential election data.</li>
+<li>Reshape, recode, and filter the presidential election data.</li>
 </ul>
 <section id="recode-the-covid-19-data" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="recode-the-covid-19-data"><span class="header-section-number">4.1</span> Recode the Covid-19 data</h2>
-<p>In the chunk below, <strong>please recode the <code>covid</code> data to create a <code>covid_us</code> data set</strong>, again using code from the slides as your guide, starting <a href="https://pols1600.paultesta.org/slides/05-slides.html#14" target="_blank">here</a> and ending <a href="https://pols1600.paultesta.org/slides/05-slides.html#20" target="_blank">here</a></p>
+<p>In the chunk below, <strong>please recode the <code>covid</code> data to create a <code>covid_us</code> data set</strong>, again using code from the slides as your guide: <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q4.1-recode-the-covid-19" target="_blank">here</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing of US territories</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out Territories and create state variable</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate new cases, new cases per capita, and 7-day average</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode facemask policy (Not strictly necessary so feel free to skip)</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create year-month and percent vaccinated variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing of US territories</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out Territories and create state variable</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate new cases, new cases per capita, and 7-day average</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode facemask policy (Not strictly necessary so feel free to skip)</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create year-month and percent vaccinated variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="create-new-measures-of-the-7-day-and-14-day-averages-of-new-deaths-from-covid-19-per-100000-residents"><span class="header-section-number">4.2</span> Create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents</h2>
-<p>Using the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#15" target="_blank">slide</a> as a guide:</p>
+<p>Using the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q4.1-recode-the-covid-19" target="_blank">slide</a> as a guide:</p>
 <ul>
 <li>Anywhere you see <code>new_cases</code> write <code>new_deaths</code></li>
 <li>Anywhere you see <code>confirmed</code> write <code>deaths</code></li>
-<li>For the 14-day average, copy the code for <code>new_deaths_pc_7da</code> change the <code>new_deaths_pc_7da</code> to <code>new_deaths_pc_14da</code> and set <code>k=14</code> in the <code>zoo::rollmean()</code></li>
+<li>For the 14-day average, copy the code for <code>new_deaths_pc_7day</code> change the <code>new_deaths_pc_7day</code> to <code>new_deaths_pc_14day</code> and set <code>k=14</code> in the <code>zoo::rollmean()</code></li>
 <li>Remember to save the output of <code>mutate()</code> back into <code>covid_us</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the following variables:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc_7da</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc_14da</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the following variables:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc_7day</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># new_deaths_pc_14day</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="reshape-and-recode-the-presidential-election-data." class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="reshape-and-recode-the-presidential-election-data."><span class="header-section-number">4.3</span> Reshape and recode the presidential election data.</h2>
 <p>We want to add election data to our Covid-19 data. To do this, we need to transform our election data, which is structured by candidate-state-election, into a data set that contains the election results by state for 2020.</p>
-<p>Using the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#23">slide</a> transform <code>pres_df</code> to create a new data frame called <code>pres2020_df</code> by</p>
+<p>Using the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q4.3-recode-presidential-data">slide</a> transform <code>pres_df</code> to create a new data frame called <code>pres2020_df</code> by</p>
 <ul>
 <li><p>Creating a copy of the year variable called <code>year_election</code></p>
 <ul>
@@ -444,9 +450,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li><p>Saving the output of these transformations to an data frame called <code>pres2020_df</code></p></li>
 </ul>
 <p>Which, I know sounds like a lot, but…</p>
-<p><strong>All you need to do is copy and paste the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#23" target="_blank">slide</a>.</strong></p>
+<p><strong>All you need to do is copy and paste the code from this <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q4.3-recode-presidential-data" target="_blank">slide</a>.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform Presidential Election data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform Presidential Election data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -456,9 +462,9 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <ul>
 <li><strong>In the code chunk below, use the <code>left_join()</code> command to merge the <code>pres2020_df</code> data into the <code>covid_us</code> data.</strong></li>
 </ul>
-<p>Again, you should be able to just copy and paste the code from <a href="https://pols1600.paultesta.org/slides/05-slides.html#30" target="_blank">here</a></p>
+<p>Again, you should be able to just copy and paste the code from <a href="https://pols1600.paultesta.org/slides/05-slides.html#/q5-merging-data" target="_blank">here</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge in Presidential Data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge in Presidential Data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <p>Ok. That was a lot of code just to get the data set up to do some simple analyses<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
@@ -471,13 +477,13 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>With the <code>covid_us</code> data set:</p>
 <ul>
 <li>use the <code>group_by()</code> command to have <code>summarise()</code> calculate values separately by the <code>winner</code> of each state.</li>
-<li>use the <code>summarise()</code> command with <code>mean()</code> function to calculate the average number of new deaths (<code>new_deaths</code>) and the average of the 7-day rolling average of new deaths per 100,000 citizens (<code>new_deaths_pc_7da</code>)
+<li>use the <code>summarise()</code> command with <code>mean()</code> function to calculate the average number of new deaths (<code>new_deaths</code>) and the average of the 7-day rolling average of new deaths per 100,000 citizens (<code>new_deaths_pc_7day</code>)
 <ul>
 <li>Remember to tell <code>mean()</code> what to do with NAs using the <code>na.rm</code> argument.</li>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7da</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7day</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="for-the-all-the-observations-before-april-19-2021" class="level2" data-number="6.2">
@@ -488,7 +494,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li>In the code chunk below, take the your code from the previous chunk, and use the <code>filter()</code> command to subset the data to include only obsevations with a value of <code>date</code> less than <code>"2021-04-19</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7da before April 19, 2021</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7day before April 19, 2021</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="for-the-all-the-observations-after-april-19-2021" class="level2" data-number="6.3">
@@ -498,7 +504,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <li>In the code chunk below, take the your code from the previous chunk, and use the <code>filter()</code> command to subset the data to include only obsevations with a value of <code>date</code> greater than <code>"2021-04-19</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7da after April 19, 2021</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean number of new_deaths and new_deaths_pc_7day after April 19, 2021</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><strong>Please interpret the results of this analysis here</strong></p></li>
@@ -517,12 +523,12 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>[ = _0 + _1 + ]</p>
 <p>Save the output of lm into objects called <code>m1</code> and <code>m2</code> and display the results of each model (by printing the objects on their own line)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit m1</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit m2</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Interpret model coefficients in terms of conditional means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit m1</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit m2</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Interpret model coefficients in terms of conditional means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><strong>Please interpret the coefficients of these models in terms of the conditional means you estimated for all the observations in the previous section</strong></p></li>
@@ -553,7 +559,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>For comparability, we will limit our analysis to just the observations from Sept 23, 2021, that Leonhardt used in his <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html">article in the fall</a> and use the 14-day average, rather than the 7-day average we’ve discussed so far, since that’s what Leonhardt uses.</p>
 <p>In the code chunk below, use <code>lm()</code> to estimate the relationship between:</p>
 <ul>
-<li><p>Deaths modeled by percent vaccinated on 2021-09-23 (<code>new_deaths_pc_14da ~ percent_vaccinated</code>)</p></li>
+<li><p>Deaths modeled by percent vaccinated on 2021-09-23 (<code>new_deaths_pc_14day ~ percent_vaccinated</code>)</p></li>
 <li><p>Percent vaccinated modeled by Republican Vote share on 2021-09-23 (<code>percent_vaccinated ~ ???</code>)</p></li>
 <li><p>Deaths modeled by Republican vote share on 2021-09-23</p></li>
 </ul>
@@ -561,13 +567,13 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Remember to separate arguments in lm using a comma ( <code>lm(formula = ??? ~ ???, data = ???, subset = ??? == ???)</code>)</p>
 <p>Please assign the output of each model to objects called <code>m3</code>, <code>m4</code>, and <code>m5</code>. Place these objects on their own line and interpret the results.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Deaths modeled by percent vaccinated on 2021-09-23</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Percent vaccinated modeled by Republican vote share on 2021-09-23</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Deaths modeled by Republican vote share on 2021-09-23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Deaths modeled by percent vaccinated on 2021-09-23</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  Percent vaccinated modeled by Republican vote share on 2021-09-23</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Deaths modeled by Republican vote share on 2021-09-23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><strong>Do your models’ estimates match your expectations?</strong> That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor</li>
@@ -584,28 +590,28 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p>Now, let’s visualize the results of the model <code>m5</code> from the previous section.</p>
 <p>In the code chunk below, uncomment the code to produce a basic figure, for model <code>m5</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # # # Data for plot</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Only use observations from September 23, 2021</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(date == "2021-09-23") %&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Exclude DC</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(state != "District of Columbia") %&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Set aesthetics</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = rep_voteshare,</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#              y = new_deaths_pc_14da))+</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Set geometries</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Include the linear regression of lm(new_deaths_pc_14da ~ rep_voteshare)</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_smooth(method = "lm", se=F, </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#               col = "grey", linetype =2) -&gt; fig_m5</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # Display figure</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># fig_m5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # # # Data for plot</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># covid_us %&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Only use observations from September 23, 2021</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(date == "2021-09-23") %&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Exclude DC</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(state != "District of Columbia") %&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Set aesthetics</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = rep_voteshare,</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#              y = new_deaths_pc_14day))+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Set geometries</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Include the linear regression of lm(new_deaths_pc_14day ~ rep_voteshare)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_smooth(method = "lm", se=F, </span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#               col = "grey", linetype =2) -&gt; fig_m5</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # Display figure</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># fig_m5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s explore ways to improve this figure.</p>
 <p><strong>In the code chunk below, please improve <code>fig_m5</code></strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mess around with figure fig_m5 in this code chunk</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mess around with figure fig_m5 in this code chunk</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Play around with different options and themes by adding elements to <code>fig_m5</code> ( literally <code>fig_m5 + ...</code>). You might try some of the following:</p>
 <ul>
@@ -627,18 +633,18 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ul>
 <p>And may want to play around with arguments like: - <code>col</code> - <code>linetype</code> - <code>size</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of adding a vertical line</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">50</span>, <span class="at">col =</span> <span class="st">"orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of adding a vertical line</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">50</span>, <span class="at">col =</span> <span class="st">"orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Try changing the color of the points using the following:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span>  <span class="fu">scale_color_gradient2</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">midpoint =</span> <span class="dv">50</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"grey"</span>, <span class="at">high =</span> <span class="st">"red"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span>  <span class="fu">scale_color_gradient2</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">midpoint =</span> <span class="dv">50</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"grey"</span>, <span class="at">high =</span> <span class="st">"red"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">guide =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Try annotating your graph with the <code>annotate()</code> function. You’ll need to tell it:
@@ -649,12 +655,12 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span>  <span class="fu">annotate</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"text"</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">50</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">1</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Your label goes here"</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span>  <span class="fu">annotate</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">geom =</span> <span class="st">"text"</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">50</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">1</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">"Your label goes here"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Or maybe try adding state labels using the <code>geom_text_repel()</code> function
@@ -664,8 +670,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> state_po))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig_m5 <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> state_po))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Or something else. Have fun with it, but don’t let the perfect be the enemy of the good enough.</li>
@@ -674,7 +680,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <p><strong>When you’re finished exploring, please write the code for your new and improved <code>fig_m5</code> in the code chunk below</strong></p>
 <p>Here’s an example fo what an improved <code>fig_m5</code> might look like</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Updated fig_m5 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Updated fig_m5 code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the comments to this lab, I’ll include some code to recreate as closely as possible, the first two figures from Leonhardt’s September 27, 2021 <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html">article.</a></p>
 </section>
@@ -693,7 +699,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 </section>
 <section id="take-the-class-survey" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Take the Class Survey</h1>
-<p>If you’ve got a moment please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW" target="_blank">class survey</a> for this week.</p>
+<p>If you’ve got a moment please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk" target="_blank">class survey</a> for this week.</p>
 
 
 </section>
