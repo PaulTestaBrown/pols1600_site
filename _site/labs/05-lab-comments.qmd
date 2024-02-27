@@ -5,7 +5,7 @@ date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true

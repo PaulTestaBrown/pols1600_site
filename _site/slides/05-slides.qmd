@@ -18,6 +18,7 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    chalkboard: true
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -58,9 +59,29 @@ library(easystats)
 - Review
 - Class plan
 
+## Learing goals {.blue}
+
+- Introduce the concept of [Directed Acyclic Graphs]{.blue} to describe causal relationships and illustrate potential bias from [confounders]{.blue} and [colliders]{.blue} 
+
+- Discuss three approaches to [covariate adjustment]{.blue}
+
+  - Subclassification
+  - Matching
+  - [Linear Regression]{.blue}
+
+- Begin discussing three research designs to make causal claims with observational data
+
+  - [Differences-in-Differences]{.blue} (If there's time)
+  - Regression Discontinuity Designs
+  - Instrumental Variables
+
+
+
 ## Annoucements
 
 - Sit with your groups (for now)
+
+- Updated timeline for final projects next week
 
 ## Group Assignments {.smaller}
 
@@ -94,7 +115,10 @@ groups_df |>
 DT::datatable(groups_df)
 ```
 
-## {{< fa bullhorn >}} Feedback {top="50%" background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg"}
+
+
+
+# {{< fa bullhorn >}} Feedback {top="50%" background-image="https://jplilley.com/images/easyblog_articles/145/holding-ears-300x196.jpg"}
 
 ```{r}
 #| label: feeback
@@ -171,86 +195,19 @@ DT::datatable(df %>%
 
 ::::
 
-# Setup
-
-## Packages for the lab
-
-Hopefully, you were all able to install the following packages
-
-```{r}
-#| label: installpacks
-#| eval: false
-install.packages("dataverse")
-install.packages("tidycensus")
-install.packages("easystats")
-install.packages("DeclareDesign")
-
-```
-
-## Census API
-
-Additionally, I hope you have all followed the steps [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
-
-1.  Install the `tidycensus` package
-2.  Load the installed package
-3.  Request an API key from the Census
-4.  Check your email
-5.  Activate your key
-6.  Install your API key in R
-7.  Check that everything worked
-
-To install the an API key so we can download data directly from the US Census
-
-## Packages for today
-
-```{r}
-#| label: packages
-#| echo: true
-
-## Pacakges for today
-the_packages <- c(
-  ## R Markdown
-  "kableExtra","DT","texreg",
-  ## Tidyverse
-  "tidyverse", "lubridate", "forcats", "haven", "labelled",
-  ## Extensions for ggplot
-  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
-  "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Data 
-  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
-  # Analysis
-  "DeclareDesign", "easystats", "zoo"
-)
-
-## Define a function to load (and if needed install) packages
-
-#| label = "ipak"
-ipak <- function(pkg){
-    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-    if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-    sapply(pkg, require, character.only = TRUE)
-}
-
-## Install (if needed) and load libraries in the_packages
-ipak(the_packages)
-```
-
-## Packages for the Lab
-
-# {{< fa magnifying-glass>}} Review {.inverse}
+# {{< fa magnifying-glass >}} Review {.inverse}
 
 ## Review
 
 - Data wrangling 
 
-- Data visualization
-
 - Descriptive Statistics
 
 - Levels of understanding
 
-# {{< fa magnifiying-glass>}} Data Wrangling {.inverse}
+- Data visualization
+
+# {{< fa magnifying-glass >}} Data Wrangling {.inverse}
 
 ## Data wrangling {.smaller}
 
@@ -294,7 +251,7 @@ kable(sp_df,
 
 - Learning to [think programmatically]{.blue} and algorithmically will help us [tackle complex problems]{.blue}
 
-# {{< fa magnifiying-glass>}}: Descriptive Statiscs
+# {{< fa magnifying-glass >}} Descriptive Statiscs{.inverse}
 
 ## Descriptive statistics {.smaller}
 
@@ -321,7 +278,7 @@ kable(sp_df,
   - Diagnostic
   - Generative
 
-# {{< fa magnifiying-glass>}} Levels of understanding
+# {{< fa magnifying-glass>}} Levels of understanding{.inverse}
 
 ## Levels of understanding in POLS 1600
 
@@ -333,17 +290,11 @@ kable(sp_df,
 
 - Theoretical
 
-## Descriptive statistics: Levels of understanding
+. . .
 
-- **Conceptual**
+Let's illustrate these different levels of understanding about our old friend the [mean]{.blue}
 
-- **Practical**
-
-- Definitional
-
-- Theoretical
-
-## Mean: Conceptual Understanding
+## Mean: Conceptual Understanding{.smaller}
 
 A mean is:
 
@@ -357,13 +308,13 @@ A mean is:
 
   - Think about the average height in our class ([unconditional mean]{.blue}) vs the average height among men and women (\[conditional means\].{blue})
 
-## Mean as a balancing point
+## Mean as a balancing point{.smaller}
 
 ![](https://mathbitsnotebook.com/Algebra1/StatisticsData/balancepoint1.jpg)
 
 [Source](https://mathbitsnotebook.com/Algebra1/StatisticsData/STCenter.html)
 
-## Mean: Practical
+## Mean: Practical{.smaller}
 
 There are lots of ways to calculate means in `R`
 
@@ -377,7 +328,7 @@ There are lots of ways to calculate means in `R`
 mean(df$x, na.rm=T)
 ```
 
-## Conditional Means: Practical
+## Conditional Means: Practical{.smaller}
 
 - To calculate a conditional mean we could us a logical index `[df$z == 1]`
 
@@ -399,7 +350,7 @@ df %>%
   )
 ```
 
-## Mean: Definitional
+## Mean: Definitional{.smaller}
 
 Formally, we define the arithmetic mean of $x$ as $\bar{x}$:
 
@@ -409,7 +360,7 @@ $$
 
 In words, this formula says, to calculate the average of x, we sum up all the values of $x_i$ from observation $i=1$ to $i=n$ and then divide by the total number of observations $n$
 
-## Mean: Definitional
+## Mean: Definitional {.smaller}
 
 - In this class, I don't put a lot of weight on memorizing definitions (that's what Google's for).
 
@@ -417,7 +368,7 @@ In words, this formula says, to calculate the average of x, we sum up all the va
 
 - Definitional knowledge is a prerequisite for understanding more theoretical claims.
 
-## Mean: Theoretical
+## Mean: Theoretical{.smaller}
 
 Suppose I asked you to show that the sum of deviations from a mean equals 0?
 
@@ -439,7 +390,7 @@ $$
 \end{aligned}
 $$
 
-## Mean: Theoretical
+## Mean: Theoretical {.smaller}
 
 Why do we care?
 
@@ -457,7 +408,7 @@ Occasionally, you'll read or here me say say things like:
 
 In a statistics class, we would take time to prove this.
 
-## The sample mean is an unbiased estimator of the population mean
+## The sample mean is an unbiased estimator of the population mean{.smaller}
 
 Claim:
 
@@ -512,8 +463,26 @@ Trade offs:
 - Pro: We actually get to *work with data* and *do empirical research* much sooner
 - Cons: We substitute intuitive understandings for more rigorous proofs
 
-# Review: Data Visualization
+# {{< fa magnifying-glass>}} Data Visualization {.inverse}
 
+## Data Visualization {.smaller}
+
+-   The grammar of graphics
+
+-   At minimum you need:
+
+    -   `data`
+    -   `aesthetic` mappings
+    -   `geometries`
+
+-  Take a sad plot and make it better by:
+
+    -   `labels`
+    -   `themes`
+    -   `statistics`
+    -   `cooridnates`
+    -   `facets`
+    -   transforming your data before plotting
 
 ## You are about to be reincarnated: HLO
 
@@ -529,7 +498,7 @@ table(df$reincarnation)
 
 
 
-## You're about to be reincarnated: Basic Plot
+## Basic Plot
 
 ::: panel-tabset
 
@@ -622,13 +591,17 @@ fig1
 :::
 
 
-## What creature and why?
+## {.smaller}
+#### What creature and why?
 
 
 ```{r }
 #| label: creatures
+#| echo: false
+
+
 DT::datatable(df %>%  select(Reincarnation,Why),
-               fillContainer = T,
+               fillContainer = F,
               height = "90%",
               options = list(
                 pageLength = 5
@@ -693,7 +666,7 @@ plot_df <- df %>%
 :::
 
 
-## You're about to be reincarnated:
+## You're about to be reincarnated:{.smaller}
 
 ::: panel-tabset
 
@@ -739,6 +712,7 @@ plot_df %>%
 ## Labelled Figure
 ```{r }
 #| label: fig1labelled
+#| echo: false
 
 fig1
 ```
@@ -755,7 +729,83 @@ fig1
 - Don't let the perfect be the enemy of the good enough.
 
 
-# {{< fa eye >}}Previewing the Lab{.inverse}
+# {{< fa code >}} Setup
+
+## New packages
+
+This week's lab we'll be using the `dataverse` package to download data on presidential elections
+
+Next week's lab, we'll be using the `tidycensus` package to download census data. 
+
+We'll also need to [install a census API]{.blue} to get the data.
+
+Here's a [detailed guide](https://pols1600.paultesta.org/slides/04-packages) of what we'll do in class right now.
+
+## Install new packages
+
+These packages are easier to install live:
+
+```{r}
+#| label: installpacks
+#| eval: false
+install.packages("dataverse")
+install.packages("tidycensus")
+install.packages("easystats")
+install.packages("DeclareDesign")
+
+```
+
+## Census API {.smaller}
+
+Please follow these steps so you can download data directly from the U.S. Census [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+
+1.  Install the `tidycensus` package
+2.  Load the installed package
+3.  Request an API key from the Census
+4.  Check your email
+5.  Activate your key
+6.  Install your API key in R
+7.  Check that everything worked
+
+
+## Packages for today
+
+```{r}
+#| label: packages
+#| echo: true
+
+## Pacakges for today
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT","texreg",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+
+## Define a function to load (and if needed install) packages
+
+#| label = "ipak"
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+## Install (if needed) and load libraries in the_packages
+ipak(the_packages)
+```
+
+
+
+# {{< fa code >}}Previewing the Lab
 
 ## Red Covid{.smaller}
 
@@ -774,7 +824,7 @@ fig1
 ![](images/05_covid.png)
 [Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
 :::
-:::
+::::
 
 ## Preview of the Lab{.smaller}
 
@@ -1164,7 +1214,7 @@ The next slides [aren't necessary for the lab]{.blue} but are designed to illust
 
 - the [concept of a rolling mean]{.blue}
 - [what]{.blue} the code does
-- [why]{blue} might prefer rolling averages over daily values
+- [why]{.blue} might prefer rolling averages over daily values
 
 
 ## Look at the output of `zoo::rollmean()`
@@ -1277,7 +1327,7 @@ dim(covid_us)
 ```
 :::
 
-## Advice for merging:
+## Advice for merging {.smaller}
 
 ::: panel-tabset
 
@@ -1344,7 +1394,7 @@ sum(unique(pres2020_df$state) %in% covid_us$state)
 
 :::
 
-# {{< fa lightbulb >}} Causal Identification with Observational Designs {.inverse}
+# {{< fa lightbulb >}} Causal Inference {.inverse}
 
 ## Causal inference is about counterfactual comparisons
 
@@ -1352,25 +1402,38 @@ sum(unique(pres2020_df$state) %in% covid_us$state)
 
   - What would have happened if some aspect of the world either had or had not been present
 
+## Causal Identification{.smaller}
+
 - [Casual Identification]{.blue} refers to "the assumptions needed for statistical estimates to be given a causal interpretation" [Keele (2015)](http://lukekeele.com/wp-content/uploads/2016/03/causal.pdf)\]
 
   - What do we need to assume to make our claims about cause and effect credible
 
-## Experimental Designs
+- [Experimental Designs]{.blue} rely on [randomization]{.blue} of treatment to justify their causal claims
+
+- [Observational Designs]{.blue} require [additional assumptions]{.blue} and [knowledge]{.blue} to make causal claims 
+
+## Experimental Designs {.smaller}
 
 - [Experimental designs]{.blue} are studies in which a causal variable of interest, the *treatement*, is [manipulated by the researcher]{.blue} to examine its causal effects on some *outcome* of interest
 
-- Random assignment is the key to causal identification in experiments because it creates [statistical independence]{.blue} between [treatment]{.blue} and [potential outcomes]{.blue} any potential [confounding factors]{.blue}
+- [Random assignment]{.blue} is the key to causal identification in experiments because it creates [statistical independence]{.blue} between [treatment]{.blue} and [potential outcomes]{.blue} any potential [confounding factors]{.blue}
+
+:::{.fragment}
 
 $$
 Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i
 $$\
-\## Randomization creates credible counterfactual comparisons
+
+:::
+
+## Randomization creates credible counterfactual comparisons{.smaller}
 
 If treatment has been randomly assigned, then:
 
 - The only thing that differs between treatment and control is that one group got the treatment, and another did not.
 - We can estimate the Average Treatment Effect (ATE) using the difference of sample means
+
+:::{.fragment}
 
 $$
 \begin{aligned}
@@ -1382,6 +1445,8 @@ E \left[ \frac{\sum_1^m Y_i}{m}-\frac{\sum_{m+1}^N Y_i}{N-m}\right]&=\overbrace{
 \end{aligned}
 $$
 
+:::
+
 ## Observational Designs {.smaller}
 
 - [Observational designs]{.blue} are studies in which a causal variable of interest is determined by someone/thing [other than the researcher]{.blue} (nature, governments, people, etc.)
@@ -1390,17 +1455,23 @@ $$
 
 - Generally speaking, these assumptions amount to a claim about conditional independence
 
+:::{.fragment}
+
+
 $$
 Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i | K_i
 $$
 
+:::
+
 - Where after conditioning on $K_i$, some [knowledge about the world]{.blue} and how the [data were generated]{.blue}, our [treatment]{.blue} is as good as (as-if) randomly assigned (hence [conditionally independent]{.blue})
+  - Economists often call this assumption of [selection on observables]{.blue}
 
 ## Causal Inference in Observational Studies {.smaller}
 
 To understand how to make causal claims in observational studies we will:
 
-- Introduce the concept of Directed Acyclic Graphs to describe causal relationships
+- Introduce the concept of [Directed Acyclic Graphs]{.blue} to describe causal relationships
 
 - Discuss three approaches to [covariate adjustment]{.blue}
 
@@ -1413,19 +1484,24 @@ To understand how to make causal claims in observational studies we will:
   - [Differences-in-Differences]{.blue}
   - Regression Discontinuity Designs
   - Instrumental Variables
+  
+  
 
-# Directed Acyclic Graphs {.inverse}
 
-## Describing Casual Claims
+# {{< fa lightbulb >}} Directed Acyclic Graphs {.inverse}
 
-Two ways to represent causal claims:
 
-- Potential Outcomes Notation helped illustrate the **Fundamental Problem of Causal Inference**
+## Two Ways to Describe Causal Claims
 
-- [Directed Acyclic Graphs]{.blue} provide a way of encoding assumptions about casual relationships and are useful for illustrating [types of bias]{.blue}
+In this course, we will use two forms of notation to describe our causal claims.
 
-  - **Confounder bias:** Failing to control for a common cause (aka Selection Bias, Omitted Variable Bias)
-  - **Collider bias:** Controlling for a common consequence
+- *Potential Outcomes Notation* (last lecture)
+
+  - Illustrates the [fundamental problem of causal inference]{.blue}
+
+- [**Directed Acyclic Graphs** (DAGs)]{.blue}
+
+  - Illustrates potential bias from [confounders]{.blue} and [colliders]{.blue}
 
 ## Directed Acyclic Graphs
 
@@ -1439,11 +1515,284 @@ Two ways to represent causal claims:
 
   - **Acyclic:** No cycles. A variable can't cause itself
 
-## Types of variables in a DAG
+## Types of variables in a DAG{.smaller}
 
+
+:::: panel-tabset
+
+## DAG
 ![](https://book.declaredesign.org/figures/figure-6-2.svg)
 
 @Blair2023-yg [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
+
+## Variables
+
+:::{.nonincremental}
+
+Causal Explanations Involve:
+
+- `Y` our outcome
+- `D` A possible cause of Y
+- `M` A [mediator]{.blue} or mechanism through which `D` effects `Y`
+- `Z` An [instrument]{.blue} that can help us isolate the effects of D on  `Y
+- `X2` a [covariate]{.blue} that may [moderate]{.blue} the effect of `D` on `Y`
+
+Threats to causal claims/Sources of bias:
+
+- `X1` an [observed confounder]{.blue} that is a common cause of both `D` & `Y` 
+- `U` an [unobserved confounder]{.blue} a common cause of both `D` & `Y` 
+- `K` a [collider]{.blue} that is a common consequence of both `D` & `Y`
+
+:::
+
+::::
+
+## DAGs illustrate two sources of bias:
+
+:::{.nonincremental}
+- **Confounder bias:** Failing to control for a common cause of `D` **and** `Y` (aka Omitted Variable Bias)
+
+- **Collider bias:** Controlling for a common consequence (aka Selection Bias^[Note in practice there's some slippage/debate/disagreement around this nomenclature])
+
+:::
+
+## {.smaller}
+#### Confounding Bias: The Coffee Example
+
+:::: panel-tabset
+
+## Confounding Bias
+:::{.nonincremental}
+- Drinking coffee doesn't cause lung cancer we might find correlation between them because they share a [common cause:]{.blue} smoking.
+
+- Smoking is a [confounding] variable, that if [omitted]{.blue} will [bias our results]{.blue} producing a [spurious]{.blue} relationsip 
+
+- [Adjusting] for [confounders] removes this source of bias
+:::
+
+```{r}
+#| label: confounding_day
+#| echo: false
+n <- 1000
+coffee_df <- tibble(
+  smoking = ifelse(rnorm(n)>.5,.75,0),
+  Smoker = ifelse(smoking >0, "Smoker","Non-Smoker"),
+  Coffee = smoking + rnorm(n),
+  Cancer = 2*smoking+ rnorm(n),
+)
+
+coffee_df %>% 
+ggplot(aes(Coffee,Cancer))+
+  geom_point()+
+  stat_smooth(method = "lm")+
+  labs(title = "Positive relationship between\ncoffee and cancer")+
+  theme_minimal()-> coffee_lm1_fig
+
+coffee_df %>% 
+ggplot(aes(Coffee,Cancer,col = Smoker))+
+  geom_point()+
+  stat_smooth(method = "lm") +
+  labs(title = "No relationship between coffee\nand cancer adjusting for smoking")+
+  theme_minimal()-> coffee_lm2_fig
+
+coffee_dag1 <- dagify(
+  y ~ x,
+  labels = c(
+    "y" = "Cancer",
+    "x" = "Coffee"
+  ),
+  outcome = "y",
+  exposure = "x"
+)
+coffee_dag1 %>% tidy_dagitty(layout = "linear") %>% 
+  ggplot(aes(x,y, xend = xend, yend = yend))+
+  geom_dag_point()+
+  geom_dag_edges(edge_linetype = "dashed")+
+  geom_dag_label(aes(label =label),nudge_y =.4) +
+  ylim(1,-1)+
+  theme_dag() +
+  labs(title ="Spurious association between\ncoffee and cancer") -> coffee_dag1_fig
+
+
+
+coffee_dag2 <- dagify(
+  x ~z,
+  y ~ z,
+  labels = c(
+    "y" = "Cancer",
+    "x" = "Coffee",
+    "z" = "Smoking"
+     
+  ),
+  outcome = "y",
+  exposure = "x",
+  coords = list(
+    x = c(x = -1, y = 1, z = 0),
+    y = c(x = 0, y = 0, z = 1)
+
+  )
+) |> tidy_dagitty() |> 
+  mutate(
+    fill_col = ifelse(name == "z","grey","black")
+  )
+coffee_dag2 |> 
+  ggplot(aes(x,y, xend = xend, yend = yend))+
+  geom_dag_point(aes(color = fill_col))+
+  geom_dag_edges()+
+  geom_dag_label(aes(label =label),nudge_y =.2) +
+  guides(fill="none",color = "none")+
+  theme_dag()+
+  labs(title ="Adjusting for smoking, no relationship\nbetween coffee and cancer")+
+  scale_color_manual(values=c("black","grey"))-> coffee_dag2_fig
+
+confounded_fig1 <- ggarrange(coffee_dag1_fig,coffee_lm1_fig)
+confounded_fig2 <- ggarrange(coffee_dag2_fig, coffee_lm2_fig)
+
+```
+
+## Coffee and Cancer
+```{r}
+#| label: confounded_fig1
+#| echo: false
+
+confounded_fig1
+
+```
+
+
+## Adjusting for Smoking
+
+```{r}
+#| label: confounded_fig2
+#| echo: false
+
+confounded_fig2
+
+```
+
+
+
+::::
+
+## {.smaller} 
+#### Collider Bias: The Dating Example
+
+:::: panel-tabset
+
+## Collider bias
+
+:::{.nonincremental}
+
+
+
+- Why are attractive people such jerks?
+
+
+- Suppose [dating]{.blue} is a function of [looks]{.blue} and [personality]{.blue}
+
+- Dating is a [common consequences]{.blue} of [looks]{.blue} and [personality]{.blue}
+
+- Basing our claim off of who we date is an example of [selection bias]{.blue} created by [controlling for collider]{.blue}
+
+ 
+
+
+:::
+
+```{r}
+#| label: collidercode
+#| echo: false
+dating_dag <- collider_triangle(
+  x = "Looks",
+  y = "Personality",
+  m = "Dateability"
+)
+dating_dag %>% 
+  tidy_dagitty() ->
+  dating_dag
+dating_dag %>% 
+  mutate(colour = ifelse(name == "m", "Collider","Non-Collider"))->dating_dag
+ggdag(dating_dag, 
+      text = F,
+      use_labels = "label")+
+  theme_void() +labs(
+    title = "Dating is collider"
+  ) -> collider_dag_fig1
+
+
+
+
+ggdag_dseparated(dating_dag, 
+                 text = F, 
+                 controlling_for = "m",
+                 use_labels = "label")+
+  theme_void()+
+  guides(color="none",shape="none")+
+  labs(title="Selection bias creates\nspurious relationship") -> collider_dag_fig2
+
+n <- 100
+set.seed(123)
+collider_df <- tibble(
+  Looks = rnorm(n),
+  Personality = rnorm(n)
+) %>% 
+  mutate(
+    date = case_when(
+      Looks > .5  ~ 1,
+      Looks < .5 & Personality >.75 ~ 1,
+      T ~ 0
+    ),
+    Swipe = ifelse(date == 1, "Right","Left")
+  )
+collider_df %>% 
+  filter(date==1) %>% 
+  ggplot(aes(Looks, Personality, col=Swipe))+
+  geom_point(alpha=.5)+
+  stat_smooth(
+    method = "lm",
+    col = "red"
+  )+
+  guides(color=guide_legend(title= "Swipe"))+
+  theme_minimal()+
+  labs(title = "It looks like you date jerks")+
+  scale_color_manual(values = "red")-> collider_lm_fig1
+ 
+collider_lm_fig1+
+  geom_point(
+    data = collider_df,
+    alpha = .5
+  )+
+  stat_smooth(
+    data = collider_df,
+    col = "black",
+    method = "lm"
+  )+scale_color_manual(values = c("grey","red"))+
+  labs(title = "No relationship between looks\nand personality overall")->collider_lm_fig2
+
+collider_fig1 <- ggarrange(collider_dag_fig2,collider_lm_fig1)
+collider_fig2 <- ggarrange(collider_dag_fig1, collider_lm_fig2)
+
+
+
+```
+
+## Selection bias 
+
+```{r}
+#| echo: false
+collider_fig1
+```
+
+
+## No relationship in population
+
+```{r}
+#| echo: false
+collider_fig2
+```
+
+::::
+
 
 ## When to control for a variable:
 
@@ -1451,12 +1800,47 @@ Two ways to represent causal claims:
 
 [@Blair2023-yg] [(Chap. 6.2)](https://book.declaredesign.org/declaration-diagnosis-redesign/specifying-model.html#types-of-variables-in-models)
 
+
 # {{< fa lightbulb >}} Covariate Adjustment {.inverse}
+
+##  Covariate Adjustment
+
+Covariate adjustment refers a broad class of procedures that try to make a comparison more credible or meaningful by adjusting for some other potentially confounding factor.
+
+
+##  Covariate Adjustment
+
+When you hear people talk about
+
+- Controlling for age
+- Conditional on income
+- Holding age and income constant
+- Ceteris paribus (All else equal)
+
+They are typically talking about some sort of covariate adjustment.
+
+
+##  Three approaches to covariate adjustment{.smallero}
+
+- [Subclassification]{.blue}
+  - 👍: Easy to implement and interpret
+  - 👎: Curse of dimensionality, Selection on observables
+
+- [Matching ]{.blue}
+  - 👍: Balance on multiple covariates, Mirrors logic of experimental design 
+  - 👎: Selection on observables, Only provides balance on observed variables, Lot's of technical details...
+
+- [Regression]{.blue}
+  - 👍: Easy to implement, control for many factors (good and bad)
+  - 👎: Selection on observables, easy to fit "bad" models
+
 
 # {{< fa lightbulb >}} Simple Linear Regression {.inverse}
 
-## Understanding Linear Regression
+## Understanding Linear Regression{.smaller}
 
+
+:::{.nonincremental}
 - **Conceptual**
   - Simple linear regression estimates "a line of best fit" that summarizes relationships between two variables
 
@@ -1472,6 +1856,12 @@ $$
 lm(y ~ x, data = df)
 ```
 
+:::
+
+## Understanding Linear Regression{.smaller}
+
+:::{.nonincremental}
+
 - *Technical/Definitional*
   - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR):
 
@@ -1480,8 +1870,10 @@ $$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1}
 - *Theoretical*
   - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
-class: inverse, center, middle \# 💡\
-\# Conceptual: Linear Regression \## Linear Regression Provides an Estimate of the Line of Best Fit
+:::
+
+
+# {{< fa lightbulb >}} Conceptual: Linear Regression {.inverse}
 
 ## Conceptual: Linear Regression
 
@@ -1493,7 +1885,12 @@ class: inverse, center, middle \# 💡\
 
   - How does economic development vary with democracy, adjusting for natural resources like oil and gas
 
-- Formally:
+
+## Conceptual: Linear Regression {.smaller}
+
+:::{.nonincremental}
+
+More formally:
 
 $$
 y_i = f(x_i) + \epsilon
@@ -1506,8 +1903,12 @@ $$
 $$
 y_i = \beta_0 + \beta_1 x_i + \epsilon
 $$
+:::
 
-## Linear Regression and the Line of Best Fit
+## Linear Regression and the Line of Best Fit {.smaller}
+
+:::{.nonincremental}
+
 
 - The goal of linear regression is to choose coefficients $\beta_0$ and $\beta_1$ to summarizes the relationship between $y$ and $x$
 
@@ -1521,7 +1922,9 @@ $$
 
 - More on this to come. But first...
 
-## Regression Notation
+:::
+
+## Regression Notation{.smaller}
 
 - $y_i$ an **outcome variable** or thing we're trying to explain
 
@@ -1537,23 +1940,26 @@ $$
 
 - $\epsilon$ the **error term** representing variation in $y_i$ not explained by our model.
 
-## Linear Regression
+## Linear Regression {.smaller}
 
-Let's return to the simple (bivariate) linear regressions we introduced last week:
+:::{.nonincremental}
+
+- We call this a bivariate regression, because there are only two variables
 
 $$
 y_i = \beta_0 + \beta_1 x_i + \epsilon
 $$
-
-- We call this a bivariate regression, because there are only two variables.
 
 - We call this a linear regression, because $y_i = \beta_0 + \beta_1 x_i$ is the equation for a line, where:
 
   - $\beta_0$ corresponds to the $y$ intercept, or the model's prediction when $x = 0$.
 
   - $\beta_1$ corresponds to the slope, or how $y$ is predicted to change as $x$ changes.
+:::
 
-## Linear Regression
+## Linear Regression {.smaller}
+
+:::{.nonincremental}
 
 - If you find this notation confusing, try plugging in substantive concepts for what $y$ and $x$ represent
 - Say we wanted to know how attitudes to transgender people varied with age in the baseline survey from Lab 03.
@@ -1565,8 +1971,13 @@ $$y_i = \beta_0 + \beta_1 x_i + \epsilon$$
 Reflects:
 
 $$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \epsilon_i$$
+:::
 
-## Practical: Estimating a Linear Regression
+# {{< fa lightbulb >}} Practical: Estimating a Linear Regression {.inverse}
+
+## Practical: Estimating a Linear Regression{.smaller}
+
+:::{.nonincremental}
 
 - We estimate linear regressions in `R` using the `lm()` function.
 - `lm()` requires two arguments:
@@ -1580,6 +1991,12 @@ m1 <- lm(therm_trans_t0 ~ vf_age, data = df)
 m1
 
 ```
+
+:::
+
+## The `lm()` function{.smaller}
+
+:::{.nonincremental}
 
 The coefficients from `lm()` are saved in object called `m1`
 
@@ -1596,7 +2013,9 @@ names(m1)
 m1$coefficients
 ```
 
-## Practical: Interpreting a Linear Regression
+:::
+
+## Practical: Interpreting a Linear Regression{.smaller}
 
 We can extract the intercept and slope from this simple bivariate model, using the `coef()` function
 
@@ -1611,7 +2030,7 @@ coef(m1)[1]
 coef(m1)[2]
 ```
 
-## Practical: Interpreting a Linear Regression
+## Practical: Interpreting a Linear Regression{.smaller}
 
 The two coefficients from `m1` define a line of best fit, summarizing how feelings toward transgender individuals change with age
 
@@ -1621,7 +2040,9 @@ $$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \ep
 
 $$\text{Transgender Feeling Thermometer}_i = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \text{Age}_i + \epsilon_i$$
 
-## Practical: Predicted values from a Linear Regression
+## Practical: Predicted values from a Linear Regression{.smaller}
+
+:::{.nonincremental}
 
 - Often it's useful for interpretation to obtain predicted values from a regression.
 
@@ -1630,6 +2051,7 @@ $$\text{Transgender Feeling Thermometer}_i = `r round(coef(m1)[1],2)` + `r round
 - For example, might we expect attitudes to differ among an 18-year-old college student and their 68-year-old grandparent?
 
 $$\hat{FT}_{x=18} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 18  = 59.16$$ $$\hat{FT}_{x=65} = `r round(coef(m1)[1],2)` + `r round(coef(m1)[2],2)` \times 68  = 49.01$$
+:::
 
 ## Practical: Predicted values from a Linear Regression
 
@@ -1642,11 +2064,11 @@ coef(m1)[1] + coef(m1)[2] * 68
 
 ```
 
-## Practical: Predicted values from a Linear Regression
+## Practical: Predicted values from a Linear Regression{.smaller}
 
 More often we will:
 
-- Make a prediction data frame (called `pred_df` below) with the values of interests
+- Make a [prediction data frame]{.blue} (called `pred_df` below) with the values of interests
 - Use the `predict()` function with our linear model (`m1`) and `pred_df`
 - Save the predicted values to our new column in our prediction data frame
 
@@ -1667,17 +2089,22 @@ pred_df$ft_trans_hat <- predict(m1, newdata = pred_df)
 pred_df
 ```
 
-## Practical: Visualizing Linear Regression
+##
+#### Practical: Visualizing Linear Regression
 
+::: panel-tabset
+
+## Concept
 We can visualize simple regression by:
 
 - plotting a scatter plot of the outcome (y-axis) and predictors (x-axis)
 
 - overlaying the line defined by `lm()`
 
+
+## Code
 ```{r}
 #| label: fig_lm_code
-#| eval: false
 
 fig_lm <- df %>%
   ggplot(aes(vf_age,therm_trans_t0))+
@@ -1701,39 +2128,58 @@ fig_lm <- df %>%
     x = "Age",
     y = "Feeling Thermometer toward\nTransgender People"
   )+
-  theme_classic()
-fig_lm
+  theme_classic() -> fig_lm
 ```
 
+
+## Intercept
 ```{r}
 #| label: fig_lm_plot
 #| echo: false
-fig_lm <- df %>%
-  ggplot(aes(vf_age,therm_trans_t0))+
-  geom_point(size=.5, alpha=.5)+
-  geom_abline(intercept = coef(m1)[1],
-              slope = coef(m1)[2],
-              col = "blue"
-              )+
-  geom_vline(xintercept = 0,linetype = 2)+
-  xlim(0,100)+
-  annotate("point",
-           x = 0, y = coef(m1)[1],
-           col= "red",
-           )+
-  annotate("text",
-           label = expression(paste(beta[0],"= 62.81" )),
-           x = 1, y = coef(m1)[1]+5,
-           hjust = "left",
-           )+
-  labs(
-    x = "Age",
-    y = "Feeling Thermometer toward\nTransgender People"
-  )+
-  theme_classic()
 fig_lm
 ```
 
+## Slope
+
+```{r}
+#| label: figlm1
+#| echo: false
+#devtools::install_github("nicolash2/ggbrace")
+# library(ggbrace)
+
+fig_lm +
+  ylim(48, 52)+
+  xlim(58, 62)+
+  geom_segment(aes(
+    y = coef(m1)[1] + coef(m1)[2]*61,
+    yend = coef(m1)[1] + coef(m1)[2]*60,
+    x = 60, xend = 60),
+    arrow = arrow(ends = "first",length = unit(0.015, "npc")),
+    col = "red"
+    )+
+    geom_segment(aes(
+    y = coef(m1)[1] + coef(m1)[2]*61,
+    yend = coef(m1)[1] + coef(m1)[2]*61,
+    x = 60, xend = 61),
+    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
+    col = "red"
+    )+
+   geom_curve(aes(
+    y = 49.7,
+    yend = 50.53,
+    x = 59.43, xend = 59.8),
+    curvature = -.2,
+    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
+    col = "black",
+    )+
+    annotate("text",
+           label = expression(paste(beta[1],"= -0.21" )),
+           x = 59, y = 49.5,
+           hjust = "left",
+           )
+```
+
+## Errors
 ```{r}
 #| label: figlm1code
 #| echo: false
@@ -1767,53 +2213,17 @@ fig_lm+
 
 ```
 
-```{r}
-#| label: figlm1
-#| echo: false
-# devtools::install_github("nicolash2/ggbrace")
-library(ggbrace)
-fig_lm +
-  ylim(48, 52)+
-  xlim(58, 62)+
-  geom_segment(aes(
-    y = coef(m1)[1] + coef(m1)[2]*61,
-    yend = coef(m1)[1] + coef(m1)[2]*60,
-    x = 60, xend = 60),
-    arrow = arrow(ends = "first",length = unit(0.015, "npc")),
-    col = "red"
-    )+
-    geom_segment(aes(
-    y = coef(m1)[1] + coef(m1)[2]*61,
-    yend = coef(m1)[1] + coef(m1)[2]*61,
-    x = 60, xend = 61),
-    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
-    col = "red"
-    )+
-   geom_curve(aes(
-    y = 49.7,
-    yend = 50.53,
-    x = 59.43, xend = 59.8),
-    curvature = -.2,
-    arrow = arrow(ends = "last",length = unit(0.015, "npc")),
-    col = "black",
-    )+
-    annotate("text",
-           label = expression(paste(beta[1],"= -0.21" )),
-           x = 59, y = 49.5,
-           hjust = "left",
-           )+
-  geom_brace(aes(c(59.9, 59.98),c(50.43, 50.63)), 
-             inherit.data=F,
-             rotate = 270)
-```
+:::
 
-## How did `lm()` choose $\beta_0$ and $\beta_1$
+# {{< fa lightbulb >}} Technichal: Mechanics of Linear Regression {background-color="lightgrey"}
 
---
+## How did `lm()` choose $\beta_0$ and $\beta_1${.smaller}
+
+:::{.nonincremental}
 
 - P: By minimizing the sum of squared errors, in procedure called Ordinary Least Squares (OLS) regression
 
---
+
 
 - Q: Ok, that's not really that helpful...
 
@@ -1823,7 +2233,9 @@ fig_lm +
 
 P: Good questions!
 
-## What's an error?
+:::
+
+## What's an error? {.smaller}
 
 An error, $\epsilon_i$ is simply the difference between the observed value of $y_i$ and what our model would predict, $\hat{y_i}$ given some value of $x_i$. So for a model:
 
@@ -1835,7 +2247,9 @@ $$\hat{\epsilon_i}=y_i-\hat{y_i}=(Y_i-(\beta_0+\beta_1 x_{i}))$$
 
 To get $\epsilon_i$
 
-## Why are we squaring and summing $\epsilon$
+## Why are we squaring and summing $\epsilon${.smaller}
+
+:::{.nonincremental}
 
 There are more mathy reasons for this, but at intuitive level, the Sum of Squared Residuals (SSR)
 
@@ -1844,14 +2258,15 @@ There are more mathy reasons for this, but at intuitive level, the Sum of Square
 - Summing produces single value summarizing our models overall performance.
 
 There are other criteria we could use (e.g. minimizing the sum of absolute errors), but SSR has some nice properties
+:::
 
-## How do we minimize $\sum \epsilon^2$
+## How do we minimize $\sum \epsilon^2$ {.smaller}
 
 OLS chooses $\beta_0$ and $\beta_1$ to minimize $\sum \epsilon^2$, the Sum of Squared Residuals (SSR)
 
 $$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\beta_0+\beta_1x_i))^2$$
 
-## How did `lm()` choose $\beta_0$ and $\beta_1$
+## How did `lm()` choose $\beta_0$ and $\beta_1$ {.smaller}
 
 In an intro stats course, we would walk through the process of finding
 
@@ -1863,13 +2278,15 @@ $$ \beta_1 = \frac{Cov(x,y)}{Var(x)}$$ Which is never quite the epiphany, I thin
 
 The following slides walk you through the mechanics of this exercise. We're gonna skip through them in class, but they're there for your reference
 
-## How do we minimize $\sum \epsilon^2$
+## How do we minimize $\sum \epsilon^2${.smaller}
 
 To understand what's going on under the hood, you need a broad understanding of some basic calculus.
 
 The next few slides provide a brief review of derivatives and differential calculus.
 
-## Derivatives
+## Derivatives{.smaller}
+
+:::{.nonincremental}
 
 The derivative of $f$ at $x$ is its rate of change at $x$
 
@@ -1886,7 +2303,10 @@ $$
 
 2.  Lagrange: $f^{\prime}(x)$
 
-## Some useful Facts about Derivatives
+:::
+
+
+## Some useful Facts about Derivatives{.smaller}
 
 Derivative of a constant
 
@@ -1914,7 +2334,7 @@ $$
 
 The derivative of the "outside" times the derivative of the "inside," remembering that the derivative of the outside function is evaluated at the value of the inside function.
 
-## Finding a Local Minimums
+## Finding a Local Minimums{.smaller}
 
 Local minimum:
 
@@ -1930,7 +2350,7 @@ knitr::include_graphics("https://copingwithcalculus.com/SecondDeriv1.png")
 
 [Source](https://copingwithcalculus.com/SecondDerivativeTest.html)
 
-## Partial Derivatives
+## Partial Derivatives{.smaller}
 
 Let $f$ be a function of the variables $(x, \dots, X_n)$. The partial derivative of $f$ with respect to $X_i$ is
 
@@ -1946,7 +2366,7 @@ knitr::include_graphics("https://miro.medium.com/max/766/1*dToo8pNrhBmYfwmPLp6Wr
 
 [Source](https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86)
 
-## Minimizing the sum of squared errors
+## Minimizing the sum of squared errors{.smaller}
 
 Our model
 
@@ -1958,7 +2378,7 @@ $$\begin{aligned}
 \sum \hat{\epsilon_i}^2 &= \sum (y_i-\beta_0-\beta_1 x_{i})^2
 \end{aligned}$$
 
-## Minimizing the sum of squared errors
+## Minimizing the sum of squared errors{.smaller}
 
 We solve for $\beta_0$ and $\beta_1$, by taking the partial derivatives with respect to $\beta_0$ and $\beta_1$, and setting them equal to zero
 
@@ -1967,7 +2387,7 @@ $$\begin{aligned}
 \frac{\partial \sum \hat{\epsilon_i}^2}{\partial\beta_1} &= -2\sum (y_i-\beta_0-\beta_1 x_{i})x_{i}=0 & \text{chain rule}
 \end{aligned}$$
 
-## Solving for $\beta_0$
+## Solving for $\beta_0${.smaller}
 
 First, we'll solve for $\beta_0$, by multiplying both sides by -1/2 and distributing the $\sum$:
 
@@ -1979,7 +2399,7 @@ N \beta_0 &= \sum y_i -\sum \beta_1 x_{i}\\
 \beta_0 &= \bar{y} - \beta_1 \bar{x}
 \end{aligned}$$
 
-## Solving for $\beta_1$
+## Solving for $\beta_1${.smaller}
 
 Now, we can solve for $\beta_1$ plugging in $\beta_0$.
 
@@ -1989,7 +2409,7 @@ $$\begin{aligned}
 0 &= \sum [y_ix_i-\bar{y}x_{i} + \beta_1 \bar{x}x_{i}-\beta_1 x_{i}^2]
 \end{aligned}$$
 
-## Solving for $\beta_1$
+## Solving for $\beta_1${.smaller}
 
 Now we'll rearrange some terms and pull out an $x_{i}$ to get
 
@@ -2009,7 +2429,7 @@ $$\begin{aligned}
 \beta_1  &= \frac{\sum (y_i -\bar{y})}{\sum (x_{i}-\bar{x})}
 \end{aligned}$$
 
-## Solving for $\beta_1$
+## Solving for $\beta_1${.smaller}
 
 Finally, by multiplying by $\frac{(x_{i}-\bar{x})}{(x_{i}-\bar{x})}$ we get
 
@@ -2025,10 +2445,9 @@ $$\begin{aligned}
 
 So the coefficient in a simple linear regression of $Y$ on $X$ is simply the ratio of the covariance between $X$ and $Y$ over the variance of $X$. Neat!
 
-class: inverse, center, middle \# 💡\
-\# Theoretical: Linear Regression \## OLS provides a linear estimate of CEF: E\[Y\|X\]
+# {{< fa lightbulb >}} Theoretical:  OLS provides a linear estimate of CEF: E\[Y|X\]{.inverse}
 
-## Linear Regression is a many splendored thing
+## Linear Regression is a many splendored thing{.smaller}
 
 [Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of the various interpretations/motivations for linear regression.
 
@@ -2044,7 +2463,9 @@ class: inverse, center, middle \# 💡\
 
 - A [linear approximation of the conditional expectation function](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)
 
-## Linear Regression is a many splendored thing
+## Linear Regression is a many splendored thing{.smaller}
+
+:::{.nonincremental}
 
 [Timothy Lin](https://www.timlrx.com/tags/ols) provides a great overview of various interpretations/motivations for linear regression.
 
@@ -2060,7 +2481,11 @@ class: inverse, center, middle \# 💡\
 
 - A [**linear approximation of the conditional expectation function**](https://www.timlrx.com/blog/notes-on-regression-approximation-of-the-conditional-expectation-function#fn1)
 
-## The Conditional Expectation Function
+:::
+
+
+
+## The Conditional Expectation Function{.smaller}
 
 Of all the functions we could choose to describe the relationship between $Y$ and $X$,
 
@@ -2080,44 +2505,33 @@ $$
 E[\epsilon|X] = E[Y - E[Y|X]|X]= E[Y|X] - E[Y|X] = 0
 $$
 
-Of all the possible functions $g(X)$, we can show that \$E\[Y_i\|X_i\] \$ is the best predictor in terms of minimizing **mean squared error**
+Of all the possible functions $g(X)$, we can show that $E[Y_i|X_i]$ is the best predictor in terms of minimizing **mean squared error**
 
 $$
 E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2] 
 $$
 
-## Linear Approximations to the Conditional Expectation Function
+## {.smaller}
+#### Linear Approximations to the Conditional Expectation Function
+
+::: panel-tabset
+
+## Concept
+
+:::{.nonincremental}
 
 - We can then show (in a different class) that linear regression provides the best linear predictor of the CEF
   - Chapter 3, of [Mostly Harmless Econometrics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991028523169706966)
   - Chapter 4 of [Foundations of Agnostic Statistics](https://bruknow.library.brown.edu/permalink/01BU_INST/9mvq88/alma991000736119706966)
 - Furthermore, when the CEF is linear, it's equal exactly to OLS regression
+:::
 
+## CEF
 ```{r}
 #| label: cef1code
-#| echo: true
-#| eval: false
-
-
-df %>%
-  ggplot(aes(vf_age,therm_trans_t0))+
-  geom_point(size=.5, alpha=.5)+
-  stat_summary(geom="point", aes(col="CEF"))+
-  stat_summary(geom="line", aes(col="CEF"))+
-  labs(
-    x = "Age",
-    y = "Feeling Thermometer toward\nTransgender People",
-    col = ""
-  )+
-  theme_classic() -> plot_cef
-
-
-
-```
-
-```{r}
-#| label: cef1
 #| echo: false
+
+
 df %>%
   ggplot(aes(vf_age,therm_trans_t0))+
   geom_point(size=.5, alpha=.5)+
@@ -2131,51 +2545,28 @@ df %>%
   theme_classic() -> plot_cef
 
 plot_cef
+
+
 ```
 
+## OLS
 ```{r}
 #| label: cef2code
-#| echo: true
-#| eval: false
-plot_cef+
-  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
-plot_cef
-
-
-
-
-```
-
-```{r}
-#| label: cef2
 #| echo: false
 plot_cef+
   geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
 plot_cef
-```
-
-```{r}
-#| label: cef3code
-#| echo: true
-#| eval: false
-plot_cef+
-  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
-plot_cef
 
 
 
 
 ```
 
-```{r}
-#| label: cef3
-#| echo: false
-plot_cef+
-  geom_smooth(method = "lm", se=F, aes(col = "OLS")) -> plot_cef
-plot_cef
-```
+:::
 
-## What you need to know about Regression
+## What you need to know about Regression {.smaller}
+
+:::{.nonincremental}
 
 - **Conceptual**
   - Simple linear regression estimates a line of best fit that summarizes relationships between two variables
@@ -2193,6 +2584,12 @@ $$
 lm(y ~ x, data = df)
 ```
 
+:::
+
+## What you need to know about Regression {.smaller}
+
+:::{.nonincremental}
+
 - *Technical/Definitional*
   - Linear regression chooses $\beta_0$ and $\beta_1$ to minimize the Sum of Squared Residuals (SSR):
 
@@ -2201,9 +2598,259 @@ $$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1}
 - *Theoretical*
   - Linear regression provides a **linear** estimate of the conditional expectation function (CEF): $E[Y|X]$
 
+:::
+
 # {{< fa lightbulb >}} Difference-in-Differences {.inverse}
 
-## Summary
+## Motivating Example: What causes Cholera? {.smaller background-image=https://www.finebooksmagazine.com/sites/default/files/styles/gallery_item/public/media-images/2020-11/map-lead-4.jpg?h=2ded5a3f&itok=Mn-K5rQc, background-opacity=.3}
+
+- In the 1800s, cholera was thought to be transmitted through the air.
+
+- John Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.
+
+- Leveraged a **natural experiment** in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location. 
+
+
+## Notation {.smaller}
+
+Let's adopt a little notation to help us think about the logic of Snow's design:
+
+- $D$: treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)
+
+- $T$: period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).
+
+- $Y_{di}(t)$ the potential outcome of unit $i$ 
+
+  - $Y_{1i}(t)$ the potential outcome of unit $i$ when treated between the two periods 
+
+  - $Y_{0i}(t)$ the potential outcome of unit $i$ when control between the two periods 
+
+
+## Causal Effects {.smaller}
+
+The individual causal effect for unit i at time t is:
+
+$$\tau_{it} = Y_{1i}(t) − Y_{0i}(t)$$
+
+What we observe is 
+
+$$Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)$$
+
+$D$ only equals 1, when $T$ equals 1, so we never observe $Y_0i(1)$ for the treated units. 
+
+In words, we don't know what Lambeth's outcome would have been in the second period, had they not been treated.
+
+
+## Average Treatment on Treated {.smaller}
+
+Our goal is to estimate the average effect of treatment on treated (ATT):
+
+
+$$\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$$
+
+That is, what would have happened in Lambeth, had their water company not moved their pipes
+
+
+## Average Treatment on Treated {.smaller}
+
+Our goal is to estimate the average effect of treatment on treated (ATT):
+
+We we can observe is:
+
+|               | Pre-Period (T=0)  | Post-Period (T=1)  |
+|-|--|-|
+| Treated $D_{i}=1$  |  $E[Y_{0i}(0)\vert D_i = 1]$ | $E[Y_{1i}(1)\vert D_i = 1]$  |
+| Control $D_i=0$  |  $E[Y_{0i}(0)\vert D_i = 0]$ | $E[Y_{0i}(1)\vert D_i = 0]$  |
+
+
+## Data {.smaller}
+
+Because potential outcomes notation is abstract, let's consider a modified description of the Snow's cholera death data from [Scott Cunningham](https://mixtape.scunning.com/difference-in-differences.html):
+
+```{r}
+#| label = "choleradat",
+#| echo = F
+snow <- tibble(Company = c("Lambeth (D=1)", "Southwark and Vauxhall (D=0)"),
+               `1849 (T=0)` = c(85,135),
+               `1854 (T=1)` = c(19,147),
+
+               )
+
+knitr::kable(snow)
+
+```
+
+
+## How can we estimate the effect of moving pumps upstream? {.smaller}
+
+Recall, our goal is to estimate the effect of the the treatment on the treated:
+
+$$\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$$
+
+Let's conisder some strategies Snow could take to estimate this quantity:
+
+
+## Before vs after comparisons:{.smaller}
+
+:::{.nonincremental}
+- Snow could have compared Labmeth in 1854 $(E[Y_i(1)|D_i = 1] = 19)$ to Lambeth in 1849 $(E[Y_i(0)|D_i = 1]=85)$, and claimed that moving the pumps upstream led to **66 fewer cholera deaths.** 
+
+- Assumes Lambeth's pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn't moved $(E[Y_{0i}(1)|D_i = 1])$.
+
+- A skeptic might argue that Lambeth in 1849 $\neq$ Lambeth in 1854
+
+
+```{r}
+#| echo: false
+knitr::kable(snow) |> 
+  kable_styling() |> 
+  row_spec(1, bold=T,color = "blue")
+```
+
+:::
+
+
+## Treatment-Control comparisons in the Post Period. {.smaller}
+
+:::{.nonincremental}
+
+- Snow could have compared outcomes between Lambeth and S&V in 1954  ($E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]$), concluding that the change in pump locations led to **128 fewer deaths.**
+
+- Here the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved $(E[Y_{0i}(1)|D_i = 1])$
+
+- Again, our skeptic could argue  Lambeth $\neq$ S&V 
+
+```{r}
+#| echo: false
+knitr::kable(snow) |> 
+  kable_styling() |> 
+  kableExtra::column_spec(3, bold=T, color="red")
+```
+
+:::
+
+## Difference in Differences {.smaller}
+
+:::{.nonincremental}
+To address these concerns, Snow employed what we now call a [difference-in-differences]{.blue} design, 
+
+There are two, equivalent ways to view this design. 
+
+$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}$$
+
+- Difference 1: Average change between Treated and Control  in Post Period
+
+- Difference 2: Average change between Treated and Control  in Pre Period
+
+:::
+
+## Difference in Differences {.smaller}
+
+:::{.nonincremental}
+
+$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}$$
+Is equivalent to: 
+
+$$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\}}_{\text{Post - Pre |Treated }}− \overbrace{\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Post-Pre|Control}}$$
+
+
+- Difference 1: Average change between Treated over time
+- Difference 2: Average change between Control over time
+
+:::
+
+## Difference in Differences {.smaller}
+
+
+You'll see the DiD design represented both ways, but they produce the same result:
+
+$$
+\tau_{ATT} = (19-147) - (85-135) = -78
+$$
+
+$$
+\tau_{ATT} = (19-85) - (147-135) = -78
+$$
+
+
+## Identifying Assumption of a Difference in Differences Design {.smaller}
+
+The key assumption in this design is what's known as the parallel trends assumption: $E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]$ 
+
+- In words: If Lambeth hadn't moved its pumps, it would have followed a similar path as S&V
+
+## Parralel Trends
+
+```{r}
+#| label: paralleltrends
+#| echo: false
+
+snow_g <- tibble(
+  Period = c(0,0,3,3,0,3),
+  Treatment = c(0,1,0, 1,1,1),
+  Line = c(1,1,1,1,2,2),
+  Company = c("S&V","Lambeth","S&V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
+  Deaths = c(135,85,147,19,85,97)
+)
+
+snow_g %>%
+  ggplot(aes(Period,Deaths,col = Company))+
+  geom_point()+
+  geom_line()+
+  geom_segment(aes(x=3.1,xend=3.1,y=19,yend=147), linetype = 2, col= "gray")+
+  annotate(geom="text",x = 3.3,y=125, label = "1",hjust=.5)+
+  geom_segment(aes(x=3.2,xend=3.2,y=19,yend=97), linetype = 2,col="gray")+
+  annotate(geom="text",x = 3.3,y=55, label = "3",hjust=-.5)+
+  geom_segment(aes(x=-.1,xend=-.1,y=85,yend=135), linetype = 2,col="gray")+
+  annotate(geom="text",x = -.1,y=120, label = "2",hjust=1.5)+
+  xlim(-2,6)+
+  scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
+  theme_bw() -> snow_p
+
+snow_p
+
+
+```
+
+
+
+
+## Summary {.smaller}
+
+- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+  
+  - Taking the pre-post difference removes any fixed differences between the units
+  
+  - Then taking the difference between treated and control differences removes any common differences over time
+
+- The key identifying assumption of a DiD design is the "assumption of parallel trends"
+  - Absent treatment, treated and control groups
+would see the same changes over time.
+  - Hard to prove, possible to test
+
+
+
+## Extensions and limitations {.smaller}
+
+- Diff-in-Diff easy to estimate with linear regression
+- Generalizes to multiple periods and treatment interventions
+  - More pre-treatment periods allow you assess "parallel trends" assumption
+- Alternative methods 
+  - Synthetic control
+  - Event Study Designs
+- What if you have multiple treatments or treatments that come and go?
+  - Panel Matching
+  - Generalized Synthetic control
+
+
+## Applications{.smaller}
+
+- [Card and Krueger (1994)](https://www.nber.org/papers/w4509) What effect did raising the minimum wage in NJ have on employment
+
+- [Abadie, Diamond, & Hainmueller (2014)](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12116?casa_token=_ceCu4SwzTEAAAAA%3AP9aeaZpT_Zh1VdWKXx_tEmzaJTtMJ1n0eG7EaYlvJZYN000re33cfMAI2O8N8htFJjOsln2GyVeQql4) What effect did German Unification have on economic development in West Germany
+
+- [Malesky, Nguyen and Tran (2014)](https://www.cambridge.org/core/journals/american-political-science-review/article/impact-of-recentralization-on-public-services-a-differenceindifferences-analysis-of-the-abolition-of-elected-councils-in-vietnam/3477854BAAFE152DC93C594169D64F58) How does decentralization influence public services?
+
 
 ## References
 

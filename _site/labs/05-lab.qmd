@@ -4,7 +4,7 @@ author: "Your Group Members Names Here"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
