@@ -739,7 +739,7 @@ Next week's lab, we'll be using the `tidycensus` package to download census data
 
 We'll also need to [install a census API]{.blue} to get the data.
 
-Here's a [detailed guide](https://pols1600.paultesta.org/slides/04-packages) of what we'll do in class right now.
+Here's a [detailed guide](https://pols1600.paultesta.org/resources/04-packages) of what we'll do in class right now.
 
 ## Install new packages
 
@@ -757,7 +757,7 @@ install.packages("DeclareDesign")
 
 ## Census API {.smaller}
 
-Please follow these steps so you can download data directly from the U.S. Census [here](https://pols1600.paultesta.org/slides/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+Please follow these steps so you can download data directly from the U.S. Census [here](https://pols1600.paultesta.org/resources/04-packages.html#3_Install_a_Census_API_tidycensus_package):
 
 1.  Install the `tidycensus` package
 2.  Load the installed package
