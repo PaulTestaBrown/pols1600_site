@@ -801,7 +801,7 @@ fig1
 ![](images/05_covid.png)
 [Red Covid, an Update](https://www.nytimes.com/2022/02/18/briefing/red-covid-partisan-deaths-vaccines.html) *New York Times*, 18 February, 2022
 :::
-:::
+::::
 
 ## Preview of the Lab{.smaller}
 
@@ -1488,7 +1488,7 @@ In this course, we will use two forms of notation to describe our causal claims.
 ## Types of variables in a DAG{.smaller}
 
 
-::: panel-tabset
+:::: panel-tabset
 
 ## DAG
 ![](https://book.declaredesign.org/figures/figure-6-2.svg)
@@ -1515,7 +1515,7 @@ Threats to causal claims/Sources of bias:
 
 :::
 
-:::
+::::
 
 ## DAGs illustrate two sources of bias:
 
@@ -1525,16 +1525,51 @@ Threats to causal claims/Sources of bias:
 
 ## Confounding Bias: The Coffee Example
 
+::: panel-tabset
+
+## Confounding Bias
+
+What's the relationship between drinking coffee and lung cancer?
+
+
+
 ```{r}
 #| label: confounding_day
 #| echo: false
-#| eval: false
+n <- 1000
+coffee_df <- tibble(
+  smoking = ifelse(rnorm(n)>.5,.75,0),
+  Smoker = ifelse(smoking >0, "Smoker","Non-Smoker"),
+  Coffee = smoking + rnorm(n),
+  Cancer = 2*smoking+ rnorm(n),
+)
 
+lm(Cancer ~ Coffee, coffee_df)
+coffee_df %>% 
+ggplot(aes(Coffee,Cancer))+
+  geom_point()+
+  stat_smooth(method = "lm")
+coffee_df %>% 
+ggplot(aes(Coffee,Cancer,col = Smoker))+
+  geom_point()+
+  stat_smooth(method = "lm")
 
-
-library(dagitty)
-library(ggdag)
-library(ggplot2)
+coffee_dag1 <- dagify(
+  y ~ x,
+  labels = c(
+    "y" = "Lung Cancer",
+    "x" = "Coffee"
+  ),
+  outcome = "y",
+  exposure = "x"
+)
+coffee_dag1 %>% tidy_dagitty(layout = "linear") %>% 
+  ggplot(aes(x,y, xend = xend, yend = yend))+
+  geom_dag_point()+
+  geom_dag_edges(edge_linetype = "dashed")+
+  geom_dag_label(aes(label =label),nudge_y =.25) +
+  ylim(-1,1)+
+  theme_void()
 
 coffee_dag <- confounder_triangle(
   x = "Coffee",
@@ -1542,13 +1577,18 @@ coffee_dag <- confounder_triangle(
   z = "Smoking"
 )
 
-ggdag_confounder_triangle(coffee_dag, 
-                 text = F, 
-                 # controlling_for = "z",
-                 use_labels = "label")
+coffee_dag<- coffee_dag %>% 
+  tidy_dagitty() 
+
+ggdag(coffee_dag,
+      text = F,
+      use_labels = "label")+
+  theme_void() -> confounder_fig1
+  
+
 ```
 
-
+:::
 
 ## Collider Bias: The Dating Example
 
@@ -1564,7 +1604,10 @@ dating_dag %>%
   dating_dag
 dating_dag %>% 
   mutate(colour = ifelse(name == "m", "Collider","Non-Collider"))->dating_dag
-ggdag(dating_dag, use_labels = "label")
+ggdag(dating_dag, 
+      text = F,
+      use_labels = "label")+
+  theme_void() -> collider_fig1
 
 ggdag(dating_dag,text = F, use_labels = "label")+
   theme_void()-> collider_fig1

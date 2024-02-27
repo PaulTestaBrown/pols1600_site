@@ -1906,74 +1906,117 @@ Y_i(1),Y_i(0),\mathbf{X_i},\mathbf{U_i} \unicode{x2AEB} D_i | K_i
 </section>
 <section id="confounding-bias-the-coffee-example" class="slide level2">
 <h2>Confounding Bias: The Coffee Example</h2>
+<div class="panel-tabset">
+<ul id="tabset-16" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-16-1">Confounding Bias</a></li></ul>
+<div class="tab-content">
+<div id="tabset-16-1">
+<p>What’s the relationship between drinking coffee and lung cancer?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Cancer ~ Coffee, data = coffee_df)
+
+Coefficients:
+(Intercept)       Coffee  
+     0.4663       0.2334  </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/confounding_day-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/confounding_day-2.png" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="05-slides_files/figure-revealjs/confounding_day-3.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="collider-bias-the-dating-example" class="slide level2">
 <h2>Collider Bias: The Dating Example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>dating_dag <span class="ot">&lt;-</span> <span class="fu">collider_triangle</span>(</span>
-<span id="cb50-2"><a></a>  <span class="at">x =</span> <span class="st">"Looks"</span>,</span>
-<span id="cb50-3"><a></a>  <span class="at">y =</span> <span class="st">"Personality"</span>,</span>
-<span id="cb50-4"><a></a>  <span class="at">m =</span> <span class="st">"Dateability"</span></span>
-<span id="cb50-5"><a></a>)</span>
-<span id="cb50-6"><a></a>dating_dag <span class="sc">%&gt;%</span> </span>
-<span id="cb50-7"><a></a>  <span class="fu">tidy_dagitty</span>() <span class="ot">-&gt;</span></span>
-<span id="cb50-8"><a></a>  dating_dag</span>
-<span id="cb50-9"><a></a>dating_dag <span class="sc">%&gt;%</span> </span>
-<span id="cb50-10"><a></a>  <span class="fu">mutate</span>(<span class="at">colour =</span> <span class="fu">ifelse</span>(name <span class="sc">==</span> <span class="st">"m"</span>, <span class="st">"Collider"</span>,<span class="st">"Non-Collider"</span>))<span class="ot">-&gt;</span>dating_dag</span>
-<span id="cb50-11"><a></a><span class="fu">ggdag</span>(dating_dag, <span class="at">use_labels =</span> <span class="st">"label"</span>)</span>
-<span id="cb50-12"><a></a></span>
-<span id="cb50-13"><a></a><span class="fu">ggdag</span>(dating_dag,<span class="at">text =</span> F, <span class="at">use_labels =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
-<span id="cb50-14"><a></a>  <span class="fu">theme_void</span>()<span class="ot">-&gt;</span> collider_fig1</span>
-<span id="cb50-15"><a></a></span>
-<span id="cb50-16"><a></a><span class="fu">ggdag_collider</span>(dating_dag,<span class="at">text =</span> F, <span class="at">use_labels =</span> <span class="st">"label"</span>,</span>
-<span id="cb50-17"><a></a>               ) <span class="ot">-&gt;</span> tmp</span>
-<span id="cb50-18"><a></a>tmp<span class="sc">$</span>layers</span>
-<span id="cb50-19"><a></a><span class="fu">ggdag_dseparated</span>(dating_dag, </span>
-<span id="cb50-20"><a></a>                 <span class="at">text =</span> F, </span>
-<span id="cb50-21"><a></a>                 <span class="at">controlling_for =</span> <span class="st">"m"</span>,</span>
-<span id="cb50-22"><a></a>                 <span class="at">use_labels =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
-<span id="cb50-23"><a></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>dating_dag <span class="ot">&lt;-</span> <span class="fu">collider_triangle</span>(</span>
+<span id="cb51-2"><a></a>  <span class="at">x =</span> <span class="st">"Looks"</span>,</span>
+<span id="cb51-3"><a></a>  <span class="at">y =</span> <span class="st">"Personality"</span>,</span>
+<span id="cb51-4"><a></a>  <span class="at">m =</span> <span class="st">"Dateability"</span></span>
+<span id="cb51-5"><a></a>)</span>
+<span id="cb51-6"><a></a>dating_dag <span class="sc">%&gt;%</span> </span>
+<span id="cb51-7"><a></a>  <span class="fu">tidy_dagitty</span>() <span class="ot">-&gt;</span></span>
+<span id="cb51-8"><a></a>  dating_dag</span>
+<span id="cb51-9"><a></a>dating_dag <span class="sc">%&gt;%</span> </span>
+<span id="cb51-10"><a></a>  <span class="fu">mutate</span>(<span class="at">colour =</span> <span class="fu">ifelse</span>(name <span class="sc">==</span> <span class="st">"m"</span>, <span class="st">"Collider"</span>,<span class="st">"Non-Collider"</span>))<span class="ot">-&gt;</span>dating_dag</span>
+<span id="cb51-11"><a></a><span class="fu">ggdag</span>(dating_dag, </span>
+<span id="cb51-12"><a></a>      <span class="at">text =</span> F,</span>
+<span id="cb51-13"><a></a>      <span class="at">use_labels =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
+<span id="cb51-14"><a></a>  <span class="fu">theme_void</span>() <span class="ot">-&gt;</span> collider_fig1</span>
+<span id="cb51-15"><a></a></span>
+<span id="cb51-16"><a></a><span class="fu">ggdag</span>(dating_dag,<span class="at">text =</span> F, <span class="at">use_labels =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
+<span id="cb51-17"><a></a>  <span class="fu">theme_void</span>()<span class="ot">-&gt;</span> collider_fig1</span>
+<span id="cb51-18"><a></a></span>
+<span id="cb51-19"><a></a><span class="fu">ggdag_collider</span>(dating_dag,<span class="at">text =</span> F, <span class="at">use_labels =</span> <span class="st">"label"</span>,</span>
+<span id="cb51-20"><a></a>               ) <span class="ot">-&gt;</span> tmp</span>
+<span id="cb51-21"><a></a>tmp<span class="sc">$</span>layers</span>
+<span id="cb51-22"><a></a><span class="fu">ggdag_dseparated</span>(dating_dag, </span>
+<span id="cb51-23"><a></a>                 <span class="at">text =</span> F, </span>
+<span id="cb51-24"><a></a>                 <span class="at">controlling_for =</span> <span class="st">"m"</span>,</span>
+<span id="cb51-25"><a></a>                 <span class="at">use_labels =</span> <span class="st">"label"</span>)<span class="sc">+</span></span>
+<span id="cb51-26"><a></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb51-2"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb51-3"><a></a>collider_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb51-4"><a></a>  <span class="at">Looks =</span> <span class="fu">rnorm</span>(n),</span>
-<span id="cb51-5"><a></a>  <span class="at">Personality =</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb51-6"><a></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-7"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb51-8"><a></a>    <span class="at">date =</span> <span class="fu">case_when</span>(</span>
-<span id="cb51-9"><a></a>      Looks <span class="sc">&gt;</span> .<span class="dv">5</span>  <span class="sc">~</span> <span class="st">"Date"</span>,</span>
-<span id="cb51-10"><a></a>      Looks <span class="sc">&lt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> Personality <span class="sc">&gt;</span>.<span class="dv">75</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb51-11"><a></a>      T <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb51-12"><a></a>    )</span>
-<span id="cb51-13"><a></a>  )</span>
-<span id="cb51-14"><a></a>collider_df <span class="sc">%&gt;%</span> </span>
-<span id="cb51-15"><a></a>  <span class="fu">filter</span>(date<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-16"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Looks, Personality))<span class="sc">+</span></span>
-<span id="cb51-17"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"People you date"</span>))<span class="sc">+</span></span>
-<span id="cb51-18"><a></a>  <span class="fu">stat_smooth</span>(</span>
-<span id="cb51-19"><a></a>    <span class="at">method =</span> <span class="st">"lm"</span></span>
-<span id="cb51-20"><a></a>  )<span class="sc">+</span></span>
-<span id="cb51-21"><a></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb51-22"><a></a>  <span class="fu">theme_minimal</span>() <span class="ot">-&gt;</span> collider_fig1</span>
-<span id="cb51-23"><a></a> </span>
-<span id="cb51-24"><a></a>collider_fig1<span class="sc">+</span></span>
-<span id="cb51-25"><a></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb51-26"><a></a>    <span class="at">data =</span> collider_df,</span>
-<span id="cb51-27"><a></a>    <span class="at">col =</span> <span class="st">"grey"</span>,</span>
-<span id="cb51-28"><a></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
-<span id="cb51-29"><a></a>  )<span class="sc">+</span></span>
-<span id="cb51-30"><a></a>  <span class="fu">stat_smooth</span>(</span>
-<span id="cb51-31"><a></a>    <span class="at">data =</span> collider_df,</span>
-<span id="cb51-32"><a></a>    <span class="at">col =</span> <span class="st">"grey"</span>,</span>
-<span id="cb51-33"><a></a>    <span class="at">method =</span> <span class="st">"lm"</span></span>
-<span id="cb51-34"><a></a>  )</span>
-<span id="cb51-35"><a></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb51-36"><a></a>    <span class="at">data =</span> collider_df <span class="sc">%&gt;%</span> </span>
-<span id="cb51-37"><a></a>      <span class="fu">filter</span>(date <span class="sc">==</span> <span class="dv">1</span>),</span>
-<span id="cb51-38"><a></a>    <span class="at">col =</span> <span class="st">"black"</span></span>
-<span id="cb51-39"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb52-2"><a></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb52-3"><a></a>collider_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb52-4"><a></a>  <span class="at">Looks =</span> <span class="fu">rnorm</span>(n),</span>
+<span id="cb52-5"><a></a>  <span class="at">Personality =</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb52-6"><a></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-7"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb52-8"><a></a>    <span class="at">date =</span> <span class="fu">case_when</span>(</span>
+<span id="cb52-9"><a></a>      Looks <span class="sc">&gt;</span> .<span class="dv">5</span>  <span class="sc">~</span> <span class="st">"Date"</span>,</span>
+<span id="cb52-10"><a></a>      Looks <span class="sc">&lt;</span> .<span class="dv">5</span> <span class="sc">&amp;</span> Personality <span class="sc">&gt;</span>.<span class="dv">75</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb52-11"><a></a>      T <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb52-12"><a></a>    )</span>
+<span id="cb52-13"><a></a>  )</span>
+<span id="cb52-14"><a></a>collider_df <span class="sc">%&gt;%</span> </span>
+<span id="cb52-15"><a></a>  <span class="fu">filter</span>(date<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-16"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Looks, Personality))<span class="sc">+</span></span>
+<span id="cb52-17"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"People you date"</span>))<span class="sc">+</span></span>
+<span id="cb52-18"><a></a>  <span class="fu">stat_smooth</span>(</span>
+<span id="cb52-19"><a></a>    <span class="at">method =</span> <span class="st">"lm"</span></span>
+<span id="cb52-20"><a></a>  )<span class="sc">+</span></span>
+<span id="cb52-21"><a></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb52-22"><a></a>  <span class="fu">theme_minimal</span>() <span class="ot">-&gt;</span> collider_fig1</span>
+<span id="cb52-23"><a></a> </span>
+<span id="cb52-24"><a></a>collider_fig1<span class="sc">+</span></span>
+<span id="cb52-25"><a></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb52-26"><a></a>    <span class="at">data =</span> collider_df,</span>
+<span id="cb52-27"><a></a>    <span class="at">col =</span> <span class="st">"grey"</span>,</span>
+<span id="cb52-28"><a></a>    <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb52-29"><a></a>  )<span class="sc">+</span></span>
+<span id="cb52-30"><a></a>  <span class="fu">stat_smooth</span>(</span>
+<span id="cb52-31"><a></a>    <span class="at">data =</span> collider_df,</span>
+<span id="cb52-32"><a></a>    <span class="at">col =</span> <span class="st">"grey"</span>,</span>
+<span id="cb52-33"><a></a>    <span class="at">method =</span> <span class="st">"lm"</span></span>
+<span id="cb52-34"><a></a>  )</span>
+<span id="cb52-35"><a></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb52-36"><a></a>    <span class="at">data =</span> collider_df <span class="sc">%&gt;%</span> </span>
+<span id="cb52-37"><a></a>      <span class="fu">filter</span>(date <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb52-38"><a></a>    <span class="at">col =</span> <span class="st">"black"</span></span>
+<span id="cb52-39"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="when-to-control-for-a-variable" class="slide level2">
@@ -2022,7 +2065,7 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment"><em>Technical/Definitional</em>
@@ -2129,9 +2172,9 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/03_lab.rda"</span>))</span>
-<span id="cb53-2"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(therm_trans_t0 <span class="sc">~</span> vf_age, <span class="at">data =</span> df)</span>
-<span id="cb53-3"><a></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/03_lab.rda"</span>))</span>
+<span id="cb54-2"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(therm_trans_t0 <span class="sc">~</span> vf_age, <span class="at">data =</span> df)</span>
+<span id="cb54-3"><a></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2144,7 +2187,7 @@ Coefficients:
 </div>
 <p>The coefficients from <code>lm()</code> are saved in object called <code>m1</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -2157,14 +2200,14 @@ Coefficients:
 </div>
 <p><code>m1</code> actually contains a lot of information</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="fu">names</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a><span class="fu">names</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "coefficients"  "residuals"     "effects"       "rank"         
  [5] "fitted.values" "assign"        "qr"            "df.residual"  
  [9] "na.action"     "xlevels"       "call"          "terms"        
 [13] "model"        </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>m1<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>m1<span class="sc">$</span>coefficients</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      vf_age 
  62.8195994  -0.2030711 </code></pre>
@@ -2175,20 +2218,20 @@ Coefficients:
 <h2>Practical: Interpreting a Linear Regression</h2>
 <p>We can extract the intercept and slope from this simple bivariate model, using the <code>coef()</code> function</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a><span class="co"># All the coefficients</span></span>
-<span id="cb61-2"><a></a><span class="fu">coef</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a><span class="co"># All the coefficients</span></span>
+<span id="cb62-2"><a></a><span class="fu">coef</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)      vf_age 
  62.8195994  -0.2030711 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a><span class="co"># Just the intercept</span></span>
-<span id="cb63-2"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a><span class="co"># Just the intercept</span></span>
+<span id="cb64-2"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
     62.8196 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a></a><span class="co"># Just the slope</span></span>
-<span id="cb65-2"><a></a><span class="fu">coef</span>(m1)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a></a><span class="co"># Just the slope</span></span>
+<span id="cb66-2"><a></a><span class="fu">coef</span>(m1)[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    vf_age 
 -0.2030711 </code></pre>
@@ -2215,12 +2258,12 @@ Coefficients:
 <h2>Practical: Predicted values from a Linear Regression</h2>
 <p>We could do this by hand</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">18</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">18</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    59.16432 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">68</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a></a><span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">68</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept) 
    49.01076 </code></pre>
@@ -2239,19 +2282,19 @@ Coefficients:
 <section id="practical-predicted-values-from-a-linear-regression-3" class="slide level2">
 <h2>Practical: Predicted values from a Linear Regression</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a></a><span class="co"># Make prediction data frame</span></span>
-<span id="cb71-2"><a></a>pred_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb71-3"><a></a>  <span class="at">vf_age =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">68</span>)</span>
-<span id="cb71-4"><a></a>)</span>
-<span id="cb71-5"><a></a><span class="co"># Predict FT for 18 and 68 year-olds</span></span>
-<span id="cb71-6"><a></a><span class="fu">predict</span>(m1, <span class="at">newdata =</span> pred_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a></a><span class="co"># Make prediction data frame</span></span>
+<span id="cb72-2"><a></a>pred_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb72-3"><a></a>  <span class="at">vf_age =</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">68</span>)</span>
+<span id="cb72-4"><a></a>)</span>
+<span id="cb72-5"><a></a><span class="co"># Predict FT for 18 and 68 year-olds</span></span>
+<span id="cb72-6"><a></a><span class="fu">predict</span>(m1, <span class="at">newdata =</span> pred_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1        2 
 59.16432 49.01076 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a></a><span class="co"># Save predictions to data frame</span></span>
-<span id="cb73-2"><a></a>pred_df<span class="sc">$</span>ft_trans_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> pred_df)</span>
-<span id="cb73-3"><a></a>pred_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a></a><span class="co"># Save predictions to data frame</span></span>
+<span id="cb74-2"><a></a>pred_df<span class="sc">$</span>ft_trans_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, <span class="at">newdata =</span> pred_df)</span>
+<span id="cb74-3"><a></a>pred_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  vf_age ft_trans_hat
 1     18     59.16432
@@ -2267,30 +2310,30 @@ Coefficients:
 <li class="fragment"><p>overlaying the line defined by <code>lm()</code></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a></a>fig_lm <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb75-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(vf_age,therm_trans_t0))<span class="sc">+</span></span>
-<span id="cb75-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb75-4"><a></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>],</span>
-<span id="cb75-5"><a></a>              <span class="at">slope =</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>],</span>
-<span id="cb75-6"><a></a>              <span class="at">col =</span> <span class="st">"blue"</span></span>
-<span id="cb75-7"><a></a>              )<span class="sc">+</span></span>
-<span id="cb75-8"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>,<span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
-<span id="cb75-9"><a></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">100</span>)<span class="sc">+</span></span>
-<span id="cb75-10"><a></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>,</span>
-<span id="cb75-11"><a></a>           <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>],</span>
-<span id="cb75-12"><a></a>           <span class="at">col=</span> <span class="st">"red"</span>,</span>
-<span id="cb75-13"><a></a>           )<span class="sc">+</span></span>
-<span id="cb75-14"><a></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
-<span id="cb75-15"><a></a>           <span class="at">label =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(beta[<span class="dv">0</span>],<span class="st">"= 62.81"</span> )),</span>
-<span id="cb75-16"><a></a>           <span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">5</span>,</span>
-<span id="cb75-17"><a></a>           <span class="at">hjust =</span> <span class="st">"left"</span>,</span>
-<span id="cb75-18"><a></a>           )<span class="sc">+</span></span>
-<span id="cb75-19"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb75-20"><a></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
-<span id="cb75-21"><a></a>    <span class="at">y =</span> <span class="st">"Feeling Thermometer toward</span><span class="sc">\n</span><span class="st">Transgender People"</span></span>
-<span id="cb75-22"><a></a>  )<span class="sc">+</span></span>
-<span id="cb75-23"><a></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb75-24"><a></a>fig_lm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a></a>fig_lm <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(vf_age,therm_trans_t0))<span class="sc">+</span></span>
+<span id="cb76-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb76-4"><a></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>],</span>
+<span id="cb76-5"><a></a>              <span class="at">slope =</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>],</span>
+<span id="cb76-6"><a></a>              <span class="at">col =</span> <span class="st">"blue"</span></span>
+<span id="cb76-7"><a></a>              )<span class="sc">+</span></span>
+<span id="cb76-8"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>,<span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb76-9"><a></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">100</span>)<span class="sc">+</span></span>
+<span id="cb76-10"><a></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>,</span>
+<span id="cb76-11"><a></a>           <span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>],</span>
+<span id="cb76-12"><a></a>           <span class="at">col=</span> <span class="st">"red"</span>,</span>
+<span id="cb76-13"><a></a>           )<span class="sc">+</span></span>
+<span id="cb76-14"><a></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb76-15"><a></a>           <span class="at">label =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(beta[<span class="dv">0</span>],<span class="st">"= 62.81"</span> )),</span>
+<span id="cb76-16"><a></a>           <span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="fu">coef</span>(m1)[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">5</span>,</span>
+<span id="cb76-17"><a></a>           <span class="at">hjust =</span> <span class="st">"left"</span>,</span>
+<span id="cb76-18"><a></a>           )<span class="sc">+</span></span>
+<span id="cb76-19"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb76-20"><a></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
+<span id="cb76-21"><a></a>    <span class="at">y =</span> <span class="st">"Feeling Thermometer toward</span><span class="sc">\n</span><span class="st">Transgender People"</span></span>
+<span id="cb76-22"><a></a>  )<span class="sc">+</span></span>
+<span id="cb76-23"><a></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb76-24"><a></a>fig_lm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -2548,17 +2591,17 @@ E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2]
 <li class="fragment">Furthermore, when the CEF is linear, it’s equal exactly to OLS regression</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb76-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(vf_age,therm_trans_t0))<span class="sc">+</span></span>
-<span id="cb76-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb76-4"><a></a>  <span class="fu">stat_summary</span>(<span class="at">geom=</span><span class="st">"point"</span>, <span class="fu">aes</span>(<span class="at">col=</span><span class="st">"CEF"</span>))<span class="sc">+</span></span>
-<span id="cb76-5"><a></a>  <span class="fu">stat_summary</span>(<span class="at">geom=</span><span class="st">"line"</span>, <span class="fu">aes</span>(<span class="at">col=</span><span class="st">"CEF"</span>))<span class="sc">+</span></span>
-<span id="cb76-6"><a></a>  <span class="fu">labs</span>(</span>
-<span id="cb76-7"><a></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
-<span id="cb76-8"><a></a>    <span class="at">y =</span> <span class="st">"Feeling Thermometer toward</span><span class="sc">\n</span><span class="st">Transgender People"</span>,</span>
-<span id="cb76-9"><a></a>    <span class="at">col =</span> <span class="st">""</span></span>
-<span id="cb76-10"><a></a>  )<span class="sc">+</span></span>
-<span id="cb76-11"><a></a>  <span class="fu">theme_classic</span>() <span class="ot">-&gt;</span> plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(vf_age,therm_trans_t0))<span class="sc">+</span></span>
+<span id="cb77-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb77-4"><a></a>  <span class="fu">stat_summary</span>(<span class="at">geom=</span><span class="st">"point"</span>, <span class="fu">aes</span>(<span class="at">col=</span><span class="st">"CEF"</span>))<span class="sc">+</span></span>
+<span id="cb77-5"><a></a>  <span class="fu">stat_summary</span>(<span class="at">geom=</span><span class="st">"line"</span>, <span class="fu">aes</span>(<span class="at">col=</span><span class="st">"CEF"</span>))<span class="sc">+</span></span>
+<span id="cb77-6"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb77-7"><a></a>    <span class="at">x =</span> <span class="st">"Age"</span>,</span>
+<span id="cb77-8"><a></a>    <span class="at">y =</span> <span class="st">"Feeling Thermometer toward</span><span class="sc">\n</span><span class="st">Transgender People"</span>,</span>
+<span id="cb77-9"><a></a>    <span class="at">col =</span> <span class="st">""</span></span>
+<span id="cb77-10"><a></a>  )<span class="sc">+</span></span>
+<span id="cb77-11"><a></a>  <span class="fu">theme_classic</span>() <span class="ot">-&gt;</span> plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -2570,9 +2613,9 @@ E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2]
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a></a>plot_cef<span class="sc">+</span></span>
-<span id="cb77-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"OLS"</span>)) <span class="ot">-&gt;</span> plot_cef</span>
-<span id="cb77-3"><a></a>plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a></a>plot_cef<span class="sc">+</span></span>
+<span id="cb78-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"OLS"</span>)) <span class="ot">-&gt;</span> plot_cef</span>
+<span id="cb78-3"><a></a>plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -2584,9 +2627,9 @@ E[ (Y - g(Y))^2] \geq E[(Y - E[Y|X])^2]
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a></a>plot_cef<span class="sc">+</span></span>
-<span id="cb78-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"OLS"</span>)) <span class="ot">-&gt;</span> plot_cef</span>
-<span id="cb78-3"><a></a>plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a>plot_cef<span class="sc">+</span></span>
+<span id="cb79-2"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span>F, <span class="fu">aes</span>(<span class="at">col =</span> <span class="st">"OLS"</span>)) <span class="ot">-&gt;</span> plot_cef</span>
+<span id="cb79-3"><a></a>plot_cef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -2616,7 +2659,7 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment"><em>Technical/Definitional</em>
