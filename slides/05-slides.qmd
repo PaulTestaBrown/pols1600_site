@@ -59,7 +59,7 @@ library(easystats)
 - Review
 - Class plan
 
-## Learing goals {.blue}
+## Learing goals {.smaller}
 
 - Introduce the concept of [Directed Acyclic Graphs]{.blue} to describe causal relationships and illustrate potential bias from [confounders]{.blue} and [colliders]{.blue} 
 
