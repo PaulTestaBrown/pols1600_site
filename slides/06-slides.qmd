@@ -970,7 +970,7 @@ $$
 
 ## Conceptual: Multiple Regression
 
-- Regression models "partition variance"
+- Regression models [partition variance]{.blue}
 
 - Separate variation in the outcome ($y$) into variation [explained by the predictors]{.blue} in the model and the [residual]{.blue} variation [not explained]{.blue} by these predictors
 
@@ -1125,10 +1125,10 @@ $$\text{m7: tc_diff} = \beta_0 + \beta_1\text{age} + \beta_2\text{income} + \bet
 We'll use:
 
 - `lm()` to [estimate models]{.blue}
-- `coef()` and `summary()` to [examine]{.blue} our model
+- `coef()` and `summary()` to [examine]{.blue} our results
 - `htmlreg()`to [format]{.blue} our results
 - `data.frame()` to create [prediction dataframes]{.blue}
-- `predict()` to produce [predicted values]{.blue} and `cbind()` to combine the results back into [prediction dataframes]{.blue}
+- `predict()` to produce [predicted values]{.blue} and `cbind()` to combine these predicted back into the [prediction dataframes]{.blue} for plotting
 - `ggplot()` to display and interpret our models' [predictions]{.blue}
 
 :::
@@ -1311,11 +1311,16 @@ nes %>%
     mean = mean(tc_diff,na.rm = T),
     beta = round(mean - coef(m3)[1],3)
   )
+```
 
-# Under the hood lm converts pol_interest_f into
-# binary indicators for every value pol_interest_f 
-# excluding "Not at all Interested", the first level
-# of the factor
+
+## {{<fa eye >}} lm()
+
+`lm()` converts the factor `pol_interest_f` into binary indicators for every value of `pol_interest_f` excluding "Not at all Interested", the first level of the factor. 
+
+"Not at all Interested" is the [reference category]{.blue} because all the other coefficients describe how the means for other levels of `pol_interest_f` differ from "Not at all Interested"
+
+```{r}
 cbind(
 m3$model[26:30,],
 model.matrix(m3)[26:30,]

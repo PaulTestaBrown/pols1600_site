@@ -1626,7 +1626,7 @@ y_n
 <section id="conceptual-multiple-regression-1" class="slide level2">
 <h2>Conceptual: Multiple Regression</h2>
 <ul>
-<li class="fragment"><p>Regression models “partition variance”</p></li>
+<li class="fragment"><p>Regression models <span class="blue">partition variance</span></p></li>
 <li class="fragment"><p>Separate variation in the outcome (<span class="math inline">\(y\)</span>) into variation <span class="blue">explained by the predictors</span> in the model and the <span class="blue">residual</span> variation <span class="blue">not explained</span> by these predictors</p></li>
 <li class="fragment"><p><span class="blue">Regression coefficients</span> tell us how the outcome <span class="math inline">\(y\)</span> is expected to change if <span class="math inline">\(x\)</span> changes by one unit, <span class="blue">holding constant</span> or <span class="blue">controlling for</span> other predictors in the model.</p></li>
 </ul>
@@ -1784,10 +1784,10 @@ y_n
 <p>We’ll use:</p>
 <ul>
 <li><code>lm()</code> to <span class="blue">estimate models</span></li>
-<li><code>coef()</code> and <code>summary()</code> to <span class="blue">examine</span> our model</li>
+<li><code>coef()</code> and <code>summary()</code> to <span class="blue">examine</span> our results</li>
 <li><code>htmlreg()</code>to <span class="blue">format</span> our results</li>
 <li><code>data.frame()</code> to create <span class="blue">prediction dataframes</span></li>
-<li><code>predict()</code> to produce <span class="blue">predicted values</span> and <code>cbind()</code> to combine the results back into <span class="blue">prediction dataframes</span></li>
+<li><code>predict()</code> to produce <span class="blue">predicted values</span> and <code>cbind()</code> to combine these predicted back into the <span class="blue">prediction dataframes</span> for plotting</li>
 <li><code>ggplot()</code> to display and interpret our models’ <span class="blue">predictions</span></li>
 </ul>
 </div>
@@ -2143,7 +2143,7 @@ Num. obs.
 <section id="m3-a-categorical-indicator" class="slide level2 smaller">
 <h2><code>m3</code>: A categorical indicator</h2>
 <div class="panel-tabset">
-<ul id="tabset-14" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-14-1">m3</a></li><li><a href="#tabset-14-2"><i class="fa-solid fa-table" aria-label="table"></i>-Table</a></li><li><a href="#tabset-14-3"><i class="fa-solid fa-code" aria-label="code"></i>-Figure</a></li><li><a href="#tabset-14-4"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i>-m3</a></li><li><a href="#tabset-14-5"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i>-m2 vs m3</a></li></ul>
+<ul id="tabset-14" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-14-1">m3</a></li><li><a href="#tabset-14-2"><i class="fa-solid fa-eye" aria-label="eye"></i> lm()</a></li><li><a href="#tabset-14-3"><i class="fa-solid fa-table" aria-label="table"></i>-Table</a></li><li><a href="#tabset-14-4"><i class="fa-solid fa-code" aria-label="code"></i>-Figure</a></li><li><a href="#tabset-14-5"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i>-m3</a></li><li><a href="#tabset-14-6"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i>-m2 vs m3</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1">
 <p><span class="math display">\[\text{m3: tc_diff} = \beta_0 + \beta_1\text{pol_interest_f} +\epsilon\]</span></p>
@@ -2172,14 +2172,16 @@ pol_interest_fSomewhat Interested     pol_interest_fVery Interested
 3 Somewhat Interested    48.2  2.14
 4 Very Interested        60.6 14.5 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a><span class="co"># Under the hood lm converts pol_interest_f into</span></span>
-<span id="cb91-2"><a></a><span class="co"># binary indicators for every value pol_interest_f </span></span>
-<span id="cb91-3"><a></a><span class="co"># excluding "Not at all Interested", the first level</span></span>
-<span id="cb91-4"><a></a><span class="co"># of the factor</span></span>
-<span id="cb91-5"><a></a><span class="fu">cbind</span>(</span>
-<span id="cb91-6"><a></a>m3<span class="sc">$</span>model[<span class="dv">26</span><span class="sc">:</span><span class="dv">30</span>,],</span>
-<span id="cb91-7"><a></a><span class="fu">model.matrix</span>(m3)[<span class="dv">26</span><span class="sc">:</span><span class="dv">30</span>,]</span>
-<span id="cb91-8"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-14-2">
+<p><code>lm()</code> converts the factor <code>pol_interest_f</code> into binary indicators for every value of <code>pol_interest_f</code> excluding “Not at all Interested”, the first level of the factor.</p>
+<p>“Not at all Interested” is the <span class="blue">reference category</span> because all the other coefficients describe how the means for other levels of <code>pol_interest_f</code> differ from “Not at all Interested”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a></a><span class="fu">cbind</span>(</span>
+<span id="cb91-2"><a></a>m3<span class="sc">$</span>model[<span class="dv">26</span><span class="sc">:</span><span class="dv">30</span>,],</span>
+<span id="cb91-3"><a></a><span class="fu">model.matrix</span>(m3)[<span class="dv">26</span><span class="sc">:</span><span class="dv">30</span>,]</span>
+<span id="cb91-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   tc_diff        pol_interest_f (Intercept) pol_interest_fNot very Interested
 26      96 Not at all Interested           1                                 0
@@ -2196,7 +2198,7 @@ pol_interest_fSomewhat Interested     pol_interest_fVery Interested
 </div>
 </div>
 </div>
-<div id="tabset-14-2">
+<div id="tabset-14-3">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2,m3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
@@ -2439,7 +2441,7 @@ Num. obs.
 </tfoot>
 </table>
 </div>
-<div id="tabset-14-3">
+<div id="tabset-14-4">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a></a><span class="co"># Create Prediction Data Frame</span></span>
 <span id="cb94-2"><a></a></span>
@@ -2469,7 +2471,7 @@ Num. obs.
 <span id="cb94-26"><a></a>  <span class="fu">geom_point</span>() <span class="ot">-&gt;</span> fig_tc_m3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-14-4">
+<div id="tabset-14-5">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -2480,7 +2482,7 @@ Num. obs.
 </div>
 </div>
 </div>
-<div id="tabset-14-5">
+<div id="tabset-14-6">
 <div class="cell">
 <div class="cell-output-display">
 <div>
