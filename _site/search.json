@@ -628,9 +628,9 @@
   {
     "objectID": "slides/06-slides.html#packages-for-today",
     "href": "slides/06-slides.html#packages-for-today",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Packages for today",
-    "text": "Packages for today\n\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Graphics:\n  \"scatterplot3d\", #&lt;&lt;\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)"
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
   },
   {
     "objectID": "slides/06-slides.html#define-a-function-to-load-and-if-needed-install-packages",
@@ -705,16 +705,16 @@
   {
     "objectID": "slides/06-slides.html#hlo-census-data",
     "href": "slides/06-slides.html#hlo-census-data",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "HLO: Census Data",
     "text": "HLO: Census Data\n\nhead(acs_df)\n\n# A tibble: 6 × 5\n  GEOID NAME    variable   estimate    moe\n  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;\n1 01    Alabama med_age        39      0.2\n2 01    Alabama med_income  50536    304  \n3 02    Alaska  med_age        34.3    0.1\n4 02    Alaska  med_income  77640   1015  \n5 04    Arizona med_age        37.7    0.2\n6 04    Arizona med_income  58945    266"
   },
   {
     "objectID": "slides/06-slides.html#tidy-census-data",
     "href": "slides/06-slides.html#tidy-census-data",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Tidy Census Data",
-    "text": "Tidy Census Data\n\nacs_df %&gt;%\n  mutate(\n    state = NAME,\n  ) %&gt;%\n  select(state, variable, estimate) %&gt;%\n  pivot_wider(names_from = variable,\n              values_from = estimate) -&gt; acs_df"
+    "text": "Tidy Census Data\n\nTask-Old-Tidy-New\n\n\nget_acs() returns data whose unit of analysis is roughly a state-variable\nWe need to reshape acs_df using pivot_wider() so that the unit of analysis is just a state, and each column variable is a column\n\n\n\nacs_df\n\n# A tibble: 104 × 5\n   GEOID NAME       variable   estimate    moe\n   &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;\n 1 01    Alabama    med_age        39      0.2\n 2 01    Alabama    med_income  50536    304  \n 3 02    Alaska     med_age        34.3    0.1\n 4 02    Alaska     med_income  77640   1015  \n 5 04    Arizona    med_age        37.7    0.2\n 6 04    Arizona    med_income  58945    266  \n 7 05    Arkansas   med_age        38.1    0.1\n 8 05    Arkansas   med_income  47597    328  \n 9 06    California med_age        36.5    0.1\n10 06    California med_income  75235    232  \n# ℹ 94 more rows\n\n\n\n\n\nacs_df %&gt;%\n  mutate(\n    state = NAME,\n  ) %&gt;%\n  select(state, variable, estimate) %&gt;%\n  pivot_wider(names_from = variable,\n              values_from = estimate) -&gt; acs_df\n\n\n\n\nacs_df\n\n# A tibble: 52 × 3\n   state                med_age med_income\n   &lt;chr&gt;                  &lt;dbl&gt;      &lt;dbl&gt;\n 1 Alabama                 39        50536\n 2 Alaska                  34.3      77640\n 3 Arizona                 37.7      58945\n 4 Arkansas                38.1      47597\n 5 California              36.5      75235\n 6 Colorado                36.7      72331\n 7 Connecticut             41        78444\n 8 Delaware                40.6      68287\n 9 District of Columbia    34        86420\n10 Florida                 42        55660\n# ℹ 42 more rows"
   },
   {
     "objectID": "slides/06-slides.html#tidy-census-data-1",
@@ -733,9 +733,9 @@
   {
     "objectID": "slides/06-slides.html#merge-census-data-into-covid-data",
     "href": "slides/06-slides.html#merge-census-data-into-covid-data",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Merge Census data into Covid data",
-    "text": "Merge Census data into Covid data\n\ndim(tmp)\n\n[1] 52646    60\n\ndim(acs_df)\n\n[1] 52  3\n\n# Merge tmp with acs_df and save as final covid_df file\ncovid_df &lt;- tmp %&gt;% left_join(\n  acs_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_df)  # Same number of rows as tmp w/ 2 additional columns\n\n[1] 52646    62"
+    "text": "Merge Census data into Covid data\n\nTask-Merge\n\n\n\nNow we can merge acs_df into covid_us using the left_join() function\n\n\n\n\n\n\nNote\n\n\n\nIn the code, we’ll save the output of joining acs_df to covid_us to a new dataframe called covid_df to avoid potentially duplicating columns\n\n\n\n\n\n\n\n\n\ndim(acs_df)\n\n[1] 52  3\n\ndim(acs_df)\n\n[1] 52  3\n\ndim(covid_us)\n\n[1] 53678    68\n\n# Merge tmp with acs_df and save as final covid_df file\ncovid_df &lt;- covid_us %&gt;% left_join(\n  acs_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_df)  # Same number of rows as tmp w/ 2 additional columns\n\n[1] 53678    70"
   },
   {
     "objectID": "slides/06-slides.html#subset-merged-data-to-include-only-the-variables-and-observations-we-want",
@@ -810,37 +810,37 @@
   {
     "objectID": "slides/06-slides.html#motivating-example-what-causes-cholera",
     "href": "slides/06-slides.html#motivating-example-what-causes-cholera",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Motivating Example: What causes Cholera?",
     "text": "Motivating Example: What causes Cholera?\n\nIn the 1800s, cholera was thought to be transmitted through the air.\nJohn Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.\nLeveraged a natural experiment in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location."
   },
   {
     "objectID": "slides/06-slides.html#notation",
     "href": "slides/06-slides.html#notation",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Notation",
     "text": "Notation\nLet’s adopt a little notation to help us think about the logic of Snow’s design:\n\n\\(D\\): treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)\n\\(T\\): period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).\n\\(Y_{di}(t)\\) the potential outcome of unit \\(i\\)\n\n\\(Y_{1i}(t)\\) the potential outcome of unit \\(i\\) when treated between the two periods\n\\(Y_{0i}(t)\\) the potential outcome of unit \\(i\\) when control between the two periods"
   },
   {
     "objectID": "slides/06-slides.html#causal-effects",
     "href": "slides/06-slides.html#causal-effects",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Causal Effects",
     "text": "Causal Effects\nThe individual causal effect for unit i at time t is:\n\\[\\tau_{it} = Y_{1i}(t) − Y_{0i}(t)\\]\nWhat we observe is\n\\[Y_i(t) = Y_{0i}(t)\\cdot(1 − D_i(t)) + Y_{1i}(t)\\cdot D_i(t)\\]\n\\(D\\) only equals 1, when \\(T\\) equals 1, so we never observe \\(Y_0i(1)\\) for the treated units.\nIn words, we don’t know what Lambeth’s outcome would have been in the second period, had they not been treated."
   },
   {
     "objectID": "slides/06-slides.html#average-treatment-on-treated",
     "href": "slides/06-slides.html#average-treatment-on-treated",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Average Treatment on Treated",
     "text": "Average Treatment on Treated\nOur goal is to estimate the average effect of treatment on treated (ATT):\n\\[\\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\]\nThat is, what would have happened in Lambeth, had their water company not moved their pipes"
   },
   {
     "objectID": "slides/06-slides.html#average-treatment-on-treated-1",
     "href": "slides/06-slides.html#average-treatment-on-treated-1",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Average Treatment on Treated",
-    "text": "Average Treatment on Treated\nOur goal is to estimate the average effect of treatment on treated (ATT):\nWe we can observe is:\n              | Post-Period (T=1) | Pre-Period (T=0) |\n||–|-| | Treated \\(D_{i}=1\\) | \\(E[Y_{1i}(1)\\vert D_i = 1]\\) | \\(E[Y_{0i}(0)\\vert D_i = 1]\\) | | Control \\(D_i=0\\) | \\(E[Y_{0i}(1)\\vert D_i = 0]\\) | \\(E[Y_{0i}(0)\\vert D_i = 0]\\) |"
+    "text": "Average Treatment on Treated\nOur goal is to estimate the average effect of treatment on treated (ATT):\nWe we can observe is:\n\n\n\n\n\n\n\n\n\nPre-Period (T=0)\nPost-Period (T=1)\n\n\n\n\nTreated \\(D_{i}=1\\)\n\\(E[Y_{0i}(0)\\vert D_i = 1]\\)\n\\(E[Y_{1i}(1)\\vert D_i = 1]\\)\n\n\nControl \\(D_i=0\\)\n\\(E[Y_{0i}(0)\\vert D_i = 0]\\)\n\\(E[Y_{0i}(1)\\vert D_i = 0]\\)"
   },
   {
     "objectID": "slides/06-slides.html#data",
@@ -852,23 +852,23 @@
   {
     "objectID": "slides/06-slides.html#how-can-we-estimate-the-effect-of-moving-pumps-upstream",
     "href": "slides/06-slides.html#how-can-we-estimate-the-effect-of-moving-pumps-upstream",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "How can we estimate the effect of moving pumps upstream?",
     "text": "How can we estimate the effect of moving pumps upstream?\nRecall, our goal is to estimate the effect of the the treatment on the treated:\n\\[\\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\]\nLet’s conisder some strategies Snow could take to estimate this quantity:"
   },
   {
     "objectID": "slides/06-slides.html#before-vs-after-comparisons",
     "href": "slides/06-slides.html#before-vs-after-comparisons",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Before vs after comparisons:",
-    "text": "Before vs after comparisons:\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nThis comparison assumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854"
+    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/06-slides.html#treatment-control-comparisons-in-the-post-period.",
     "href": "slides/06-slides.html#treatment-control-comparisons-in-the-post-period.",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Treatment-Control comparisons in the Post Period.",
-    "text": "Treatment-Control comparisons in the Post Period.\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V"
+    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/06-slides.html#difference-in-differences",
@@ -880,44 +880,44 @@
   {
     "objectID": "slides/06-slides.html#difference-in-differences-1",
     "href": "slides/06-slides.html#difference-in-differences-1",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Difference in Differences",
-    "text": "Difference in Differences\nYou’ll see the DiD design represented both ways, but they produce the same result:\n\\[\n\\tau_{ATT} = (19-147) - (85-135) = -78\n\\]\n\\[\n\\tau_{ATT} = (19-85) - (147-135) = -78\n\\]"
+    "text": "Difference in Differences\n\nTo address these concerns, Snow employed what we now call a difference-in-differences design,\nThere are two, equivalent ways to view this design.\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\\}}_{\\text{1. Treat-Control |Post }}− \\overbrace{\\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Treated-Control|Pre}}\\]\n\nDifference 1: Average change between Treated and Control in Post Period\nDifference 2: Average change between Treated and Control in Pre Period"
   },
   {
     "objectID": "slides/06-slides.html#identifying-assumption-of-a-difference-in-differences-design",
     "href": "slides/06-slides.html#identifying-assumption-of-a-difference-in-differences-design",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Identifying Assumption of a Difference in Differences Design",
-    "text": "Identifying Assumption of a Difference in Differences Design\nThe key assumption in this design is what’s known as the parallel trends assumption: \\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\\)\n\nIn words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&V\n\n\nWhere:\n\n\\(E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\\)\n\\(E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}\\} = 0]\\)\n\\(E[Y_{1i}(1) − Y_{0i}(1)|D_{i} = 1]\\)"
+    "text": "Identifying Assumption of a Difference in Differences Design\nThe key assumption in this design is what’s known as the parallel trends assumption: \\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\\)\n\nIn words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&V"
   },
   {
     "objectID": "slides/06-slides.html#summary",
     "href": "slides/06-slides.html#summary",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated-control comparison\n\nTaking the pre-post difference removes any fixed differences between the units\nThen taking the difference between treated and control differences removes any common differences over time\n\nThe key identifying assumption of a DiD design is the “assumption of parallel trends”\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
+    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\n\nTaking the pre-post difference removes any fixed differences between the units\nThen taking the difference between treated and control differences removes any common differences over time\n\nThe key identifying assumption of a DiD design is the “assumption of parallel trends”\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
   },
   {
     "objectID": "slides/06-slides.html#extensions-and-limitations",
     "href": "slides/06-slides.html#extensions-and-limitations",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Extensions and limitations",
-    "text": "Extensions and limitations\n\nDiD easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\n\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
+    "text": "Extensions and limitations\n\nDiff-in-Diff easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\n\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
   },
   {
     "objectID": "slides/06-slides.html#applications",
     "href": "slides/06-slides.html#applications",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Applications",
-    "text": "Applications\n\nCard and Krueger (1994) What effect did raising the minimum wage in NJ have on employment\nAbadie, Diamond, & Hainmueller (2014) What effect did German Unification have on economic development in West Germany\nMalesky, Nguyen and Tran (2014) How does decentralization influence public services?\n\nclass:inverse, middle, center # 🔍 # Simple Linear Regression ### Linear regression provides a linear estimate of the CEF"
+    "text": "Applications\n\nCard and Krueger (1994) What effect did raising the minimum wage in NJ have on employment\nAbadie, Diamond, & Hainmueller (2014) What effect did German Unification have on economic development in West Germany\nMalesky, Nguyen and Tran (2014) How does decentralization influence public services?"
   },
   {
     "objectID": "slides/06-slides.html#review-simple-linear-regression",
     "href": "slides/06-slides.html#review-simple-linear-regression",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Review: Simple Linear Regression",
-    "text": "Review: Simple Linear Regression\n\nConceptual\n\nSimple linear regression estimates a line of best fit that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nlm(y ~ x, data = df)\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
+    "text": "Review: Simple Linear Regression\nLet’s pick up where we left off on Thursday. First we’ll need to run some code to get to recreate our data\n\n# ---- Load data ----\n## Covid-19 Data\nload(url(\"https://pols1600.paultesta.org/files/data/covid.rda\"))\n## Presidential Election Data\nload(url(\"https://pols1600.paultesta.org/files/data/pres_df.rda\"))\n\n# ---- Recode Covid Data ----\nterritories &lt;- c(\n  \"American Samoa\",\n  \"Guam\",\n  \"Northern Mariana Islands\",\n  \"Puerto Rico\",\n  \"Virgin Islands\"\n  )\n\n# Filter out Territories and create state variable\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories)%&gt;%\n  mutate(\n    state = administrative_area_level_2\n  )\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7day = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us\n\n# Recode facemask policy\n\ncovid_us %&gt;%\nmutate(\n  # Recode facial_coverings to create face_masks\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ),\n    # Turn face_masks into a factor with ordered policy levels\n    face_masks = factor(face_masks,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n# Create year-month and percent vaccinated variables\n\ncovid_us %&gt;%\n  mutate(\n    year = year(date),\n    month = month(date),\n    year_month = paste(year, \n                       str_pad(month, width = 2, pad=0), \n                       sep = \"-\"),\n    percent_vaccinated = people_fully_vaccinated/population*100  \n    ) -&gt; covid_us\n\n# Recode Deaths\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = new_deaths / population *100000,\n    new_deaths_pc_7day = zoo::rollmean(new_deaths_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA ),\n    new_deaths_pc_14day = zoo::rollmean(new_deaths_pc, \n                                     k = 14, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us\n\n# ---- Recode Presidential Election Data ----\n\n# Transform Presidential Election data\npres_df %&gt;%\n  mutate(\n    year_election = year,\n    state = str_to_title(state),\n    # Fix DC\n    state = ifelse(state == \"District Of Columbia\", \"District of Columbia\", state)\n  ) %&gt;%\n  filter(party_simplified %in% c(\"DEMOCRAT\",\"REPUBLICAN\"))%&gt;%\n  filter(year == 2020) %&gt;%\n  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes\n         ) %&gt;%\n  pivot_wider(names_from = party_simplified,\n              values_from = candidatevotes) %&gt;%\n  mutate(\n    dem_voteshare = DEMOCRAT/totalvotes*100,\n    rep_voteshare = REPUBLICAN/totalvotes*100,\n    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,\"Trump\",\"Biden\")))\n  ) -&gt; pres2020_df\n\n# ---- Merge Data ----\n\ndim(covid_us)\n\n[1] 53678    60\n\ndim(pres2020_df)\n\n[1] 51  9\n\ncovid_us &lt;- covid_us %&gt;% left_join(\n  pres2020_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_us) # Same number of rows as covid_us w/ 8 additional columns\n\n[1] 53678    68"
   },
   {
     "objectID": "slides/06-slides.html#linear-regression-and-the-cef",
@@ -978,9 +978,9 @@
   {
     "objectID": "slides/06-slides.html#data-1",
     "href": "slides/06-slides.html#data-1",
-    "title": "Week 06:",
+    "title": "POLS 1600",
     "section": "Data",
-    "text": "Data\n\nload(url(\"https://pols1600.paultesta.org/files/data/nes.rda\"))\n# Look at data\ndim(nes)\n\n[1] 1200   14\n\nhead(nes)\n\n  caseid    state age gender educ faminc pid7 ideo5 pol_interest church_atd\n1    745  Alabama  19      2    3     97    5     3            1          2\n2   1115  Alabama  46      1    3      3    1     1            3          6\n3    258  Alabama  59      2    2      6    2     3            2          1\n4    126  Alabama  55      2    4      6    1     2            3          5\n5    414  Alabama  66      1    3      8    7     4            3          3\n6    523  Alabama  61      1    2     97    1     2            3          6\n  bornagain01 ft_trump ft_hrc vote_choice\n1           0        3     19       Other\n2           0        0     36         HRC\n3           1       22      2        &lt;NA&gt;\n4           0        1     80         HRC\n5           1      100      3        &lt;NA&gt;\n6           1        0    100        &lt;NA&gt;"
+    "text": "Data\nBecause potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from Scott Cunningham:\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/06-slides.html#data-hlo",
@@ -10162,5 +10162,411 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/06-slides.html#class-plan",
+    "href": "slides/06-slides.html#class-plan",
+    "title": "POLS 1600",
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements\nFeedback\nReview\nClass plan"
+  },
+  {
+    "objectID": "slides/06-slides.html#annoucements",
+    "href": "slides/06-slides.html#annoucements",
+    "title": "POLS 1600",
+    "section": "Annoucements",
+    "text": "Annoucements"
+  },
+  {
+    "objectID": "slides/06-slides.html#feedback",
+    "href": "slides/06-slides.html#feedback",
+    "title": "POLS 1600",
+    "section": "Feedback",
+    "text": "Feedback"
+  },
+  {
+    "objectID": "slides/06-slides.html#concepts",
+    "href": "slides/06-slides.html#concepts",
+    "title": "POLS 1600",
+    "section": " Concepts",
+    "text": "Concepts"
+  },
+  {
+    "objectID": "slides/06-slides.html#code",
+    "href": "slides/06-slides.html#code",
+    "title": "POLS 1600",
+    "section": " Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/06-slides.html#review-key-concepts-from-the-lab",
+    "href": "slides/06-slides.html#review-key-concepts-from-the-lab",
+    "title": "POLS 1600",
+    "section": "Review: Key Concepts from the Lab",
+    "text": "Review: Key Concepts from the Lab"
+  },
+  {
+    "objectID": "slides/06-slides.html#conditional-expectations",
+    "href": "slides/06-slides.html#conditional-expectations",
+    "title": "POLS 1600",
+    "section": "Conditional Expectations",
+    "text": "Conditional Expectations\n\nQ6DataTableFigure CodeFigure\n\n\nNow let’s revisit question 6, which asked you to calculate some conditional means:\n\n\n\n# ---- Deaths: Overall ----\ncovid_us %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Overall\"\n  ) -&gt; deaths_overall\n\n# ---- Deaths: Pre Vaccine ----\ncovid_us %&gt;%\n  filter(date &lt; \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Pre Vaccine\"\n  ) -&gt; deaths_pre_vax\n\n# ---- Deaths: Post Vaccine ----\ncovid_us %&gt;%\n  filter(date &gt;= \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Post Vaccine\"\n  ) -&gt; deaths_post_vax\n\n# ---- Tidy outputs for display ----\n\ndeaths_tab &lt;- deaths_overall %&gt;% \n  bind_rows(\n  deaths_pre_vax,\n  deaths_post_vax\n) %&gt;% \n  mutate(\n    comparison = factor(\n      comparison,\n      levels = c(\"Overall\",\"Pre Vaccine\", \"Post Vaccine\")\n      )\n  )\n\n\n\n\nknitr::kable(deaths_tab) %&gt;% \n  kableExtra::kable_styling()\n\n\n\n\nwinner\nnew_deaths\nnew_deaths_pc_7day\ncomparison\n\n\n\n\nTrump\n19.34867\n0.3402479\nOverall\n\n\nBiden\n22.04853\n0.2871843\nOverall\n\n\nTrump\n22.82048\n0.4000294\nPre Vaccine\n\n\nBiden\n30.61051\n0.3801906\nPre Vaccine\n\n\nTrump\n17.07402\n0.3016571\nPost Vaccine\n\n\nBiden\n16.30683\n0.2257111\nPost Vaccine\n\n\n\n\n\n\n\n\n\n\n# 1. Data\ndeaths_tab %&gt;% \n  # 2. Aesthetics\n  ggplot(\n    aes(winner, new_deaths_pc_7day,\n        fill = winner)\n  ) +\n  # 3. Geometries\n  geom_bar(stat = \"identity\") +\n  # 4. Facets\n  facet_grid(~ comparison) +\n  # 5. Labels and Themes\n  guides(fill = \"none\") +\n  labs(\n    x = \"State's won by\",\n    y = \"Average # of Deaths per 100k\\n(7-day rolling average)\",\n    title = \"Red States have more Covid-19 deaths after vaccine\"\n  )+\n  theme_minimal()+\n  theme(title = element_text(size = 10,face = \"bold\")) -&gt; fig_q6"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-linear-regression",
+    "href": "slides/06-slides.html#using-linear-regression",
+    "title": "POLS 1600",
+    "section": "Using Linear Regression",
+    "text": "Using Linear Regression\n::: panel-tabset"
+  },
+  {
+    "objectID": "slides/06-slides.html#q7",
+    "href": "slides/06-slides.html#q7",
+    "title": "POLS 1600",
+    "section": "Q7",
+    "text": "Q7\nQuestion 7 asked you estimate the following OLS models:\n\\[ \\text{New Deaths} = \\beta\\_0 + \\beta\\_1 \\text{Election Winner} + \\epsilon \\]\n\\[ \\text{7-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Election Winner} + \\epsilon \\] ## Code\n\nm1 &lt;- lm(new_deaths ~ winner, covid_us)\nm2 &lt;- lm(new_deaths_pc_7day ~ winner, covid_us)"
+  },
+  {
+    "objectID": "slides/06-slides.html#output",
+    "href": "slides/06-slides.html#output",
+    "title": "POLS 1600",
+    "section": "Output",
+    "text": "Output\n\nm1\n\n\nCall:\nlm(formula = new_deaths ~ winner, data = covid_us)\n\nCoefficients:\n(Intercept)  winnerBiden  \n      19.35         2.70  \n\n# Just the coefficients\ncoef(m2)\n\n(Intercept) winnerBiden \n 0.34024787 -0.05306357"
+  },
+  {
+    "objectID": "slides/06-slides.html#table-1",
+    "href": "slides/06-slides.html#table-1",
+    "title": "POLS 1600",
+    "section": "Table",
+    "text": "Table\ntexreg::htmlreg(list(m1,m2),\n                custom.header = list(\n                  \"DV:\" = 1:2\n                ),\n                custom.model.names = c(\n                  \"new_deaths\",\n                  \"new_deaths_pc_7day\"\n                ))\n\n\nStatistical models\n\n\n\n\n \n\n\nDV:\n\n\n\n\n \n\n\nnew_deaths\n\n\nnew_deaths_pc_7day\n\n\n\n\n\n\n(Intercept)\n\n\n19.35***\n\n\n0.34***\n\n\n\n\n \n\n\n(0.39)\n\n\n(0.00)\n\n\n\n\nwinnerBiden\n\n\n2.70***\n\n\n-0.05***\n\n\n\n\n \n\n\n(0.55)\n\n\n(0.00)\n\n\n\n\nR2\n\n\n0.00\n\n\n0.00\n\n\n\n\nAdj. R2\n\n\n0.00\n\n\n0.00\n\n\n\n\nNum. obs.\n\n\n52755\n\n\n52449\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n::::"
+  },
+  {
+    "objectID": "slides/06-slides.html#code---cef",
+    "href": "slides/06-slides.html#code---cef",
+    "title": "POLS 1600",
+    "section": "Code - CEF",
+    "text": "Code - CEF\n\ncovid_us %&gt;%\n  mutate(\n    biden01 = ifelse(winner == \"Biden\",1,0)\n  ) %&gt;% \n  ggplot(aes(biden01, new_deaths_pc_7day))+\n  geom_jitter(size=.25,alpha=.15)+\n  stat_summary(col=\"red\")+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = 1),\n               col = \"red\",\n               fun = mean) +\n  theme_minimal()-&gt; fig_q7cef"
+  },
+  {
+    "objectID": "slides/06-slides.html#figure---cef",
+    "href": "slides/06-slides.html#figure---cef",
+    "title": "POLS 1600",
+    "section": "Figure - CEF",
+    "text": "Figure - CEF"
+  },
+  {
+    "objectID": "slides/06-slides.html#code---ols",
+    "href": "slides/06-slides.html#code---ols",
+    "title": "POLS 1600",
+    "section": "Code - OLS",
+    "text": "Code - OLS\n\nfig_q7cef +\n  stat_smooth(method = \"lm\",se = F)+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = .05),\n               col = \"red\",\n               fun = mean)+\n  coord_cartesian(ylim=c(0,.55))+\n  geom_segment(aes(\n    x = 0,\n    xend = 0,\n    y = coef(m2)[1],\n    yend = coef(m2)[1] + coef(m2)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  geom_segment(aes(\n    x = 0,\n    xend = 1,\n    y = coef(m2)[1] + coef(m2)[2],\n    yend = coef(m2)[1] + coef(m2)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  annotate(\"text\",\n           label = expression(paste(beta[0],\" = \" )),\n           x = 0, \n           y = coef(m2)[1] + 0.075,\n           hjust = \"center\",\n           col = \"blue\"\n           )+\n    annotate(\"text\",\n           label = expression(paste(beta[1],\" = 0.29 - 0.34 = -0.05\" )),\n           x = 0, \n           y = coef(m2)[1] +coef(m2)[2] - 0.05,\n           hjust = \"left\",\n           col = \"blue\"\n           )+\n  annotate(\"text\",\n           label = expression(\n             paste(beta[0],\" + \", beta[1], \" = \" )),\n           x = 1, \n           y = coef(m2)[1] + 0.05,\n           hjust = \"center\",\n           col = \"blue\"\n           ) -&gt; fig_q7ols"
+  },
+  {
+    "objectID": "slides/06-slides.html#figure---ols",
+    "href": "slides/06-slides.html#figure---ols",
+    "title": "POLS 1600",
+    "section": "Figure - OLS",
+    "text": "Figure - OLS"
+  },
+  {
+    "objectID": "slides/06-slides.html#q7-when-the-cef-is-linear-ols-cef",
+    "href": "slides/06-slides.html#q7-when-the-cef-is-linear-ols-cef",
+    "title": "POLS 1600",
+    "section": "Q7: When the CEF is Linear, OLS = CEF",
+    "text": "Q7: When the CEF is Linear, OLS = CEF\n\n -CEF-CEF-OLS-OLS\n\n\nIn a saturate linear model, every group in the data can be represented by a coefficient or combination of coefficients in the model.\n\n\n\ncovid_us %&gt;%\n  mutate(\n    biden01 = ifelse(winner == \"Biden\",1,0)\n  ) %&gt;% \n  ggplot(aes(biden01, new_deaths_pc_7day))+\n  geom_jitter(size=.25,alpha=.15)+\n  stat_summary(col=\"red\")+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = 1),\n               col = \"red\",\n               fun = mean) +\n  theme_minimal()-&gt; fig_q7cef\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfig_q7cef +\n  stat_smooth(method = \"lm\",se = F)+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = .05),\n               col = \"red\",\n               fun = mean)+\n  coord_cartesian(ylim=c(0,.45))+\n  geom_segment(aes(\n    x = 0,\n    xend = 0,\n    y = coef(m2)[1],\n    yend = coef(m2)[1] + coef(m2)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  geom_segment(aes(\n    x = 0,\n    xend = 1,\n    y = coef(m2)[1] + coef(m2)[2],\n    yend = coef(m2)[1] + coef(m2)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  annotate(\"text\",\n           label = expression(paste(beta[0],\" = \" )),\n           x = 0, \n           y = coef(m2)[1] + 0.075,\n           hjust = \"center\",\n           col = \"blue\"\n           )+\n    annotate(\"text\",\n           label = expression(paste(beta[1],\" = 0.29 - 0.34 = -0.05\" )),\n           x = 0, \n           y = coef(m2)[1] +coef(m2)[2] - 0.05,\n           hjust = \"left\",\n           col = \"blue\"\n           )+\n  annotate(\"text\",\n           label = expression(\n             paste(beta[0],\" + \", beta[1], \" = \" )),\n           x = 1, \n           y = coef(m2)[1] + 0.05,\n           hjust = \"center\",\n           col = \"blue\"\n           ) -&gt; fig_q7ols"
+  },
+  {
+    "objectID": "slides/06-slides.html#red-covid-revisited",
+    "href": "slides/06-slides.html#red-covid-revisited",
+    "title": "POLS 1600",
+    "section": "Red Covid Revisited",
+    "text": "Red Covid Revisited"
+  },
+  {
+    "objectID": "slides/06-slides.html#multiple-regression-1",
+    "href": "slides/06-slides.html#multiple-regression-1",
+    "title": "POLS 1600",
+    "section": "Multiple Regression",
+    "text": "Multiple Regression"
+  },
+  {
+    "objectID": "slides/06-slides.html#difference-in-differences-2",
+    "href": "slides/06-slides.html#difference-in-differences-2",
+    "title": "POLS 1600",
+    "section": "Difference in Differences",
+    "text": "Difference in Differences\n\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\\}}_{\\text{1. Treat-Control |Post }}− \\overbrace{\\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Treated-Control|Pre}}\\] Is equivalent to:\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\\}}_{\\text{Post - Pre |Treated }}− \\overbrace{\\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Post-Pre|Control}}\\]\n\nDifference 1: Average change between Treated over time\nDifference 2: Average change between Control over time"
+  },
+  {
+    "objectID": "slides/06-slides.html#difference-in-differences-3",
+    "href": "slides/06-slides.html#difference-in-differences-3",
+    "title": "POLS 1600",
+    "section": "Difference in Differences",
+    "text": "Difference in Differences\nYou’ll see the DiD design represented both ways, but they produce the same result:\n\\[\n\\tau_{ATT} = (19-147) - (85-135) = -78\n\\]\n\\[\n\\tau_{ATT} = (19-85) - (147-135) = -78\n\\]"
+  },
+  {
+    "objectID": "slides/06-slides.html#parralel-trends",
+    "href": "slides/06-slides.html#parralel-trends",
+    "title": "POLS 1600",
+    "section": "Parralel Trends",
+    "text": "Parralel Trends"
+  },
+  {
+    "objectID": "slides/06-slides.html#summary-2",
+    "href": "slides/06-slides.html#summary-2",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/06-slides.html#references",
+    "href": "slides/06-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-ols-to-calculate-conditional-means",
+    "href": "slides/06-slides.html#using-ols-to-calculate-conditional-means",
+    "title": "POLS 1600",
+    "section": "Using OLS to calculate conditional means",
+    "text": "Using OLS to calculate conditional means\n\nQ7OutputTable\n\n\nQuestion 7 asked you estimate the following OLS models:\n\\[ \\text{New Deaths} = \\beta_0 + \\beta_1 \\text{Election Winner} + \\epsilon \\]\n\\[ \\text{7-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Election Winner} + \\epsilon \\]\n\n\n\nm1 &lt;- lm(new_deaths ~ winner, covid_us)\nm2 &lt;- lm(new_deaths_pc_7day ~ winner, covid_us)\n\n\n\n\nm1\n\n\nCall:\nlm(formula = new_deaths ~ winner, data = covid_us)\n\nCoefficients:\n(Intercept)  winnerBiden  \n      19.35         2.70  \n\n# Just the coefficients\ncoef(m2)\n\n(Intercept) winnerBiden \n 0.34024787 -0.05306357 \n\n\n\n\ntexreg::htmlreg(list(m1,m2),\n                custom.header = list(\n                  \"DV:\" = 1:2\n                ),\n                custom.model.names = c(\n                  \"new_deaths\",\n                  \"new_deaths_pc_7day\"\n                ))\n\n\nStatistical models\n\n\n\n\n \n\n\nDV:\n\n\n\n\n \n\n\nnew_deaths\n\n\nnew_deaths_pc_7day\n\n\n\n\n\n\n(Intercept)\n\n\n19.35***\n\n\n0.34***\n\n\n\n\n \n\n\n(0.39)\n\n\n(0.00)\n\n\n\n\nwinnerBiden\n\n\n2.70***\n\n\n-0.05***\n\n\n\n\n \n\n\n(0.55)\n\n\n(0.00)\n\n\n\n\nR2\n\n\n0.00\n\n\n0.00\n\n\n\n\nAdj. R2\n\n\n0.00\n\n\n0.00\n\n\n\n\nNum. obs.\n\n\n52755\n\n\n52449\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+  },
+  {
+    "objectID": "slides/06-slides.html#q9-vote-shares-vaccinations-and-deaths",
+    "href": "slides/06-slides.html#q9-vote-shares-vaccinations-and-deaths",
+    "title": "POLS 1600",
+    "section": "Q9: Vote shares, vaccinations, and deaths",
+    "text": "Q9: Vote shares, vaccinations, and deaths\n\nQ9Results\n\n\nQ9 asked you to fit three models exploring the relationship between:\n\\[ \\text{m3} =\\text{14-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Percent Vaccinated} \\] \\[ \\text{m4} =\\text{Percent Vaccinated} = \\beta_0 + \\beta_1 \\text{Republican Vote Share} \\] \\[ \\text{m5} =\\text{14-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Republican Vote Share} \\]\nOn September 23, 2021, when Leonhardt was writing\n\n\n\n# Deaths modeled by percent vaccinated on 2021-09-23\nm3 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n#  Percent vaccinated modeled by Republican vote share on 2021-09-23\nm4 &lt;- lm(percent_vaccinated ~ rep_voteshare, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n# Deaths modeled by Republican vote share on 2021-09-23\nm5 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n\n\n\ncoef(m3)\n\n       (Intercept) percent_vaccinated \n         2.4232235         -0.0330773 \n\ncoef(m4)\n\n  (Intercept) rep_voteshare \n   84.3326265    -0.5731175 \n\ncoef(m5)\n\n  (Intercept) rep_voteshare \n  -0.36296799    0.01888996"
+  },
+  {
+    "objectID": "slides/06-slides.html#section",
+    "href": "slides/06-slides.html#section",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Calculating Conditional Means\n\nQ6DataTable-Fig-Fig\n\n\nNow let’s revisit question 6, which asked you to calculate some conditional means:\n\nOverall\nBefore the vaccine was widely available\nAfter the vaccine was widely available\n\n\n\n\n# ---- Deaths: Overall ----\ncovid_us %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Overall\"\n  ) -&gt; deaths_overall\n\n# ---- Deaths: Pre Vaccine ----\ncovid_us %&gt;%\n  filter(date &lt; \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Pre Vaccine\"\n  ) -&gt; deaths_pre_vax\n\n# ---- Deaths: Post Vaccine ----\ncovid_us %&gt;%\n  filter(date &gt;= \"2021-04-19\") %&gt;%\n  group_by(winner)%&gt;%\n  summarise(\n    new_deaths = mean(new_deaths, na.rm=T),\n    new_deaths_pc_7day = mean(new_deaths_pc_7day, na.rm=T),\n  ) %&gt;% \n  mutate(\n    comparison = \"Post Vaccine\"\n  ) -&gt; deaths_post_vax\n\n# ---- Tidy outputs for display ----\n\ndeaths_tab &lt;- deaths_overall %&gt;% \n  bind_rows(\n  deaths_pre_vax,\n  deaths_post_vax\n) %&gt;% \n  mutate(\n    comparison = factor(\n      comparison,\n      levels = c(\"Overall\",\"Pre Vaccine\", \"Post Vaccine\")\n      )\n  )\n\n\n\n\nknitr::kable(deaths_tab) %&gt;% \n  kableExtra::kable_styling()\n\n\n\n\nwinner\nnew_deaths\nnew_deaths_pc_7day\ncomparison\n\n\n\n\nTrump\n19.34867\n0.3402479\nOverall\n\n\nBiden\n22.04853\n0.2871843\nOverall\n\n\nTrump\n22.82048\n0.4000294\nPre Vaccine\n\n\nBiden\n30.61051\n0.3801906\nPre Vaccine\n\n\nTrump\n17.07402\n0.3016571\nPost Vaccine\n\n\nBiden\n16.30683\n0.2257111\nPost Vaccine\n\n\n\n\n\n\n\n\n\n\n# 1. Data\ndeaths_tab %&gt;% \n  # 2. Aesthetics\n  ggplot(\n    aes(winner, new_deaths_pc_7day,\n        fill = winner)\n  ) +\n  # 3. Geometries\n  geom_bar(stat = \"identity\") +\n  # 4. Facets\n  facet_grid(~ comparison) +\n  # 5. Labels and Themes\n  guides(fill = \"none\") +\n  labs(\n    x = \"State's won by\",\n    y = \"Average # of Deaths per 100k\\n(7-day rolling average)\",\n    title = \"Red States have more Covid-19 deaths per capita after vaccine\"\n  )+\n  theme_minimal()+\n  theme(title = element_text(size = 10,face = \"bold\")) -&gt; fig_q6"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-1",
+    "href": "slides/06-slides.html#section-1",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Using OLS to estimate conditional means\n\nQ7OutputTable\n\n\nQuestion 7 asked you estimate the following OLS models:\n\\[ \\text{New Deaths} = \\beta_0 + \\beta_1 \\text{Election Winner} + \\epsilon \\]\n\\[ \\text{7-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Election Winner} + \\epsilon \\]\n\n\n\n\n\n\nNote\n\n\nRecall winner is a factor whose levels we set to be c(\"Trump\",\"Biden\").\nlm() converts factors into binary indicators. Here 0=\"Trump\" and 1=\"Biden\"\n\n\n\n\n\n\nm1_lab &lt;- lm(new_deaths ~ winner, covid_us)\nm2_lab &lt;- lm(new_deaths_pc_7day ~ winner, covid_us)\n\n\n\n\nm1_lab\n\n\nCall:\nlm(formula = new_deaths ~ winner, data = covid_us)\n\nCoefficients:\n(Intercept)  winnerBiden  \n      19.35         2.70  \n\n# Just the coefficients\ncoef(m2_lab)\n\n(Intercept) winnerBiden \n 0.34024787 -0.05306357 \n\n# Coefficients with summary stats (for later)\nsummary(m2_lab)\n\n\nCall:\nlm(formula = new_deaths_pc_7day ~ winner, data = covid_us)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-8.0016 -0.2205 -0.1340  0.0966  5.8550 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  0.340248   0.002487  136.83   &lt;2e-16 ***\nwinnerBiden -0.053064   0.003475  -15.27   &lt;2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.3978 on 52447 degrees of freedom\n  (1229 observations deleted due to missingness)\nMultiple R-squared:  0.004427,  Adjusted R-squared:  0.004408 \nF-statistic: 233.2 on 1 and 52447 DF,  p-value: &lt; 2.2e-16\n\n\n\n\ntexreg::htmlreg(list(m1_lab,m2_lab),\n                custom.header = list(\n                  \"DV:\" = 1:2\n                ),\n                custom.model.names = c(\n                  \"new_deaths\",\n                  \"new_deaths_pc_7day\"\n                ))\n\n\nStatistical models\n\n\n\n\n \n\n\nDV:\n\n\n\n\n \n\n\nnew_deaths\n\n\nnew_deaths_pc_7day\n\n\n\n\n\n\n(Intercept)\n\n\n19.35***\n\n\n0.34***\n\n\n\n\n \n\n\n(0.39)\n\n\n(0.00)\n\n\n\n\nwinnerBiden\n\n\n2.70***\n\n\n-0.05***\n\n\n\n\n \n\n\n(0.55)\n\n\n(0.00)\n\n\n\n\nR2\n\n\n0.00\n\n\n0.00\n\n\n\n\nAdj. R2\n\n\n0.00\n\n\n0.00\n\n\n\n\nNum. obs.\n\n\n52755\n\n\n52449\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-2",
+    "href": "slides/06-slides.html#section-2",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "m1 &lt;- lm(new_deaths ~ winner, covid_us)\nm2 &lt;- lm(new_deaths_pc_7day ~ winner, covid_us)"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-3",
+    "href": "slides/06-slides.html#section-3",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Q7: When the CEF is Linear, OLS = CEF\n\n -CEF-CEF-OLS-OLS\n\n\nIf the CEF is linear, then OLS = CEF\nIn a saturated linear model, every group in the data can be represented by a coefficient or combination of coefficients in the model.\n\n\n\ncovid_us %&gt;%\n  mutate(\n    biden01 = ifelse(winner == \"Biden\",1,0)\n  ) %&gt;% \n  ggplot(aes(biden01, new_deaths_pc_7day))+\n  geom_jitter(size=.25,alpha=.15)+\n  stat_summary(col=\"red\")+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = 1),\n               col = \"red\",\n               fun = mean) +\n  theme_minimal()-&gt; fig_q7cef\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfig_q7cef +\n  stat_smooth(method = \"lm\",se = F)+\n  stat_summary(aes(label=round(..y..,2)),\n               geom = \"text\", \n               position = position_nudge(y = .05),\n               col = \"red\",\n               fun = mean)+\n  coord_cartesian(ylim=c(0,.45))+\n  geom_segment(aes(\n    x = 0,\n    xend = 0,\n    y = coef(m2_lab)[1],\n    yend = coef(m2_lab)[1] + coef(m2_lab)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  geom_segment(aes(\n    x = 0,\n    xend = 1,\n    y = coef(m2_lab)[1] + coef(m2_lab)[2],\n    yend = coef(m2_lab)[1] + coef(m2_lab)[2]\n  ),\n  col = \"blue\",\n  linetype = \"dashed\")+\n  annotate(\"text\",\n           label = expression(paste(beta[0],\" = \" )),\n           x = 0, \n           y = coef(m2_lab)[1] + 0.075,\n           hjust = \"center\",\n           col = \"blue\"\n           )+\n    annotate(\"text\",\n           label = expression(paste(beta[1],\" = 0.29 - 0.34 = -0.05\" )),\n           x = 0, \n           y = coef(m2_lab)[1] +coef(m2_lab)[2] - 0.05,\n           hjust = \"left\",\n           col = \"blue\"\n           )+\n  annotate(\"text\",\n           label = expression(\n             paste(beta[0],\" + \", beta[1], \" = \" )),\n           x = 1, \n           y = coef(m2_lab)[1] + 0.05,\n           hjust = \"center\",\n           col = \"blue\"\n           ) -&gt; fig_q7ols"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-5",
+    "href": "slides/06-slides.html#section-5",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Q8: Vote shares, vaccinations, and deaths\n\nQ9-OLSResults\n\n\nQ9 asked you to fit three models exploring the relationship between:\n\\[ \\text{m3} =\\text{14-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Percent Vaccinated} \\] \\[ \\text{m4} =\\text{Percent Vaccinated} = \\beta_0 + \\beta_1 \\text{Republican Vote Share} \\] \\[ \\text{m5} =\\text{14-day average of New Deaths (per 100k)} = \\beta_0 + \\beta_1 \\text{Republican Vote Share} \\]\nOn September 23, 2021, when Leonhardt was writing\n\n\n\n# Deaths modeled by percent vaccinated on 2021-09-23\nm3_lab &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n#  Percent vaccinated modeled by Republican vote share on 2021-09-23\nm4_lab &lt;- lm(percent_vaccinated ~ rep_voteshare, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n# Deaths modeled by Republican vote share on 2021-09-23\nm5_lab &lt;- lm(new_deaths_pc_14day ~ rep_voteshare, \n         covid_us,\n         subset = date == \"2021-09-23\")\n\n\n\n\ncoef(m3_lab)\n\n       (Intercept) percent_vaccinated \n         2.4232235         -0.0330773 \n\ncoef(m4_lab)\n\n  (Intercept) rep_voteshare \n   84.3326265    -0.5731175 \n\ncoef(m5_lab)\n\n  (Intercept) rep_voteshare \n  -0.36296799    0.01888996"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-7",
+    "href": "slides/06-slides.html#section-7",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Testing Alternative Explanations of Red Covid\n\nA skeptic might argue that this relationship is spurious.\nThere are lots of ways that Red States differ from Blue States – demographics, economics, geography, culture – that might explain the differences in Covid-19 deaths."
+  },
+  {
+    "objectID": "slides/06-slides.html#q10-alternative-explanations",
+    "href": "slides/06-slides.html#q10-alternative-explanations",
+    "title": "POLS 1600",
+    "section": "Q10: Alternative Explanations",
+    "text": "Q10: Alternative Explanations\n\nFinally Q10 asked you to consider some possible alternative explanations or omitted variables that might explain the positive relationship, between Republican Vote Share and Covid-19 deaths.\nIn this week’s lab, we’ll see how we can use multiple regression to evaluate these claims."
+  },
+  {
+    "objectID": "slides/06-slides.html#section-8",
+    "href": "slides/06-slides.html#section-8",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Testing Alternative Explanations of Red Covid\n\nIn Lab 6, we use multiple regression to try and control for the following alternative explanations:\n\nDifferences in median age\nDifferences in median income\n\nTo do this, we need to merge in some additional state level data from the census."
+  },
+  {
+    "objectID": "slides/06-slides.html#section-6",
+    "href": "slides/06-slides.html#section-6",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Q9: Visualizing Vote Shares and Deaths\n\nQ9-Basic-Basic-Fetch-Fetch\n\n\nQ9 asks you to visualize the results of the model m5\nLet’s take a basic figure, and make it fetch!\n\n\n\ncovid_us %&gt;%\n  # Only use observations from September 23, 2021\n  filter(date == \"2021-09-23\") %&gt;%\n  # Exclude DC\n  filter(state != \"District of Columbia\") %&gt;%\n  # Set aesthetics\n  ggplot(aes(x = rep_voteshare,\n             y = new_deaths_pc_14day))+\n  # Set geometries\n  geom_point(aes(col=rep_voteshare),size=2,alpha=.5)+\n  # Include the linear regression of lm(new_deaths_pc_14day ~ rep_voteshare)\n  geom_smooth(method = \"lm\", se=F,\n              col = \"grey\", linetype =2) -&gt; fig_m5_lab\n\n\n\n\nfig_m5_lab\n\n\n\n\n\n\n\n\n\n\n\nfig_m5_lab +\n  # two way gradient, blue states -&gt; blue, red states -&gt; red, swing -&gt; grey\n  scale_color_gradient2(\n    midpoint = 50,\n    low = \"blue\", mid = \"grey\", high = \"red\",\n    guide = \"none\")+\n  # Vertical line at 50% threshold\n  geom_vline(xintercept = 50, \n             col = \"grey\",linetype = 3)+\n  # Add labels\n  ggrepel::geom_text_repel(aes(label = state_po), size=2)+\n  # theme with minimal lines\n  theme_classic()+\n  # Labels\n  labs(\n    x = \"Republican Vote Share\\n 2020 Presidential Election\",\n    y = \"New Covid-19 Deaths per 100kresidents\\n (14-day average)\",\n    title = \"Partisan Gaps in Covid-19 Deaths at the State Level\",\n    subtitle = \"Data from Sept. 23, 2021\"\n  ) -&gt; fig_m5_lab_fetch\n\n\n\n\nfig_m5_lab_fetch"
+  },
+  {
+    "objectID": "slides/06-slides.html#red-covid",
+    "href": "slides/06-slides.html#red-covid",
+    "title": "POLS 1600",
+    "section": "Red Covid",
+    "text": "Red Covid\nThe core thesis of Red Covid is something like the following:\n\nSince Covid-19 vaccines became widely available to the general public in the spring of 2021, Republicans have been less likely to get the vaccine. Lower rates of vaccination among Republicans have in turn led to higher rates of death from Covid-19 in Red States compared to Blue States."
+  },
+  {
+    "objectID": "slides/06-slides.html#loading-data-from-the-census",
+    "href": "slides/06-slides.html#loading-data-from-the-census",
+    "title": "POLS 1600",
+    "section": "Loading data from the Census",
+    "text": "Loading data from the Census\nIf you worked through the instructions here and installed tidycensus and a Census API key on your machine, you should be able to run the following:\n\nacs_df &lt;- tidycensus::get_acs(geography = \"state\", \n              variables = c(med_income = \"B19013_001\",\n                            med_age = \"B01002_001\"), \n              year = 2019)\n\nIf not, no worries, just uncomment the code below:\n\n# Uncomment if get_acs() doesn't work:\n# load(url(\"https://pols1600.paultesta.org/files/data/acs_df.rda\"))"
+  },
+  {
+    "objectID": "slides/06-slides.html#subset-data",
+    "href": "slides/06-slides.html#subset-data",
+    "title": "POLS 1600",
+    "section": "Subset Data",
+    "text": "Subset Data\n\nTask-Subset-Subsetted Data\n\n\n\nNext, we’ll subset the data to include just the values from variables we’ll use in the lab on from September 23, 2021 using:\n\nfilter()\nselect()\n\n\n\n\n\n\n\nNote\n\n\n\nAgain, we’ll save this output to a new object called covid_lab\n\n\n\n\n\n\n\n\n\nthe_vars &lt;- c(\n  # Covid variables\n  \"state\",\"state_po\",\"date\",\"new_deaths_pc_14day\", \"percent_vaccinated\",\n  # Election variables\n  \"winner\",\"rep_voteshare\",\n  # Demographic variables\n  \"med_age\",\"med_income\",\"population\")\n\n\ncovid_lab &lt;- covid_df %&gt;%\n  filter( date == \"2021-09-23\") %&gt;%\n  select(all_of(the_vars)) %&gt;%\n  ungroup()\n\nlength(the_vars)\n\n[1] 10\n\ndim(covid_lab)\n\n[1] 51 10\n\n\n\n\n\ncovid_lab\n\n# A tibble: 51 × 10\n   state       state_po date       new_deaths_pc_14day percent_vaccinated winner\n   &lt;chr&gt;       &lt;I&lt;chr&gt;&gt; &lt;date&gt;                   &lt;dbl&gt;              &lt;dbl&gt; &lt;fct&gt; \n 1 Minnesota   MN       2021-09-23               0.222               61.0 Biden \n 2 California  CA       2021-09-23               0.295               60.8 Biden \n 3 Florida     FL       2021-09-23               1.61                58.4 Trump \n 4 Wyoming     WY       2021-09-23               0.938               43.9 Trump \n 5 South Dako… SD       2021-09-23               0.291               52.4 Trump \n 6 Kansas      KS       2021-09-23               0.559               53.9 Trump \n 7 Nevada      NV       2021-09-23               0.700               51.8 Biden \n 8 Virginia    VA       2021-09-23               0.379               62.5 Biden \n 9 Washington  WA       2021-09-23               0.532               63.2 Biden \n10 Oregon      OR       2021-09-23               0.439               62.3 Biden \n# ℹ 41 more rows\n# ℹ 4 more variables: rep_voteshare &lt;dbl&gt;, med_age &lt;dbl&gt;, med_income &lt;dbl&gt;,\n#   population &lt;int&gt;"
+  },
+  {
+    "objectID": "slides/06-slides.html#standardize-data",
+    "href": "slides/06-slides.html#standardize-data",
+    "title": "POLS 1600",
+    "section": "Standardize Data",
+    "text": "Standardize Data"
+  },
+  {
+    "objectID": "slides/06-slides.html#save-data",
+    "href": "slides/06-slides.html#save-data",
+    "title": "POLS 1600",
+    "section": "Save Data",
+    "text": "Save Data\nFinally, I’ll save the data for Thursday’s lab\n\n# Don't run this code\nsave(covid_lab, file = \"../files/data/06_lab.rda\")\n\nAnd on Thursday, we’ll be able to load the covid_lab just by running:\n\nload(url(\"https://pols1600.paultesta.org/files/data/06_lab.rda\"))"
+  },
+  {
+    "objectID": "slides/06-slides.html#standardized-variables",
+    "href": "slides/06-slides.html#standardized-variables",
+    "title": "POLS 1600",
+    "section": "Standardized Variables",
+    "text": "Standardized Variables\n\nWhen numeric variables are measured on different scales, it can be useful to construct standardized measures, sometimes called z-scores\n\\[z\\text{-scores of x} = \\frac{x_i - \\mu_{x}}{\\sigma_x}\\]\n\nThe z-score of Age is\n\n\\[z\\text{-scores of Age} = \\frac{\\text{Age}_i - \\text{Average Age}}{\\text{Standard Deviation of Age}}\\]\n\n\n\n\n\n\nNote\n\n\n\nStandardized variables all have a mean of 0 and a standard deviation of 1\nStandardizing variables helps us interpret coefficients in multiple regressions with predictors measured on different scales"
+  },
+  {
+    "objectID": "slides/06-slides.html#standardizing-variables-for-the-lab",
+    "href": "slides/06-slides.html#standardizing-variables-for-the-lab",
+    "title": "POLS 1600",
+    "section": "Standardizing variables for the lab",
+    "text": "Standardizing variables for the lab\n\nTask-Standardize-Compare-Compare\n\n\n\nCreate standardized versions of\n\nrep_voteshare\nmed_age\nmed_income\npercent_vaccinated\n\n\n\n\n\n\n\nNote\n\n\n\nWe’ll use the suffix _std to distinguish the standardized variables from the original variables\n\n\n\n\n\n\n\n\ncovid_lab %&gt;%\n  mutate(\n    rep_voteshare_std = (rep_voteshare - mean(rep_voteshare)) / sd(rep_voteshare),\n    med_age_std = ( med_age - mean( med_age)) / sd( med_age),\n    med_income_std = (med_income - mean(med_income)) / sd(med_income),\n    percent_vaccinated_std = (percent_vaccinated - mean(percent_vaccinated)) / sd(percent_vaccinated)\n  ) -&gt; covid_lab\n\n\n\n\ncovid_lab %&gt;%\n  summarise(\n    mn_rep_vote = mean(rep_voteshare),\n    mn_rep_vote_std = round(mean(rep_voteshare_std),2),\n    sd_rep_vote = sd(rep_voteshare),\n    sd_rep_vote_std = sd(rep_voteshare_std)\n  )\n\n# A tibble: 1 × 4\n  mn_rep_vote mn_rep_vote_std sd_rep_vote sd_rep_vote_std\n        &lt;dbl&gt;           &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;\n1        49.2               0        12.0               1\n\n\n\n\n\ncovid_lab %&gt;% \n  ggplot(aes(rep_voteshare_std,rep_voteshare))+\n  geom_point()"
+  },
+  {
+    "objectID": "slides/06-slides.html#task-2",
+    "href": "slides/06-slides.html#task-2",
+    "title": "POLS 1600",
+    "section": "Task",
+    "text": "Task\n\nNext, we’ll subset the data to include just the values from variables we’ll use in the lab on from September 23, 2021 using:\n\nfilter()\nselect()\n\n\n\n\n\n\n\nNote\n\n\n\nAgain, we’ll save this output to a new object called covid_lab"
+  },
+  {
+    "objectID": "slides/06-slides.html#subset",
+    "href": "slides/06-slides.html#subset",
+    "title": "POLS 1600",
+    "section": "-Subset",
+    "text": "-Subset\n\nthe_vars &lt;- c(\n  # Covid variables\n  \"state\",\"state_po\",\"date\",\"new_deaths_pc_14day\", \"percent_vaccinated\",\n  # Election variables\n  \"winner\",\"rep_voteshare\",\n  # Demographic variables\n  \"med_age\",\"med_income\",\"population\")\n\n\ncovid_lab &lt;- covid_df %&gt;%\n  filter( date == \"2021-09-23\") %&gt;%\n  select(all_of(the_vars)) %&gt;%\n  ungroup()\n\nlength(the_vars)\n\n[1] 10\n\ndim(covid_lab)\n\n[1] 51 10"
+  },
+  {
+    "objectID": "slides/06-slides.html#conceptual-multiple-regression",
+    "href": "slides/06-slides.html#conceptual-multiple-regression",
+    "title": "POLS 1600",
+    "section": "Conceptual: Multiple Regression",
+    "text": "Conceptual: Multiple Regression\n\n\nMultiple linear regression generalizes simple regression to models with multiple predictors\n\n\\[y = \\beta_0 + \\beta_1x_{1} +\\beta_2x_{2} \\dots \\beta_kx_k + \\epsilon\\] More compactly written in matrix notation:\n\\[y = X\\beta + \\epsilon\\] Where:\n\\[\n\\overbrace{\\begin{bmatrix}\ny_1 \\\\\ny_2 \\\\\n\\vdots \\\\\ny_n\n\\end{bmatrix}}^{y}\n=\n\\overbrace{\n\\begin{bmatrix}\n     1  & x_{1,1}&\\dots & x_{1,k}\\\\\n1  & x_{2,1}&\\dots & x_{2,k}\\\\\n\\vdots&\\vdots&  & \\vdots \\\\\n1  & x_{n,1}&\\dots & x_{n,k}\\\\\n\\end{bmatrix}}^{X}\n\\overbrace{\\begin{bmatrix}\n\\beta_0\\\\\n\\beta_1\\\\\n\\vdots \\\\\n\\beta_k\\\\\n\\end{bmatrix}}^{\\beta}\n+\n\\overbrace{\\begin{bmatrix}\n\\epsilon_1 \\\\\n\\epsilon_2 \\\\\n\\vdots \\\\\n\\epsilon_n\n\\end{bmatrix}}^{\\epsilon}\n\\]"
+  },
+  {
+    "objectID": "slides/06-slides.html#technical-practical",
+    "href": "slides/06-slides.html#technical-practical",
+    "title": "POLS 1600",
+    "section": "Technical: Practical",
+    "text": "Technical: Practical\n\n\nWe estimate linear models in R using the lm() function using the + to add predictors\nWe use the * to include the main effects \\((\\beta_1 x, \\beta_2z)\\) and interactions \\((\\beta_3 (x\\cdot z))\\)of two predictors\n\n\nlm(y ~ x + z, data = df)\nlm(y ~ x*z, data = df) # Is a shortcut for:\nlm(y ~ x + z + x:z, data = df)"
+  },
+  {
+    "objectID": "slides/06-slides.html#technical-multiple-regression",
+    "href": "slides/06-slides.html#technical-multiple-regression",
+    "title": "POLS 1600",
+    "section": "Technical: Multiple Regression",
+    "text": "Technical: Multiple Regression\n\n\nSimple linear regression chooses a \\(\\hat{\\beta_0}\\) and \\(\\hat{\\beta_1}\\) to minimize the Sum of Squared Residuals (SSR):\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\hat{\\beta_0}+\\hat{\\beta_1}x_i))^2\\]\n\nMultiple linear regression chooses a vector of coefficients \\(\\hat{\\beta}\\) to minimize the Sum of Squared Residuals (SSR):\n\n\\[\\textrm{Find }\\widehat{\\beta} \\text{ argmin }_{\\widehat{\\beta}} \\sum \\epsilon^2=\\epsilon^\\prime\\epsilon=(y-X\\widehat{\\beta})^\\prime(y-X\\widehat{\\beta})\\]"
+  },
+  {
+    "objectID": "slides/06-slides.html#theoretical-multiple-regression",
+    "href": "slides/06-slides.html#theoretical-multiple-regression",
+    "title": "POLS 1600",
+    "section": "Theoretical: Multiple Regression",
+    "text": "Theoretical: Multiple Regression\n\n\nMultiple Linear regression still provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\) where \\(Y\\) is now a function of multiple predictors, \\(X\\)"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-9",
+    "href": "slides/06-slides.html#section-9",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Estimating and Interpretting Multiple Regressions\n\nTask NES HLO Wrangle\n\n\n\nLet’s load, inspect, and recode some data from the 2016 NES and explore the relationship between political interest and evaluations of presidential candidates:\n\nPolitical Interest: “How interested are you in in politics?\n\nVery Interested\nSomewhat interested\nNot very Interested\nNot at all Interested\n\nFeeling Thermometer: “… On the feeling thermometer scale of 0 to 100, how would you rate”\n\nDonald Trump\nHillary Clinton\n\n\n\n\n\n\n# Load data from 2016 NES\nload(url(\"https://pols1600.paultesta.org/files/data/nes.rda\"))\n\n\n\n\n# Take a quick look at the data\ndim(nes)\n\n[1] 1200   14\n\nhead(nes)\n\n  caseid    state age gender educ faminc pid7 ideo5 pol_interest church_atd\n1    745  Alabama  19      2    3     97    5     3            1          2\n2   1115  Alabama  46      1    3      3    1     1            3          6\n3    258  Alabama  59      2    2      6    2     3            2          1\n4    126  Alabama  55      2    4      6    1     2            3          5\n5    414  Alabama  66      1    3      8    7     4            3          3\n6    523  Alabama  61      1    2     97    1     2            3          6\n  bornagain01 ft_trump ft_hrc vote_choice\n1           0        3     19       Other\n2           0        0     36         HRC\n3           1       22      2        &lt;NA&gt;\n4           0        1     80         HRC\n5           1      100      3        &lt;NA&gt;\n6           1        0    100        &lt;NA&gt;\n\ntable(nes$pol_interest)\n\n\n  0   1   2   3 \n 78 178 348 568 \n\nsummary(nes$ft_trump)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n   0.00    2.00   30.00   38.38   72.00  100.00       3 \n\nsummary(nes$ft_hrc)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n   0.00    3.00   44.00   42.99   76.00  100.00       1 \n\n\n\n\n\nnes %&gt;%\n  mutate(\n    income = ifelse(faminc &gt; 16, NA, faminc),\n    interested = ifelse(pol_interest==3,T,F),\n    pol_interest_f = factor(case_when(\n      pol_interest == 0 ~ \"Not at all Interested\",\n      pol_interest == 1 ~ \"Not very Interested\",\n      pol_interest == 2 ~ \"Somewhat Interested\",\n      pol_interest == 3 ~ \"Very Interested\"\n    )),\n    tc_diff = abs(ft_trump - ft_hrc)\n  ) -&gt; nes"
+  },
+  {
+    "objectID": "slides/06-slides.html#m1-a-binary-indicator",
+    "href": "slides/06-slides.html#m1-a-binary-indicator",
+    "title": "POLS 1600",
+    "section": "m1: A binary indicator",
+    "text": "m1: A binary indicator\n\nm1-Table-Figure-m1\n\n\n\\[\\text{m1: tc_diff} = \\beta_0 + \\beta_1\\text{interested}+\\epsilon \\]\n\nm1 &lt;- lm(tc_diff ~ interested, nes)\ncoef(m1)\n\n   (Intercept) interestedTRUE \n      47.84500       12.74655 \n\nmean(nes$tc_diff[nes$interested == F], na.rm=T)\n\n[1] 47.845\n\nmean(nes$tc_diff[nes$interested == T], na.rm=T)\n\n[1] 60.59155\n\nmean(nes$tc_diff[nes$interested == T], na.rm=T) -\n  mean(nes$tc_diff[nes$interested == F], na.rm=T)\n\n[1] 12.74655\n\n\n\n\nhtmlreg(m1)\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n47.84***\n\n\n\n\n \n\n\n(1.26)\n\n\n\n\ninterestedTRUE\n\n\n12.75***\n\n\n\n\n \n\n\n(1.81)\n\n\n\n\nR2\n\n\n0.04\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n\n\nNum. obs.\n\n\n1168\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df1 &lt;- expand_grid(\n  interested = c(F,T)\n)\n\npred_df1  &lt;- cbind(\n  pred_df1 ,\n  fit = predict(m1, pred_df1 )\n)\n\n# Produce figure\n\npred_df1 %&gt;% \n  ggplot(aes(interested, fit))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(interested)),\n    aes(x= interested,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point(col=\"red\") -&gt; fig_tc_m1"
+  },
+  {
+    "objectID": "slides/06-slides.html#m2-a-numerical-predictor",
+    "href": "slides/06-slides.html#m2-a-numerical-predictor",
+    "title": "POLS 1600",
+    "section": "m2: A numerical predictor",
+    "text": "m2: A numerical predictor\n\nm2-Table-Figure-m2\n\n\n\\[\\text{m2: tc_diff} = \\beta_0 + \\beta_1\\text{pol_interest}+\\epsilon\\]\n\nm2 &lt;- lm(tc_diff ~ pol_interest, nes)\nround(coef(m2),2)\n\n (Intercept) pol_interest \n       40.80         6.01 \n\n\n\n\nhtmlreg(list(m1,m2))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n47.84***\n\n\n40.80***\n\n\n\n\n \n\n\n(1.26)\n\n\n(2.35)\n\n\n\n\ninterestedTRUE\n\n\n12.75***\n\n\n \n\n\n\n\n \n\n\n(1.81)\n\n\n \n\n\n\n\npol_interest\n\n\n \n\n\n6.01***\n\n\n\n\n \n\n\n \n\n\n(0.98)\n\n\n\n\nR2\n\n\n0.04\n\n\n0.03\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n0.03\n\n\n\n\nNum. obs.\n\n\n1168\n\n\n1168\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df2 &lt;- expand_grid(\n  pol_interest = na.omit(sort(unique(nes$pol_interest)))\n)\n\npred_df2  &lt;- cbind(\n  pred_df2 ,\n  fit = predict(m2, pred_df2 )\n)\n\n# Produce figure\n\npred_df2 %&gt;% \n  ggplot(aes(pol_interest, fit,\n             ))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(pol_interest)),\n    aes(x= pol_interest,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_line(col=\"red\") +\n  geom_point(col=\"red\") -&gt; fig_tc_m2"
+  },
+  {
+    "objectID": "slides/06-slides.html#m3-a-categorical-indicator",
+    "href": "slides/06-slides.html#m3-a-categorical-indicator",
+    "title": "POLS 1600",
+    "section": "m3: A categorical indicator",
+    "text": "m3: A categorical indicator\n\nm3-Table-Figure-m3-m2 vs m3\n\n\n\\[\\text{m3: tc_diff} = \\beta_0 + \\beta_1\\text{pol_interest_f} +\\epsilon\\]\n\nm3 &lt;- lm(tc_diff ~ pol_interest_f, nes)\nround(coef(m3),2)\n\n                      (Intercept) pol_interest_fNot very Interested \n                            46.10                              1.73 \npol_interest_fSomewhat Interested     pol_interest_fVery Interested \n                             2.14                             14.49 \n\nnes %&gt;% \n  group_by(pol_interest_f) %&gt;%\n  filter(!is.na(pol_interest_f)) %&gt;% \n  summarise(\n    mean = mean(tc_diff,na.rm = T),\n    beta = round(mean - coef(m3)[1],3)\n  )\n\n# A tibble: 4 × 3\n  pol_interest_f         mean  beta\n  &lt;fct&gt;                 &lt;dbl&gt; &lt;dbl&gt;\n1 Not at all Interested  46.1  0   \n2 Not very Interested    47.8  1.73\n3 Somewhat Interested    48.2  2.14\n4 Very Interested        60.6 14.5 \n\n# Under the hood lm converts pol_interest_f into\n# binary indicators for every value pol_interest_f \n# excluding \"Not at all Interested\", the first level\n# of the factor\ncbind(\nm3$model[26:30,],\nmodel.matrix(m3)[26:30,]\n)\n\n   tc_diff        pol_interest_f (Intercept) pol_interest_fNot very Interested\n26      96 Not at all Interested           1                                 0\n27      93   Somewhat Interested           1                                 0\n28      95       Very Interested           1                                 0\n29      75   Somewhat Interested           1                                 0\n30       1   Not very Interested           1                                 1\n   pol_interest_fSomewhat Interested pol_interest_fVery Interested\n26                                 0                             0\n27                                 1                             0\n28                                 0                             1\n29                                 1                             0\n30                                 0                             0\n\n\n\n\nhtmlreg(list(m1,m2,m3))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\nModel 3\n\n\n\n\n\n\n(Intercept)\n\n\n47.84***\n\n\n40.80***\n\n\n46.10***\n\n\n\n\n \n\n\n(1.26)\n\n\n(2.35)\n\n\n(3.53)\n\n\n\n\ninterestedTRUE\n\n\n12.75***\n\n\n \n\n\n \n\n\n\n\n \n\n\n(1.81)\n\n\n \n\n\n \n\n\n\n\npol_interest\n\n\n \n\n\n6.01***\n\n\n \n\n\n\n\n \n\n\n \n\n\n(0.98)\n\n\n \n\n\n\n\npol_interest_fNot very Interested\n\n\n \n\n\n \n\n\n1.73\n\n\n\n\n \n\n\n \n\n\n \n\n\n(4.23)\n\n\n\n\npol_interest_fSomewhat Interested\n\n\n \n\n\n \n\n\n2.14\n\n\n\n\n \n\n\n \n\n\n \n\n\n(3.90)\n\n\n\n\npol_interest_fVery Interested\n\n\n \n\n\n \n\n\n14.49***\n\n\n\n\n \n\n\n \n\n\n \n\n\n(3.76)\n\n\n\n\nR2\n\n\n0.04\n\n\n0.03\n\n\n0.04\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n0.03\n\n\n0.04\n\n\n\n\nNum. obs.\n\n\n1168\n\n\n1168\n\n\n1168\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df3 &lt;- expand_grid(\n  pol_interest_f = na.omit(sort(unique(nes$pol_interest_f)))\n)\n\npred_df3  &lt;- cbind(\n  pred_df3 ,\n  fit = predict(m3, pred_df3 )\n)\n\n# Produce figure\n\npred_df3 %&gt;% \n  ggplot(aes(pol_interest_f, fit,\n             col = pol_interest_f))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(pol_interest_f)),\n    aes(x= pol_interest_f,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point() -&gt; fig_tc_m3"
+  },
+  {
+    "objectID": "slides/06-slides.html#m4-a-binary-and-numerical-predictor",
+    "href": "slides/06-slides.html#m4-a-binary-and-numerical-predictor",
+    "title": "POLS 1600",
+    "section": "m4: A binary and numerical predictor",
+    "text": "m4: A binary and numerical predictor\n\nm4-Table-Figure-m4-m4 in 3d\n\n\n\\[\\text{m4: tc_diff} = \\beta_0 + \\beta_1\\text{interested} + \\beta_2\\text{age} +\\epsilon\\]\n\nm4 &lt;- lm(tc_diff ~ interested + age, nes)\ncoef(m4)\n\n   (Intercept) interestedTRUE            age \n    32.1757944      9.7739375      0.3533876 \n\n\n\n\nhtmlreg(list(m1, m4))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n47.84***\n\n\n32.18***\n\n\n\n\n \n\n\n(1.26)\n\n\n(2.71)\n\n\n\n\ninterestedTRUE\n\n\n12.75***\n\n\n9.77***\n\n\n\n\n \n\n\n(1.81)\n\n\n(1.84)\n\n\n\n\nage\n\n\n \n\n\n0.35***\n\n\n\n\n \n\n\n \n\n\n(0.05)\n\n\n\n\nR2\n\n\n0.04\n\n\n0.07\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n0.07\n\n\n\n\nNum. obs.\n\n\n1168\n\n\n1168\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df4 &lt;- expand_grid(\n  interested = c(F,T),\n  age = seq(min(nes$age, na.rm = T),\n            max(nes$age, na.rm=T),\n            length.out = 10)\n)\n\npred_df4  &lt;- cbind(\n  pred_df4 ,\n  fit = predict(m4, pred_df4 )\n)\n\n# Produce figure\n\npred_df4 %&gt;% \n  ggplot(aes(age, fit,\n             col = interested,\n             group = interested))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(interested)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= age,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point()+\n  geom_line() -&gt; fig_tc_m4"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-10",
+    "href": "slides/06-slides.html#section-10",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Estimating and Interpreting Models\n\nModelsSkills\n\n\nLet’s estimate the following models:\n\\[\\text{m1: tc_diff} = \\beta_0 + \\beta_1\\text{interested}+\\epsilon \\]\n\\[\\text{m2: tc_diff} = \\beta_0 + \\beta_1\\text{pol_interest}+\\epsilon\\]\n\\[\\text{m3: tc_diff} = \\beta_0 + \\beta_1\\text{pol_interest_f} +\\epsilon\\]\n\\[\\text{m4: tc_diff} = \\beta_0 + \\beta_1\\text{interested} + \\beta_2\\text{age} +\\epsilon\\]\n\\[\\text{m5: tc_diff} = \\beta_0 + \\beta_1\\text{interested} + \\beta_2\\text{age} + \\beta_3\\text{interested} \\times \\text{age}+\\epsilon\\]\n\\[\\text{m6: tc_diff} = \\beta_0 + \\beta_1\\text{age} + \\beta_2\\text{income} +\\epsilon\\]\n\\[\\text{m7: tc_diff} = \\beta_0 + \\beta_1\\text{age} + \\beta_2\\text{income} + \\beta_4\\text{age}\\times \\text{income}+\\epsilon \\]\n\n\n\nWe’ll use:\n\nlm() to estimate models\ncoef() and summary() to examine our model\nhtmlreg()to format our results\ndata.frame() to create prediction dataframes\npredict() to produce predicted values and cbind() to combine the results back into prediction dataframes\nggplot() to display and interpret our models’ predictions"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-11",
+    "href": "slides/06-slides.html#section-11",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "m5: An interaction between a binary and numerical predictor\n\nm5-Table-Figure-m5-m5 in 3d\n\n\n\\[\\text{m5: tc_diff} = \\beta_0 + \\beta_1\\text{interested} + \\beta_2\\text{age} + \\beta_3\\text{interested} \\times \\text{age}+\\epsilon\\]\n\nm5 &lt;- lm(tc_diff ~ interested*age, nes)\ncoef(m5)\n\n       (Intercept)     interestedTRUE                age interestedTRUE:age \n        39.7626421         -6.7040163          0.1822814          0.3396523 \n\n\n\n\nhtmlreg(list(m1, m4, m5))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\nModel 3\n\n\n\n\n\n\n(Intercept)\n\n\n47.84***\n\n\n32.18***\n\n\n39.76***\n\n\n\n\n \n\n\n(1.26)\n\n\n(2.71)\n\n\n(3.62)\n\n\n\n\ninterestedTRUE\n\n\n12.75***\n\n\n9.77***\n\n\n-6.70\n\n\n\n\n \n\n\n(1.81)\n\n\n(1.84)\n\n\n(5.55)\n\n\n\n\nage\n\n\n \n\n\n0.35***\n\n\n0.18*\n\n\n\n\n \n\n\n \n\n\n(0.05)\n\n\n(0.08)\n\n\n\n\ninterestedTRUE:age\n\n\n \n\n\n \n\n\n0.34**\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.11)\n\n\n\n\nR2\n\n\n0.04\n\n\n0.07\n\n\n0.08\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n0.07\n\n\n0.08\n\n\n\n\nNum. obs.\n\n\n1168\n\n\n1168\n\n\n1168\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df5 &lt;- expand_grid(\n  interested = c(F,T),\n  age = seq(min(nes$age, na.rm = T),\n            max(nes$age, na.rm=T),\n            length.out = 10)\n)\n\npred_df5  &lt;- cbind(\n  pred_df5 ,\n  fit = predict(m5, pred_df5 )\n)\n\n# Produce figure\n\npred_df5 %&gt;% \n  ggplot(aes(age, fit,\n             col = interested,\n             group = interested))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(interested)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= age,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point()+\n  geom_line() -&gt; fig_tc_m5"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-12",
+    "href": "slides/06-slides.html#section-12",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "m6: Two numerical predictors\n\nm6-Table-Figure-m6-m6 in 3d\n\n\n\\[\\text{m6: tc_diff} = \\beta_0 + \\beta_1\\text{age} + \\beta_2\\text{income} +\\epsilon\\]\n\nm6 &lt;- lm(tc_diff ~ age + income, nes)\ncoef(m6)\n\n(Intercept)         age      income \n 33.1994121   0.4002682   0.1573334 \n\n\n\n\nhtmlreg(list( m6))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n33.20***\n\n\n\n\n \n\n\n(3.35)\n\n\n\n\nage\n\n\n0.40***\n\n\n\n\n \n\n\n(0.06)\n\n\n\n\nincome\n\n\n0.16\n\n\n\n\n \n\n\n(0.29)\n\n\n\n\nR2\n\n\n0.04\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n\n\nNum. obs.\n\n\n1049\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df6_age &lt;- expand_grid(\n  age = seq(min(nes$age, na.rm = T),\n            max(nes$age, na.rm=T),\n            length.out = 10),\n  # Hold income constant at mean value\n  income = mean(nes$income,na.rm=T)\n)\n\npred_df6_income &lt;- expand_grid(\n  income = seq(min(nes$income, na.rm = T),\n            max(nes$income, na.rm=T),\n            length.out = 16),\n  # Hold income constant at mean value\n  age = mean(nes$age,na.rm=T)\n)\n\npred_df6_age  &lt;- cbind(\n  pred_df6_age ,\n  fit = predict(m6, pred_df6_age )\n)\n\npred_df6_income  &lt;- cbind(\n  pred_df6_income ,\n  fit = predict(m6, pred_df6_income )\n)\n# Produce figure\n\npred_df6_age %&gt;% \n  ggplot(aes(age, fit,\n             ))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(income)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= age,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point()+\n  geom_line() +\n  labs(title =\"Age holding income constant\") -&gt; fig_tc_m6_age\n\npred_df6_income %&gt;% \n  ggplot(aes(income, fit,\n             ))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(income)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= income,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point()+\n  geom_line() +\n  labs(title = \"Income holding age constant\") -&gt; fig_tc_m6_income\n\n\nfig_tc_m6 &lt;- ggpubr::ggarrange(fig_tc_m6_age, fig_tc_m6_income)"
+  },
+  {
+    "objectID": "slides/06-slides.html#section-13",
+    "href": "slides/06-slides.html#section-13",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "m7: Interaction between two numerical predictors\n\nm7-Table-Figure-m7-m7 in 3d\n\n\n\\[\\text{m7: tc_diff} = \\beta_0 + \\beta_1\\text{age} + \\beta_2\\text{income} + \\beta_4\\text{age}\\times \\text{income}+\\epsilon \\]\n\nm7 &lt;- lm(tc_diff ~ age*income, nes)\ncoef(m7)\n\n(Intercept)         age      income  age:income \n38.22449671  0.29406374 -0.78888643  0.01993978 \n\n\n\n\nhtmlreg(list( m6, m7))\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n33.20***\n\n\n38.22***\n\n\n\n\n \n\n\n(3.35)\n\n\n(5.80)\n\n\n\n\nage\n\n\n0.40***\n\n\n0.29*\n\n\n\n\n \n\n\n(0.06)\n\n\n(0.12)\n\n\n\n\nincome\n\n\n0.16\n\n\n-0.79\n\n\n\n\n \n\n\n(0.29)\n\n\n(0.94)\n\n\n\n\nage:income\n\n\n \n\n\n0.02\n\n\n\n\n \n\n\n \n\n\n(0.02)\n\n\n\n\nR2\n\n\n0.04\n\n\n0.05\n\n\n\n\nAdj. R2\n\n\n0.04\n\n\n0.04\n\n\n\n\nNum. obs.\n\n\n1049\n\n\n1049\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n# Create Prediction Data Frame\n\npred_df7 &lt;- expand_grid(\n  age = seq(19, 95,\n            by = 4),\n  # Hold income constant at mean value\n  income = seq(min(nes$income, na.rm = T),\n            max(nes$income, na.rm=T),\n            length.out = 16)\n)\n\n\n\npred_df7  &lt;- cbind(\n  pred_df7 ,\n  fit = predict(m7, pred_df7 )\n)\n\n# Produce figure\n\n# Marginal effect of age at min, median, and max values of income\npred_df7 %&gt;%\n  mutate(\n    income_at = case_when(\n      income == 1 ~ \"01\",\n      income == median(nes$income,na.rm=T) ~ \"05\",\n      income == 16 ~ \"16\",\n      T ~ NA_character_\n    )\n  ) %&gt;% \n  filter(!is.na(income_at)) %&gt;% \n  ggplot(aes(age, fit,\n             ))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(income)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= age,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point(aes(col =income_at,\n                 group = income_at))+\n  geom_line(aes(col =income_at,\n                group = income_at)\n            ) -&gt; fig_tc_m7_age\n\n# Marginal effect of income at min, median, and max values of age\npred_df7 %&gt;%\n  mutate(\n    age_at = case_when(\n      age == min(nes$age, na.rm=T) ~ \"19\",\n      age == 47 ~ \"47\", # close enough ...\n      age ==  max(nes$age, na.rm=T) ~ \"95\",\n      T ~ NA_character_\n    )\n  ) %&gt;% \n  filter(!is.na(age_at)) %&gt;% \n  ggplot(aes(income, fit,\n             ))+\n  # Add raw data\n  geom_point(\n    data = nes %&gt;% \n      filter(!is.na(income)) %&gt;%\n      filter(!is.na(age))\n      ,\n    aes(x= income,\n        y= tc_diff),\n    alpha = .1,\n    size = .2\n  ) +\n  geom_point(aes(col =age_at,\n                 group = age_at))+\n  geom_line(aes(col =age_at,\n                group = age_at)\n            ) -&gt; fig_tc_m7_income\n\n\nfig_tc_m7 &lt;- ggpubr::ggarrange(fig_tc_m7_age, \n                               fig_tc_m7_income,\n                               legend = \"bottom\")"
+  },
+  {
+    "objectID": "slides/06-slides.html#practical-multiple-regression",
+    "href": "slides/06-slides.html#practical-multiple-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Multiple Regression",
+    "text": "Practical: Multiple Regression\n\n\nWe estimate linear models in R using the lm() function using the + to add predictors\nWe use the * to include the main effects \\((\\beta_1 x, \\beta_2z)\\) and interactions \\((\\beta_3 (x\\cdot z))\\)of two predictors\n\n\nlm(y ~ x + z, data = df)\nlm(y ~ x*z, data = df) # Is a shortcut for:\nlm(y ~ x + z + x:z, data = df)"
+  },
+  {
+    "objectID": "slides/06-slides.html#conceptual-multiple-regression-1",
+    "href": "slides/06-slides.html#conceptual-multiple-regression-1",
+    "title": "POLS 1600",
+    "section": "Conceptual: Multiple Regression",
+    "text": "Conceptual: Multiple Regression\n\nRegression models “partition variance”\nSeparate variation in the outcome (\\(y\\)) into variation explained by the predictors in the model and the residual variation not explained by these predictors\nRegression coefficients tell us how the outcome \\(y\\) is expected to change if \\(x\\) changes by one unit, holding constant or controlling for other predictors in the model."
   }
 ]
