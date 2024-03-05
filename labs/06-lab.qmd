@@ -6,30 +6,18 @@ date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
 ---
 
-```{r}
-#| label = "setup",
-#| include = FALSE,
-#| cache = FALSE
-knitr::opts_chunk$set(error = TRUE, 
-                      comment = NA, 
-                      warnings = FALSE, 
-                      errors = FALSE, 
-                      message = FALSE, 
-                      cache = TRUE,
-                      tidy = FALSE)
-```
 
-```{=html}
-<style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
-</style>
-```
 # Overview {.unnumbered}
 
 Today we will explore the critiques and alternative explanations for the phenomena of "Red Covid" discussed by the *NYT*'s David Leonhardt in articles last fall [here](https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html) and more recently [here](https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html).
@@ -64,13 +52,6 @@ Finally, we'll take the weekly survey which will serve as a mid semester check i
 
 One of these 6 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
 
-```{r}
-#| label = "graded"
-set.seed(3092022)
-graded_question <- sample(1:10,size = 1)
-paste("Question",graded_question,"is the graded question for this week")
-```
-
 You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
 
 This lab **must** contain the names of the group members in attendance.
@@ -80,17 +61,9 @@ If you are attending remotely, you will submit your labs individually.
 Here are your assigned groups for the semester.
 
 ```{r}
-#| label = "groups",
-#| echo = F
-groups_df <- tibble::tibble(
-`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman",""),
-`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo",""),
-`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier",""),
-`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen",""),
-`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky",""),
-`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama",""),
-`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
-)
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```
@@ -112,7 +85,7 @@ In general, when we interpret the regression coefficients from a linear model we
 
 -   **Sign** is the coefficient positive or negative? As the predictor increases does the outcome tend to increase (positive) or decrease (negative)
 -   **Size** is the change in the predicted value of the outcome **substantively** meaningful?
-    -   To facilitate comparisons between predictors, we will use [standardized measures](https://pols1600.paultesta.org/slides/06-slides.html#29){target="_blank"} of Republican Vote Share, Median Age, and Median Income, and Percent Vaccinated
+    -   To facilitate comparisons between predictors, we will use [standardized measures](https://pols1600.paultesta.org/slides/06-slides#/standardized-variables){target="_blank"} of Republican Vote Share, Median Age, and Median Income, and Percent Vaccinated
 -   **Significance** today we'll put the cart before the horse, and say, coefficient that has one or more asterisks `*` next to it is *statistically significant*
     -   Over the next several weeks, we'll talk in great detail the logic and theory behind statistical inference
     -   For today, we'll do a bit of "star-gazing" using these asterisks[^1] as heuristics to help us evaluate the claims of Leonhardt and his skeptics.
@@ -121,19 +94,19 @@ In general, when we interpret the regression coefficients from a linear model we
 
 # Workflow {.unnumbered}
 
-# Please knit this .Rmd file {.unnumbered}
+# Please knit this .qmd file {.unnumbered}
 
 As with every lab, you should:
 
 -   Download the file
 -   Save it in your course folder
 -   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
--   Knit the document
+-   Render the document
 -   Open the html file in your browser (Easier to read)
--   Write yourcode in the chunks provided
+-   Write your code in the **chunks provided under each section**
 -   Comment out or delete any test code you do not need
--   **Knit the document again after completing a section or chunk** (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/modules/items/10882045){target="_blank"}.
+-   **Render the document again after completing a section or chunk** (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
 
 # Get setup to work
 
@@ -144,8 +117,8 @@ First lets load the libraries we'll need for today.
 There's one new package, `htmltools` which we'll use to display regression tables while we work.
 
 ```{r}
-#| label = "packages",
-#| message = F
+#| label: packages
+
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT","texreg","htmltools",
@@ -176,7 +149,7 @@ ipak(the_packages)
 Next we'll load the data that we created in class on Tuesday which provides a snapshot of the state of Covid-19 on September 23, 2021 in the U.S.
 
 ```{r}
-#| label = "data"
+#| label: data
 load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 ```
 
@@ -187,7 +160,7 @@ After running this code, the data frame `covid_lab` should appear in your enviro
 In the code chunk below, please write some code get an high level overview of the data:
 
 ```{r}
-#| label = "hlo"
+#| label: hlo
 # High level overview
 # Number of observations and variables
 
@@ -242,8 +215,9 @@ Then, you'll use this code as guide for subsequent sections.
 ## Fit the model
 
 ```{r}
-#| label = "m1"
-m1 <- lm(new_deaths_pc_14da ~ rep_voteshare_std, covid_lab)
+#| label: m1
+m1 <- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)
+
 ```
 
 ## Summarize the results
@@ -251,7 +225,7 @@ m1 <- lm(new_deaths_pc_14da ~ rep_voteshare_std, covid_lab)
 Now we apply the `summary()` function to our model `m1`
 
 ```{r}
-#| label = "m1sum"
+#| label: m1sum
 summary(m1)
 ```
 
@@ -279,11 +253,12 @@ Regression tables are a the standard way of concisely presenting the results of 
 
 [^2]: A standard error is another one of those things that in the cart we're putting before horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
 
-The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the Rmd file.
+The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the qmd file.
 
 ```{r}
-#| label = "m1tab",
-#| echo = F
+#| label: m1tab
+#| echo: false
+#| results: asis
 htmlreg(list(m1))%>% HTML() %>% browsable()
 ```
 
@@ -291,34 +266,24 @@ htmlreg(list(m1))%>% HTML() %>% browsable()
 
 Now let's visualize the results of our `m1` with a scatter plot.
 
-In the code below, **please write a comment explaining what each section of code is doing**
+In the code chunk below, I've written some comments to help you get started. You can also refer to last [week's lab](https://pols1600.paultesta.org/labs/comments/05-lab-comments#visualize-the-relationships-between-republican-vote-share-and-deaths-from-covid-19-on-september-23-2021){target="_blank"} for help
 
--   Replace the `#1. Comment for.` with a brief comment explaining what the code below the comment does.
+
 
 ```{r}
-#| label = "m1fig"
-# 1. Comment for the line of code below
-covid_lab %>%
-# 2. Comment for ggplot()
-  ggplot(aes(x = rep_voteshare_std,
-             y = new_deaths_pc_14da,
-             label = state_po))+
-# 3. Comment for geom_point() 
-  geom_point(
-# 4. Comment for size =
-    size = .5
-    )+
-# 5. Comment for geom_text_repel()
-  geom_text_repel(
-# 6. Comment for size =   
-    size = 2)+
-# 7. Comment for geom_smooth
-  geom_smooth(method = "lm")+
-# 8. Comment for labs
-  labs(
-    x = "Republican Vote Share (std)",
-    y = "New Covid-19 Deaths\n(14-day ave)"
-  )
+#| label: m1fig
+
+# 1. Tell ggplot what data to use
+
+# 2. Set the aesthetic mappings of our figure
+ 
+# 3. Draw points with x values corresponding to Rep vote share and y values corresponding to Covid deaths. 
+
+# 4. Add labels using `label=state_po` aesthetic (set in aes()) above
+
+# 5. Plot the regression model using geom_smooth(method = "lm")
+
+# 6. Change the axis labels
 
 
 ```
@@ -357,7 +322,7 @@ Now let's test our skeptics' claims by fitting a model `m2` that controls for Ag
 -   Remember the first argument in `lm()` is formula of the form `outcome variable ~ predictor1 + predictor2 + ...`
 
 ```{r}
-#| label = "m2"
+#| label: m2
 # m2
 ```
 
@@ -366,7 +331,7 @@ Now let's test our skeptics' claims by fitting a model `m2` that controls for Ag
 Now let's print out a statistical summary of `m2`
 
 ```{r}
-#| label = "m2sum"
+#| label: m2sum
 # summary of m2
 
 ```
@@ -378,8 +343,8 @@ Next, let's create a regression table that displays `m1` in the first column and
 -   To do this, change `list(m1)` from the code above to `list(m1, m2)`
 
 ```{r}
-#| label = "m2tab",
-#| echo = F
+#| label: m2tab
+#| echo: false
 # regression table of m1, m2
 
 ```
@@ -401,7 +366,7 @@ $$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std}
 Please fit a model called `m3` implied by the skeptic's revised claims
 
 ```{r}
-#| label = "m3"
+#| label: m3
 # m3
 
 ```
@@ -411,7 +376,7 @@ Please fit a model called `m3` implied by the skeptic's revised claims
 Summarize the model `m3` using `summary()`
 
 ```{r}
-#| label = "m3sum"
+#| label: m3sum
 # summary m3
 
 ```
@@ -421,7 +386,7 @@ Summarize the model `m3` using `summary()`
 And then display the results of models `m1`, `m2`, and `m3`.
 
 ```{r}
-#| label = "m3tab"
+#| label: m3tab
 # regression table of m1, m2, m3
 
 ```
@@ -443,7 +408,7 @@ $$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Rep Vote Share}_{std} + \bet
 You know the drill.
 
 ```{r}
-#| label = "m4"
+#| label: m4
 # m4
 
 ```
@@ -453,7 +418,7 @@ You know the drill.
 Again, let's get a quick summary of our results
 
 ```{r}
-#| label = "m4sum"
+#| label: m4sum
 # summary of m4
 
 ```
@@ -463,8 +428,8 @@ Again, let's get a quick summary of our results
 And add `m4` to list of models in our regression table
 
 ```{r}
-#| label = "m4tab",
-#| echo = F
+#| label: m4tab
+#| echo: false
 # regression table of m1, m2, m3, m4
 
 ```
@@ -490,7 +455,7 @@ $$\text{Percent Vaxxed} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std} +
 Now let's fit the model. For ease of interpretation, let's use the unstandardized measure of vaccination rates, `percent_vaccinated` as our outcome variable.
 
 ```{r}
-#| label = "m5"
+#| label: m5
 # m5
 
 ```
@@ -500,7 +465,7 @@ Now let's fit the model. For ease of interpretation, let's use the unstandardize
 And summarize the results
 
 ```{r}
-#| label = "m5sum"
+#| label: m5sum
 # summary of m5
 
 ```
@@ -510,8 +475,8 @@ And summarize the results
 Display them in a regression table
 
 ```{r}
-#| label = "m5tab",
-#| echo = F
+#| label: m5tab
+#| echo: false
 # regression table for m5
 
 ```
@@ -522,4 +487,4 @@ Display them in a regression table
 
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} for this week.
