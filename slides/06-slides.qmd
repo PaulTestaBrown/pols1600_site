@@ -57,15 +57,48 @@ library(texreg)
 
 ## Class Plan
 
-- Announcements
+- Announcements (20)
+  - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
+  - [Assignment 2  Data:]((https://pols1600.paultesta.org/assignments/a2) due Friday March 22
 - Feedback
-- Review
-- Class plan
+- Review: Simple Linear Regression and Lab 5 (15-20 min)
+- Preview: Setup for Lab 6 (10-15 min)
+- Estimating and Interpreting Multiple Regression (25-30 min)
+- Difference-in-Differences (15-20 min)
 
 
 ## Annoucements
 
+## Assignment 1
+
+- Prompt posted on website [here](https://pols1600.paultesta.org/assignments/a1)
+
+- 3 possible research questions uploaded to Canvas by [Next Tuesday, March 12]{.blue}
+
+- The ideal experiment = "What would you have to randomly assign to create a meaningful counterfactual comparison"
+
+- Observational study = "What could you say with data that likely exist?"
+
+- Feedback will help you narrow down a topic for final project
+
+## Assignment 2
+
+- Prompt posted on website [here]{https://pols1600.paultesta.org/assignments/a2}
+
+- Uploaded to Canvas by [Friday, March 22]{.blue}
+
+- Revised Research Question
+
+- Implied Linear Model
+
+- Code to load possible data 
+
 ## Feedback
+
+- Only 9 people completed the survey last week...
+
+- So let's try to get those numbers up and will summarize the results of the [survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} next week
+
 
 
 ## Packages for today
@@ -1135,7 +1168,62 @@ We'll use:
 
 ::::
 
+## Regression Tables
 
+- Academic articles are littered with regression tables.
+
+- Below we'll see how to:
+
+  - produce regression tables in R
+  - use some heuristics to interpret regression tables
+
+- We'll cover the [why]{.blue} with greater depth and care later in the course, for now, let's focus on the [what and how]{.blue}
+
+## Making Regression Tables in R
+
+:::: panel-tabset
+
+## Task
+We can make a very simple regression table using the `htmlreg` function from the `texreg` package
+
+:::{.callout-note}
+To properly display your results you need to add `#| results: asis` the following to the code chunk header
+
+:::
+
+## {{< fa code >}}
+```{{r}}
+#| echo: false
+#| results: asis
+texreg::htmlreg(
+  list(m1_lab,m2_lab, m3_lab,m4_lab,m5_lab)
+)
+```
+
+## {{< fa table >}}
+
+```{r}
+#| echo: false
+#| results: asis
+texreg::htmlreg(
+  list(m1_lab,m2_lab, m3_lab,m4_lab,m5_lab)
+)
+```
+
+::::
+
+## Interpreting Regression Tables (Stargazing){.smaller}
+
+:::{.nonincremental}
+- Each column is a model
+- Each row is a coefficient from that model with its [standard error]{.blue} (more to come) in parentheses below
+- We interpret coefficients by looking at their [sign, size, and significance]{.blue}
+  - Coefficients with asterisks `*` are [statistically significant]{.blue} (more to come)
+  - It is unlikely that we would see a coefficient this big or bigger if the true coefficient were 0
+- Rule of thumb:
+
+$$\text{If }\frac{\beta}{se} > 2 \to \text{Statistically Significant}$$
+:::
 
 ## `m1`: A binary indicator {.smaller}
 
@@ -2091,6 +2179,8 @@ fig_tc_m7_3d
 
 :::
 
+
+
 # {{< fa lightbulb >}} Difference-in-Differences {.inverse}
 
 ## Motivating Example: What causes Cholera? {.smaller background-image=https://www.finebooksmagazine.com/sites/default/files/styles/gallery_item/public/media-images/2020-11/map-lead-4.jpg?h=2ded5a3f&itok=Mn-K5rQc, background-opacity=.3}
@@ -2456,7 +2546,38 @@ would see the same changes over time.
 
 # {{< fa home >}} Summary {.inverse}
 
-## Summary
+## Summary - Linear Regression{.smaller}
+
+- Linear regression produces linear estimates of the Conditional Expectation Function
+
+- We estimate linear regression using `lm()`
+
+:::{.fragment}
+
+```{r}
+#| eval: false
+m1 <- lm( y ~ x1 + x2 + x3, data = df)
+```
+
+:::
+
+- We interpret linear regression by: looking at the [sign]{.blue}, [size]{.blue}, and, eventually, [significance]{.blue} of coefficients
+
+  - the intercept $(\beta_0)$ corresponds to the model's prediction when every other predictor is zero
+  - the other $\beta$s describe how $y$ changes with a [unit change] in $x$, controlling for other predictors in the model
+  
+- We present our results using [regression tables]{.blue} and [figures]{.blue} showing [predicted values]{.blue}
+
+
+## Summary - Difference-in-Differences{.smaller}
+
+- Difference-in-Differences (DiD) is a powerful research design for observational data that combines a [pre-post comparisons]{.blue} with a [treated and control]{.blue} comparisons
+  
+- Differencing twice accounts for fixed differences [across units]{.blue} and [between periods]{.blue}
+
+- DiD relies on an assumption of [parallel trends]{.blue}
+
+- We can use linear regression to estimate and generalize DiD designs
 
 
 ## References

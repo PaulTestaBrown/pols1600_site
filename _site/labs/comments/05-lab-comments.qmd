@@ -5,7 +5,7 @@ date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(error = TRUE,
                       warnings = FALSE, 
                       errors = FALSE, 
                       messages = FALSE, 
-                      cache = TRUE,
+                      cache = FALSE,
                       tidy = FALSE)
 ```
 
@@ -81,17 +81,9 @@ If you are attending remotely, you will submit your labs individually.
 Here are your assigned groups for the semester.
 
 ```{r}
-#| label = "groups",
-#| echo = F
-groups_df <- tibble::tibble(
-`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman"),
-`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo"),
-`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier"),
-`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen"),
-`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky"),
-`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama"),
-`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
-)
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```

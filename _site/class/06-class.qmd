@@ -1,14 +1,14 @@
 ---
-title: "Data and Measurement"
+title: "Multiple Regression"
 date: "2024-01-30"
 bibliography: ../files/paperpile.bib
-subtitle: "How do we describe the world around us."
+subtitle: "Modeling outcomes with multiple predictors"
 image: "featured.jpg"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
-wk <- "01"
+wk <- "06"
 lab <- paste0(
     "<a href=\"",
     paste0(
@@ -35,7 +35,7 @@ comments <- paste0(
 
 ## Readings
 
--   {{< fa book >}} @Imai2022-pm Chapter 1 [here's a free version of an older, non-tidyverse version](files/readings/QSS_ch01_and_ch03.pdf)
+-   {{< fa book >}} @Imai2022-pm Chapter 4 
 
 
 
@@ -64,18 +64,19 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ## Assignments
 
-- {{< fa lightbulb >}} Work through [Software Setup](../resources/00-software-setup.qmd) before class next week
+- {{< fa chalkboard-user >}} Complete [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1){target="_blank"}
 
-- {{< fa chalkboard-user >}} Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1
+
+- {{< fa chalkboard-user >}} Complete QSS Tutorial 6: Prediction 2
 
 ```{r}
 #| eval: false
 
 # After completing the software setup you should be able to to run the following to launch the tutorials
 
-learnr::run_tutorial("00-intro", package = "qsslearnr")
+learnr::run_tutorial( package = "qsslearnr")
 
-learnr::run_tutorial("01-measurement1", package = "qsslearnr")
+learnr::run_tutorial("06-prediction2 ", package = "qsslearnr")
 
 ```
 

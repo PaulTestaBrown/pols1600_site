@@ -6,24 +6,17 @@ date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
 ---
 
-```{r}
-#| label = "setup",
-#| include = FALSE,
-#| cache = FALSE
-knitr::opts_chunk$set(error = TRUE, 
-                      comment = NA, 
-                      warnings = FALSE, 
-                      errors = FALSE, 
-                      message = FALSE, 
-                      cache = TRUE,
-                      tidy = FALSE)
-```
 
 # Overview {.unnumbered}
 
@@ -33,7 +26,9 @@ Recall the core thesis of Red Covid is something like the following:
 
 > Since Covid-19 vaccines became widely available to the general public in the spring of 2021, Republicans have been less likely to get the vaccine. Lower rates of vaccination among Republicans have in turn led to higher rates of death from Covid-19 in Red States compared to Blue States.
 
-A skeptic of this claim might argue that relationship between electoral and epidemelogical outcomes is *spurious*. There are lots of ways that Red States differ from Blue States --- demographics, economics, geography, culture, and so on -- and it is these differences that explain the phenomena of Red Covid. If we were to control for these *omitted variables* the relationship between a state's partisan leanings and Covid-19 would go away.
+A skeptic of this claim might argue that relationship between electoral and epidemelogical outcomes is *spurious*, saying somthing like:
+
+> There are lots of ways that Red States differ from Blue States --- demographics, economics, geography, culture, and so on -- and it is these differences that explain the phenomena of Red Covid. If we were to control for these *omitted variables* the relationship between a state's partisan leanings and Covid-19 would go away.
 
 In this lab, we will see how we can explore these claims using **multiple regression** to **control** for competing explanations.
 
@@ -58,11 +53,12 @@ Finally, we'll take the weekly survey which will serve as a mid semester check i
 One of these 6 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
 
 ```{r}
-#| label = "graded"
-set.seed(3092022)
-graded_question <- sample(1:10,size = 1)
+#| label: graded
+set.seed(3052024)
+graded_question <- sample(1:6,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
+
 
 You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
 
@@ -73,17 +69,9 @@ If you are attending remotely, you will submit your labs individually.
 Here are your assigned groups for the semester.
 
 ```{r}
-#| label = "groups",
-#| echo = F
-groups_df <- tibble::tibble(
-`Group 1` = c("Anna Lister", "Kate Kuli", "Andreas Young", "Claudia Spelman",""),
-`Group 2` = c("Elizabeth Steeves","Fabian Lopez","Lorenzo Mahoney", "Ariana Palomo",""),
-`Group 3` = c("Will Lake","Taha Siddiqui" , "Amanda Page", "Noah Soutier",""),
-`Group 4` = c("Georgia Kennedy-Bailey","Samuel Levine", "Elie Lubin", "Bianca Rosen",""),
-`Group 5` = c("Theo Simmons","Fengyu Seah", "Hunter Keneley", "Schuyler Dubitsky",""),
-`Group 6` = c("Logan Torres", "Jonathan Zhang", "Osiris Russell-Delano", "Aicha Sama",""),
-`Group 7` = c("Natalia Ibarra", "Khaled Abdo", "Starrchild Jackson", "Selene Luna", "Yoo Min Lee")
-)
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
 ```
@@ -105,8 +93,8 @@ In general, when we interpret the regression coefficients from a linear model we
 
 -   **Sign** is the coefficient positive or negative? As the predictor increases does the outcome tend to increase (positive) or decrease (negative)
 -   **Size** is the change in the predicted value of the outcome **substantively** meaningful?
-    -   To facilitate comparisons between predictors, we will use [standardized measures](https://pols1600.paultesta.org/slides/06-slides.html#29){target="_blank"} of Republican Vote Share, Median Age, and Median Income, and Percent Vaccinated
--   **Significance** today we'll put the cart before the horse, and say, coefficient that has one or more asterisks `*` next to it is *stastically signficant*
+    -   To facilitate comparisons between predictors, we will use [standardized measures](https://pols1600.paultesta.org/slides/06-slides#/standardized-variables){target="_blank"} of Republican Vote Share, Median Age, and Median Income, and Percent Vaccinated
+-   **Significance** today we'll put the cart before the horse, and say, coefficient that has one or more asterisks `*` next to it is *statistically significant*
     -   Over the next several weeks, we'll talk in great detail the logic and theory behind statistical inference
     -   For today, we'll do a bit of "star-gazing" using these asterisks[^1] as heuristics to help us evaluate the claims of Leonhardt and his skeptics.
 
@@ -114,19 +102,19 @@ In general, when we interpret the regression coefficients from a linear model we
 
 # Workflow {.unnumbered}
 
-# Please knit this .Rmd file {.unnumbered}
+# Please knit this .qmd file {.unnumbered}
 
 As with every lab, you should:
 
 -   Download the file
 -   Save it in your course folder
 -   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
--   Knit the document
+-   Render the document
 -   Open the html file in your browser (Easier to read)
--   Write yourcode in the chunks provided
+-   Write your code in the **chunks provided under each section**
 -   Comment out or delete any test code you do not need
--   **Knit the document again after completing a section or chunk** (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1091286/modules/items/10882045){target="_blank"}.
+-   **Render the document again after completing a section or chunk** (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
 
 # Get setup to work
 
@@ -137,8 +125,8 @@ First lets load the libraries we'll need for today.
 There's one new package, `htmltools` which we'll use to display regression tables while we work.
 
 ```{r}
-#| label = "packages",
-#| message = F
+#| label: packages
+
 the_packages <- c(
   ## R Markdown
   "kableExtra","DT","texreg","htmltools",
@@ -169,7 +157,7 @@ ipak(the_packages)
 Next we'll load the data that we created in class on Tuesday which provides a snapshot of the state of Covid-19 on September 23, 2021 in the U.S.
 
 ```{r}
-#| label = "data"
+#| label: data
 load(url("https://pols1600.paultesta.org/files/data/06_lab.rda"))
 ```
 
@@ -180,7 +168,7 @@ After running this code, the data frame `covid_lab` should appear in your enviro
 In the code chunk below, please write some code get an high level overview of the data:
 
 ```{r}
-#| label = "hlo"
+#| label: hlo
 # High level overview
 # Number of observations and variables
 dim(covid_lab)
@@ -195,7 +183,7 @@ glimpse(covid_lab)
 summary(covid_lab)
 
 # Variables I want to calculate sd for
-the_vars <- c("new_deaths_pc_14da","rep_voteshare","med_age","med_income","percent_vaccinated")
+the_vars <- c("new_deaths_pc_14day","rep_voteshare","med_age","med_income","percent_vaccinated")
 
 # Calculate standard deviations
 covid_lab %>%
@@ -240,8 +228,8 @@ Then, you'll use this code as guide for subsequent sections.
 ## Fit the model
 
 ```{r}
-#| label = "m1"
-m1 <- lm(new_deaths_pc_14da ~ rep_voteshare_std, covid_lab)
+#| label: m1
+m1 <- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)
 ```
 
 ## Summarize the results
@@ -249,7 +237,7 @@ m1 <- lm(new_deaths_pc_14da ~ rep_voteshare_std, covid_lab)
 Now we apply the `summary()` function to our model `m1`
 
 ```{r}
-#| label = "m1sum"
+#| label: m1sum
 summary(m1)
 ```
 
@@ -280,8 +268,11 @@ Regression tables are a the standard way of concisely presenting the results of 
 The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the Rmd file.
 
 ```{r}
-#| label = "m1tab",
-#| echo = F
+#| label: m1tab
+#| echo: false
+#| #| results: asis
+
+
 htmlreg(list(m1))%>% HTML() %>% browsable()
 ```
 
@@ -289,15 +280,15 @@ htmlreg(list(m1))%>% HTML() %>% browsable()
 
 Now let's visualize the results of our `m1` with a scatter plot.
 
-In the code below, **please write a comment explaining what each section of code is doing**
+In the code chunk below, I've written some comments to help you get started. You can also refer to last [week's lab](https://pols1600.paultesta.org/labs/comments/05-lab-comments#visualize-the-relationships-between-republican-vote-share-and-deaths-from-covid-19-on-september-23-2021){target="_blank"} for help
 
 ```{r}
-#| label = "m1fig"
+#| label: m1fig
 # 1. Tell ggplot what data to use
 covid_lab %>%
 # 2. Set the aesthetic mappings of our figure
   ggplot(aes(x = rep_voteshare_std,
-             y = new_deaths_pc_14da,
+             y = new_deaths_pc_14day,
              label = state_po))+
 # 3. Draw points with x values corresponding to Rep vote share and y values corresponding to Covid deaths. 
   geom_point(
@@ -353,8 +344,8 @@ Now let's test our skeptics' claims by fitting a model `m2` that controls for Ag
 -   Remember the first argument in `lm()` is formula of the form `outcome variable ~ predictor1 + predictor2 + ...`
 
 ```{r}
-#| label = "m2"
-m2 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std, covid_lab)
+#| label: m2
+m2 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std, covid_lab)
 
 ```
 
@@ -363,7 +354,7 @@ m2 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std, covid_lab)
 Now let's print out a statistical summary of `m2`
 
 ```{r}
-#| label = "m2sum"
+#| label: m2sum
 summary(m2)
 ```
 
@@ -374,8 +365,8 @@ Next, let's create a regression table that displays `m1` in the first column and
 -   To do this, change `list(m1)` from the code above to `list(m1, m2)`
 
 ```{r}
-#| label = "m2tab",
-#| echo = F
+#| label: m2tab
+#| echo: false 
 htmlreg(list(m1,m2)) %>% HTML() %>% browsable()
 
 ```
@@ -391,9 +382,9 @@ Part of what's at play here, is that relationship between age and Covid-19 outco
 Similarly, the idea that Red States tend to be older doesn't appear to be empirically true, perhaps reflecting differences between the general population and voting population.
 
 ```{r}
-#| label = "m2interp"
+#| label: m2interp
 # Fit models
-m2_death_age <- lm(new_deaths_pc_14da ~ med_age_std, covid_lab)
+m2_death_age <- lm(new_deaths_pc_14day ~ med_age_std, covid_lab)
 m2_rep_age <- lm(rep_voteshare_std ~ med_age_std, covid_lab)
 
 # Summarize models
@@ -418,7 +409,7 @@ covid_lab %>%
 
 covid_lab %>%
   ggplot(aes(x = med_age_std,
-             y = new_deaths_pc_14da,
+             y = new_deaths_pc_14day,
              label = state_po))+
   geom_point(size = .5)+
   geom_text_repel(size = 2)+
@@ -440,8 +431,8 @@ If the skeptic is right, then controlling for age and income, the coefficient on
 Please fit a model called `m3` implied by the skeptic's revised claims
 
 ```{r}
-#| label = "m3"
-m3 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
+#| label: m3
+m3 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
 ```
 
 ## Summarize the model
@@ -449,7 +440,7 @@ m3 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std + med_income_std, 
 Summarize the model `m3` using `summary()`
 
 ```{r}
-#| label = "m3sum"
+#| label: m3sum
 summary(m3)
 ```
 
@@ -458,7 +449,7 @@ summary(m3)
 And then display the results of models `m1`, `m2`, and `m3`.
 
 ```{r}
-#| label = "m3tab"
+#| label: m3tab
 htmlreg(list(m1,m2,m3)) %>% HTML() %>% browsable()
 
 ```
@@ -480,8 +471,8 @@ $$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Rep Vote Share}_{std} + \bet
 You know the drill.
 
 ```{r}
-#| label = "m4"
-m4 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std + med_income_std + percent_vaccinated_std, covid_lab)
+#| label: m4
+m4 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std + percent_vaccinated_std, covid_lab)
 ```
 
 ## Summarize the results
@@ -489,7 +480,7 @@ m4 <- lm(new_deaths_pc_14da ~ rep_voteshare_std + med_age_std + med_income_std +
 Again, let's get a quick summary of our results
 
 ```{r}
-#| label = "m4sum"
+#| label: m4sum
 summary(m4)
 ```
 
@@ -498,8 +489,8 @@ summary(m4)
 And add `m4` to list of models in our regression table
 
 ```{r}
-#| label = "m4tab",
-#| echo = F
+#| label: m4tab
+#| echo: false 
 htmlreg(list(m1,m2,m3, m4)) %>% HTML() %>% browsable()
 
 ```
@@ -527,7 +518,7 @@ $$\text{Percent Vaxxed} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std} +
 Now let's fit the model. For ease of interpretation, let's use the unstandardized measure of vaccination rates, `percent_vaccinated` as our outcome variable.
 
 ```{r}
-#| label = "m5"
+#| label: m5
 m5 <- lm(percent_vaccinated ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
 ```
 
@@ -536,7 +527,7 @@ m5 <- lm(percent_vaccinated ~ rep_voteshare_std + med_age_std + med_income_std, 
 And summarize the results
 
 ```{r}
-#| label = "m5sum"
+#| label: m5sum
 summary(m5)
 ```
 
@@ -545,8 +536,8 @@ summary(m5)
 Display them in a regression table
 
 ```{r}
-#| label = "m5tab",
-#| echo = F
+#| label: m5tab
+#| echo: false 
 htmlreg(list(m5)) %>% HTML() %>% browsable()
 
 ```
@@ -570,6 +561,7 @@ Still it's hard to think what that kind of design would be for something like fo
 -   Controlling for alternative factors
 -   Leveraging variation in the availability of vaccines over time and place.
 
+
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_6mUeyI7tqVURHQW){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} for this week.

@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.545">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2024-01-30">
 
-<title>POLS 1600 - Data and Measurement</title>
+<title>POLS 1600 - Multiple Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -307,8 +307,8 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../class/00-class.html">Weekly Content</a></li><li class="breadcrumb-item"><a href="../class/06-class.html">6: Multiple Regression</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data and Measurement</h1>
-<p class="subtitle lead">How do we describe the world around us.</p>
+<h1 class="title">Multiple Regression</h1>
+<p class="subtitle lead">Modeling outcomes with multiple predictors</p>
 </div>
 
 
@@ -334,38 +334,38 @@ div.csl-indent {
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
 <ul>
-<li><i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Imai2022-pm">Imai (<a href="#ref-Imai2022-pm" role="doc-biblioref">2022</a>)</span> Chapter 1 <a href="files/readings/QSS_ch01_and_ch03.pdf">here’s a free version of an older, non-tidyverse version</a></li>
+<li><i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Imai2022-pm">Imai (<a href="#ref-Imai2022-pm" role="doc-biblioref">2022</a>)</span> Chapter 4</li>
 </ul>
 </section>
 <section id="lecture" class="level2">
 <h2 class="anchored" data-anchor-id="lecture">Lecture</h2>
 <p class="buttons">
-<a class="btn btn-danger" target="_blank" href="../slides/01-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a>
+<a class="btn btn-danger" target="_blank" href="../slides/06-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a>
 </p><div class="ratio ratio-16x9">
-<iframe src="../slides/01-slides.html">
+<iframe src="../slides/06-slides.html">
 </iframe>
 </div>
 </section>
 <section id="lab" class="level2">
 <h2 class="anchored" data-anchor-id="lab">Lab</h2>
 <ul>
-<li><p><i class="fa-solid fa-laptop-file" aria-label="laptop-file"></i> Download this week’s <a href="../labs/01-lab.qmd " download="">here </a></p></li>
+<li><p><i class="fa-solid fa-laptop-file" aria-label="laptop-file"></i> Download this week’s <a href="../labs/06-lab.qmd " download="">here </a></p></li>
 <li><p><i class="fa-solid fa-paintbrush" aria-label="paintbrush"></i> Upload the rendered html file to Canvas <a href="https://canvas.brown.edu/courses/1094972/assignments">here</a></p></li>
-<li><p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Review the commented solutions after class <a href="../labs/01-lab-comments.html" target="_blank">here </a></p></li>
+<li><p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Review the commented solutions after class <a href="../labs/06-lab-comments.qmd" target="_blank">here </a></p></li>
 </ul>
 </section>
 <section id="assignments" class="level2">
 <h2 class="anchored" data-anchor-id="assignments">Assignments</h2>
 <ul>
-<li><p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Work through <a href="../resources/00-software-setup.html">Software Setup</a> before class next week</p></li>
-<li><p><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1</p></li>
+<li><p><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> Complete <a href="https://pols1600.paultesta.org/assignments/a1" target="_blank">Assignment 1: Research Questions</a></p></li>
+<li><p><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> Complete QSS Tutorial 6: Prediction 2</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After completing the software setup you should be able to to run the following to launch the tutorials</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"00-intro"</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>( <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"01-measurement1"</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"06-prediction2 "</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><i class="fa-solid fa-paintbrush" aria-label="paintbrush"></i> Upload the rendered html tutorial files to Canvas <a href="https://canvas.brown.edu/courses/1094972/assignments">here</a></li>
