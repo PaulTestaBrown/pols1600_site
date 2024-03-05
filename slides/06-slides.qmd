@@ -2270,24 +2270,32 @@ The key assumption in this design is what's known as the parallel trends assumpt
 
 - In words: If Lambeth hadn't moved its pumps, it would have followed a similar path as S&V
 
-## Parralel Trends
+## Parallel Trends
 
 ```{r}
 #| label: paralleltrends
 #| echo: false
 
 snow_g <- tibble(
-  Period = c(0,0,3,3,0,3),
-  Treatment = c(0,1,0, 1,1,1),
+  Time = c(0,0,3,3,0,3),
+  Treated = c(0,1,0, 1,1,1),
   Line = c(1,1,1,1,2,2),
   Company = c("S&V","Lambeth","S&V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
-  Deaths = c(135,85,147,19,85,97)
+  Deaths = c(135,85,147,19,85,97),
+  line_col = c("red","red","red","red","blue","blue")
+)
+
+line_df <- tibble(
+  line_type = c("solid","solid","dotted","dotted","solid","solid"),
+  line_col = c("red","red","red","red","blue","blue")
 )
 
 snow_g %>%
-  ggplot(aes(Period,Deaths,col = Company))+
+  ggplot(aes(Time,Deaths, col=Company))+
   geom_point()+
-  geom_line()+
+  geom_line(linetype=line_df$line_type
+            )+
+  scale_color_manual(values = c("red","red","blue"))+
   geom_segment(aes(x=3.1,xend=3.1,y=19,yend=147), linetype = 2, col= "gray")+
   annotate(geom="text",x = 3.3,y=125, label = "1",hjust=.5)+
   geom_segment(aes(x=3.2,xend=3.2,y=19,yend=97), linetype = 2,col="gray")+
@@ -2303,18 +2311,118 @@ snow_p
 
 ```
 
+## Using lm to estimate Diff-in-Diff
 
+:::: panel-tabset
+
+## {{< fa table >}} Data
+
+```{r}
+#| label: cholera_df
+
+cholera_df <- tibble(
+  Location = c("S&V","Lambeth","S&V","Lambeth"),
+  Treated = c(0,1,0, 1),
+  Time = c(0,0,1,1),
+  Deaths = c(135,85,147,19)
+)
+cholera_df
+
+```
+
+## {{< fa code >}} lm()
+$$
+\text{Deaths} = \beta_0 + \beta_1\text{Treated} + \beta_2\text{Time} + \beta_3 \text{Treated}\times\text{Time}
+$$
+
+```{r}
+#| label: did
+diff_in_diff <- lm(Deaths ~ Treated + Time + Treated:Time, cholera_df)
+diff_in_diff
+
+```
+
+## {{< fa chart-line >}} Diff-in-Diff
+
+```{r}
+#| label: didplot
+#| echo: false
+
+snow_g %>%
+  ggplot(aes(Time,Deaths, col=Company))+
+  geom_point()+
+  coord_cartesian(xlim = c(-.5,3.5))+
+  geom_line(linetype=line_df$line_type
+            )+
+  scale_color_manual(values = c("red","red","blue"))+
+  annotate(geom="text",x = 0 ,
+           y=coef(diff_in_diff)[1], 
+           label = expression(paste(beta[0])),vjust=-.5,
+           col = "blue")+
+  geom_segment(aes(x=0,xend=0,y=85,yend=135), linetype = 2,col="magenta")+
+  annotate(geom="text",x = 2.9 ,
+           y=122, 
+           label = expression(paste(beta[1])),
+           col = "magenta",
+           hjust=.75)+
+    geom_segment(aes(x=3,xend= 3,y=97,yend=147), linetype = 2,col="magenta")+
+  annotate(geom="text",x = -.1 ,
+           y=coef(diff_in_diff)[1]-25, 
+           label = expression(paste(beta[1])),
+           col = "magenta",
+           hjust=.75)+
+  geom_segment(aes(x=0,xend=3,y=84.9,yend=84.9), linetype = 2,col="pink")+
+  geom_segment(aes(x=3,xend=3,y=85,yend=97), linetype = 2,col="pink")+
+  annotate(geom="text",x = 2.9 ,
+           y=91, 
+           label = expression(paste(beta[2])),
+           col = "pink",
+           hjust=.75)+
+  geom_segment(aes(x=0,xend=3,y=134.9,yend=134.9), linetype = 2,col="pink")+
+  geom_segment(aes(x=3,xend=3,y=135,yend=147), linetype = 2,col="pink")+
+  annotate(geom="text",x = 2.9 ,
+           y=141, 
+           label = expression(paste(beta[2])),
+           col = "pink",
+           hjust=.75)+
+  geom_segment(aes(x=3,xend=3,y=97,yend=19), linetype = 2,col="red")+
+  annotate(geom="text",x = 3 ,
+           y=58, 
+           label = expression(paste(beta[3])),
+           col = "red",
+           hjust=-.75)+
+  xlim(-2,6)+
+  scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
+  theme_bw()-> snow_lm
+
+
+
+snow_lm
+
+
+```
+
+
+:::{.nonincremental}
+
+- $\beta_0=$ Outcome in control (S&V) before treatment
+- $\beta_1=$ Fixed, [time invariant]{.blue} differences between [treated]{.blue} and [control]{.blue}
+- $\beta_2=$ Fixed, [unit invariant]{.blue} differences between [pre]{.blue} and [post]{.blue} periods
+- $\beta_3=$ [Difference-in-Differences]{.blue} = $E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$
+
+:::
+
+::::
 
 
 ## Summary {.smaller}
 
 - A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
   
-  - Taking the pre-post difference removes any fixed differences between the units
+- Differencing twice accounts for fixed differences [across units]{.blue} and [between periods]{.blue}
+  - But not time varying differences across units...
   
-  - Then taking the difference between treated and control differences removes any common differences over time
-
-- The key identifying assumption of a DiD design is the "assumption of parallel trends"
+- The key identifying assumption of a DiD design is the assumption of [parallel trends]{.blue}
   - Absent treatment, treated and control groups
 would see the same changes over time.
   - Hard to prove, possible to test

@@ -945,7 +945,7 @@
     "href": "slides/06-slides.html#summary",
     "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\n\nTaking the pre-post difference removes any fixed differences between the units\nThen taking the difference between treated and control differences removes any common differences over time\n\nThe key identifying assumption of a DiD design is the “assumption of parallel trends”\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
+    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\nDifferencing twice accounts for fixed differences across units and between periods\n\nBut not time varying differences across units…\n\nThe key identifying assumption of a DiD design is the assumption of parallel trends\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
   },
   {
     "objectID": "slides/06-slides.html#extensions-and-limitations",
@@ -8727,5 +8727,19 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/06-slides.html#parallel-trends",
+    "href": "slides/06-slides.html#parallel-trends",
+    "title": "POLS 1600",
+    "section": "Parallel Trends",
+    "text": "Parallel Trends"
+  },
+  {
+    "objectID": "slides/06-slides.html#using-lm-to-estimate-diff-in-diff",
+    "href": "slides/06-slides.html#using-lm-to-estimate-diff-in-diff",
+    "title": "POLS 1600",
+    "section": "Using lm to estimate Diff-in-Diff",
+    "text": "Using lm to estimate Diff-in-Diff\n\n Data lm() Diff-in-Diff\n\n\n\ncholera_df &lt;- tibble(\n  Location = c(\"S&V\",\"Lambeth\",\"S&V\",\"Lambeth\"),\n  Treated = c(0,1,0, 1),\n  Time = c(0,0,1,1),\n  Deaths = c(135,85,147,19)\n)\ncholera_df\n\n# A tibble: 4 × 4\n  Location Treated  Time Deaths\n  &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1 S&V            0     0    135\n2 Lambeth        1     0     85\n3 S&V            0     1    147\n4 Lambeth        1     1     19\n\n\n\n\n\\[\n\\text{Deaths} = \\beta_0 + \\beta_1\\text{Treated} + \\beta_2\\text{Time} + \\beta_3 \\text{Treated}\\times\\text{Time}\n\\]\n\ndiff_in_diff &lt;- lm(Deaths ~ Treated + Time + Treated:Time, cholera_df)\ndiff_in_diff\n\n\nCall:\nlm(formula = Deaths ~ Treated + Time + Treated:Time, data = cholera_df)\n\nCoefficients:\n (Intercept)       Treated          Time  Treated:Time  \n         135           -50            12           -78  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\beta_0=\\) Outcome in control (S&V) before treatment\n\\(\\beta_1=\\) Fixed, time invariant differences between treated and control\n\\(\\beta_2=\\) Fixed, unit invariant differences between pre and post periods\n\\(\\beta_3=\\) Difference-in-Differences = \\(E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\)"
   }
 ]
