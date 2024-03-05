@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -289,8 +289,8 @@ chr (5): Group, 1, 2, 3, 4
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-3ee879aeb9d49f617399" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3ee879aeb9d49f617399">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b79ed443310be0365131" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b79ed443310be0365131">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -516,8 +516,12 @@ chr (5): Group, 1, 2, 3, 4
 <h1 data-number="7"><span class="header-section-number">7</span> Calculate the average number new Covid-19 deaths in Red and Blue States using linear regression</h1>
 <p>Now let’s see how a linear model can be used to estimate conditional means.</p>
 <p>Please estimate the following models using the <code>lm()</code> function:</p>
-<p>[ = _0 + _1 + ]</p>
-<p>[ = _0 + _1 + ]</p>
+<p><span class="math display">\[
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner} + \epsilon
+\]</span></p>
+<p><span class="math display">\[
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner} + \epsilon
+\]</span></p>
 <p>Save the output of lm into objects called <code>m1</code> and <code>m2</code> and display the results of each model (by printing the objects on their own line)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit m1</span></span>
@@ -542,15 +546,15 @@ chr (5): Group, 1, 2, 3, 4
 <ul>
 <li>If vaccines are effective at reducing deaths from Covid-19, then the coefficient on <span class="math inline">\(\beta_1\)</span> in the following model should be <strong>PUT YOUR ANSWER HERE (NEGATIVE/POSITIVE)</strong></li>
 </ul>
-<p>[ = = _0 + _1 ]</p>
+<p><span class="math display">\[ \text{m3} =\text{14-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Percent Vaccinated} \]</span></p>
 <ul>
 <li>If Republicans are less likely to take the vaccine, then as the share of State’s population that voted for Trump increases, we’d expect the percent of that state’s population that is vaccinated to <strong>PUT YOUR ANSWER HERE</strong> and the so the coefficient on <span class="math inline">\(\beta_1\)</span> in the following model should be <strong>PUT YOUR ANSWER HERE</strong></li>
 </ul>
-<p>[ = = _0 + _1 ]</p>
+<p><span class="math display">\[ \text{m4} =\text{Percent Vaccinated} = \beta_0 + \beta_1 \text{Republican Vote Share} \]</span></p>
 <ul>
 <li>Finally, if we find the expected relationships in models <code>m3</code> and <code>m4</code> above, we would expect the relationship between Trump’s vote share new deaths from Covid-19 per 100,000 residents to be <strong>PUT YOUR ANSWER HERE</strong> in the following model:</li>
 </ul>
-<p>[ = = _0 + _1 ]</p>
+<p><span class="math display">\[ \text{m5} =\text{14-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Republican Vote Share} \]</span></p>
 <hr>
 <p>Now let’s estimate these models!</p>
 <p>For comparability, we will limit our analysis to just the observations from Sept 23, 2021, that Leonhardt used in his <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html">article in the fall</a> and use the 14-day average, rather than the 7-day average we’ve discussed so far, since that’s what Leonhardt uses.</p>
@@ -575,7 +579,7 @@ chr (5): Group, 1, 2, 3, 4
 <ul>
 <li><strong>Do your models’ estimates match your expectations?</strong> That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor</li>
 </ul>
-<p>[Yes/No].</p>
+<p><span class="math display">\[Yes/No\]</span>.</p>
 <ul>
 <li><p>A one percentage point increase in the percent of a state’s population that is vaccinated is associated with a …</p></li>
 <li><p>A one percentage point increase in the …</p></li>

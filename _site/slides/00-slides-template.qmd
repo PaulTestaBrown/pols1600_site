@@ -18,6 +18,7 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    chalkboard: true
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -25,15 +26,18 @@ format:
       data-background-position: 90% 50%
       data-background-size: 40%
 filters:
-    - openlinksinnewpage
-
-    # title-slide-attributes:
-    #   data-background-image: ../../assets/stat20-hex-bg.png
-    #   data-background-size = contain
+  - openlinksinnewpage
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  cache: true
 ---
 
 
 ```{r}
+#| label: init
 #| echo: false
 #| results: hide
 #| warning: false 
@@ -44,6 +48,8 @@ library(labelled)
 library(haven)
 library(DeclareDesign)
 library(easystats)
+library(texreg)
+
 ```
 
 
@@ -83,3 +89,5 @@ library(easystats)
 # {{< fa home >}} Summary {.inverse}
 
 ## Summary
+
+## References

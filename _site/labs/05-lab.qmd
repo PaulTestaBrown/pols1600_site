@@ -350,9 +350,14 @@ Now let's see how a linear model can be used to estimate conditional means.
 
 Please estimate the following models using the `lm()` function:
 
-\[ \text{New Deaths} = \beta\_0 + \beta\_1 \text{Election Winner} + \epsilon \]
+$$ 
+\text{New Deaths} = \beta_0 + \beta_1 \text{Election Winner} + \epsilon
+$$
 
-\[ \text{7-day average of New Deaths (per 100k)} = \beta\_0 + \beta\_1 \text{Election Winner} + \epsilon \]
+
+$$
+\text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Election Winner} + \epsilon
+$$
 
 Save the output of lm into objects called `m1` and `m2` and display the results of each model (by printing the objects on their own line)
 
@@ -385,15 +390,15 @@ Let's tease out some further implications Leonhardt's claim.
 
 - If vaccines are effective at reducing deaths from Covid-19, then the coefficient on $\beta_1$ in the following model should be **PUT YOUR ANSWER HERE (NEGATIVE/POSITIVE)**
 
-\[ \text{m3} =\text{14-day average of New Deaths (per 100k)} = \beta\_0 + \beta\_1 \text{Percent Vaccinated} \]
+$$ \text{m3} =\text{14-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Percent Vaccinated} $$
 
 - If Republicans are less likely to take the vaccine, then as the share of State's population that voted for Trump increases, we'd expect the percent of that state's population that is vaccinated to **PUT YOUR ANSWER HERE** and the so the coefficient on $\beta_1$ in the following model should be **PUT YOUR ANSWER HERE**
 
-\[ \text{m4} =\text{Percent Vaccinated} = \beta\_0 + \beta\_1 \text{Republican Vote Share} \]
+$$ \text{m4} =\text{Percent Vaccinated} = \beta_0 + \beta_1 \text{Republican Vote Share} $$
 
 - Finally, if we find the expected relationships in models `m3` and `m4` above, we would expect the relationship between Trump's vote share new deaths from Covid-19 per 100,000 residents to be **PUT YOUR ANSWER HERE** in the following model:
 
-\[ \text{m5} =\text{14-day average of New Deaths (per 100k)} = \beta\_0 + \beta\_1 \text{Republican Vote Share} \]
+$$ \text{m5} =\text{14-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Republican Vote Share} $$
 
 ------------------------------------------------------------------------
 
@@ -430,7 +435,7 @@ Please assign the output of each model to objects called `m3`, `m4`, and `m5`. P
 
 - **Do your models' estimates match your expectations?** That is do the coefficients on each of the predictors have the expected sign (positive or negative), that you wrote above? Please write one sentence for each model, describing how the outcome in that model is expected to change with a unit change in the predictor
 
-\[Yes/No\].
+$$Yes/No$$.
 
 - A one percentage point increase in the percent of a state's population that is vaccinated is associated with a ...
 
