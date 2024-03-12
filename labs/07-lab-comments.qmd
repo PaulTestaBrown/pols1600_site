@@ -1,0 +1,370 @@
+---
+title: 'Lab 07 - Replicating Grumbach and Hill (2022):'
+subtitle: "Understanding the Data and Design "
+author: "P.F. Testa"
+date: "Last Updated `r format(Sys.Date())`"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-float: true
+    toc-depth: 2
+    number-sections: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+---
+
+
+# Overview {.unnumbered}
+
+In this lab, we will begin
+
+To accomplish this we will:
+
+1.  Download the replication files and get set up to work (15 minutes)
+
+Then we will estimate and interpret a series of regression models:
+
+2.  A baseline Red Covid model using simple bivariate regression using the `Republican vote share` of states to predict the 14-day average of per capita `Covid-19 deaths` on September 23, 2021 (10 Minutes)
+
+3.  A multiple regression model controlling for `Republican vote share` the `median age` (15 minutes)
+
+4.  A model controlling for `Republican vote share`, the `median age` **and** `median income` (15 minutes)
+
+5.  A model controlling for `Republican vote share`, the `median age` `median income` **and** `vaccination rates` (15 minutes)
+
+6.  A model using `Republican vote share`, the `median age` `median income` to predict `vaccination rates` (15 minutes)
+
+Finally, we'll take the weekly survey which will serve as a mid semester check in.
+
+One of these 6 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
+
+You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
+
+This lab **must** contain the names of the group members in attendance.
+
+If you are attending remotely, you will submit your labs individually.
+
+Here are your assigned groups for the semester.
+
+```{r}
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
+
+DT::datatable(groups_df)
+```
+
+# Goals {.unnumbered}
+
+
+
+# Workflow {.unnumbered}
+
+# Please knit this .qmd file {.unnumbered}
+
+As with every lab, you should:
+
+-   Download the file
+-   Save it in your course folder
+-   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
+-   Render the document
+-   Open the html file in your browser (Easier to read)
+-   Write your code in the **chunks provided under each section**
+-   Comment out or delete any test code you do not need
+-   **Render the document again after completing a section or chunk** (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+
+# Get set up to work
+
+## Load packages
+
+As always, let's load the packages we'll need for today
+
+```{r}
+#| label: packages
+
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT","texreg","htmltools",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse",
+  "janitor",
+  # Analysis
+  "DeclareDesign", "easystats", "zoo"
+)
+
+# Define function to load packages
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+ipak(the_packages)
+```
+
+We will also want to set our working directory to where your lab is saved.
+
+## Set working directory
+
+1. On the top panel of R Studio click: 
+
+> Session Session > Set working directory > Source file location
+
+2. Paste the output that shows up in your console into the code chunk below
+
+```{r}
+# Set working directory
+# Session > Set working directory > Source file location
+# paste output here:
+
+
+```
+
+All right, now let's try and summarize the study
+
+# Summarize the study:
+
+In a few sentences please answer the following questions about Grumbach and Hill (2021):
+
+- **What's research question?**
+
+- **What's the theory motivating the research question and expectations?**
+
+- **What's the empirical design?**
+
+- **What's the core finding?**
+
+# Download the replication files
+
+Ok now let's download the replication files from the paper's [replication archive](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8)
+
+The slides provide a detailed guide
+
+Make sure the files are saved in to the SAME folder as the lab
+
+
+
+# Load the data
+
+There should be 11 total files in the dataverse_files folder. We're only going to use 3 of the data files for this replication
+
+Please uncomment and run the code below
+
+```{r}
+# Load fips_codes
+fips_codes <- read_csv("dataverse_files/fips_codes_website.csv")%>%
+  janitor::clean_names()
+
+# Load policy data
+data <- readRDS("dataverse_files/policy_data_updated.RDS")%>%
+  janitor::clean_names()
+
+# Load CPS data
+cps <- read_csv("dataverse_files/cps_00021.csv") %>%
+  janitor::clean_names()
+  
+
+```
+
+:::{callout-note}
+The `janitor::clean_names()` after each `read_XXX()` function converts column names to snake case
+:::
+
+# Get a HLO of each dataset
+
+
+
+# Merge policy `data` into `cps` data
+
+## Merge state_fips codes into policy `cps` data
+
+First we need to add a column to `cps` that contains State's postal abreviations.
+
+We do this by merging the columns `st` and `statefip` from fips_codes into `cps` using the column `statefip` that is common to both dataframes.
+
+```{r}
+cps <- cps %>% dplyr::left_join(fips_codes %>% 
+                      select(st, statefip),
+                      by = "statefip",
+                    multiple = "first")
+```
+
+Now we can merge the policy data from `data` into cps using the common columns of `st` and `year` in each data frame.
+
+```{r}
+cps <- cps %>% dplyr:: left_join(
+  data, 
+  by = c("st", "year")
+)
+
+```
+
+# Recode and transform the data
+
+Now we need to do some brief recoding:
+
+## Create `age_group` 
+
+- Use `case_when()` to create a variable called `age_group` from the `age` variable with the following levels: 
+  - "18-24", 
+  - "25-34"
+  - "45-54"
+  - "55-64"
+  - "65+"
+
+```{r}
+cps %>% 
+  mutate(
+    age_group = case_when(
+      age <= 24 ~ "18-24",
+      age > 24 & age <= 34  ~ "25-34",
+      age > 34 & age <= 44  ~ "35-44",
+      age > 44 & age <= 54  ~ "45-54",
+      age > 54 & age <= 64  ~ "55-64",
+      age > 64 ~ "65+"
+
+    )
+    
+  ) -> cps
+```
+
+## Create indicators for each age_group
+
+Please create six binary indicators that take a value of 1, when a person is a 
+
+```{r}
+
+cps %>% 
+  mutate(
+    age_group_18_24 = ifelse(age_group == "18-24", 1, 0),
+    age_group_25_34 = ifelse(age_group == "25-34", 1, 0),
+    age_group_35_44 = ifelse(age_group == "35-44", 1, 0),
+    age_group_45_54 = ifelse(age_group == "45-54", 1, 0),
+    age_group_55_64 = ifelse(age_group == "55-64", 1, 0),
+    age_group_65plus = ifelse(age_group == "65+", 1, 0)
+
+  ) -> cps
+
+
+```
+
+## Additional recodes
+
+```{r}
+table(cps$sex)
+cps %>% 
+  mutate(
+    faminc = ifelse(faminc > 843, 
+                    NA,
+                    factor(as.numeric(faminc))
+    ),
+    sex = case_when(
+      
+    ), # This is not quite right but I don't know what 0, 3, and 6 correspond to
+    educ = case_when(
+      educ == 999 ~ NA_real_,
+      educ == 1 ~ NA_real_,
+      T ~ educ) %>% factor() %>% as.numeric()
+    ) -> cps
+
+table(cps$education)
+```
+
+```{r}
+ggplot(aes(age_group, ))
+```
+
+## Recode voting
+
+```{r}
+table(cps$voted)
+
+cps %>% 
+  mutate(
+    dv_voted = case_when(
+      voted == 2 ~ 1,
+      voted == 1 ~ 0,
+      voted > 2 & voted < 99 ~ 0,
+      T ~ NA_real_
+    )
+  ) -> cps
+
+```
+
+
+```{r}
+
+cps %>%
+  filter(!is.na(sdr)) %>% 
+  group_by(age_group, sdr) %>% 
+  summarise(
+    vote = mean(dv_voted,na.rm = T)
+  ) %>% 
+  mutate(
+    SDR = ifelse(sdr == 1,"SDR","non-SDR")
+  ) %>% 
+  ggplot(aes(age_group,vote,fill = SDR))+
+  geom_bar(stat = "identity", position = position_dodge())
+
+```
+
+
+## Recode the data for Figure 1
+
+```{r}
+data |> 
+  mutate(
+    SDR = ifelse(sdr == 1, "Treated", "Control"),
+    st = forcats::fct_rev(st)
+  ) |> 
+  ggplot(aes(year, st, col = SDR)) +
+  geom_point(shape = 15) -> fig1
+
+
+```
+
+## Revise Figure
+
+```{r}
+
+fig1 +
+  coord_cartesian(xlim = c(1979, 2017))+
+  scale_x_continuous(n.breaks = 49,
+                     )+
+  theme(axis.text.x = element_text(size=5))
+
+data |> 
+  mutate(
+    SDR = ifelse(sdr == 1, "Treated", "Control"),
+    st = forcats::fct_rev(st)
+  ) |> 
+  ggplot(aes(year, st, col = SDR)) +
+  geom_point(shape = 15,size=2)+
+
+
+```
+
+
+# 
+
+```{r}
+library(tidycensus)
+cps <- cps |> janitor::clean_names()
+
+data(fips_codes)
+class(cps$statefip[1])
+cps <- cps |> 
+  left_join(data, by = c("state" ))
+```
+
