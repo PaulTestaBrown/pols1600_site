@@ -9421,7 +9421,7 @@
     "href": "slides/07-slides.html#section-15",
     "title": "POLS 1600",
     "section": "",
-    "text": "5. Save and unzip the downloaded files into your course folder where your labs are saved\n ## Q2: Load the data into R\nIf you’ve saved the dataverse_files into."
+    "text": "## General Structure of Labs 7-8\nLab 7:\n\nSummarize the study\nDownload and load the data\nRecode the data\nMerge the data\nRecreate Figures 1 and 2\n\nLab 8:\n\nEstimate some baseline models to understand Two-Way Fixed Effects\nEstimate some of the models in Figure 3\nExtend the study, perhaps considering SDR by race or gender"
   },
   {
     "objectID": "slides/07-slides.html#goals",
@@ -9506,5 +9506,12 @@
     "title": "POLS 1600",
     "section": "Q3: Load the data into R",
     "text": "Q3: Load the data into R\nIf you’ve saved the dataverse_files into the folder where your lab is saved, you should be able to run the following code after setting the working directory to source file location:\n\n# Remember to set working directory:\n# Session &gt; Set working directory &gt; Source file location\n\n# Load fips_codes\nfips_codes &lt;- read_csv(\"dataverse_files/fips_codes_website.csv\")%&gt;%\n  janitor::clean_names()\n\n# Load policy data\ndata &lt;- readRDS(\"dataverse_files/policy_data_updated.RDS\")%&gt;%\n  janitor::clean_names()\n\n# Load CPS data\ncps &lt;- read_csv(\"dataverse_files/cps_00021.csv\") %&gt;%\n  janitor::clean_names()"
+  },
+  {
+    "objectID": "slides/07-slides.html#what-should-we-do-going-forward",
+    "href": "slides/07-slides.html#what-should-we-do-going-forward",
+    "title": "POLS 1600",
+    "section": "What should we do going forward?",
+    "text": "What should we do going forward?\n\nFrom me:\n\nShorter labs\nShorter slides\nMore coding, less copy-pasting\n\nFrom you?"
   }
 ]
