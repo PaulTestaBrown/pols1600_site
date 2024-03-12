@@ -1459,7 +1459,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 <h2></h2>
 <h4 id="using-r2-to-compare-models">Using <span class="math inline">\(R^2\)</span> to compare models</h4>
 <div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">ANOVA</a></li><li><a href="#tabset-5-2"><i class="fa-solid fa-code" aria-label="code"></i> m5</a></li><li><a href="#tabset-5-3"><i class="fa-solid fa-table" aria-label="table"></i> Table</a></li></ul>
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">ANOVA</a></li><li><a href="#tabset-5-2"><i class="fa-solid fa-code" aria-label="code"></i> m5</a></li><li><a href="#tabset-5-3"><i class="fa-solid fa-table" aria-label="table"></i> Table</a></li><li><a href="#tabset-5-4"><i class="fa-solid fa-code" aria-label="code"></i> Anova</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1">
 <p>When models are <em>nested</em> (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.</p>
@@ -1468,7 +1468,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 </div>
 <div id="tabset-5-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>m5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(new_deaths_pc_14day <span class="sc">~</span> percent_vaccinated <span class="sc">+</span> <span class="fu">I</span>(percent_vaccinated<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> rep_voteshare_std <span class="sc">+</span> med_age_std <span class="sc">+</span> med_income_std, covid_lab</span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>m5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(new_deaths_pc_14day <span class="sc">~</span> percent_vaccinated  <span class="sc">+</span> rep_voteshare_std <span class="sc">+</span> med_age_std <span class="sc">+</span> med_income_std, covid_lab</span>
 <span id="cb28-2"><a></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1499,7 +1499,7 @@ Model 2
 6.194<sup>**</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-6.194<sup>**</sup>
+2.532<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1510,7 +1510,7 @@ Model 2
 (2.186)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(2.186)
+(0.657)
 </td>
 </tr>
 <tr>
@@ -1521,7 +1521,7 @@ percent_vaccinated
 -0.169<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.169<sup>*</sup>
+-0.035<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -1532,7 +1532,7 @@ percent_vaccinated
 (0.077)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.077)
+(0.012)
 </td>
 </tr>
 <tr>
@@ -1543,7 +1543,7 @@ percent_vaccinated^2
 0.001
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.001
+&nbsp;
 </td>
 </tr>
 <tr>
@@ -1554,7 +1554,7 @@ percent_vaccinated^2
 (0.001)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.001)
+&nbsp;
 </td>
 </tr>
 <tr>
@@ -1565,7 +1565,7 @@ rep_voteshare_std
 -0.062
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.062
+-0.089
 </td>
 </tr>
 <tr>
@@ -1576,7 +1576,7 @@ rep_voteshare_std
 (0.081)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.081)
+(0.082)
 </td>
 </tr>
 <tr>
@@ -1587,7 +1587,7 @@ med_age_std
 0.053
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.053
+0.071
 </td>
 </tr>
 <tr>
@@ -1609,7 +1609,7 @@ med_income_std
 -0.114
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.114
+-0.119
 </td>
 </tr>
 <tr>
@@ -1620,7 +1620,7 @@ med_income_std
 (0.068)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.068)
+(0.070)
 </td>
 </tr>
 <tr style="border-top: 1px solid #000000;">
@@ -1631,7 +1631,7 @@ R<sup>2</sup>
 0.561
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.561
+0.531
 </td>
 </tr>
 <tr>
@@ -1642,7 +1642,7 @@ Adj. R<sup>2</sup>
 0.512
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.512
+0.490
 </td>
 </tr>
 <tr style="border-bottom: 2px solid #000000;">
@@ -1665,6 +1665,25 @@ Num. obs.
 </tr>
 </tfoot>
 </table>
+</div>
+<div id="tabset-5-4">
+<p>The anova suggests that including a polynomial provides a <em>marginal</em> improvement to fit (p &lt; 0.10)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">anova</span>(m5, m4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: new_deaths_pc_14day ~ percent_vaccinated + rep_voteshare_std + 
+    med_age_std + med_income_std
+Model 2: new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + 
+    rep_voteshare_std + med_age_std + med_income_std
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
+1     46 3.9268                              
+2     45 3.6758  1   0.25098 3.0725 0.08644 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1905,13 +1924,13 @@ Num. obs.
 <div class="tab-content">
 <div id="tabset-6-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cholera_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb29-2"><a></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"S&amp;V"</span>,<span class="st">"Lambeth"</span>,<span class="st">"S&amp;V"</span>,<span class="st">"Lambeth"</span>),</span>
-<span id="cb29-3"><a></a>  <span class="at">Treated =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb29-4"><a></a>  <span class="at">Time =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
-<span id="cb29-5"><a></a>  <span class="at">Deaths =</span> <span class="fu">c</span>(<span class="dv">135</span>,<span class="dv">85</span>,<span class="dv">147</span>,<span class="dv">19</span>)</span>
-<span id="cb29-6"><a></a>)</span>
-<span id="cb29-7"><a></a>cholera_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>cholera_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-2"><a></a>  <span class="at">Location =</span> <span class="fu">c</span>(<span class="st">"S&amp;V"</span>,<span class="st">"Lambeth"</span>,<span class="st">"S&amp;V"</span>,<span class="st">"Lambeth"</span>),</span>
+<span id="cb31-3"><a></a>  <span class="at">Treated =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb31-4"><a></a>  <span class="at">Time =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb31-5"><a></a>  <span class="at">Deaths =</span> <span class="fu">c</span>(<span class="dv">135</span>,<span class="dv">85</span>,<span class="dv">147</span>,<span class="dv">19</span>)</span>
+<span id="cb31-6"><a></a>)</span>
+<span id="cb31-7"><a></a>cholera_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   Location Treated  Time Deaths
@@ -1928,8 +1947,8 @@ Num. obs.
 \text{Deaths} = \beta_0 + \beta_1\text{Treated} + \beta_2\text{Time} + \beta_3 \text{Treated}\times\text{Time}
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>diff_in_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(Deaths <span class="sc">~</span> Treated <span class="sc">+</span> Time <span class="sc">+</span> Treated<span class="sc">:</span>Time, cholera_df)</span>
-<span id="cb31-2"><a></a>diff_in_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>diff_in_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(Deaths <span class="sc">~</span> Treated <span class="sc">+</span> Time <span class="sc">+</span> Treated<span class="sc">:</span>Time, cholera_df)</span>
+<span id="cb33-2"><a></a>diff_in_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1978,14 +1997,31 @@ Coefficients:
 </ul></li>
 </ul>
 </section>
+<section id="generalizing-diff-in-diff-with-linear-regression" class="slide level2 smaller">
+<h2>Generalizing Diff-in-Diff with Linear Regression</h2>
+<ul>
+<li class="fragment"><p>Diff-in-Diff easy to estimate with linear regression</p></li>
+<li class="fragment"><p>Generalizes to multiple periods and treatment interventions, with <span class="blue">fixed effects</span></p></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[
+y_{it} = \overbrace{\alpha_i}^{\text{Unit FE}} + \underbrace{\gamma_t}_{\text{Period FE}} + \overbrace{\tau*d_{it}}^{\text{Treatment}} + \underbrace{X\beta}_{\text{Covariates}} + \epsilon_{it}
+\]</span></p>
+</div>
+<ul>
+<li class="fragment"><span class="blue">Unit fixed effects</span> control for time-invariant differences across units</li>
+<li class="fragment"><span class="blue">Period fixed effects</span> control for unit-invariant differences across periods</li>
+<li class="fragment"><span class="blue"><span class="math inline">\(\tau\)</span></span> corresponds the <span class="blue">Difference-in-Difference</span> estimate for a <span class="blue">two-way fixed effects</span> regression</li>
+</ul>
+</section>
 <section id="extensions-and-limitations" class="slide level2 smaller">
 <h2>Extensions and limitations</h2>
 <ul>
-<li class="fragment">Diff-in-Diff easy to estimate with linear regression</li>
-<li class="fragment">Generalizes to multiple periods and treatment interventions
+<li class="fragment">Interpretation of the <span class="blue">two-way fixed effects</span> is <span class="blue">complicated</span>…
 <ul>
-<li class="fragment">More pre-treatment periods allow you assess “parallel trends” assumption</li>
+<li class="fragment"><span class="citation" data-cites="Goodman-Bacon2021-ah">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Goodman-Bacon2021-ah?</strong></a>)</span></li>
 </ul></li>
+<li class="fragment">More pre-treatment periods allow you assess “parallel trends” assumption</li>
 <li class="fragment">Alternative methods
 <ul>
 <li class="fragment">Synthetic control</li>
@@ -2011,8 +2047,76 @@ Coefficients:
 <h1><i class="fa-solid fa-code" aria-label="code"></i> Previewing Lab 7</h1>
 
 </section>
-<section id="code-1" class="slide level2">
-<h2>Code</h2>
+<section id="replicating-grumbach-and-hill-2022" class="slide level2">
+<h2>Replicating Grumbach and Hill (2022)</h2>
+<ul>
+<li class="fragment"><p>In this week’s lab we’ll be conducting a partial replication of <span class="citation" data-cites="Grumbach2022-zj">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Grumbach2022-zj?</strong></a>)</span> “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”</p></li>
+<li class="fragment"><p>On Thursday, we’ll walk through</p>
+<ul>
+<li class="fragment">the paper’s design and argument</li>
+<li class="fragment">setting up and exploring the data</li>
+<li class="fragment">reproducing some descriptive figures</li>
+</ul></li>
+<li class="fragment"><p>Next Thursday, we’ll focus on replicating and understanding the main results</p></li>
+</ul>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+
+<img data-src="images/07_grumbach2022.png" class="r-stretch"></section>
+<section id="reading-grumbach-and-hill-2022" class="slide level2 smaller">
+<h2>Reading Grumbach and Hill (2022)</h2>
+<p>Reading <span class="citation" data-cites="Grumbach2022-zj">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Grumbach2022-zj?</strong></a>)</span>, focus on being able to answer the following:</p>
+<ul>
+<li class="fragment">What’s the research question?
+<ul>
+<li class="fragment">General RQ: First sentence, second paragraph, p.&nbsp;405</li>
+<li class="fragment">Specific RQs: p.&nbsp;405-406</li>
+</ul></li>
+<li class="fragment">What’s the theoretical framework?
+<ul>
+<li class="fragment">Intro and Theory of Registration, p.&nbsp;407-409</li>
+</ul></li>
+<li class="fragment">What’s the empirical design?
+<ul>
+<li class="fragment">Methods pp.&nbsp;409-410</li>
+</ul></li>
+<li class="fragment">What’s are the main results?
+<ul>
+<li class="fragment">Results pp.&nbsp;410-413</li>
+<li class="fragment">Figure 3 in particular</li>
+</ul></li>
+</ul>
+</section>
+<section id="q1-download-the-replication-files" class="slide level2">
+<h2>Q1: Download the replication files</h2>
+<p>Rather than downloading the files directly from the paper’s <span class="blue">replication archives</span>, in this lab, we will <span class="blue">download the replication files</span> to your computers and then <span class="blue">load the data</span> into R from <span class="blue">where they’re saved</span></p>
+<p>Please click <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8" target="_blank">here</a> and let’s download the files together.</p>
+</section>
+<section id="go-to-the-papers-dataverse" class="slide level2">
+<h2>1. Go to the paper’s dataverse</h2>
+<p>Please click <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8" target="_blank">here</a></p>
+
+<img data-src="images/07_rep1.png" class="r-stretch"></section>
+<section id="log-in-through-brown" class="slide level2">
+<h2>2. Log in through Brown</h2>
+
+<img data-src="images/07_rep2.png" class="r-stretch"></section>
+<section id="select-all-of-the-files" class="slide level2">
+<h2>3. Select all of the files</h2>
+<p>Make sure to <strong>Select all 11 files in this dataset</strong></p>
+<p><img data-src="images/07_rep3.png"></p>
+<p><img data-src="images/07_rep4.png"></p>
+</section>
+<section id="download-the-files-in-their-original-format" class="slide level2">
+<h2>4. Download the files in their original format</h2>
+
+<img data-src="images/07_rep5.png" class="r-stretch"></section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<h3 id="save-and-unzip-the-downloaded-files-into-your-course-folder-where-your-labs-are-saved">5. Save and unzip the downloaded files into your course folder where your labs are saved</h3>
+<p><img data-src="images/07_rep6.png"> ## Q2: Load the data into R</p>
+<p>If you’ve saved the dataverse_files into.</p>
 </section></section>
 <section>
 <section id="summary-1" class="title-slide slide level1 inverse center">

@@ -9225,7 +9225,7 @@
     "href": "slides/07-slides.html#extensions-and-limitations",
     "title": "POLS 1600",
     "section": "Extensions and limitations",
-    "text": "Extensions and limitations\n\nDiff-in-Diff easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\n\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
+    "text": "Extensions and limitations\n\nInterpretation of the two-way fixed effects is complicated…\n\n(Goodman-Bacon2021-ah?)\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
   },
   {
     "objectID": "slides/07-slides.html#applications",
@@ -9358,6 +9358,69 @@
     "href": "slides/07-slides.html#section-13",
     "title": "POLS 1600",
     "section": "",
-    "text": "Using \\(R^2\\) to compare models\n\nANOVA m5 Table\n\n\nWhen models are nested (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.\nFormally we call this process an Analysis of Variance (ANOVA)\nLet’s consider whether the gains in fit from I(percent_vaccinated^2)\n\n\n\nm5 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n6.194**\n\n\n\n\n \n\n\n(2.186)\n\n\n(2.186)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n-0.169*\n\n\n\n\n \n\n\n(0.077)\n\n\n(0.077)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n0.001\n\n\n\n\n \n\n\n(0.001)\n\n\n(0.001)\n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n-0.062\n\n\n\n\n \n\n\n(0.081)\n\n\n(0.081)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n0.053\n\n\n\n\n \n\n\n(0.053)\n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n-0.114\n\n\n\n\n \n\n\n(0.068)\n\n\n(0.068)\n\n\n\n\nR2\n\n\n0.561\n\n\n0.561\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n0.512\n\n\n\n\nNum. obs.\n\n\n51\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "Using \\(R^2\\) to compare models\n\nANOVA m5 Table Anova\n\n\nWhen models are nested (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.\nFormally we call this process an Analysis of Variance (ANOVA)\nLet’s consider whether the gains in fit from I(percent_vaccinated^2)\n\n\n\nm5 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n2.532***\n\n\n\n\n \n\n\n(2.186)\n\n\n(0.657)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n-0.035**\n\n\n\n\n \n\n\n(0.077)\n\n\n(0.012)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n \n\n\n\n\n \n\n\n(0.001)\n\n\n \n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n-0.089\n\n\n\n\n \n\n\n(0.081)\n\n\n(0.082)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n0.071\n\n\n\n\n \n\n\n(0.053)\n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n-0.119\n\n\n\n\n \n\n\n(0.068)\n\n\n(0.070)\n\n\n\n\nR2\n\n\n0.561\n\n\n0.531\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n0.490\n\n\n\n\nNum. obs.\n\n\n51\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\nThe anova suggests that including a polynomial provides a marginal improvement to fit (p &lt; 0.10)\n\nanova(m5, m4)\n\nAnalysis of Variance Table\n\nModel 1: new_deaths_pc_14day ~ percent_vaccinated + rep_voteshare_std + \n    med_age_std + med_income_std\nModel 2: new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + \n    rep_voteshare_std + med_age_std + med_income_std\n  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  \n1     46 3.9268                              \n2     45 3.6758  1   0.25098 3.0725 0.08644 .\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "slides/07-slides.html#generalizing-diff-in-diff-with-linear-regression",
+    "href": "slides/07-slides.html#generalizing-diff-in-diff-with-linear-regression",
+    "title": "POLS 1600",
+    "section": "Generalizing Diff-in-Diff with Linear Regression",
+    "text": "Generalizing Diff-in-Diff with Linear Regression\n\nDiff-in-Diff easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions, with fixed effects\n\n\n\\[\ny_{it} = \\overbrace{\\alpha_i}^{\\text{Unit FE}} + \\underbrace{\\gamma_t}_{\\text{Period FE}} + \\overbrace{\\tau*d_{it}}^{\\text{Treatment}} + \\underbrace{X\\beta}_{\\text{Covariates}} + \\epsilon_{it}\n\\]\n\n\nUnit fixed effects control for time-invariant differences across units\nPeriod fixed effects control for unit-invariant differences across periods\n\\(\\tau\\) corresponds the Difference-in-Difference estimate for a two-way fixed effects regression"
+  },
+  {
+    "objectID": "slides/07-slides.html#replicating-grumbach-and-hill-2022",
+    "href": "slides/07-slides.html#replicating-grumbach-and-hill-2022",
+    "title": "POLS 1600",
+    "section": "Replicating Grumbach and Hill (2022)",
+    "text": "Replicating Grumbach and Hill (2022)\n\nIn this week’s lab we’ll be conducting a partial replication of (Grumbach2022-zj?) “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”\nOn Thursday, we’ll walk through\n\nthe paper’s design and argument\nsetting up and exploring the data\nreproducing some descriptive figures\n\nNext Thursday, we’ll focus on replicating and understanding the main results"
+  },
+  {
+    "objectID": "slides/07-slides.html#reading-grumbach-and-hill-2022",
+    "href": "slides/07-slides.html#reading-grumbach-and-hill-2022",
+    "title": "POLS 1600",
+    "section": "Reading Grumbach and Hill (2022)",
+    "text": "Reading Grumbach and Hill (2022)\nReading (Grumbach2022-zj?), focus on being able to answer the following:\n\nWhat’s the research question?\n\nGeneral RQ: First sentence, second paragraph, p. 405\nSpecific RQs: p. 405-406\n\nWhat’s the theoretical framework?\n\nIntro and Theory of Registration, p. 407-409\n\nWhat’s the empirical design?\n\nMethods pp. 409-410\n\nWhat’s are the main results?\n\nResults pp. 410-413\nFigure 3 in particular"
+  },
+  {
+    "objectID": "slides/07-slides.html#q1-download-the-replication-files",
+    "href": "slides/07-slides.html#q1-download-the-replication-files",
+    "title": "POLS 1600",
+    "section": "Q1: Download the replication files",
+    "text": "Q1: Download the replication files\nRather than downloading the files directly from the paper’s replication archives, in this lab, we will download the replication files to your computers and then load the data into R from where they’re saved\nPlease click here and let’s download the files together."
+  },
+  {
+    "objectID": "slides/07-slides.html#go-to-the-papers-dataverse",
+    "href": "slides/07-slides.html#go-to-the-papers-dataverse",
+    "title": "POLS 1600",
+    "section": "1. Go to the paper’s dataverse",
+    "text": "1. Go to the paper’s dataverse\nPlease click here"
+  },
+  {
+    "objectID": "slides/07-slides.html#log-in-through-brown",
+    "href": "slides/07-slides.html#log-in-through-brown",
+    "title": "POLS 1600",
+    "section": "2. Log in through Brown",
+    "text": "2. Log in through Brown"
+  },
+  {
+    "objectID": "slides/07-slides.html#select-all-of-the-files",
+    "href": "slides/07-slides.html#select-all-of-the-files",
+    "title": "POLS 1600",
+    "section": "3. Select all of the files",
+    "text": "3. Select all of the files\nMake sure to Select all 11 files in this dataset"
+  },
+  {
+    "objectID": "slides/07-slides.html#download-the-files-in-their-original-format",
+    "href": "slides/07-slides.html#download-the-files-in-their-original-format",
+    "title": "POLS 1600",
+    "section": "4. Download the files in their original format",
+    "text": "4. Download the files in their original format"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-15",
+    "href": "slides/07-slides.html#section-15",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "5. Save and unzip the downloaded files into your course folder where your labs are saved\n ## Q2: Load the data into R\nIf you’ve saved the dataverse_files into."
   }
 ]

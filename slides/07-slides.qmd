@@ -647,7 +647,7 @@ Let's consider whether the gains in fit from `I(percent_vaccinated^2)`
 ## {{<fa code >}} m5
 
 ```{r}
-m5 <- lm(new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + rep_voteshare_std + med_age_std + med_income_std, covid_lab
+m5 <- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare_std + med_age_std + med_income_std, covid_lab
            )
 ```
 
@@ -659,6 +659,16 @@ m5 <- lm(new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + re
 #| results: asis
 htmlreg(list(m4,m5), digits = 3)
 ```
+
+## {{<fa code >}} Anova
+
+The anova suggests that including a polynomial provides a *marginal* improvement to fit (p < 0.10)
+
+```{r}
+anova(m5, m4)
+
+```
+
 
 
 ::::
@@ -1001,11 +1011,29 @@ would see the same changes over time.
 
 
 
-## Extensions and limitations {.smaller}
+## Generalizing Diff-in-Diff with Linear Regression {.smaller}
+
+
 
 - Diff-in-Diff easy to estimate with linear regression
-- Generalizes to multiple periods and treatment interventions
-  - More pre-treatment periods allow you assess "parallel trends" assumption
+
+- Generalizes to multiple periods and treatment interventions, with [fixed effects]{.blue}
+
+:::{.fragment}
+$$
+y_{it} = \overbrace{\alpha_i}^{\text{Unit FE}} + \underbrace{\gamma_t}_{\text{Period FE}} + \overbrace{\tau*d_{it}}^{\text{Treatment}} + \underbrace{X\beta}_{\text{Covariates}} + \epsilon_{it}
+$$
+:::
+
+  - [Unit fixed effects]{.blue} control for time-invariant differences across units
+  - [Period fixed effects]{.blue} control for unit-invariant differences across periods
+  - [$\tau$]{.blue} corresponds the [Difference-in-Difference]{.blue} estimate for a [two-way fixed effects]{.blue} regression
+
+## Extensions and limitations{.smaller}
+
+- Interpretation of the [two-way fixed effects]{.blue} is [complicated]{.blue}...
+  - @Goodman-Bacon2021-ah
+- More pre-treatment periods allow you assess "parallel trends" assumption
 - Alternative methods 
   - Synthetic control
   - Event Study Designs
@@ -1026,7 +1054,76 @@ would see the same changes over time.
 
 # {{< fa code>}} Previewing Lab 7 {.inverse}
 
-## Code
+## Replicating Grumbach and Hill (2022)
+
+- In this week's lab we'll be conducting a partial replication of @Grumbach2022-zj “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”
+
+- On Thursday, we'll walk through 
+  - the paper's design and argument
+  - setting up and exploring the data
+  - reproducing some descriptive figures
+
+- Next Thursday, we'll focus on replicating and understanding the main results
+
+##
+
+![](images/07_grumbach2022.png)
+
+## Reading Grumbach and Hill (2022){.smaller}
+
+Reading @Grumbach2022-zj, focus on being able to answer the following:
+
+- What's the research question? 
+  - General RQ: First sentence, second paragraph, p. 405
+  - Specific RQs: p. 405-406
+
+- What's the theoretical framework?
+  - Intro and Theory of Registration, p. 407-409
+
+- What's the empirical design?
+  - Methods pp. 409-410
+- What's are the main results?
+  - Results pp. 410-413
+  - Figure 3 in particular
+
+## Q1: Download the replication files
+
+Rather than downloading the files directly from the paper's [replication archives]{.blue}, in this lab, we will [download the replication files]{.blue} to your computers and then [load the data]{.blue} into R from [where they're saved]{.blue}
+
+Please click [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8) and let's download the files together.
+
+
+
+## 1. Go to the paper's dataverse
+
+Please click [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8)
+
+![](images/07_rep1.png)
+
+## 2. Log in through Brown
+
+![](images/07_rep2.png)
+
+
+## 3. Select all of the files
+
+Make sure to **Select all 11 files in this dataset**
+
+![](images/07_rep3.png)
+
+![](images/07_rep4.png)
+
+## 4. Download the files in their original format
+
+![](images/07_rep5.png)
+
+##
+### 5. Save and unzip the downloaded files into your course folder where your labs are saved
+
+![](images/07_rep6.png)
+## Q2: Load the data into R
+
+If you've saved the dataverse_files into.
 
 # {{< fa home >}} Summary {.inverse}
 
