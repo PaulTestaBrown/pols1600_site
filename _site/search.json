@@ -1960,7 +1960,7 @@
     "href": "slides/07-slides.html#producing-predicted-values-in-r",
     "title": "POLS 1600",
     "section": "Producing Predicted Values in R",
-    "text": "Producing Predicted Values in R\nThe basic steps to producing predicted values in R as follows:\n\nFit a model using lm()\nProduce a prediction data frame, where one (sometimes two) predictor(s) vary, and others are held constant at a single value using expand_grid()\n\nEvery predictor in your model needs to have a value in your prediction dataframe\n\nInput the model from lm() and prediction data frame, into the predict() function to obtain [predicted values].\n\nSave predictions as a new column in your prediction data frame (I generally call them fit)\n\nPlot predicted values in your prediction data frame to help interpret your model"
+    "text": "Producing Predicted Values in R\nThe basic steps to producing predicted values in R as follows:\n\nFit a model using lm()\nCreate a prediction data frame using expand_grid():\n\nvary the values of the predictor you’re interested in\nhold all the other predictors in your model constant at some typical value.\n\nInput the model from lm() and the prediction data frame, into the predict() function to obtain predicted values.\n\nSave predictions as a new column in your prediction data frame (I generally call them fit)\n\nPlot predicted values in your prediction data frame to help interpret your model"
   },
   {
     "objectID": "slides/07-slides.html#fit-a-model-that-allows-the-relationship-of-vaccines-to-vary",
@@ -2002,7 +2002,7 @@
     "href": "slides/07-slides.html#r2",
     "title": "POLS 1600",
     "section": "R^2",
-    "text": "R^2\nMore formally, you’ll see \\(R^2\\) defined in terms of “Sums of Squares”\n\nTSS = Total Summ of Squares = Variance of the Outcome\nESS = Explained Sum of Squares = Variance of the Predicted Values\nRSS = Sum of Squared Residuals = Variance of the Residuals\n\n\\[R^2 = \\frac{ESS}{TSS}= 1 - \\frac{RSS}{TSS}\\]"
+    "text": "R^2\nMore formally, you’ll see \\(R^2\\) defined in terms of “Sums of Squares”\n\nTSS = Total Sum of Squares = Variance of the Outcome\nESS = Explained Sum of Squares = Variance of the Predicted Values\nRSS = Sum of Squared Residuals = Variance of the Residuals\n\n\\[R^2 = \\frac{ESS}{TSS}= 1 - \\frac{RSS}{TSS}\\]"
   },
   {
     "objectID": "slides/07-slides.html#adjusted-r2",
@@ -2023,7 +2023,7 @@
     "href": "slides/07-slides.html#summary",
     "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\nDifferencing twice accounts for fixed differences across units and between periods\n\nBut not time varying differences across units…\n\nThe key identifying assumption of a DiD design is the assumption of parallel trends\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
+    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\nDifferencing twice accounts for fixed differences across units and between periods\n\nBut not time varying differences across units…\n\nThe key identifying assumption of a DiD design is the assumption of parallel trends\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to assess if we have multiple periods of pre-treatment observations"
   },
   {
     "objectID": "slides/00-slides.html#overview",
@@ -2576,7 +2576,7 @@
     "href": "index.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
   },
   {
     "objectID": "resources/04-packages.html",
@@ -9036,14 +9036,14 @@
     "href": "slides/07-slides.html#class-plan",
     "title": "POLS 1600",
     "section": "Class Plan",
-    "text": "Class Plan\n\nAnnouncements\nSetup\nFeedback\nReview\nClass plan"
+    "text": "Class Plan\n\nAnnouncements (2-3 min)\nSetup (2-3 min)\nFeedback (15 min)\nTopics:\n\nWhat does it mean to control for X\nHow to make predictions with regression\nEvaluating model fit\nDifference-in-Differences\nSet up for Lab 7"
   },
   {
     "objectID": "slides/07-slides.html#annoucements",
     "href": "slides/07-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements"
+    "text": "Annoucements\n\nAssignment 1: Research Questions due Tuesday, March 12\n\nFeedback by class on Thursday\n\nAssignment 2 Data: due Friday March 22"
   },
   {
     "objectID": "slides/07-slides.html#feedback",
@@ -9169,14 +9169,14 @@
     "href": "slides/07-slides.html#before-vs-after-comparisons",
     "title": "POLS 1600",
     "section": "Before vs after comparisons:",
-    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/07-slides.html#treatment-control-comparisons-in-the-post-period.",
     "href": "slides/07-slides.html#treatment-control-comparisons-in-the-post-period.",
     "title": "POLS 1600",
     "section": "Treatment-Control comparisons in the Post Period.",
-    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/07-slides.html#difference-in-differences-1",
@@ -9225,7 +9225,7 @@
     "href": "slides/07-slides.html#extensions-and-limitations",
     "title": "POLS 1600",
     "section": "Extensions and limitations",
-    "text": "Extensions and limitations\n\nInterpretation of the two-way fixed effects is complicated…\n\n(Goodman-Bacon2021-ah?)\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
+    "text": "Extensions and limitations\n\nInterpretation of two-way fixed effects DiD estimator is complicated…\n\nGoodman-Bacon (2021)\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
   },
   {
     "objectID": "slides/07-slides.html#applications",
@@ -9253,7 +9253,7 @@
     "href": "slides/07-slides.html#references",
     "title": "POLS 1600",
     "section": "References",
-    "text": "References\n\n\n\n\nPOLS 1600"
+    "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nGoodman-Bacon, Andrew. 2021. “Difference-in-differences with variation in treatment timing.” Journal of Econometrics 225 (2): 254–77.\n\n\nGrumbach, Jacob M, and Charlotte Hill. 2022. “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.” The Journal of Politics 84 (1): 405–17."
   },
   {
     "objectID": "slides/07-slides.html#whats-a-residual",
@@ -9267,7 +9267,7 @@
     "href": "slides/07-slides.html#residuals-are-uncorrelated-with-x-and-haty",
     "title": "POLS 1600",
     "section": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)",
-    "text": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)\n\n\nResiduals are uncorrelated with (orthogonal to) the predictors \\(X\\), and predicted values \\(X\\beta\\)\n\n# Trust but verify\ncor(resid(m2),covid_lab$rep_voteshare_std) \n\n[1] 3.600777e-17\n\ncor(resid(m2),covid_lab$med_age_std)\n\n[1] 7.021125e-17\n\ncor(resid(m2),fitted(m2))\n\n[1] -1.036606e-17"
+    "text": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)\n\n\nResiduals are uncorrelated with (orthogonal to) the predictors \\(X\\), and predicted values \\(X\\beta\\)\n\n# Trust but verify\ncor(resid(m2),covid_lab$rep_voteshare_std) \n\n[1] 4.337636e-17\n\ncor(resid(m2),covid_lab$med_age_std)\n\n[1] 2.946319e-17\n\ncor(resid(m2),fitted(m2))\n\n[1] -7.506391e-17"
   },
   {
     "objectID": "slides/07-slides.html#section-3",
@@ -9302,35 +9302,35 @@
     "href": "slides/07-slides.html#section-7",
     "title": "POLS 1600",
     "section": "",
-    "text": "\\[\n\\text{Covid-19 Deaths} = \\beta_0 + \\beta_1 \\text{Rep Vote Share}\n\\]"
+    "text": "Statistical models\n\n\n \nDV: Death\n\n\n \nBaseline\n\n\n\n\n(Intercept)\n0.57***\n\n\n \n(0.05)\n\n\nrep_voteshare_std\n0.23***\n\n\n \n(0.05)\n\n\nR2\n0.31\n\n\nAdj. R2\n0.29\n\n\nNum. obs.\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#section-8",
     "href": "slides/07-slides.html#section-8",
     "title": "POLS 1600",
     "section": "",
-    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Deaths\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n-0.00\n\n\n \n(0.05)\n(0.05)\n(0.06)\n(0.14)\n(0.05)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n \n \n \n\n\n \n(0.05)\n(0.05)\n \n \n \n\n\nmed_age_std\n \n0.03\n0.00\n-0.12\n \n\n\n \n \n(0.05)\n(0.06)\n(0.14)\n \n\n\nres_repvs_no_age\n \n \n \n \n0.23***\n\n\n \n \n \n \n \n(0.05)\n\n\nR2\n0.31\n0.31\n0.00\n0.02\n0.31\n\n\nAdj. R2\n0.29\n0.28\n-0.02\n-0.00\n0.30\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "\\[\n\\text{Covid-19 Deaths} = \\beta_0 + \\beta_1 \\text{Rep Vote Share}\n\\]"
   },
   {
     "objectID": "slides/07-slides.html#section-9",
     "href": "slides/07-slides.html#section-9",
     "title": "POLS 1600",
     "section": "",
-    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age}\n\\]\n\n\\(\\beta_1\\) doesn’t change because age has no relationship to deaths in these data"
+    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Deaths\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n-0.00\n\n\n \n(0.05)\n(0.05)\n(0.06)\n(0.14)\n(0.05)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n \n \n \n\n\n \n(0.05)\n(0.05)\n \n \n \n\n\nmed_age_std\n \n0.03\n0.00\n-0.12\n \n\n\n \n \n(0.05)\n(0.06)\n(0.14)\n \n\n\nres_repvs_no_age\n \n \n \n \n0.23***\n\n\n \n \n \n \n \n(0.05)\n\n\nR2\n0.31\n0.31\n0.00\n0.02\n0.31\n\n\nAdj. R2\n0.29\n0.28\n-0.02\n-0.00\n0.30\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#section-10",
     "href": "slides/07-slides.html#section-10",
     "title": "POLS 1600",
     "section": "",
-    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Death\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n0.00\n\n\n \n(0.05)\n(0.04)\n(0.04)\n(0.10)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.07\n \n \n \n\n\n \n(0.05)\n(0.07)\n \n \n \n\n\nmed_age_std\n \n-0.02\n-0.03\n-0.22*\n \n\n\n \n \n(0.05)\n(0.05)\n(0.10)\n \n\n\nmed_income_std\n \n-0.22**\n-0.27***\n-0.74***\n \n\n\n \n \n(0.07)\n(0.05)\n(0.10)\n \n\n\nres_repvs_no_age_income\n \n \n \n \n0.07\n\n\n \n \n \n \n \n(0.07)\n\n\nR2\n0.31\n0.44\n0.43\n0.55\n0.02\n\n\nAdj. R2\n0.29\n0.40\n0.40\n0.53\n0.00\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age}\n\\]\n\n\\(\\beta_1\\) doesn’t change because age has no relationship to deaths in these data"
   },
   {
     "objectID": "slides/07-slides.html#section-11",
     "href": "slides/07-slides.html#section-11",
     "title": "POLS 1600",
     "section": "",
-    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age} + \\beta_3 \\text{Income}\n\\]\n\n\\(\\beta_1\\) decreases because after controlling for income there is less unique variation explained only by republican vote share"
+    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Death\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n0.00\n\n\n \n(0.05)\n(0.04)\n(0.04)\n(0.10)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.07\n \n \n \n\n\n \n(0.05)\n(0.07)\n \n \n \n\n\nmed_age_std\n \n-0.02\n-0.03\n-0.22*\n \n\n\n \n \n(0.05)\n(0.05)\n(0.10)\n \n\n\nmed_income_std\n \n-0.22**\n-0.27***\n-0.74***\n \n\n\n \n \n(0.07)\n(0.05)\n(0.10)\n \n\n\nres_repvs_no_age_income\n \n \n \n \n0.07\n\n\n \n \n \n \n \n(0.07)\n\n\nR2\n0.31\n0.44\n0.43\n0.55\n0.02\n\n\nAdj. R2\n0.29\n0.40\n0.40\n0.53\n0.00\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#using-regression-to-produce-predicted-values",
@@ -9344,7 +9344,7 @@
     "href": "slides/07-slides.html#section-12",
     "title": "POLS 1600",
     "section": "",
-    "text": "Are their decreasing returns to vaccination?\n\nTask m4 Table Predict Fig\n\n\nSuppose we thought the marginal effect of vaccines varied.\nThere might be large gains from going to low to average rates of vaccination, but after a certain threshold, the decreases in deaths would taper off.\nWe could test this by including a polynomial term I(percent_vaccinated)^2 in our model.\nIt’s hard to the coefficients on polynomial terms\nInstead, we’ll produce a plot of predicted values to test these claims\n\n\n\nm4 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n\n\n \n\n\n(2.186)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n\n\n \n\n\n(0.077)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n\n\n \n\n\n(0.001)\n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n\n\n \n\n\n(0.081)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n\n\n \n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n\n\n \n\n\n(0.068)\n\n\n\n\nR2\n\n\n0.561\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n\n\nNum. obs.\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\npred_df &lt;- expand_grid(\n  percent_vaccinated = sort(unique(covid_lab$percent_vaccinated)),\n  # Set standardized predictors to their means of 0\n  rep_voteshare_std = 0,\n  med_age_std = 0,\n  med_income_std = 0\n)\n\npred_df$fit &lt;- predict(m4, newdata = pred_df)\n\npred_df %&gt;% \n  ggplot(aes(percent_vaccinated, fit))+\n  geom_line()+\n  labs(\n    y = \"Predicted Covid-19 Deaths\\n(per capita, 14-day average)\",\n    x = \"Percent of State's population that's Vaccinated\"\n  ) + \n  theme_minimal() -&gt; fig_m4\n\n\n\nFor a typical state, early increases in vaccination rate are associated with larger declines in predicted deaths from Covid-19"
+    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age} + \\beta_3 \\text{Income}\n\\]\n\n\\(\\beta_1\\) decreases because after controlling for income there is less unique variation explained only by republican vote share"
   },
   {
     "objectID": "slides/07-slides.html#calculating-r2-in-r",
@@ -9358,28 +9358,28 @@
     "href": "slides/07-slides.html#section-13",
     "title": "POLS 1600",
     "section": "",
-    "text": "Using \\(R^2\\) to compare models\n\nANOVA m5 Table Anova\n\n\nWhen models are nested (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.\nFormally we call this process an Analysis of Variance (ANOVA)\nLet’s consider whether the gains in fit from I(percent_vaccinated^2)\n\n\n\nm5 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n2.532***\n\n\n\n\n \n\n\n(2.186)\n\n\n(0.657)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n-0.035**\n\n\n\n\n \n\n\n(0.077)\n\n\n(0.012)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n \n\n\n\n\n \n\n\n(0.001)\n\n\n \n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n-0.089\n\n\n\n\n \n\n\n(0.081)\n\n\n(0.082)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n0.071\n\n\n\n\n \n\n\n(0.053)\n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n-0.119\n\n\n\n\n \n\n\n(0.068)\n\n\n(0.070)\n\n\n\n\nR2\n\n\n0.561\n\n\n0.531\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n0.490\n\n\n\n\nNum. obs.\n\n\n51\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\nThe anova suggests that including a polynomial provides a marginal improvement to fit (p &lt; 0.10)\n\nanova(m5, m4)\n\nAnalysis of Variance Table\n\nModel 1: new_deaths_pc_14day ~ percent_vaccinated + rep_voteshare_std + \n    med_age_std + med_income_std\nModel 2: new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + \n    rep_voteshare_std + med_age_std + med_income_std\n  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  \n1     46 3.9268                              \n2     45 3.6758  1   0.25098 3.0725 0.08644 .\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+    "text": "Are there decreasing returns to vaccination?\n\nTask m4 Table Predict Fig\n\n\nSuppose we thought the marginal effect – (here, predicted change in deaths from a 1 percent increase in the percent of the population vaccinated) of vaccines varied.\nThere might be large gains from going to low to average rates of vaccination, but after a certain threshold, the decreases in deaths would taper off.\nWe could test this by including a polynomial term I(percent_vaccinated)^2 in our model.\nIncluding a polynomial term, allows the marginal effect to vary, based on the value of the predictor.\nIt’s hard to interpret the coefficients on polynomial terms (or interaction terms) just by looking at coefficients in a table\nInstead, we’ll produce a plot of predicted values to test these claims\n\n\n\nm4 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n\n\n \n\n\n(2.186)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n\n\n \n\n\n(0.077)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n\n\n \n\n\n(0.001)\n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n\n\n \n\n\n(0.081)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n\n\n \n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n\n\n \n\n\n(0.068)\n\n\n\n\nR2\n\n\n0.561\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n\n\nNum. obs.\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\npred_df &lt;- expand_grid(\n  percent_vaccinated = sort(unique(covid_lab$percent_vaccinated)),\n  # Set standardized predictors to their means of 0\n  rep_voteshare_std = 0,\n  med_age_std = 0,\n  med_income_std = 0\n)\n\npred_df$fit &lt;- predict(m4, newdata = pred_df)\n\npred_df %&gt;% \n  ggplot(aes(percent_vaccinated, fit))+\n  geom_line()+\n  labs(\n    y = \"Predicted Covid-19 Deaths\\n(per capita, 14-day average)\",\n    x = \"Percent of State's population that's Vaccinated\"\n  ) + \n  theme_minimal() -&gt; fig_m4\n\n\n\nFor a typical state, early increases in vaccination rate are associated with larger declines in predicted deaths from Covid-19"
   },
   {
     "objectID": "slides/07-slides.html#generalizing-diff-in-diff-with-linear-regression",
     "href": "slides/07-slides.html#generalizing-diff-in-diff-with-linear-regression",
     "title": "POLS 1600",
     "section": "Generalizing Diff-in-Diff with Linear Regression",
-    "text": "Generalizing Diff-in-Diff with Linear Regression\n\nDiff-in-Diff easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions, with fixed effects\n\n\n\\[\ny_{it} = \\overbrace{\\alpha_i}^{\\text{Unit FE}} + \\underbrace{\\gamma_t}_{\\text{Period FE}} + \\overbrace{\\tau*d_{it}}^{\\text{Treatment}} + \\underbrace{X\\beta}_{\\text{Covariates}} + \\epsilon_{it}\n\\]\n\n\nUnit fixed effects control for time-invariant differences across units\nPeriod fixed effects control for unit-invariant differences across periods\n\\(\\tau\\) corresponds the Difference-in-Difference estimate for a two-way fixed effects regression"
+    "text": "Generalizing Diff-in-Diff with Linear Regression\n\nLinear regression allows us to generalizes Diff-in-Diff to multiple periods and treatment interventions, with fixed effects\n\n\n\\[\ny_{it} = \\overbrace{\\alpha_i}^{\\text{Unit FE}} + \\underbrace{\\gamma_t}_{\\text{Period FE}} + \\overbrace{\\tau*d_{it}}^{\\text{Treatment}} + \\underbrace{X\\beta}_{\\text{Covariates}} + \\epsilon_{it}\n\\]\n\n\nUnit fixed effects \\((\\alpha_i)\\)control for time-invariant differences across units\nPeriod fixed effects \\((\\gamma_i)\\) control for unit-invariant differences across periods\n\\(\\tau\\) corresponds the Difference-in-Difference estimate for a two-way fixed effects regression"
   },
   {
     "objectID": "slides/07-slides.html#replicating-grumbach-and-hill-2022",
     "href": "slides/07-slides.html#replicating-grumbach-and-hill-2022",
     "title": "POLS 1600",
     "section": "Replicating Grumbach and Hill (2022)",
-    "text": "Replicating Grumbach and Hill (2022)\n\nIn this week’s lab we’ll be conducting a partial replication of (Grumbach2022-zj?) “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”\nOn Thursday, we’ll walk through\n\nthe paper’s design and argument\nsetting up and exploring the data\nreproducing some descriptive figures\n\nNext Thursday, we’ll focus on replicating and understanding the main results"
+    "text": "Replicating Grumbach and Hill (2022)\n\nIn this week’s lab, we’ll be conducting a partial replication of Grumbach and Hill (2022) “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”\nOn Thursday, we’ll walk through\n\nthe paper’s design and argument\nsetting up and exploring the data\nreproducing some descriptive figures\n\nNext Thursday, we’ll focus on replicating and understanding the main results"
   },
   {
     "objectID": "slides/07-slides.html#reading-grumbach-and-hill-2022",
     "href": "slides/07-slides.html#reading-grumbach-and-hill-2022",
     "title": "POLS 1600",
     "section": "Reading Grumbach and Hill (2022)",
-    "text": "Reading Grumbach and Hill (2022)\nReading (Grumbach2022-zj?), focus on being able to answer the following:\n\nWhat’s the research question?\n\nGeneral RQ: First sentence, second paragraph, p. 405\nSpecific RQs: p. 405-406\n\nWhat’s the theoretical framework?\n\nIntro and Theory of Registration, p. 407-409\n\nWhat’s the empirical design?\n\nMethods pp. 409-410\n\nWhat’s are the main results?\n\nResults pp. 410-413\nFigure 3 in particular"
+    "text": "Reading Grumbach and Hill (2022)\nReading Grumbach and Hill (2022), focus on being able to answer the following:\n\nWhat’s the research question?\n\nGeneral RQ: First sentence, second paragraph, p. 405\nSpecific RQs: p. 405-406\n\nWhat’s the theoretical framework?\n\nIntro and Theory of Registration, p. 407-409\n\nWhat’s the empirical design?\n\nMethods pp. 409-410\n\nWhat’s are the main results?\n\nResults pp. 410-413\nFigure 3 in particular"
   },
   {
     "objectID": "slides/07-slides.html#q1-download-the-replication-files",
@@ -9422,5 +9422,89 @@
     "title": "POLS 1600",
     "section": "",
     "text": "5. Save and unzip the downloaded files into your course folder where your labs are saved\n ## Q2: Load the data into R\nIf you’ve saved the dataverse_files into."
+  },
+  {
+    "objectID": "slides/07-slides.html#goals",
+    "href": "slides/07-slides.html#goals",
+    "title": "POLS 1600",
+    "section": "Goals",
+    "text": "Goals\n\nRegression models partition variation in an outcome into variation explained by the model and not explained by the model\nIndividual regression coefficients reflect the variation explained by that predictor, and only that predictor\nPredicted values for regression models aid in substantive interpretation\nMeasures of model fit like \\(R^2\\) can be useful for comparing different regression models\nDifference-in-differences designs combine pre-post and treatment-control comparisons to make stronger causal claims."
+  },
+  {
+    "objectID": "slides/07-slides.html#what-did-we-like",
+    "href": "slides/07-slides.html#what-did-we-like",
+    "title": "POLS 1600",
+    "section": "What did we like",
+    "text": "What did we like"
+  },
+  {
+    "objectID": "slides/07-slides.html#what-did-we-dislike",
+    "href": "slides/07-slides.html#what-did-we-dislike",
+    "title": "POLS 1600",
+    "section": "What did we dislike",
+    "text": "What did we dislike"
+  },
+  {
+    "objectID": "slides/07-slides.html#what-were-good-at",
+    "href": "slides/07-slides.html#what-were-good-at",
+    "title": "POLS 1600",
+    "section": "What we’re good at",
+    "text": "What we’re good at"
+  },
+  {
+    "objectID": "slides/07-slides.html#what-were-working-on",
+    "href": "slides/07-slides.html#what-were-working-on",
+    "title": "POLS 1600",
+    "section": "What we’re working on",
+    "text": "What we’re working on"
+  },
+  {
+    "objectID": "slides/07-slides.html#how-are-we-doing",
+    "href": "slides/07-slides.html#how-are-we-doing",
+    "title": "POLS 1600",
+    "section": "How are we doing?",
+    "text": "How are we doing?"
+  },
+  {
+    "objectID": "slides/07-slides.html#dont-trust-the-polls",
+    "href": "slides/07-slides.html#dont-trust-the-polls",
+    "title": "POLS 1600",
+    "section": "Don’t trust the polls",
+    "text": "Don’t trust the polls"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-1",
+    "href": "slides/07-slides.html#section-1",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Coefficients describe the unique variance in Y explained by X (and only X)\n\nTask\n\n\nThe coefficients in a regression model describe the variation in the outcome explained by that predictor, and only that predictor.\nLet’s fit three models from last week’s lab and look at how the coefficients change from model to model\n\n\n\nload(url(\"https://pols1600.paultesta.org/files/data/06_lab.rda\"))\nm1 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)\nm2 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std, covid_lab)\nm3 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)\n\n\n\n\nhtmlreg(list(m1, m2, m3)) %&gt;% HTML() %&gt;% browsable()\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\nModel 3\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n\n\n \n(0.05)\n(0.05)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n0.07\n\n\n \n(0.05)\n(0.05)\n(0.07)\n\n\nmed_age_std\n \n0.03\n-0.02\n\n\n \n \n(0.05)\n(0.05)\n\n\nmed_income_std\n \n \n-0.22**\n\n\n \n \n \n(0.07)\n\n\nR2\n0.31\n0.31\n0.44\n\n\nAdj. R2\n0.29\n0.28\n0.40\n\n\nNum. obs.\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-4",
+    "href": "slides/07-slides.html#section-4",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Residualized Regression\n\n m2 m3\n\n\n\nFor a model like m2 we can recover the coefficient on rep_voteshare_std by:\n\nRegressing new_deaths_pc_14day on med_age_std to get the residual variation in Covid-19 deaths not explained by median age\nRegressing rep_voteshare_std on med_age_std to get the residual variation in Republican Vote Share not explained by median age\nRegressing the residuals from 1. (Deaths not explained by age) on the residuals from 2. (Vote share not explained by age) to obtain the same coefficient from m2 for rep_voteshare_std\n\nThe same principle holds for m3\n\n\n\n\n# 1. Regressing `new_deaths_pc_14da` on `med_age_std`\nm2_death_by_age &lt;- lm(new_deaths_pc_14day ~ med_age_std, covid_lab)\n# Save residuals\ncovid_lab$res_death_no_age &lt;- resid(m2_death_by_age)\n\n# 2. Regressing `rep_voteshare_std` on `med_age_std` \nm2_repvs_by_age &lt;- lm(rep_voteshare_std ~ med_age_std, covid_lab)\n# Save residuals\ncovid_lab$res_repvs_no_age &lt;- resid(m2_repvs_by_age)\n\n# 3. Residualized regression of deaths on Rep Vote Share\nm2_res &lt;- lm(res_death_no_age ~ res_repvs_no_age, covid_lab)\n\n# Mutliple regression\ncoef(m2)[2]\n\nrep_voteshare_std \n         0.230745 \n\n# Residualized regression\ncoef(m2_res)[2]\n\nres_repvs_no_age \n        0.230745 \n\n\n\n\n\n# 1. Regressing `new_deaths_pc_14da` on `med_age_std` and med_income_std\nm3_death_by_age_income &lt;- lm(new_deaths_pc_14day ~ med_age_std + med_income_std, covid_lab)\n# Save residuals\ncovid_lab$res_death_no_age_income &lt;- resid(m3_death_by_age_income)\n\n# 2. Regressing `rep_voteshare_std` on `med_age_std` and med_income_std\nm3_repvs_by_age_income &lt;- lm(rep_voteshare_std ~ med_age_std + med_income_std, covid_lab)\n# Save residuals\ncovid_lab$res_repvs_no_age_income &lt;- resid(m3_repvs_by_age_income)\n\n# 3. Residualized regression of deaths on Rep Vote Share\nm3_res &lt;- lm(res_death_no_age_income ~ res_repvs_no_age_income, covid_lab)\n\n# multiple regression coefficient\ncoef(m3)[2]\n\nrep_voteshare_std \n       0.07140446 \n\n# Same as  residualized regression coefficient\ncoef(m3_res)[2]\n\nres_repvs_no_age_income \n             0.07140446"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-14",
+    "href": "slides/07-slides.html#section-14",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Using \\(R^2\\) to compare models\n\nANOVA m5 Table Anova\n\n\nWhen models are nested (larger models contain all the predictors of smaller models), we can ask, does including the additional predictors in the larger model explain more variation in the outcome than we would expect would happen if we just added additional, random variable.\nFormally we call this process an Analysis of Variance (ANOVA)\nLet’s assess the added predictive power of I(percent_vaccinated^2) by estimating a model without it and comparing models using ANOVA\n\n\n\n# Estimate model without polynomial\nm5 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare_std + med_age_std + med_income_std, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n6.194**\n\n\n2.532***\n\n\n\n\n \n\n\n(2.186)\n\n\n(0.657)\n\n\n\n\npercent_vaccinated\n\n\n-0.169*\n\n\n-0.035**\n\n\n\n\n \n\n\n(0.077)\n\n\n(0.012)\n\n\n\n\npercent_vaccinated^2\n\n\n0.001\n\n\n \n\n\n\n\n \n\n\n(0.001)\n\n\n \n\n\n\n\nrep_voteshare_std\n\n\n-0.062\n\n\n-0.089\n\n\n\n\n \n\n\n(0.081)\n\n\n(0.082)\n\n\n\n\nmed_age_std\n\n\n0.053\n\n\n0.071\n\n\n\n\n \n\n\n(0.053)\n\n\n(0.053)\n\n\n\n\nmed_income_std\n\n\n-0.114\n\n\n-0.119\n\n\n\n\n \n\n\n(0.068)\n\n\n(0.070)\n\n\n\n\nR2\n\n\n0.561\n\n\n0.531\n\n\n\n\nAdj. R2\n\n\n0.512\n\n\n0.490\n\n\n\n\nNum. obs.\n\n\n51\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\nThe anova suggests that including a polynomial provides a marginal improvement to fit (p &lt; 0.10)\n\nanova(m5, m4)\n\nAnalysis of Variance Table\n\nModel 1: new_deaths_pc_14day ~ percent_vaccinated + rep_voteshare_std + \n    med_age_std + med_income_std\nModel 2: new_deaths_pc_14day ~ percent_vaccinated + I(percent_vaccinated^2) + \n    rep_voteshare_std + med_age_std + med_income_std\n  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  \n1     46 3.9268                              \n2     45 3.6758  1   0.25098 3.0725 0.08644 .\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-16",
+    "href": "slides/07-slides.html#section-16",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "5. Save and unzip the downloaded files into your course folder where your labs are saved"
+  },
+  {
+    "objectID": "slides/07-slides.html#q3-load-the-data-into-r",
+    "href": "slides/07-slides.html#q3-load-the-data-into-r",
+    "title": "POLS 1600",
+    "section": "Q3: Load the data into R",
+    "text": "Q3: Load the data into R\nIf you’ve saved the dataverse_files into the folder where your lab is saved, you should be able to run the following code after setting the working directory to source file location:\n\n# Remember to set working directory:\n# Session &gt; Set working directory &gt; Source file location\n\n# Load fips_codes\nfips_codes &lt;- read_csv(\"dataverse_files/fips_codes_website.csv\")%&gt;%\n  janitor::clean_names()\n\n# Load policy data\ndata &lt;- readRDS(\"dataverse_files/policy_data_updated.RDS\")%&gt;%\n  janitor::clean_names()\n\n# Load CPS data\ncps &lt;- read_csv(\"dataverse_files/cps_00021.csv\") %&gt;%\n  janitor::clean_names()"
   }
 ]

@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600"
-subtitle: "Topic"
+subtitle: "Interpreting and Evaluating<br>Linear Models"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
@@ -58,14 +58,33 @@ library(texreg)
 
 ## Class Plan
 
-- Announcements
-- Setup
-- Feedback
-- Review
-- Class plan
+- Announcements (2-3 min)
+- Setup (2-3 min)
+- Feedback (15 min)
+- Topics:
+  - What does it mean to control for X
+  - How to make predictions with regression
+  - Evaluating model fit
+  - Difference-in-Differences
+  - Set up for Lab 7
 
+## Goals
+
+- Regression models [partition variation]{.blue} in an outcome into variation explained by the model and not explained by the model
+
+- Individual regression coefficients reflect the [variation explained by that predictor]{.blue}, and [only that predictor]{.blue}
+
+- [Predicted values]{.blue} for regression models aid in [substantive interpretation]{.blue}
+
+- [Measures of model fit]{.blue} like $R^2$ can be useful for comparing different regression models
+
+- [Difference-in-differences]{.blue} designs combine [pre-post]{.blue} and [treatment-control]{.blue} comparisons to make [stronger causal claims]{.blue}.
 
 ## Annoucements
+
+- [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
+  - Feedback by class on Thursday
+- [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) due Friday March 22
 
 ## Setup: Packages for today
 
@@ -103,15 +122,156 @@ ipak(the_packages)
 ```
 
 
-## Feedback
+## Feedback {.center}
 
-## {{< fa lightbulb >}}  Concepts 
+```{r}
+#| label: feeback
+#| echo: false
+df <- haven::read_spss("../files/data/class_surveys/wk06.sav")
 
-## {{< fa code>}} Code   
 
-# {{< fa magnifying-glass>}} Review {.inverse}
+df %>%
+  mutate(
+    `Comparison Includes`= ifelse(is.na(eval_1), "Trump", "No Trump"),
+    You = ifelse(is.na(eval_1), eval_trump_1, eval_1),
+    Me = ifelse(is.na(eval_2), eval_trump_2, eval_2),
+    Trump = eval_trump_6,
+    `Everyone we know` = ifelse(is.na(eval_3), eval_trump_3, eval_3),
+  ) -> df
 
-## Review
+```
+
+
+## What did we like {.smaller}
+
+```{r}
+#| label: likes
+#| echo: false
+DT::datatable(df %>% 
+                select(Likes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 5
+              )
+              )
+```
+
+## What did we dislike {.smaller}
+
+```{r}
+#| label: dislikes
+#| echo: false
+
+DT::datatable(df %>% 
+                select(Dislikes),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 5
+              )
+              )
+```
+
+## What we're good at{.smaller}
+
+```{r}
+#| echo: false
+DT::datatable(df %>% 
+                select(code_skills),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 5
+              )
+              )
+```
+
+## What we're working on{.smaller}
+
+```{r}
+#| echo: false
+DT::datatable(df %>% 
+                select(code_challenge),
+               fillContainer = F,
+              height = "90%",
+              options = list(
+                pageLength = 5
+              )
+              )
+```
+
+## How are we doing?
+
+```{r}
+#| label: howwedoing
+#| echo: false 
+
+df %>% 
+ggplot(aes(You, Me))+
+  geom_point()+
+  geom_abline(slope = 1, intercept = 0)+
+  ylim(0,100)+
+  xlim(0,100) -> fig1eval
+
+df %>% 
+ggplot(aes(You, `Everyone we know`))+
+  geom_point()+
+  geom_abline(slope = 1, intercept = 0)+
+  ylim(0,100)+
+  xlim(0,100) -> fig2eval
+
+ggarrange(fig1eval, fig2eval)
+```
+
+## Don't trust the polls
+
+```{r}
+#| label: figtrump
+#| echo: false
+df %>% 
+  ggplot(aes(`Comparison Includes`, Me))+
+  stat_summary(
+  ) +
+  theme_minimal()+
+  labs(
+    title = "Difference in average evaluation when:"
+  )
+```
+
+
+##
+
+```{r}
+#| echo: false
+df %>%
+  mutate(
+    `Comparison Includes`= ifelse(is.na(eval_1), "Trump", "No Trump"),
+    You = ifelse(is.na(eval_1), eval_trump_1, eval_1),
+    Me = ifelse(is.na(eval_2), eval_trump_2, eval_2),
+    Trump = eval_trump_6,
+    `Everyone we know` = ifelse(is.na(eval_3), eval_trump_3, eval_3),
+  )%>%
+  select(`Comparison Includes`, Me, You, `Everyone we know`, Trump)%>%
+  pivot_longer(
+    cols = -`Comparison Includes`,
+    names_to = "Target",
+    values_to = "Evaluation"
+      
+  )%>%
+  mutate(
+    Target = factor(Target, levels = rev(c("You","Me", "Everyone we know", "Trump")))
+  )%>%
+  ggplot(aes(Evaluation, Target, fill=`Comparison Includes`))+
+  geom_density_ridges(
+                      jittered_points = TRUE,
+                      position = position_points_jitter(width = 0.05, height = 0),
+                      point_shape = '|', point_size = 3, point_alpha = 1, alpha = 0.7,
+                      )+
+  labs(y="",
+       title = "How are we doing?")
+```
+
 
 # {{< fa lightbulb >}} What does it mean to "control for X" {.inverse}
 
@@ -446,26 +606,29 @@ $$
 The basic steps to producing predicted values in R as follows:
 
 - Fit a model using `lm()`
-- Produce a [prediction data frame]{.blue}, where one (sometimes two) predictor(s) vary, and others are held constant at a single value using `expand_grid()`
-  - Every predictor in your model needs to have a value in your prediction dataframe 
-- Input the model from `lm()` and [prediction data frame]{.blue}, into the `predict()` function to obtain [predicted values]. 
+- Create a [prediction data frame]{.blue} using `expand_grid()`:
+  - vary the values of the predictor you're interested in
+  - hold all the other predictors in your model constant at some typical value.
+- Input the model from `lm()` and the [prediction data frame]{.blue}, into the `predict()` function to obtain [predicted values]{.blue}. 
   - Save predictions as a new column in your [prediction data frame]{.blue} (I generally call them `fit`)
 - Plot predicted values in your [prediction data frame]{.blue} to help interpret your model
 
 ## {.smaller}
-#### Are their decreasing returns to vaccination?
+#### Are there decreasing returns to vaccination?
 
 :::: panel-tabset
 
 ## Task
 
-Suppose we thought the [marginal effect]{.blue} of vaccines varied.
+Suppose we thought the [marginal effect]{.blue} -- (here, predicted change in deaths from a 1 percent increase in the percent of the population vaccinated) of vaccines varied.
 
 There might be large gains from going to low to average rates of vaccination, but after a certain threshold, the decreases in deaths would taper off.
 
 We could test this by including a [polynomial term]{.blue} `I(percent_vaccinated)^2` in our model.
 
-It's hard to the coefficients on [polynomial terms]{.blue}
+Including a polynomial term, allows the marginal effect to vary, based on the value of the predictor.
+
+It's hard to interpret the coefficients on [polynomial terms]{.blue} (or interaction terms) just by looking at coefficients in a table
 
 Instead, we'll produce a plot of predicted values to test these claims
 
@@ -537,7 +700,7 @@ $$R^2 = \frac{\text{variance(predicted values )}}{ \text{variance(observed value
 
 More formally, you'll see $R^2$ defined in terms of "Sums of Squares"
 
-- TSS = [Total Summ of Squares]{.blue} = Variance of the Outcome
+- TSS = [Total Sum of Squares]{.blue} = Variance of the Outcome
 - ESS = [Explained Sum of Squares]{.blue} = Variance of the Predicted Values
 - RSS = [Sum of Squared Residuals]{.blue} = Variance of the Residuals
 
@@ -642,11 +805,12 @@ When models are *nested* (larger models contain all the predictors of smaller mo
 
 Formally we call this process an [Analysis of Variance (ANOVA)](https://towardsdatascience.com/anova-for-regression-fdb49cf5d684#:~:text=It%20is%20the%20same%20as,or%20more%20categorical%20predictor%20variables.)
 
-Let's consider whether the gains in fit from `I(percent_vaccinated^2)` 
+Let's assess the added predictive power of `I(percent_vaccinated^2)` by estimating a model without it and comparing models using ANOVA 
 
 ## {{<fa code >}} m5
 
 ```{r}
+# Estimate model without polynomial
 m5 <- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare_std + med_age_std + med_income_std, covid_lab
            )
 ```
@@ -999,7 +1163,7 @@ snow_lm
 
 ## Summary {.smaller}
 
-- A Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
+- A [Difference in Differences]{.blue} (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison
   
 - Differencing twice accounts for fixed differences [across units]{.blue} and [between periods]{.blue}
   - But not time varying differences across units...
@@ -1007,7 +1171,7 @@ snow_lm
 - The key identifying assumption of a DiD design is the assumption of [parallel trends]{.blue}
   - Absent treatment, treated and control groups
 would see the same changes over time.
-  - Hard to prove, possible to test
+  - Hard to prove, possible to assess if we have multiple periods of pre-treatment observations
 
 
 
@@ -1015,9 +1179,7 @@ would see the same changes over time.
 
 
 
-- Diff-in-Diff easy to estimate with linear regression
-
-- Generalizes to multiple periods and treatment interventions, with [fixed effects]{.blue}
+- Linear regression allows us to generalizes Diff-in-Diff to multiple periods and treatment interventions, with [fixed effects]{.blue}
 
 :::{.fragment}
 $$
@@ -1025,13 +1187,13 @@ y_{it} = \overbrace{\alpha_i}^{\text{Unit FE}} + \underbrace{\gamma_t}_{\text{Pe
 $$
 :::
 
-  - [Unit fixed effects]{.blue} control for time-invariant differences across units
-  - [Period fixed effects]{.blue} control for unit-invariant differences across periods
+  - [Unit fixed effects]{.blue} $(\alpha_i)$control for time-invariant differences across units
+  - [Period fixed effects]{.blue} $(\gamma_i)$ control for unit-invariant differences across periods
   - [$\tau$]{.blue} corresponds the [Difference-in-Difference]{.blue} estimate for a [two-way fixed effects]{.blue} regression
 
 ## Extensions and limitations{.smaller}
 
-- Interpretation of the [two-way fixed effects]{.blue} is [complicated]{.blue}...
+- Interpretation of [two-way fixed effects]{.blue} DiD estimator is [complicated]{.blue}...
   - @Goodman-Bacon2021-ah
 - More pre-treatment periods allow you assess "parallel trends" assumption
 - Alternative methods 
@@ -1056,7 +1218,7 @@ $$
 
 ## Replicating Grumbach and Hill (2022)
 
-- In this week's lab we'll be conducting a partial replication of @Grumbach2022-zj “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”
+- In this week's lab, we'll be conducting a partial replication of @Grumbach2022-zj “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”
 
 - On Thursday, we'll walk through 
   - the paper's design and argument
@@ -1121,12 +1283,36 @@ Make sure to **Select all 11 files in this dataset**
 ### 5. Save and unzip the downloaded files into your course folder where your labs are saved
 
 ![](images/07_rep6.png)
-## Q2: Load the data into R
 
-If you've saved the dataverse_files into.
+## Q3: Load the data into R {.smaller}
+
+If you've saved the dataverse_files [into the folder where your lab is saved]{.blue}, you should be able to run the following code after [setting the working directory]{.blue} to [source file location]{.blue}:
+
+```{r}
+#| eval: false
+#| echo: true
+
+# Remember to set working directory:
+# Session > Set working directory > Source file location
+
+# Load fips_codes
+fips_codes <- read_csv("dataverse_files/fips_codes_website.csv")%>%
+  janitor::clean_names()
+
+# Load policy data
+data <- readRDS("dataverse_files/policy_data_updated.RDS")%>%
+  janitor::clean_names()
+
+# Load CPS data
+cps <- read_csv("dataverse_files/cps_00021.csv") %>%
+  janitor::clean_names()
+```
+
 
 # {{< fa home >}} Summary {.inverse}
 
 ## Summary
+
+
 
 ## References

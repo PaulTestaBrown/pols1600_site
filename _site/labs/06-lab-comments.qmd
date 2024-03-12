@@ -52,6 +52,14 @@ Finally, we'll take the weekly survey which will serve as a mid semester check i
 
 One of these 6 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.
 
+```{r}
+#| label: graded
+set.seed(3052024)
+graded_question <- sample(1:6,size = 1)
+paste("Question",graded_question,"is the graded question for this week")
+```
+
+
 You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
 
 This lab **must** contain the names of the group members in attendance.
@@ -163,42 +171,47 @@ In the code chunk below, please write some code get an high level overview of th
 #| label: hlo
 # High level overview
 # Number of observations and variables
-
+dim(covid_lab)
 
 # Names of variables
-
+names(covid_lab)
 
 # Glimpse of data
-
+glimpse(covid_lab)
 
 # Summary of data
+summary(covid_lab)
 
+# Variables I want to calculate sd for
+the_vars <- c("new_deaths_pc_14day","rep_voteshare","med_age","med_income","percent_vaccinated")
 
 # Calculate standard deviations
-
+covid_lab %>%
+  select(all_of(the_vars))%>%
+  summarise_all(sd)
 
 
 ```
 
 Please use this HLO to answer the following questions:
 
--   **How many observations are there:**
+-   **How many observations are there:** 50
 
--   **What is an observation (i.e. what is the unit of analysis):**
+-   **What is an observation (i.e. what is the unit of analysis):** A U.S. State (on September 23, 2021)
 
--   **What is the primary outcome variable for today:**
+-   **What is the primary outcome variable for today:** The 14-day average of new Covid-19 deaths
 
--   **What are the four main predictors we'll be using:**
+-   **What are the four main predictors we'll be using:** We'll be predicting Covid-19 deaths with measures of Republican Vote Share (`rep_voteshare`), Median Age (`med_age`), Median Income (`med_income`), and Percent Vaccintated (`percent_vaccinated`).
 
--   **Will we be using the the raw values of these predictors or their standardized values?**
+-   **Will we be using the the raw values of these predictors or their standardized values?** We'll be using the standardized version of these variables which all have the suffix `_std`
 
--   **What is the standard deviation of our outcome and predictor variables:**
+-   **What are the standard deviations of our outcome and predictor variables:**
 
-    -   Covid-19 deaths:
-    -   Republican vote share:
-    -   Median age:
-    -   Median income:
-    -   Vaccination Rate:
+    -   Covid-19 deaths: 0.40 deaths
+    -   Republican vote share: 10.4 percentage points
+    -   Median age: 2.36 years
+    -   Median income: \$ 10,288
+    -   Vaccination Rate: 7.98 percentage points
 
 # Estimate and interpet the baseline Red Covid model
 
@@ -217,7 +230,6 @@ Then, you'll use this code as guide for subsequent sections.
 ```{r}
 #| label: m1
 m1 <- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)
-
 ```
 
 ## Summarize the results
@@ -253,12 +265,14 @@ Regression tables are a the standard way of concisely presenting the results of 
 
 [^2]: A standard error is another one of those things that in the cart we're putting before horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
 
-The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the qmd file.
+The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the Rmd file.
 
 ```{r}
 #| label: m1tab
 #| echo: false
-#| results: asis
+#| #| results: asis
+
+
 htmlreg(list(m1))%>% HTML() %>% browsable()
 ```
 
@@ -268,22 +282,30 @@ Now let's visualize the results of our `m1` with a scatter plot.
 
 In the code chunk below, I've written some comments to help you get started. You can also refer to last [week's lab](https://pols1600.paultesta.org/labs/comments/05-lab-comments#visualize-the-relationships-between-republican-vote-share-and-deaths-from-covid-19-on-september-23-2021){target="_blank"} for help
 
-
-
 ```{r}
 #| label: m1fig
-
 # 1. Tell ggplot what data to use
-
+covid_lab %>%
 # 2. Set the aesthetic mappings of our figure
- 
+  ggplot(aes(x = rep_voteshare_std,
+             y = new_deaths_pc_14day,
+             label = state_po))+
 # 3. Draw points with x values corresponding to Rep vote share and y values corresponding to Covid deaths. 
-
-# 4. Add labels using `label=state_po` aesthetic (set in aes()) above
-
-# 5. Plot the regression model using geom_smooth(method = "lm")
-
-# 6. Change the axis labels
+  geom_point(
+# 4. Make the points smaller in size
+    size = .5
+    )+
+# 5. Add labels using `label=state_po` aesthetic 
+  geom_text_repel(
+# 6. Make the label size smaller    
+    size = 2)+
+# 7. Plot the regression model
+  geom_smooth(method = "lm")+
+# 8. Change the axis labels
+  labs(
+    x = "Republican Vote Share (std)",
+    y = "New Covid-19 Deaths\n(14-day ave)"
+  )
 
 
 ```
@@ -292,7 +314,7 @@ In the code chunk below, I've written some comments to help you get started. You
 
 **In a sentence our two, summarize the results of your analysis in this section**
 
-You words here!
+Our model in this section provides results consistent with the phenomena of Red Covid. State's with higher Republican vote shares tended to have higher per capita rates of death from Covid-19 on September 23, 2022.
 
 # Estimate a model controlling for age
 
@@ -305,13 +327,13 @@ $$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std}
 If our skeptic is right, what should happen to coefficients:
 
 -   **Republican Vote Share:**
-    -   **Sign:** (Negative / Positive / Unclear)
-    -   **Size:** (Increase compared `m1`/ Decrease compared `m1` / Unclear)
-    -   **Significance:** (Significant / Non-Signficant)
+    -   **Sign:** Unclear
+    -   **Size:** Decrease compared `m1`
+    -   **Significance:** Non-Significant
 -   **Median Age:**
-    -   **Sign:** (Negative/Positive/Unclear)
-    -   **Size:** (Large/Small/Unclear)
-    -   **Significance:** (Significant / Non-Significant)
+    -   **Sign:** Positive
+    -   **Size:** Unclear
+    -   **Significance:** Significant
 
 If our critique is right, and the relationship between Partisanship and Covid is confounded by the fact that Red States tend to be older and older people are more likely to die from Covid, then controlling for Age, the coefficient on Republican Vote share should decrease in size (get closer to 0) and lose significance, while the coefficient on Age should be positive (older states have more Covid-19 deaths) and statistically signficant. I'm not sure I have a good sense about the size or magnitude of this effect.
 
@@ -323,7 +345,8 @@ Now let's test our skeptics' claims by fitting a model `m2` that controls for Ag
 
 ```{r}
 #| label: m2
-# m2
+m2 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std, covid_lab)
+
 ```
 
 ## Summarize the model
@@ -332,8 +355,7 @@ Now let's print out a statistical summary of `m2`
 
 ```{r}
 #| label: m2sum
-# summary of m2
-
+summary(m2)
 ```
 
 ## Display the model as a regression table
@@ -344,8 +366,8 @@ Next, let's create a regression table that displays `m1` in the first column and
 
 ```{r}
 #| label: m2tab
-#| echo: false
-# regression table of m1, m2
+#| echo: false 
+htmlreg(list(m1,m2)) %>% HTML() %>% browsable()
 
 ```
 
@@ -353,13 +375,56 @@ Next, let's create a regression table that displays `m1` in the first column and
 
 **In a few sentences, explain whether the results from `m2` support the skeptics criticisms or not?**
 
+-   They do not. Controlling for differences in the median age of state's population does little to change the relationship between partisanship and Covid-19 that we saw in `m1`. If anything the the relationship is slightly stronger, while the coefficient on age is substantively small and statistically non-significant.
+
+Part of what's at play here, is that relationship between age and Covid-19 outcomes at the state level is pretty weak, perhaps reflecting the early focus on vaccinating the eldery.
+
+Similarly, the idea that Red States tend to be older doesn't appear to be empirically true, perhaps reflecting differences between the general population and voting population.
+
+```{r}
+#| label: m2interp
+# Fit models
+m2_death_age <- lm(new_deaths_pc_14day ~ med_age_std, covid_lab)
+m2_rep_age <- lm(rep_voteshare_std ~ med_age_std, covid_lab)
+
+# Summarize models
+summary(m2_death_age)
+summary(m2_rep_age)
+
+# Display as formatted regression table
+htmlreg(list(m2_rep_age,
+             m2_death_age),
+        custom.model.names = c("Deaths", "Rep Vote"),
+        custom.coef.names = c("(Intercept)","Median Age (std)"),
+        custom.header = list("DV"=1:2)  )%>% HTML() %>% browsable()
+
+# Visualize the models
+covid_lab %>%
+  ggplot(aes(x = med_age_std,
+             y = rep_voteshare_std,
+             label = state_po))+
+  geom_point(size = .5)+
+  geom_text_repel(size = 2)+
+  geom_smooth(method = "lm")
+
+covid_lab %>%
+  ggplot(aes(x = med_age_std,
+             y = new_deaths_pc_14day,
+             label = state_po))+
+  geom_point(size = .5)+
+  geom_text_repel(size = 2)+
+  geom_smooth(method = "lm")
+```
+
 # Estimate a model controlling for age and income
 
 Undeterred, our skeptic now argues that it's not just age that matters but also socioeconomic factors like wealth.
 
 Let's test this claim using the following model:
 
-$$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std} + \beta_2 \text{Median Age}_{std} + \beta_3\text{Median Income}_{std}\epsilon$$ If the skeptic is right, then controlling for age and income, the coefficient on Republican vote share should **FILL IN WHAT SHOULD HAPPEN TO THIS COEFFICIENT**
+$$\text{New Covid Deaths} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std} + \beta_2 \text{Median Age}_{std} + \beta_3\text{Median Income}_{std}\epsilon$$
+
+If the skeptic is right, then controlling for age and income, the coefficient on Republican vote share should **decrease in size and no longer be statistically significant**
 
 ## Fit the Model
 
@@ -367,8 +432,7 @@ Please fit a model called `m3` implied by the skeptic's revised claims
 
 ```{r}
 #| label: m3
-# m3
-
+m3 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
 ```
 
 ## Summarize the model
@@ -377,8 +441,7 @@ Summarize the model `m3` using `summary()`
 
 ```{r}
 #| label: m3sum
-# summary m3
-
+summary(m3)
 ```
 
 ## Display the models in a regression table
@@ -387,7 +450,7 @@ And then display the results of models `m1`, `m2`, and `m3`.
 
 ```{r}
 #| label: m3tab
-# regression table of m1, m2, m3
+htmlreg(list(m1,m2,m3)) %>% HTML() %>% browsable()
 
 ```
 
@@ -409,8 +472,7 @@ You know the drill.
 
 ```{r}
 #| label: m4
-# m4
-
+m4 <- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std + percent_vaccinated_std, covid_lab)
 ```
 
 ## Summarize the results
@@ -419,8 +481,7 @@ Again, let's get a quick summary of our results
 
 ```{r}
 #| label: m4sum
-# summary of m4
-
+summary(m4)
 ```
 
 ## Display the models in a regression table
@@ -429,8 +490,8 @@ And add `m4` to list of models in our regression table
 
 ```{r}
 #| label: m4tab
-#| echo: false
-# regression table of m1, m2, m3, m4
+#| echo: false 
+htmlreg(list(m1,m2,m3, m4)) %>% HTML() %>% browsable()
 
 ```
 
@@ -438,17 +499,19 @@ And add `m4` to list of models in our regression table
 
 **Briefly interpret the results of `m4`**
 
+Controlling for vaccination rates, none of the other variables in `m4` are statistically significant predictors of Covid-19 deaths.
+
 # Model percent vaccinated in a state controlling for age, income, and republican vote share
 
 Hmm, how should we make sense of `m4`. Let's fit one last model, that predicts vaccination rates as a function of Republican vote share, median age, and median income in a state.
 
 $$\text{Percent Vaxxed} = \beta_0 + \beta_1 \text{Repbulican Vote Share}_{std} + \beta_2 \text{Median Age}_{std} + \beta_3\text{Median Income}_{std}\epsilon$$ Briefly, please describe whether we should expect a statistically significant positive or negative relationship with vaccination rates or whether we should expect no statistically significant relationship.
 
--   $\beta_1$ Republican Vote Share: (Negative / Positive / No Relationship)
+-   $\beta_1$ Republican Vote Share: Negative
 
--   $\beta_2$ Median Age: (Negative / Positive / No Relationship)
+-   $\beta_2$ Median Age: Positive
 
--   $\beta_3$ Median Income: (Negative / Positive / No Relationship)
+-   $\beta_3$ Median Income: Positive
 
 ## Fit the model
 
@@ -456,8 +519,7 @@ Now let's fit the model. For ease of interpretation, let's use the unstandardize
 
 ```{r}
 #| label: m5
-# m5
-
+m5 <- lm(percent_vaccinated ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)
 ```
 
 ## Summarize the results
@@ -466,8 +528,7 @@ And summarize the results
 
 ```{r}
 #| label: m5sum
-# summary of m5
-
+summary(m5)
 ```
 
 ## Display the results in a regression table
@@ -476,14 +537,30 @@ Display them in a regression table
 
 ```{r}
 #| label: m5tab
-#| echo: false
-# regression table for m5
+#| echo: false 
+htmlreg(list(m5)) %>% HTML() %>% browsable()
 
 ```
 
 ## Interpret the results
 
 **Summarize the results of `m5` and offer some broader discussion of what we've learned today**
+
+In `m5` all three predictors have strong statistically significant relationships with vaccination rates in the expected direction. States where more people voted for Trump in 2020 tend to have lower rates of vaccination. States with an older population, and a richer population tend to have higher rates of vaccination.
+
+Thinking back to the previous models we've estimated, we might argue that the effects these predictors have on Covid-19 death rates is mediated through their relationship with vaccination rates.
+
+More broadly, what does this analysis mean for arguments about Red Covid. I guess, I'd say it's complicated. Vaccines are clearly effective at reducing Covid-19 deaths. In both aggregate and invidual level data, Republicans appear to be less willing to get vaccinated. But lots of other factors influence vaccination rates and public health more broadly.
+
+Regression is a tool for trying to explore these competing explanations, but without strong theory and clever design, it's unlikely to resolve debates. There's almost always a skeptic waiting to say "Yes, but have you controlled for ..." We can try to address there concerns by controlling for more and more variables. But a better strategy is often to say, I don't need to control for X because the logic of my design already accounts for X.
+
+Still it's hard to think what that kind of design would be for something like for debates about Red Covid. Maybe we need different (individual data) or maybe we'd want to reframe the question or draw out further testable implications of the claim. If your group is looking for a final project, there are number of directions you could take this kind of analysis:
+
+-   Looking at different periods overtime
+-   Looking at smaller units of aggregation (counties)
+-   Controlling for alternative factors
+-   Leveraging variation in the availability of vaccines over time and place.
+
 
 # Take the Class Survey {.unnumbered}
 
