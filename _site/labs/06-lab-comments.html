@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -583,6 +583,7 @@ F-statistic: 21.73 on 1 and 49 DF,  p-value: 2.44e-05</code></pre>
 <p>The code after <code>htmlreg(m1)</code> allows you to see what output of the table will look like in the html document while you’re working in the Rmd file.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -629,6 +630,7 @@ F-statistic: 21.73 on 1 and 49 DF,  p-value: 2.44e-05</code></pre>
 </table>
 
 
+</div>
 </div>
 </div>
 </section>
@@ -742,6 +744,7 @@ F-statistic: 10.94 on 2 and 48 DF,  p-value: 0.0001218</code></pre>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -808,6 +811,7 @@ F-statistic: 10.94 on 2 and 48 DF,  p-value: 0.0001218</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="interpret-the-results-1" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="interpret-the-results-1"><span class="header-section-number">3.4</span> Interpret the results</h2>
@@ -870,6 +874,7 @@ F-statistic: 0.7729 on 1 and 49 DF,  p-value: 0.3836</code></pre>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span>,<span class="st">"Median Age (std)"</span>),</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.header =</span> <span class="fu">list</span>(<span class="st">"DV"</span><span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)  )<span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -928,6 +933,7 @@ F-statistic: 0.7729 on 1 and 49 DF,  p-value: 0.3836</code></pre>
 </table>
 
 
+</div>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the models</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>covid_lab <span class="sc">%&gt;%</span></span>
@@ -1010,6 +1016,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2,m3)) <span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -1098,6 +1105,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="interpret-the-skeptics-claims" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="interpret-the-skeptics-claims"><span class="header-section-number">4.4</span> Interpret the skeptic’s claims</h2>
@@ -1152,6 +1160,7 @@ F-statistic: 13.02 on 4 and 46 DF,  p-value: 3.621e-07</code></pre>
 <p>And add <code>m4</code> to list of models in our regression table</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -1266,6 +1275,7 @@ F-statistic: 13.02 on 4 and 46 DF,  p-value: 3.621e-07</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="interpet-the-results" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="interpet-the-results"><span class="header-section-number">5.4</span> Interpet the results</h2>
@@ -1324,6 +1334,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Display them in a regression table</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
@@ -1386,6 +1397,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 </table>
 
 
+</div>
 </div>
 </div>
 </section>
@@ -1499,6 +1511,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1533,7 +1563,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

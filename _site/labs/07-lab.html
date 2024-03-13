@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Group Members Names Here">
-<meta name="dcterms.date" content="2024-01-24">
+<meta name="author" content="P.F. Testa">
+<meta name="dcterms.date" content="2024-03-12">
 
-<title>POLS 1600 - Lab 07 - Exploring Russians’ Attitudes About the War in Ukraine</title>
+<title>POLS 1600 - Lab 07 - Replicating Grumbach and Hill (2022):</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,43 +102,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.32/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -181,46 +159,60 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
-  <li><a href="#please-knit-this-.rmd-file" id="toc-please-knit-this-.rmd-file" class="nav-link" data-scroll-target="#please-knit-this-.rmd-file">Please knit this .Rmd file</a></li>
-  <li><a href="#get-setup-to-work" id="toc-get-setup-to-work" class="nav-link" data-scroll-target="#get-setup-to-work"><span class="header-section-number">1</span> Get setup to work</a>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">1.1</span> Load Packages</a></li>
-  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="header-section-number">1.2</span> Load the data</a></li>
-  <li><a href="#describe-the-data" id="toc-describe-the-data" class="nav-link" data-scroll-target="#describe-the-data"><span class="header-section-number">1.3</span> Describe the data</a></li>
+  <li><a href="#please-render-this-.qmd-file" id="toc-please-render-this-.qmd-file" class="nav-link" data-scroll-target="#please-render-this-.qmd-file">Please render this .qmd file</a></li>
   </ul></li>
-  <li><a href="#interpretting-long-chunks-of-code" id="toc-interpretting-long-chunks-of-code" class="nav-link" data-scroll-target="#interpretting-long-chunks-of-code"><span class="header-section-number">2</span> Interpretting long chunks of code</a></li>
-  <li><a href="#explore-the-demographic-predictors-of-russians-support-for-the-war-in-ukraine" id="toc-explore-the-demographic-predictors-of-russians-support-for-the-war-in-ukraine" class="nav-link" data-scroll-target="#explore-the-demographic-predictors-of-russians-support-for-the-war-in-ukraine"><span class="header-section-number">3</span> Explore the demographic predictors of Russians’ Support for the War in Ukraine</a>
+  <li><a href="#get-set-up-to-work" id="toc-get-set-up-to-work" class="nav-link" data-scroll-target="#get-set-up-to-work">Get set up to work</a>
   <ul class="collapse">
-  <li><a href="#describe-your-expectations-for-these-models" id="toc-describe-your-expectations-for-these-models" class="nav-link" data-scroll-target="#describe-your-expectations-for-these-models"><span class="header-section-number">3.1</span> Describe your expectations for these models</a></li>
-  <li><a href="#estimate-the-regression-models" id="toc-estimate-the-regression-models" class="nav-link" data-scroll-target="#estimate-the-regression-models"><span class="header-section-number">3.2</span> Estimate the regression models</a></li>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#important-set-your-working-directory" id="toc-important-set-your-working-directory" class="nav-link" data-scroll-target="#important-set-your-working-directory">IMPORTANT: Set your working directory</a></li>
   </ul></li>
-  <li><a href="#display-your-models-in-a-regression-table-and-offer-some-initial-interpretations" id="toc-display-your-models-in-a-regression-table-and-offer-some-initial-interpretations" class="nav-link" data-scroll-target="#display-your-models-in-a-regression-table-and-offer-some-initial-interpretations"><span class="header-section-number">4</span> Display your models in a regression table and offer some initial interpretations</a></li>
-  <li><a href="#use-r2-to-compare-models" id="toc-use-r2-to-compare-models" class="nav-link" data-scroll-target="#use-r2-to-compare-models"><span class="header-section-number">5</span> Use <span class="math inline">\(R^2\)</span> to compare models</a></li>
-  <li><a href="#produce-and-visualize-predicted-values-for-m1-and-m3" id="toc-produce-and-visualize-predicted-values-for-m1-and-m3" class="nav-link" data-scroll-target="#produce-and-visualize-predicted-values-for-m1-and-m3"><span class="header-section-number">6</span> Produce and visualize predicted values for m1 and m3</a></li>
-  <li><a href="#produce-and-visualize-predicted-values-for-m2-and-m4" id="toc-produce-and-visualize-predicted-values-for-m2-and-m4" class="nav-link" data-scroll-target="#produce-and-visualize-predicted-values-for-m2-and-m4"><span class="header-section-number">7</span> Produce and visualize predicted values for m2 and m4</a></li>
-  <li><a href="#explore-another-relationship-in-the-data-optional" id="toc-explore-another-relationship-in-the-data-optional" class="nav-link" data-scroll-target="#explore-another-relationship-in-the-data-optional"><span class="header-section-number">8</span> Explore another relationship in the data (Optional)</a></li>
+  <li><a href="#summarize-the-study" id="toc-summarize-the-study" class="nav-link" data-scroll-target="#summarize-the-study"><span class="header-section-number">1</span> Summarize the study</a></li>
+  <li><a href="#download-the-replication-files" id="toc-download-the-replication-files" class="nav-link" data-scroll-target="#download-the-replication-files"><span class="header-section-number">2</span> Download the replication files</a></li>
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data"><span class="header-section-number">3</span> Load the data</a></li>
+  <li><a href="#get-a-hlo-of-each-dataset" id="toc-get-a-hlo-of-each-dataset" class="nav-link" data-scroll-target="#get-a-hlo-of-each-dataset"><span class="header-section-number">4</span> Get a HLO of each dataset</a></li>
+  <li><a href="#merge-policy_data-into-cps-data" id="toc-merge-policy_data-into-cps-data" class="nav-link" data-scroll-target="#merge-policy_data-into-cps-data"><span class="header-section-number">5</span> Merge <code>policy_data</code> into <code>cps</code> data</a></li>
+  <li><a href="#examine-and-recode-the-data" id="toc-examine-and-recode-the-data" class="nav-link" data-scroll-target="#examine-and-recode-the-data"><span class="header-section-number">6</span> Examine and recode the data</a>
+  <ul class="collapse">
+  <li><a href="#recode-covariates" id="toc-recode-covariates" class="nav-link" data-scroll-target="#recode-covariates"><span class="header-section-number">6.1</span> Recode covariates</a></li>
+  <li><a href="#create-age_group-and-age_group_xx_xx-indicators" id="toc-create-age_group-and-age_group_xx_xx-indicators" class="nav-link" data-scroll-target="#create-age_group-and-age_group_xx_xx-indicators"><span class="header-section-number">6.2</span> Create <code>age_group</code> and age_group_XX_XX indicators</a></li>
+  <li><a href="#check-age-recodes" id="toc-check-age-recodes" class="nav-link" data-scroll-target="#check-age-recodes"><span class="header-section-number">6.3</span> Check age recodes</a></li>
+  <li><a href="#recode-the-outcome" id="toc-recode-the-outcome" class="nav-link" data-scroll-target="#recode-the-outcome"><span class="header-section-number">6.4</span> Recode the outcome</a></li>
+  <li><a href="#save-the-recoded-data" id="toc-save-the-recoded-data" class="nav-link" data-scroll-target="#save-the-recoded-data"><span class="header-section-number">6.5</span> Save the recoded data</a></li>
+  </ul></li>
+  <li><a href="#recreate-figure-1" id="toc-recreate-figure-1" class="nav-link" data-scroll-target="#recreate-figure-1"><span class="header-section-number">7</span> Recreate Figure 1</a>
+  <ul class="collapse">
+  <li><a href="#write-down-aesthetic-mappings-from-the-figure" id="toc-write-down-aesthetic-mappings-from-the-figure" class="nav-link" data-scroll-target="#write-down-aesthetic-mappings-from-the-figure"><span class="header-section-number">7.1</span> Write down aesthetic mappings from the figure:</a></li>
+  <li><a href="#create-a-variable-called-sdr" id="toc-create-a-variable-called-sdr" class="nav-link" data-scroll-target="#create-a-variable-called-sdr"><span class="header-section-number">7.2</span> Create a variable called <code>SDR</code></a></li>
+  <li><a href="#recreate-figure-1-1" id="toc-recreate-figure-1-1" class="nav-link" data-scroll-target="#recreate-figure-1-1"><span class="header-section-number">7.3</span> Recreate Figure 1</a></li>
+  <li><a href="#interpret-figure-1." id="toc-interpret-figure-1." class="nav-link" data-scroll-target="#interpret-figure-1."><span class="header-section-number">7.4</span> Interpret Figure 1.</a></li>
+  </ul></li>
+  <li><a href="#recreate-figure-2" id="toc-recreate-figure-2" class="nav-link" data-scroll-target="#recreate-figure-2"><span class="header-section-number">8</span> Recreate Figure 2</a>
+  <ul class="collapse">
+  <li><a href="#calculate-the-proption-voting-by-age-group-and-sdr" id="toc-calculate-the-proption-voting-by-age-group-and-sdr" class="nav-link" data-scroll-target="#calculate-the-proption-voting-by-age-group-and-sdr"><span class="header-section-number">8.1</span> Calculate the proption voting by age group and SDR</a></li>
+  <li><a href="#recreate-figure-2-1" id="toc-recreate-figure-2-1" class="nav-link" data-scroll-target="#recreate-figure-2-1"><span class="header-section-number">8.2</span> Recreate Figure 2</a></li>
+  <li><a href="#interpret-figure-2" id="toc-interpret-figure-2" class="nav-link" data-scroll-target="#interpret-figure-2"><span class="header-section-number">8.3</span> Interpret Figure 2</a></li>
+  </ul></li>
   <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey">Take the Class Survey</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 07 - Exploring Russians’ Attitudes About the War in Ukraine</h1>
+<h1 class="title">Lab 07 - Replicating Grumbach and Hill (2022):</h1>
+<p class="subtitle lead">Understanding the Data and Design</p>
 </div>
 
 
@@ -230,14 +222,14 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Group Members Names Here </p>
+             <p>P.F. Testa </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 24, 2024</p>
+      <p class="date">March 12, 2024</p>
     </div>
   </div>
   
@@ -251,112 +243,80 @@ window.Quarto = {
 
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
-<p>Today, we’ll explore Russians’ support the war in Ukraine using a public opinion survey from Russia conducted by Alexei Miniailo’s <a href="https://www.dorussianswantwar.com/en">“Do Russians Want War”</a> project.</p>
-<p>The survey was conducted by phone using a random sample of mobile phone numbers to produce a sample of respondents representative of the population in terms of age, sex, and geography. It was in the field from February 28 to March 2.</p>
-<p>We will look at how support for the war varies with the demographic predictors <code>age</code>, <code>sex</code> and <code>education</code>. We will see how multiple regression can be used to describe more complex relationships. From our baseline model, we will ask:</p>
-<ul>
-<li><p>Does the relationship between age and support for the war vary among male and female respondents (Interaction model)</p></li>
-<li><p>Does the relationship between age and support vary at different levels of age (Polynomial regression model)</p></li>
-<li><p>Does the relationship between age and support vary at different levels of age and does the nature of this variation differ among male and female respondents (Polynomial regression model with an interaction term)</p></li>
-</ul>
-<p>To accomplish this, we will do the following:</p>
-<ol type="1">
-<li><p>Get set up to work and describe our data (10 minutes)</p></li>
-<li><p>Get practice interpreting long chunks of codes with lots of <code>%&gt;%</code>s (10 minutes)</p></li>
-<li><p>Estimate four models of increasing complexity (15 minutes)</p></li>
-<li><p>Present these models in a regression table and interpret the results (10 minutes)</p></li>
-<li><p>Evaluate the relative performance of these models in terms of their variance explained <span class="math inline">\(R^2\)</span>’s (15 minutes)</p></li>
-<li><p>Produce predicted values to help us interpret and compare our baseline model to a model where the “effect” of an increase in age changes with age (10 minutes)</p></li>
-<li><p>Produce predicted values to help us interpret and compare models where the “effect” of age is allowed to vary with respondent’s sex (10 minutes)</p></li>
+<p>In this lab, we will begin the process of replicating Grumbach and Hill (2021) “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”</p>
+<p>To accomplish this we will:</p>
+<ol start="0" type="1">
+<li><p>Load packages and set the working directory to <strong>where this file is saved</strong>. (5 minutes)</p></li>
+<li><p><strong>Summarize the study</strong> in terms of it’s research question, theory, design, and results. (10 minutes)</p></li>
+<li><p>Download the replication files and <strong>save them in the same folder as this lab</strong> (5 minutes)</p></li>
+<li><p><strong>Load the data</strong> from your computers into R (5 minutes)</p></li>
+<li><p>Get a quick <strong>HLO</strong> of the data (10 minutes)</p></li>
+<li><p><strong>Merge</strong> data on election policy into data on voting (5 minutes, together),</p></li>
+<li><p><strong>Recode</strong> the covariates, key predictors, and outcome for the study (10 minutes, partly together)</p></li>
+<li><p>Recreate <strong>Figure 1</strong> (15 minutes)</p></li>
+<li><p>Recreate <strong>Figure 2</strong> (15 minutes)</p></li>
 </ol>
-<p>Finally, if there’s time, we will:</p>
-<ol start="8" type="1">
-<li>Explore additional questions of our choosing in the data</li>
-</ol>
-<p>One of questions 1-7 will be randomly selected as the graded question for the lab.</p>
-<p>You will work in your assigned groups. Only one member of each group needs to submit the html file produced by knitting the lab.</p>
+<p>Finally, we’ll take the weekly survey which should be a <strong>fun</strong> one</p>
+<p>One of these 8 tasks will be randomly selected as the graded question for the lab.</p>
+<p>You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.</p>
 <p>This lab <strong>must</strong> contain the names of the group members in attendance.</p>
 <p>If you are attending remotely, you will submit your labs individually.</p>
-<p>You can find your assigned groups in previous <a href="https://pols1600.paultesta.org/labs/06-lab-comments.html" target="_blank">labs</a></p>
+<p>Here are your assigned groups for the semester.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6cf55b72df3386bf8fa6" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6cf55b72df3386bf8fa6">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 </section>
 <section id="goals" class="level1 unnumbered">
 <h1 class="unnumbered">Goals</h1>
-<p>Broadly, our goals in this assignment are to:</p>
-<div class="sidenote">
-<p><span class="math display">\[y = \beta_0 + \beta_1 x + \beta_2 z + \overbrace{\beta_3 x\cdot z}^{\text{Interaction term}} \]</span></p>
-</div>
+<p>This week’s lab will give you practice:</p>
 <ul>
-<li><p>Get comfortable estimating and interpreting regression models with <strong>interaction terms</strong></p>
-<ul>
-<li><p>Including an interaction between two variables is useful if we think the “effect” of one variable depends on the value of another variable.</p></li>
-<li><p>Today, we test whether the association between support for the war and age differs between male and female respondents.</p></li>
-</ul></li>
+<li><p>Summarizing academic work (Q1)</p></li>
+<li><p>Loading data into R from your own computer (rather than just downloading it from the web) (Q2-3)</p></li>
+<li><p>Looking at new data and figuring out what you need to do (e.g.&nbsp;merging, recoding) before you can analyze it (Q4-6)</p></li>
+<li><p>Creating and interpreting figures that summarize aspects of a study’s design and data (Q7-8)</p></li>
 </ul>
-<div class="sidenote">
-<p><span class="math display">\[x^1 = x; \, x^2 = x\cdot x; \,   x^{nth} = \prod_{i=1}^{i=n} x_i = x_1\cdot x_2 \cdot x_3 \dots \cdot x_n \]</span></p>
-</div>
-<ul>
-<li><p>Get comfortable estimating and interpreting regression models with <strong>polynomial terms</strong></p>
-<ul>
-<li><p>Polynomial terms are a way of incorporating non-linearity in our predictors.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>If we think the relationship between a predictor and an outcome varies at different levels of the predictor, we can include a polynomial term(s) for that predictor. Now our model will describe the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with a curve (varying slope), rather than a line (constant slope)</p></li>
-</ul></li>
-<li><p>Learn how to generate predicted values from our model to help us interpret <strong>complex regression models</strong></p>
-<ul>
-<li><p>Regression tables are great for summarizing basic regression models.</p></li>
-<li><p>Models with interaction terms or polynomial terms (or both) are difficult to interpret by looking at just the coefficients themselves</p></li>
-<li><p>Producing predicted values that show how the model’s predictions change as variables in a interaction or polynomial change help us understand what these coefficients are telling us.</p></li>
-</ul></li>
-<li><p>Practice <strong>comparing <em>nested</em> models</strong> using the proportion of the variance explained by each model.</p>
-<ul>
-<li><p>Recall that a model’s <span class="math inline">\(R^2\)</span> describes the proportion of the total variance in our outcome, explained by the model’s predictions.</p></li>
-<li><p>When we add predictors to a model, the model becomes more flexible, and can explain more variance in the outcome.</p></li>
-<li><p><em>adjusted</em> <span class="math inline">\(R^2\)</span> adjusts models’s <span class="math inline">\(R^2\)</span> by penalizing models for total number of predictors needed to explain given amount of variance</p></li>
-<li><p>When models are <em>nested</em> (the predictors in a smaller model are a subset of the predictors in a larger model), we can compare the relative performance of the two using tools like <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span>.</p></li>
-<li><p>When comparing models, we make trade offs between our desire to explain as much variation in the outcome as possible with a general preference for more parsimonious models.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<ul>
-<li>For example, a simple bivariate regression and a complicated multiple regression could have the same <span class="math inline">\(R^2\)</span> (i.e.&nbsp;the both explain 50 percent of the total variance in the outcome), but the adjusted <span class="math inline">\(R^2\)</span> will be higher for the simple regression compared to the multiple regression, because it needed fewer predictors to explain the same amount of variance.</li>
-</ul></li>
-</ul></li>
-</ul>
+<p>Next week, we’ll get into the nuts and bolts of replicating Grumbach and Hill’s main results</p>
 </section>
 <section id="workflow" class="level1 unnumbered">
 <h1 class="unnumbered">Workflow</h1>
-</section>
-<section id="please-knit-this-.rmd-file" class="level1 unnumbered">
-<h1 class="unnumbered">Please knit this .Rmd file</h1>
+<section id="please-render-this-.qmd-file" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="please-render-this-.qmd-file">Please render this .qmd file</h2>
 <p>As with every lab, you should:</p>
 <ul>
 <li>Download the file</li>
 <li>Save it in your course folder</li>
 <li><strong>Update the <code>author:</code> section of the YAML header to include the names of your group members in attendance.</strong></li>
-<li>Knit the document</li>
+<li>Render the document</li>
 <li>Open the html file in your browser (Easier to read)</li>
-<li>Write your code in the chunks provided</li>
+<li>Write your code in the <strong>chunks provided under each section</strong></li>
 <li>Comment out or delete any test code you do not need</li>
-<li><strong>Knit the document again after completing a section or chunk</strong> (Error checking)</li>
-<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1091286/assignments/7925689?module_item_id=10882050" target="_blank">Canvas</a>.</li>
+<li><strong>Render the document again after completing a section or chunk</strong> (Error checking)</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1094972/assignments" target="_blank">Canvas</a>.</li>
 </ul>
 </section>
-<section id="get-setup-to-work" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Get setup to work</h1>
-<section id="load-packages" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">1.1</span> Load Packages</h2>
-<p>First lets load the libraries we’ll need for today.</p>
+</section>
+<section id="get-set-up-to-work" class="level1 unnumbered">
+<h1 class="unnumbered">Get set up to work</h1>
+<section id="load-packages" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="load-packages">Load packages</h2>
+<p>As always, let’s load the packages we’ll need for today</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>the_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## R Markdown</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kableExtra"</span>,<span class="st">"DT"</span>,<span class="st">"texreg"</span>,<span class="st">"htmltools"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#"flair", # Comments only</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Tidyverse</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"forcats"</span>, <span class="st">"haven"</span>, <span class="st">"labelled"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extensions for ggplot</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggmap"</span>,<span class="st">"ggrepel"</span>, <span class="st">"ggridges"</span>, <span class="st">"ggthemes"</span>, <span class="st">"ggpubr"</span>, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"scales"</span>, <span class="st">"dagitty"</span>, <span class="st">"ggdag"</span>, <span class="st">"ggforce"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data </span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COVID19"</span>,<span class="st">"maps"</span>,<span class="st">"mapdata"</span>,<span class="st">"qss"</span>,<span class="st">"tidycensus"</span>, <span class="st">"dataverse"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Tidyverse</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"forcats"</span>, <span class="st">"haven"</span>, <span class="st">"labelled"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extensions for ggplot</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggmap"</span>,<span class="st">"ggrepel"</span>, <span class="st">"ggridges"</span>, <span class="st">"ggthemes"</span>, <span class="st">"ggpubr"</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"scales"</span>, <span class="st">"dagitty"</span>, <span class="st">"ggdag"</span>, <span class="st">"ggforce"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COVID19"</span>,<span class="st">"maps"</span>,<span class="st">"mapdata"</span>,<span class="st">"qss"</span>,<span class="st">"tidycensus"</span>, <span class="st">"dataverse"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"janitor"</span>,</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Analysis</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DeclareDesign"</span>, <span class="st">"zoo"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DeclareDesign"</span>, <span class="st">"easystats"</span>, <span class="st">"zoo"</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define function to load packages</span></span>
@@ -379,636 +339,434 @@ window.Quarto = {
          TRUE          TRUE          TRUE          TRUE          TRUE 
          maps       mapdata           qss    tidycensus     dataverse 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-DeclareDesign           zoo 
-         TRUE          TRUE </code></pre>
+      janitor DeclareDesign     easystats           zoo 
+         TRUE          TRUE          TRUE          TRUE </code></pre>
 </div>
 </div>
+<p>We will also want to <strong>set our working directory</strong> to where your lab is saved.</p>
 </section>
-<section id="load-the-data" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="load-the-data"><span class="header-section-number">1.2</span> Load the data</h2>
-<p>Next we’ll load the recoded data for the lab.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/df_drww.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="describe-the-data" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="describe-the-data"><span class="header-section-number">1.3</span> Describe the data</h2>
-<p>As always, it’s important to get a high level overview of data when we first load it into R.</p>
-<p>Below we take a look at the first few values of all the data. You’ll see that <code>df_drww</code> includes both the Russian data and recoded revisions of the data (which are typically appended with <code>_n</code> for numeric data or <code>_f</code> for factor data).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_drww)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 1,807
-Columns: 42
-$ sex                          &lt;chr&gt; "Male", "Male", "Female", "Female", "Male…
-$ age                          &lt;dbl&gt; 99, 78, 73, 73, 69, 69, 59, 54, 49, 48, 4…
-$ support_war                  &lt;fct&gt; "(НЕ ЗАЧИТЫВАТЬ) Затрудняюсь ответить", "…
-$ trust_gov                    &lt;fct&gt; (НЕ ЗАЧИТЫВАТЬ) Затрудняюсь ответить, Дов…
-$ employ_working               &lt;dbl&gt; 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1,…
-$ employ_student               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ employ_retired               &lt;dbl&gt; 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,…
-$ employ_maternity_leave       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ employ_homemaker             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ employ_unemployed            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,…
-$ employ_other_employment      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ other_employ_open_response   &lt;chr&gt; "                                        …
-$ education                    &lt;fct&gt; (НЕ ЗАЧИТЫВАТЬ) Затрудняюсь ответить, Выс…
-$ social_classmates            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_in_contact_with       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_facebook              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_instagram             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_twitter               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_telegram              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_whatsapp              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_viber                 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
-$ social_tiktok                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0,…
-$ social_other_social_networks &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
-$ none_social                  &lt;fct&gt; НЕ ВЫБРАН, ВЫБРАН, НЕ ВЫБРАН, ВЫБРАН, НЕ …
-$ dk_social                    &lt;fct&gt; ВЫБРАН, НЕ ВЫБРАН, НЕ ВЫБРАН, НЕ ВЫБРАН, …
-$ other_social_open_response   &lt;chr&gt; "                                        …
-$ other_social_group           &lt;fct&gt; NA, NA, Ютуб, NA, Ютуб, NA, NA, NA, NA, N…
-$ geo_urban_rural              &lt;fct&gt; NA, NA, "город, поселок городского типа",…
-$ geo_district                 &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ weight                       &lt;dbl&gt; 0.000, 0.000, 1.208, 0.000, 1.231, 1.208,…
-$ support_war_f                &lt;fct&gt; NA, Yes, Yes, Yes, Yes, Yes, No, Yes, Yes…
-$ support_war01                &lt;dbl&gt; NA, 1, 1, 1, 1, 1, 0, 1, 1, NA, 1, 1, 1, …
-$ trust_gov_f                  &lt;fct&gt; NA, Partly, Largely, Fully, Partly, Fully…
-$ trust_gov_n                  &lt;dbl&gt; NA, 1, 2, 3, 1, 3, 0, NA, 2, NA, NA, 0, 3…
-$ education_f                  &lt;fct&gt; NA, College or some college, Vocational, …
-$ education_n                  &lt;dbl&gt; NA, 4, 3, 4, 1, 3, 4, NA, 4, NA, 3, 3, 3,…
-$ geo_urban_rural_f            &lt;fct&gt; NA, NA, Urban, NA, Rural, Urban, Rural, N…
-$ geo_district_f               &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ social_youtube               &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
-$ social_yandex                &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ total_social_media_use       &lt;dbl&gt; 0, 0, 1, 0, 1, 0, 0, 0, 9, 0, 1, 0, 1, 0,…
-$ no_social_media              &lt;dbl&gt; 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1,…</code></pre>
-</div>
-</div>
-<p>In the first part of this lab, we’ll work with the following variables</p>
-<ul>
-<li><p><code>support_war01</code> “Please tell me, do you support or do not support Russia’s military actions on the territory of Ukraine?” (1=yes, 0 = no)</p></li>
-<li><p><code>age</code> “How old are you?”</p></li>
-<li><p><code>sex</code> “Gender of respondent” (As assessed by the interviewer)</p></li>
-<li><p><code>education_n</code> “What is your highest level of education (confirmed by a diploma, certificate)?” (1 = Primary school, 2 = “High School”, 3 = “Vocational School” 4 = “College”, 5 = Graduate Degree)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p></li>
-</ul>
-<p>In the code chunk below, I create a data frame of summary statistics:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>the_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"support_war01"</span>,<span class="st">"age"</span>, <span class="st">"is_female"</span>, <span class="st">"education_n"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(the_vars)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">all_of</span>(the_vars ),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Variable"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable) <span class="sc">%&gt;%</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N obs</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(Value)),</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="fu">min</span>(Value, <span class="at">na.rm =</span> T),</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">25th perc</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(Value, .<span class="dv">25</span>, <span class="at">na.rm=</span>T),</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Value, <span class="at">na.rm=</span>T),</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Value, <span class="at">na.rm =</span> T),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">75th perc</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(Value, .<span class="dv">75</span>, <span class="at">na.rm=</span>T),</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="fu">max</span>(Value, <span class="at">na.rm =</span> T)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="fu">case_when</span>(</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">~</span> <span class="st">"Age"</span>,</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"education_n"</span> <span class="sc">~</span> <span class="st">"Education"</span>,</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"is_female"</span> <span class="sc">~</span> <span class="st">"Female"</span>,</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>      Variable <span class="sc">==</span> <span class="st">"support_war01"</span> <span class="sc">~</span> <span class="st">"Support for War"</span>,</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="fu">factor</span>(Variable, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Support for War"</span>,<span class="st">"Age"</span>,<span class="st">"Female"</span>,<span class="st">"Education"</span>))</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Variable) <span class="ot">-&gt;</span>  summary_table</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>summary_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 9
-  Variable     `N obs` Missing   Min `25th perc`   Mean Median `75th perc`   Max
-  &lt;fct&gt;          &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
-1 Support for…    1807     334     0           0  0.720      1           1     1
-2 Age             1807       0    18          34 46.6       45          60    99
-3 Female          1807       0     0           0  0.470      0           1     1
-4 Education       1807      13     1           3  3.17       3           4     5</code></pre>
-</div>
-</div>
-<p>Which we can then format into a table of summary statistics:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(summary_table,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">pack_rows</span>(</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_label =</span> <span class="st">"Outcome"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_row =</span> <span class="dv">1</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_row =</span> <span class="dv">1</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">%&gt;%</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">pack_rows</span>(</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_label =</span> <span class="st">"Predictors"</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">start_row =</span> <span class="dv">2</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">end_row =</span> <span class="dv">4</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-striped table-hover table-sm small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">N obs</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Missing</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">25th perc</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">75th perc</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd" data-grouplength="1">
-<td colspan="9" style="border-bottom: 1px solid"><strong>Outcome</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Support for War</td>
-<td style="text-align: right;">1807</td>
-<td style="text-align: right;">334</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.72</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="odd" data-grouplength="3">
-<td colspan="9" style="border-bottom: 1px solid"><strong>Predictors</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Age</td>
-<td style="text-align: right;">1807</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">34</td>
-<td style="text-align: right;">46.65</td>
-<td style="text-align: right;">45</td>
-<td style="text-align: right;">60</td>
-<td style="text-align: right;">99</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Female</td>
-<td style="text-align: right;">1807</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.47</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding-left: 2em;" data-indentlevel="1">Education</td>
-<td style="text-align: right;">1807</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">3.17</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<p><strong>Please use this table to describe a typical respondent to the survey</strong></p>
-<p>YOUR DESCRIPTION HERE</p>
-<hr>
-</section>
-</section>
-<section id="interpretting-long-chunks-of-code" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Interpretting long chunks of code</h1>
-<p>The previous section contained a fairly long chunk of code.</p>
-<p>I suspect you had little trouble interpreting the table of summary statistics produced by the second code chunk (<code>summary_table</code>), but may not have followed everything that was happening in the first code chunk (<code>summary_stats</code>).</p>
-<p>In this section, I want you to practice interpreting large chunks of code with lots of <code>%&gt;%</code></p>
-<ul>
-<li><p>Recall, that the pipe command takes the outcome from a function that comes before the <code>%&gt;%</code> and <code>pipes</code> it into the <strong>first argument</strong> of the function that comes after it.</p></li>
-<li><p>Each function in <code>summary_stats</code> expects a <code>data.frame</code> in its first argument. The function then does something to this inputted data frame (add a column, pivot columns, etc) and returns a new data.frame which <code>%&gt;%</code> then passes on to next function.</p></li>
-</ul>
-<p>To learn how to produce a table of summary statistics (a common task for empirical work), it’s helpful to understand what’s happening at each step of the process in the <code>summary_stats</code> code chunk.</p>
-<p>In the code chunk below, starting from <code>df_drww %&gt;%</code> please</p>
-<ul>
-<li><p>Copy and paste the all the code up until the next <code>%&gt;%</code></p></li>
-<li><p>Run this code in your console</p></li>
-<li><p>Write a comment above this code in code chunk</p></li>
-</ul>
-<p>Running code line-by-line, is great way to learn how to code, by understanding what happens in each line of code.</p>
-<p>There are about 8 or 9 steps of code to explain (depending on how you copy and paste.) I’ve done steps 1-3 below. Please take the next 10 minutes or so to fill in the rest.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 1 -----</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of variables we want to summarize</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>the_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"support_war01"</span>,<span class="st">"age"</span>, <span class="st">"is_female"</span>, <span class="st">"education_n"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 2 -----</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># From df_drww create a new variable `is_female` that is 1 when sex == "Female, and 0 otherwise</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(                             </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>) </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 3 -----</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Select just the columns we want to summarize</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(the_vars))</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 4 -----</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(the_vars)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">all_of</span>(the_vars ),</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Variable"</span>,</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 5 -----</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(the_vars)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">all_of</span>(the_vars ),</span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Variable"</span>,</span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable)</span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 6 -----</span></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>df_drww <span class="sc">%&gt;%</span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_female =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"Female"</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(the_vars)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">all_of</span>(the_vars ),</span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Variable"</span>,</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable) <span class="sc">%&gt;%</span></span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">N obs</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">Missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(Value)),</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="fu">min</span>(Value, <span class="at">na.rm =</span> T),</span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">25th perc</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(Value, .<span class="dv">25</span>, <span class="at">na.rm=</span>T),</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="fu">mean</span>(Value, <span class="at">na.rm=</span>T),</span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="fu">median</span>(Value, <span class="at">na.rm =</span> T),</span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">75th perc</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">quantile</span>(Value, .<span class="dv">75</span>, <span class="at">na.rm=</span>T),</span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="fu">max</span>(Value, <span class="at">na.rm =</span> T)</span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 7 -----</span></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 8 -----</span></span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Step 9 -----</span></span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Comment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<hr>
-</section>
-<section id="explore-the-demographic-predictors-of-russians-support-for-the-war-in-ukraine" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Explore the demographic predictors of Russians’ Support for the War in Ukraine</h1>
-<p>Today, we will estimate four models to explore how Russian support for the war in Ukraine varies with demographic predictors.</p>
-<ul>
-<li><p><code>m1</code> provides a baseline model that predicts support for the war as a linear function of <code>age</code>, <code>sex</code>, and <code>education_n</code> measured as numeric scale (1 = Primary School, 5 = Graduate Degree).</p></li>
-<li><p><code>m2</code> is an <strong>interaction regression model</strong> that asks whether the relationship between <code>age</code> and <code>support</code> varies by <code>sex</code></p></li>
-<li><p><code>m3</code> is a <strong>polynomial regression model</strong>, that includes a term for “age-squared” which allows the relationship between age and support to vary over different levels of age</p></li>
-<li><p><code>m4</code> adds an interaction term to the <em>polynomial</em> regression from <code>m3</code> essentially allowing for separate curves for male and female respondents.</p></li>
-</ul>
-<hr>
-<section id="describe-your-expectations-for-these-models" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="describe-your-expectations-for-these-models"><span class="header-section-number">3.1</span> Describe your expectations for these models</h2>
-<p>Before you estimate these models, please answer the following:</p>
-<p><strong>In the baseline model, <code>m1</code></strong> what do you expect the sign of the coefficient for each predictor to be:</p>
-<ul>
-<li><p><em>Age</em> (<strong>Positive/Negative</strong>)</p></li>
-<li><p><em>Sex</em> (<strong>Positive/Negative</strong>)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p></li>
-<li><p><em>Education</em> (<strong>Positive/Negative</strong>)</p></li>
-</ul>
-<p><strong>In the interaction model, <code>m2</code></strong></p>
-<ul>
-<li><p>Do you think the relationship between age and support will vary by sex (<strong>Yes/No</strong>)</p></li>
-<li><p>If you said yes, do you think the coefficient on the interaction between age and sex will be positive or negative (<strong>Positive/Negative</strong>)</p></li>
-</ul>
-<p><strong>In the polynomial model, <code>m3</code></strong></p>
-<ul>
-<li><p>If the coefficient on <code>age</code> is positive and the coefficient on <code>age^2</code> is positive, then as age increases, the increase in the predicted level of support will be (<strong>increasing/decreasing</strong>)</p></li>
-<li><p>If the coefficient on <code>age</code> is positive and the coefficient on <code>age^2</code> is negative, then as age increases, the increase in the predicted level of support will be (<strong>increasing/decreasing</strong>)</p></li>
-</ul>
-<p><strong>In <code>m4</code></strong></p>
-<ul>
-<li>If the coefficients on the interaction terms between the <code>sex</code> variable and the age variables (<code>age</code> and <code>age^2</code>) is statistically significant, this implies that the relationship between <code>age</code> and support for the war is (<strong>similar/different</strong>) for male and female respondents.</li>
-</ul>
-<hr>
-</section>
-<section id="estimate-the-regression-models" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="estimate-the-regression-models"><span class="header-section-number">3.2</span> Estimate the regression models</h2>
-<p>Uncomment the code below, and replace the <code>???</code> with the appropriate terms to fit the following models.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Baseline Model</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># m1 &lt;- lm(support_war01 ~ ??? + ??? + ???, ???)</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction model: Allow coefficient for age to vary with sex</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># m2 &lt;- lm(support_war01 ~ age*??? + education_n, df_drww)</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Polynomial model: Allow coefficient for age to vary by age</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># m3 &lt;- lm(support_war01 ~ age + I(???^2) + sex + education_n, df_drww)</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate Polynomial: Allow coefficient for age to vary by age separately  by sex</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># m4 &lt;- lm(support_war01 ~ (age + I(age^2))*??? + education_n, df_drww)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<hr>
-</section>
-</section>
-<section id="display-your-models-in-a-regression-table-and-offer-some-initial-interpretations" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Display your models in a regression table and offer some initial interpretations</h1>
-<p>Using code from previous labs and lectures, please display the models from the previous section in a regression table and offer some initial interpretations.</p>
-<p>You can use the <a href="https://pols1600.paultesta.org/labs/06-lab-comments.html#4_Estimate_a_model_controlling_for_age_and_income" target="_blank">code from last week’s lab as a guide.</a></p>
-<ul>
-<li>Try adding the argument, <code>digits = 4</code> to <code>htmlreg</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display m1, m2, m3, m4 in a regression table</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># texreg::htmlreg(list(m1, m2, m3, m4), digits = 5) %&gt;% HTML() %&gt;% browsable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>In particular, please answer the following:</strong></p>
-<p>For <code>m1</code> (Model 1) how do predicted levels of support for the war, change with</p>
-<ul>
-<li><p><strong>Age</strong> Write a sentence or two here describing the relationship in terms a human can understand.</p></li>
-<li><p><strong>Sex</strong></p></li>
-<li><p><strong>Education</strong></p></li>
-</ul>
-<p>For <code>m2</code>(Model 2) does the relationship between age and support appear to differ for male and female respondents (<strong>Yes/No</strong>)</p>
-<p>For <code>m3</code> (Model 3) Does the relationship between age and support appear to be constant or does the predicted marginal effect of an increase in age differ<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<ul>
-<li>(<strong>The marginal effect of age is constant / The marginal effect of age varies</strong>)</li>
-</ul>
-<p>For <code>m4</code> (Model 4) do the varying marginal effects of age appear to also vary by gender?<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
-<ul>
-<li>(<strong>Yes/No</strong>)</li>
-</ul>
-<hr>
-</section>
-<section id="use-r2-to-compare-models" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Use <span class="math inline">\(R^2\)</span> to compare models</h1>
-<p>Now take a look at the bottom rows in your regression table which show each model’s <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span>.</p>
-<p>Recall from class, that <span class="math inline">\(R^2\)</span> describes the proportion of the variance in our outcome (support for the war), explained by the predictors in our model (age, sex, education, and some interactions/polynomials).</p>
-<p>You may also remember that <span class="math inline">\(R^2\)</span> always increases as we add more predictors to the model. To account for this, we often look at the adjusted <span class="math inline">\(R^2\)</span> which weights the increase in variance explained (decrease in variance unexplained) by the number of additional predictors needed to produce that increase.</p>
-<p>You regression table only reports results to a few decimal places.</p>
-<p>Let’s use the <code>summary()</code> function to extract and save the <span class="math inline">\(R^2\)</span> (<code>r.squared</code>) and adjusted <span class="math inline">\(R^2\)</span> (<code>adj.r.squared</code>) for each model. The code for <code>m1</code> is there as an example.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># m1</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># m1_r_squared &lt;- summary(m1)$r.squared</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># m1_r_squared</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># m1_adj_r_squared &lt;- summary(m1)$adj.r.squared</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># m1_adj_r_squared</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># m2</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># m3</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># m4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Please answer the following:</p>
-<ul>
-<li><p><strong>How does the</strong> <span class="math inline">\(R^2\)</span> change from <code>m1</code> to <code>m4</code></p></li>
-<li><p><strong>How does the adjusted</strong> <span class="math inline">\(R^2\)</span> change from <code>m1</code> to <code>m4</code></p></li>
-<li><p><strong>Overall, which model should we prefer?</strong></p></li>
-</ul>
-<hr>
-</section>
-<section id="produce-and-visualize-predicted-values-for-m1-and-m3" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Produce and visualize predicted values for m1 and m3</h1>
-<p>Now let’s produce and visualize predicted values to help us interpret the relationship between age and support for the war <code>m1</code> (our baseline model) and <code>m3</code> (our polynomial model)</p>
-<p>We demonstrated the steps for producing predicted values in Tuesday’s <a href="https://pols1600.paultesta.org/slides/07-slides.html#64">lecture</a></p>
-<p>To review: you’ll need to</p>
+<section id="important-set-your-working-directory" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="important-set-your-working-directory">IMPORTANT: Set your working directory</h2>
 <ol type="1">
-<li>Fit a model (already done)</li>
-<li>Create a prediction data frame (<code>pred_df</code>)</li>
+<li>On the top panel of R Studio click:</li>
 </ol>
-<ul>
-<li>use <code>expand_grid()</code></li>
-<li>vary <code>age</code> using <code>seq()</code></li>
-<li>hold <code>sex</code> and <code>education</code> constant at typical values</li>
-</ul>
-<ol start="3" type="1">
-<li>Use this prediction data frame to obtain predicted values from each model and save the output as a new column in <code>pred_df</code></li>
-</ol>
-<ul>
-<li>for example <code>pred_df$fit_m1 &lt;- predict(m1, newdata = pred_df)</code></li>
-</ul>
-<ol start="4" type="1">
-<li>Visualize the results using ggplot.</li>
-</ol>
-<ul>
-<li>use <code>pred_df</code> as your data</li>
-<li>map <code>age</code> to x axis</li>
-<li>map <code>fit_m1</code> or <code>fit_m3</code> to the y axis</li>
-<li>tell ggplot to draw a line using <code>geom_line()</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a prediction data frame (`pred_df`)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">seq</span>(<span class="dv">18</span>, <span class="dv">99</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="st">"Male"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">education_n =</span> <span class="fu">mean</span>(df_drww<span class="sc">$</span>education_n, <span class="at">na.rm =</span> T)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>pred_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   age  sex education_n
-1   18 Male    3.166667
-2   27 Male    3.166667
-3   36 Male    3.166667
-4   45 Male    3.166667
-5   54 Male    3.166667
-6   63 Male    3.166667
-7   72 Male    3.166667
-8   81 Male    3.166667
-9   90 Male    3.166667
-10  99 Male    3.166667</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3  Use this prediction data frame to obtain predicted values from our model</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the output from predict() back into our prediction data frame</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_df$fit_m1 &lt;- predict(m1, newdata = pred_df)</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_df$fit_m3 &lt;- predict(m3, newdata = pred_df)</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">## predicted values for m1</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">## predicted values for m3</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Visualize the results using ggplot.</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="do">## plot predicted values for m1</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_df %&gt;%</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = age,</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#              y = fit_m1))+</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line()</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="do">## plot predicted values for m3</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># pred_df %&gt;%</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = age,</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co">#              y = fit_m3))+</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_line()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Please offer a brief interpretation of these two figures</strong></p>
-<hr>
-</section>
-<section id="produce-and-visualize-predicted-values-for-m2-and-m4" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Produce and visualize predicted values for m2 and m4</h1>
-<p>Finally, let’s see how to produce and interpret predictions for models <code>m2</code> and <code>m4</code>.</p>
-<p>Recall, that in <code>m2</code> we allowed the coefficient on <code>age</code> to vary by <code>sex</code> and in <code>m4</code> our model estimates separate age curves for male and female respondents.</p>
-<p>In the code chunk below</p>
+<blockquote class="blockquote">
+<p>Session Session &gt; Set working directory &gt; Source file location</p>
+</blockquote>
 <ol start="2" type="1">
-<li>Create a new prediction data frame (<code>pred_df_int</code>)</li>
+<li>Paste the output that shows up in your console into the code chunk below</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set working directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Session &gt; Set working directory &gt; Source file location</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># paste output here:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>All right, now let’s summarize the study</p>
+</section>
+</section>
+<section id="summarize-the-study" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Summarize the study</h1>
+<p>In a few sentences please answer the following questions about Grumbach and Hill (2021). I’ll get you started:</p>
 <ul>
-<li>use <code>expand_grid()</code></li>
-<li>vary <code>age</code> using <code>seq()</code></li>
-<li>vary <code>sex = c("Male","Female")</code></li>
-<li>hold <code>education</code> constant at a typical value</li>
+<li><p><strong>What’s research question?</strong> Broadly, Grumbach and Hill (2021 p.&nbsp;405) are interested in whether “election reform improve turnout among young people?” Specifically, Grumbach and Hill assess whether turnout is higher among younger voters in states with Same-Day-Registration (SDR) laws.</p></li>
+<li><p><strong>What’s the theory motivating the research question and expectations?</strong> Grumbach and Hill (henceforth, G&amp;H) contribute to and draw on a broad literature on voting in the field of political behavior. While past work has found …</p></li>
+<li><p><strong>What’s the empirical design?</strong> G&amp;H draw on a variety of datasets to test their claim. Their primary data for their main analyses comes from the …</p></li>
+<li><p><strong>What’s the core finding?</strong> The main results of their analyses are presented in …</p></li>
 </ul>
-<ol start="3" type="1">
-<li>Use this prediction data frame to obtain predicted values from each model and save the output as a new column in <code>pred_df_int</code></li>
-</ol>
+</section>
+<section id="download-the-replication-files" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Download the replication files</h1>
+<p>Ok now let’s download the replication files from the paper’s <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/AW5LU8" target="_blank">replication archive</a></p>
+<p>Please see the <a href="https://pols1600.paultesta.org/slides/07-slides#/go-to-the-papers-dataverse" target="_blank">slides</a></p>
+<p>Make sure the files are <strong>unzipped and saved</strong> in the <strong>SAME folder as this lab</strong></p>
+</section>
+<section id="load-the-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Load the data</h1>
+<p>There should be 11 total files in the dataverse_files folder. We’re only going to use three of the data files for this replication</p>
+<p>Please uncomment and run the code below</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load fips_codes</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fips_codes &lt;- read_csv("dataverse_files/fips_codes_website.csv")%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   janitor::clean_names()</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load policy data</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># policy_data &lt;- readRDS("dataverse_files/policy_data_updated.RDS")%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   janitor::clean_names()</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load CPS data</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># cps &lt;- read_csv("dataverse_files/cps_00021.csv") %&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   janitor::clean_names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="{callout-note}">
+<p>The <code>janitor::clean_names()</code> after each <code>read_XXX()</code> function converts column names to snake case</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup code if you run into major issues downloading and unzipping the files</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># DONT UNCOMMENT UNLESS YOU NEED TO</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sys.setenv("DATAVERSE_SERVER" = "dataverse.harvard.edu")</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load fips_codes</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># fips_codes &lt;- get_dataframe_by_name(</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   "fips_codes_website.tab",</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   "doi:10.7910/DVN/AW5LU8"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;% janitor::clean_names()</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load policy data</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># policy_data &lt;- get_dataframe_by_name(</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   "policy_data_updated.RDS",</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   "doi:10.7910/DVN/AW5LU8",</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   .f = readRDS</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;% janitor::clean_names()</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># # Load CPS data</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># cps &lt;- get_dataframe_by_name(</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   "cps_00021.csv",</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   "doi:10.7910/DVN/AW5LU8",</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   .f = read_csv</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ) %&gt;% janitor::clean_names()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="get-a-hlo-of-each-dataset" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Get a HLO of each dataset</h1>
+<p>In the code chunk below, please take a quick look at each dataset and answer the following for about each dataset. I’ll get you started for <code>fips_codes</code></p>
 <ul>
-<li>for example: <code>pred_df_int$fit_m2 &lt;- predict(m2, newdata = pred_df_int)</code></li>
-</ul>
-<ol start="4" type="1">
-<li>Visualize the results using ggplot.</li>
-</ol>
+<li><code>fips_codes</code>
 <ul>
-<li>use <code>pred_df_int</code> as your data</li>
-<li>map <code>age</code> to x axis</li>
-<li>map <code>fit_m2</code> or <code>fit_m4</code> to the y axis</li>
-<li>map <code>sex</code> to <code>col</code> to produce separate lines by the values of <code>sex</code></li>
-<li>tell ggplot to draw a line using <code>geom_line()</code></li>
+<li><strong>What is the unit of analysis?</strong> Federal Information Processing Standards (FIPS) state and county codes</li>
+<li><strong>How many observations</strong> 41,787 observations</li>
+<li><strong>How many variables</strong> 33 variables</li>
+<li><strong>What variables identify US states</strong> <code>st</code> and <code>statefip</code></li>
+</ul></li>
+<li><code>data</code>
+<ul>
+<li><strong>What is the unit of analysis?</strong> State-years</li>
+<li><strong>How many observations</strong> 2,450 observations</li>
+<li><strong>How many variables</strong> 33 variables</li>
+<li><strong>What variable describes whether a state had Same Day Registration (SDR)</strong> <code>sdr</code></li>
+</ul></li>
+<li><code>cps</code>
+<ul>
+<li><strong>What is the unit of analysis?</strong> A respondent to the CPS, a US resident</li>
+<li><strong>How many observations</strong> 3,039,807 respondents</li>
+<li><strong>How many variables</strong> 25 variables</li>
+<li><strong>What variables describe whether someone voted and how old they are</strong> <code>voted</code>, and <code>age</code></li>
+</ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a prediction data frame (`pred_df_int`)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pred_df_int <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">seq</span>(<span class="dv">18</span>, <span class="dv">99</span>, <span class="at">length.out =</span> <span class="dv">10</span>),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"Male"</span>,<span class="st">"Female"</span>),</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">education_n =</span> <span class="fu">mean</span>(df_drww<span class="sc">$</span>education_n, <span class="at">na.rm =</span> T)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>pred_df_int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HLO fips_codes</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(fips_codes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   age    sex education_n
-1   18   Male    3.166667
-2   27   Male    3.166667
-3   36   Male    3.166667
-4   45   Male    3.166667
-5   54   Male    3.166667
-6   63   Male    3.166667
-7   72   Male    3.166667
-8   81   Male    3.166667
-9   90   Male    3.166667
-10  99   Male    3.166667
-11  18 Female    3.166667
-12  27 Female    3.166667
-13  36 Female    3.166667
-14  45 Female    3.166667
-15  54 Female    3.166667
-16  63 Female    3.166667
-17  72 Female    3.166667
-18  81 Female    3.166667
-19  90 Female    3.166667
-20  99 Female    3.166667</code></pre>
+<pre><code>[1] 3256    5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Use this prediction data frame to obtain predicted values from our model</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the output from predict() back into our prediction data frame</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="do">## predicted values for m2</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="do">## predicted values for m4</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Visualize the results using ggplot.</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="do">## plot predicted values for m2</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="do">## plot predicted values for m4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fips_codes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "state"       "state_code"  "state_name"  "county_code" "county"     </code></pre>
 </div>
-<p><strong>Again,please offer a brief interpretation of these two figures</strong></p>
-<hr>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(fips_codes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3,256
+Columns: 5
+$ state       &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL"…
+$ state_code  &lt;chr&gt; "01", "01", "01", "01", "01", "01", "01", "01", "01", "01"…
+$ state_name  &lt;chr&gt; "Alabama", "Alabama", "Alabama", "Alabama", "Alabama", "Al…
+$ county_code &lt;chr&gt; "001", "003", "005", "007", "009", "011", "013", "015", "0…
+$ county      &lt;chr&gt; "Autauga County", "Baldwin County", "Barbour County", "Bib…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HLO policy_data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># HLO cps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="explore-another-relationship-in-the-data-optional" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Explore another relationship in the data (Optional)</h1>
-<p>Finally, if you’re finished with all the sections above, take some time to explore the data:</p>
-<ol type="1">
-<li>Formulate a question you could ask of the data</li>
-<li>Estimate a model (or models) that provides insights into this question</li>
-<li>Produce a table(s) and figure(s) that helps you interpret your model(s)</li>
-</ol>
-<p>For fun, let’s say the group that produces the most combination of question/model/interpretation, gets some candy next class.</p>
-<p>Some questions you might explore:</p>
+<section id="merge-policy_data-into-cps-data" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Merge <code>policy_data</code> into <code>cps</code> data</h1>
+<p>To replicate the paper’s main results we need to merge the data on election laws in the <code>policy_data</code> dataframe into the data on voting in the <code>cps</code> data frame.</p>
+<p>To merge <code>policy_data</code> into <code>cps</code>, we first need to merge the <code>st</code> column (State postal abbreviations of) from <code>fips_codes</code> into <code>cps</code> by the common <code>statefip</code> variable that is common to both <code>cps</code> and <code>state_fip</code></p>
+<p>Then we can merge <code>policy_data</code> into <code>cps</code> by the common variables <code>st</code> and <code>year</code> to match the policies in a given state and year to observations in <code>cps</code> from that state in that year.</p>
+<p>To avoid complications that from running merge code multiple times, we will save the output of each merge into temporary dataframes (e.g.&nbsp;<code>tmp1</code>), and then we’re confident we have done this correctly, will save the final merged data back into <code>cps</code>.</p>
+<p>Following Grumbach and Hill, we’ll also filter out any observations before 1978 and all observations from DC and North Dakota (why?).</p>
+<p>Please uncomment and run the following code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Merge state abbreviations (st) into CPS using statefip</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># tmp1 &lt;- cps %&gt;% dplyr::left_join(fips_codes %&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                       select(st, statefip),</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                       by = "statefip",</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                     multiple = "first"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                     )</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # tmp1 is cps with the added column "st"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># dim(tmp1)</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># names(tmp1)[26]</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># dim(cps)</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># # Merge policy data into tmp1 using common variables `st` and `year`</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># tmp2 &lt;- tmp1 %&gt;% dplyr:: left_join(</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   policy_data,</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   by = c("st", "year")</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># # Check merges</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># dim(tmp2)</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># dim(tmp1)</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># # New variables in tmp2 not in tmp1</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># names(tmp2)[!names(tmp2) %in% names(tmp1)]</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # Filter out DC, ND, and observations before 1978</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># tmp2 %&gt;%</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(!st %in% c("DC","ND"))%&gt;%</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(year&gt;=1978) -&gt; tmp3</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co"># # Replace cps with merged data</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co"># cps &lt;- tmp3</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># # Tidy up: remove temporary data frames</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(list=c("tmp1","tmp2","tmp3"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="examine-and-recode-the-data" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Examine and recode the data</h1>
+<p>The <strong>primary outcome</strong> of interest for this paper, is whether someone said they <code>voted</code> in a given year.</p>
+<p>The <strong>treatment</strong> is the effect of living in state with <strong>same day registration</strong> which is captured by the <code>sdr</code> variable.</p>
+<p>The <strong>key predictor</strong> will be indicators of a respondent’s <strong>age_cohort</strong> which we <strong>need to create</strong> from the <code>age</code> variable.</p>
+<p>Next lab we will also look at models that the control for the following covariates:</p>
 <ul>
-<li>How do demographic factors predict trust in Russia’s government</li>
-<li>Are their systematic differences in who chooses not to answers questions about support for the war or trust in government?</li>
-<li>Are there noticeable regional differences in support/trust?</li>
-<li>Should we model education as numeric scale or as a categorical factor?</li>
-<li>How does the use of social media (either in general or particular types of social media) predict support for the war or Trust in government</li>
+<li><code>education</code> recoded from the original <code>educ</code> variable in the <code>cps</code> collapsing</li>
+<li><code>race_f</code> a factor variable recoded from the original <code>race</code> variable in the <code>cps</code>
+<ul>
+<li>Indicators for respondents who identify as only one race (ie <code>is_white</code>)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul></li>
+<li><code>income</code> recoded from the original <code>faminc</code> variable in the <code>cps</code></li>
+<li><code>is_female</code> recoded from the original <code>sex</code> variable in the <code>cps</code></li>
 </ul>
+<blockquote class="blockquote">
+<p>Below we will recode the data for analysis. I will recode the covariates and the key predictors. Then <strong>you will write code to look at and recode the outcome.</strong></p>
+</blockquote>
+<section id="recode-covariates" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recode-covariates"><span class="header-section-number">6.1</span> Recode covariates</h2>
+<p>The CPS are messy data. Please run the code below to recode the covariates in the spirit of (i.e.&nbsp;with minor changes) what Grumbach and Hill did. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The file <code>cps_00021.cbk.txt</code> contains the <strong>codebook</strong> for the data, telling us what numeric values of each variable correspond to substantively. So if you’re wondering <strong>how I know</strong> what should be recoded to what specific values, it comes from reading the codebook, looking at Grumbach and Hill’s code, looking at the raw variable with a table, and the using <code>case_when()</code> to judiciously code the data. You’ll get practice doing this in your final projects, but I don’t want to spend too much time on this this lab, which is why you’re only recoding the outcome <code>voted</code></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Recode covariates</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cps %&gt;% </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     # Useful for plotting figure 2</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     SDR = ifelse(sdr == 1, "SDR", "non-SDR"),</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     education = case_when(</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ == 1 ~ NA, #Blank</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ &lt; 40 ~ 1, # No high school</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ &gt;= 40 &amp; educ &lt; 73 ~ 2, # Some high school</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ == 73 ~ 3, # High school degree</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ &gt;= 80 &amp; educ &lt;= 110 ~ 4, # Some college</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ &gt;= 111 &amp; educ &lt;123 ~ 5, # BA degree (And weirdly people who completed 5, 5+ and 6+ years of college)</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ &gt;= 123 &amp; educ &lt;=125 ~ 6, # BA degree (And weirdly people who completed 5, 5+ and 6+ years of college)</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#       educ == 999 ~ NA # Missing/unknown</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     race_f = case_when(</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 999 ~ NA,</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ factor(race)</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     is_white = case_when(</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 100 ~ 1,</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 999 ~ NA,</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ 0</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     is_black = case_when(</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 200 ~ 1,</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 999 ~ NA,</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ 0</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">#     is_aapi = case_when(</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 650 ~ 1,</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 651 ~ 1,</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 652 ~ 1,</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 999 ~ NA,</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ 0</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co">#     is_other = case_when(</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="co">#       is_white == 1 ~ 0,</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="co">#       is_black == 1 ~ 0,</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="co">#       is_aapi ==  1 ~ 0,</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="co">#       race == 999 ~ NA,</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ 1</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="co">#     income = case_when(</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="co">#       faminc &gt; 843 ~ NA, # Remove Missing/Refused</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ as.numeric(factor(faminc))</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="co">#     is_female = case_when(</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="co">#       sex == 2 ~ 1,</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="co">#       sex == 1 ~ 0,</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ NA # recode Not in Universe as NA</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="co">#     </span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; cps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-age_group-and-age_group_xx_xx-indicators" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="create-age_group-and-age_group_xx_xx-indicators"><span class="header-section-number">6.2</span> Create <code>age_group</code> and age_group_XX_XX indicators</h2>
+<p>Next we’ll create an <code>age_group</code> variable and binary indicators for each age cohort of the form <code>age_group_XX_XX</code>.</p>
+<p>Please uncomment and run the code below</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Create age variables</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cps %&gt;% </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group = case_when(</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 18 &amp; age &lt;= 24 ~ "18-24",</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 24 &amp; age &lt;= 34  ~ "25-34",</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 34 &amp; age &lt;= 44  ~ "35-44",</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 44 &amp; age &lt;= 54  ~ "45-54",</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 54 &amp; age &lt;= 64  ~ "55-64",</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#       age &gt; 64 ~ "65+",</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#       T ~ NA</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_18_24 = ifelse(age_group == "18-24", 1, 0),</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_25_34 = ifelse(age_group == "25-34", 1, 0),</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_35_44 = ifelse(age_group == "35-24", 1, 0),</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_45_54 = ifelse(age_group == "45-24", 1, 0),</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_55_64 = ifelse(age_group == "55-24", 1, 0),</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group_65plus = ifelse(age_group == "65+", 1, 0)</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; cps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="check-age-recodes" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="check-age-recodes"><span class="header-section-number">6.3</span> Check age recodes</h2>
+<p>It’s good practice when recoding, to check the output. Please use the <code>table()</code> to create a <strong>cross-tab</strong> of <code>age_group</code> and <code>age_group_18_24</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|label: checkage</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare age_group to age_group_18_24 using table()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Explain in words how the variable <code>age_group_18_24</code> relates to the variable <code>age_group</code></strong></p>
+</section>
+<section id="recode-the-outcome" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="recode-the-outcome"><span class="header-section-number">6.4</span> Recode the outcome</h2>
+<p>Now it’s your turn. Please do the following:</p>
+<ul>
+<li><strong>Look</strong> at the variable <code>voted</code> using the <code>table()</code> function
+<ul>
+<li><code>1</code> corresponds to <strong>Did not vote</strong></li>
+<li>`2 corresponds to <strong>Voted</strong></li>
+<li><code>96</code>,<code>97</code>,<code>98</code> to people who didn’t provide and answer, or didn’t remember</li>
+<li><code>99</code> corresponds to people <a href="https://cps.ipums.org/cps-action/faq" target="_blank">who shouldn’t be in the sample (“Not in universe”)</a></li>
+</ul></li>
+<li>Create a new variable called <code>dv_voted</code> using <code>case_when()</code> inside of <code>mutate()</code> that is:
+<ul>
+<li>1 when <code>voted == 2</code></li>
+<li>0 when <code>voted == 1</code>,</li>
+<li>0 when <code>voted &gt; 2 &amp; voted &lt;99</code></li>
+<li><code>NA</code> when <code>voted == 99</code></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at distribution of voted using table()</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable dv_voted using mutate(), case_when(), and voted variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="save-the-recoded-data" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="save-the-recoded-data"><span class="header-section-number">6.5</span> Save the recoded data</h2>
+<p>Finally, let’s save our recoded data to file called <code>cps_clean.rda</code> that we can use for next week’s lab</p>
+<p>Uncomment and run the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save(cps, file = "cps_clean.rda")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="recreate-figure-1" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Recreate Figure 1</h1>
+<p>Phew, all that work, just to get set up to work. Now we can <strong>have some fun.</strong></p>
+<p>Let’s recreate a version of Figure 1 using the policy data from the <code>policy_data</code> data frame.</p>
+<section id="write-down-aesthetic-mappings-from-the-figure" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="write-down-aesthetic-mappings-from-the-figure"><span class="header-section-number">7.1</span> Write down aesthetic mappings from the figure:</h2>
+<p>Before we create this figure, think about the information conveyed by the figure’s aesthetics (the x axis, the y axis, the color of the squares), and the corresponding columns from <code>policy_data</code> that contain this information.</p>
+<ul>
+<li>x-axis:</li>
+<li>y-axis:</li>
+<li>col:</li>
+</ul>
+</section>
+<section id="create-a-variable-called-sdr" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="create-a-variable-called-sdr"><span class="header-section-number">7.2</span> Create a variable called <code>SDR</code></h2>
+<p>It will be helpful to have a variable called <code>SDR</code> in <code>policy_data</code> that takes the value of “SDR” when <code>sdr == 1</code> and “non-SDR” when <code>sdr == 0</code></p>
+<p>Please use <code>case_when()</code> or <code>ifelse()</code> to create <code>SDR</code> in <code>policy_data</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a variable called SDR in policy_data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recreate-figure-1-1" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="recreate-figure-1-1"><span class="header-section-number">7.3</span> Recreate Figure 1</h2>
+<p>Recall, we need three things to make a figure:</p>
+<ul>
+<li>data</li>
+<li>aesthetics</li>
+<li>geometries</li>
+</ul>
+<p>Using data from <code>policy_data</code> starting in 1978 (hint add a <code>filter()</code>) and the aesthetic mappings identified above use <code>ggplot()</code> with the <code>geom_point()</code> geometry to make a version of Figure 1 from paper.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recreate Figure 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpret-figure-1." class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="interpret-figure-1."><span class="header-section-number">7.4</span> Interpret Figure 1.</h2>
+<p>Please answer the following questions:</p>
+<ul>
+<li><p><strong>How many states had Same Day Registration at some point in time?</strong> XX states</p></li>
+<li><p><strong>How many states had Same Day Registration in 2018?</strong> XX states had SDR in 2018</p></li>
+<li><p><strong>Did any states get rid of Same Day Registration? When did they get rid of this policy?</strong></p></li>
+<li><p><strong>What’s up with North Dakota?</strong></p></li>
+</ul>
+<p>Use this code chunk to write any code that might help you answer these questions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code to help you answer the questions above (if needed)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="recreate-figure-2" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Recreate Figure 2</h1>
+<p>Figure 2 shows the proportion of people voting by age group in states that did and did not have Same Day Registration.</p>
+<p>If we take the average of a binary indicator like <code>dv_voted</code>, we get a proportion, which corresponds to what Grumbach and Hill call the <code>Pr(Voted)</code></p>
+<section id="calculate-the-proption-voting-by-age-group-and-sdr" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="calculate-the-proption-voting-by-age-group-and-sdr"><span class="header-section-number">8.1</span> Calculate the proption voting by age group and SDR</h2>
+<p>With the <code>cps</code> data, use <code>group_by()</code> and summarize to calculate the proportion of people voting by age group in states that did and did not have same day registration in the code chunk below.</p>
+<p>Save the results to a new object called <code>fig2_df</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Calculate the proportion of voting by age group and SDR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recreate-figure-2-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="recreate-figure-2-1"><span class="header-section-number">8.2</span> Recreate Figure 2</h2>
+<p>Using <code>fig2_df</code> recreate a Figure 2 from the paper:</p>
+<ul>
+<li>filter out values of <code>age_group</code> that are <code>NA</code></li>
+<li>set the appropriate aesthetic mappings in <code>ggplot()</code></li>
+<li>use <code>geom_bar(stat = "identity", position = "dodge")</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recreate Figure 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interpret-figure-2" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="interpret-figure-2"><span class="header-section-number">8.3</span> Interpret Figure 2</h2>
+<p><strong>What does Figure 2 tell us?</strong> Figure 2 provides …</p>
+</section>
 </section>
 <section id="take-the-class-survey" class="level1 unnumbered">
 <h1 class="unnumbered">Take the Class Survey</h1>
-<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_5d2ZbPxo6uFcjRQ" target="_blank">class survey</a> for this week.</p>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_dgxOHQDv0xG1HzU" target="_blank">class survey</a> for this week.){target=“_blank”} for this week. This one’s a banger.</p>
 
 
 </section>
@@ -1017,12 +775,8 @@ $ no_social_media              &lt;dbl&gt; 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Mathematically, recall that the slope/first derivative of the line <span class="math inline">\(y = f(x) = 2x\)</span> is constant <span class="math inline">\((f'(x) = 2)\)</span>. If we increase x by 1, we expect y to increase by 2, while the derivative of a parabola <span class="math inline">\(y = f(z) = z^2\)</span> varies with <span class="math inline">\(z\)</span> <span class="math inline">\((f'(z) = 2x)\)</span>. Going from z= 2 to z= 3 is associated with a greater increase in y, then going from z=1 to z=2. Our model, however, is still <a href="https://blog.minitab.com/en/adventures-in-statistics-2/what-is-the-difference-between-linear-and-nonlinear-equations-in-regression-analysis#:~:text=In%20statistics%2C%20a%20regression%20equation,produce%20a%20U%2Dshaped%20curve.">linear in <em>parameters</em></a> <span class="math inline">\(\beta\)</span>. That is, it is still a linear regression. If our model included some parameter <span class="math inline">\(\theta^2\)</span>, then it would be a non-linear regression.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>In a machine learning framework, we trying to find an <a href="https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229">optimal tradeoff</a> between reducing bias in our predictors by including more predictors and minimizing variance in predictions by not overfitting the data.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I think, google translate was a bit unclear. But higher numbers equal more education.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>This is tricky, you need to know what the reference (excluded) category will be.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Basically, I’m asking whether the coefficient on <code>I(age^2)</code> is statistically significant. If it is, then the change in predicted support for the war among say 20-year-olds compared to 30-year-olds, would be different than change between 30- to 40-year-olds. Interpreting polynomials terms and interaction models is much easier if, as we do later, we simply obtain and plot the predicted values from this model<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>As in the previous question, basically you need to look at the table and see if the coefficients on the interaction terms are statistically significant. It’s a little more complicated than this, but if they are significant, this is evidence of differences across Sex.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The CPS coding on this is not great and there’s no measure of ethnicity in these data. Forgive the crude indicators, but their necessary to recreate some of Grumbach and Hill’s analysis next week. <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Note the way the recoding is described in the appendix to the paper is not how it is actually implemented in the replication code in <code>rock_the_reg_replication_code.R</code>. For example, the appendix describes income as ranging from 1 (Under $10k) to 16 ($500k and above), when their code, implemented above produces 32 unique values, in part because the way the CPS asked and coded the income question changed overtime. We’re going to roll with it for now…<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1104,6 +858,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1138,7 +910,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

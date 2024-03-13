@@ -1239,6 +1239,7 @@ $$
 ##
 
 ![](images/07_grumbach2022.png)
+
 ## General Structure of Labs 7-8
 
 Lab 7:

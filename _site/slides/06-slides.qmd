@@ -59,7 +59,7 @@ library(texreg)
 
 - Announcements (20)
   - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
-  - [Assignment 2  Data:]((https://pols1600.paultesta.org/assignments/a2) due Friday March 22
+  - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) due Friday March 22
 - Feedback
 - Review: Simple Linear Regression and Lab 5 (15-20 min)
 - Preview: Setup for Lab 6 (10-15 min)

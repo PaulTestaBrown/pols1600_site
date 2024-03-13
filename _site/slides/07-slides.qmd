@@ -272,6 +272,15 @@ df %>%
        title = "How are we doing?")
 ```
 
+## What should we do going forward?
+
+- From me:
+  - Shorter labs
+  - Shorter slides
+  - More coding, less copy-pasting 
+
+- From you?
+
 
 # {{< fa lightbulb >}} What does it mean to "control for X" {.inverse}
 
@@ -1230,6 +1239,22 @@ $$
 ##
 
 ![](images/07_grumbach2022.png)
+
+## General Structure of Labs 7-8
+
+Lab 7:
+
+- Summarize the study
+- Download and load the data
+- Recode the data
+- Merge the data
+- Recreate Figures 1 and 2
+
+Lab 8:
+
+- Estimate some baseline models to understand Two-Way Fixed Effects
+- Estimate some of the models in Figure 3
+- Extend the study, perhaps considering SDR by race or gender
 
 ## Reading Grumbach and Hill (2022){.smaller}
 
