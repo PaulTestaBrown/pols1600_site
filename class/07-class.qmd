@@ -37,7 +37,7 @@ comments <- paste0(
 
 -   {{< fa book >}} @Imai2022-pm Chapter 4 
 
-- {{< fa article >}} @Grumbach2022-zj [download](../files/readings/grumbach_hill_2021.pdf)
+- {{< fa article >}} @Grumbach2022-zj [download](../files/readings/grumbach_hill_2021.pdf){target="_blank"}
 
 
 
