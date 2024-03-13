@@ -5153,9 +5153,9 @@
   {
     "objectID": "slides/08-slides.html#packages-for-today",
     "href": "slides/08-slides.html#packages-for-today",
-    "title": "Week 08:",
+    "title": "POLS 1600",
     "section": "Packages for today",
-    "text": "Packages for today\n\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\", \"htmltools\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Graphics:\n  \"scatterplot3d\", #&lt;&lt;\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"zoo\", \n  \"gtools\" #&lt;&lt;\n)"
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
   },
   {
     "objectID": "slides/08-slides.html#define-a-function-to-load-and-if-needed-install-packages",
@@ -9233,5 +9233,75 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/08-slides.html#class-plan",
+    "href": "slides/08-slides.html#class-plan",
+    "title": "POLS 1600",
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements\nFeedback\nReview\nClass plan"
+  },
+  {
+    "objectID": "slides/08-slides.html#annoucements",
+    "href": "slides/08-slides.html#annoucements",
+    "title": "POLS 1600",
+    "section": "Annoucements",
+    "text": "Annoucements"
+  },
+  {
+    "objectID": "slides/08-slides.html#feedback",
+    "href": "slides/08-slides.html#feedback",
+    "title": "POLS 1600",
+    "section": "Feedback",
+    "text": "Feedback\n\n#load(url(\"https://pols1600.paultesta.org/files/data/cps_clean.rda\"))"
+  },
+  {
+    "objectID": "slides/08-slides.html#concepts",
+    "href": "slides/08-slides.html#concepts",
+    "title": "POLS 1600",
+    "section": " Concepts",
+    "text": "Concepts"
+  },
+  {
+    "objectID": "slides/08-slides.html#code",
+    "href": "slides/08-slides.html#code",
+    "title": "POLS 1600",
+    "section": " Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/08-slides.html#review-1",
+    "href": "slides/08-slides.html#review-1",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review"
+  },
+  {
+    "objectID": "slides/08-slides.html#concept-1",
+    "href": "slides/08-slides.html#concept-1",
+    "title": "POLS 1600",
+    "section": "Concept",
+    "text": "Concept"
+  },
+  {
+    "objectID": "slides/08-slides.html#code-2",
+    "href": "slides/08-slides.html#code-2",
+    "title": "POLS 1600",
+    "section": "Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/08-slides.html#summary-1",
+    "href": "slides/08-slides.html#summary-1",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary"
+  },
+  {
+    "objectID": "slides/08-slides.html#references",
+    "href": "slides/08-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600"
   }
 ]
