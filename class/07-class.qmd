@@ -1,14 +1,14 @@
 ---
-title: "Data and Measurement"
-date: "2024-01-30"
+title: "Interpreting and Evaluating Linear Regression"
+date: "2024-03-11"
 bibliography: ../files/paperpile.bib
-subtitle: "How do we describe the world around us."
+subtitle: "What does it mean to control for X? How do compare regression models?"
 image: "featured.jpg"
 ---
 
 ```{r slides-videos, echo=FALSE, include=FALSE}
 source(here::here("R", "slide-things.R"))
-wk <- "01"
+wk <- "07"
 lab <- paste0(
     "<a href=\"",
     paste0(
@@ -35,7 +35,9 @@ comments <- paste0(
 
 ## Readings
 
--   {{< fa book >}} @Imai2022-pm Chapter 1 [here's a free version of an older, non-tidyverse version](files/readings/QSS_ch01_and_ch03.pdf)
+-   {{< fa book >}} @Imai2022-pm Chapter 4 
+
+- {{< fa article >}} @Grumbach2022-zj [download](files/readings/grumbach_hill_2021.pdf)
 
 
 
@@ -56,7 +58,7 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 ## Lab
 
 
--   {{< fa laptop-file >}} Download this week's `r lab`
+-   {{< fa laptop-file >}} Download this week's lab `r lab`
 
 - {{< fa paintbrush >}} Upload the rendered html file to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments) 
 - {{< fa graduation-cap >}} Review the commented solutions after class `r comments`
@@ -64,21 +66,7 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ## Assignments
 
-- {{< fa lightbulb >}} Work through [Software Setup](../resources/00-software-setup.qmd) before class next week
-
-- {{< fa chalkboard-user >}} Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1
-
-```{r}
-#| eval: false
-
-# After completing the software setup you should be able to to run the following to launch the tutorials
-
-learnr::run_tutorial("00-intro", package = "qsslearnr")
-
-learnr::run_tutorial("01-measurement1", package = "qsslearnr")
-
-```
-
-- {{< fa paintbrush >}} Upload the rendered html tutorial files to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments) 
+- {{< fa chalkboard-user >}} Work on [Assignment 2: Data Questions](https://pols1600.paultesta.org/assignments/a2){target="_blank"}
+- {{< fa chalkboard-user >}} No tutorial
 
 

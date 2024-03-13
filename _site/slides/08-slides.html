@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="Paul Testa">
   <title>POLS 1600 - Week 08:</title>
@@ -768,6 +768,7 @@ Paul Testa
 <li class="fragment"><p>repeats are or are not allowed.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -812,6 +813,7 @@ Paul Testa
 
 
 </div>
+</div>
 </section>
 <section id="permutations-and-combinations" class="slide level2">
 <h2>Permutations and Combinations</h2>
@@ -826,6 +828,7 @@ Paul Testa
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -862,6 +865,7 @@ Paul Testa
 </table>
 
 
+</div>
 </div>
 </div>
 </section>
@@ -2050,6 +2054,24 @@ E(X)&amp;=\sum_{i=1}^{6}x_ip(x_i)\\
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -2086,7 +2108,11 @@ E(X)&amp;=\sum_{i=1}^{6}x_ip(x_i)\\
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

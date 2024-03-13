@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-01-30">
+<meta name="dcterms.date" content="2024-03-11">
 
-<title>POLS 1600 - Data and Measurement</title>
+<title>POLS 1600 - Interpreting and Evaluating Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -307,8 +273,8 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../class/00-class.html">Weekly Content</a></li><li class="breadcrumb-item"><a href="../class/07-class.html">7: Regression Extensions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data and Measurement</h1>
-<p class="subtitle lead">How do we describe the world around us.</p>
+<h1 class="title">Interpreting and Evaluating Linear Regression</h1>
+<p class="subtitle lead">What does it mean to control for X? How do compare regression models?</p>
 </div>
 
 
@@ -319,7 +285,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 30, 2024</p>
+      <p class="date">March 11, 2024</p>
     </div>
   </div>
   
@@ -334,41 +300,32 @@ div.csl-indent {
 <section id="readings" class="level2">
 <h2 class="anchored" data-anchor-id="readings">Readings</h2>
 <ul>
-<li><i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Imai2022-pm">Imai (<a href="#ref-Imai2022-pm" role="doc-biblioref">2022</a>)</span> Chapter 1 <a href="files/readings/QSS_ch01_and_ch03.pdf">here’s a free version of an older, non-tidyverse version</a></li>
+<li><p><i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Imai2022-pm">Imai (<a href="#ref-Imai2022-pm" role="doc-biblioref">2022</a>)</span> Chapter 4</p></li>
+<li><p><i class="fa-solid fa-article" aria-label="article"></i> <span class="citation" data-cites="Grumbach2022-zj">Grumbach and Hill (<a href="#ref-Grumbach2022-zj" role="doc-biblioref">2022</a>)</span> <a href="files/readings/grumbach_hill_2021.pdf">download</a></p></li>
 </ul>
 </section>
 <section id="lecture" class="level2">
 <h2 class="anchored" data-anchor-id="lecture">Lecture</h2>
 <p class="buttons">
-<a class="btn btn-danger" target="_blank" href="../slides/01-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a>
+<a class="btn btn-danger" target="_blank" href="../slides/07-slides.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View all slides in new window</a>
 </p><div class="ratio ratio-16x9">
-<iframe src="../slides/01-slides.html">
+<iframe src="../slides/07-slides.html">
 </iframe>
 </div>
 </section>
 <section id="lab" class="level2">
 <h2 class="anchored" data-anchor-id="lab">Lab</h2>
 <ul>
-<li><p><i class="fa-solid fa-laptop-file" aria-label="laptop-file"></i> Download this week’s <a href="../labs/01-lab.qmd " download="">here </a></p></li>
+<li><p><i class="fa-solid fa-laptop-file" aria-label="laptop-file"></i> Download this week’s lab <a href="../labs/07-lab.qmd " download="">here </a></p></li>
 <li><p><i class="fa-solid fa-paintbrush" aria-label="paintbrush"></i> Upload the rendered html file to Canvas <a href="https://canvas.brown.edu/courses/1094972/assignments">here</a></p></li>
-<li><p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Review the commented solutions after class <a href="../labs/01-lab-comments.html" target="_blank">here </a></p></li>
+<li><p><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i> Review the commented solutions after class <a href="../labs/07-lab-comments.html" target="_blank">here </a></p></li>
 </ul>
 </section>
 <section id="assignments" class="level2">
 <h2 class="anchored" data-anchor-id="assignments">Assignments</h2>
 <ul>
-<li><p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Work through <a href="../resources/00-software-setup.html">Software Setup</a> before class next week</p></li>
-<li><p><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> Complete QSS Tutorial 0: Introduction to R; QSS Tutorial 1: Measurement 1</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After completing the software setup you should be able to to run the following to launch the tutorials</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"00-intro"</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"01-measurement1"</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li><i class="fa-solid fa-paintbrush" aria-label="paintbrush"></i> Upload the rendered html tutorial files to Canvas <a href="https://canvas.brown.edu/courses/1094972/assignments">here</a></li>
+<li><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> Work on <a href="https://pols1600.paultesta.org/assignments/a2" target="_blank">Assignment 2: Data Questions</a></li>
+<li><i class="fa-solid fa-chalkboard-user" aria-label="chalkboard-user"></i> No tutorial</li>
 </ul>
 
 
@@ -376,6 +333,9 @@ div.csl-indent {
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Grumbach2022-zj" class="csl-entry" role="listitem">
+Grumbach, Jacob M, and Charlotte Hill. 2022. <span>“<span class="nocase">Rock the Registration: Same Day Registration Increases Turnout of Young Voters</span>.”</span> <em>The Journal of Politics</em> 84 (1): 405–17.
+</div>
 <div id="ref-Imai2022-pm" class="csl-entry" role="listitem">
 Imai, Kosuke. 2022. <em><span class="nocase">Quantitative Social Science An Introduction in Tidyverse</span></em>. Princeton University Press.
 </div>
@@ -459,6 +419,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -493,7 +471,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
