@@ -37,7 +37,7 @@ comments <- paste0(
 
 -   {{< fa book >}} @Imai2022-pm Chapter 4 
 
-- {{< fa article >}} @Grumbach2022-zj [download](files/readings/grumbach_hill_2021.pdf)
+- {{< fa article >}} @Grumbach2022-zj [download](../files/readings/grumbach_hill_2021.pdf){target="_blank"}
 
 
 
@@ -58,7 +58,7 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 ## Lab
 
 
--   {{< fa laptop-file >}} Download this week's `r lab`
+-   {{< fa laptop-file >}} Download this week's lab `r lab`
 
 - {{< fa paintbrush >}} Upload the rendered html file to Canvas [here](https://canvas.brown.edu/courses/1094972/assignments) 
 - {{< fa graduation-cap >}} Review the commented solutions after class `r comments`
