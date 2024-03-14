@@ -1,0 +1,472 @@
+---
+title: 'Lab 08 - Replicating Grumbach and Hill (2022):'
+subtitle: "Reproducing the results"
+author: "P.F. Testa"
+date: "Last Updated `r format(Sys.Date())`"
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-float: true
+    toc-depth: 2
+    number-sections: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  cache: true
+---
+
+
+# Overview {.unnumbered}
+
+In this lab, we continue our replication of Grumbach and Hill (2021) "Rock the Registration: Same Day Registration Increases Turnout of Young Voters."
+
+To accomplish this we will:
+
+0. Load packages and set the working directory to **where this file is saved**. (5 minutes)
+
+1. **Summarize the study** in terms of it's research question, theory, design, and results. (10 minutes)
+
+2. Download the replication files and **save them in the same folder as this lab** (5 minutes)
+
+3. **Load the data** from your computers into R (5 minutes)
+
+4. Get a quick **HLO** of the data (10 minutes)
+
+5. **Merge** data on election policy into data on voting (5 minutes, together),
+
+6. **Recode** the covariates, key predictors, and outcome for the study (10 minutes, partly together)
+
+7. Recreate **Figure 1** (15 minutes)
+
+8. Recreate **Figure 2** (15 minutes)
+
+Finally, we'll take the weekly survey which should be a **fun** one
+
+One of these 8 tasks will be randomly selected as the graded question for the lab.
+
+You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.
+
+This lab **must** contain the names of the group members in attendance.
+
+If you are attending remotely, you will submit your labs individually.
+
+Here are your assigned groups for the semester.
+
+```{r}
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
+
+DT::datatable(groups_df)
+```
+
+# Goals {.unnumbered}
+
+This week's lab will give you practice:
+
+- Summarizing academic work (Q1)
+
+- Loading data into R from your own computer (rather than just downloading it from the web) (Q2-3)
+
+- Looking at new data and figuring out what you need to do (e.g. merging, recoding) before you can analyze it (Q4-6)
+
+- Creating and interpreting figures that summarize aspects of a study's design and data (Q7-8)
+
+Next week, we'll get into the nuts and bolts of replicating Grumbach and Hill's main results
+
+
+# Workflow {.unnumbered}
+
+## Please render this .qmd file {.unnumbered}
+
+As with every lab, you should:
+
+-   Download the file
+-   Save it in your course folder
+-   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
+-   Render the document
+-   Open the html file in your browser (Easier to read)
+-   Write your code in the **chunks provided under each section**
+-   Comment out or delete any test code you do not need
+-   **Render the document again after completing a section or chunk** (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+
+# Get set up to work{.unnumbered}
+
+## Load packages {.unnumbered}
+
+
+As always, let's load the packages we'll need for today
+
+```{r}
+#| label: packages
+
+the_packages <- c(
+  ## R Markdown
+  "kableExtra","DT","texreg","htmltools",
+  ## Tidyverse
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
+  ## Extensions for ggplot
+  "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "GGally", "scales", "dagitty", "ggdag", "ggforce",
+  # Data 
+  "COVID19","maps","mapdata","qss","tidycensus", "dataverse",
+  "janitor",
+  # Analysis
+  "DeclareDesign", "easystats", "zoo","margins",
+  "modelsummary", "ggeffects"
+)
+
+# Define function to load packages
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+
+ipak(the_packages)
+```
+
+# Load the data
+
+```{r}
+# Set working directory to source file location
+
+# Load data (assumes a file called `cps_clean.rda` is in the same folder as this lab)
+
+
+# # BACKUP: Uncomment if you're having trouble you can load a version of the data from the web:
+load(url("https://pols1600.paultesta.org/files/data/cps_clean.rda"))
+```
+
+# Create addtional variables
+
+```{r}
+
+presidential_elections <- seq(1980, 2016, by = 4)
+ 
+cps %>% 
+  mutate(
+    st_f = factor(st),
+    year_f = factor(year),
+    election_type = ifelse(year %in% presidential_elections, "General","Midterm"),
+    SDR = ifelse(sdr == 1, "SDR","non-SDR"),
+    age_group = fct_relevel(age_group, "65+")
+  ) -> cps
+
+
+```
+
+
+# Describing variation by state, year, and age
+
+## State
+
+```{r}
+
+# Create dataframe of average voting rates by state
+cps %>% 
+  group_by(st) %>% 
+  summarise(
+    turnout = mean(dv_voted, na.rm=T)
+  ) %>% 
+  mutate(
+    st = fct_reorder(st, turnout)
+    ) -> df_state
+
+df_state %>% 
+  ggplot(aes(turnout,st))+
+  geom_bar(stat = "identity")
+
+```
+
+
+## Variation over time
+
+```{r}
+cps %>% 
+  group_by(year, election_type ) %>%
+  summarise(
+    turnout = mean(dv_voted, na.rm=T)
+  ) -> year_df
+
+year_df %>% 
+  ggplot(aes(year, turnout)) +
+  geom_line() +
+  facet_grid(~election_type)
+
+```
+
+
+## Variation over state and time
+
+```{r}
+cps %>% 
+  group_by(year, st, election_type ) %>%
+  summarise(
+    turnout = mean(dv_voted, na.rm=T)
+  ) -> year_state_df
+
+year_state_df %>% 
+  ungroup() %>% 
+  ggplot(aes(year, turnout, group=st)) +
+  geom_line()+
+  stat_smooth(geom = "line", col = "red",aes(group = NULL))+
+  facet_grid(~election_type)
+
+
+```
+
+
+
+# Understanding Two-Way Fixed Effects Regression
+
+## Estimate a simple model
+```{r}
+m1 <- lm_robust(dv_voted ~ sdr, 
+                data = cps,
+                se_type = "classical")
+m2 <- lm_robust(dv_voted ~ sdr, 
+                data = cps,
+                se_type = "stata",
+                fixed_effects = ~ st + year,
+                try_cholesky = T)
+m3 <- lm_robust(dv_voted ~ sdr,
+                data = cps,
+                fixed_effects = ~ st + year,
+                se_type = "stata",
+                clusters = st,
+                try_cholesky = T)
+```
+
+```{r}
+modelsummary(list(m1,m2,m3))
+
+```
+
+
+
+
+# Replicate two models from Figure 3
+
+```{r}
+m1gh <- lm_robust(dv_voted ~ sdr*age_group, 
+                  data = cps,
+                  fixed_effects = ~ st + year,
+                  se_type = "stata",
+                  clusters = st,
+                  try_cholesky = T
+                  )
+
+
+m2gh <- lm_robust(dv_voted ~ sdr*age_group +
+                    factor(race) + sex + faminc + educ, 
+                  data = cps,
+                  fixed_effects = ~ st + year,
+                  se_type = "stata",
+                  clusters = st,
+                  try_cholesky = T
+                  )
+
+
+```
+
+## Marginal Effects of Interactions
+
+```{r}
+me_fn <- function(mod, cohort, ci=0.95){
+  # Confidence Level for CI
+  alpha <- 1-ci
+  z <- qnorm(1-alpha/2)
+  
+  # Age (Always one for indicator of specific cohort)
+  age <- 1
+  
+  # Variance Covariance Matrix from Model
+  cov <- vcov(mod)
+  
+  # coefficient for SDR (Marginal Effect for reference category: 65+)
+  b1 <- coef(mod)["sdr"]
+  
+  # If age is one of the interactions
+  if(cohort %in% c("18-24","25-34","35-44","45-54","55-64")){
+    # get the name of the specific interaction
+    the_int <- paste("sdr:age_group",cohort,sep="")
+    # the coefficient on the interaction
+    b2 <- coef(mod)[the_int]
+    # Calculate marginal effect for age cohort
+    me <- b1 + b2*age
+    me_se <- sqrt(cov["sdr","sdr"] + age^2*cov[the_int,the_int] + 2*age*cov["sdr",the_int])
+    ll <- me - z*me_se
+    ul <- me + z*me_se
+  }
+  if(!cohort %in% c("18-24","25-34","35-44","45-54","55-64")){
+    me <- b1 
+    me_se <- mod$std.error["sdr"]
+    ll <- mod$conf.low["sdr"]
+    ul <- mod$conf.high["sdr"]
+  }
+
+  res <- tibble(
+    Age = cohort,
+    Effect = me,
+    SE = me_se,
+    ll = ll,
+    ul = ul
+  )
+  return(res)
+
+
+}
+
+
+```
+
+```{r}
+the_age_groups <- levels(cps$age_group)
+
+the_age_groups %>% 
+  purrr::map_df(~me_fn(m1gh, cohort=.)) %>% 
+  mutate(
+    Age = factor(Age),
+    Model = "No controls"
+  ) -> fig3_no_controls
+
+the_age_groups %>% 
+  purrr::map_df(~me_fn(m2gh, cohort=.)) %>% 
+  mutate(
+    Age = factor(Age),
+    Model = "With Controls"
+  ) -> fig3_controls
+```
+
+
+
+# Recreate Figure 3
+
+
+```{r}
+fig3_df <- fig3_no_controls %>% bind_rows(fig3_controls)
+
+fig3_df %>% 
+  ggplot(aes(Age, Effect))+
+  geom_point()+
+  geom_linerange(aes(ymin = ll, ymax =ul))+
+  geom_hline(yintercept = 0)+
+  theme_minimal()+
+  facet_wrap(~Model)
+
+```
+
+
+
+# Scratch
+
+Play around with code:
+
+```{r}
+
+# Timing of that adoption
+# 
+# cps %>% 
+#   group_by(st,year) %>% 
+#   summarize(
+#     sdr = max(sdr),
+#   ) %>% 
+#   ungroup() %>% 
+#   group_by(st) %>% 
+#   mutate(
+#     sdr_state = max(sdr)
+#   ) %>% 
+#   mutate(
+#     sdr_year = case_when(
+#       sdr == 1 & lag(sdr) == 0 ~ year,
+#       T ~ NA
+#     )
+#   ) %>% 
+#   fill(sdr_year, .direction = "updown") %>% 
+#   mutate(
+#     time_to_sdr = year - sdr_year,
+#     lag_00yr = case_when(
+#       time_to_sdr==0 ~ 1,
+#       T ~ 0),
+#     lag_02yr = case_when(
+#       time_to_sdr==-2 ~ 1,
+#       T ~ 0),
+#     lag_04yr = case_when(
+#       time_to_sdr==-4 ~ 1,
+#       T ~ 0),
+#     lag_06yr = case_when(
+#       time_to_sdr==-6 ~ 1,
+#       T ~ 0),
+#     lag_08yr = case_when(
+#       time_to_sdr==-8 ~ 1,
+#       T ~ 0),
+#     lag_10yr = case_when(
+#       time_to_sdr==-10 ~ 1,
+#       T ~ 0),
+#     lag_12yr = case_when(
+#       time_to_sdr==-12 ~ 1,
+#       T ~ 0),
+#     lag_14yr = case_when(
+#       time_to_sdr==-14 ~ 1,
+#       T ~ 0),
+#     lag_16yr = case_when(
+#       time_to_sdr==-16 ~ 1,
+#       T ~ 0),
+#     lag_18yr = case_when(
+#       time_to_sdr==-18 ~ 1,
+#       T ~ 0),
+#     lag_20yr = case_when(
+#       time_to_sdr==-20 ~ 1,
+#       T ~ 0),
+#     lead_02yr = case_when(
+#       time_to_sdr == 2 ~ 1,
+#       T ~ 0),
+#     lead_04yr = case_when(
+#       time_to_sdr == 4 ~ 1,
+#       T ~ 0),
+#     lead_06yr = case_when(
+#       time_to_sdr == 6 ~ 1,
+#       T ~ 0),
+#     lead_08yr = case_when(
+#       time_to_sdr == 8 ~ 1,
+#       T ~ 0),
+#     lead_10yr = case_when(
+#       time_to_sdr == 10 ~ 1,
+#       T ~ 0),
+#     lead_12yr = case_when(
+#       time_to_sdr == 12 ~ 1,
+#       T ~ 0),
+#     lead_14yr = case_when(
+#       time_to_sdr == 14 ~ 1,
+#       T ~ 0),
+#     lead_16yr = case_when(
+#       time_to_sdr == 16 ~ 1,
+#       T ~ 0),
+#     lead_18yr = case_when(
+#       time_to_sdr == 18 ~ 1,
+#       T ~ 0),
+#     lead_20yr = case_when(
+#       time_to_sdr == 20 ~ 1,
+#       T ~ 0),
+#   ) -> sdr_event_df
+# 
+# 
+# cps <- cps %>% left_join(sdr_event_df %>% select(-sdr))
+# 
+# 
+# m_es <- lm_robust(dv_voted ~ -1 + sdr:lag_04yr + sdr:lag_02yr + sdr:lag_00yr + sdr:lead_02yr + sdr:lead_04yr,
+#                   cps)
+# m_es
+# 
+# tmp <- read_csv("~/Downloads/data/Most-Recent-Cohorts-Institution.csv")
+# tmp$INSTNM[1:10]
+
+```
+
+

@@ -105,13 +105,19 @@ ipak(the_packages)
 ## Feedback
 
 ```{r}
-#load(url("https://pols1600.paultesta.org/files/data/cps_clean.rda"))
+load(url("https://pols1600.paultesta.org/files/data/cps_clean.rda"))
+#load("../files/data/cps_clean.rda")
 ```
 
 
-## {{< fa lightbulb >}}  Concepts 
+# {{< fa lightbulb >}}  Grumbach and Hill (2021);
 
-## {{< fa code>}} Code   
+## Goals
+
+## Variation in Turnout overtime
+
+
+
 
 # {{< fa magnifying-glass>}} Review {.inverse}
 
