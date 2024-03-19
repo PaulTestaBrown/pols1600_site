@@ -143,7 +143,16 @@ ipak(the_packages)
 load(url("https://pols1600.paultesta.org/files/data/cps_clean.rda"))
 ```
 
-# Create addtional variables
+# Create additional variables
+
+The following code **relevels** the factor variable `age_group` so that "65+" is the first level of the factor. 
+
+When `lm()` converts `age_group` to indicators for each in level of the factor, it's excludes the first level, which becomes the `reference category` described by the intercept, $\beta_0$ in the model.
+
+**Please create the following additional variables, that will be useful for presenting and visualizing data:**
+
+- `election_type` a categorical variable takes a value of "Presidential" when `year` is a presidential election, and a value of "Midterm" otherwise
+- `SDR` a categorical variable that takes a value of "SDR" when `sdr == 1` and 0 otherwise (you may already have this in your data)
 
 ```{r}
 
@@ -151,20 +160,20 @@ presidential_elections <- seq(1980, 2016, by = 4)
  
 cps %>% 
   mutate(
-    st_f = factor(st),
-    year_f = factor(year),
-    election_type = ifelse(year %in% presidential_elections, "General","Midterm"),
+    age_group = fct_relevel(age_group, "65+"),
     SDR = ifelse(sdr == 1, "SDR","non-SDR"),
-    age_group = fct_relevel(age_group, "65+")
+    election_type = ifelse(year %in% presidential_elections, "General","Midterm"),
   ) -> cps
 
 
 ```
 
 
-# Describing variation by state, year, and age
+# Describing variation by state, year, and policy
 
-## State
+## Variation by state
+
+Create a figure that shows how average turnout varies across state.
 
 ```{r}
 
@@ -187,6 +196,8 @@ df_state %>%
 
 ## Variation over time
 
+Create a figure that shows how turnout varies across time.
+
 ```{r}
 cps %>% 
   group_by(year, election_type ) %>%
@@ -202,7 +213,7 @@ year_df %>%
 ```
 
 
-## Variation over state and time
+## Variation across policy
 
 ```{r}
 cps %>% 
@@ -225,33 +236,183 @@ year_state_df %>%
 
 # Understanding Two-Way Fixed Effects Regression
 
-## Estimate a simple model
+In this question you will estimate **four** increasingly complex models using `lm_robust()` and explain how each subsequent model differs from the preceding model.
+
+1. A simple linear model, `m1` akin to what `lm()` produces modelling turnout (`dv_voted`) as a function of same day registration (`sdr`)
+
+2. A simple linear model, `m2`  with standard errors that are robust to heteroskedasticity (i.e. non-constant error variance) by setting `lm_robust()` argument to `se_type = "stata"` 
+
+3. A two-way fixed effects model, `m3`, with fixed effects for `st`ate and `year` using `lm_robust()` argument: `fixed_effects = ~ st + year`
+
+4. A two-way fixed effects model, `m3`, with fixed effects for `st`ate and `year` using `lm_robust()` argument: `fixed_effects = ~ st + year` **AND** robust standard errors  **clustered by state** using the argument: `clusters = st`
+
+
+
+## Estimate the models
+
 ```{r}
+# ---- m1: Simple OLS regression ----
 m1 <- lm_robust(dv_voted ~ sdr, 
                 data = cps,
-                se_type = "classical")
+                se_type = "classical",
+                try_cholesky = T)
+
+# ---- m2: Simple OLS with robust standard errors ----
 m2 <- lm_robust(dv_voted ~ sdr, 
                 data = cps,
                 se_type = "stata",
-                fixed_effects = ~ st + year,
                 try_cholesky = T)
+
+# ---- m3: Two-way Fixed Effects for State and Year ----
 m3 <- lm_robust(dv_voted ~ sdr,
+                data = cps,
+                fixed_effects = ~ st + year,
+                se_type = "stata",
+                try_cholesky = T)
+
+# ---- m4: TWFE for State and Year and cluster robst SEs ----
+
+m4 <- lm_robust(dv_voted ~ sdr,
                 data = cps,
                 fixed_effects = ~ st + year,
                 se_type = "stata",
                 clusters = st,
                 try_cholesky = T)
+
+
+
+```
+
+## Present and interpret the results
+
+When you've completed the previous section, you should be able uncomment and run the following code
+
+```{r}
+# htmlreg(l = list(m1,m2,m3, m4),
+#         digits = 5,
+#         include.ci = F,
+#         ) %>% HTML() %>% browsable()
+
+```
+
+**Please write a few sentences** explaining how the coefficient on `sdr` and it's standard error changes across the four models. I'll get you started:
+
+The table presents the results of four regression models. The outcome in each model is a binary indicator of whether respondents to the CPS voted in a given election. The key predictor of interest in each model is the coefficient for `sdr` which corresponds the model's predicted difference in turnout in states that had same day registration compared to states that did not. Model 1 presents the results form a simple linear regression assuming homoskedastic errors (i.e. constant error variance). The coefficient on `sdr` of 0.062 implies that this model predicts turnout will be higher by 6.2 percentage points in states with Same Day Registration. The standard error of 0.00110 is small relative to the coefficient, which as we will see in two weeks implies a *statistically significant* relationship. 
+
+Model 2 presents the same specification, but uses robust standard errors that allow for non-constant (heteroskedastic) error variance. The coefficient on `sdr` is exactly the same as Model 1, and the standard error is similar to the ten-thousandth decimal place. In short, simplying including robust standard errors does little to change our substantive interpretation.
+
+Model 3 includes fixed effects of state and year. Specifically, `lm_robust()` uses the [within-in](https://en.wikipedia.org/wiki/Fixed_effects_model#Fixed_effects_estimator) transformation, subtracting off the state and year level means of the predictors and outcomes before estimating the regression. This transformation is equivalent to including indicator variables to represent the various levels of each fixed effect (e.g. including year and st as factor variables in the model). That latter, sometimes called the dummy variable approach, is more computationally intensive, but as the code below demonstrates, they all yield the same estimates and standard errors (although their are some additional adjustments that `lm_robust()` performs, which we are not when we calculate the within transformations by hand) 
+
+```{r}
+options(digits = 5)
+options(scipen = 5)
+
+# Kludge-y method of alternating projections....
+cps %>% 
+  ungroup() %>% 
+  # Only use observations from m3
+  filter(!is.na(dv_voted), !is.na(sdr)) %>% 
+  dplyr::group_by(st) %>% 
+  # Within transformation by states
+  mutate(
+    dv_voted_within = dv_voted - mean(dv_voted, na.rm=T),
+    sdr_within = sdr - mean(sdr, na.rm=T)
+  ) %>% 
+  ungroup() %>% 
+  # Within transformation by year
+  dplyr::group_by(year) %>%
+  mutate(
+    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),
+    sdr_within = sdr_within - mean(sdr_within,na.rm=T)
+  ) %>% ungroup() %>% 
+  # Within transformation by year
+  dplyr::group_by(st) %>%
+  mutate(
+    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),
+    sdr_within = sdr_within - mean(sdr_within,na.rm=T)
+  ) %>% 
+    dplyr::group_by(year) %>%
+  mutate(
+    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),
+    sdr_within = sdr_within - mean(sdr_within,na.rm=T)
+  ) %>% ungroup() %>% 
+  dplyr::group_by(st) %>%
+  mutate(
+    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),
+    sdr_within = sdr_within - mean(sdr_within,na.rm=T)
+  ) %>% 
+    dplyr::group_by(year) %>%
+  mutate(
+    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),
+    sdr_within = sdr_within - mean(sdr_within,na.rm=T)
+  ) %>% ungroup()-> cps
+
+start_time_m3_within  <- Sys.time()
+m3_within <- lm_robust(dv_voted_within ~ sdr_within, 
+                       cps,
+                       se_type = "stata",
+                       try_cholesky = T)
+
+end_time_m3_within  <- Sys.time()
+time_m3_within <- round(end_time_m3_within - start_time_m3_within,5)
+
+
+start_time_m3_indicator  <- Sys.time()
+m3_indicator <- lm_robust(dv_voted ~ sdr + factor(year) + factor(st),
+                          cps,
+                          se_type = "stata")
+end_time_m3_indicator  <- Sys.time()
+time_m3_indicator <- round(end_time_m3_indicator - start_time_m3_indicator,5)
+
+time_m3_indicator
+time_m3_within
 ```
 
 ```{r}
-modelsummary(list(m1,m2,m3))
-
+2+2
+htmlreg(list(m3, m3_within, m3_indicator),
+        omit.coef = "factor|Intercept",
+        digits = 5,
+        include.ci = F
+        ) %>% HTML() %>% browsable()
 ```
 
+Finally, model 4 presents the results of a TWFE regression with fixed effects for state and year with robust standard errors clustered by state. The coefficient on `sdr` remains the same as in Model 3, predicting about 0.6 percentage points higher turnout in states with same day registration. We see that once we relax the assumption that our errors are independent, and allow for correlations between observations from the same state, our uncertainty about this coefficient (quantified by it's standard error) increases 10-fold, and we are non longer confident that there is a statistically significant relationship between same day registration and voting in these data. In sum, once we account for fixed differeces accross states and between time periods, and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain relatively little variation in voting
 
+
+:::{.callout-note}
+So which model should we prefer? I would say the default approach of most social scientists is to prefer the **most conservative** estimate, which in this case corresponds to the results from model 4. We'd rather underclaim than overclaim. Since rarely if ever, do we **know** the right model, it's generally common practice to report the results of multiple models with different spefications (as Grumbach and Hill do) as a way of demonstrating the robustness of ones' results.
+:::
 
 
 # Replicate two models from Figure 3
+
+Interesting.Once we account for fixed differences across states and between time periods and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain relatively little variation in voting. 
+
+Grumbach and Hill, however, are interested in a different question, namely, **whether the effects of same day registration vary by age.** 
+
+Grumbach and Hill test these claims using a regression model that interacts the `sdr` variable with indicators for the `age_group` of respondents. 
+
+The combination of the coefficient on `sdr` and the coefficient on the interaction of `sdr` with a specific age group indicator, tells us the predicted effect of `sdr` for respondents of that age group. In other words, it lets us assess whether same day registration is associated with more turnout among younger voters compared to older voters.
+
+Formally, we we can desribe these models using the following notation
+
+$$
+y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_t}_{\text{FE Year}} + \overbrace{\beta_1sdr_{st}}^{\text{ME of SDR for 65+}} + \underbrace{\sum_{k = 18-14}^{k = 55-64}\beta_{k} sdr_{st}\times age_{ist}}_{\Delta \text{ in ME of SDR for Age }}  +\overbrace{X\beta}^{\text{Controls}}+\epsilon_{ist}
+$$
+
+Please fit **two models** that **interact** the variable `sdr` with the variable `age_group`. Include fixed effects for `st`ate and `year`, and cluster your standard errors by `st`ate. 
+
+Call one model `m1gh` and only include the interaction between same day voting and age cohorts (`sdr*age_group`).
+
+Call the second model `m2gh`. In addition to the interaction, include controls for:
+
+- `race` (as a factor)
+- `is_female`
+- `income`
+- `education`
+
+## Estimate the models
 
 ```{r}
 m1gh <- lm_robust(dv_voted ~ sdr*age_group, 
@@ -264,7 +425,7 @@ m1gh <- lm_robust(dv_voted ~ sdr*age_group,
 
 
 m2gh <- lm_robust(dv_voted ~ sdr*age_group +
-                    factor(race) + sex + faminc + educ, 
+                    factor(race) + is_female + income + education, 
                   data = cps,
                   fixed_effects = ~ st + year,
                   se_type = "stata",
@@ -275,7 +436,92 @@ m2gh <- lm_robust(dv_voted ~ sdr*age_group +
 
 ```
 
+## Present the results
+
+Please present the results in a regression table:
+
+```{r}
+htmlreg(list(m1gh, m2gh), 
+        digits = 4,
+        include.ci = F) %>% HTML() %>% browsable()
+```
+
+
+# Recreate Figure 3
+
+Wuff. That's a lot of coefficients to sort through. 
+
+Moreover, the question Grumbach and Hill are interested -- how the marginal effect of same day registration varies by age -- isn't directly answered by any one coefficient in the the table.
+
+That's because in these interaction models, the marginal effect of SDR (and it's standard error) varies conditionally on the value of age group we're looking at. 
+
+The comments to this lab contain a more formal discussion of the math behind this results. 
+
+For you're purposes just know that quantites of interest from the models you estimated above can be described as follows:
+
+- $\beta_1 \text{sdr}$ describes the **marginal effect** of Same Day registration for the reference category of `age_group`, here individuals who are 65+ years of age. The standard error for this estimate is simply the standard error for the coefficient.
+
+- The **sum** of $\beta_1 + \beta_{\text{k=18-24}}$, where  $\beta_{\text{k=18-24}}$ corresponds to the coefficient for the **interaction** term `sdr:age_group18-24` describes the **marginal effect** of Same Day registration for 18 to 24 year olds.
+
+- Similarly $\beta_1 + \beta_{\text{k=25-34}}$ describes the marginal effect of Same Day registration for 25 to 34 year olds.
+
+------------------------
+
+More formally, we can think of the marginal effect of any variable in a multiple regression as the partial derivative of the outcome with respect to that variable. Depending on how much calculus we took, this is either relatively obvious, or completely confusioning. 
+
+So below, when taking the partial derivative of $y$ with respect to $x$ $(\frac{\partial y}{\partial x})$, anything not involving an $x$ is treated as a constant and the partial derivative of a constant is 0. By the [power rule](https://en.wikipedia.org/wiki/Power_rule), the derivative of $\beta_1 x$ is 1, and so the marginal effect of x on y  is $\beta_1$
+
+$$
+\begin{aligned}
+y &= \beta_0 + \beta_1 x +\beta_2z \\
+\frac{\partial y}{\partial x} &= 0 + \beta_1*(1) + 0\\
+\frac{\partial y}{\partial x} &= \beta_1
+\end{aligned} 
+$$
+
+Now consider a multiple regression with an interaction between two variables $x$ and $z$
+
+$$
+y = \beta_0 +\beta_1x +\beta_2 z + \beta_3 x*z
+$$
+
+Taking the partial derivative of y with respect to x $(\frac{\partial y}{\partial x})$, there are now two terms with $x$ in them:
+
+$$
+\begin{aligned}
+y &= \beta_0 +\beta_1x +\beta_2 z + \beta_3 x*z \\
+\frac{\partial y}{\partial x} &= 0 + \beta_1*(1) +0 + \beta_3*(1)*z\\
+\frac{\partial y}{\partial x} &= \beta_1 +\beta_3z
+\end{aligned} 
+$$
+And the marginal effect of $x$ now depends on value of $z$ at which we evaluate the model. Moreover, it can be shown for example in [Brambor Clark, and Golder 2006](https://www.jstor.org/stable/25791835), that the standard error of this marginal effect is a function of the variance and covariance of $\beta_1$ and $\beta_3$ and the value of the conditioning term $z$
+
+$$
+\text{Var}(\frac{\partial y}{\partial x}) = \text{Var}(\beta_1) + z^2\text{Var}(\beta_3) + 2\times z \text{Cov}(\beta_1,\beta_3)
+$$
+
+
 ## Marginal Effects of Interactions
+
+In the code below, I've written a **custom function** called `me_fn()` to calculate the **marginal effects** of Same Day Registration, a specific age cohort^[This is not a robust function, but one designed to work speicfically for these data and models]
+
+The function returns $1\times 5$ table with following columns
+
+- `Age` the Age for which we are evaluating the marginal effect of `sdr`
+- `Effect` the marginal effect of `sdr` condtional on `age_group` equalling the age cohort in `Age`
+- `SE` the standard error of this marginal effect
+- `ll` the **lower limit** of a 95 percent **confidence interval** for our estimate
+- `ul` the **upper limit** of a 95 percent **confidence interval** for our estimate
+
+We will talk in more detail about what a **confidence interval** is in two weeks. For now, you can think of this interval as a **range of equally plausible values** for the marginal effect of SDR at a given age cohort. 
+
+:::{callout-note}
+The heuristic for interpreting a confidence interval as a measure of statistical significance, is to ask:
+
+> Is **zero within** the upper and lower **limits of the confidence interval**. If so, then the true estimate could be negative, or it could be positive, in which case, we conclude the estimate is **not statistically significant**.
+:::
+
+Please run the code below:
 
 ```{r}
 me_fn <- function(mod, cohort, ci=0.95){
@@ -322,151 +568,88 @@ me_fn <- function(mod, cohort, ci=0.95){
 
 
 }
-
-
 ```
 
+Then uncomment the code below to create the data frame to produce a version of the coefficient plots from Grumbach and Hill's Figure 3.
+
 ```{r}
+
+# List of age cohorts
 the_age_groups <- levels(cps$age_group)
 
+## Model 1: No controls
+## Esimate Marginal effect for each age cohort
 the_age_groups %>% 
   purrr::map_df(~me_fn(m1gh, cohort=.)) %>% 
+  # Add Format labels for plotting
   mutate(
     Age = factor(Age),
     Model = "No controls"
   ) -> fig3_no_controls
 
+## Model 1: Controls for Education, Income, Race, 
+## Esimate Marginal effect for each age cohort
 the_age_groups %>% 
   purrr::map_df(~me_fn(m2gh, cohort=.)) %>% 
   mutate(
     Age = factor(Age),
-    Model = "With Controls"
+    Model = "With controls"
   ) -> fig3_controls
+  
+fig3_df <- fig3_no_controls %>% bind_rows(fig3_controls)
+  
+```
+
+------------------------
+
+If you're trying to understand the code above, it's a equivalent to writing something like:
+
+```{r}
+
+rbind(
+me_fn(m1gh, cohort="18-24"),
+me_fn(m1gh, cohort="25-34"),
+me_fn(m1gh, cohort="35-44"),
+me_fn(m1gh, cohort="45-54"),
+me_fn(m1gh, cohort="55-64"),
+me_fn(m1gh, cohort="65+")
+) %>% 
+  mutate(
+    Age = factor(Age),
+    Model = "No controls"
+  )
 ```
 
 
-
 # Recreate Figure 3
+ 
+Now we can recreate the first and second panels in the first column of Grumbach and Hill's Figure 3.
+ 
+In the code chunk below, pipe `fig3_df` into ggplot() and:
+
+- Set the `x` aesthetic to `Age`
+- Set the `y` aesthetic to `Effect`
+- Add `geom_point()`
+- Add `geom_linerange(aes(ymin = ll, ymax =ul))`
+- Add `geom_hline(yintercept = 0)`
+- Add a `facet_wrap(~Model)`
+- Set the `theme` if you like
 
 
 ```{r}
-fig3_df <- fig3_no_controls %>% bind_rows(fig3_controls)
 
 fig3_df %>% 
   ggplot(aes(Age, Effect))+
   geom_point()+
   geom_linerange(aes(ymin = ll, ymax =ul))+
   geom_hline(yintercept = 0)+
-  theme_minimal()+
-  facet_wrap(~Model)
+  facet_wrap(~Model)+
+  theme_minimal()
 
 ```
 
+## Compare your figure to Figure 3 from the text
 
-
-# Scratch
-
-Play around with code:
-
-```{r}
-
-# Timing of that adoption
-# 
-# cps %>% 
-#   group_by(st,year) %>% 
-#   summarize(
-#     sdr = max(sdr),
-#   ) %>% 
-#   ungroup() %>% 
-#   group_by(st) %>% 
-#   mutate(
-#     sdr_state = max(sdr)
-#   ) %>% 
-#   mutate(
-#     sdr_year = case_when(
-#       sdr == 1 & lag(sdr) == 0 ~ year,
-#       T ~ NA
-#     )
-#   ) %>% 
-#   fill(sdr_year, .direction = "updown") %>% 
-#   mutate(
-#     time_to_sdr = year - sdr_year,
-#     lag_00yr = case_when(
-#       time_to_sdr==0 ~ 1,
-#       T ~ 0),
-#     lag_02yr = case_when(
-#       time_to_sdr==-2 ~ 1,
-#       T ~ 0),
-#     lag_04yr = case_when(
-#       time_to_sdr==-4 ~ 1,
-#       T ~ 0),
-#     lag_06yr = case_when(
-#       time_to_sdr==-6 ~ 1,
-#       T ~ 0),
-#     lag_08yr = case_when(
-#       time_to_sdr==-8 ~ 1,
-#       T ~ 0),
-#     lag_10yr = case_when(
-#       time_to_sdr==-10 ~ 1,
-#       T ~ 0),
-#     lag_12yr = case_when(
-#       time_to_sdr==-12 ~ 1,
-#       T ~ 0),
-#     lag_14yr = case_when(
-#       time_to_sdr==-14 ~ 1,
-#       T ~ 0),
-#     lag_16yr = case_when(
-#       time_to_sdr==-16 ~ 1,
-#       T ~ 0),
-#     lag_18yr = case_when(
-#       time_to_sdr==-18 ~ 1,
-#       T ~ 0),
-#     lag_20yr = case_when(
-#       time_to_sdr==-20 ~ 1,
-#       T ~ 0),
-#     lead_02yr = case_when(
-#       time_to_sdr == 2 ~ 1,
-#       T ~ 0),
-#     lead_04yr = case_when(
-#       time_to_sdr == 4 ~ 1,
-#       T ~ 0),
-#     lead_06yr = case_when(
-#       time_to_sdr == 6 ~ 1,
-#       T ~ 0),
-#     lead_08yr = case_when(
-#       time_to_sdr == 8 ~ 1,
-#       T ~ 0),
-#     lead_10yr = case_when(
-#       time_to_sdr == 10 ~ 1,
-#       T ~ 0),
-#     lead_12yr = case_when(
-#       time_to_sdr == 12 ~ 1,
-#       T ~ 0),
-#     lead_14yr = case_when(
-#       time_to_sdr == 14 ~ 1,
-#       T ~ 0),
-#     lead_16yr = case_when(
-#       time_to_sdr == 16 ~ 1,
-#       T ~ 0),
-#     lead_18yr = case_when(
-#       time_to_sdr == 18 ~ 1,
-#       T ~ 0),
-#     lead_20yr = case_when(
-#       time_to_sdr == 20 ~ 1,
-#       T ~ 0),
-#   ) -> sdr_event_df
-# 
-# 
-# cps <- cps %>% left_join(sdr_event_df %>% select(-sdr))
-# 
-# 
-# m_es <- lm_robust(dv_voted ~ -1 + sdr:lag_04yr + sdr:lag_02yr + sdr:lag_00yr + sdr:lead_02yr + sdr:lead_04yr,
-#                   cps)
-# m_es
-# 
-# tmp <- read_csv("~/Downloads/data/Most-Recent-Cohorts-Institution.csv")
-# tmp$INSTNM[1:10]
-
-```
+Finally, **write a few sentences** comparing your results to those presented in Figure 3 of Grumbach and Hill:
 
 

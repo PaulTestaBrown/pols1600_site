@@ -66,7 +66,7 @@ slide_frame(paste0("/slides/", wk, "-slides.html"))
 
 ## Assignments
 
-- {{< fa chalkboard-user >}} Work on [Assignment 2: Data Questions](https://pols1600.paultesta.org/assignments/a2){target="_blank"}
+- {{< fa chalkboard-user >}} Work on [Assignment 2: Data](https://pols1600.paultesta.org/assignments/a2){target="_blank"}
 - {{< fa chalkboard-user >}} No tutorial
 
 
