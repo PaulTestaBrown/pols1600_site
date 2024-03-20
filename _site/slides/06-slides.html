@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -718,6 +718,7 @@
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>knitr<span class="sc">::</span><span class="fu">kable</span>(deaths_tab) <span class="sc">%&gt;%</span> </span>
 <span id="cb10-2"><a></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -768,6 +769,7 @@
 </table>
 
 
+</div>
 </div>
 </div>
 </div>
@@ -3916,6 +3918,7 @@ Num. obs.
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -3942,6 +3945,7 @@ Num. obs.
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="treatment-control-comparisons-in-the-post-period." class="slide level2 smaller">
 <h2>Treatment-Control comparisons in the Post Period.</h2>
@@ -3953,6 +3957,7 @@ Num. obs.
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -3976,6 +3981,7 @@ Num. obs.
 </table>
 
 
+</div>
 </div>
 </div>
 </div>
@@ -4464,6 +4470,24 @@ Coefficients:
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -4500,7 +4524,11 @@ Coefficients:
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

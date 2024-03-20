@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Your Group Members Names Here">
-<meta name="dcterms.date" content="2024-01-24">
+<meta name="author" content="Your Names HERE">
+<meta name="dcterms.date" content="2024-03-20">
 
-<title>POLS 1600 - Lab 08: Predicting Election Outcomes</title>
+<title>POLS 1600 - Lab 08 - Replicating Grumbach and Hill (2022):</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +102,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.32/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -136,7 +145,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -179,45 +188,58 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
-  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
-  </ul></li>
-  <li><a href="#get-setup-to-work" id="toc-get-setup-to-work" class="nav-link" data-scroll-target="#get-setup-to-work"><span class="header-section-number">1</span> Get setup to work</a>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">1.1</span> Load Packages</a></li>
-  <li><a href="#provide-a-high-level-overview-each-data-set" id="toc-provide-a-high-level-overview-each-data-set" class="nav-link" data-scroll-target="#provide-a-high-level-overview-each-data-set"><span class="header-section-number">1.2</span> Provide a high level overview each data set</a></li>
-  <li><a href="#re-arrange-the-intrade" id="toc-re-arrange-the-intrade" class="nav-link" data-scroll-target="#re-arrange-the-intrade"><span class="header-section-number">1.3</span> Re-Arrange the Intrade</a></li>
-  <li><a href="#convert-the-priced-variable-in-intrade08-to-a-probability" id="toc-convert-the-priced-variable-in-intrade08-to-a-probability" class="nav-link" data-scroll-target="#convert-the-priced-variable-in-intrade08-to-a-probability"><span class="header-section-number">1.4</span> Convert the <code>PriceD</code> variable in <code>intrade08</code> to a probability</a></li>
-  <li><a href="#create-a-subset-of-intrade08-called-df_nov3" id="toc-create-a-subset-of-intrade08-called-df_nov3" class="nav-link" data-scroll-target="#create-a-subset-of-intrade08-called-df_nov3"><span class="header-section-number">1.5</span> Create a subset of intrade08, called <code>df_nov3</code></a></li>
+  <li><a href="#please-render-this-.qmd-file" id="toc-please-render-this-.qmd-file" class="nav-link" data-scroll-target="#please-render-this-.qmd-file">Please render this .qmd file</a></li>
   </ul></li>
-  <li><a href="#calculate-obamas-expected-electoral-votes-on-november-3-2008" id="toc-calculate-obamas-expected-electoral-votes-on-november-3-2008" class="nav-link" data-scroll-target="#calculate-obamas-expected-electoral-votes-on-november-3-2008"><span class="header-section-number">2</span> Calculate Obama’s expected electoral votes on November 3, 2008</a></li>
-  <li><a href="#use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." id="toc-use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." class="nav-link" data-scroll-target="#use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win."><span class="header-section-number">3</span> Use the probabilities from the day before the election to simulate the total number of electoral votes Obama is predicted to win.</a></li>
-  <li><a href="#display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" id="toc-display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" class="nav-link" data-scroll-target="#display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram"><span class="header-section-number">4</span> Display the distribution of predicted number of electoral votes in a histogram</a></li>
-  <li><a href="#compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." id="toc-compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." class="nav-link" data-scroll-target="#compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation."><span class="header-section-number">5</span> Compute <span class="math inline">\(p_{ij}^*\)</span>, plot the transformed probabilities and explain the transformation.</a></li>
-  <li><a href="#using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" id="toc-using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" class="nav-link" data-scroll-target="#using-p_ij-repeat-the-simulations-from-above-and-compare-the-results"><span class="header-section-number">6</span> Using <span class="math inline">\(p_{ij}^*\)</span> repeat the simulations from above and compare the results</a></li>
-  <li><a href="#compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." id="toc-compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." class="nav-link" data-scroll-target="#compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions."><span class="header-section-number">7</span> Compute the expected number of electoral votes for Obama for the 120 days before November 4. Display the results in a time series plot and interpret the predictions.</a></li>
-  <li><a href="#for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" id="toc-for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" class="nav-link" data-scroll-target="#for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following"><span class="header-section-number">8</span> For each of the 120 days before the campaign conduct 100 simulation usings the <span class="math inline">\(p_{ij}^*\)</span> probabilities and do the following:</a></li>
+  <li><a href="#get-set-up-to-work" id="toc-get-set-up-to-work" class="nav-link" data-scroll-target="#get-set-up-to-work">Get set up to work</a>
+  <ul class="collapse">
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+  </ul></li>
+  <li><a href="#set-your-working-directory-and-load-the-data" id="toc-set-your-working-directory-and-load-the-data" class="nav-link" data-scroll-target="#set-your-working-directory-and-load-the-data"><span class="header-section-number">1</span> Set your working directory and load the data</a></li>
+  <li><a href="#create-additional-variables" id="toc-create-additional-variables" class="nav-link" data-scroll-target="#create-additional-variables"><span class="header-section-number">2</span> Create additional variables</a></li>
+  <li><a href="#describing-variation-in-voting-by-state-year-policy-and-age" id="toc-describing-variation-in-voting-by-state-year-policy-and-age" class="nav-link" data-scroll-target="#describing-variation-in-voting-by-state-year-policy-and-age"><span class="header-section-number">3</span> Describing variation in voting by state, year, policy, and age</a>
+  <ul class="collapse">
+  <li><a href="#variation-by-state" id="toc-variation-by-state" class="nav-link" data-scroll-target="#variation-by-state"><span class="header-section-number">3.1</span> Variation by state</a></li>
+  <li><a href="#variation-over-time" id="toc-variation-over-time" class="nav-link" data-scroll-target="#variation-over-time"><span class="header-section-number">3.2</span> Variation over time</a></li>
+  <li><a href="#across-policy-and-age-for-single-state" id="toc-across-policy-and-age-for-single-state" class="nav-link" data-scroll-target="#across-policy-and-age-for-single-state"><span class="header-section-number">3.3</span> Across policy and age for single state</a></li>
+  <li><a href="#describe-your-results" id="toc-describe-your-results" class="nav-link" data-scroll-target="#describe-your-results"><span class="header-section-number">3.4</span> Describe your results</a></li>
+  </ul></li>
+  <li><a href="#understanding-two-way-fixed-effects-regression" id="toc-understanding-two-way-fixed-effects-regression" class="nav-link" data-scroll-target="#understanding-two-way-fixed-effects-regression"><span class="header-section-number">4</span> Understanding Two-Way Fixed Effects Regression</a>
+  <ul class="collapse">
+  <li><a href="#estimate-the-models" id="toc-estimate-the-models" class="nav-link" data-scroll-target="#estimate-the-models"><span class="header-section-number">4.1</span> Estimate the models</a></li>
+  <li><a href="#present-and-interpret-the-results" id="toc-present-and-interpret-the-results" class="nav-link" data-scroll-target="#present-and-interpret-the-results"><span class="header-section-number">4.2</span> Present and interpret the results</a></li>
+  </ul></li>
+  <li><a href="#replicate-two-models-from-figure-3" id="toc-replicate-two-models-from-figure-3" class="nav-link" data-scroll-target="#replicate-two-models-from-figure-3"><span class="header-section-number">5</span> Replicate two models from Figure 3</a>
+  <ul class="collapse">
+  <li><a href="#estimate-the-models-1" id="toc-estimate-the-models-1" class="nav-link" data-scroll-target="#estimate-the-models-1"><span class="header-section-number">5.1</span> Estimate the models</a></li>
+  <li><a href="#present-the-results" id="toc-present-the-results" class="nav-link" data-scroll-target="#present-the-results"><span class="header-section-number">5.2</span> Present the results</a></li>
+  </ul></li>
+  <li><a href="#recreate-figure-3" id="toc-recreate-figure-3" class="nav-link" data-scroll-target="#recreate-figure-3"><span class="header-section-number">6</span> Recreate Figure 3</a>
+  <ul class="collapse">
+  <li><a href="#calculate-marginal-effects-of-interactions" id="toc-calculate-marginal-effects-of-interactions" class="nav-link" data-scroll-target="#calculate-marginal-effects-of-interactions"><span class="header-section-number">6.1</span> Calculate Marginal Effects of Interactions</a></li>
+  <li><a href="#recreate-figure-3-1" id="toc-recreate-figure-3-1" class="nav-link" data-scroll-target="#recreate-figure-3-1"><span class="header-section-number">6.2</span> Recreate Figure 3</a></li>
+  <li><a href="#compare-your-figure-to-figure-3-from-the-text" id="toc-compare-your-figure-to-figure-3-from-the-text" class="nav-link" data-scroll-target="#compare-your-figure-to-figure-3-from-the-text"><span class="header-section-number">6.3</span> Compare your figure to Figure 3 from the text</a></li>
+  </ul></li>
   <li><a href="#take-the-class-survey" id="toc-take-the-class-survey" class="nav-link" data-scroll-target="#take-the-class-survey">Take the Class Survey</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 08: Predicting Election Outcomes</h1>
+<h1 class="title">Lab 08 - Replicating Grumbach and Hill (2022):</h1>
+<p class="subtitle lead">Reproducing the results</p>
 </div>
 
 
@@ -227,14 +249,14 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Your Group Members Names Here </p>
+             <p>Your Names HERE </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 24, 2024</p>
+      <p class="date">March 20, 2024</p>
     </div>
   </div>
   
@@ -248,452 +270,461 @@ window.Quarto = {
 
 <section id="overview" class="level1 unnumbered">
 <h1 class="unnumbered">Overview</h1>
-<p>Today we’ll work through exercise <em>6.6.2 A Probability Model for Betting Market Election Prediction</em> from QSS (pp.&nbsp;309-310). We will use the daily data from the Intrade betting market to derive probabilities from degenerate gamblers about the likelihood that Obama would win the 2008 presidential election. We will use these probabilities to simulate possible elections and the summarize outcomes of these simulations graphically.</p>
-<p>Plan to spend the following amount of time</p>
-<ol type="1">
-<li><p>Get set up to work (5 minutes)</p></li>
-<li><p>Calculate Obama’s expected electoral vote share on November 3, 2008 (the day before the election) (10 minutes)</p></li>
-<li><p>Simulate a 1000 elections for November 3, 2008 using the betting market prices a measure of the probability that Obama wins or loses a state (10 minutes)</p></li>
-<li><p>Display the results of your simulation with a histogram. (5 minutes)</p></li>
-<li><p>Transform these probabilities to reduce the likelihood that Obama wins states like Alabama and increase the likelihood that Obama wins states like California (5 minutes)</p></li>
-<li><p>Simulate another 1000 elections using these transformed probabilities. Compare the results to your initial simulation. (10)</p></li>
-<li><p>Calculate Obama’s expected total number of votes for each day in the 120 days before the 2008 election (15 minutes)</p></li>
-<li><p>Simulate 100 elections for each of the 120 days before the election, plot the results of your simulation. (20 minutes)</p></li>
+<p>In this lab, we continue our replication of <a href="https://www.journals.uchicago.edu/doi/full/10.1086/714776">Grumbach and Hill (2021)</a> “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”</p>
+<p>To accomplish this we will:</p>
+<ol start="0" type="1">
+<li><p>Load packages. (5 minutes)</p></li>
+<li><p><strong>Set working directory and load the data</strong> from last class. (5 minutes)</p></li>
+<li><p>Do some additional <strong>recoding</strong> (5 minutes)</p></li>
+<li><p><strong>Describe</strong> variation in voting by state, year, policy, and age (20 minutes)</p></li>
+<li><p><strong>Estimate</strong> four regression models to understand <strong>fixed effects</strong> and <strong>cluster robust standard errors</strong> (20 minutes)</p></li>
+<li><p><strong>Replicate</strong> two regression models from Grumbach and Hill (2021) <strong>interacting</strong> <code>sdr</code> with <code>age_group</code> (10 minutes)</p></li>
+<li><p><strong>Recreate</strong> a portion of Figure 3 showing the <strong>marginal effect</strong> of <code>sdr</code> by age group. (15 minutes)</p></li>
 </ol>
-<section id="goals" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="goals">Goals</h2>
-<p>Conceptually, the main goals of this lab are to</p>
+<p>Finally, we’ll take the survey for this week</p>
+<p>One of these 6 tasks will be randomly selected as the graded question for the lab.</p>
+<p>You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.</p>
+<p>This lab <strong>must</strong> contain the names of the group members in attendance.</p>
+<p>If you are attending remotely, you will submit your labs individually.</p>
+<p>Here are your assigned groups for the semester.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-51fe225ed527f42aa33b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-51fe225ed527f42aa33b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="goals" class="level1 unnumbered">
+<h1 class="unnumbered">Goals</h1>
+<p>This week’s lab will give you practice:</p>
 <ul>
-<li><p>give you some practice working with probabilities in an application to the real world (predicting elections)</p></li>
-<li><p>introduce the idea of simulations as a tool for understanding probability and describing our uncertainty about what could have happened</p></li>
-</ul>
-<p>Technically, you learn how to</p>
-<ul>
-<li><p>use <code>for()</code> loops, which a useful programming skill when you need to do something repeatedly</p></li>
-<li><p>work with <code>R</code>’s built in probability functions. Specifically, we’ll use the:</p>
-<ul>
-<li><code>rbernoulli()</code> function to simulate “coin flips” for each state and on each date, will the betting market data will define the probability that Obama wins that state.</li>
-<li><code>pnorm()</code> and <code>qnorm()</code> functions to transform these probabilities, giving more probability to places where Obama is likely to win, and less probability to states Obama is unlikely to win.</li>
-</ul></li>
-<li><p>You’ll also get practice wrangling and visualizing data (today using R’s base graphics functions)</p></li>
+<li><p>Loading data from your own computers (Q1)</p></li>
+<li><p>Data wrangling with conditional logic (Q2)</p></li>
+<li><p>Describing variation to help illustrate the motivation behind fixed effects regression (Q3)</p></li>
+<li><p>Using <code>lm_robust()</code> to easily estimate models with fixed effects and robust clustered standard errors (Q4)</p></li>
+<li><p>Estimating and interpreting interaction models (Q5-6) to test conditional claims (like does the effect of Same Day Registration vary across age cohorts)</p></li>
 </ul>
 </section>
-<section id="workflow" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="workflow">Workflow</h2>
-<section id="please-knit-this-.rmd-file" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="please-knit-this-.rmd-file">Please knit this .Rmd file</h3>
+<section id="workflow" class="level1 unnumbered">
+<h1 class="unnumbered">Workflow</h1>
+<section id="please-render-this-.qmd-file" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="please-render-this-.qmd-file">Please render this .qmd file</h2>
 <p>As with every lab, you should:</p>
 <ul>
 <li>Download the file</li>
 <li>Save it in your course folder</li>
 <li><strong>Update the <code>author:</code> section of the YAML header to include the names of your group members in attendance.</strong></li>
-<li>Knit the document</li>
+<li>Render the document</li>
 <li>Open the html file in your browser (Easier to read)</li>
-<li>Write yourcode in the chunks provided</li>
+<li>Write your code in the <strong>chunks provided under each section</strong></li>
 <li>Comment out or delete any test code you do not need</li>
-<li><strong>Knit the document again after completing a section or chunk</strong> (Error checking)</li>
-<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1087979/assignments/7870531?module_item_id=10762404" target="_blank">Canvas</a>.</li>
+<li><strong>Render the document again after completing a section or chunk</strong> (Error checking)</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1094972/assignments" target="_blank">Canvas</a>.</li>
 </ul>
 </section>
 </section>
-</section>
-<section id="get-setup-to-work" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Get setup to work</h1>
-<section id="load-packages" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">1.1</span> Load Packages</h2>
-<p>First we’ll load the pacakges we need for today:</p>
+<section id="get-set-up-to-work" class="level1 unnumbered">
+<h1 class="unnumbered">Get set up to work</h1>
+<section id="load-packages" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="load-packages">Load packages</h2>
+<p>As always, let’s load the packages we’ll need for today</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>the_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## R Markdown</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kableExtra"</span>,<span class="st">"DT"</span>,<span class="st">"texreg"</span>,<span class="st">"htmltools"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Tidyverse</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyverse"</span>, <span class="st">"lubridate"</span>, <span class="st">"forcats"</span>, <span class="st">"haven"</span>, <span class="st">"labelled"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extensions for ggplot</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggmap"</span>,<span class="st">"ggrepel"</span>, <span class="st">"ggridges"</span>, <span class="st">"ggthemes"</span>, <span class="st">"ggpubr"</span>, </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GGally"</span>, <span class="st">"scales"</span>, <span class="st">"dagitty"</span>, <span class="st">"ggdag"</span>, <span class="st">"ggforce"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COVID19"</span>,<span class="st">"maps"</span>,<span class="st">"mapdata"</span>,<span class="st">"qss"</span>,<span class="st">"tidycensus"</span>, <span class="st">"dataverse"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"janitor"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Analysis</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DeclareDesign"</span>, <span class="st">"easystats"</span>, <span class="st">"zoo"</span>,<span class="st">"margins"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"modelsummary"</span>, <span class="st">"ggeffects"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define function to load packages</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ipak <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg){</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    new.pkg <span class="ot">&lt;-</span> pkg[<span class="sc">!</span>(pkg <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[, <span class="st">"Package"</span>])]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(new.pkg)) </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">install.packages</span>(new.pkg, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sapply</span>(pkg, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ipak</span>(the_packages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   kableExtra            DT        texreg     htmltools     tidyverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+    lubridate       forcats         haven      labelled         ggmap 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      ggrepel      ggridges      ggthemes        ggpubr        GGally 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+       scales       dagitty         ggdag       ggforce       COVID19 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+         maps       mapdata           qss    tidycensus     dataverse 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+      janitor DeclareDesign     easystats           zoo       margins 
+         TRUE          TRUE          TRUE          TRUE          TRUE 
+ modelsummary     ggeffects 
+         TRUE          TRUE </code></pre>
 </div>
-<p>Now we’ll load two data sets from the <code>qss</code> package: <code>pres08</code> and <code>intrade08</code></p>
+</div>
+</section>
+</section>
+<section id="set-your-working-directory-and-load-the-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Set your working directory and load the data</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set working directory to source file location</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data (assumes a file called `cps_clean.rda` is in the same folder as this lab)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # BACKUP: Uncomment if you're having trouble you can load a version of the data from the web:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load(url("https://pols1600.paultesta.org/files/data/cps_clean.rda"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-additional-variables" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Create additional variables</h1>
+<p>The following code <strong>relevels</strong> the factor variable <code>age_group</code> so that “65+” is the first level of the factor.</p>
+<p>When <code>lm()</code> converts <code>age_group</code> to indicators for each in level of the factor, it’s excludes the first level, which becomes the <code>reference category</code> described by the intercept, <span class="math inline">\(\beta_0\)</span> in the model.</p>
+<p><strong>Please create the following additional variables, that will be useful for presenting and visualizing data:</strong></p>
 <ul>
-<li><code>pres08</code> contains the 2008 US presidential election outcomes by state.</li>
-<li><code>intrade08</code> contains from Intrade, an online prediction market, in days leading up to the 2008 United States Presidential Election.</li>
+<li><code>election_type</code> a categorical variable takes a value of “Presidential” when <code>year</code> is a presidential election, and a value of “Midterm” otherwise</li>
+<li><code>SDR</code> a categorical variable that takes a value of “SDR” when <code>sdr == 1</code> and 0 otherwise (you may already have this in your data)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Results from 2008 election</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"pres08"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily betting market data</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"intrade08"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: Create a vector of presidential election years</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode data</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cps %&gt;% </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     age_group = fct_relevel(age_group, "65+")</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; cps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="provide-a-high-level-overview-each-data-set" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="provide-a-high-level-overview-each-data-set"><span class="header-section-number">1.2</span> Provide a high level overview each data set</h2>
-<p>In the code chunk below, please write some code to provide a high level overview of each data set.</p>
-<p>We will primarily work with the <code>EV</code> variable from <code>pres08</code> which contains the electoral votes for each state, and the <code>PriceD</code> variable from <code>intrade08</code> from which we will construct a probability that Obama wins that state.</p>
+<section id="describing-variation-in-voting-by-state-year-policy-and-age" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Describing variation in voting by state, year, policy, and age</h1>
+<section id="variation-by-state" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="variation-by-state"><span class="header-section-number">3.1</span> Variation by state</h2>
+<p>Create a figure that shows how average turnout varies across state in the <code>cps</code> data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HLO</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pres08</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Briefly describe each data set</strong></p>
-<ul>
-<li><p>The <code>pres08</code> data set contain …</p></li>
-<li><p>The <code>intrade08</code> data contain …</p></li>
-</ul>
-</section>
-<section id="re-arrange-the-intrade" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="re-arrange-the-intrade"><span class="header-section-number">1.3</span> Re-Arrange the Intrade</h2>
-<p>If you look closely at the data, you’d see that both are arranged alphabetically by state name, but in the <code>pres08</code> data, the District of Columbia is named “D.C.”, while in the <code>intrade08</code> data it is called “District of Columbia”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pres08<span class="sc">$</span>state.name[<span class="dv">8</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "D.C."</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>intrade08<span class="sc">$</span>statename[<span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "District of Columbia"</code></pre>
-</div>
-</div>
-<p>As a result, D.C. comes before Delaware in <code>pres08</code> but after Delaware in <code>intrade08</code>. It will be useful below, for the states to be in the same order in both data sets.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DC and DE are reversed</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pres08<span class="sc">$</span>state[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DC" "DE"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>intrade08<span class="sc">$</span>state[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "AL" "AK" "AZ" "AR" "CA" "CO" "CT" "DE" "DC"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same abbrevs</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pres08<span class="sc">$</span>state <span class="sc">%in%</span> intrade08<span class="sc">$</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 51</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Different namings of DC</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pres08<span class="sc">$</span>state.name <span class="sc">%in%</span> intrade08<span class="sc">$</span>statename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 50</code></pre>
-</div>
-</div>
-<p>Please use the <code>arrange()</code> function to re-arrange both data sets using the <code>state</code> variable which is the postal abbreviation code for each state and is the same in both data sets.</p>
-<p>For the <code>pres08</code> data <code>arrange()</code> by <code>state</code> and <code>intrade08</code> by <code>day</code> and then by <code>state</code></p>
-<ul>
-<li>Remember to save the output of <code>arrange()</code> back into each respective data frame</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange pres08</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>If your code was correct, DC should now come before DE in <code>intrade08</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pres08$state[1:9]</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># intrade08$state[1:9]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And the following code should return <code>TRUE</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all.equal(pres08$state[1:51], intrade08$state[intrade08$day=="2008-11-03"])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of average voting rates by state</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use data frame of state averages to produce figure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="convert-the-priced-variable-in-intrade08-to-a-probability" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="convert-the-priced-variable-in-intrade08-to-a-probability"><span class="header-section-number">1.4</span> Convert the <code>PriceD</code> variable in <code>intrade08</code> to a probability</h2>
-<p>The <code>intrade08</code> data contain a variable called <code>PriceD</code> which we will treat as the probability that Obama will win the presidential election.</p>
-<p>Recall that probabilities must be between 0 and 1. Please create a variable called <code>prob_obama_win</code> in <code>intrade08</code> by dividing <code>PriceD</code> by 100.</p>
+<section id="variation-over-time" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="variation-over-time"><span class="header-section-number">3.2</span> Variation over time</h2>
+<p>Create a figure that shows how turnout varies across time.</p>
+<p>Calculate the <code>year</code>ly averages separately by <code>election_type</code>. Facet your plot by <code>election_type</code> using <code>facet_wrap(~election_type)</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable prob_obama_win from PriceD in intrade08</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate yearly averages in turnout by election type</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display variation in turnout by year for Presidential And Midterm Elections</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="create-a-subset-of-intrade08-called-df_nov3" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="create-a-subset-of-intrade08-called-df_nov3"><span class="header-section-number">1.5</span> Create a subset of intrade08, called <code>df_nov3</code></h2>
-<p>Next we’ll create a subset of the data, called <code>df_nov3</code> that contains just the data from the day before the election (that is Monday, November 3, 2008)</p>
-<ul>
-<li>Hint: try <code>filter()</code></li>
-</ul>
+<section id="across-policy-and-age-for-single-state" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="across-policy-and-age-for-single-state"><span class="header-section-number">3.3</span> Across policy and age for single state</h2>
+<p>For a single state (you pick) that implemented SDR registration at some point between 1978 and 2018, plot the average turnout by <code>age_group</code> before and after the SDR</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a tricky one that is designed to test your data-wrangling skills.</p>
+<ol type="1">
+<li>Figure out which states adopted <code>sdr</code></li>
+<li>Create a summary dataframe of average turnout by age for a single state using <code>filter()</code>, <code>group_by()</code> and <code>summarise()</code></li>
+<li>Pipe this dataframe to <code>ggplot()</code> setting the appropriate aesthetics using <code>geom_point()</code> and <code>facet_grid()</code></li>
+</ol>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create df_nov3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For a chosen state, create a dataframe showing how turnout varies by year, age_group, and SDR</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure: Turnout by age group before and after SDR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
+<section id="describe-your-results" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="describe-your-results"><span class="header-section-number">3.4</span> Describe your results</h2>
+<p>In a few sentences, explain to your reader what these figures tell us about the data. I’ll get you started:</p>
+<p>First there is considerable variation in average rates of turnout across states. For example …</p>
+<p>Second, there is also considerable variation in turnout across election years …</p>
+<p>As for variation in turnout by age before and after SDR, in …</p>
 </section>
-<section id="calculate-obamas-expected-electoral-votes-on-november-3-2008" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Calculate Obama’s expected electoral votes on November 3, 2008</h1>
-<p>Using the data from <code>pres08</code> and <code>df_nov3</code>, calculate the expected number of electoral votes Obama is predicted to win in the Intrade data by summing up the states where <code>prob_obama_win</code> is greater than 0.5</p>
-<p>Hints:</p>
+</section>
+<section id="understanding-two-way-fixed-effects-regression" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Understanding Two-Way Fixed Effects Regression</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Interesting, so there appears to be considerable variation in turnout across states and over time. Further, depending on which state you looked at you may have found evidence of differences in turnout by age group before and after SDR that either support or challenge Grumbach’s main claims.</p>
+<p>In this question, we’ll see how we can use <strong>fixed effects</strong> to try and account for variation across states and years to <strong>isolate</strong> the effect of same day registration on turnout.</p>
+<p>We will also see how using <strong>robust standard errors</strong> with and without clustering changes our interpretations of the significance of our results.</p>
+</div>
+</div>
+<p>In this question you will estimate <strong>four</strong> increasingly complex models using <code>lm_robust()</code> and explain how each subsequent model differs from the preceding model.</p>
+<ol type="1">
+<li><p>A <strong>simple linear model</strong>, <code>m1</code> akin to what <code>lm()</code> produces modelling turnout (<code>dv_voted</code>) as a function of same day registration (<code>sdr</code>)</p></li>
+<li><p>A simple linear model, <code>m2</code> with standard errors that are <strong>robust to heteroskedasticity</strong> (i.e.&nbsp;non-constant error variance) by setting the <code>lm_robust()</code> argument: <code>se_type = "stata"</code></p></li>
+<li><p>A two-way fixed effects model, <code>m3</code>, with <strong>fixed effects</strong> for <code>st</code>ate and <code>year</code> using <code>lm_robust()</code> argument: <code>fixed_effects = ~ st + year</code> and <strong>robust standard errors</strong> using the same argument as <code>m2</code></p></li>
+<li><p>A two-way fixed effects model, <code>m3</code>, with fixed effects for <code>st</code>ate and <code>year</code> using <code>lm_robust()</code> argument: <code>fixed_effects = ~ st + year</code> <strong>AND</strong> robust standard errors <strong>clustered by state</strong> using the argument: <code>clusters = st</code></p></li>
+</ol>
+<section id="estimate-the-models" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="estimate-the-models"><span class="header-section-number">4.1</span> Estimate the models</h2>
+<p>I’ve gotten you started with the code for <code>m1</code> Use that code as a template to estimate <code>m2</code>, <code>m3</code>, and <code>m4</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # ---- m1: Simple OLS regression ----</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># m1 &lt;- lm_robust(dv_voted ~ sdr,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                 data = cps,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                 se_type = "classical",</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                 try_cholesky = T)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- m2: Simple OLS with robust standard errors ----</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- m3: Two-way Fixed Effects for State and Year ----</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- m4: TWFE for State and Year and cluster robust SEs ----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="present-and-interpret-the-results" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="present-and-interpret-the-results"><span class="header-section-number">4.2</span> Present and interpret the results</h2>
+<p>When you’ve completed the previous section, you should be able uncomment and run the following code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># htmlreg(l = list(m1,m2,m3, m4),</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#         digits = 5,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         include.ci = F,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#         ) %&gt;% HTML() %&gt;% browsable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Please write a few sentences</strong> explaining how the coefficient on <code>sdr</code> and it’s standard error changes across the four models. I’ll get you started:</p>
+<p>The table presents the results of four regression models. The outcome in each model is a binary indicator of whether respondents to the CPS voted in a given election. The key predictor of interest in each model is the coefficient for <code>sdr</code> which corresponds the model’s predicted difference in turnout in states that had same day registration compared to states that did not.</p>
+<p>Model 1 presents the results from …</p>
+<p>Model 2 presents the same specification, but uses …</p>
+<p>Model 3 includes …</p>
+<p>Finally, model 4 presents the results of a TWFE regression with fixed effects for state and year with …</p>
+<p>In sum, once we account for fixed differences across states and between time periods, and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain …</p>
+</section>
+</section>
+<section id="replicate-two-models-from-figure-3" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Replicate two models from Figure 3</h1>
+<p>Interesting. Once we account for fixed differences across states and between time periods and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain relatively little variation in voting.</p>
+<p>Grumbach and Hill, however, are interested in a different question, namely, <strong>whether the effects of same day registration vary by age.</strong></p>
+<p>Grumbach and Hill test these claims using a regression model that interacts the <code>sdr</code> variable with indicators for the <code>age_group</code> of respondents.</p>
+<p>The <strong>combination</strong> of the coefficient on <code>sdr</code> and the coefficient on the interaction of <code>sdr</code> with a specific age group indicator, tells us the predicted effect of <code>sdr</code> for respondents of that age group. In other words, it lets us assess whether same day registration is associated with more turnout among younger voters compared to older voters.</p>
+<p>Formally, we we can describe these models using the following notation:</p>
+<p><span class="math display">\[
+y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_t}_{\text{FE Year}} + \overbrace{\beta_1sdr_{st}}^{\text{ME of SDR for 65+}} + \underbrace{\sum_{k = 18-14}^{k = 55-64}\beta_{k} sdr_{st}\times age_{ist}}_{\Delta \text{ in ME of SDR for Age }}  +\overbrace{X\beta}^{\text{Controls}}+\epsilon_{ist}
+\]</span> And the quantities of interest for Grumbach and Hill’s claim are:</p>
+<p><span class="math display">\[
+\text{Marginal Effect of SDR for 65+} = \beta_1
+\]</span> The marginal effects of the other age groups are defined by <span class="math inline">\(\beta_1\)</span>, the marginal effect of SDR for 65+, <strong>PLUS</strong> the coefficient on the interaction term between SDR and each age group indicator. So for 18-24 year olds the quantity of interest is the sum of:</p>
+<p><span class="math display">\[
+\text{Marginal Effect of SDR for 18-24} = \beta_1 + \beta_{sdr \times 18-24}
+\]</span></p>
+<p>For 25-34 year olds</p>
+<p><span class="math display">\[
+\text{Marginal Effect of SDR for 25-34} = \beta_1 + \beta_{sdr \times 25-34}
+\]</span></p>
+<p>And so on.</p>
+<p>Please fit <strong>two models</strong> that <strong>interact</strong> the variable <code>sdr</code> with the variable <code>age_group</code>. Include fixed effects for <code>st</code>ate and <code>year</code>, and cluster your standard errors by <code>st</code>ate.</p>
+<p>Call one model <code>m1gh</code> and only include the interaction between same day voting and age cohorts (<code>sdr*age_group</code>).</p>
+<p>Call the second model <code>m2gh</code>. In addition to the interaction, include controls for:</p>
 <ul>
-<li><p>Because <code>pres08</code> and <code>df_nov3</code> have the same number of rows, and the rows are ordered in the same way (alphabetically by postal abbreviation), we can select variables from <code>pres08</code> using a logical index (<code>[]</code>) on variables from <code>df_nov3</code></p></li>
-<li><p>The you can just sum up the <code>EV</code> where <code>prob_obama_win</code> is greater than 0.5</p></li>
+<li><code>race</code> (as a <code>factor()</code> variable)</li>
+<li><code>is_female</code></li>
+<li><code>income</code></li>
+<li><code>education</code></li>
+</ul>
+<section id="estimate-the-models-1" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="estimate-the-models-1"><span class="header-section-number">5.1</span> Estimate the models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- m1gh ----</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- m2gh ----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="present-the-results" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="present-the-results"><span class="header-section-number">5.2</span> Present the results</h2>
+<p>Please present the results in a regression table.</p>
+<p>Once you’ve estimated the models, you can just uncomment the code below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># htmlreg(list(m1gh, m2gh), </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#         digits = 4,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         include.ci = F) %&gt;% HTML() %&gt;% browsable()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="recreate-figure-3" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Recreate Figure 3</h1>
+<p>Wuff. That’s a lot of coefficients to sort through.</p>
+<p>Moreover, the question Grumbach and Hill are interested – <strong>how the marginal effect of same day registration varies by age</strong> – isn’t directly answered by any one coefficient in the the table.</p>
+<p>That’s because the marginal effect of SDR (and it’s standard error) varies conditionally on the value of age group we’re looking at.</p>
+<p>The comments to this lab contain a more formal discussion of the math behind this results. For right now, just know that to recreate Figure 3, we’ll need to add the coefficients on the interactions of <code>sdr</code> with <code>age_group</code> to the coefficient on <code>sdr</code> to get the marginal effects for each age group.</p>
+<section id="calculate-marginal-effects-of-interactions" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="calculate-marginal-effects-of-interactions"><span class="header-section-number">6.1</span> Calculate Marginal Effects of Interactions</h2>
+<p>In the code below, I’ve written a <strong>custom function</strong> called <code>me_fn()</code> to calculate the <strong>marginal effects</strong> of Same Day Registration, a specific age cohort<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The function returns a <span class="math inline">\(1\times 5\)</span> data frame with following columns</p>
+<ul>
+<li><code>Age</code> the Age for which we are evaluating the marginal effect of <code>sdr</code></li>
+<li><code>Effect</code> the marginal effect in percentage points of predicted turnout of <code>sdr</code> conditional on <code>age_group</code> equaling the age cohort in <code>Age</code></li>
+<li><code>SE</code> the standard error of this marginal effect</li>
+<li><code>ll</code> the <strong>lower limit</strong> of a 95 percent <strong>confidence interval</strong> for our estimate</li>
+<li><code>ul</code> the <strong>upper limit</strong> of a 95 percent <strong>confidence interval</strong> for our estimate</li>
+</ul>
+<p>We will talk in more detail about what a <strong>confidence interval</strong> is in two weeks. For now, you can think of this interval as a <strong>range of equally plausible values</strong> for the marginal effect of SDR at a given age cohort.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The heuristic for interpreting a confidence interval as a measure of statistical significance, is to ask:</p>
+<blockquote class="blockquote">
+<p>Is <strong>zero within</strong> the upper and lower <strong>limits of the confidence interval</strong>. If so, then the true estimate could be negative, or it could be positive, in which case, we conclude the estimate is <strong>not statistically significant</strong>.</p>
+</blockquote>
+</div>
+</div>
+<p>Please run the code below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Function to calculate marginal effect and SE of interactions ----</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>me_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, cohort, <span class="at">ci=</span><span class="fl">0.95</span>){</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Confidence Level for CI</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>ci</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Age (Always one for indicator of specific cohort)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  age <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Variance Covariance Matrix from Model</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  cov <span class="ot">&lt;-</span> <span class="fu">vcov</span>(mod)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># coefficient for SDR (Marginal Effect for reference category: 65+)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  b1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[<span class="st">"sdr"</span>]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If age is one of the interactions</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(cohort <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"18-24"</span>,<span class="st">"25-34"</span>,<span class="st">"35-44"</span>,<span class="st">"45-54"</span>,<span class="st">"55-64"</span>)){</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the name of the specific interaction</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    the_int <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"sdr:age_group"</span>,cohort,<span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the coefficient on the interaction</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    b2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[the_int]</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate marginal effect for age cohort</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    me <span class="ot">&lt;-</span> b1 <span class="sc">+</span> b2<span class="sc">*</span>age</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    me_se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov[<span class="st">"sdr"</span>,<span class="st">"sdr"</span>] <span class="sc">+</span> age<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>cov[the_int,the_int] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>age<span class="sc">*</span>cov[<span class="st">"sdr"</span>,the_int])</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    ll <span class="ot">&lt;-</span> me <span class="sc">-</span> z<span class="sc">*</span>me_se</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    ul <span class="ot">&lt;-</span> me <span class="sc">+</span> z<span class="sc">*</span>me_se</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span>cohort <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"18-24"</span>,<span class="st">"25-34"</span>,<span class="st">"35-44"</span>,<span class="st">"45-54"</span>,<span class="st">"55-64"</span>)){</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    me <span class="ot">&lt;-</span> b1 </span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    me_se <span class="ot">&lt;-</span> mod<span class="sc">$</span>std.error[<span class="st">"sdr"</span>]</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    ll <span class="ot">&lt;-</span> mod<span class="sc">$</span>conf.low[<span class="st">"sdr"</span>]</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    ul <span class="ot">&lt;-</span> mod<span class="sc">$</span>conf.high[<span class="st">"sdr"</span>]</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># scale results to be percentage points</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age =</span> cohort,</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">Effect =</span> me<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">SE =</span> me_se<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">ll =</span> ll<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">ul =</span> ul<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then <strong>uncomment the code</strong> below to create the data frame to produce a version of the coefficient plots from Grumbach and Hill’s Figure 3.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## List of age cohorts</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the_age_groups &lt;- levels(cps$age_group)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Model 1: No controls</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Estimate Marginal effect for each age cohort</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the_age_groups %&gt;% </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   purrr::map_df(~me_fn(m1gh, cohort=.)) %&gt;% </span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Add labels for plotting</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     Age = factor(Age),</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     Model = "No controls"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; fig3_no_controls</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Model 3: Controls for Education, Income, Race,and Sex </span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Estimate Marginal effect for each age cohort</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># the_age_groups %&gt;% </span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   purrr::map_df(~me_fn(m2gh, cohort=.)) %&gt;% </span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   # Add labels for plotting</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     Age = factor(Age),</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     Model = "With controls"</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) -&gt; fig3_controls</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Combine estimates into data frame for plotting</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># fig3_df &lt;- fig3_no_controls %&gt;% bind_rows(fig3_controls)</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Display results</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># fig3_df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recreate-figure-3-1" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="recreate-figure-3-1"><span class="header-section-number">6.2</span> Recreate Figure 3</h2>
+<p>Now we can recreate the first and second panels in the first column of Grumbach and Hill’s Figure 3.</p>
+<p>In the code chunk below, pipe <code>fig3_df</code> into ggplot() and:</p>
+<ul>
+<li>Set the <code>x</code> aesthetic to <code>Age</code></li>
+<li>Set the <code>y</code> aesthetic to <code>Effect</code></li>
+<li>Add <code>geom_point()</code></li>
+<li>Add <code>geom_linerange(aes(ymin = ll, ymax =ul))</code></li>
+<li>Add <code>geom_hline(yintercept = 0)</code></li>
+<li>Add a <code>facet_wrap(~Model)</code></li>
+<li>Set the <code>theme</code> if you like</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate expected Obama EV using prob_obama win </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Figure 3 ----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Please fill in the <code>???</code> below:</strong></p>
-<p>Using the Intrade data from November 3, 2008, Obama is expected to win <strong>???</strong> electoral votes</p>
-<hr>
-<p>So it looks like the betting markets are pretty good. From the previous question, we saw that the Intrade data for November 3, 2008 predicted Obama will win 364 votes, which taking into account the fact that Nebraska divides its electoral votes, is pretty close to the 365 he actually won</p>
 </section>
-<section id="use-the-probabilities-from-the-day-before-the-election-to-simulate-the-total-number-of-electoral-votes-obama-is-predicted-to-win." class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Use the probabilities from the day before the election to simulate the total number of electoral votes Obama is predicted to win.</h1>
-<p>Now let’s use the probabilities from <code>prob_obama_win</code> in <code>df_nov3</code> to simulate an the idea of running repeated elections.</p>
-<p>Our variable <code>prob_obama_win</code> represents a probability that Obama win’s a given state. It’s relatively low for a Red state like Alabama, high for blue state like California and more uncertain for a swing state like North Carolina</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prob(Obama Win on Nov 3, 2008)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"AL"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"NC"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_nov3<span class="sc">$</span>prob_obama_win[df_nov3<span class="sc">$</span>state <span class="sc">==</span> <span class="st">"CA"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'df_nov3' not found</code></pre>
-</div>
-</div>
-<p>To simulate the outcome of the election, we’ll treat whether Obama won as the result of a <a href="https://pols1600.paultesta.org/slides/08-slides.html#92" target="_blank">Bernoulli trial</a> where the probability of success (Obama winning) is <span class="math inline">\(p_{ij}\)</span> (that is, the value of <code>prob_obama_win</code>) for each state.</p>
-<p>In most of these simulations, Obama will lose Alabama and win California. However, in each simulation, these probabilities suggest there’s a chance he wins Alabama (3 percent) or loses California (2 percent)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>To simulate repeated elections, we’ll do the following:</p>
+<section id="compare-your-figure-to-figure-3-from-the-text" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="compare-your-figure-to-figure-3-from-the-text"><span class="header-section-number">6.3</span> Compare your figure to Figure 3 from the text</h2>
+<p>Finally, <strong>write a few sentences</strong> comparing your results to those presented in Figure 3 of Grumbach and Hill.</p>
+<p>Here’s a snapshot of the relevant panels of Figure 3 for reference:</p>
+<p><img src="https://pols1600.paultesta.org/labs/images/08_fig3.png" class="img-fluid"></p>
+<p>Please comment on the following:</p>
 <ul>
-<li><p>set the random seed using <code>set.seed(123)</code> (This makes random simulations reproducible)</p></li>
-<li><p>define <code>sims</code> the number of simulations we want to to do. Let’s set <code>sims</code> equal to 1,000</p></li>
-<li><p>define the number of states as <code>n_states</code> in our simulation, which corresponds to the number of <em>Bernoulli trials</em> (coinflips)</p></li>
-<li><p>define the probability <code>p_obama_win</code> (probability of Obama winning) corresponding to <code>prob_obama_win</code> in <code>df_nov3</code> for each state.</p></li>
-<li><p>create an <em>empty</em> vector called <code>obama_ev_1</code> to store the results of each simulation</p></li>
-<li><p>use a <code>for()</code> loop to simulate these hypothetical elections, where for each <code>i</code> in 1 to <code>sims</code>,</p>
-<ul>
-<li>we take a random draw of size n (equal to the number of states) with corresponding probabilities <code>p</code> (equal to <code>prob_obama_win</code>) using <code>rbernoulli</code></li>
-<li>use the outcome of this random draw (a series of 0s and 1s of length <code>n_states</code>) to select the electoral votes for the states Obama one in simulation <code>i</code></li>
-<li>sum up the electoral votes for states Obama one in simulation <code>i</code> and save them to <code>obama_ev_1[i]</code></li>
-</ul></li>
+<li><p>How does the size (magnitude) of the marginal effects for 18-24 year olds compare to those reported in Figure 3?</p></li>
+<li><p>How would you interpret this marginal effect substantively?</p></li>
+<li><p>Are any of the marginal effects in the model with no controls statistically significant?</p></li>
 </ul>
-<p>I’ve written some code to get you started in the code chunk below.</p>
-<p>Please <strong>uncomment the code</strong> and replace the <code>???</code> with the correct values.</p>
-<p>We’ll interpret the results of our simulation in the next question.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set random seed</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(123)</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Define number of simulations</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># sims &lt;- ?????</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Define number of states for each simulation</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># n_states &lt;- ?????</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Create empty container for results of simulation</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_1 &lt;- c() </span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Use for loop to conduct simulations</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:1000){</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   obama_ev_1[i] &lt;- sum(</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     pres08$EV[rbernoulli(</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co">#       n = ???, </span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="co">#       p = ???)</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co">#       ]</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<hr>
+<p>And if you’re interested, check out the comments for some further discussion about the differences between our replication and the published results.</p>
 </section>
-<section id="display-the-distribution-of-predicted-number-of-electoral-votes-in-a-histogram" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Display the distribution of predicted number of electoral votes in a histogram</h1>
-<p>Please do the following with <code>obama_ev_1</code></p>
-<ul>
-<li><p>use the <code>hist()</code> function to create a histogram</p></li>
-<li><p>use the <code>abline()</code> function to plot a vertical line at 365</p>
-<ul>
-<li>try running <code>?graphics::abline</code> to see the help page for <code>abline()</code> to see how to draw a vertical line on a plot</li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histogram of simulated EV</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical line showing actual votes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Answer:</strong> Write your interpretation of the histogram here.</p>
-<hr>
-<p>Interesting. So the typical electoral vote share from the simulations is a bit lower than Obama’s actual vote share and in a small number of simulations, Obama is predicted to actually lose the election (e.g.&nbsp;had simulated vote shares below 270).</p>
-<p>Prediction markets tend to exaggerate the chances of long shots winning a campaign.</p>
-<p>Let’s adjust the probabilities used above using the following formula:</p>
-<p><span class="math display">\[p_{ij}^* = \Phi(1.64 \times \Phi^{-1}(p_{ij}))\]</span></p>
-<p>Where <span class="math inline">\(\Phi\)</span> is the PDF of the <a href="https://pols1600.paultesta.org/slides/08-slides.html#102">normal distribution</a> (<code>prnorm()</code> in R) and <span class="math inline">\(\Phi^{-1}\)</span> is the CDF (<code>qnorm()</code> in R) of the normal distribution.</p>
-</section>
-<section id="compute-p_ij-plot-the-transformed-probabilities-and-explain-the-transformation." class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Compute <span class="math inline">\(p_{ij}^*\)</span>, plot the transformed probabilities and explain the transformation.</h1>
-<p>Using the formula above and the <code>pnorm()</code> and <code>qnorm()</code> functions in R transform <code>prob_obama_win</code> in <code>df_nov3</code> to <code>p_star</code>.</p>
-<p>Then plot the results.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate p_star</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># p_star &lt;- pnorm(???*qnorm(???))</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot pstar against original prob_obama_win</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x= df_nov3$prob_obama_win, y = p_star)</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line showing p_star function</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># curve(pnorm(1.64*qnorm(x)),add=T,col="grey")</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add 45 degree line showing </span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Points below = lower prob</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Point above = higher prob</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(a=0,b=1, lty=2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Please interpret the results of this transformation</strong></p>
-<hr>
-<p>So our transformation decreases the probability for low values of the original <span class="math inline">\(p_{ij}\)</span> and increases the probabilities of high <span class="math inline">\(p_{ij}\)</span></p>
-</section>
-<section id="using-p_ij-repeat-the-simulations-from-above-and-compare-the-results" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Using <span class="math inline">\(p_{ij}^*\)</span> repeat the simulations from above and compare the results</h1>
-<ul>
-<li><p>Uncomment the code below and replace the <code>???</code> with the appropriate code.</p>
-<ul>
-<li>Hint Use the code from the question 3, but replace <code>p_obama_win</code> with <code>p_star</code></li>
-</ul></li>
-<li><p>Then plot the distribution of the old and new simulations with two histograms.</p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set.seed(123)</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_2 &lt;- c() # Container to hold results of each simulation</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulation using </span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:sims){</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   obama_ev_2[i] &lt;- ???</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot distributions</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># hist(obama_ev_1)</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># hist(obama_ev_2, add=T, col="red")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Answer:</strong> Write your comparison of the two histograms here.</p>
-<ul>
-<li>Does using <code>p_star</code> improve the predictions?</li>
-</ul>
-<hr>
-<p>Interesting, so the transformation seemed to improve the predictions in that none of the simulated values were below the 270 electoral vote threshold.</p>
-</section>
-<section id="compute-the-expected-number-of-electoral-votes-for-obama-for-the-120-days-before-november-4.-display-the-results-in-a-time-series-plot-and-interpret-the-predictions." class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Compute the expected number of electoral votes for Obama for the 120 days before November 4. Display the results in a time series plot and interpret the predictions.</h1>
-<p>Here’s some code to get the 120 days before the election</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get dates</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">sort</span>(intrade08<span class="sc">$</span>day[intrade08<span class="sc">$</span>day <span class="sc">&lt;</span> <span class="st">"2008-11-04"</span> <span class="sc">&amp;</span> intrade08<span class="sc">$</span>day <span class="sc">&gt;=</span> <span class="st">"2008-07-07"</span>]))</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
-"2008-07-07" "2008-08-05" "2008-09-04" "2008-09-04" "2008-10-04" "2008-11-03" </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 120</code></pre>
-</div>
-</div>
-<p>Now create a container to hold 120 predictions</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create containers to hold the values you want to calculate for each day</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>obama_ev_120 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And write code that:</p>
-<ul>
-<li><p>That loops through all 120 dates, and extracts the date for day i</p></li>
-<li><p>Calculates p_star from the <code>prob_obama_win</code> for that day</p></li>
-<li><p>Sums the electoral votes for states in which <code>p_star</code> is greater than 0.5</p></li>
-<li><p>Plots dates on the x axis and obama_ev_120 on the y</p></li>
-</ul>
-<p>Use the code below as a template and fill in the ???</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:???){</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract date i</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># day &lt;- dates[???]</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate p_star for day</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># p_star &lt;- pnorm(1.64*qnorm(intrade08$prob_obama_win[intrade08$day == ???]))</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sum expected EV for day </span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obama_ev_120[i] &lt;- sum(pres08$EV[ ??? &gt; 0.5])</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x=dates, obama_ev_120,</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     ylim=c(0,538)</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Answer:</strong> Interpret your plot here</p>
-<hr>
-</section>
-<section id="for-each-of-the-120-days-before-the-campaign-conduct-100-simulation-usings-the-p_ij-probabilities-and-do-the-following" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> For each of the 120 days before the campaign conduct 100 simulation usings the <span class="math inline">\(p_{ij}^*\)</span> probabilities and do the following:</h1>
-<ul>
-<li><p>Calculate the expected (mean) number of votes for the simulation for each day</p></li>
-<li><p>Compute the 2.5% and 97.5% percentiles of the simulated Electoral Votes from the simulation for each day using the <code>quantile()</code> function</p></li>
-<li><p>Plot the mean number of votes from the simulations for each day and add</p>
-<ul>
-<li>a vertical segment that goes from the 2.5% percentile to 97.5% percentile for each day’s simulation.</li>
-<li>a solid blue horizontal line at 365 corresponding to Obama’s actual electoral votes</li>
-<li>a dashed red line at 270 corresponding to number of electoral votes need to win a presidential election.</li>
-</ul></li>
-<li><p>Interpret the results.</p></li>
-</ul>
-<p>You need to use <strong>two</strong> <code>for()</code> loops for this.</p>
-<p>The first for loop will loop through dates and calculate p_star for each date (<span class="math inline">\(i\)</span>).</p>
-<p>Then, within that for loop, R will do a second loop, where: for each date and p_star, the second loop will generate <span class="math inline">\(j\)</span> simulations of the predicted number of electoral votes.</p>
-<p>After the <span class="math inline">\(j\)</span> simulations are complete, the code will calculate the quantities you want for that date, <span class="math inline">\(i\)</span>, and then the code will move to the next date and repeat the process.</p>
-<p>Use your code from the previous questions to help you fill in the <code>???</code> in the code below</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Create containers to hold the values you want to calculate for each day</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # Average predicted value</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_mean &lt;- c()</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # 97.5 percentile</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ul &lt;- c()</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # 2.5 percentile</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ll &lt;- c()</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># # Simulation</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># for(i in 1:120){</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 1. Extract day i from dates object</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># day &lt;- ???</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 2. Calculate p_star for day i</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># p_star &lt;- ???</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 3. create container for simulations for day i</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_sim &lt;- ???</span></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co">#  #. 4 Conduct 100 simulations</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   for(j in 1:100){</span></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co">#    # For simulation j, calculate expected EV and save in container</span></span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="co"># obama_ev_sim[j] &lt;- ???</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co">#  }</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="co">#  # 5.After 100 simulations, calculate</span></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co"># # Average predicted EV for day i</span></span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_mean[i] &lt;- ???</span></span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="co"># # 97.5 percentile</span></span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ul[i] &lt;- ???</span></span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a><span class="co"># # 2.5 percentile</span></span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ev_ll[i] &lt;- ???</span></span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a><span class="co">#  # Repeat for next i until all 120 dates have been simulate.</span></span>
-<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="co"># # Plot values</span></span>
-<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(x= ???,</span></span>
-<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="co">#      y = ???,</span></span>
-<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a><span class="co">#     ylim=c(0,538)</span></span>
-<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
-<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add vertical segment for 95% coverage interval</span></span>
-<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a><span class="co"># segments(x0=dates, x1 = dates, y0= ???, y1 = ???)</span></span>
-<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a><span class="co"># # Add horizontal lines at 365 and 270</span></span>
-<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(h=???,lty=2, col ="red")</span></span>
-<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a><span class="co"># abline(h=???,lty=1, col = "blue")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Answer:</strong> Provide a brief interpretation of your plot here</p>
 </section>
 <section id="take-the-class-survey" class="level1 unnumbered">
 <h1 class="unnumbered">Take the Class Survey</h1>
-<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_cOnvgqXGJ9ybOvk" target="_blank">class survey</a> for this week.</p>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_9AoYCyElyryi1pk" target="_blank">class survey</a> for this week.){target=“_blank”} for this week.</p>
 
 
 </section>
@@ -702,7 +733,7 @@ window.Quarto = {
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Here we’re assuming these probabilities are independent. Actual forecasting models like 538 or the NYT generally assume the probabilities of winning some states correlate with the probability of winning other neighboring states.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This is not a robust function, but one designed to work specifically for these data and models<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -784,6 +815,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -818,7 +867,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

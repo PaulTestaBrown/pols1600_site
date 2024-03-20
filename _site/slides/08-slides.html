@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -430,7 +430,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Mar 19, 2024</p>
+  <p class="date">Updated Mar 20, 2024</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -551,6 +551,7 @@ DeclareDesign     easystats           zoo
 <h2>Our Fashion Advice</h2>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -599,6 +600,7 @@ DeclareDesign     easystats           zoo
 </table>
 
 
+</div>
 </div>
 </div>
 </section>
@@ -913,6 +915,7 @@ Naive professor in class survey: "Help me with my fit"<br>Students: "Ok, bet. Tu
 <p>Four possible outcomes</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -938,6 +941,7 @@ Naive professor in class survey: "Help me with my fit"<br>Students: "Ok, bet. Tu
 
 </div>
 </div>
+</div>
 </section>
 <section id="whats-the-probability-you-have-covid-19-given-a-positive-test-1" class="slide level2 smaller">
 <h2>What’s the probability you have Covid-19 given a positive test</h2>
@@ -951,6 +955,7 @@ Naive professor in class survey: "Help me with my fit"<br>Students: "Ok, bet. Tu
 <p>In a sample of 100,000 people then:</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -974,6 +979,7 @@ Naive professor in class survey: "Help me with my fit"<br>Students: "Ok, bet. Tu
 </table>
 
 
+</div>
 </div>
 </div>
 </div>
@@ -1907,6 +1913,24 @@ Grumbach, Jacob M, and Charlotte Hill. 2022. <span>“<span class="nocase">Rock 
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1943,7 +1967,11 @@ Grumbach, Jacob M, and Charlotte Hill. 2022. <span>“<span class="nocase">Rock 
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
