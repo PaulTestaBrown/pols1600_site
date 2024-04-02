@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.551">
+  <meta name="generator" content="quarto-1.4.545">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -555,7 +555,6 @@
 <h2>Data wrangling</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div>
 <table data-quarto-postprocess="true">
 <caption>You're learning how to map conceptual tasks to commands in R</caption>
 <thead>
@@ -597,7 +596,6 @@
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -2830,7 +2828,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 <p>Because potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from <a href="https://mixtape.scunning.com/difference-in-differences.html" target="_blank">Scott Cunningham</a>:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -2856,7 +2853,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 
 </div>
 </div>
-</div>
 </section>
 <section id="how-can-we-estimate-the-effect-of-moving-pumps-upstream" class="slide level2 smaller">
 <h2>How can we estimate the effect of moving pumps upstream?</h2>
@@ -2874,7 +2870,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -2901,7 +2896,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </div>
 </div>
 </div>
-</div>
 </section>
 <section id="treatment-control-comparisons-in-the-post-period." class="slide level2 smaller">
 <h2>Treatment-Control comparisons in the Post Period.</h2>
@@ -2913,7 +2907,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr class="header">
@@ -2937,7 +2930,6 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i
 </table>
 
 
-</div>
 </div>
 </div>
 </div>
@@ -3371,24 +3363,6 @@ Blair, Graeme, Alexander Coppock, and Macartan Humphreys. 2023. <em><span class=
         // clear code selection
         e.clearSelection();
       });
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
-            }
-          }
-        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -3425,11 +3399,7 @@ Blair, Graeme, Alexander Coppock, and Macartan Humphreys. 2023. <em><span class=
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
+          return note.innerHTML;
         });
       }
       const findCites = (el) => {
