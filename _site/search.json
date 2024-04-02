@@ -6849,7 +6849,7 @@
     "href": "index.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
   },
   {
     "objectID": "slides/00-slides-template.html#class-plan",
@@ -8464,9 +8464,9 @@
   {
     "objectID": "slides/09-slides.html#goals",
     "href": "slides/09-slides.html#goals",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Goals",
-    "text": "Goals\n\nThe Law of Large Number’s says that as our sample size increases, our sample mean will converge to the population value\n\n–\n\nThe Central Limit Theorem says that the distribution of those sample means will follow a normal distribution\n\n–\n\nGeneralized Linear Models allow us to more accurately model different types of data-generating processes using Maximum Likelihood Estimation."
+    "text": "Goals\n\nProbability distributions allow us to describe different data generating processes and quantify uncertainty about estimates\nThe Law of Large Numbers tells us that the mean of a sample converges to the mean of population as the size of the sample grows larger.\nThe Central Limit Theorem tells us that distribution of sample means of a given sample size converges in distribution to a Normal probability distribution\nStandard Errors describe the width of a sampling distribution and allow us to assess the statistical significance of regression estimates"
   },
   {
     "objectID": "slides/09-slides.html#emoji-slide-notation",
@@ -8506,28 +8506,28 @@
   {
     "objectID": "slides/09-slides.html#probability",
     "href": "slides/09-slides.html#probability",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Probability",
     "text": "Probability\n\nProbability describes the likelihood of an event happening.\nStatistics uses probability to quantify uncertainty about estimates and hypotheses.\nThree rules of probability (Kolmogorov axioms)\n\nPositivity: \\[Pr(A) \\geq 0 \\]\nCertainty: \\[Pr(\\Omega) = 1 \\]\nAdditivity: \\[Pr(A \\text{ or } B) = Pr(A) + Pr(B)\\] iff A and B are mutually exclusive"
   },
   {
     "objectID": "slides/09-slides.html#probability-1",
     "href": "slides/09-slides.html#probability-1",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Probability",
-    "text": "Probability\n\nTwo interpretations interpreting probabilities (Frequentist and Bayesian)\nConditional Probability and Bayes Rule:\n\n\\[Pr(A|B) = \\frac{Pr(B|A)Pr(A)}{Pr(B)} = \\frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A^\\complement)Pr(A^\\complement)}\\]"
+    "text": "Probability\n\n\nTwo interpretations interpreting probabilities (Frequentist and Bayesian)\nConditional Probability and Bayes Rule:\n\n\\[Pr(A|B) = \\frac{Pr(B|A)Pr(A)}{Pr(B)} = \\frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A^\\complement)Pr(A^\\complement)}\\]"
   },
   {
     "objectID": "slides/09-slides.html#random-variables",
     "href": "slides/09-slides.html#random-variables",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Random Variables",
     "text": "Random Variables\n\nRandom variables assign numeric values to each event in an experiment.\n\nMutually exclusive and exhaustive, together cover the entire sample space.\n\nDiscrete random variables take on finite, or countably infinite distinct values.\nContinuous variables can take on an uncountably infinite number of values."
   },
   {
     "objectID": "slides/09-slides.html#example-toss-two-coins",
     "href": "slides/09-slides.html#example-toss-two-coins",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Example: Toss Two Coins",
     "text": "Example: Toss Two Coins\n\n\\(S={TT,TH,HT,HH}\\)\nLet \\(X\\) be the number of heads\n\n\\(X(TT)=0\\)\n\\(X(TH)=1\\)\n\\(X(HT)=1\\)\n\\(X(HH)=2\\)"
   },
@@ -8541,7 +8541,7 @@
   {
     "objectID": "slides/09-slides.html#discrete-distributions",
     "href": "slides/09-slides.html#discrete-distributions",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Discrete distributions",
     "text": "Discrete distributions\n\nProbability Mass Function (pmf): \\(f(x)=p(X=x)\\)\n\nAssigns probabilities to each unique event such that Kolmogorov Axioms (Positivity, Certainty, and Additivity) still apply\n\nCumulative Distribution Function (cdf) \\(F(x_j)=p(X\\leq x)=\\sum_{i=1}^{j}p(x_i)\\)\n\nSum of the probability mass for events less than or equal to \\(x_j\\)"
   },
@@ -8730,58 +8730,58 @@
   {
     "objectID": "slides/09-slides.html#the-law-of-large-numbers-intuitive",
     "href": "slides/09-slides.html#the-law-of-large-numbers-intuitive",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "The Law of Large Numbers (Intuitive)",
-    "text": "The Law of Large Numbers (Intuitive)\nSuppose we wanted to know the average height of our class.\nWe could pick someone at random, measure their height and get an estimate. It would be a pretty bad estimate (it would vary a lot from person to person), but it would be an unbiased estimate\nHow would we improve our estimate?"
+    "text": "The Law of Large Numbers (Intuitive)\nSuppose we wanted to know the average height of our class.\nPick 1 person at random and use this as our estimate of the average\nIt would be a pretty bad estimate (it would vary a lot from person to person), but it would be an unbiased estimate\n\nHow would we improve our estimate?"
   },
   {
     "objectID": "slides/09-slides.html#the-law-of-large-numbers-intuitive-1",
     "href": "slides/09-slides.html#the-law-of-large-numbers-intuitive-1",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "The Law of Large Numbers (Intuitive)",
-    "text": "The Law of Large Numbers (Intuitive)\nSuppose we increased our sample size from N=1 to N = 5.\nNow our estimate reflects the average of 5 people’s heights as opposed to just 1. Both are are unbiased estimates of the truth, but the N=5 sample has a lower variance.\n–\nNow suppose we took a sample of size N = N-1. That is we measured everyone except one person. Our estimate will be quite close to the truth, varying slightly based on the height of the person left out.\n–\nFinally we took a sample of size N = 24 (e.g. the class size). Since our sample is the population, our estimate will be exactly equal to to the population. Each sample will give us the same “true” value. That is, it wil not vary at all.\n–\nThe idea that as the sample size increases, the distance of a sample mean from the population mean \\(\\mu\\) goes to 0 is called the Law of Large Numbers"
+    "text": "The Law of Large Numbers (Intuitive)\nSuppose we increased our sample size from N=1 to N = 5.\nNow our estimate reflects the average of 5 people’s heights as opposed to just 1. Both are are unbiased estimates of the truth, but the N=5 sample has a lower variance.\nNow suppose we took a sample of size N = N-1. That is we measured everyone except one person. Our estimate will be quite close to the truth, varying slightly based on the height of the person left out."
   },
   {
     "objectID": "slides/09-slides.html#the-weak-law-of-large-numbers-formally",
     "href": "slides/09-slides.html#the-weak-law-of-large-numbers-formally",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "The (Weak) Law of Large Numbers (Formally)",
     "text": "The (Weak) Law of Large Numbers (Formally)\nLet \\(X_1, X_2, \\dots\\) be independent and identically distributed (i.i.d.) random variables with mean \\(\\mu\\) and variance \\(\\sigma^2\\).\nThen for every \\(\\epsilon&gt;0\\), as the sample size increases (1), the distance of a sample mean from the population mean \\(\\mu\\) (2) goes to 0 (3).\n\\[\\overbrace{Pr(\\left|\\frac{X_1+\\dots+X_n}{n}-\\mu\\right| &gt; \\epsilon)}^{\\text{2. The distance of the sample mean from the truth}} \\overbrace{\\to 0}^{\\text{3. Goes to 0}} \\underbrace{\\text{ as }n \\to \\infty}_{\\text{1. As the sample size increases}}\\]\nEquivalently:\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n - \\mu| &lt; \\epsilon) = 1\\]"
   },
   {
     "objectID": "slides/09-slides.html#simulating-the-lln",
     "href": "slides/09-slides.html#simulating-the-lln",
-    "title": "Week 09:",
-    "section": "💪 Simulating the LLN",
-    "text": "💪 Simulating the LLN\nRhe expected value of rolling a die 3.5.\n\\[ E[X] = \\Sigma x_ip(X=x_i) = 1/6 * (1+2+3+4+5+6)\\]\nIn terms of the LLN, think of our sample size as the number of times we roll a die.\nIf we rolled the die just once and took the average of our role, we could get a 1, 2, 3, 4, 5, or 6. which would be pretty far from our expected value of 3.5\nIf we rolled the die two times and took an average, we could still get an value of 1 or 6 for average, but values closer to our expected value of 3.5, happen more often\n\n# Calculate the average from 2 rows\ntable(rowMeans(expand.grid(1:6, 1:6)))\n\n\n  1 1.5   2 2.5   3 3.5   4 4.5   5 5.5   6 \n  1   2   3   4   5   6   5   4   3   2   1 \n\n\nAs we increase our sample size (roll the die more times), the LLN says the chance that our sample average is far from the truth \\((p(\\left|\\frac{X_1+\\dots+X_n}{n}-\\mu\\right| &gt; \\epsilon))\\), gets vanishingly small.\n\ndie &lt;- 1:6\nroll_fn &lt;- function(n) {\n  rolls &lt;- data.frame(rolls = sample(die, size = n, replace = TRUE))\n  # summarize rolls \n  df &lt;- rolls %&gt;%\n    summarise(\n    # number of rolls\n      n_rolls = n(),\n    # number of times 1 was rolled\n      ones = sum(rolls == 1),\n    # number of times 2 was rolled, etc..\n      twos = sum(rolls == 2),\n      threes = sum(rolls == 3),\n      fours = sum(rolls == 4),\n      fives = sum(rolls == 5),\n      sixes = sum(rolls == 6),\n      # Average of all our rolls\n      average =  mean(rolls),\n      # Absolute difference between averages and rolls\n      abs_error = abs(3.5-average)\n    )\n  # Return summary df\n  df\n}\n\nThen we could use a for-loop to simulate rolling our die once and calculating the average all the way up to rolling our die a 1000 times.\n\n# Holder\nsim_df &lt;- NULL\n\n# Set seed\nset.seed(123)\n\nfor(i in 1:1000){\n  sim_df &lt;- rbind(sim_df,\n                  roll_fn(i)\n  )\n}\n\nWith only a few rolls, our average bounces around a lot\n\nhead(sim_df)\n\n  n_rolls ones twos threes fours fives sixes  average abs_error\n1       1    0    0      1     0     0     0 3.000000 0.5000000\n2       2    0    0      1     0     0     1 4.500000 1.0000000\n3       3    0    2      0     0     0     1 3.333333 0.1666667\n4       4    0    0      1     1     1     1 4.500000 1.0000000\n5       5    1    1      1     0     1     1 3.400000 0.1000000\n6       6    3    0      2     1     0     0 2.166667 1.3333333\n\n\nWith a lot of rolls, our average is very close to 3.5\n\ntail(sim_df)\n\n     n_rolls ones twos threes fours fives sixes  average  abs_error\n995      995  197  160    151   154   171   162 3.430151 0.06984925\n996      996  184  164    176   149   175   148 3.412651 0.08734940\n997      997  163  159    170   163   171   171 3.534604 0.03460381\n998      998  162  163    142   173   185   173 3.576152 0.07615230\n999      999  209  154    151   154   163   168 3.412412 0.08758759\n1000    1000  181  189    147   179   146   158 3.394000 0.10600000\n\n\nLet’s visualize see how our average changes with the number of rolls, using ggplot()\n\np_die_lln &lt;- ggplot(sim_df, aes(n_rolls, average))+\n  geom_line()\n\n\nYour turn! Plot how the absolute value of the error changes as the number of rolls increases. Does it increase or decrease? How does the rate at which it goes up or down seem to change?\n\n# Write your code here:\n\nclass: inverse, center, middle #🦉 ## ICYI: Proving the Weak LLN"
+    "title": "POLS 1600",
+    "section": "Simulating the LLN",
+    "text": "Simulating the LLN\nThe expected value of rolling a die 3.5.\n\\[ E[X] = \\Sigma x_ip(X=x_i) = 1/6 * (1+2+3+4+5+6)\\]\nLet our sample size, \\(N\\) be the number of times we roll a die as our\nIf \\(N=1\\), we could get a 1, 2, 3, 4, 5, or 6. which would be pretty far from our expected value of 3.5"
   },
   {
     "objectID": "slides/09-slides.html#proving-the-weak-lln",
     "href": "slides/09-slides.html#proving-the-weak-lln",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Proving the Weak LLN",
     "text": "Proving the Weak LLN\nA proof of the LLN is as follows:\nFirst define \\(U\\) such that its a sample mean for sample of size \\(n\\)\n\\[U=\\frac{X_1+\\dots +X_n}{n}\\]"
   },
   {
     "objectID": "slides/09-slides.html#proving-the-weak-lln-1",
     "href": "slides/09-slides.html#proving-the-weak-lln-1",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Proving the Weak LLN",
     "text": "Proving the Weak LLN\nThen show that the sample mean, \\(U\\) is an unbiased estimator of the population mean \\(\\mu\\)\n\\[\\begin{align*}\nE[U]&=E[\\frac{X_1+\\dots +X_n}{n}]=\\frac{1}{n}E[X_1+\\dots +X_n]\\\\\n&=\\frac{n\\mu}{n}=\\mu\n\\end{align*}\\]\nWith a variance\n\\[\\begin{align*}\nVar[U]&=Var[\\frac{X_1+\\dots +X_n}{n}]=\\\\\n    &=Var[\\frac{X_1}{n}]\\dots Var[\\frac{+X_n}{n}]\\\\\n    &\\frac{\\sigma^2}{n^2}\\dots \\frac{\\sigma^2}{n^2}\\\\\n    &\\frac{n \\sigma^2}{n^2}\\\\\n    &\\frac{\\sigma^2}{n}\\\\\n\\end{align*}\\]\nThat decreases with N."
   },
   {
     "objectID": "slides/09-slides.html#proving-the-weak-lln-2",
     "href": "slides/09-slides.html#proving-the-weak-lln-2",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Proving the Weak LLN",
-    "text": "Proving the Weak LLN\nThen, by Chebyshev’s inequality, a theorem specifying, for a given distribution, the maximum fraction of values that can be some distance from that distribution’s mean:\n\\[Pr(\\left|U-\\mu\\right| &gt; \\epsilon) \\leq \\frac{\\sigma^2}{n\\epsilon^2}\\]\nWhich \\(\\to 0\\) as \\(n \\to \\infty\\)"
+    "text": "Proving the Weak LLN\nBy Chebyshev’s inequality the maximum fraction of values that can be some distance from that distribution’s mean:\n\\[Pr(\\left|U-\\mu\\right| &gt; \\epsilon) \\leq \\frac{\\sigma^2}{n\\epsilon^2}\\]\nWhich \\(\\to 0\\) as \\(n \\to \\infty\\)"
   },
   {
     "objectID": "slides/09-slides.html#the-strong-law-of-large-numbers",
     "href": "slides/09-slides.html#the-strong-law-of-large-numbers",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "The Strong Law of Large Numbers",
-    "text": "The Strong Law of Large Numbers\nAs you may have inferred, there is a weak law of large numbers and a strong law of large numbers.\nThe weak law of large numbers states that as the sample size increases, the sample mean converges in probability to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n - \\mu| &lt; \\epsilon) = 1\\]\nThe strong law of large numbers states that as the sample size increases, the sample mean converges almost surely to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n = \\mu|) = 1\\] The differences in types of convergence won’t matter much for us in this course\nclass:inverse, center, middle # Break\nclass:inverse, center, middle # 💡 ## The Central Limit Theorem\nSo the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the “true” value of the population of mean.\nIif we took a bunch of samples of the same size and calculated the mean of each sample:\n\nthe distribution of those sample means (the sampling distribution) would be centered around the truth (because the estimator is unbiased).\nthe width of the distribution (its variance) would decrease as we increased the size of each sample (by the LLN)\n\nThe Central Limit Theorem tells us about the shape of that distribution."
+    "text": "The Strong Law of Large Numbers\nAs you may have inferred, there is a weak law of large numbers and a strong law of large numbers.\nThe weak law of large numbers states that as the sample size increases, the sample mean converges in probability to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n - \\mu| &lt; \\epsilon) = 1\\]\nThe strong law of large numbers states that as the sample size increases, the sample mean converges almost surely to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n = \\mu|) = 1\\] The differences in types of convergence won’t matter much for us in this course"
   },
   {
     "objectID": "slides/09-slides.html#review-z-scores-and-standardization",
@@ -8793,44 +8793,44 @@
   {
     "objectID": "slides/09-slides.html#notation-for-the-clt",
     "href": "slides/09-slides.html#notation-for-the-clt",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Notation for the CLT",
-    "text": "Notation for the CLT\nNext let’s define some variables \\(S\\) and \\(\\bar{X}\\) that are the sum \\((S)\\) and sample mean \\((\\bar{X})\\) of \\(n\\) iid draws of \\(X\\)\nLet \\(X_1,X_2,\\dots,X_n\\) be independent and identically distributed RVs with mean \\(\\mu\\) and standard deviation \\(\\sigma\\).\nDefine \\(S_n\\) and \\(\\bar{X}_n\\) as follows:\n\\[S_n= X_1,X_2,\\dots,X_n= \\sum_{i=1}^n X_i\\]\n\\[\\bar{X}=\\frac{X_1,X_2,\\dots,X_n}{n}= \\frac{S_n}{n}\\]"
+    "text": "Notation for the CLT\nLet \\(X_1,X_2,\\dots,X_n\\) be independent and identically distributed RVs with mean \\(\\mu\\) and standard deviation \\(\\sigma\\).\nDefine \\(S_n\\) and \\(\\bar{X}_n\\) as follows:\n\\[S_n= X_1,X_2,\\dots,X_n= \\sum_{i=1}^n X_i\\]\n\\[\\bar{X}=\\frac{X_1,X_2,\\dots,X_n}{n}= \\frac{S_n}{n}\\]"
   },
   {
     "objectID": "slides/09-slides.html#additional-facts-for-the-clt",
     "href": "slides/09-slides.html#additional-facts-for-the-clt",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Additional facts for the CLT",
-    "text": "Additional facts for the CLT\nWe can show that:\n\\[\\begin{alignat*}{3}\nE[S_n]&=n\\mu \\hspace{2em}Var[S_n]&=n\\sigma^2 \\hspace{2em} \\sigma_S&=\\sqrt{n}\\sigma\\\\\nE[\\bar{X}_n]&=\\mu \\hspace{2em}Var[\\bar{X}_n]&=\\frac{\\sigma^2}{n} \\hspace{2em}\\sigma_{\\bar{X}}&=\\frac{\\sigma}{\\sqrt{n}}\\\\\n\\end{alignat*}\\]\nBasically: the expected value and variance of the sum is just \\(n\\) times the population parameters (the true values for the distribution).\nSince the mean is just the sum divided by the sample size, the expected value of the mean is equal to the population value and the variance and standard deviations of the mean are decreasing in \\(n\\).\nFinally, we can define \\(Z\\) to be a function of either \\(S\\) or \\(\\bar{X}\\)\n\\[Z_n=\\frac{S_n-n\\mu}{\\sqrt{n}\\sigma}=\\frac{\\bar{X}_n-\\mu}{\\sigma/\\sqrt{n}}\\]"
+    "text": "Additional facts for the CLT\nWe can show that:\n\\[\\begin{alignat*}{3}\nE[S_n]&=n\\mu \\hspace{2em}Var[S_n]&=n\\sigma^2 \\hspace{2em} \\sigma_S&=\\sqrt{n}\\sigma\\\\\nE[\\bar{X}_n]&=\\mu \\hspace{2em}Var[\\bar{X}_n]&=\\frac{\\sigma^2}{n} \\hspace{2em}\\sigma_{\\bar{X}}&=\\frac{\\sigma}{\\sqrt{n}}\\\\\n\\end{alignat*}\\]\nBasically: the expected value and variance of the sum is just \\(n\\) times the population parameters (the true values for the distribution).\nSince the mean is just the sum divided by the sample size, the expected value of the mean is equal to the population value and the variance and standard deviations of the mean are decreasing in \\(n\\).\nFinally, we can define \\(Z\\) to in terms of either \\(S\\) or \\(\\bar{X}\\)\n\\[Z_n=\\frac{S_n-n\\mu}{\\sqrt{n}\\sigma}=\\frac{\\bar{X}_n-\\mu}{\\sigma/\\sqrt{n}}\\]"
   },
   {
     "objectID": "slides/09-slides.html#central-limit-theorem",
     "href": "slides/09-slides.html#central-limit-theorem",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Central Limit Theorem",
-    "text": "Central Limit Theorem\nFor a sufficiently large \\(n\\)\n\\[\\begin{align*}\n\\bar{X_n}&\\approx N(\\mu,\\sigma^2/n) \\\\\n\\bar{S_n} &\\approx N(n\\mu,n\\sigma^2) \\\\\n\\bar{Z_n}&\\approx N(0,1)\n\\end{align*}\\]\n\nThe distribution of means \\((\\bar{X_n})\\) from almost any distribution \\(X\\) is approximately normal (converges in distribution), but with a smaller variance than (\\(\\sigma^2/n\\))\nProof: Several ways, but requires a little more math than is required for this course"
+    "text": "Central Limit Theorem\nFor a sufficiently large \\(n\\)\n\\[\\begin{align*}\n\\bar{X_n}&\\approx N(\\mu,\\sigma^2/n) \\\\\n\\bar{S_n} &\\approx N(n\\mu,n\\sigma^2) \\\\\n\\bar{Z_n}&\\approx N(0,1)\n\\end{align*}\\]\n\nThe distribution of means \\((\\bar{X_n})\\) from almost any distribution \\(X\\) is approximately Normal (converges in distribution), but with a smaller variance than (\\(\\sigma^2/n\\))\nProof: Several ways, but requires a little more math than is required for this course"
   },
   {
     "objectID": "slides/09-slides.html#clt-why-it-matters",
     "href": "slides/09-slides.html#clt-why-it-matters",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "CLT: Why it matters",
-    "text": "CLT: Why it matters\nWhy is this result so important?\nWell lots of our questions come of the form, how does a typical value of Y vary with X.\nWe may not know the true underlying distribution of Y, but we can often approximate the distribution of a typical value of Y \\((E[Y])\\) using a normal distribution."
+    "text": "CLT: Why it matters\n\nWhy is this result so important?\nLots of our questions come of the form, how does a typical value of Y vary with X.\nWe may not know the true underlying distribution of Y\nBut the CLT says we can often approximate the distribution of a typical value of Y conditional on X \\((E[Y|X])\\) using a normal (or related) distributions.\nKnowing these distribution, in turn allows us to conduct statistical inference"
   },
   {
     "objectID": "slides/09-slides.html#simulating-the-clt",
     "href": "slides/09-slides.html#simulating-the-clt",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Simulating the CLT",
-    "text": "Simulating the CLT\nFor almost any distribution, the distribution of means from a sample of that distribution will converge to some Normal distribution.\nLet’s consider a decidedly non-Normal Binomial distribution: with p = 0.2.\nThe expected value of Binomial Distribution \\(X \\sim B(n,p)\\) is \\(E[X] = n*p\\).\nIf we were to flip a coin 20 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 4.\nIf we were to flip a coin 100 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 20.\n\n\n\n\n\n\n\n\n\nSimulating 10,000 draws from Binomial Distributions of Different Sizes\n\n# Probability of success\np &lt;- .2\n# Sample sizes\nsamp_sizes &lt;- c(20, 50, 100,1000)\n# Number of simulations\nnsims &lt;- 10000\n# Holder for simulations\ndf_sim &lt;- tibble(\n  expand_grid(\n    samp_size = samp_sizes,\n    sim = 1:nsims,\n    sample_mean = NA\n  )\n)\n\nSimulating 1,000 draws from Binomial Distributions of Different Sizes\nBelow we loop through each sample size in samp_sizes\n\nfor(i in samp_sizes){\n  df_sim$sample_mean[df_sim$samp_size == i] &lt;- replicate(nsims, i*mean(rbinom(i, 1, p)))\n  \n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinally, let’s consider a decided non normal distribution:\n\ndist &lt;- sample(18:80,size=10000, replace = T, prob = runif(length(18:80)))\n\nsamp_mean25 &lt;- replicate(10000,mean(sample(dist,25, replace=F)))\nsamp_mean100 &lt;- replicate(10000,mean(sample(dist,100, replace=F)))\nsamp_mean500 &lt;- replicate(10000,mean(sample(dist,500, replace=F)))\n\nex_df &lt;- tibble(\n  distribution = dist,\n  samp_mean25 = samp_mean25,\n  samp_mean100 = samp_mean100,\n  samp_mean500 = samp_mean500\n)"
+    "text": "Simulating the CLT\n\nConcept Messy Code Sampling Distributions Sampling Distributions\n\n\n\nThe following code simulates the process of:\n\ntaking repeated (\\(N_{sim} = 2000\\))samples of varying sizes (\\(N_{samp}= 10, 100, 100\\))\nfrom two very not Normal populations (Poison(\\(\\lambda = 5\\)), Weird mixture of distributions)\nCalculating the means from each sample\nPlotting their distributions\nApproximating the distribution of sample means with Normal distributions\n\n\n\n\n\n\n\nTip\n\n\nEven if random variable’s distribution is not at all Normal, the distribution of sample means can be well-approximated by Normal Distributions\n\n\n\n\n\n\n\n# Define Population\n\nN &lt;- 10000\nset.seed(123)\npop_df &lt;- tibble(\n  Poisson = rpois(N, 5),\n  # Binomial = rbinom(size=20, n=N, prob = .25),\n  type = sample(0:2,N,replace =T,prob=c(.4,.2,.4)),\n  Weird = case_when(\n    type == 0 ~ rbeta(N,5,2)*2,\n    type == 1 ~ (rexp(N,4)-6.5)*-1,\n    type == 2 ~ rnorm(N,8,2)\n    \n  )\n  ) %&gt;% select(Poisson, Weird)\n\nfig_pop_dist &lt;- pop_df %&gt;% \n  pivot_longer(\n    col = everything(),\n    names_to = \"Distribution\"\n  ) %&gt;% \n  ggplot(aes(value,fill=Distribution,group=Distribution))+\n  geom_histogram()+\n  xlim(0,16)+\n  facet_grid(~Distribution,scales = \"free_x\")+\n  stat_summary(aes(x=0, y=value),fun.data =\\(x) data.frame(xintercept = mean(x)), geom=\"vline\")\n\nsample_sizes &lt;- c(10,100,1000)\n\ncalculate_sample_mean &lt;- function(n,pop){\n  df &lt;- tibble(\n    size = n,\n    `Sample Mean` = mean(sample(pop,n,replace = F))\n  )\n  return(df)\n}\n\nsimulate_clt_fn &lt;- function(nsims = 100, the_pop,the_n, ...){\n  sim &lt;- 1:nsims %&gt;% purrr::map_df(\\(x)calculate_sample_mean(pop=the_pop, n=the_n))\n  return(sim)\n}\n\n\n\n# binomial_clt &lt;- sample_sizes %&gt;% \n#   purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Binomial, the_n = x)) %&gt;% \n#   mutate(\n#     id = 1:n(),\n#     Distribution = \"Binomial\"\n#   )\n\npoisson_clt &lt;- sample_sizes %&gt;% \n  purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Poisson, the_n = x)) %&gt;% \n  mutate(\n    id = 1:n(),\n    Distribution = \"Poisson\"\n  )\n\nweird_clt &lt;- sample_sizes %&gt;% \n  purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Weird, the_n = x)) %&gt;% \n  mutate(\n    id = 1:n(),\n    Distribution = \"Weird\"\n  )\n\nsample_df &lt;- poisson_clt %&gt;% bind_rows(weird_clt) %&gt;% \n  mutate(\n    `Sample Size` = factor(size)\n  )\n\n\nfig_samp_dist &lt;- sample_df %&gt;% \n  ggplot(aes(`Sample Mean`,col=`Sample Size`))+\n  geom_density()+\n  geom_rug()+\n  theme( strip.background.y = element_blank(),\n      strip.text.y = element_blank())+\n  xlim(0,16)+\n  facet_grid(`Sample Size`~Distribution,scales = \"free_y\")\n\n  \nfig_clt &lt;- ggarrange(fig_pop_dist,fig_samp_dist,common.legend = T,ncol=1)\n\n\np10_weird &lt;- sample_df %&gt;% \n  filter(Distribution == \"Weird\") %&gt;% \n  filter(size == 10) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =10\"))+\n  geom_rug(aes(col=\"Sample Size =10\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=mean(pop_df$Weird),  sd=sd(pop_df$Weird)/sqrt(10)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(0,10)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Weird Distribution, N = 10\"\n  )\n\np1000_weird &lt;- sample_df %&gt;% \n  filter(Distribution == \"Weird\") %&gt;% \n  filter(size == 1000) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =1000\"))+\n  geom_rug(aes(col=\"Sample Size =1000\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=mean(pop_df$Weird),  sd=sd(pop_df$Weird)/sqrt(1000)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(4,6)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Weird Distribution, N = 1000\"\n  )\n\np10_poisson &lt;- sample_df %&gt;% \n  filter(Distribution == \"Poisson\") %&gt;% \n  filter(size == 10) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =10\"))+\n  geom_rug(aes(col=\"Sample Size =10\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=5,  sd=sd(pop_df$Poisson)/sqrt(10)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(0,10)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Poisson(Lambda = 5), N = 10\"\n  )\n\np1000_poisson &lt;- sample_df %&gt;% \n  filter(Distribution == \"Poisson\") %&gt;% \n  filter(size == 1000) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =1000\"))+\n  geom_rug(aes(col=\"Sample Size =1000\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=5,  sd=sd(pop_df$Poisson)/sqrt(1000)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(4,6)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Poisson(Lambda = 5), N = 1000\"\n  )\n\nfig_clt_approx &lt;- ggarrange(p10_weird, p1000_weird, p10_poisson,p1000_poisson)"
   },
   {
     "objectID": "slides/09-slides.html#summary",
     "href": "slides/09-slides.html#summary",
-    "title": "Week 09:",
+    "title": "POLS 1600",
     "section": "Summary",
-    "text": "Summary\n\nSo we see that our sampling distributions are centered on the truth, and as the sample size increases, the width of the distribution decreases (Law of Large Numbers)\nThe shapes of distributions of sample means can be approximated by a Normal Distribution \\(\\bar{X} \\sim N(\\mu, \\sigma^2/n)\\)\n\nclass: inverse, center, middle #🦉 ## ICYI: Maximum Likelihood Estimation"
+    "text": "Summary\n\nSo we see that our sampling distributions are centered on the truth, and as the sample size increases, the width of the distribution decreases (Law of Large Numbers)\nThe shapes of distributions of sample means can be approximated by a Normal Distribution \\(\\bar{X} \\sim N(\\mu, \\sigma^2/n)\\)"
   },
   {
     "objectID": "slides/09-slides.html#maximum-likelihood-estimation-1",
@@ -9589,7 +9589,7 @@
     "href": "labs/08-lab-comments.html#present-and-interpret-the-results",
     "title": "Comments for Lab 08 - Replicating Grumbach and Hill (2022):",
     "section": "4.2 Present and interpret the results",
-    "text": "4.2 Present and interpret the results\nWhen you’ve completed the previous section, you should be able uncomment and run the following code\n\nhtmlreg(l = list(m1,m2,m3, m4),\n        digits = 5,\n        include.ci = F,\n        ) %&gt;% HTML() %&gt;% browsable()\n\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\nModel 3\nModel 4\n\n\n\n\n(Intercept)\n0.54787***\n0.54787***\n \n \n\n\n \n(0.00037)\n(0.00038)\n \n \n\n\nsdr\n0.06159***\n0.06159***\n0.00671***\n0.00671\n\n\n \n(0.00110)\n(0.00108)\n(0.00185)\n(0.01405)\n\n\nR2\n0.00157\n0.00157\n0.02845\n0.02845\n\n\nAdj. R2\n0.00157\n0.00157\n0.02841\n0.02841\n\n\nNum. obs.\n1988501\n1988501\n1988501\n1988501\n\n\nRMSE\n0.49658\n0.49658\n0.48986\n0.48986\n\n\nN Clusters\n \n \n \n49\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\n\nPlease write a few sentences explaining how the coefficient on sdr and it’s standard error changes across the four models. I’ll get you started:\nThe table presents the results of four regression models. The outcome in each model is a binary indicator of whether respondents to the CPS voted in a given election. The key predictor of interest in each model is the coefficient for sdr which corresponds the model’s predicted difference in turnout in states that had same day registration compared to states that did not. Model 1 presents the results from a simple linear regression assuming homoskedastic errors (i.e. constant error variance). The coefficient on sdr of 0.062 implies that this model predicts turnout will be higher by 6.2 percentage points in states with Same Day Registration. The standard error of 0.00110 is small relative to the coefficient, which as we will see in two weeks implies a statistically significant relationship.\nModel 2 presents the same specification, but uses robust standard errors that allow for non-constant (heteroskedastic) error variance. The coefficient on sdr is exactly the same as Model 1, and the standard error is similar to the ten-thousandth decimal place. In short, simply including robust standard errors does little to change our substantive interpretation.\nModel 3 includes fixed effects of state and year. Specifically, lm_robust() uses the within-in transformation via the method of alternating projections, subtracting off the state and year level means of the predictors and outcomes before estimating the regression. This transformation is equivalent to including indicator variables to represent the various levels of each fixed effect (e.g. including year and st as factor variables in the model). That latter, sometimes called the dummy variable approach, is more computationally intensive (if there are lots of levels to the fixed effect, the matrices involved in the calculation get very large), but as the code below demonstrates, they all yield the same estimates and standard errors (although there are some additional degrees of freedom adjustments that lm_robust() performs, which we are not when we calculate the within transformations by hand)\n\n# Kludge-y method of alternating projections....\ncps %&gt;% \n  ungroup() %&gt;% \n  # Only use observations from m3\n  filter(!is.na(dv_voted), !is.na(sdr)) %&gt;% \n  dplyr::group_by(st) %&gt;% \n  # Within transformation by states\n  mutate(\n    dv_voted_within = dv_voted - mean(dv_voted, na.rm=T),\n    sdr_within = sdr - mean(sdr, na.rm=T)\n  ) %&gt;% \n  ungroup() %&gt;% \n  # Within transformation by year\n  dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup() %&gt;% \n  # Within transformation by year\n  dplyr::group_by(st) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% \n    dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup() %&gt;% \n  dplyr::group_by(st) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% \n    dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup()-&gt; cps\n\nstart_time_m3_within  &lt;- Sys.time()\nm3_within &lt;- lm_robust(dv_voted_within ~ sdr_within, \n                       cps,\n                       se_type = \"stata\",\n                       try_cholesky = T)\n\nend_time_m3_within  &lt;- Sys.time()\ntime_m3_within &lt;- round(end_time_m3_within - start_time_m3_within,5)\n\n\nstart_time_m3_indicator  &lt;- Sys.time()\nm3_indicator &lt;- lm_robust(dv_voted ~ sdr + factor(year) + factor(st),\n                          cps,\n                          se_type = \"stata\",\n                          try_cholesky = T)\nend_time_m3_indicator  &lt;- Sys.time()\ntime_m3_indicator &lt;- round(end_time_m3_indicator - start_time_m3_indicator,5)\n\ntime_m3_within\n\nTime difference of 2.45665 secs\n\ntime_m3_indicator\n\nTime difference of 9.88044 secs\n\n\n\nhtmlreg(list(m3, m3_within, m3_indicator),\n        omit.coef = \"factor|Intercept\",\n        digits = 5,\n        include.ci = F,\n        custom.model.names = c(\"lm_robust (within transformation)\",\"Within transformation by hand\",\"Indicator FE\")\n        ) %&gt;% HTML() %&gt;% browsable()\n\n\n\nStatistical models\n\n\n \nlm_robust (within transformation)\nWithin transformation by hand\nIndicator FE\n\n\n\n\nsdr\n0.00671***\n \n0.00671***\n\n\n \n(0.00185)\n \n(0.00185)\n\n\nsdr_within\n \n0.00671***\n \n\n\n \n \n(0.00185)\n \n\n\nR2\n0.02845\n0.00001\n0.02845\n\n\nAdj. R2\n0.02841\n0.00001\n0.02841\n\n\nNum. obs.\n1988501\n1988501\n1988501\n\n\nRMSE\n0.48986\n0.48985\n0.48986\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\n\nFinally, model 4 presents the results of a TWFE regression with fixed effects for state and year with robust standard errors clustered by state. The coefficient on sdr remains the same as in Model 3, predicting about 0.6 percentage points higher turnout in states with same day registration. We see, however, that once we relax the assumption that our errors are independent, and allow for correlations between observations from the same state, our uncertainty about this estimate (quantified by its standard error) increases 10-fold, and we are non longer confident that there is a statistically significant relationship between same day registration and voting in these data.\nIn sum, once we account for fixed differences across states and between time periods, and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain relatively little variation in voting\n\n\n\n\n\n\nNote\n\n\n\nSo which model should we prefer? I would say the default approach of most social scientists is to prefer the most conservative estimate, which in this case corresponds to the results from model 4. We’d rather under claim than over claim. Since rarely if ever, do we know the right model , it’s generally common practice to report the results of multiple models with different specifications (as Grumbach and Hill do) as a way of demonstrating the robustness of ones’ results."
+    "text": "4.2 Present and interpret the results\nWhen you’ve completed the previous section, you should be able uncomment and run the following code\n\nhtmlreg(l = list(m1,m2,m3, m4),\n        digits = 5,\n        include.ci = F,\n        ) %&gt;% HTML() %&gt;% browsable()\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\nModel 3\nModel 4\n\n\n\n\n(Intercept)\n0.54787***\n0.54787***\n \n \n\n\n \n(0.00037)\n(0.00038)\n \n \n\n\nsdr\n0.06159***\n0.06159***\n0.00671***\n0.00671\n\n\n \n(0.00110)\n(0.00108)\n(0.00185)\n(0.01405)\n\n\nR2\n0.00157\n0.00157\n0.02845\n0.02845\n\n\nAdj. R2\n0.00157\n0.00157\n0.02841\n0.02841\n\n\nNum. obs.\n1988501\n1988501\n1988501\n1988501\n\n\nRMSE\n0.49658\n0.49658\n0.48986\n0.48986\n\n\nN Clusters\n \n \n \n49\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\nPlease write a few sentences explaining how the coefficient on sdr and it’s standard error changes across the four models. I’ll get you started:\nThe table presents the results of four regression models. The outcome in each model is a binary indicator of whether respondents to the CPS voted in a given election. The key predictor of interest in each model is the coefficient for sdr which corresponds the model’s predicted difference in turnout in states that had same day registration compared to states that did not. Model 1 presents the results from a simple linear regression assuming homoskedastic errors (i.e. constant error variance). The coefficient on sdr of 0.062 implies that this model predicts turnout will be higher by 6.2 percentage points in states with Same Day Registration. The standard error of 0.00110 is small relative to the coefficient, which as we will see in two weeks implies a statistically significant relationship.\nModel 2 presents the same specification, but uses robust standard errors that allow for non-constant (heteroskedastic) error variance. The coefficient on sdr is exactly the same as Model 1, and the standard error is similar to the ten-thousandth decimal place. In short, simply including robust standard errors does little to change our substantive interpretation.\nModel 3 includes fixed effects of state and year. Specifically, lm_robust() uses the within-in transformation via the method of alternating projections, subtracting off the state and year level means of the predictors and outcomes before estimating the regression. This transformation is equivalent to including indicator variables to represent the various levels of each fixed effect (e.g. including year and st as factor variables in the model). That latter, sometimes called the dummy variable approach, is more computationally intensive (if there are lots of levels to the fixed effect, the matrices involved in the calculation get very large), but as the code below demonstrates, they all yield the same estimates and standard errors (although there are some additional degrees of freedom adjustments that lm_robust() performs, which we are not when we calculate the within transformations by hand)\n\n# Kludge-y method of alternating projections....\ncps %&gt;% \n  ungroup() %&gt;% \n  # Only use observations from m3\n  filter(!is.na(dv_voted), !is.na(sdr)) %&gt;% \n  dplyr::group_by(st) %&gt;% \n  # Within transformation by states\n  mutate(\n    dv_voted_within = dv_voted - mean(dv_voted, na.rm=T),\n    sdr_within = sdr - mean(sdr, na.rm=T)\n  ) %&gt;% \n  ungroup() %&gt;% \n  # Within transformation by year\n  dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup() %&gt;% \n  # Within transformation by year\n  dplyr::group_by(st) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% \n    dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup() %&gt;% \n  dplyr::group_by(st) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% \n    dplyr::group_by(year) %&gt;%\n  mutate(\n    dv_voted_within = dv_voted_within - mean(dv_voted_within, na.rm=T),\n    sdr_within = sdr_within - mean(sdr_within,na.rm=T)\n  ) %&gt;% ungroup()-&gt; cps\n\nstart_time_m3_within  &lt;- Sys.time()\nm3_within &lt;- lm_robust(dv_voted_within ~ sdr_within, \n                       cps,\n                       se_type = \"stata\",\n                       try_cholesky = T)\n\nend_time_m3_within  &lt;- Sys.time()\ntime_m3_within &lt;- round(end_time_m3_within - start_time_m3_within,5)\n\n\nstart_time_m3_indicator  &lt;- Sys.time()\nm3_indicator &lt;- lm_robust(dv_voted ~ sdr + factor(year) + factor(st),\n                          cps,\n                          se_type = \"stata\",\n                          try_cholesky = T)\nend_time_m3_indicator  &lt;- Sys.time()\ntime_m3_indicator &lt;- round(end_time_m3_indicator - start_time_m3_indicator,5)\n\ntime_m3_within\n\nTime difference of 2.45665 secs\n\ntime_m3_indicator\n\nTime difference of 9.88044 secs\n\n\n\nhtmlreg(list(m3, m3_within, m3_indicator),\n        omit.coef = \"factor|Intercept\",\n        digits = 5,\n        include.ci = F,\n        custom.model.names = c(\"lm_robust (within transformation)\",\"Within transformation by hand\",\"Indicator FE\")\n        ) %&gt;% HTML() %&gt;% browsable()\n\n\nStatistical models\n\n\n \nlm_robust (within transformation)\nWithin transformation by hand\nIndicator FE\n\n\n\n\nsdr\n0.00671***\n \n0.00671***\n\n\n \n(0.00185)\n \n(0.00185)\n\n\nsdr_within\n \n0.00671***\n \n\n\n \n \n(0.00185)\n \n\n\nR2\n0.02845\n0.00001\n0.02845\n\n\nAdj. R2\n0.02841\n0.00001\n0.02841\n\n\nNum. obs.\n1988501\n1988501\n1988501\n\n\nRMSE\n0.48986\n0.48985\n0.48986\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\nFinally, model 4 presents the results of a TWFE regression with fixed effects for state and year with robust standard errors clustered by state. The coefficient on sdr remains the same as in Model 3, predicting about 0.6 percentage points higher turnout in states with same day registration. We see, however, that once we relax the assumption that our errors are independent, and allow for correlations between observations from the same state, our uncertainty about this estimate (quantified by its standard error) increases 10-fold, and we are non longer confident that there is a statistically significant relationship between same day registration and voting in these data.\nIn sum, once we account for fixed differences across states and between time periods, and allow correlated errors between observations from the same state, variation in the presence of same day registration laws seems to explain relatively little variation in voting\n\n\n\n\n\n\nNote\n\n\n\nSo which model should we prefer? I would say the default approach of most social scientists is to prefer the most conservative estimate, which in this case corresponds to the results from model 4. We’d rather under claim than over claim. Since rarely if ever, do we know the right model , it’s generally common practice to report the results of multiple models with different specifications (as Grumbach and Hill do) as a way of demonstrating the robustness of ones’ results."
   },
   {
     "objectID": "labs/08-lab-comments.html#estimate-the-models-1",
@@ -9603,7 +9603,7 @@
     "href": "labs/08-lab-comments.html#present-the-results",
     "title": "Comments for Lab 08 - Replicating Grumbach and Hill (2022):",
     "section": "5.2 Present the results",
-    "text": "5.2 Present the results\nPlease present the results in a regression table.\nOnce you’ve estimated the models, you can just uncomment the code below:\n\nhtmlreg(list(m1gh, m2gh), \n        digits = 4,\n        include.ci = F) %&gt;% HTML() %&gt;% browsable()\n\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\n\n\n\n\nsdr\n0.0120\n0.0004\n\n\n \n(0.0162)\n(0.0128)\n\n\nage_group18-24\n-0.3518***\n-0.4125***\n\n\n \n(0.0061)\n(0.0051)\n\n\nage_group25-34\n-0.2149***\n-0.3198***\n\n\n \n(0.0060)\n(0.0040)\n\n\nage_group35-44\n-0.1026***\n-0.2179***\n\n\n \n(0.0063)\n(0.0038)\n\n\nage_group45-54\n-0.0431***\n-0.1450***\n\n\n \n(0.0059)\n(0.0038)\n\n\nage_group55-64\n0.0064\n-0.0642***\n\n\n \n(0.0047)\n(0.0036)\n\n\nsdr:age_group18-24\n0.0142\n0.0472***\n\n\n \n(0.0108)\n(0.0081)\n\n\nsdr:age_group25-34\n0.0003\n0.0219**\n\n\n \n(0.0137)\n(0.0076)\n\n\nsdr:age_group35-44\n-0.0142\n0.0074\n\n\n \n(0.0162)\n(0.0087)\n\n\nsdr:age_group45-54\n-0.0147\n0.0001\n\n\n \n(0.0120)\n(0.0068)\n\n\nsdr:age_group55-64\n-0.0149\n-0.0108\n\n\n \n(0.0096)\n(0.0062)\n\n\nfactor(race)200\n \n0.0518***\n\n\n \n \n(0.0081)\n\n\nfactor(race)300\n \n-0.0548***\n\n\n \n \n(0.0118)\n\n\nfactor(race)650\n \n-0.1619***\n\n\n \n \n(0.0305)\n\n\nfactor(race)651\n \n-0.1784***\n\n\n \n \n(0.0090)\n\n\nfactor(race)652\n \n-0.1277***\n\n\n \n \n(0.0188)\n\n\nfactor(race)700\n \n-0.0916***\n\n\n \n \n(0.0236)\n\n\nfactor(race)801\n \n0.0130\n\n\n \n \n(0.0110)\n\n\nfactor(race)802\n \n-0.0233*\n\n\n \n \n(0.0097)\n\n\nfactor(race)803\n \n-0.0406\n\n\n \n \n(0.0277)\n\n\nfactor(race)804\n \n-0.0566\n\n\n \n \n(0.0403)\n\n\nfactor(race)805\n \n0.0548\n\n\n \n \n(0.0291)\n\n\nfactor(race)806\n \n-0.0432\n\n\n \n \n(0.0520)\n\n\nfactor(race)807\n \n-0.0486\n\n\n \n \n(0.0574)\n\n\nfactor(race)808\n \n-0.0593\n\n\n \n \n(0.0473)\n\n\nfactor(race)809\n \n-0.1125***\n\n\n \n \n(0.0271)\n\n\nfactor(race)810\n \n0.0169\n\n\n \n \n(0.0340)\n\n\nfactor(race)811\n \n-0.0932\n\n\n \n \n(0.1396)\n\n\nfactor(race)812\n \n-0.0474\n\n\n \n \n(0.0891)\n\n\nfactor(race)813\n \n-0.0445***\n\n\n \n \n(0.0076)\n\n\nfactor(race)814\n \n-0.0316\n\n\n \n \n(0.1223)\n\n\nfactor(race)815\n \n-0.1124\n\n\n \n \n(0.0601)\n\n\nfactor(race)816\n \n0.2548\n\n\n \n \n(0.1910)\n\n\nfactor(race)817\n \n0.1245\n\n\n \n \n(0.1979)\n\n\nfactor(race)818\n \n0.8195***\n\n\n \n \n(0.0074)\n\n\nfactor(race)819\n \n-0.0831\n\n\n \n \n(0.1869)\n\n\nfactor(race)820\n \n0.0325\n\n\n \n \n(0.0592)\n\n\nfactor(race)830\n \n-0.1871**\n\n\n \n \n(0.0667)\n\n\nis_female\n \n0.0240***\n\n\n \n \n(0.0017)\n\n\nincome\n \n0.0093***\n\n\n \n \n(0.0002)\n\n\neducation\n \n0.0895***\n\n\n \n \n(0.0016)\n\n\nR2\n0.0864\n0.1707\n\n\nAdj. R2\n0.0864\n0.1706\n\n\nNum. obs.\n1980510\n1616508\n\n\nRMSE\n0.4748\n0.4515\n\n\nN Clusters\n49\n49\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "5.2 Present the results\nPlease present the results in a regression table.\nOnce you’ve estimated the models, you can just uncomment the code below:\n\nhtmlreg(list(m1gh, m2gh), \n        digits = 4,\n        include.ci = F) %&gt;% HTML() %&gt;% browsable()\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\n\n\n\n\nsdr\n0.0120\n0.0004\n\n\n \n(0.0162)\n(0.0128)\n\n\nage_group18-24\n-0.3518***\n-0.4125***\n\n\n \n(0.0061)\n(0.0051)\n\n\nage_group25-34\n-0.2149***\n-0.3198***\n\n\n \n(0.0060)\n(0.0040)\n\n\nage_group35-44\n-0.1026***\n-0.2179***\n\n\n \n(0.0063)\n(0.0038)\n\n\nage_group45-54\n-0.0431***\n-0.1450***\n\n\n \n(0.0059)\n(0.0038)\n\n\nage_group55-64\n0.0064\n-0.0642***\n\n\n \n(0.0047)\n(0.0036)\n\n\nsdr:age_group18-24\n0.0142\n0.0472***\n\n\n \n(0.0108)\n(0.0081)\n\n\nsdr:age_group25-34\n0.0003\n0.0219**\n\n\n \n(0.0137)\n(0.0076)\n\n\nsdr:age_group35-44\n-0.0142\n0.0074\n\n\n \n(0.0162)\n(0.0087)\n\n\nsdr:age_group45-54\n-0.0147\n0.0001\n\n\n \n(0.0120)\n(0.0068)\n\n\nsdr:age_group55-64\n-0.0149\n-0.0108\n\n\n \n(0.0096)\n(0.0062)\n\n\nfactor(race)200\n \n0.0518***\n\n\n \n \n(0.0081)\n\n\nfactor(race)300\n \n-0.0548***\n\n\n \n \n(0.0118)\n\n\nfactor(race)650\n \n-0.1619***\n\n\n \n \n(0.0305)\n\n\nfactor(race)651\n \n-0.1784***\n\n\n \n \n(0.0090)\n\n\nfactor(race)652\n \n-0.1277***\n\n\n \n \n(0.0188)\n\n\nfactor(race)700\n \n-0.0916***\n\n\n \n \n(0.0236)\n\n\nfactor(race)801\n \n0.0130\n\n\n \n \n(0.0110)\n\n\nfactor(race)802\n \n-0.0233*\n\n\n \n \n(0.0097)\n\n\nfactor(race)803\n \n-0.0406\n\n\n \n \n(0.0277)\n\n\nfactor(race)804\n \n-0.0566\n\n\n \n \n(0.0403)\n\n\nfactor(race)805\n \n0.0548\n\n\n \n \n(0.0291)\n\n\nfactor(race)806\n \n-0.0432\n\n\n \n \n(0.0520)\n\n\nfactor(race)807\n \n-0.0486\n\n\n \n \n(0.0574)\n\n\nfactor(race)808\n \n-0.0593\n\n\n \n \n(0.0473)\n\n\nfactor(race)809\n \n-0.1125***\n\n\n \n \n(0.0271)\n\n\nfactor(race)810\n \n0.0169\n\n\n \n \n(0.0340)\n\n\nfactor(race)811\n \n-0.0932\n\n\n \n \n(0.1396)\n\n\nfactor(race)812\n \n-0.0474\n\n\n \n \n(0.0891)\n\n\nfactor(race)813\n \n-0.0445***\n\n\n \n \n(0.0076)\n\n\nfactor(race)814\n \n-0.0316\n\n\n \n \n(0.1223)\n\n\nfactor(race)815\n \n-0.1124\n\n\n \n \n(0.0601)\n\n\nfactor(race)816\n \n0.2548\n\n\n \n \n(0.1910)\n\n\nfactor(race)817\n \n0.1245\n\n\n \n \n(0.1979)\n\n\nfactor(race)818\n \n0.8195***\n\n\n \n \n(0.0074)\n\n\nfactor(race)819\n \n-0.0831\n\n\n \n \n(0.1869)\n\n\nfactor(race)820\n \n0.0325\n\n\n \n \n(0.0592)\n\n\nfactor(race)830\n \n-0.1871**\n\n\n \n \n(0.0667)\n\n\nis_female\n \n0.0240***\n\n\n \n \n(0.0017)\n\n\nincome\n \n0.0093***\n\n\n \n \n(0.0002)\n\n\neducation\n \n0.0895***\n\n\n \n \n(0.0016)\n\n\nR2\n0.0864\n0.1707\n\n\nAdj. R2\n0.0864\n0.1706\n\n\nNum. obs.\n1980510\n1616508\n\n\nRMSE\n0.4748\n0.4515\n\n\nN Clusters\n49\n49\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "labs/08-lab-comments.html#calculate-marginal-effects-of-interactions",
@@ -9632,5 +9632,1055 @@
     "title": "Comments for Lab 08 - Replicating Grumbach and Hill (2022):",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nBut note the bump in turnout in NC appears pretty similar across age groups↩︎\nThis is not a robust function, but one designed to work specifically for these data and models↩︎"
+  },
+  {
+    "objectID": "slides/09-slides.html#class-plan",
+    "href": "slides/09-slides.html#class-plan",
+    "title": "POLS 1600",
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements (5 min)\nFeedback (5 min)\nClass plan\n\nProbability Distributions (20 min)\nLaw of Large Numbers (20 min)\nCentral Limit Theorem (20 min)\nStandard Errors (10 min)"
+  },
+  {
+    "objectID": "slides/09-slides.html#annoucements-assignment-2",
+    "href": "slides/09-slides.html#annoucements-assignment-2",
+    "title": "POLS 1600",
+    "section": "Annoucements: Assignment 2",
+    "text": "Annoucements: Assignment 2\n\nFeedback on Assignment 2 before your labs on Thursday\nProposal:\n\nSubstitute Labs 11 with in class workshops on Final Project\nThis will count as both your grade on Assignment 3 and the Lab for that week"
+  },
+  {
+    "objectID": "slides/09-slides.html#setup-packages-for-today",
+    "href": "slides/09-slides.html#setup-packages-for-today",
+    "title": "POLS 1600",
+    "section": "Setup: Packages for today",
+    "text": "Setup: Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\"htmltools\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"patchwork\",\n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     htmltools     tidyverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    lubridate       forcats         haven      labelled         ggmap \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      ggrepel      ggridges      ggthemes        ggpubr     patchwork \n         TRUE          TRUE          TRUE          TRUE          TRUE \n       GGally        scales       dagitty         ggdag       ggforce \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      COVID19          maps       mapdata           qss    tidycensus \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    dataverse DeclareDesign     easystats           zoo \n         TRUE          TRUE          TRUE          TRUE"
+  },
+  {
+    "objectID": "slides/09-slides.html#feedback",
+    "href": "slides/09-slides.html#feedback",
+    "title": "POLS 1600",
+    "section": "Feedback",
+    "text": "Feedback"
+  },
+  {
+    "objectID": "slides/09-slides.html#what-did-we-like",
+    "href": "slides/09-slides.html#what-did-we-like",
+    "title": "POLS 1600",
+    "section": "What did we like",
+    "text": "What did we like"
+  },
+  {
+    "objectID": "slides/09-slides.html#what-did-we-dislike",
+    "href": "slides/09-slides.html#what-did-we-dislike",
+    "title": "POLS 1600",
+    "section": "What did we dislike",
+    "text": "What did we dislike"
+  },
+  {
+    "objectID": "slides/09-slides.html#concepts",
+    "href": "slides/09-slides.html#concepts",
+    "title": "POLS 1600",
+    "section": " Concepts",
+    "text": "Concepts"
+  },
+  {
+    "objectID": "slides/09-slides.html#code",
+    "href": "slides/09-slides.html#code",
+    "title": "POLS 1600",
+    "section": " Code",
+    "text": "Code"
+  },
+  {
+    "objectID": "slides/09-slides.html#q4",
+    "href": "slides/09-slides.html#q4",
+    "title": "POLS 1600",
+    "section": "Q4",
+    "text": "Q4"
+  },
+  {
+    "objectID": "slides/09-slides.html#probability-distributions-1",
+    "href": "slides/09-slides.html#probability-distributions-1",
+    "title": "POLS 1600",
+    "section": "Probability Distributions",
+    "text": "Probability Distributions\nBroadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events.\n\\[\\text{distribution} = \\text{list of possible} \\textbf{ values} + \\text{associated} \\textbf{ probabilities}\\]\nUseful for:\n\nDescribing the data generating process\nQuantifying uncertainty about our estimates"
+  },
+  {
+    "objectID": "slides/09-slides.html#simulating-the-lln-1",
+    "href": "slides/09-slides.html#simulating-the-lln-1",
+    "title": "POLS 1600",
+    "section": "Simulating the LLN",
+    "text": "Simulating the LLN\nIf we rolled the die two times and took an average, we could still get an value of 1 or 6 for average, but values closer to our expected value of 3.5, happen more often\n\n# Calculate the average from 2 rows\ntable(rowMeans(expand.grid(1:6, 1:6)))\n\n\n  1 1.5   2 2.5   3 3.5   4 4.5   5 5.5   6 \n  1   2   3   4   5   6   5   4   3   2   1"
+  },
+  {
+    "objectID": "slides/09-slides.html#the-central-limit-theorem-1",
+    "href": "slides/09-slides.html#the-central-limit-theorem-1",
+    "title": "POLS 1600",
+    "section": "The Central Limit Theorem",
+    "text": "The Central Limit Theorem\nSo the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the “true” value of the population of mean.\nIf we took a bunch of samples of the same size and calculated the mean of each sample:\n\nthe distribution of those sample means (the sampling distribution) would be centered around the truth (because the estimator is unbiased).\nthe width of the distribution (its variance) would decrease as the sample size increased\nThe Central Limit Theorem tells us about the shape of that sampling distribution."
+  },
+  {
+    "objectID": "slides/09-slides.html#references",
+    "href": "slides/09-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-distributions",
+    "href": "slides/09-slides.html#common-distributions",
+    "title": "POLS 1600",
+    "section": "Common Distributions",
+    "text": "Common Distributions\nwe’ll work with the most in this class are an even smaller subset.\n\nBernoulli: Coinflips with probability of heads, \\(p\\)\nUniform: Coinflip with more than two outcomes\nBinomial: Adding up coinflips\nPoisson: Counting the total number of events\nGeometric: Counting till a specific event occurs\nExponential: Counting till a specific event occurs in continous time\nNormal:\n\nThe limit of a Binomial distribution as \\(n\\to \\infty\\)\nThe maximum entropy when we only know the mean and variance\n\nt: A finite sample approximation of the normal\n\\(\\chi^2\\): Distribution of sums of squared variables from Normal distribution"
+  },
+  {
+    "objectID": "slides/09-slides.html#bernouli-distribution",
+    "href": "slides/09-slides.html#bernouli-distribution",
+    "title": "POLS 1600",
+    "section": "Bernouli Distribution",
+    "text": "Bernouli Distribution\n\nBerounli Distribution\n\n\nfafasf\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#blah",
+    "href": "slides/09-slides.html#blah",
+    "title": "POLS 1600",
+    "section": "Blah",
+    "text": "Blah"
+  },
+  {
+    "objectID": "slides/09-slides.html#berounli-distribution",
+    "href": "slides/09-slides.html#berounli-distribution",
+    "title": "POLS 1600",
+    "section": "Berounli Distribution",
+    "text": "Berounli Distribution\nfafasf"
+  },
+  {
+    "objectID": "slides/09-slides.html#section",
+    "href": "slides/09-slides.html#section",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Bernoulli Distribution\n\nBernoulli Distribution Visualize Distribution\n\n\nA Bernoulli random variable describes of “coin flip”, where parameter \\(p\\), the probability of success (e.g “Heads”)\n\\[Pr(X=x)=f(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                p & \\mathrm{if\\ } x=1 \\\\\n                1-p & \\mathrm{if\\ } x=0 \\\\\n        \\end{array}\n    \\right.\\]\n\\[\nF(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                0 & \\mathrm{if\\ } x&lt;1 \\\\\n                1-p & \\mathrm{if\\ } 0\\leq x&lt;1 \\\\\n                1& \\mathrm{if\\ } x\\geq1 \\\\\n        \\end{array}\n    \\right.\n\\]\n\\[\nE[X] = p\n\\]\n\\[\nVar[X] = p(1-p)\n\\]\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#bernoulli-distribution",
+    "href": "slides/09-slides.html#bernoulli-distribution",
+    "title": "POLS 1600",
+    "section": "Bernoulli Distribution",
+    "text": "Bernoulli Distribution\n\nBerounlli Distribution\n\n\nA Bernoulli random variable is defined by 1 parameter \\(p\\), the probability of success.\n\\[f(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                p & \\mathrm{if\\ } x=1 \\\\\n                1-p & \\mathrm{if\\ } x=0 \\\\\n        \\end{array}\n    \\right.\\]\n\\[\nF(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                0 & \\mathrm{if\\ } x&lt;1 \\\\\n                1-p & \\mathrm{if\\ } 0\\leq x&lt;1 \\\\\n                1& \\mathrm{if\\ } x\\geq1 \\\\\n        \\end{array}\n    \\right.\n\\]\n\\[\nE[X] = p\n\\]\n\\[\nVar[X] = p(1-p)\n\\]\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#o",
+    "href": "slides/09-slides.html#o",
+    "title": "POLS 1600",
+    "section": "o",
+    "text": "o\nBernoulli Distribution\n\nBernoulli Distribution Visualize Distribution\n\n\nA Bernoulli random variable is defined by 1 parameter \\(p\\), the probability of success.\n\\[f(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                p & \\mathrm{if\\ } x=1 \\\\\n                1-p & \\mathrm{if\\ } x=0 \\\\\n        \\end{array}\n    \\right.\\]\n\\[\nF(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                0 & \\mathrm{if\\ } x&lt;1 \\\\\n                1-p & \\mathrm{if\\ } 0\\leq x&lt;1 \\\\\n                1& \\mathrm{if\\ } x\\geq1 \\\\\n        \\end{array}\n    \\right.\n\\]\n\\[\nE[X] = p\n\\]\n\\[\nVar[X] = p(1-p)\n\\]\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#o-1",
+    "href": "slides/09-slides.html#o-1",
+    "title": "POLS 1600",
+    "section": "o",
+    "text": "o\nBinomial Distribution\n\nBinomial Distribution Visualize Distribution\n\n\nA Binomial random variable is sum of successes from a series of \\(n\\) trials from a Bernoulli Distribution with probability of success \\(p\\)\n\\[\nf(x)=\\binom{n}{x}p^x (1-p) ^{1-x} \\ \\text{for x 0,1,2},\\dots n\n\\]\n\\[\nE[X] = np\n\\]\n\\[\nVar[X] = np(1-p)\n\\]\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#section-1",
+    "href": "slides/09-slides.html#section-1",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Binomial Distribution\n\nBinomial Distribution Visualize Distribution\n\n\nA Binomial random variable is sum of successes from a series of \\(n\\) trials from a Bernoulli Distribution with probability of success \\(p\\)\n\\[\nPr(X=x) = f(x)=\\binom{n}{x}p^x (1-p) ^{1-x} \\ \\text{for x 0,1,2},\\dots n\n\\]\n\\[\nE[X] = np\n\\]\n\\[\nVar[X] = np(1-p)\n\\]\n\n\n\n\n\n\nTip\n\n\nBinomial distributions are useful for modeling the a binary (yes/no) outcome like Voting\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#section-2",
+    "href": "slides/09-slides.html#section-2",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Poisson Distribution\n\nPoisson Distribution Visualize Distribution\n\n\nA Poisson random variable describes the probability of observing a discrete number of events in a fixed period of time given that occur with a fixed average rate of \\(\\lambda\\)\n\\[\nPr(X=x) = f(x)=\\frac{\\lambda^x}{x!}e^{-\\lambda}\n\\]\n\\[\nE[X] = \\lambda\n\\]\n\\[\nVar[X] =  \\lambda\n\\]\n\n\n\n\n\n\nTip\n\n\nPoisson distributions are useful for modeling counts (yes/no) like total acts of political participation\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#section-3",
+    "href": "slides/09-slides.html#section-3",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Normal Distribution\n\nNormal Distribution Visualize DistributionPr(X&lt;0)Pr(-1 &lt; X &lt; 1)\n\n\nA Normal distribution is a continuous random variable defined by two parameters: a location parameter \\(\\mu\\) that determines the center of a distribution and a scale parameter \\(\\sigma\\) that determines the spread of a distribution\n\\[\nf(x)=\\frac{1}{\\sqrt{2\\pi\\sigma^2}}\\exp \\left[\n-\\frac{1}{2\\sigma^2}(x-\\mu)^2\n\\right]\n\\]\n\\[\nE[X] = \\mu\n\\]\n\\[\nVar[X] =  \\sigma^2\n\\]\n\n\n\n\n\n\nTip\n\n\nAs we will see shortly distributions that involve summing random variables (say, like the distribution of E[Y|X]) will tend towards normal distributions\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#visualize-distribution-3",
+    "href": "slides/09-slides.html#visualize-distribution-3",
+    "title": "POLS 1600",
+    "section": " Visualize Distribution",
+    "text": "Visualize Distribution\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#prx0",
+    "href": "slides/09-slides.html#prx0",
+    "title": "POLS 1600",
+    "section": "Pr(X<0)",
+    "text": "Pr(X&lt;0)\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "slides/09-slides.html#pr-1-x-1",
+    "href": "slides/09-slides.html#pr-1-x-1",
+    "title": "POLS 1600",
+    "section": "Pr(-1 < X < 1)",
+    "text": "Pr(-1 &lt; X &lt; 1)\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n::::"
+  },
+  {
+    "objectID": "slides/09-slides.html#probability-distributions-2",
+    "href": "slides/09-slides.html#probability-distributions-2",
+    "title": "POLS 1600",
+    "section": "Probability Distributions",
+    "text": "Probability Distributions\nThe can be represented in terms of:\n\nProbability Mass/Density Functions\n\nDiscrete variables have probability mass functions (PMF)\nContinuous variables have probability density functions (PDF)\n\nCumulative Density Functions\n\nDiscrete: Summation of discrete probabilities\nContinuous: Integration over a range of values"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-probability-distributions",
+    "href": "slides/09-slides.html#common-probability-distributions",
+    "title": "POLS 1600",
+    "section": "Common Probability Distributions",
+    "text": "Common Probability Distributions\n\nSource"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-discrete-distributions",
+    "href": "slides/09-slides.html#common-discrete-distributions",
+    "title": "POLS 1600",
+    "section": "Common Discrete Distributions",
+    "text": "Common Discrete Distributions\n\nBernoulli: Coin flips with probability of heads, \\(p\\)\nUniform: Coin flip with more than two outcomes\nBinomial: Adding up coin flips\nPoisson: Counting the number of events that occur at some average rate\nGeometric: Counting until a specific event occurs"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-continous-distributions",
+    "href": "slides/09-slides.html#common-continous-distributions",
+    "title": "POLS 1600",
+    "section": "Common Continous Distributions",
+    "text": "Common Continous Distributions\n\nExponential: Counting till a specific event occurs in continuous time\nNormal: Describe the outcomes that are sums of random variables (with finite means)\n\nThe limit of a Binomial distribution as \\(n\\to \\infty\\)\nThe maximum entropy when we only know the mean and variance\n\nt: A finite sample approximation of the normal\n\\(\\chi^2\\): Distribution of sums of squared variables from a Normal distribution"
+  },
+  {
+    "objectID": "slides/09-slides.html#the-law-of-large-numbers-intuitive-2",
+    "href": "slides/09-slides.html#the-law-of-large-numbers-intuitive-2",
+    "title": "POLS 1600",
+    "section": "The Law of Large Numbers (Intuitive)",
+    "text": "The Law of Large Numbers (Intuitive)\nFinally, suppose we took a sample of size N = 32 (e.g. the class size). Since our sample is the population, our estimate will be exactly equal to to the population.\nEach sample will give us the same “true” value. That is, it will not vary at all.\nThe idea that as the sample size increases, the distance of a sample mean from the population mean \\(\\mu\\) goes to 0 is called the Law of Large Numbers"
+  },
+  {
+    "objectID": "slides/09-slides.html#simulating-the-lln-2",
+    "href": "slides/09-slides.html#simulating-the-lln-2",
+    "title": "POLS 1600",
+    "section": "Simulating the LLN",
+    "text": "Simulating the LLN\n\nLLN Code Simulations LLN\n\n\nAs we increase our sample size (roll the die more times), the LLN says the chance that our sample average is far from the truth \\((p(\\left|\\frac{X_1+\\dots+X_n}{n}-\\mu\\right| &gt; \\epsilon))\\), gets vanishingly small.\nLet’s write some code to simulate this process\n\n\n\n# Create a 6-sided die\ndie &lt;- 1:6\n\n# Create function to simulate rolling a die N times\n\nroll_fn &lt;- function(n) {\n  rolls &lt;- data.frame(rolls = sample(die, size = n, replace = TRUE))\n  # summarize rolls \n  df &lt;- rolls %&gt;%\n    summarise(\n    # number of rolls\n      n_rolls = n(),\n    # number of times 1 was rolled\n      ones = sum(rolls == 1),\n    # number of times 2 was rolled, etc..\n      twos = sum(rolls == 2),\n      threes = sum(rolls == 3),\n      fours = sum(rolls == 4),\n      fives = sum(rolls == 5),\n      sixes = sum(rolls == 6),\n      # Average of all our rolls\n      average =  mean(rolls),\n      # Absolute difference between averages and rolls\n      abs_error = abs(3.5-average)\n    )\n  # Return summary df\n  df\n}\n\n\n# Holder for simulatoin\n\nsim_df &lt;- NULL\n\n# Set seed\nset.seed(123)\n\nfor(i in 1:1000){\n  sim_df &lt;- rbind(sim_df,\n                  roll_fn(i)\n  )\n}\n\nfig_lln &lt;- sim_df %&gt;% \n  pivot_longer(\n    cols = c(\"average\", \"abs_error\"),\n    names_to = \"Measure\",\n    values_to = \"Estimate\"\n  ) %&gt;% \n  mutate(\n    Measure = ifelse(Measure == \"average\",\"Average\",\"Absolute Error\") %&gt;% \n      factor(., levels = c(\"Average\",\"Absolute Error\"))\n  ) %&gt;% \nggplot(aes(n_rolls, Estimate))+\n  geom_line()+\n  geom_smooth()+\n  facet_wrap(~Measure,scales = \"free_y\")+\n  theme_minimal()"
+  },
+  {
+    "objectID": "slides/09-slides.html#z-scores-and-standardization",
+    "href": "slides/09-slides.html#z-scores-and-standardization",
+    "title": "POLS 1600",
+    "section": "Z-scores and Standardization",
+    "text": "Z-scores and Standardization\nLet \\(X\\) be a random variable with mean \\(\\mu\\) and standard deviation \\(\\sigma\\).\nDefine a new R.V. \\(Z\\) as the standardization of \\(X\\):\n\\[Z=\\frac{X-\\mu}{\\sigma}\\]\nWhere Z has \\(\\mu=0\\) and \\(\\sigma=1\\)."
+  },
+  {
+    "objectID": "slides/09-slides.html#section-4",
+    "href": "slides/09-slides.html#section-4",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Simulating the CLT\n\nConcept Messy Code Samp Distrib Normal Approx\n\n\n\nThe following code simulates the process of:\n\ntaking repeated (\\(N_{sim} = 2000\\))samples of varying sizes (\\(N_{samp}= 10, 100, 100\\))\nfrom two very not Normal populations (Poison(\\(\\lambda = 5\\)), Weird mixture of distributions)\nCalculating the means from each sample\nPlotting the sampling distributions of sample means\nApproximating the distribution of sample means with Normal distributions\n\n\n\n\n\n\n\nTip\n\n\nEven if random variable’s distribution is not at all Normal, the distribution of sample means often can be reasonably approximated by Normal Distributions\n\n\n\n\n\n\n\n# Define Population\n\nN &lt;- 10000\nset.seed(123)\npop_df &lt;- tibble(\n  Poisson = rpois(N, 5),\n  # Binomial = rbinom(size=20, n=N, prob = .25),\n  type = sample(0:2,N,replace =T,prob=c(.4,.2,.4)),\n  Weird = case_when(\n    type == 0 ~ rbeta(N,5,2)*2,\n    type == 1 ~ (rexp(N,4)-6.5)*-1,\n    type == 2 ~ rnorm(N,8,2)\n    \n  )\n  ) %&gt;% select(Poisson, Weird)\n\nfig_pop_dist &lt;- pop_df %&gt;% \n  pivot_longer(\n    col = everything(),\n    names_to = \"Distribution\"\n  ) %&gt;% \n  ggplot(aes(value,fill=Distribution,group=Distribution))+\n  geom_histogram()+\n  xlim(0,16)+\n  facet_grid(~Distribution,scales = \"free_x\")+\n  stat_summary(aes(x=0, y=value),fun.data =\\(x) data.frame(xintercept = mean(x)), geom=\"vline\")\n\nsample_sizes &lt;- c(10,100,1000)\n\ncalculate_sample_mean &lt;- function(n,pop){\n  df &lt;- tibble(\n    size = n,\n    `Sample Mean` = mean(sample(pop,n,replace = F))\n  )\n  return(df)\n}\n\nsimulate_clt_fn &lt;- function(nsims = 100, the_pop,the_n, ...){\n  sim &lt;- 1:nsims %&gt;% purrr::map_df(\\(x)calculate_sample_mean(pop=the_pop, n=the_n))\n  return(sim)\n}\n\n\n\n# binomial_clt &lt;- sample_sizes %&gt;% \n#   purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Binomial, the_n = x)) %&gt;% \n#   mutate(\n#     id = 1:n(),\n#     Distribution = \"Binomial\"\n#   )\n\npoisson_clt &lt;- sample_sizes %&gt;% \n  purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Poisson, the_n = x)) %&gt;% \n  mutate(\n    id = 1:n(),\n    Distribution = \"Poisson\"\n  )\n\nweird_clt &lt;- sample_sizes %&gt;% \n  purrr::map_df( \\(x)  simulate_clt_fn(nsims= 2000,the_pop = pop_df$Weird, the_n = x)) %&gt;% \n  mutate(\n    id = 1:n(),\n    Distribution = \"Weird\"\n  )\n\nsample_df &lt;- poisson_clt %&gt;% bind_rows(weird_clt) %&gt;% \n  mutate(\n    `Sample Size` = factor(size)\n  )\n\n\nfig_samp_dist &lt;- sample_df %&gt;% \n  ggplot(aes(`Sample Mean`,col=`Sample Size`))+\n  geom_density()+\n  geom_rug()+\n  # theme( strip.background.y = element_blank(),\n  #     strip.text.y = element_blank())+\n  xlim(0,16)+\n  facet_grid(`Sample Size`~Distribution,scales = \"free_y\")\n\n  \nfig_clt &lt;- ggarrange(fig_pop_dist,fig_samp_dist,ncol=1)\n\n\np10_weird &lt;- sample_df %&gt;% \n  filter(Distribution == \"Weird\") %&gt;% \n  filter(size == 10) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =10\"))+\n  geom_rug(aes(col=\"Sample Size =10\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=mean(pop_df$Weird),  sd=sd(pop_df$Weird)/sqrt(10)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(0,10)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Weird Distribution, N = 10\"\n  )\n\np1000_weird &lt;- sample_df %&gt;% \n  filter(Distribution == \"Weird\") %&gt;% \n  filter(size == 1000) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =1000\"))+\n  geom_rug(aes(col=\"Sample Size =1000\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=mean(pop_df$Weird),  sd=sd(pop_df$Weird)/sqrt(1000)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(4,6)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Weird Distribution, N = 1000\"\n  )\n\np10_poisson &lt;- sample_df %&gt;% \n  filter(Distribution == \"Poisson\") %&gt;% \n  filter(size == 10) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =10\"))+\n  geom_rug(aes(col=\"Sample Size =10\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=5,  sd=sd(pop_df$Poisson)/sqrt(10)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(0,10)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Poisson(Lambda = 5), N = 10\"\n  )\n\np1000_poisson &lt;- sample_df %&gt;% \n  filter(Distribution == \"Poisson\") %&gt;% \n  filter(size == 1000) %&gt;% \n  ggplot(aes(`Sample Mean`))+\n  geom_density(aes(col=\"Sample Size =1000\"))+\n  geom_rug(aes(col=\"Sample Size =1000\"))+\n  stat_function(\n    fun=dnorm, args = list(mean=5,  sd=sd(pop_df$Poisson)/sqrt(1000)),\n    col=\"black\",linetype = \"dashed\"\n    )+\n  xlim(4,6)+\n  theme_minimal()+\n  guides(col=\"none\")+\n  labs(\n    title = \"Normal Approximation to Sampling Distribution\",\n    subtitle = \"Poisson(Lambda = 5), N = 1000\"\n  )\n\nfig_clt_approx &lt;- ggarrange(p10_weird, p1000_weird, p10_poisson,p1000_poisson)"
+  },
+  {
+    "objectID": "slides/09-slides.html#lab-8",
+    "href": "slides/09-slides.html#lab-8",
+    "title": "POLS 1600",
+    "section": "Lab 8",
+    "text": "Lab 8\n\nLab 8 got into the weeds on standard errors, asking you to use lm_robust() to calculate robust clustered standard errors\nA standard error is simply the standard deviation of a theoretical sampling distribution\nA sampling distribution describes the range of estimates we could have seen\nStandard errors are key to quantifying uncertainty and making claims about statistical significance"
+  },
+  {
+    "objectID": "slides/09-slides.html#errors-and-residuals",
+    "href": "slides/09-slides.html#errors-and-residuals",
+    "title": "POLS 1600",
+    "section": "Errors and Residuals",
+    "text": "Errors and Residuals\nErrors (\\(\\epsilon\\)) represent the difference between the outcome and the true mean:\n\\[\n\\begin{aligned}\ny = X\\beta + \\epsilon\\\\\n\\epsilon = y -X\\beta\n\\end{aligned}\n\\] Residuals (\\(\\hat{\\epsilon}\\)) represent the difference between the outcome and our estimate\n\\[\n\\begin{aligned}\ny = X\\beta + \\hat{\\epsilon}\\\\\n\\hat{\\epsilon} = y -X\\hat{\\beta}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#variance-of-regression-coefficients-depends-on-the-errors",
+    "href": "slides/09-slides.html#variance-of-regression-coefficients-depends-on-the-errors",
+    "title": "POLS 1600",
+    "section": "Variance of Regression Coefficients depends on the errors",
+    "text": "Variance of Regression Coefficients depends on the errors\n\\[\n\\begin{aligned}\n\\hat{\\beta} &= (X'X)^{-1}X'y \\\\\n&= (X'X)^{-1}X'(X\\beta + \\epsilon) \\\\\n&= \\beta + (X'X)^{-1}X'\\epsilon \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#standard-errors-for-regression-coffiecients",
+    "href": "slides/09-slides.html#standard-errors-for-regression-coffiecients",
+    "title": "POLS 1600",
+    "section": "Standard Errors for Regression Coffiecients",
+    "text": "Standard Errors for Regression Coffiecients"
+  },
+  {
+    "objectID": "slides/09-slides.html#variance-of-regression-coefficients-depends-on-the-errors-1",
+    "href": "slides/09-slides.html#variance-of-regression-coefficients-depends-on-the-errors-1",
+    "title": "POLS 1600",
+    "section": "Variance of Regression Coefficients depends on the errors",
+    "text": "Variance of Regression Coefficients depends on the errors\nRecall that\n\\[\n\\begin{aligned}\nE[\\text{c}] &= \\text{c} \\\\\nVar[\\text{c}] &= 0\\\\\nVar[X] &= Var[X^2] - Var[X]^2\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nVar[\\hat{\\beta}] &= Var[\\beta] +Vav[(X'X)^{-1}X'\\epsilon] \\\\\n&= 0 +E[(X'X)^{-1}X'\\epsilon \\epsilon'X(X'X)^{-1}] - E[(X'X)^{-1}X'\\epsilon]E](X'X)^{-1}X'\\epsilon] \\\\\n&= E[(X'X)^{-1}X'\\epsilon \\epsilon'X(X'X)^{-1}] - 0 \\\\\n& = (X'X)^{-1}X'E[\\epsilon \\epsilon']X(X'X)^{-1} \\\\\n& = (X'X)^{-1}X'\\Sigma X(X'X)^{-1} \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#constant-error-variance",
+    "href": "slides/09-slides.html#constant-error-variance",
+    "title": "POLS 1600",
+    "section": "Constant Error Variance",
+    "text": "Constant Error Variance\nSome motivations for OLS regression assume that the errors are independent and identically distributed\n\\[\n\\begin{aligned}\nVar(\\epsilon|X) = E[\\epsilon\\epsilon'] = \\Sigma &=\n\\begin{bmatrix}\n\\sigma^2 & 0 & 0 & \\cdots & 0 \\\\\n0 &\\sigma^2  & 0 & \\cdots &0 \\\\\n0 & 0 &\\sigma^2 & \\cdots &0 \\\\\n\\vdots & \\vdots  & \\vdots &\\ddots & \\vdots\\\\\n0 & 0 & 0 & \\cdots & \\sigma^2 \\\\\n\\end{bmatrix} = \\sigma^2\n\\begin{bmatrix}\n1 & 0 & 0 & \\cdots & 0 \\\\\n0 &1  & 0 & \\cdots &0 \\\\\n0 & 0 &1 & \\cdots &0 \\\\\n\\vdots & \\vdots  & \\vdots &\\ddots & \\vdots\\\\\n0 & 0 & 0 & \\cdots & 1 \\\\\n\\end{bmatrix} = \\sigma^2\\text{I}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#constant-error-variance-1",
+    "href": "slides/09-slides.html#constant-error-variance-1",
+    "title": "POLS 1600",
+    "section": "Constant Error Variance",
+    "text": "Constant Error Variance\nIn which case, \\(Var[\\hat{\\beta}]\\) reduces to:\n\\[\nVar[\\hat{\\beta}]= (X'X)^{-1}X'\\Sigma X(X'X)^{-1} = \\sigma^2(X'X)^{-1}\n\\] And we can estimate, \\(\\sigma^2\\) with the residuals from the model\n\\[\n\\hat{\\sigma}^2 = \\frac{\\hat{\\epsilon}'\\hat{\\epsilon}}{n-k}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#non-constant-error-variance",
+    "href": "slides/09-slides.html#non-constant-error-variance",
+    "title": "POLS 1600",
+    "section": "Non-Constant Error Variance",
+    "text": "Non-Constant Error Variance\nConstant error variance or (homoskedasticity) is often an unrealistic assumption\nIf there is non-constant error variance (heteroskedasticity) then:\n\\[\n\\begin{aligned}\nVar(\\epsilon|X) = E[\\epsilon\\epsilon'] = \\Sigma &=\n\\begin{bmatrix}\n\\sigma_1^2 & 0 & 0 & \\cdots & 0 \\\\\n0 &\\sigma_2^2  & 0 & \\cdots &0 \\\\\n0 & 0 &\\sigma_3^2 & \\cdots &0 \\\\\n\\vdots & \\vdots  & \\vdots &\\ddots & \\vdots\\\\\n0 & 0 & 0 & \\cdots & \\sigma_n^2 \\\\\n\\end{bmatrix}\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/09-slides.html#conseqeunces-of-non-constant-error-variance",
+    "href": "slides/09-slides.html#conseqeunces-of-non-constant-error-variance",
+    "title": "POLS 1600",
+    "section": "Conseqeunces of Non-Constant Error Variance",
+    "text": "Conseqeunces of Non-Constant Error Variance\n\n\\(\\sigma^2(X'X)^{-1}\\) is no longer an unbiased estimator for \\(Var[\\hat{\\beta}]\\)\nOur statistical tests using \\(\\sigma^2(X'X)^{-1}\\) to calculate standard errors will not live up to their promised error rates and coverage probabilities (more to come)\n\\(\\hat{\\beta}\\), however are still unbiased estimates of \\(\\beta\\)"
+  },
+  {
+    "objectID": "slides/09-slides.html#constant-error-variance-2",
+    "href": "slides/09-slides.html#constant-error-variance-2",
+    "title": "POLS 1600",
+    "section": "Constant Error Variance",
+    "text": "Constant Error Variance"
+  },
+  {
+    "objectID": "slides/09-slides.html#robust-standard-errors",
+    "href": "slides/09-slides.html#robust-standard-errors",
+    "title": "POLS 1600",
+    "section": "Robust Standard Errors",
+    "text": "Robust Standard Errors\nRobust standard errors attempt to estimat \\(\\sigma_i^2\\) using the residuals from the model \\(\\hat{\\epsilon_i}\\) and additional adjustments to yield robust standard errors that are consistent, even when there is heteroskedasiticity.\n\\[\nVar[\\hat{\\beta}]= (X'X)^{-1}X'\n\\begin{bmatrix}\n\\hat{\\epsilon}_1^2 & 0 & 0 & \\cdots & 0 \\\\\n0 &\\hat{\\epsilon}_2^2  & 0 & \\cdots &0 \\\\\n0 & 0 &\\hat{\\epsilon}_3^2 & \\cdots &0 \\\\\n\\vdots & \\vdots  & \\vdots &\\ddots & \\vdots\\\\\n0 & 0 & 0 & \\cdots & \\hat{\\epsilon}_n^2 \\\\\n\\end{bmatrix}\nX(X'X)^{-1} =\n\\]\nClustered standard errors go a step further, summing up the residuals within clusters (groups) in the data."
+  },
+  {
+    "objectID": "slides/09-slides.html#how-do-we-want-to-be-remembered",
+    "href": "slides/09-slides.html#how-do-we-want-to-be-remembered",
+    "title": "POLS 1600",
+    "section": "How do we want to be remembered",
+    "text": "How do we want to be remembered"
+  },
+  {
+    "objectID": "slides/09-slides.html#common-continuous-distributions",
+    "href": "slides/09-slides.html#common-continuous-distributions",
+    "title": "POLS 1600",
+    "section": "Common Continuous Distributions",
+    "text": "Common Continuous Distributions\n\nExponential: Counting till a specific event occurs in continuous time\nNormal: Describe the outcomes that are sums of random variables (with finite means)\n\nThe limit of a Binomial distribution as \\(n\\to \\infty\\)\nThe maximum entropy when we only know the mean and variance\n\nt: A finite sample approximation of the normal\n\\(\\chi^2\\): Distribution of sums of squared variables from a Normal distribution"
+  },
+  {
+    "objectID": "slides/09-slides-old.html",
+    "href": "slides/09-slides-old.html",
+    "title": "Week 09:",
+    "section": "",
+    "text": "class: inverse, center, middle # Overview"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#general-plan",
+    "href": "slides/09-slides-old.html#general-plan",
+    "title": "Week 09:",
+    "section": "General Plan",
+    "text": "General Plan\n\nSetup\nFeedback\nReview\n\nProbability Distributions\n\nLecture\n\nThe Law of Large Numbers\nThe Central Limit Theorem\nGeneralized Linear Models (Maybe…)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#goals",
+    "href": "slides/09-slides-old.html#goals",
+    "title": "Week 09:",
+    "section": "Goals",
+    "text": "Goals\n\nThe Law of Large Number’s says that as our sample size increases, our sample mean will converge to the population value\n\n–\n\nThe Central Limit Theorem says that the distribution of those sample means will follow a normal distribution\n\n–\n\nGeneralized Linear Models allow us to more accurately model different types of data-generating processes using Maximum Likelihood Estimation."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#emoji-slide-notation",
+    "href": "slides/09-slides-old.html#emoji-slide-notation",
+    "title": "Week 09:",
+    "section": "Emoji Slide notation",
+    "text": "Emoji Slide notation\n\n💪: Exercises\n📢: Feedback\n🔍: Review\n💡: Core concept\n🦉: In case you’re interested\n\nclass:inverse, middle, center # 💪 ## Get set up to work"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#new-packages",
+    "href": "slides/09-slides-old.html#new-packages",
+    "title": "Week 09:",
+    "section": "New packages",
+    "text": "New packages\nNone!"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#packages-for-today",
+    "href": "slides/09-slides-old.html#packages-for-today",
+    "title": "Week 09:",
+    "section": "Packages for today",
+    "text": "Packages for today\n\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"zoo\"\n)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#define-a-function-to-load-and-if-needed-install-packages",
+    "href": "slides/09-slides-old.html#define-a-function-to-load-and-if-needed-install-packages",
+    "title": "Week 09:",
+    "section": "Define a function to load (and if needed install) packages",
+    "text": "Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#load-packages-for-today",
+    "href": "slides/09-slides-old.html#load-packages-for-today",
+    "title": "Week 09:",
+    "section": "Load packages for today",
+    "text": "Load packages for today\n\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n          zoo \n         TRUE \n\n\nclass:inverse, center, middle # 💪 ## Load Data for today\nclass:inverse, middle, center # 🔍 # Review ## Random Variables and Probability Distributions"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#probability",
+    "href": "slides/09-slides-old.html#probability",
+    "title": "Week 09:",
+    "section": "Probability",
+    "text": "Probability\n\nProbability describes the likelihood of an event happening.\nStatistics uses probability to quantify uncertainty about estimates and hypotheses.\nThree rules of probability (Kolmogorov axioms)\n\nPositivity: \\[Pr(A) \\geq 0 \\]\nCertainty: \\[Pr(\\Omega) = 1 \\]\nAdditivity: \\[Pr(A \\text{ or } B) = Pr(A) + Pr(B)\\] iff A and B are mutually exclusive"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#probability-1",
+    "href": "slides/09-slides-old.html#probability-1",
+    "title": "Week 09:",
+    "section": "Probability",
+    "text": "Probability\n\nTwo interpretations interpreting probabilities (Frequentist and Bayesian)\nConditional Probability and Bayes Rule:\n\n\\[Pr(A|B) = \\frac{Pr(B|A)Pr(A)}{Pr(B)} = \\frac{Pr(B|A)Pr(A)}{Pr(B|A)Pr(A)+Pr(B|A^\\complement)Pr(A^\\complement)}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#random-variables",
+    "href": "slides/09-slides-old.html#random-variables",
+    "title": "Week 09:",
+    "section": "Random Variables",
+    "text": "Random Variables\n\nRandom variables assign numeric values to each event in an experiment.\n\nMutually exclusive and exhaustive, together cover the entire sample space.\n\nDiscrete random variables take on finite, or countably infinite distinct values.\nContinuous variables can take on an uncountably infinite number of values."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#example-toss-two-coins",
+    "href": "slides/09-slides-old.html#example-toss-two-coins",
+    "title": "Week 09:",
+    "section": "Example: Toss Two Coins",
+    "text": "Example: Toss Two Coins\n\n\\(S={TT,TH,HT,HH}\\)\nLet \\(X\\) be the number of heads\n\n\\(X(TT)=0\\)\n\\(X(TH)=1\\)\n\\(X(HT)=1\\)\n\\(X(HH)=2\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#probability-distributions",
+    "href": "slides/09-slides-old.html#probability-distributions",
+    "title": "Week 09:",
+    "section": "Probability Distributions",
+    "text": "Probability Distributions\n\nBroadly probability distributions provide mathematical descriptions of random variables in terms of the probabilities of events.\n\n\\[\\text{distribution} = \\text{list of possible} \\textbf{ values} + \\text{associated} \\textbf{ probabilities}\\]\nThe can be represented in terms of:\n\nProbability Mass/Density Functions\n\nDiscrete variables have probability mass functions (PMF)\nContinuous variables have probability density functions (PDF)\n\nCumulative Density Functions\n\nDiscrete: Summation of discrete probabilities\nContinuous: Integration over a range of values"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#discrete-distributions",
+    "href": "slides/09-slides-old.html#discrete-distributions",
+    "title": "Week 09:",
+    "section": "Discrete distributions",
+    "text": "Discrete distributions\n\nProbability Mass Function (pmf): \\(f(x)=p(X=x)\\)\n\nAssigns probabilities to each unique event such that Kolmogorov Axioms (Positivity, Certainty, and Additivity) still apply\n\nCumulative Distribution Function (cdf) \\(F(x_j)=p(X\\leq x)=\\sum_{i=1}^{j}p(x_i)\\)\n\nSum of the probability mass for events less than or equal to \\(x_j\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#example-toss-two-coins-1",
+    "href": "slides/09-slides-old.html#example-toss-two-coins-1",
+    "title": "Week 09:",
+    "section": "Example: Toss Two coins",
+    "text": "Example: Toss Two coins\n\n\\(S={TT,TH,HT,HH}\\)\nLet \\(X\\) be the number of heads\n\n\\(X(TT)=0\\)\n\\(X(TH)=1\\)\n\\(X(HT)=1\\)\n\\(X(HH)=2\\)\n\n\\(f(X=0)=p(X=0)=1/4\\)\n\\(f(X=1)=p(X=1)=1/2\\)\n\\(F(X\\leq 1) = p(X \\leq 1)= 3/4\\)\n\n\n\n\n\n\n\n\n\n\nEach side has equal probability of occurring (1/6). The probability that you roll a 2 or less P(X&lt;=2) = 1/6 + 1/6 = 1/3"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#continuous-distributions",
+    "href": "slides/09-slides-old.html#continuous-distributions",
+    "title": "Week 09:",
+    "section": "Continuous distributions",
+    "text": "Continuous distributions\n\nProbability Density Functions (PDF): \\(f(x)\\)\n\nAssigns probabilities to events in the sample space such that Kolmogorov Axioms still apply\nBut… since their are an infinite number of values a continuous variable could take, p(X=x)=0, that is, the probability that X takes any one specific value is 0.\n\nCumulative Distribution Function (CDF) \\(F(x)=p(X\\leq x)=\\int_{-\\infty}^{x}f(x)dx\\)\n\nInstead of summing up to a specific value (discrete) we integrate over all possible values up to \\(x\\)\nProbability of having a value less than x"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#integrals",
+    "href": "slides/09-slides-old.html#integrals",
+    "title": "Week 09:",
+    "section": "🦉 Integrals",
+    "text": "🦉 Integrals\nFirst, a brief aside on integral calculus:\nWhat’s the area of the rectangle? \\(base\\times height\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#integrals-1",
+    "href": "slides/09-slides-old.html#integrals-1",
+    "title": "Week 09:",
+    "section": "🦉 Integrals",
+    "text": "🦉 Integrals\nHow would we find the area under a curve?"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#integrals-2",
+    "href": "slides/09-slides-old.html#integrals-2",
+    "title": "Week 09:",
+    "section": "🦉 Integrals",
+    "text": "🦉 Integrals\nWell suppose we added up the areas of a bunch of rectangles roughly whose height’s approximated the height of the curve?\n\n\n\n\n\n\n\n\n\nCan we do any better?"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#integrals-3",
+    "href": "slides/09-slides-old.html#integrals-3",
+    "title": "Week 09:",
+    "section": "🦉 Integrals",
+    "text": "🦉 Integrals\nLet’s make the rectangles smaller\n\n\n\n\n\n\n\n\n\nWhat happens as the width of rectangles get even smaller, approaches 0? Our approximation get’s even better:"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#link-between-pdf-and-cdf",
+    "href": "slides/09-slides-old.html#link-between-pdf-and-cdf",
+    "title": "Week 09:",
+    "section": "🦉 Link between PDF and CDF",
+    "text": "🦉 Link between PDF and CDF\nIf \\[F(x)=p(X\\leq x)=\\int_{-\\infty}^{x}f(x)dx \\]\nThen by the fundamental theorem of calculus\n\\[\\frac{d}{dx}F(x)=f(x)\\]\nIn words\n\nthe PDF (\\(f(x)\\)) is the derivative (rate of change) of the CDF (\\(F(X)\\))\nthe CDF describes the area under the curve defined by f(x) up to x"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#properties-of-the-cdf",
+    "href": "slides/09-slides-old.html#properties-of-the-cdf",
+    "title": "Week 09:",
+    "section": "Properties of the CDF",
+    "text": "Properties of the CDF\n\n\\(0\\leq F(x) \\leq 1\\)\n\\(F\\) is non-decreasing and right continuous\n\\(\\lim_{x\\to-\\infty}F(x)=0\\)\n\\(\\lim_{x\\to\\infty}F(x)=1\\)\nFor all \\(a,b \\in \\mathbb{R}\\) s.t. \\(a&lt;b\\)\n\n\\[p(a &lt; X \\leq b) = F(b)- F(a) = \\int_a^b f(x)dx \\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#recall-the-pmf-and-cdf-of-a-die",
+    "href": "slides/09-slides-old.html#recall-the-pmf-and-cdf-of-a-die",
+    "title": "Week 09:",
+    "section": "Recall the PMF and CDF of a die",
+    "text": "Recall the PMF and CDF of a die"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#whats-the-probability",
+    "href": "slides/09-slides-old.html#whats-the-probability",
+    "title": "Week 09:",
+    "section": "What’s the probability",
+    "text": "What’s the probability\n\n\\(p(X=1)...p(X=6) = 1/6\\)\n\\(p( 2 &lt; X \\leq 5) = F(5)-F(2)=5/6-2/6=3/6=1/2\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#common-probablity-distirbutions",
+    "href": "slides/09-slides-old.html#common-probablity-distirbutions",
+    "title": "Week 09:",
+    "section": "Common Probablity Distirbutions",
+    "text": "Common Probablity Distirbutions\nIn this course, we’ll use probability distributions to\n\nmodel the data generating process as a function of parameters we can estimate (using Generalized Linear Models)\nperform inference based on asymptotic theory (statements about how statistics would be have as our sample size approached infinity)\n\nThere are a lot of probability distributions:\n\n\n\n\n\n\n\n\n\nFortunately, the distributions you need to know to really master data science, are probably more something like\n\n\n\n\n\n\n\n\n\nAnd the distributions we’ll work with the most in this class are an even smaller subset.\n\nBernoulli: Coinflips with probability of heads, \\(p\\)\nUniform: Coinflip with more than two outcomes\nBinomial: Adding up coinflips\nPoisson: Counting the total number of events\nGeometric: Counting till a specific event occurs\nExponential: Counting till a specific event occurs in continous time\nNormal:\n\nThe limit of a Binomial distribution as \\(n\\to \\infty\\)\nThe maximum entropy when we only know the mean and variance\n\nt: A finite sample approximation of the normal\n\\(\\chi^2\\): Distribution of sums of squared variables from Normal distribution"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#bernoulli-random-variables",
+    "href": "slides/09-slides-old.html#bernoulli-random-variables",
+    "title": "Week 09:",
+    "section": "Bernoulli Random Variables",
+    "text": "Bernoulli Random Variables\nLet’s start with our old friend the coin flip\nA coin flip is an example of a Bernoulli random variable defined by 1 parameter \\(p\\), the probability of success. It has a pmf of\n\\[f(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                p & \\mathrm{if\\ } x=1 \\\\\n                1-p & \\mathrm{if\\ } x=0 \\\\\n        \\end{array}\n    \\right.\\]\nAnd a CDF of\n\\[F(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                0 & \\mathrm{if\\ } x&lt;1 \\\\\n                1-p & \\mathrm{if\\ } 0\\leq x&lt;1 \\\\\n                1& \\mathrm{if\\ } x\\geq1 \\\\\n        \\end{array}\n    \\right.\\]\nNote that in our coin flip example \\(p=0.5\\) but it need not. Just imagine a weighted coin like the Patriots use at Foxborough"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#uniform-distribution",
+    "href": "slides/09-slides-old.html#uniform-distribution",
+    "title": "Week 09:",
+    "section": "Uniform Distribution",
+    "text": "Uniform Distribution\nOur fair die examples represent a discrete uniform distribution: multiple outcomes, equally likely. We could even imagine an infinite number of possible outcomes within a range \\([a,b]\\), the key parameters for a uniform distribution, in which case our case our continuous uniform random variable has a pdf of\n\\[f(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                \\frac{1}{b-a}& \\mathrm{if\\ } a \\leq x\\leq b \\\\\n                0 & \\text{otherwise} \\\\\n        \\end{array}\n    \\right.\\]\nAnd a CDF:\n\\[F(x) =\n    \\left\\{\n        \\begin{array}{cc}\n                        0 & x &lt;a \\\\\n                \\frac{x-a}{b-a}& \\mathrm{if\\ } a \\leq x &lt; b \\\\\n                1 & x \\geq b \\\\\n        \\end{array}\n    \\right.\\]\nWe won’t run into uniform distributions all that often except in examples like rolling a fair sided die, but often they’re used in Bayesian analysis as a form of uninformative prior."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#binomial-distributions",
+    "href": "slides/09-slides-old.html#binomial-distributions",
+    "title": "Week 09:",
+    "section": "Binomial Distributions",
+    "text": "Binomial Distributions\nThe binomial distribution may be thought of as the sum of outcomes of things that follow a Bernoulli distribution. Toss a fair coin 20 times; how many times does it come up heads? This count is an outcome that follows the binomial distribution.\nThe key parameters are the number of trials \\(n\\) and the probability of success for each trial \\(p\\) and the pdf of a binomial distribution is:\n\\[f(x)=\\binom{n}{x}p^x (1-p) ^{1-x} \\ \\text{for x 0,1,2},\\dots n\\] So if we were to toss a fair coin 20 times and count up the number of heads, the most common outcome would be 10 heads\n\n\n\n\n\n\n\n\n\nThe binomial distribution will come in handy when trying to model binary outcomes."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#poisson-distributions",
+    "href": "slides/09-slides-old.html#poisson-distributions",
+    "title": "Week 09:",
+    "section": "Poisson Distributions",
+    "text": "Poisson Distributions\nWhat would happen if you let the \\(n\\) in a binomial distribution go to infinity and \\(p\\) go to 0 so that \\(np\\) stayed the same. A Poisson distribution is what would happen. We use Poisson and negative binomial distributions to describe counts using the parameter \\(\\lambda\\) which represents rate at which events occur.\n\\[f(x)=\\frac{\\lambda^x}{x!}e^{-\\lambda}\\]\nWe use these distributions to try and predict to predict the probability of a given number of events occurring in a fixed interval of time. Things like how many acts of political participation would a voter engage in over a year."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#geometric-distributions",
+    "href": "slides/09-slides-old.html#geometric-distributions",
+    "title": "Week 09:",
+    "section": "Geometric Distributions",
+    "text": "Geometric Distributions\nWhat if we wanted to know the number times a coin came up tails before heads occurred? This discrete random variable follows a geometric distribution:\n\\[f(x)=p(1-p) ^{x}\\]\nGeometric and related distributions are useful for describing the time until an event occurs"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#exponential-distributions",
+    "href": "slides/09-slides-old.html#exponential-distributions",
+    "title": "Week 09:",
+    "section": "Exponential Distributions",
+    "text": "Exponential Distributions\nTaking a geometric distribution to its limit, you arrive at the continuous exponential distribution, again described by a \\(\\lambda = \\frac{1}{\\beta}\\) rate parameter\n\\[f(x)=\\frac{1}{\\beta}\\exp\\left[-x/\\beta\\right]\\]\nCioffa-Revilla (1984) uses an exponential distribution to model the stability of Italian governments."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#normal-distribution",
+    "href": "slides/09-slides-old.html#normal-distribution",
+    "title": "Week 09:",
+    "section": "Normal Distribution",
+    "text": "Normal Distribution\nFinally, there’s the distribution so ubiquitous we called it normal. The Normal distribution is defined by two parameters: a location parameter \\(\\mu\\) that determines the center of a distribution and a scale parameter \\(\\sigma^2\\) that determines the spread of a distribution\n\\[f(x)=\\frac{1}{\\sqrt{2\\pi\\sigma^2}}\\exp \\left[\n-\\frac{1}{2\\sigma^2}(x-\\mu)^2\n\\right]\\]\nStandard normal: \\(X \\sim N(\\mu =0,\\sigma^2=1)\\)\n\n\n\n\n\n\n\n\n\n\nAs we’ll see normal distributions tend to arise when ever you’re summing variables.\nThat is sum together a bunch of values from almost any distribution and the distribution of their sums tends to follow a normal distribution.\nSince lots of our statistics involve summation, lots of our statistics will tend to follow normal distributions in their limit (in finite samples like the world we live in they may follow related distributions like the t-distribution, but more on that later.)\n\nConsider a binomial distribution with N=100 and p=.5.\nThe pmf of this variable (black lollipops) follows a distribution that’s closely approximated by a normal distribution (red line) with a mean 50 and a standard deviation of 5.\nA relationship explained more generally by the Central Limit Theorem, which we’ll cover next week.\n\n\n\n\n\n\n\n\n\n\nWhat’s the \\(p(X \\leq 0)\\) for a normal distirbution with mean 0 and sd 1\nSince the normal distribution is so common, it’s useful to get practice working with it’s pdf and cdf.\nConsider the following question: If X is normally distributed variable with \\(\\mu=0\\) and \\(\\sigma=1\\), what’s the probability that X is less than 0 \\(p(X\\leq0)=?\\) We could solve:\n\\[\\int_{-\\infty}^{0}\\frac{1}{\\sqrt{2\\pi}\\sigma}e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}dx=0.5\\]\nBut R’s pnorm() function will quickly tell us\n\n\\(p(X\\leq0)=\\) 0.5\n\nAnd we can visualize this as follows:\n\n\n\n\n\n\n\n\n\nConsider some other questions?\n\n\\(p(X=0)=0\\)\n\nThe probability that a continuous variable is exactly some value is always 0.\n\n\\(p(X&lt;0)=0.5\\)\n\\(p(-1&lt; X&lt; 1)\\)\n\\(p(-2&lt; X&lt; 2)\\)\n\n\n\np(-1 &lt; X &lt; 1)\n\n\\(p(-1&lt; X&lt; 1)=pr(X&lt;1)-pr(X&lt;-1)\\)\n\n\\[\\int_{-1}^{1}\\frac{1}{\\sqrt{2\\pi}\\sigma}e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}dx=0.841-0.158=0.682\\]\n\n\n\n\n\n\n\n\n\n\n\np(-2 &lt; X &lt; 2)\n\n\\(p(-2&lt; X\\leq 2)=\\) 0.9544997\n\n\n\n\n\n\n\n\n\n\nWe’ll use the fact that close 95 of the observations of a standard normal variable will be within 2 standard deviations of the the mean of 0 for assessing whether a given statistic is likely to have arisen if the true value of that statistic were 0."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#expected-value",
+    "href": "slides/09-slides-old.html#expected-value",
+    "title": "Week 09:",
+    "section": "Expected Value",
+    "text": "Expected Value\nA (probability) weighted average of the possible outcomes of a random variable, often labeled \\(\\mu\\)\nDiscrete:\n\\[\\mu_X=E(X)=\\sum xp(x)\\]\nContinuous\n\\[\\mu_X=E(X)=\\int_{-\\infty}^{\\infty}xf(x) dx\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#whats-the-expected-value-of-a-1-roll-of-fair-die",
+    "href": "slides/09-slides-old.html#whats-the-expected-value-of-a-1-roll-of-fair-die",
+    "title": "Week 09:",
+    "section": "What’s the expected value of a 1 roll of fair die?",
+    "text": "What’s the expected value of a 1 roll of fair die?\n\\[\\begin{align*}\nE(X)&=\\sum_{i=1}^{6}x_ip(x_i)\\\\\n     &=1/6\\times(1+2+3+4+5+6)\\\\\n     &= 21/6\\\\\n     &=3.5\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#properties-of-expected-values",
+    "href": "slides/09-slides-old.html#properties-of-expected-values",
+    "title": "Week 09:",
+    "section": "Properties of Expected Values",
+    "text": "Properties of Expected Values\n\n\\(E(c)=c\\)\n\\(E(a+bX)=a+bE[X]\\)\n\\(E[E[X]]=X\\)\n\\(E[E[Y|X]]=E[Y]\\)\n\\(E[g(X)]=\\int_{-\\infty}^\\infty g(x)f(x)dx\\)\n\\(E[g(X_1)+\\dots+g(X_n)]=E[g(X_1)]+\\dots E[g(X_n)\\)\n\\(E[XY]=E[X]E[Y]\\) if \\(X\\) and \\(Y\\) are independent"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#variance",
+    "href": "slides/09-slides-old.html#variance",
+    "title": "Week 09:",
+    "section": "Variance",
+    "text": "Variance\nIf \\(X\\) has a finite mean \\(E[X]=\\mu\\), the \\(E[(X-\\mu)^2]\\) is finite and called the variance of \\(X\\) which we write as \\(\\sigma^2\\) or \\(Var[X]\\).\nNote:\n\\[\\begin{align*}\n\\sigma^2=E[(X-\\mu)^2]&=E[(X^2-2\\mu X+\\mu^2)]\\\\\n&= E[X^2]-2\\mu E[X]+\\mu^2\\\\\n&= E[X^2]-2\\mu^2+\\mu^2\\\\\n&= E[X^2]-\\mu^2\\\\\n&= E[X^2]-E[X]^2\n\\end{align*}\\]\n\n“The variance of X is equal to the expected value of X-squared, minus the square of X’s expected value.”\n\\(\\sigma^2=E[X^2]-E[X]^2\\) is a useful identity in proofs and derivations"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#variance-and-standard-deviations",
+    "href": "slides/09-slides-old.html#variance-and-standard-deviations",
+    "title": "Week 09:",
+    "section": "Variance and Standard Deviations",
+    "text": "Variance and Standard Deviations\nWe often think of variances \\(Var[X]\\) as describing the spread of a distribution\n\\[\\sigma^2=Var[X]=E[(X-E[X])^2]=E(X^2)-E(X)^2\\]\nA standard deviation is just the square root of the variance\n\\[\\sigma=\\sqrt{Var[X]}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#covariance",
+    "href": "slides/09-slides-old.html#covariance",
+    "title": "Week 09:",
+    "section": "Covariance",
+    "text": "Covariance\nCovariance measures the degree to which two random variables vary together.\n\n\\(Cov[X,Y] \\to +\\) An increase in \\(X\\) tends to be larger than its mean when \\(Y\\) is larger than its mean\n\n\\[Cov[X,Y]=E[(X-E[X])(Y-E[Y])]=E[XY]-E[X]E[Y]\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#properties-of-variance-and-covariance",
+    "href": "slides/09-slides-old.html#properties-of-variance-and-covariance",
+    "title": "Week 09:",
+    "section": "Properties of Variance and Covariance",
+    "text": "Properties of Variance and Covariance\n\n\\(Cov[X,Y]=E[XY]-E[X]E[Y]\\)\n\\(Var[X]=E[X^2]-(E[X])^2\\)\n\\(Var[X|Y]=E[X^2|Y]-(E[X|Y])^2\\)\n\\(Cov[X,Y]=Cov[X,E[Y|X]]\\)\n\\(Var[X+Y]=Var[X]+Var[Y]+2Cov[X,Y]\\)\n\\(Var[Y]=Var[E[Y|X]]+E[Var[Y|X]]\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#correlation",
+    "href": "slides/09-slides-old.html#correlation",
+    "title": "Week 09:",
+    "section": "Correlation",
+    "text": "Correlation\n\nThe correlation between \\(X\\) and \\(Y\\) is simply the covariance of \\(X\\) and \\(Y\\) divided by the standard deviation of each.\n\n\\[\\rho=\\frac{Cov[X,Y]}{\\sigma_X\\sigma_Y}\\]\n\nNormalize covariance to a scale that runs between [-1,1]\n\nclass:inverse, center, middle # 💡 # The Law of Large Numbers"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#the-law-of-large-numbers-intuitive",
+    "href": "slides/09-slides-old.html#the-law-of-large-numbers-intuitive",
+    "title": "Week 09:",
+    "section": "The Law of Large Numbers (Intuitive)",
+    "text": "The Law of Large Numbers (Intuitive)\nSuppose we wanted to know the average height of our class.\nWe could pick someone at random, measure their height and get an estimate. It would be a pretty bad estimate (it would vary a lot from person to person), but it would be an unbiased estimate\nHow would we improve our estimate?"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#the-law-of-large-numbers-intuitive-1",
+    "href": "slides/09-slides-old.html#the-law-of-large-numbers-intuitive-1",
+    "title": "Week 09:",
+    "section": "The Law of Large Numbers (Intuitive)",
+    "text": "The Law of Large Numbers (Intuitive)\nSuppose we increased our sample size from N=1 to N = 5.\nNow our estimate reflects the average of 5 people’s heights as opposed to just 1. Both are are unbiased estimates of the truth, but the N=5 sample has a lower variance.\n–\nNow suppose we took a sample of size N = N-1. That is we measured everyone except one person. Our estimate will be quite close to the truth, varying slightly based on the height of the person left out.\n–\nFinally we took a sample of size N = 24 (e.g. the class size). Since our sample is the population, our estimate will be exactly equal to to the population. Each sample will give us the same “true” value. That is, it wil not vary at all.\n–\nThe idea that as the sample size increases, the distance of a sample mean from the population mean \\(\\mu\\) goes to 0 is called the Law of Large Numbers"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#the-weak-law-of-large-numbers-formally",
+    "href": "slides/09-slides-old.html#the-weak-law-of-large-numbers-formally",
+    "title": "Week 09:",
+    "section": "The (Weak) Law of Large Numbers (Formally)",
+    "text": "The (Weak) Law of Large Numbers (Formally)\nLet \\(X_1, X_2, \\dots\\) be independent and identically distributed (i.i.d.) random variables with mean \\(\\mu\\) and variance \\(\\sigma^2\\).\nThen for every \\(\\epsilon&gt;0\\), as the sample size increases (1), the distance of a sample mean from the population mean \\(\\mu\\) (2) goes to 0 (3).\n\\[\\overbrace{Pr(\\left|\\frac{X_1+\\dots+X_n}{n}-\\mu\\right| &gt; \\epsilon)}^{\\text{2. The distance of the sample mean from the truth}} \\overbrace{\\to 0}^{\\text{3. Goes to 0}} \\underbrace{\\text{ as }n \\to \\infty}_{\\text{1. As the sample size increases}}\\]\nEquivalently:\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n - \\mu| &lt; \\epsilon) = 1\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#simulating-the-lln",
+    "href": "slides/09-slides-old.html#simulating-the-lln",
+    "title": "Week 09:",
+    "section": "💪 Simulating the LLN",
+    "text": "💪 Simulating the LLN\nRhe expected value of rolling a die 3.5.\n\\[ E[X] = \\Sigma x_ip(X=x_i) = 1/6 * (1+2+3+4+5+6)\\]\nIn terms of the LLN, think of our sample size as the number of times we roll a die.\nIf we rolled the die just once and took the average of our role, we could get a 1, 2, 3, 4, 5, or 6. which would be pretty far from our expected value of 3.5\nIf we rolled the die two times and took an average, we could still get an value of 1 or 6 for average, but values closer to our expected value of 3.5, happen more often\n\n# Calculate the average from 2 rows\ntable(rowMeans(expand.grid(1:6, 1:6)))\n\n\n  1 1.5   2 2.5   3 3.5   4 4.5   5 5.5   6 \n  1   2   3   4   5   6   5   4   3   2   1 \n\n\nAs we increase our sample size (roll the die more times), the LLN says the chance that our sample average is far from the truth \\((p(\\left|\\frac{X_1+\\dots+X_n}{n}-\\mu\\right| &gt; \\epsilon))\\), gets vanishingly small.\n\ndie &lt;- 1:6\nroll_fn &lt;- function(n) {\n  rolls &lt;- data.frame(rolls = sample(die, size = n, replace = TRUE))\n  # summarize rolls \n  df &lt;- rolls %&gt;%\n    summarise(\n    # number of rolls\n      n_rolls = n(),\n    # number of times 1 was rolled\n      ones = sum(rolls == 1),\n    # number of times 2 was rolled, etc..\n      twos = sum(rolls == 2),\n      threes = sum(rolls == 3),\n      fours = sum(rolls == 4),\n      fives = sum(rolls == 5),\n      sixes = sum(rolls == 6),\n      # Average of all our rolls\n      average =  mean(rolls),\n      # Absolute difference between averages and rolls\n      abs_error = abs(3.5-average)\n    )\n  # Return summary df\n  df\n}\n\nThen we could use a for-loop to simulate rolling our die once and calculating the average all the way up to rolling our die a 1000 times.\n\n# Holder\nsim_df &lt;- NULL\n\n# Set seed\nset.seed(123)\n\nfor(i in 1:1000){\n  sim_df &lt;- rbind(sim_df,\n                  roll_fn(i)\n  )\n}\n\nWith only a few rolls, our average bounces around a lot\n\nhead(sim_df)\n\n  n_rolls ones twos threes fours fives sixes  average abs_error\n1       1    0    0      1     0     0     0 3.000000 0.5000000\n2       2    0    0      1     0     0     1 4.500000 1.0000000\n3       3    0    2      0     0     0     1 3.333333 0.1666667\n4       4    0    0      1     1     1     1 4.500000 1.0000000\n5       5    1    1      1     0     1     1 3.400000 0.1000000\n6       6    3    0      2     1     0     0 2.166667 1.3333333\n\n\nWith a lot of rolls, our average is very close to 3.5\n\ntail(sim_df)\n\n     n_rolls ones twos threes fours fives sixes  average  abs_error\n995      995  197  160    151   154   171   162 3.430151 0.06984925\n996      996  184  164    176   149   175   148 3.412651 0.08734940\n997      997  163  159    170   163   171   171 3.534604 0.03460381\n998      998  162  163    142   173   185   173 3.576152 0.07615230\n999      999  209  154    151   154   163   168 3.412412 0.08758759\n1000    1000  181  189    147   179   146   158 3.394000 0.10600000\n\n\nLet’s visualize see how our average changes with the number of rolls, using ggplot()\n\np_die_lln &lt;- ggplot(sim_df, aes(n_rolls, average))+\n  geom_line()\n\n\n\n\n\n\n\n\n\n\nYour turn! Plot how the absolute value of the error changes as the number of rolls increases. Does it increase or decrease? How does the rate at which it goes up or down seem to change?\n\n# Write your code here:\n\nclass: inverse, center, middle #🦉 ## ICYI: Proving the Weak LLN"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#proving-the-weak-lln",
+    "href": "slides/09-slides-old.html#proving-the-weak-lln",
+    "title": "Week 09:",
+    "section": "Proving the Weak LLN",
+    "text": "Proving the Weak LLN\nA proof of the LLN is as follows:\nFirst define \\(U\\) such that its a sample mean for sample of size \\(n\\)\n\\[U=\\frac{X_1+\\dots +X_n}{n}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#proving-the-weak-lln-1",
+    "href": "slides/09-slides-old.html#proving-the-weak-lln-1",
+    "title": "Week 09:",
+    "section": "Proving the Weak LLN",
+    "text": "Proving the Weak LLN\nThen show that the sample mean, \\(U\\) is an unbiased estimator of the population mean \\(\\mu\\)\n\\[\\begin{align*}\nE[U]&=E[\\frac{X_1+\\dots +X_n}{n}]=\\frac{1}{n}E[X_1+\\dots +X_n]\\\\\n&=\\frac{n\\mu}{n}=\\mu\n\\end{align*}\\]\nWith a variance\n\\[\\begin{align*}\nVar[U]&=Var[\\frac{X_1+\\dots +X_n}{n}]=\\\\\n    &=Var[\\frac{X_1}{n}]\\dots Var[\\frac{+X_n}{n}]\\\\\n    &\\frac{\\sigma^2}{n^2}\\dots \\frac{\\sigma^2}{n^2}\\\\\n    &\\frac{n \\sigma^2}{n^2}\\\\\n    &\\frac{\\sigma^2}{n}\\\\\n\\end{align*}\\]\nThat decreases with N."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#proving-the-weak-lln-2",
+    "href": "slides/09-slides-old.html#proving-the-weak-lln-2",
+    "title": "Week 09:",
+    "section": "Proving the Weak LLN",
+    "text": "Proving the Weak LLN\nThen, by Chebyshev’s inequality, a theorem specifying, for a given distribution, the maximum fraction of values that can be some distance from that distribution’s mean:\n\\[Pr(\\left|U-\\mu\\right| &gt; \\epsilon) \\leq \\frac{\\sigma^2}{n\\epsilon^2}\\]\nWhich \\(\\to 0\\) as \\(n \\to \\infty\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#the-strong-law-of-large-numbers",
+    "href": "slides/09-slides-old.html#the-strong-law-of-large-numbers",
+    "title": "Week 09:",
+    "section": "The Strong Law of Large Numbers",
+    "text": "The Strong Law of Large Numbers\nAs you may have inferred, there is a weak law of large numbers and a strong law of large numbers.\nThe weak law of large numbers states that as the sample size increases, the sample mean converges in probability to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n - \\mu| &lt; \\epsilon) = 1\\]\nThe strong law of large numbers states that as the sample size increases, the sample mean converges almost surely to the population value \\(\\mu\\)\n\\[\\lim_{n \\to \\infty} Pr(|\\bar{X}_n = \\mu|) = 1\\] The differences in types of convergence won’t matter much for us in this course\nclass:inverse, center, middle # Break\nclass:inverse, center, middle # 💡 ## The Central Limit Theorem\nSo the LLN tells us that as our sample size grows, an unbiased estimator like the sample average, will get increasingly close to the to the “true” value of the population of mean.\nIif we took a bunch of samples of the same size and calculated the mean of each sample:\n\nthe distribution of those sample means (the sampling distribution) would be centered around the truth (because the estimator is unbiased).\nthe width of the distribution (its variance) would decrease as we increased the size of each sample (by the LLN)\n\nThe Central Limit Theorem tells us about the shape of that distribution."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#review-z-scores-and-standardization",
+    "href": "slides/09-slides-old.html#review-z-scores-and-standardization",
+    "title": "Week 09:",
+    "section": "Review: Z-scores and Standardization",
+    "text": "Review: Z-scores and Standardization\nGiven a R.V. \\(X\\) with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), we can define a new R.V. \\(Z\\) as the standardization of \\(X\\):\n\\[Z=\\frac{X-\\mu}{\\sigma}\\]\nWhere Z has \\(\\mu=0\\) and \\(\\sigma=1\\)."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#notation-for-the-clt",
+    "href": "slides/09-slides-old.html#notation-for-the-clt",
+    "title": "Week 09:",
+    "section": "Notation for the CLT",
+    "text": "Notation for the CLT\nNext let’s define some variables \\(S\\) and \\(\\bar{X}\\) that are the sum \\((S)\\) and sample mean \\((\\bar{X})\\) of \\(n\\) iid draws of \\(X\\)\nLet \\(X_1,X_2,\\dots,X_n\\) be independent and identically distributed RVs with mean \\(\\mu\\) and standard deviation \\(\\sigma\\).\nDefine \\(S_n\\) and \\(\\bar{X}_n\\) as follows:\n\\[S_n= X_1,X_2,\\dots,X_n= \\sum_{i=1}^n X_i\\]\n\\[\\bar{X}=\\frac{X_1,X_2,\\dots,X_n}{n}= \\frac{S_n}{n}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#additional-facts-for-the-clt",
+    "href": "slides/09-slides-old.html#additional-facts-for-the-clt",
+    "title": "Week 09:",
+    "section": "Additional facts for the CLT",
+    "text": "Additional facts for the CLT\nWe can show that:\n\\[\\begin{alignat*}{3}\nE[S_n]&=n\\mu \\hspace{2em}Var[S_n]&=n\\sigma^2 \\hspace{2em} \\sigma_S&=\\sqrt{n}\\sigma\\\\\nE[\\bar{X}_n]&=\\mu \\hspace{2em}Var[\\bar{X}_n]&=\\frac{\\sigma^2}{n} \\hspace{2em}\\sigma_{\\bar{X}}&=\\frac{\\sigma}{\\sqrt{n}}\\\\\n\\end{alignat*}\\]\nBasically: the expected value and variance of the sum is just \\(n\\) times the population parameters (the true values for the distribution).\nSince the mean is just the sum divided by the sample size, the expected value of the mean is equal to the population value and the variance and standard deviations of the mean are decreasing in \\(n\\).\nFinally, we can define \\(Z\\) to be a function of either \\(S\\) or \\(\\bar{X}\\)\n\\[Z_n=\\frac{S_n-n\\mu}{\\sqrt{n}\\sigma}=\\frac{\\bar{X}_n-\\mu}{\\sigma/\\sqrt{n}}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#central-limit-theorem",
+    "href": "slides/09-slides-old.html#central-limit-theorem",
+    "title": "Week 09:",
+    "section": "Central Limit Theorem",
+    "text": "Central Limit Theorem\nFor a sufficiently large \\(n\\)\n\\[\\begin{align*}\n\\bar{X_n}&\\approx N(\\mu,\\sigma^2/n) \\\\\n\\bar{S_n} &\\approx N(n\\mu,n\\sigma^2) \\\\\n\\bar{Z_n}&\\approx N(0,1)\n\\end{align*}\\]\n\nThe distribution of means \\((\\bar{X_n})\\) from almost any distribution \\(X\\) is approximately normal (converges in distribution), but with a smaller variance than (\\(\\sigma^2/n\\))\nProof: Several ways, but requires a little more math than is required for this course"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#clt-why-it-matters",
+    "href": "slides/09-slides-old.html#clt-why-it-matters",
+    "title": "Week 09:",
+    "section": "CLT: Why it matters",
+    "text": "CLT: Why it matters\nWhy is this result so important?\nWell lots of our questions come of the form, how does a typical value of Y vary with X.\nWe may not know the true underlying distribution of Y, but we can often approximate the distribution of a typical value of Y \\((E[Y])\\) using a normal distribution."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#simulating-the-clt",
+    "href": "slides/09-slides-old.html#simulating-the-clt",
+    "title": "Week 09:",
+    "section": "Simulating the CLT",
+    "text": "Simulating the CLT\nFor almost any distribution, the distribution of means from a sample of that distribution will converge to some Normal distribution.\nLet’s consider a decidedly non-Normal Binomial distribution: with p = 0.2.\nThe expected value of Binomial Distribution \\(X \\sim B(n,p)\\) is \\(E[X] = n*p\\).\nIf we were to flip a coin 20 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 4.\nIf we were to flip a coin 100 times, whether the probability of heads was 0.2, then the most likely number of heads (the expected value) is 20.\n\n\n\n\n\n\n\n\n\n\nSimulating 10,000 draws from Binomial Distributions of Different Sizes\n\n# Probability of success\np &lt;- .2\n# Sample sizes\nsamp_sizes &lt;- c(20, 50, 100,1000)\n# Number of simulations\nnsims &lt;- 10000\n# Holder for simulations\ndf_sim &lt;- tibble(\n  expand_grid(\n    samp_size = samp_sizes,\n    sim = 1:nsims,\n    sample_mean = NA\n  )\n)\n\n\n\nSimulating 1,000 draws from Binomial Distributions of Different Sizes\nBelow we loop through each sample size in samp_sizes\n\nfor(i in samp_sizes){\n  df_sim$sample_mean[df_sim$samp_size == i] &lt;- replicate(nsims, i*mean(rbinom(i, 1, p)))\n  \n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinally, let’s consider a decided non normal distribution:\n\ndist &lt;- sample(18:80,size=10000, replace = T, prob = runif(length(18:80)))\n\nsamp_mean25 &lt;- replicate(10000,mean(sample(dist,25, replace=F)))\nsamp_mean100 &lt;- replicate(10000,mean(sample(dist,100, replace=F)))\nsamp_mean500 &lt;- replicate(10000,mean(sample(dist,500, replace=F)))\n\nex_df &lt;- tibble(\n  distribution = dist,\n  samp_mean25 = samp_mean25,\n  samp_mean100 = samp_mean100,\n  samp_mean500 = samp_mean500\n)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#summary",
+    "href": "slides/09-slides-old.html#summary",
+    "title": "Week 09:",
+    "section": "Summary",
+    "text": "Summary\n\nSo we see that our sampling distributions are centered on the truth, and as the sample size increases, the width of the distribution decreases (Law of Large Numbers)\nThe shapes of distributions of sample means can be approximated by a Normal Distribution \\(\\bar{X} \\sim N(\\mu, \\sigma^2/n)\\)\n\nclass: inverse, center, middle #🦉 ## ICYI: Maximum Likelihood Estimation"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#maximum-likelihood-estimation-1",
+    "href": "slides/09-slides-old.html#maximum-likelihood-estimation-1",
+    "title": "Week 09:",
+    "section": "🦉 Maximum Likelihood Estimation",
+    "text": "🦉 Maximum Likelihood Estimation\nFormally, consider \\(n\\) iid random variables \\(X_1, X_2, \\ldots X_n\\). We can then write their likelihood as\n\\[\\mathcal{L}(\\theta \\mid x_1, x_2, \\ldots x_n) = \\prod_{i = i}^n f(x_i; \\theta)\\]\nwhere \\(f(x_i; \\theta)\\) is the density (or mass) function of random variable \\(X_i\\) evaluated at \\(x_i\\) with parameter \\(\\theta\\).\nMLE tries to find \\(\\hat{\\theta}_{MLE}\\) that maximizes \\(\\mathcal{L}(\\theta \\mid X)\\)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#properties-of-maximum-likelihood-estimators",
+    "href": "slides/09-slides-old.html#properties-of-maximum-likelihood-estimators",
+    "title": "Week 09:",
+    "section": "🦉 Properties of Maximum Likelihood Estimators",
+    "text": "🦉 Properties of Maximum Likelihood Estimators\nMLE Estimators are\n\nFunctionally Invariant (The “Plug in Principle”)\n\nIf \\(\\hat{\\theta}\\) is the MLE of \\(\\theta\\) than then the MLE of some function of \\(\\theta\\), \\(f(\\theta)\\) is \\(f(\\hat\\theta_{MLE})\\)\nIf we have the MLE of the variance, the square root of this will give us the MLE of the standard deviation\n\nConsistent (by the LLN)\n\n\\(\\hat\\theta_{MLE}\\) collapses to a spike over \\(\\theta\\) as \\(n \\to \\infty\\)\n\nAsympotically Normal (by the CLT)\n\nA \\(n \\to \\infty\\) the sampling distribution of \\(\\hat\\theta_{MLE}\\) becomes Normally distributed\nMakes calculating quantities for inference easy\n\nAsympotically Efficient\n\nAs \\(n \\to \\infty\\), \\(\\hat\\theta_{MLE}\\) tends to be the estimator with the lowest error\n\n\nclass: inverse, center, middle # 💡 # Generalized Linear Models"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#generalized-linear-models",
+    "href": "slides/09-slides-old.html#generalized-linear-models",
+    "title": "Week 09:",
+    "section": "Generalized Linear Models",
+    "text": "Generalized Linear Models\n\nOLS provides a linear estimate to the conditional mean function\n\n–\n\nIf the conditional mean function is linear and the errors are normally distributed, OLS is the MLE.\n\n–\n\nWhat if the conditional mean function is non-linear?\n\n–\n\nSometimes we can transform the mean function so that it is linear, and estimate a generalized linear model (GLM) using MLE\n\n–\n\nUsing a GLM often produces more “reasonable” estimates, and can make more efficient use of the data, although there are many cases where a linear estimate to conditional mean function works just fine (or better)"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#mle-and-generalized-linear-models",
+    "href": "slides/09-slides-old.html#mle-and-generalized-linear-models",
+    "title": "Week 09:",
+    "section": "MLE and Generalized Linear Models",
+    "text": "MLE and Generalized Linear Models\nWe can think some variable \\(y\\) as having a distribution \\(f\\) that contains both a stochastic (random) and systematic components\n\\[\\begin{aligned}\n\\text{Stochastic:    }&& y \\sim f(\\mu,\\alpha)\\\\\n\\text{Systematic:    }&&\\mu = g(X\\beta)\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#mle-and-generalized-linear-models-1",
+    "href": "slides/09-slides-old.html#mle-and-generalized-linear-models-1",
+    "title": "Week 09:",
+    "section": "MLE and Generalized Linear Models",
+    "text": "MLE and Generalized Linear Models\nIn the past we’ve described the process of modeling \\(y\\) using a linear regression:\n\\[y = \\beta_0 + \\beta_1 x + \\epsilon\\]\nand with multiple predictors:\n\\[y = X\\beta + \\epsilon\\]"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#mle-and-generalized-linear-models-2",
+    "href": "slides/09-slides-old.html#mle-and-generalized-linear-models-2",
+    "title": "Week 09:",
+    "section": "MLE and Generalized Linear Models",
+    "text": "MLE and Generalized Linear Models\nWe haven’t really talked about the distribution of \\(\\epsilon\\), in part because OLS doesn’t require any distributional assumptions to be unbiased.\nBut if we assumed \\(\\epsilon\\) are normally distributed, with mean 0 and variance \\(\\sigma^2\\)\n\\[\\epsilon \\sim f_\\mathcal{N}(0,\\sigma^2)\\]\nThen we could write our model for \\(y\\) as follows:\n\\[\\begin{aligned} y &\\sim f_{\\mathcal{N}}(\\mu,\\sigma^2)\\\\\n\\mu &= X\\beta\\end{aligned}\\]\nWhere the systematic component of why is modeled by \\(X\\beta\\) (i.e. g() is the identity function), with errors that are Normally distributed.\nThe \\(\\beta\\)s that OLS estimates turn out to be the same values that would get by maximizing the likelihood of this function, given our data, \\(X\\), assuming normally distributed errors."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#generalized-linear-models-1",
+    "href": "slides/09-slides-old.html#generalized-linear-models-1",
+    "title": "Week 09:",
+    "section": "Generalized Linear Models",
+    "text": "Generalized Linear Models\nBut what if our outcome doesn’t follow a normal distribution?\nSay for example, we have a binary outcome,that we think follows a Bernoulli distribution with \\(\\pi\\) probability of success.\nWe could model the systematic portion of this using the logistic function, \\(g()\\)\n\\[\\begin{aligned}y &\\sim f_{Bern}(\\pi)\\\\\n\\pi &= \\frac{1}{1+\\exp(-{X\\beta})}\\end{aligned}\\]\nAgain, we could estimate \\(\\beta\\) using the MLE to fit a logistic regression."
+  },
+  {
+    "objectID": "slides/09-slides-old.html#mle-and-generalized-linear-models-3",
+    "href": "slides/09-slides-old.html#mle-and-generalized-linear-models-3",
+    "title": "Week 09:",
+    "section": "MLE and Generalized Linear Models",
+    "text": "MLE and Generalized Linear Models\nOr if we had a count variable, we might use a Poisson distribution:\n\\[\\begin{aligned}y &\\sim f_{Pois}(\\lambda)\\\\\n\\lambda &= \\exp(X\\beta)\\end{aligned}\\]\nAgain estimating \\(\\beta\\) using MLE.\nIn this class, we’ll let R handle mechanics of actually fitting these models, and instead focus on interpreting their substantive differences"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#ols-vs-logistic-regression",
+    "href": "slides/09-slides-old.html#ols-vs-logistic-regression",
+    "title": "Week 09:",
+    "section": "OLS vs Logistic Regression",
+    "text": "OLS vs Logistic Regression\nOne situation where we’d use MLE is the case of binary responses variable coded using \\(0\\) and \\(1\\).\nIn practice, these \\(0\\) and \\(1\\)s will code for two classes such as yes/no, non-voter/voter,, etc.\nHow should we model this relationship?\nWe could use OLS to produce a linear estimate of the conditional mean function \\((\\text{E}[Y \\mid {\\bf X} = {\\bf x}])\\), by finding \\(\\beta\\)s that minimize the sum of squared errors\nOr\nWe could use a logistic regression, to produce a linear estimate of the “log-odds” of the conditional mean function of our binary variable by finding \\(\\beta\\)s that maximize the likelihood of this function.\nLet’s simulate data from the following model:\n\\[\\log\\left(\\frac{p({\\bf x})}{1 - p({\\bf x})}\\right) = -2 + 3 x\\]\nWe’ll codify this into a function:\n\nsim_logistic_data = function(sample_size = 25, beta_0 = -2, beta_1 = 3) {\n  x = rnorm(n = sample_size)\n  eta = beta_0 + beta_1 * x\n  p = 1 / (1 + exp(-eta))\n  y = rbinom(n = sample_size, size = 1, prob = p)\n  data.frame(y, x)\n}\n\nAnd use it to generate some data\n\nset.seed(1)\nexample_data = sim_logistic_data()\nhead(example_data)\n\n  y          x\n1 0 -0.6264538\n2 1  0.1836433\n3 0 -0.8356286\n4 1  1.5952808\n5 0  0.3295078\n6 0 -0.8204684\n\n\nAfter simulating a dataset, we’ll then fit both ordinary linear regression and logistic regression.\n\n# ordinary linear regression\nfit_lm  = lm(y ~ x, data = example_data)\n# logistic regression\nfit_glm = glm(y ~ x, data = example_data, family = binomial)\n\nNotice that the syntax is extremely similar. What’s changed?\n\nlm() has become glm()\nWe’ve added family = binomial argument\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n0.31**\n\n\n-2.31*\n\n\n\n\n \n\n\n(0.08)\n\n\n(1.13)\n\n\n\n\nx\n\n\n0.30**\n\n\n3.66*\n\n\n\n\n \n\n\n(0.09)\n\n\n(1.65)\n\n\n\n\nR2\n\n\n0.34\n\n\n \n\n\n\n\nAdj. R2\n\n\n0.31\n\n\n \n\n\n\n\nNum. obs.\n\n\n25\n\n\n25\n\n\n\n\nAIC\n\n\n \n\n\n22.74\n\n\n\n\nBIC\n\n\n \n\n\n25.18\n\n\n\n\nLog Likelihood\n\n\n \n\n\n-9.37\n\n\n\n\nDeviance\n\n\n \n\n\n18.74\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\nMaking predictions with an object of type glm is slightly different than making predictions after fitting with lm().\nIn the case of logistic regression, with family = binomial, we have:\n\n\n\n\n\n\n\ntype\nReturned\n\n\n\n\n\"link\" [default]\n\\(\\hat{\\eta}({\\bf x}) = \\log\\left(\\frac{\\hat{p}({\\bf x})}{1 - \\hat{p}({\\bf x})}\\right)\\)\n\n\n\"response\"\n\\(\\hat{p}({\\bf x})\\)\n\n\n\nThat is, type = \"link\" will get you the log odds, while type = \"response\" will return \\(P[Y = 1 \\mid {\\bf X} = {\\bf x}]\\) for each observation.\n\nplot(y ~ x, data = example_data, \n     pch = 20, ylab = \"Estimated Probability\", \n     main = \"Ordinary vs Logistic Regression\")\nabline(fit_lm, col = \"darkorange\")\ncurve(predict(fit_glm, data.frame(x), type = \"response\"), \n      add = TRUE, col = \"dodgerblue\", lty = 2)\nlegend(\"topleft\", c(\"Ordinary\", \"Logistic\", \"Data\"), lty = c(1, 2, 0), \n       pch = c(NA, NA, 20), lwd = 2, col = c(\"darkorange\", \"dodgerblue\", \"black\"))"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#ols-vs-logistic-regression-1",
+    "href": "slides/09-slides-old.html#ols-vs-logistic-regression-1",
+    "title": "Week 09:",
+    "section": "OLS vs Logistic Regression",
+    "text": "OLS vs Logistic Regression\n\nOLS produces impossible predictions\nThe coefficients from logistic regression aren’t directly interpertable \\(\\to\\) need predicted values.\n\nCan also calculate things like odds-ratios but I find this convoluted.\n\nThe marginal effect of \\(X\\) varies in a logistic regression"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#interpreting-logistic-regression-coefficients",
+    "href": "slides/09-slides-old.html#interpreting-logistic-regression-coefficients",
+    "title": "Week 09:",
+    "section": "Interpreting Logistic Regression Coefficients",
+    "text": "Interpreting Logistic Regression Coefficients\nOur estimated model is then:\n\\[\\log\\left(\\frac{\\hat{p}({\\bf x})}{1 - \\hat{p}({\\bf x})}\\right) = -2.3 + 3.7 x\\]\nBecause we’re not directly estimating the mean, but instead a function of the mean, we need to be careful with our interpretation of \\(\\hat{\\beta}_1 = 3.7\\).\nThis means that, for a one unit increase in \\(x\\), the log odds change (in this case increase) by \\(3.7\\). Also, since \\(\\hat{\\beta}_1\\) is positive, as we increase \\(x\\) we also increase \\(p({\\bf x})\\).\nFor example, we have:\n\\[\\hat{P}[Y = 1 \\mid X = -0.5] = \\frac{e^{-2.3 + 3.7 \\cdot (-0.5)}}{1 + e^{-2.3 + 3.7 \\cdot (-0.5)}} \\approx 0.016\\]\n\npredict(fit_glm, newdata = data.frame(x=-0.5), type = \"response\")\n\n         1 \n0.01567416 \n\n\n\\[\\hat{P}[Y = 1 \\mid X = 0] = \\frac{e^{-2.3 + 3.7 \\cdot (0)}}{1 + e^{-2.3 + 3.7 \\cdot (0)}} \\approx 0.09\\]\n\npredict(fit_glm, newdata = data.frame(x=0), type = \"response\")\n\n         1 \n0.09016056 \n\n\n\\[\\hat{P}[Y = 1 \\mid X = 1] = \\frac{e^{-2.3 + 3.7 \\cdot (1)}}{1 + e^{-2.3 + 3.7 \\cdot (1)}} \\approx 0.38\\]\n\npredict(fit_glm, newdata = data.frame(x=.5), type = \"response\")\n\n        1 \n0.3814476 \n\n\nbackground-image:url(“https://resourcemoon.com/wp-content/uploads/2018/09/summery.png”) background-size:cover"
+  },
+  {
+    "objectID": "slides/09-slides-old.html#summary-1",
+    "href": "slides/09-slides-old.html#summary-1",
+    "title": "Week 09:",
+    "section": "Summary",
+    "text": "Summary\n\nThe Law of Large Number’s says that as our sample size increases, our sample mean will converge to the population value\nThe Central Limit Theorem says that the distribution of those sample means will follow a normal distribution\nGeneralized Linear Models allow us to more accurately model different types of data-generating processes using Maxium Likelihood Estimation."
+  },
+  {
+    "objectID": "slides/10-slides-old.html",
+    "href": "slides/10-slides-old.html",
+    "title": "Week 10:",
+    "section": "",
+    "text": "class: inverse, center, middle # Overview"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#general-plan",
+    "href": "slides/10-slides-old.html#general-plan",
+    "title": "Week 10:",
+    "section": "General Plan",
+    "text": "General Plan\n\nCourse Plan\nSetup\nFeedback\nReview\nConfidence Intervals\n\nbackground-image: url(“https://i.kym-cdn.com/entries/icons/original/000/037/873/We’re_All_Trying_To_Find_The_Guy_Who_Did_This_banner_1.jpg”) background-size:contain"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#two-options",
+    "href": "slides/10-slides-old.html#two-options",
+    "title": "Week 10:",
+    "section": "Two Options:",
+    "text": "Two Options:\n\nProceed with group projects with condensed schedule/assignments\n\n–\n\nReplace group projects with a take home (open book/notes) final exam\n\nPosted April 30\nDue May 7\nMix of theory, concepts, and coding."
+  },
+  {
+    "objectID": "slides/10-slides-old.html#course-plan-option-1",
+    "href": "slides/10-slides-old.html#course-plan-option-1",
+    "title": "Week 10:",
+    "section": "Course Plan: Option 1",
+    "text": "Course Plan: Option 1\n\nApril 13: No Class, Review Feedback to A2\nApril 18: Lecture – Hypothesis Testing\nApril 20 Workshop on Paper – Inference About Models: Counts as Assignment 3\nApril 25: Lecture – Course Review\nApril 27: Workshop: Paper drafts and Presentations\nApril 30: Upload Presentations\nMay 2: Class Presentations Part 1\nMay 4: Class Presentations Part 2\nMay ?: Tacos?"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#course-plan-option-2",
+    "href": "slides/10-slides-old.html#course-plan-option-2",
+    "title": "Week 10:",
+    "section": "Course Plan: Option 2",
+    "text": "Course Plan: Option 2\n\nApril 13: No Class,\nApril 18: Lecture – Hypothesis Testing\nApril 20 Lab – Hypothesis Testing and Interval Estimation\nApril 25: Lecture – Course Review\nApril 27: Workshop:\nApril 30: Take Home Final Exam\nMay ?: Tacos or Pizza with POLS 1140?\nMay 7: Take Home Final Exam due"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#what-do-we-want-to-do",
+    "href": "slides/10-slides-old.html#what-do-we-want-to-do",
+    "title": "Week 10:",
+    "section": "What do we want to do?",
+    "text": "What do we want to do?\nclass:inverse, middle, center # 💪 ## Get set up to work"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#packages-for-today",
+    "href": "slides/10-slides-old.html#packages-for-today",
+    "title": "Week 10:",
+    "section": "Packages for today",
+    "text": "Packages for today\n\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  \"modelr\",# &lt;&lt;\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"zoo\", \"boot\",\"purrr\"\n)"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#define-a-function-to-load-and-if-needed-install-packages",
+    "href": "slides/10-slides-old.html#define-a-function-to-load-and-if-needed-install-packages",
+    "title": "Week 10:",
+    "section": "Define a function to load (and if needed install) packages",
+    "text": "Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#load-packages-for-today",
+    "href": "slides/10-slides-old.html#load-packages-for-today",
+    "title": "Week 10:",
+    "section": "Load packages for today",
+    "text": "Load packages for today\n\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled        modelr         ggmap \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      ggrepel      ggridges      ggthemes        ggpubr        GGally \n         TRUE          TRUE          TRUE          TRUE          TRUE \n       scales       dagitty         ggdag       ggforce       COVID19 \n         TRUE          TRUE          TRUE          TRUE          TRUE \n         maps       mapdata           qss    tidycensus     dataverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \nDeclareDesign           zoo          boot         purrr \n         TRUE          TRUE          TRUE          TRUE \n\n\nclass:inverse, center, middle # 💪 ## Load Data for today\nWe’ll use data from last week’s lab to\n\nload(url(\"https://pols1600.paultesta.org/files/data/df_drww.rda\"))\n\nclass:inverse, middle, center # 🔍 ## Review: Generalized Linear Models"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#generalized-linear-models",
+    "href": "slides/10-slides-old.html#generalized-linear-models",
+    "title": "Week 10:",
+    "section": "Generalized Linear Models",
+    "text": "Generalized Linear Models\nIn last week’s lab we fit two models\n\nOLS\nLogistic regression\n\n\n# OLS\nm1 &lt;- lm(support_war01 ~ age + sex + education_n, df_drww)\n\n# Logisitic \nm2 &lt;- glm(support_war01 ~ age + sex + education_n, df_drww,\n          family = binomial)"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#generalized-linear-model",
+    "href": "slides/10-slides-old.html#generalized-linear-model",
+    "title": "Week 10:",
+    "section": "Generalized Linear Model",
+    "text": "Generalized Linear Model\n\nLogisitic regression is a type of generalized linear model used to model binary outcomes\nWe estimate logistic regression using Maximum Likelihood, which allows us to model outcomes using different probability distributions\nOther common generalized linear models\n\nProbit regression (binary outcomes)\nPoisson regression (count data)\nNegative binomial regression (count data)\n\nIt’s still “regression”, but interpretation typically requires transforming predictions (inverting the link function)\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n0.28***\n\n\n-1.36***\n\n\n\n\n \n\n\n(0.05)\n\n\n(0.29)\n\n\n\n\nage\n\n\n0.01***\n\n\n0.05***\n\n\n\n\n \n\n\n(0.00)\n\n\n(0.00)\n\n\n\n\nsexMale\n\n\n0.09***\n\n\n0.50***\n\n\n\n\n \n\n\n(0.02)\n\n\n(0.13)\n\n\n\n\neducation_n\n\n\n-0.02\n\n\n-0.10\n\n\n\n\n \n\n\n(0.01)\n\n\n(0.06)\n\n\n\n\nR2\n\n\n0.11\n\n\n \n\n\n\n\nAdj. R2\n\n\n0.11\n\n\n \n\n\n\n\nNum. obs.\n\n\n1463\n\n\n1463\n\n\n\n\nAIC\n\n\n \n\n\n1575.54\n\n\n\n\nBIC\n\n\n \n\n\n1596.69\n\n\n\n\nLog Likelihood\n\n\n \n\n\n-783.77\n\n\n\n\nDeviance\n\n\n \n\n\n1567.54\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#prediction-data-frame",
+    "href": "slides/10-slides-old.html#prediction-data-frame",
+    "title": "Week 10:",
+    "section": "Prediction Data Frame",
+    "text": "Prediction Data Frame\n\npred_df &lt;- expand_grid(\n  age = 18 : 99,\n  sex = \"Female\",\n  education_n = mean(df_drww$education_n, na.rm = T)\n)"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#predicted-values",
+    "href": "slides/10-slides-old.html#predicted-values",
+    "title": "Week 10:",
+    "section": "Predicted Values",
+    "text": "Predicted Values\n\n# #Predicted values for m1\npred_df$pred_ols &lt;- predict(m1,\n                            newdata = pred_df)\n# Predicted values for m2\n# Remember to add type = \"response\"\npred_df$pred_logit &lt;- predict(m2,\n                            newdata = pred_df,\n                            type = \"response\")\n\n\n# data\npred_df%&gt;%\n  # aesthetics\n  ggplot(aes(age, pred_ols, col = \"OLS\"))+\n  # geometries\n  geom_line()+\n  geom_line(aes(y = pred_logit, col = \"Logistic\"))+\n  geom_jitter(data=df_drww, aes(age, support_war01),\n              col = \"black\",\n              height = .05,\n              size = .5,\n              alpha = .5)+\n  labs(\n    col = \"Model\",\n    x = \"Age\",\n    y = \"Predicted Values\"\n  )\n\n\n\n\n\n\n\n\n\n\nclass: inverse, center, middle # 💡 # Confidence Intervals ## The Basics"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#overview",
+    "href": "slides/10-slides-old.html#overview",
+    "title": "Week 10:",
+    "section": "Overview:",
+    "text": "Overview:\n\nConfidence intervals provide a way of quantifying uncertainty about estimates\nConfidence intervals describe a range of plausible values\nThat range is a function of the standard error of the estimate, and the a critical value determined \\(\\alpha\\), which describes the degree of confidence we want\n\nA 95% confidence interval corresponds to an \\(\\alpha\\) of 0.05\n\nA standard error is the standard deviation of the sampling distribution of our estimate\nWe can obtain the sampling distribution via:\n\nsimulation (bootstrapping)\nasymptotic theory (the CLT)\n\nOur confidence is about the interval, not the estimate."
+  },
+  {
+    "objectID": "slides/10-slides-old.html#defintions-populations-and-samples",
+    "href": "slides/10-slides-old.html#defintions-populations-and-samples",
+    "title": "Week 10:",
+    "section": "Defintions: Populations and Samples",
+    "text": "Defintions: Populations and Samples\n\nPopulation: All the cases from which you could have sampled\nParameter: A quantity or quantities of interest often generically called \\(\\theta\\) (“theta”). Something we’d like to know about our population\nSample: A (random) draw from that population\nSample Size: The number of observations in your draw (without replacement)"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#defintions-estimators-estimates-and-statistics",
+    "href": "slides/10-slides-old.html#defintions-estimators-estimates-and-statistics",
+    "title": "Week 10:",
+    "section": "Defintions: Estimators, Estimates, and Statistics",
+    "text": "Defintions: Estimators, Estimates, and Statistics\n\nEstimator: A rule for calculating an estimate of our parameter of interest.\nEstimate: The value produced by some estimator for some parameter from some data. Often called \\(\\hat{\\theta}\\)\nUnbiased estimators: \\(E(\\hat{\\theta})=E(\\theta)\\) On average, the estimates produced by some estimator will be centered around the truth\nConsistent estimates: \\(\\lim_{n\\to \\infty} \\hat{\\theta_N} = \\theta\\) As the sample size increases, the estimates from an estimator converge in probability to the parameter value\nStatistic: A summary of the data (mean, regression coefficient, \\(R^2\\)). An estimator without a specified target of inference"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#definitions-distrubtions-and-standard-errors",
+    "href": "slides/10-slides-old.html#definitions-distrubtions-and-standard-errors",
+    "title": "Week 10:",
+    "section": "Definitions: Distrubtions and Standard Errors",
+    "text": "Definitions: Distrubtions and Standard Errors\n\nSampling Distribution: How some estimate would vary if you took repeated samples from the population\nStandard Error: The standard deviation of the sampling distribution\nResampling Distribution: How some estimate would vary if you took repeated samples from your sample WITH REPLACEMENT\n\n“Sampling from our sample, as the sample was sampled from the population.”"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#confidence-intervals-interpretation",
+    "href": "slides/10-slides-old.html#confidence-intervals-interpretation",
+    "title": "Week 10:",
+    "section": "Confidence Intervals: Interpretation",
+    "text": "Confidence Intervals: Interpretation\n\nConfidence intervals give a range of values that are likely to include the true value of the parameter \\(\\theta\\) with probability \\((1-\\alpha) \\times 100\\%\\)\n\n\\(\\alpha = 0.05\\) corresponds to a “95-percent confidence interval”\n\nOur “confidence” is about the interval\nIn repeated sampling, we expect that \\((1-\\alpha) \\times 100\\%\\) of the intervals we construct would contain the truth.\nFor any one interval, the truth, \\(\\theta\\), either falls within in the lower and upper bounds of the interval or it does not."
+  },
+  {
+    "objectID": "slides/10-slides-old.html#two-approaches-to-calculating-confidence-intervals",
+    "href": "slides/10-slides-old.html#two-approaches-to-calculating-confidence-intervals",
+    "title": "Week 10:",
+    "section": "Two Approaches to Calculating Confidence Intervals:",
+    "text": "Two Approaches to Calculating Confidence Intervals:\nIn general, there are two ways to calculate confidence intervals:\n\nSimulation: Use our computers to simulate the idea of repeated sampling (e.g. bootstrapping)\n\nFlexible, but more computationally intensive\n\nAsymptotic Theory: Use math to derive the properties of the distributions that would arise under repeated sampling\n\nFaster, but requires more assumptions that may not hold\n\n\nWe will consider both.\n\nThe theory of CIs is easier to illustrate via simulation\nThe practice of calculating CIs is (generally) easier using asymptotic theory"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#steps-to-calculating-a-confidence-interval",
+    "href": "slides/10-slides-old.html#steps-to-calculating-a-confidence-interval",
+    "title": "Week 10:",
+    "section": "Steps to Calculating a Confidence Interval",
+    "text": "Steps to Calculating a Confidence Interval\nFrom QSS (p. 330)\n\nChoose the desired level of confidence \\((1-\\alpha)\\times 100%\\) by specifying a value of α between 0 and 1: the most common choice is= \\(\\alpha = 0.05\\), which gives a 95% confidence level.\nDerive the sampling distribution of the estimator by computing its mean and variance.\nCompute the standard error based on this sampling distribution. (square root of the variance)\nCompute the critical value \\(z_{\\alpha/2}\\) as the \\((1-\\alpha)\\times 100\\) percentile value of the standard normal distribution\nCompute the lower and upper confidence limits as \\(\\hat{\\theta} - z_{\\alpha/2}\\times SE\\) and \\(\\hat{\\theta} + z_{\\alpha/2}\\times SE\\) standard error, respectively.\n\nclass: inverse, center, middle # 💡 # Confidence Intervals ## Simulating the Sampling Distribution through Bootstrapping"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#populations",
+    "href": "slides/10-slides-old.html#populations",
+    "title": "Week 10:",
+    "section": "Populations",
+    "text": "Populations\nLet’s load the data from the Do Russians Want War survey\n\nload(url(\"https://pols1600.paultesta.org/files/data/df_drww.rda\"))\n\nTo understand the logic of confidence intervals, let’s treat this data as our population from which we we could draw repeated samples."
+  },
+  {
+    "objectID": "slides/10-slides-old.html#population-age",
+    "href": "slides/10-slides-old.html#population-age",
+    "title": "Week 10:",
+    "section": "Population Age",
+    "text": "Population Age\nIn our population, there are parameters, true values of things we want to know.\nSuppose we’re interested in the average age of our population.\nIn our population, the true value of \\(\\mu_{age} = E[Age]\\) is\n\nmu_age &lt;- mean(df_drww$age)\nmu_age\n\n[1] 46.64693\n\n\nSimilarly, the true \\(\\sigma_{age} = \\sqrt{E[Age^2] - E[Age]^2}\\)\n\nsd_age &lt;- sqrt(mean((df_drww$age-mean(df_drww$age))^2))\nsd_age\n\n[1] 15.81829"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#distribution-population-age",
+    "href": "slides/10-slides-old.html#distribution-population-age",
+    "title": "Week 10:",
+    "section": "Distribution Population Age",
+    "text": "Distribution Population Age\n\np_pop &lt;- df_drww %&gt;%\n  ggplot(aes(age))+\n  geom_density(col=\"grey\")+\n  geom_rug()+\n  geom_vline(\n    aes(xintercept = mu_age, \n             col = \"Population Mean\"),\n    linetype=2)+\n  theme_bw()+\n  labs(color = \"Age\")\n\np_pop"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#sample-estimates-of-average-age-n-25",
+    "href": "slides/10-slides-old.html#sample-estimates-of-average-age-n-25",
+    "title": "Week 10:",
+    "section": "Sample Estimates of Average Age (N = 25)",
+    "text": "Sample Estimates of Average Age (N = 25)\nSuppose we took three samples, without replacement of size 25, and calculated the average age in each sample:\n\nset.seed(123)\nmean_age1 &lt;- mean(sample(df_drww$age, 25, replace = F))\nmean_age2 &lt;- mean(sample(df_drww$age, 25, replace = F))\nmean_age3 &lt;- mean(sample(df_drww$age, 25, replace = F))\n\nmean_age1\n\n[1] 43.36\n\nmean_age2\n\n[1] 39.36\n\nmean_age3\n\n[1] 49.72"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#repeated-sampling",
+    "href": "slides/10-slides-old.html#repeated-sampling",
+    "title": "Week 10:",
+    "section": "Repeated Sampling",
+    "text": "Repeated Sampling\n\nImagine we could draw a 1,000 or 10,000 or an infinite number of samples of size N=25 from our population.\nHow much would our estimate of the average of age of the population vary?\nLet’s use our computers to simulate this process and find out!"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#simualting-repeated-sampling",
+    "href": "slides/10-slides-old.html#simualting-repeated-sampling",
+    "title": "Week 10:",
+    "section": "Simualting Repeated Sampling",
+    "text": "Simualting Repeated Sampling\n\nn_sims &lt;- 1000\nsamp_size &lt;- 25\nset.seed(123)\n\nmu_age_samp_dist_n25 &lt;- tibble(\n  sim = 1:n_sims,\n  distribution = \"Sampling\",\n  sample = \"Population\"\n) %&gt;%\n  mutate(\n    samp = purrr::map(sim, ~ slice_sample(df_drww, n = samp_size, replace = F)),\n    estimate = purrr::map_dbl(samp, ~ mean(.$age))\n  )\n\n\nmu_age_samp_dist_n25\n\n# A tibble: 1,000 × 5\n     sim distribution sample     samp           estimate\n   &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;      &lt;list&gt;            &lt;dbl&gt;\n 1     1 Sampling     Population &lt;df [25 × 42]&gt;     43.4\n 2     2 Sampling     Population &lt;df [25 × 42]&gt;     39.4\n 3     3 Sampling     Population &lt;df [25 × 42]&gt;     49.7\n 4     4 Sampling     Population &lt;df [25 × 42]&gt;     46.2\n 5     5 Sampling     Population &lt;df [25 × 42]&gt;     50.6\n 6     6 Sampling     Population &lt;df [25 × 42]&gt;     47.8\n 7     7 Sampling     Population &lt;df [25 × 42]&gt;     46.3\n 8     8 Sampling     Population &lt;df [25 × 42]&gt;     41.4\n 9     9 Sampling     Population &lt;df [25 × 42]&gt;     45.4\n10    10 Sampling     Population &lt;df [25 × 42]&gt;     48.8\n# ℹ 990 more rows"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#standard-errors",
+    "href": "slides/10-slides-old.html#standard-errors",
+    "title": "Week 10:",
+    "section": "Standard Errors",
+    "text": "Standard Errors\n\nA standard error is simply the standard deviation of the sampling distribution.\nThe standard error for our simulation above:\n\n\nse_age_n25 &lt;- sd(mu_age_samp_dist_n25$estimate)\nse_age_n25\n\n[1] 3.146543"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#coverage-intervals",
+    "href": "slides/10-slides-old.html#coverage-intervals",
+    "title": "Week 10:",
+    "section": "Coverage Intervals",
+    "text": "Coverage Intervals\n\nFrom the Central Limit Theorem, we know that the distribution of sample means will converge to a normal distribution.\nFrom probability theory, we know that we that roughly 95 percent of the values in a normal distribution fall between Two Standard Deviations of the mean.\n\n\nci_age_ul_n25 &lt;- mu_age + 2*se_age_n25\nci_age_ll_n25 &lt;- mu_age - 2*se_age_n25\n\nmean(mu_age_samp_dist_n25$estimate &gt;ci_age_ll_n25 & \n       mu_age_samp_dist_n25$estimate &lt;ci_age_ul_n25)\n\n[1] 0.954\n\n\n\nmu_age_samp_dist_n25 %&gt;%\n  ggplot(aes(estimate))+\n  geom_density()+\n  geom_rug(\n    aes(col = estimate &gt;ci_age_ll_n25 & \n          estimate &lt;ci_age_ul_n25)\n  )+\n  geom_vline(xintercept = mu_age,\n             col = \"red\",\n             linetype=2)+\n  guides(col=\"none\")+\n  geom_segment(aes(x=ci_age_ll_n25,\n                   xend = ci_age_ul_n25,\n                   y = .15,yend = .15 ),\n               col = \"#00BFC4\")+\n  theme_bw()"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#boostrapped-standard-errors",
+    "href": "slides/10-slides-old.html#boostrapped-standard-errors",
+    "title": "Week 10:",
+    "section": "Boostrapped Standard Errors",
+    "text": "Boostrapped Standard Errors\n\nA standard error is the standard deviation of a hypothetical sampling distribution\nHow do we calculate a standard error from a single sample?\nIt turns out that a random sample provides unbiased estimates of both the population mean and the standard deviation of the of the sampling distribution (i.e. the standard error).\nWe can estimate this this standard error, by sampling with replacement from our sample to generate a bootstrapped sampling distribution"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#boostrapped-standard-errors-1",
+    "href": "slides/10-slides-old.html#boostrapped-standard-errors-1",
+    "title": "Week 10:",
+    "section": "Boostrapped Standard Errors",
+    "text": "Boostrapped Standard Errors\n\nset.seed(123)\nbs_resamp_1 &lt;- tibble(\n  sim = 1:n_sims,\n  distribution = \"Bootstrap\",\n  sample = \"Sample 1\",\n) %&gt;%\n  mutate(\n    samp = purrr::map(sim, ~ slice_sample(\n      mu_age_samp_dist_n25$samp[[1]], n = samp_size, replace = T)),\n    estimate =  purrr::map_dbl(samp, ~ mean(.$age))\n  )"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#boostrapped-standard-errors-2",
+    "href": "slides/10-slides-old.html#boostrapped-standard-errors-2",
+    "title": "Week 10:",
+    "section": "Boostrapped Standard Errors",
+    "text": "Boostrapped Standard Errors\n\nbs_resamp_2 &lt;- tibble(\n  sim = 1:n_sims,\n  distribution = \"Bootstrap\",\n  sample = \"Sample 2\",\n) %&gt;%\n  mutate(\n    samp =  purrr::map(sim, ~ slice_sample(\n      mu_age_samp_dist_n25$samp[[2]], n = samp_size, replace = T)),\n    estimate =  purrr::map_dbl(samp, ~ mean(.$age))\n  )"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#boostrapped-standard-errors-3",
+    "href": "slides/10-slides-old.html#boostrapped-standard-errors-3",
+    "title": "Week 10:",
+    "section": "Boostrapped Standard Errors",
+    "text": "Boostrapped Standard Errors\n\nbs_resamp_3 &lt;- tibble(\n  sim = 1:n_sims,\n  distribution = \"Bootstrap\",\n  sample = \"Sample 3\",\n) %&gt;%\n  mutate(\n    samp =  purrr::map(sim, ~ slice_sample(\n      mu_age_samp_dist_n25$samp[[3]], n = samp_size, replace = T)),\n    estimate =  purrr::map_dbl(samp, ~ mean(.$age))\n  )"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#boostrapped-standard-errors-4",
+    "href": "slides/10-slides-old.html#boostrapped-standard-errors-4",
+    "title": "Week 10:",
+    "section": "Boostrapped Standard Errors",
+    "text": "Boostrapped Standard Errors\n\nbs_example &lt;- rbind(\n  mu_age_samp_dist_n25,\n  bs_resamp_1,\n  bs_resamp_2,\n  bs_resamp_3\n)\n\ndf_se &lt;- bs_example %&gt;%\n  select(sample, estimate)%&gt;%\n  dplyr::group_by(sample)%&gt;%\n  dplyr::summarise(\n    se = sd(estimate)\n  )\n\n\ndf_ci &lt;- df_mn %&gt;%\n  left_join(df_se)\n\ndf_ci%&gt;%\n  mutate(\n    ll = xint - qt(df=25,.975)*se,\n    ul = xint + qt(df=25,.975)*se,\n    y = .15,\n    xint_pop = xint[1]\n  ) -&gt; df_ci\n\n\nbs_example %&gt;%\n  ggplot(aes(estimate,col = sample))+\n  geom_density(aes(linetype=distribution))+\n  facet_wrap(~sample, ncol=1)+\n   geom_vline(\n    data = df_ci,\n    aes(xintercept = xint, \n             col = sample,\n        linetype=distribution)\n    )+\n    geom_vline(\n    data = df_ci,\n    aes(xintercept = xint_pop), \n             col = \"black\",\n        linetype=2)+\n  geom_segment(\n    data = df_ci,\n    aes(x =ll, xend =ul, y=y, yend=y)\n  )\n\n\n\n\n\n\n\n\n\n\n\nsim_ci_fn&lt;-function(x,\n                    samp_size=100,\n                    n_sims=1000,\n                    level=.95,\n                    bs=F){\n    # Take a sample of size \"nsamp\"\n    y&lt;-sample(x=na.omit(x),size=samp_size,replace=F)\n    # Calculate the mean\n    mu&lt;-mean(y,na.rm=T)\n    # If bs=TRUE do bootstrapped SEs \n    if(bs==T){\n    mu_dist&lt;-rerun(\n      n_sims,\n      mean(sample(y, samp_size, replace = T)))%&gt;%\n      unlist()\n    se&lt;-sd(mu_dist)}else{\n    # Otherwise, just use assymptotic result (Quicker)\n    se&lt;-sd(y,na.rm=T)/sqrt(samp_size-1)\n    }\n    # Significance level\n    the.p&lt;-1-(1-level)/2\n    # Calculate lower and upper limits of interval\n    ll&lt;-mu-qt(p=the.p,df=samp_size-1)*se\n    ul&lt;-mu+qt(p=the.p,df=samp_size-1)*se\n    results&lt;-tibble(mu=mu,ll=ll,ul=ul,se=se)\n    return(results)\n}\n\n\nset.seed(12345)\nsamp25 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 25)) %&gt;%dplyr::mutate(sample = 1:n() )\nsamp50 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 50))%&gt;%dplyr::mutate(sample = 1:n() )\nsamp100 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 100))%&gt;%dplyr::mutate(sample = 1:n() )\nsamp200 &lt;-  purrr::map_df(1:1000, ~sim_ci_fn(df_drww$age, samp_size = 200))%&gt;%dplyr::mutate(sample = 1:n() )"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#standard-errors-and-sample-size",
+    "href": "slides/10-slides-old.html#standard-errors-and-sample-size",
+    "title": "Week 10:",
+    "section": "Standard Errors and Sample Size",
+    "text": "Standard Errors and Sample Size\n\n# Standard errors decrease as sample size increases\nc(mean(samp25$se),\nmean(samp50$se),\nmean(samp100$se),\nmean(samp200$se))\n\n[1] 3.193029 2.247602 1.588096 1.121755\n\n# Specifically, by the square root of the sample size\nc(sd_age/sqrt(25),\nsd_age/sqrt(50),\nsd_age/sqrt(100),\nsd_age/sqrt(200))\n\n[1] 3.163659 2.237045 1.581829 1.118522"
+  },
+  {
+    "objectID": "slides/10-slides-old.html#next-week-standard-errors-for-linear-models",
+    "href": "slides/10-slides-old.html#next-week-standard-errors-for-linear-models",
+    "title": "Week 10:",
+    "section": "Next Week: Standard Errors for Linear Models",
+    "text": "Next Week: Standard Errors for Linear Models\n\nAs you saw in your lab, we can apply the same principles to calculate standard errors for other quantities like the coefficients from a regression\nNext week, we’ll compare these quantities to those obtained from asymptotic theory, and then turn to an alternative approach to quantifying uncertainty: Hypothesis testing."
   }
 ]
