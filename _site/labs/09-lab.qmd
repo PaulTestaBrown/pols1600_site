@@ -153,17 +153,33 @@ If `getwd()` says something like '~/Downloads/' click: "File > Save As" and save
 :::
 
 
-# Download the Data
+# Download and load the NES data into R
 
 Please click [here](https://electionstudies.org/data-center/2024-pilot-study/) to go to the download page for the National Election Studies 2024 Pilot Study
 
-1. 
+- Click the **Log-in Button**
 
+- Create an account with the NES
 
-# Load the Data
+- Right click (Crtl-click) on the DTA button. This will allow you to select `Save Link As...` Which should in turn allow you to chose where the file is saved. Save it in the **same folder as 09-lab.qmd**
+
+- Unzip `anes_pilot_2024_dta_20240319.zip`. 
+  - On a Mac this creates a new folder called `anes_pilot_2024_dta_20240319` in your course folder which contains the following files:
+  - `anes_pilot_2024_dta_20240319.dta` the data
+  - `anes_pilot_2024_userguidecodebook_20240319.pdf` the codebook for the data
+  - On a PC it may unzip the files directly into your course folder.  
+
+- Load the data using some version of the following commands:
 
 ```{r}
-df <- read_dta("../files/data/anes_pilot_2024_20240319.dta")
+## IF .dta file is in subfolder where lab is:
+# df <- read_dta("~/anes_pilot_2024_dta_20240319/anes_pilot_2024_dta_20240319.dta")
+
+## IF .dta file is in SAME folder as lab:
+# df <- read_dta("anes_pilot_2024_dta_20240319.dta")
+
+## IF nothing works, fear not, you can load the data from the web as a backup
+# df <- read_dta(url("https://pols1600.paultesta.org/files/data/anes_pilot_2024_dta_20240319.dta"))
 ```
 
 
@@ -186,13 +202,11 @@ get_variable_labels(df$vchoice_rematch)
 get_value_labels(df$vchoice_rematch)
 table(df$vchoice_rematch,useNA = "ifany")
 
-
 # Acts of Participation
 # All variables start with mobil_ prefix
-
 df %>% select(starts_with("mobil")) %>% names()
 
-# Look at Political Talk
+# Political Talk
 get_variable_labels(df$mobil_talk)
 get_value_labels(df$mobil_talk)
 table(df$mobil_talk,useNA = "ifany")
