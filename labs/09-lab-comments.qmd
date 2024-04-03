@@ -90,7 +90,7 @@ As with every lab, you should:
 
 
 
-# Set up your Environment
+# Set up your workspace
 
 In the code chunk below, please add code to load the package `DeclareDesign`
 
@@ -109,7 +109,7 @@ library(kableExtra)
 library(DeclareDesign)
 ```
 
-## Set working directory in R Studio
+## Set your working directory in R Studio
 
 In R studio **set your working directory** to the **folder where this lab is** saved by clicking > Session > Set Working Directory > To Source File Location
 
@@ -178,7 +178,7 @@ df <- read_dta(url("https://pols1600.paultesta.org/files/data/anes_pilot_2024_20
 
 
 
-# Explore the Codebook
+# Explore the codebook
 
 Please open the file `anes_pilot_2024_userguidecodebook_20240319.pdf`. 
 
@@ -395,11 +395,7 @@ Now we've got a plan of action for how we need to recode the data.
 
 ## Recode the outcome variables
 
-Please uncomment and run the following code chunk which:
-
-- Creates a variable called `dv_vote_trump2024` that takes a value of 1 if, vchoice_rematch == 1 (Plans to vote for Trump), 0 if  vchoice_rematch == 2 (Plans to vote for Biden), nonresponses (-1,-7), as `NA`
-- Recodes all the variables that start with `mobil_` which measure acts of 2020 campaign participation
-- Sums up the total acts of participation into a variable called `dv_pariticipation.
+Please uncomment and run the following code chunk:
 
 ```{r}
 #| label: dvrecode_me
@@ -446,7 +442,7 @@ Remember to save the output of your recode back into the dataframe `df`
 ```
 
 
-## Check your recoding of your outcome
+## Check the recoding of your outcome
 
 It's a good habit to compare your recoded variables to their original values, to make sure your code did what you thought it did.
 
@@ -545,7 +541,7 @@ df %>%
 
 ```
 
-Again, it's a good habit to check your recodes -- particularly if you're doing something like summing over multiple columns -- but for this lab, we'll live dangerously.
+It's a good habit to check your all your recoding -- particularly if you're doing something like summing over multiple columns -- but for this lab, we'll live dangerously.
 
 # Describe the Data
 
@@ -568,7 +564,7 @@ the_vars <- c(
   "partyid","is_dem","is_rep","is_ind"
 )
 
-# Vector of nicely formatted Labels for variables
+# Vector of nicely formatted labels for variables
 the_labels <- c(
   "Vote for Trump in '24",
   "Acts of Participation in `20",
@@ -640,11 +636,85 @@ Using the two **previous code chunks as a template**, update the code so that th
 
 ## Interpret the results of your table.
 
-**Please write a few sentences that provide a substantive interpretation of your table of descriptive statistics** Your reader should come away with an understanding of what a typical respondent to the 2024 Pilot Study looked like  
+**Please write a few sentences that provide a substantive interpretation of your table of descriptive statistics** 
+
+Your reader should come away with an understanding of the characteristics of the respondents to this sample.
+
+The National Election Study's 2024 Pilot Study contains responses from 1909 individuals^[See note below]. The typical respondent in the data was just under 50 years old, with some college, with an income in the range of \$50k-\$59k. Approximately two-thirds of the sample identified as white, with 13 percent of respondents identifying as Black, 13 percent as Hispanic, 2 percent as Asian. Forty-three percent of respodnents identifed as Democrats, 38 percent as Republicans, and 20 percent as Independents. The respondents were evenly split in who they would vote for 2024, with 50 percent saying they would Vote for Donald Trump, and 50 percent saying Joe Biden. In the 2020 campaign, the average respondent reported engaging in about 1 act of political participation. 
+
+
+------
+
+
+Note, that technically, 024 Pilot Study contains three types of respondents described by `sample_type`: 
+
+- 1,500 respondents who are part of a weighted sample that generalizes to the U.S. population
+- 113 respondents who completed the survey, but were not included in the panel-matching procedure used to construct construct a representative sample
+- 296 respondents who didn't complete the whole survey.
+
+So, *technically speaking*^[Which is [the best kind of speaking](https://www.youtube.com/watch?v=hou0lU8WMgo)], if we wanted to draw inferences about the proportion of American's planning to to vote for Trump or Biden in 2024, we should only look at the 1,500 respondents in the weighted sample, and we should calculate that proportion using the sampling weights provided by `weights`. 
+
+Sampling weights are a can worms we won't deal with in this class. Check out these resources on the [`survey`](https://bookdown.org/mpfoley1973/survey/) and [`srvyr`](https://tidy-survey-r.github.io/tidy-survey-book/c04-getting-started.html) packages for how to incorporate survey weights into your analysis. In the code below we see that distributions of race and ethnicity are pretty similar in the weighted and full samples, but using survey weights seems to suggest that Biden's support as actually higher than Trumps, although the confidence intervals (Next week!) for both overlap 0.5 suggesting the race is essentially tied.
+
+
+```{r}
+# install.packages("survey")
+# install.packages("srvyr")
+library(survey)
+library(srvyr)
+
+df_s <- as_survey_design(df %>% filter(sample_type == 1),weight = weight)
+
+df_s %>% 
+  group_by(race) %>% 
+  summarise(
+    total = survey_total(),
+    proption = survey_mean()
+  )
+
+
+df %>%
+  group_by(race) %>% 
+  summarise(
+    total = n()
+  ) %>% 
+  mutate(
+    propotion = total/sum(total)
+  )
+
+df_s %>% 
+  group_by(dv_vote_trump2024) %>%
+  summarise(
+    proportion = survey_mean()
+  ) %>% select(dv_vote_trump2024,proportion, proportion_se)
+
+df_s %>% 
+svyttest((dv_vote_trump2024==1) - 0 ~ 0,design = .,na.rm=T)
+
+df %>%
+  filter(sample_type == 1) %>% 
+  group_by(dv_vote_trump2024) %>% 
+  summarise(
+    total = n()
+  ) %>% 
+  mutate(
+    propotion = total/sum(total)
+  )
+```
+
+
 
 ## Visualize the Data
 
+Please a choose a variable or variables whose distribution or relationship you think may be substantively interesting to the potential story you want to tell.
+
+In the code below, I show how the distribution of age varies across racial groups.
+
+Overall, we see that whites in sample have the highest median age (`r median(df$age[df$is_white ==1],na.rm=T)` years) followed by Blacks  (`r median(df$age[df$is_black ==1],na.rm=T)` years). Hispanic and Asian respondents have the youngest median age of (`r median(df$age[df$is_asian ==1],na.rm=T)` years.
+
 ```{r}
+#| label: dataviz_me
+
 df %>% 
   ggplot(aes(race_5cat,age,
              col = race_5cat))+
@@ -658,10 +728,33 @@ df %>%
   theme_minimal()
 ```
 
+**Please produce your own figure and interpret the results.
+
+# Formulate a research question
+
+Please take a moment, formulate a research question you might ask of your data for next week's lab
+
+
+
+**Research Question: Age, Race, and Support For Trump**
+
+Broadly, I'm interested in how support for Trump in the 2024 election varies with age and race. On average, I expect that older voters will be more supportive of Trump, but suspect that this trend varies by race. I expect it will be particularly true among White voters, but less so among People of color. Finally, I wonder whether these speicific relationships hold, once we control for variations in partisan indentification which we know varies both by age and race.
+
+**Research Question: Education, Income, and Political Participation**
+
+What's the relationship between income, education, and political. Past research suggests both are associated with higher rates of political participation. But I wish to know whether the effects of one varies conditional on the levels of the other. Are income education complements, amplifying each other's association with participation? Or are they possibly substitutes, such that increases in education for the low income might reduce gaps in rates of participation compared to higher income individuals.
+
+ 
+
+
 # Save your data
 
+Finally, save your data so you can load all the work you've done today and hit the ground running, next lab.
 
+```{r}
+#| label: savedata
+# save(df, file = "nes24.rda")
+```
 
-# Formulate your research question
 
 

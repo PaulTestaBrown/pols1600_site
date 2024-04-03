@@ -173,13 +173,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#please-render-this-.qmd-file" id="toc-please-render-this-.qmd-file" class="nav-link" data-scroll-target="#please-render-this-.qmd-file">Please render this .qmd file</a></li>
   </ul></li>
-  <li><a href="#set-up-your-environment" id="toc-set-up-your-environment" class="nav-link" data-scroll-target="#set-up-your-environment"><span class="header-section-number">1</span> Set up your Environment</a>
+  <li><a href="#set-up-your-workspace" id="toc-set-up-your-workspace" class="nav-link" data-scroll-target="#set-up-your-workspace"><span class="header-section-number">1</span> Set up your workspace</a>
   <ul class="collapse">
   <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages"><span class="header-section-number">1.1</span> Load Packages</a></li>
-  <li><a href="#set-working-directory-in-r-studio" id="toc-set-working-directory-in-r-studio" class="nav-link" data-scroll-target="#set-working-directory-in-r-studio"><span class="header-section-number">1.2</span> Set working directory in R Studio</a></li>
+  <li><a href="#set-your-working-directory-in-r-studio" id="toc-set-your-working-directory-in-r-studio" class="nav-link" data-scroll-target="#set-your-working-directory-in-r-studio"><span class="header-section-number">1.2</span> Set your working directory in R Studio</a></li>
   </ul></li>
   <li><a href="#download-and-load-the-nes-data-into-r" id="toc-download-and-load-the-nes-data-into-r" class="nav-link" data-scroll-target="#download-and-load-the-nes-data-into-r"><span class="header-section-number">2</span> Download and load the NES data into R</a></li>
-  <li><a href="#explore-the-codebook" id="toc-explore-the-codebook" class="nav-link" data-scroll-target="#explore-the-codebook"><span class="header-section-number">3</span> Explore the Codebook</a>
+  <li><a href="#explore-the-codebook" id="toc-explore-the-codebook" class="nav-link" data-scroll-target="#explore-the-codebook"><span class="header-section-number">3</span> Explore the codebook</a>
   <ul class="collapse">
   <li><a href="#identify-a-potential-outcome-of-interest" id="toc-identify-a-potential-outcome-of-interest" class="nav-link" data-scroll-target="#identify-a-potential-outcome-of-interest"><span class="header-section-number">3.1</span> Identify a potential outcome of interest</a></li>
   <li><a href="#identify-at-least-one-variable-that-might-predict-variation-in-your-outcome." id="toc-identify-at-least-one-variable-that-might-predict-variation-in-your-outcome." class="nav-link" data-scroll-target="#identify-at-least-one-variable-that-might-predict-variation-in-your-outcome."><span class="header-section-number">3.2</span> Identify at least one variable that might predict variation in your outcome.</a></li>
@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#recode-the-data" id="toc-recode-the-data" class="nav-link" data-scroll-target="#recode-the-data"><span class="header-section-number">5</span> Recode the data</a>
   <ul class="collapse">
   <li><a href="#recode-the-outcome-variables" id="toc-recode-the-outcome-variables" class="nav-link" data-scroll-target="#recode-the-outcome-variables"><span class="header-section-number">5.1</span> Recode the outcome variables</a></li>
-  <li><a href="#check-your-recoding-of-your-outcome" id="toc-check-your-recoding-of-your-outcome" class="nav-link" data-scroll-target="#check-your-recoding-of-your-outcome"><span class="header-section-number">5.2</span> Check your recoding of your outcome</a></li>
+  <li><a href="#check-the-recoding-of-your-outcome" id="toc-check-the-recoding-of-your-outcome" class="nav-link" data-scroll-target="#check-the-recoding-of-your-outcome"><span class="header-section-number">5.2</span> Check the recoding of your outcome</a></li>
   <li><a href="#recode-your-predictor-variables" id="toc-recode-your-predictor-variables" class="nav-link" data-scroll-target="#recode-your-predictor-variables"><span class="header-section-number">5.3</span> Recode your predictor variables</a></li>
   </ul></li>
   <li><a href="#describe-the-data" id="toc-describe-the-data" class="nav-link" data-scroll-target="#describe-the-data"><span class="header-section-number">6</span> Describe the Data</a>
@@ -204,8 +204,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#interpret-the-results-of-your-table." id="toc-interpret-the-results-of-your-table." class="nav-link" data-scroll-target="#interpret-the-results-of-your-table."><span class="header-section-number">6.3</span> Interpret the results of your table.</a></li>
   <li><a href="#visualize-the-data" id="toc-visualize-the-data" class="nav-link" data-scroll-target="#visualize-the-data"><span class="header-section-number">6.4</span> Visualize the Data</a></li>
   </ul></li>
-  <li><a href="#save-your-data" id="toc-save-your-data" class="nav-link" data-scroll-target="#save-your-data"><span class="header-section-number">7</span> Save your data</a></li>
-  <li><a href="#formulate-your-research-question" id="toc-formulate-your-research-question" class="nav-link" data-scroll-target="#formulate-your-research-question"><span class="header-section-number">8</span> Formulate your research question</a></li>
+  <li><a href="#formulate-a-research-question" id="toc-formulate-a-research-question" class="nav-link" data-scroll-target="#formulate-a-research-question"><span class="header-section-number">7</span> Formulate a research question</a></li>
+  <li><a href="#save-your-data" id="toc-save-your-data" class="nav-link" data-scroll-target="#save-your-data"><span class="header-section-number">8</span> Save your data</a></li>
   </ul>
 </nav>
     </div>
@@ -294,8 +294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="set-up-your-environment" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Set up your Environment</h1>
+<section id="set-up-your-workspace" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Set up your workspace</h1>
 <p>In the code chunk below, please add code to load the package <code>DeclareDesign</code></p>
 <section id="load-packages" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="load-packages"><span class="header-section-number">1.1</span> Load Packages</h2>
@@ -308,8 +308,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DeclareDesign)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="set-working-directory-in-r-studio" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="set-working-directory-in-r-studio"><span class="header-section-number">1.2</span> Set working directory in R Studio</h2>
+<section id="set-your-working-directory-in-r-studio" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="set-your-working-directory-in-r-studio"><span class="header-section-number">1.2</span> Set your working directory in R Studio</h2>
 <p>In R studio <strong>set your working directory</strong> to the <strong>folder where this lab is</strong> saved by clicking &gt; Session &gt; Set Working Directory &gt; To Source File Location</p>
 <p><img src="images/09-nes6.png" class="img-fluid" style="width:50.0%"></p>
 <p>After doing so uncomment <code>getwd()</code> Should print out something like</p>
@@ -379,7 +379,7 @@ Note
 </div>
 </section>
 <section id="explore-the-codebook" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Explore the Codebook</h1>
+<h1 data-number="3"><span class="header-section-number">3</span> Explore the codebook</h1>
 <p>Please open the file <code>anes_pilot_2024_userguidecodebook_20240319.pdf</code>.</p>
 <p>It should be in same folder as the data.</p>
 <p>Use Control+F for keywords to quickly navigate through the codebook looking for questions and variables that interest you.</p>
@@ -733,12 +733,7 @@ Note
 <p>Now we’ve got a plan of action for how we need to recode the data.</p>
 <section id="recode-the-outcome-variables" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="recode-the-outcome-variables"><span class="header-section-number">5.1</span> Recode the outcome variables</h2>
-<p>Please uncomment and run the following code chunk which:</p>
-<ul>
-<li>Creates a variable called <code>dv_vote_trump2024</code> that takes a value of 1 if, vchoice_rematch == 1 (Plans to vote for Trump), 0 if vchoice_rematch == 2 (Plans to vote for Biden), nonresponses (-1,-7), as <code>NA</code></li>
-<li>Recodes all the variables that start with <code>mobil_</code> which measure acts of 2020 campaign participation</li>
-<li>Sums up the total acts of participation into a variable called `dv_pariticipation.</li>
-</ul>
+<p>Please uncomment and run the following code chunk:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode 2024 Vote Choice</span></span>
@@ -774,8 +769,8 @@ Note
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode your outcome of interest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="check-your-recoding-of-your-outcome" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="check-your-recoding-of-your-outcome"><span class="header-section-number">5.2</span> Check your recoding of your outcome</h2>
+<section id="check-the-recoding-of-your-outcome" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="check-the-recoding-of-your-outcome"><span class="header-section-number">5.2</span> Check the recoding of your outcome</h2>
 <p>It’s a good habit to compare your recoded variables to their original values, to make sure your code did what you thought it did.</p>
 <p>Please uncomment and run the following:</p>
 <div class="cell">
@@ -871,7 +866,7 @@ total   0   1 &lt;NA&gt;
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode your additional predictor(s)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Again, it’s a good habit to check your recodes – particularly if you’re doing something like summing over multiple columns – but for this lab, we’ll live dangerously.</p>
+<p>It’s a good habit to check your all your recoding – particularly if you’re doing something like summing over multiple columns – but for this lab, we’ll live dangerously.</p>
 </section>
 </section>
 <section id="describe-the-data" class="level1" data-number="6">
@@ -890,7 +885,7 @@ total   0   1 &lt;NA&gt;
 <span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"partyid"</span>,<span class="st">"is_dem"</span>,<span class="st">"is_rep"</span>,<span class="st">"is_ind"</span></span>
 <span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector of nicely formatted Labels for variables</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector of nicely formatted labels for variables</span></span>
 <span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>the_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Vote for Trump in '24"</span>,</span>
 <span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Acts of Participation in `20"</span>,</span>
@@ -1126,37 +1121,154 @@ total   0   1 &lt;NA&gt;
 </section>
 <section id="interpret-the-results-of-your-table." class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="interpret-the-results-of-your-table."><span class="header-section-number">6.3</span> Interpret the results of your table.</h2>
-<p><strong>Please write a few sentences that provide a substantive interpretation of your table of descriptive statistics</strong> Your reader should come away with an understanding of what a typical respondent to the 2024 Pilot Study looked like</p>
+<p><strong>Please write a few sentences that provide a substantive interpretation of your table of descriptive statistics</strong></p>
+<p>Your reader should come away with an understanding of the characteristics of the respondents to this sample.</p>
+<p>The National Election Study’s 2024 Pilot Study contains responses from 1909 individuals<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. The typical respondent in the data was just under 50 years old, with some college, with an income in the range of $50k-$59k. Approximately two-thirds of the sample identified as white, with 13 percent of respondents identifying as Black, 13 percent as Hispanic, 2 percent as Asian. Forty-three percent of respodnents identifed as Democrats, 38 percent as Republicans, and 20 percent as Independents. The respondents were evenly split in who they would vote for 2024, with 50 percent saying they would Vote for Donald Trump, and 50 percent saying Joe Biden. In the 2020 campaign, the average respondent reported engaging in about 1 act of political participation.</p>
+<hr>
+<p>Note, that technically, 024 Pilot Study contains three types of respondents described by <code>sample_type</code>:</p>
+<ul>
+<li>1,500 respondents who are part of a weighted sample that generalizes to the U.S. population</li>
+<li>113 respondents who completed the survey, but were not included in the panel-matching procedure used to construct construct a representative sample</li>
+<li>296 respondents who didn’t complete the whole survey.</li>
+</ul>
+<p>So, <em>technically speaking</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, if we wanted to draw inferences about the proportion of American’s planning to to vote for Trump or Biden in 2024, we should only look at the 1,500 respondents in the weighted sample, and we should calculate that proportion using the sampling weights provided by <code>weights</code>.</p>
+<p>Sampling weights are a can worms we won’t deal with in this class. Check out these resources on the <a href="https://bookdown.org/mpfoley1973/survey/"><code>survey</code></a> and <a href="https://tidy-survey-r.github.io/tidy-survey-book/c04-getting-started.html"><code>srvyr</code></a> packages for how to incorporate survey weights into your analysis. In the code below we see that distributions of race and ethnicity are pretty similar in the weighted and full samples, but using survey weights seems to suggest that Biden’s support as actually higher than Trumps, although the confidence intervals (Next week!) for both overlap 0.5 suggesting the race is essentially tied.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("survey")</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("srvyr")</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>df_s <span class="ot">&lt;-</span> <span class="fu">as_survey_design</span>(df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>),<span class="at">weight =</span> weight)</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">survey_total</span>(),</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">proption =</span> <span class="fu">survey_mean</span>()</span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  race                   total total_se proption proption_se
+  &lt;dbl+lbl&gt;              &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+1 1 [White]             1005.     21.6   0.670       0.0139 
+2 2 [Black]              193.     15.7   0.129       0.0102 
+3 3 [Hispanic]           189.     15.9   0.126       0.0102 
+4 4 [Asian]               35.6     6.36  0.0237      0.00423
+5 5 [Native American]     11.8     3.26  0.00789     0.00218
+6 6 [Two or more races]   46.8     7.52  0.0312      0.00499
+7 7 [Other]               17.8     5.53  0.0119      0.00367</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  race                  total propotion
+  &lt;dbl+lbl&gt;             &lt;int&gt;     &lt;dbl&gt;
+1 1 [White]              1270  0.665   
+2 2 [Black]               242  0.127   
+3 3 [Hispanic]            239  0.125   
+4 4 [Asian]                44  0.0230  
+5 5 [Native American]      17  0.00891 
+6 6 [Two or more races]    69  0.0361  
+7 7 [Other]                27  0.0141  
+8 8 [Middle Eastern]        1  0.000524</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">proportion =</span> <span class="fu">survey_mean</span>()</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">select</span>(dv_vote_trump2024,proportion, proportion_se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  dv_vote_trump2024 proportion proportion_se
+              &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+1                 0     0.510        0.0142 
+2                 1     0.476        0.0142 
+3                NA     0.0139       0.00363</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>((dv_vote_trump2024<span class="sc">==</span><span class="dv">1</span>) <span class="sc">-</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,<span class="at">design =</span> .,<span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Design-based one-sample t-test
+
+data:  (dv_vote_trump2024 == 1) - 0 ~ 0
+t = 33.732, df = 1498, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.4548575 0.5110241
+sample estimates:
+     mean 
+0.4829408 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  dv_vote_trump2024 total propotion
+              &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt;
+1                 0   755     0.503
+2                 1   727     0.485
+3                NA    18     0.012</code></pre>
+</div>
+</div>
 </section>
 <section id="visualize-the-data" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="visualize-the-data"><span class="header-section-number">6.4</span> Visualize the Data</h2>
+<p>Please a choose a variable or variables whose distribution or relationship you think may be substantively interesting to the potential story you want to tell.</p>
+<p>In the code below, I show how the distribution of age varies across racial groups.</p>
+<p>Overall, we see that whites in sample have the highest median age (55 years) followed by Blacks (46 years). Hispanic and Asian respondents have the youngest median age of (40 years.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,age,</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age"</span>,</span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Age by Race in 2024 NES Pilot Study"</span></span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,age,</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age"</span>,</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Age by Race in 2024 NES Pilot Study"</span></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">col=</span><span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09-lab-comments_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="09-lab-comments_files/figure-html/dataviz_me-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>**Please produce your own figure and interpret the results.</p>
 </section>
 </section>
-<section id="save-your-data" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Save your data</h1>
+<section id="formulate-a-research-question" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Formulate a research question</h1>
+<p>Please take a moment, formulate a research question you might ask of your data for next week’s lab</p>
+<p><strong>Research Question: Age, Race, and Support For Trump</strong></p>
+<p>Broadly, I’m interested in how support for Trump in the 2024 election varies with age and race. On average, I expect that older voters will be more supportive of Trump, but suspect that this trend varies by race. I expect it will be particularly true among White voters, but less so among People of color. Finally, I wonder whether these speicific relationships hold, once we control for variations in partisan indentification which we know varies both by age and race.</p>
+<p><strong>Research Question: Education, Income, and Political Participation</strong></p>
+<p>What’s the relationship between income, education, and political. Past research suggests both are associated with higher rates of political participation. But I wish to know whether the effects of one varies conditional on the levels of the other. Are income education complements, amplifying each other’s association with participation? Or are they possibly substitutes, such that increases in education for the low income might reduce gaps in rates of participation compared to higher income individuals.</p>
 </section>
-<section id="formulate-your-research-question" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Formulate your research question</h1>
+<section id="save-your-data" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Save your data</h1>
+<p>Finally, save your data so you can load all the work you’ve done today and hit the ground running, next lab.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save(df, file = "nes24.rda")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
@@ -1166,6 +1278,8 @@ total   0   1 &lt;NA&gt;
 
 <ol>
 <li id="fn1"><p>In general, I try not to recode the original variables, but instead create new columns, with different names. But, like this footnote, it seems overly verbose to create something like <code>age_recoded</code>, so I’ll break my general rule<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See note below<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Which is <a href="https://www.youtube.com/watch?v=hou0lU8WMgo">the best kind of speaking</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
