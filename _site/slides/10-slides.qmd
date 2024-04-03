@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600"
-subtitle: "Topic"
+subtitle: "Quantifying uncertainty with confidence intervals"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
