@@ -9,8 +9,6 @@ format:
     toc-float: true
     toc-depth: 2
     number-sections: true
-filters:
-  - openlinksinnewpage
 execute: 
   eval: true
   echo: true
