@@ -1,6 +1,6 @@
 ---
 title: "POLS 1600"
-subtitle: "Quantifying uncertainty with confidence intervals"
+subtitle: "Quantifying uncertainty:<br> Confidence Intervals &<br>Hypothesis Tests"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
@@ -76,7 +76,230 @@ library(texreg)
 
 ## Review
 
-# {{< fa lightbulb >}} Concept {.inverse}
+# {{< fa lightbulb >}} Confidence Intervals {.inverse}
+
+
+## Confidence Intervals{.smaller}
+
+- Confidence intervals provide a way of [quantifying uncertainty]{.blue} about [estimates]{.blue}
+
+- Confidence intervals describe a [range of plausible values]{.blue} for an estimate
+
+- That range is a function of the [standard error]{.blue} of the estimate, and the a [critical value]{.blue} determined by $\alpha$, which describes the degree of confidence we want 
+  
+  - A 95% confidence interval corresponds to an $\alpha$ of 0.05
+
+- A [standard error]{.blue} is the standard deviation of a theoretical [sampling distribution]{.blue} of our estimate
+
+- We can obtain the sampling distribution via:
+
+  - [simulation]{.blue} (bootstrapping)
+  - [asymptotic theory]{.blue} (the CLT)
+
+- Our confidence [is about the interval]{.blue}, not the specific value of the estimate.
+
+## Populations and Samples{.smaller}
+
+
+- [Population]{.blue: All the cases from which you could have sampled
+
+- [Parameter:]{.blue} A quantity or quantities of interest often generically called $\theta$ ("theta"). Something we'd like to know about our population
+
+- [Sample:]{.blue} A (random) draw from that population
+
+- [Sample Size:]{.blue} The number of observations in your draw (without replacement)
+
+## Estimators, Estimates, and Statistics{.smaller}
+
+- [Estimator:]{.blue} A rule for calculating an *estimate* of our parameter of interest. 
+
+- [Estimate:]{.blue} The value produced by some estimator for some parameter from some data. Often called $\hat{\theta}$ 
+
+- [Unbiased estimators:]{.blue} $E(\hat{\theta})=E(\theta)$ On average, the estimates produced by some estimator will be centered around the truth
+
+- [Consistent estimates:]{.blue} $\lim_{n\to \infty} \hat{\theta_N} = \theta$ As the sample size increases, the estimates from an estimator converge in probability to the parameter value
+
+- [Statistic:]{.blue} A summary of the data (mean, regression coefficient, $R^2$). An estimator without a specified target of inference 
+
+## Distrubtions and Standard Errors{.smaller}
+
+- [Sampling Distribution:]{.blue} How some estimate would vary if you took repeated samples from the population
+
+- [Standard Error:]{.blue} The standard deviation of the sampling distribution
+
+- [Resampling Distribution:]{.blue} How some estimate would vary if you took repeated samples [from your sample WITH REPLACEMENT]{.blue} 
+    - "Sampling from our sample, as the sample was sampled from the population."
+    
+## Confidence Intervals: Interpretation{.smaller}
+
+- Confidence intervals give a range of values that are likely to include the true value of the parameter $\theta$ with probability $(1-\alpha) \times 100\%$
+
+  - $\alpha = 0.05$ corresponds to a "95-percent confidence interval"
+
+- Our "confidence" is about the interval
+  
+- In repeated sampling, we expect that $(1-\alpha) \times 100\%$ of the intervals we construct would contain the truth.
+
+- For any one interval, the truth, $\theta$, either falls within in the lower and upper bounds of the interval or it does not.
+
+## Calculating Confidence Intervals{.smaller}
+
+In general, there are two ways to calculate confidence intervals:
+
+- **Simulation:** Use our computers to simulate the idea of repeated sampling (e.g. bootstrapping)
+
+  - Flexible, but more computationally intensive
+
+- **Asymptotic Theory:** Use math to derive the properties of the distributions that would arise under repeated sampling
+  
+  - Faster, but requires more assumptions that may not hold
+
+We will consider both. 
+
+- The theory of CIs is easier to illustrate via simulation
+
+- The practice of calculating CIs is (generally) easier using asymptotic theory
+
+
+# {{< fa code >}} Bootstrapped Confidence Intervals {.inverse}
+
+## The Population
+
+```{r}
+#
+
+
+df %>% 
+  ggplot(aes(age))+
+  geom_density()+
+  geom_rug()+
+  stat_function(
+    fun = mean,
+    geom = "vline",
+    aes(xintercept = after_stat(y))
+  )+
+  xlim(x=0,100)+
+  ylim(0,.03)
+
+df %>% 
+  slice_sample(n=25) ->tmp
+mean(df$age,na.rm=T)
+tmp %>% 
+  ggplot(aes(age))+
+  geom_density()+
+  geom_rug()+
+  stat_function(
+    fun = mean,
+    args = list(na.rm=T),
+    geom = "vline",
+    aes(xintercept = after_stat(y))
+  )+
+  xlim(x=0,100)+
+  ylim(0,.03)  
+```
+
+## A Single Sample
+
+
+## Repeated Samples
+
+```{r}
+n_samples <- 1000 # Number of samples to draw
+sample_size <- 100 # Number of observations in each sample
+set.seed(123) # random seed so we get the same "random" sample
+
+# ---- Population ----
+
+# Population average
+mu_age <- mean(df$age, na.rm=T)
+# Population standard deviation
+sd_age <- sd(df$age, na.rm = T)
+
+p1<- df %>% 
+  ggplot(aes(age))+
+  geom_density(col ="grey")+
+  geom_rug(col = "darkgrey", )+
+  geom_vline(xintercept = mu_age, col="black", linetype="dashed")+
+  theme_void()
+
+
+age_samp_dist_n25 <- tibble(
+  sim = 1:n_samples,
+  distribution = "Sampling",
+  size = sample_size,
+  sample_from = "Population",
+  pop_mean = mu_age,
+) %>%
+  mutate(
+    sample = purrr::map(sim, ~ slice_sample(df, n = sample_size, replace = F)),
+    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
+  )
+
+plot_sample_distributions <- function(x){
+  mu <- mean(x$age,na.rm=T)
+  x %>% 
+    ggplot(aes(age))+
+    geom_density()+
+    geom_rug()+
+    theme_void()+
+    geom_vline(xintercept = mu, col = "red")+
+    geom_vline(xintercept = mu_age, col = "black",linetype = "dashed")+
+    xlim(0,90)
+    # ylim(0, .03)
+}
+plot_sample_distributions(age_samp_dist_n25$sample[[1]])
+
+sample_plots <- age_samp_dist_n25$sample[1:100] %>% 
+  purrr::map( \(x) plot_sample_distributions(x))
+library(gridExtra)
+library(patchwork)
+p2 <- wrap_plots(sample_plots[1:16], ncol=4)
+
+p3 <- age_samp_dist_n25 %>% 
+  ggplot(aes(sample_mean))+
+  geom_density(col="red")+
+  geom_rug(col="red")+
+  geom_density(data = df, aes(age),
+               col="grey")+
+  geom_vline(xintercept = mu_age, linetype="dashed")+
+  theme_void()
+
+design <- "##AAA##
+           ##AAA##
+           ##AAA##
+           #######
+           #BBBBB#
+           #BBBBB#
+           #BBBBB#
+           #BBBBB#
+           #######
+           ##CCC##
+           ##CCC##
+           ##CCC##"
+
+# (plot_spacer() +p1 +plot_spacer() )/p2/ (plot_spacer() +p3+plot_spacer() ) +
+test <-  p1/p2/p3+
+  plot_layout(design = design)
+
+library(gridExtra)
+
+test+
+  geom_segment(tibble(x = 1, xend=3, y=1,yend=3),
+               aes(x=x, xend=xend, y=y, yend=yend))
+
+
+```
+
+
+## Confidence Intervals
+
+## Overview
+
+# {{< fa code >}} Hypothesis Testing {.inverse}
+
+## Overview
+
+
 
 
 ## Concept
@@ -89,5 +312,7 @@ library(texreg)
 # {{< fa home >}} Summary {.inverse}
 
 ## Summary
+
+
 
 ## References

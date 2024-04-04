@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -331,12 +331,12 @@
 
 <section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">POLS 1600</h1>
-  <p class="subtitle">Quantifying uncertainty with confidence intervals</p>
+  <p class="subtitle">Quantifying uncertainty:<br> Confidence Intervals &amp; Hypothesis Tests</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Apr 3, 2024</p>
+  <p class="date">Updated Apr 4, 2024</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -373,11 +373,106 @@
 <h2>Review</h2>
 </section></section>
 <section>
-<section id="concept" class="title-slide slide level1 inverse center">
-<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Concept</h1>
+<section id="confidence-intervals" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Confidence Intervals</h1>
 
 </section>
-<section id="concept-1" class="slide level2">
+<section id="confidence-intervals-1" class="slide level2 smaller">
+<h2>Confidence Intervals</h2>
+<ul>
+<li class="fragment"><p>Confidence intervals provide a way of <span class="blue">quantifying uncertainty</span> about <span class="blue">estimates</span></p></li>
+<li class="fragment"><p>Confidence intervals describe a <span class="blue">range of plausible values</span> for an estimate</p></li>
+<li class="fragment"><p>That range is a function of the <span class="blue">standard error</span> of the estimate, and the a <span class="blue">critical value</span> determined by <span class="math inline">\(\alpha\)</span>, which describes the degree of confidence we want</p>
+<ul>
+<li class="fragment">A 95% confidence interval corresponds to an <span class="math inline">\(\alpha\)</span> of 0.05</li>
+</ul></li>
+<li class="fragment"><p>A <span class="blue">standard error</span> is the standard deviation of a theoretical <span class="blue">sampling distribution</span> of our estimate</p></li>
+<li class="fragment"><p>We can obtain the sampling distribution via:</p>
+<ul>
+<li class="fragment"><span class="blue">simulation</span> (bootstrapping)</li>
+<li class="fragment"><span class="blue">asymptotic theory</span> (the CLT)</li>
+</ul></li>
+<li class="fragment"><p>Our confidence <span class="blue">is about the interval</span>, not the specific value of the estimate.</p></li>
+</ul>
+</section>
+<section id="populations-and-samples" class="slide level2 smaller">
+<h2>Populations and Samples</h2>
+<ul>
+<li class="fragment"><p>[Population]{.blue: All the cases from which you could have sampled</p></li>
+<li class="fragment"><p><span class="blue">Parameter:</span> A quantity or quantities of interest often generically called <span class="math inline">\(\theta\)</span> (“theta”). Something we’d like to know about our population</p></li>
+<li class="fragment"><p><span class="blue">Sample:</span> A (random) draw from that population</p></li>
+<li class="fragment"><p><span class="blue">Sample Size:</span> The number of observations in your draw (without replacement)</p></li>
+</ul>
+</section>
+<section id="estimators-estimates-and-statistics" class="slide level2 smaller">
+<h2>Estimators, Estimates, and Statistics</h2>
+<ul>
+<li class="fragment"><p><span class="blue">Estimator:</span> A rule for calculating an <em>estimate</em> of our parameter of interest.</p></li>
+<li class="fragment"><p><span class="blue">Estimate:</span> The value produced by some estimator for some parameter from some data. Often called <span class="math inline">\(\hat{\theta}\)</span></p></li>
+<li class="fragment"><p><span class="blue">Unbiased estimators:</span> <span class="math inline">\(E(\hat{\theta})=E(\theta)\)</span> On average, the estimates produced by some estimator will be centered around the truth</p></li>
+<li class="fragment"><p><span class="blue">Consistent estimates:</span> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
+<li class="fragment"><p><span class="blue">Statistic:</span> A summary of the data (mean, regression coefficient, <span class="math inline">\(R^2\)</span>). An estimator without a specified target of inference</p></li>
+</ul>
+</section>
+<section id="distrubtions-and-standard-errors" class="slide level2 smaller">
+<h2>Distrubtions and Standard Errors</h2>
+<ul>
+<li class="fragment"><p><span class="blue">Sampling Distribution:</span> How some estimate would vary if you took repeated samples from the population</p></li>
+<li class="fragment"><p><span class="blue">Standard Error:</span> The standard deviation of the sampling distribution</p></li>
+<li class="fragment"><p><span class="blue">Resampling Distribution:</span> How some estimate would vary if you took repeated samples <span class="blue">from your sample WITH REPLACEMENT</span></p>
+<ul>
+<li class="fragment">“Sampling from our sample, as the sample was sampled from the population.”</li>
+</ul></li>
+</ul>
+</section>
+<section id="confidence-intervals-interpretation" class="slide level2 smaller">
+<h2>Confidence Intervals: Interpretation</h2>
+<ul>
+<li class="fragment"><p>Confidence intervals give a range of values that are likely to include the true value of the parameter <span class="math inline">\(\theta\)</span> with probability <span class="math inline">\((1-\alpha) \times 100\%\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(\alpha = 0.05\)</span> corresponds to a “95-percent confidence interval”</li>
+</ul></li>
+<li class="fragment"><p>Our “confidence” is about the interval</p></li>
+<li class="fragment"><p>In repeated sampling, we expect that <span class="math inline">\((1-\alpha) \times 100\%\)</span> of the intervals we construct would contain the truth.</p></li>
+<li class="fragment"><p>For any one interval, the truth, <span class="math inline">\(\theta\)</span>, either falls within in the lower and upper bounds of the interval or it does not.</p></li>
+</ul>
+</section>
+<section id="calculating-confidence-intervals" class="slide level2 smaller">
+<h2>Calculating Confidence Intervals</h2>
+<p>In general, there are two ways to calculate confidence intervals:</p>
+<ul>
+<li class="fragment"><p><strong>Simulation:</strong> Use our computers to simulate the idea of repeated sampling (e.g.&nbsp;bootstrapping)</p>
+<ul>
+<li class="fragment">Flexible, but more computationally intensive</li>
+</ul></li>
+<li class="fragment"><p><strong>Asymptotic Theory:</strong> Use math to derive the properties of the distributions that would arise under repeated sampling</p>
+<ul>
+<li class="fragment">Faster, but requires more assumptions that may not hold</li>
+</ul></li>
+</ul>
+<p>We will consider both.</p>
+<ul>
+<li class="fragment"><p>The theory of CIs is easier to illustrate via simulation</p></li>
+<li class="fragment"><p>The practice of calculating CIs is (generally) easier using asymptotic theory</p></li>
+</ul>
+</section></section>
+<section>
+<section id="bootstrapped-confidence-intervals" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-code" aria-label="code"></i> Bootstrapped Confidence Intervals</h1>
+
+</section>
+<section id="overview-1" class="slide level2">
+<h2>Overview</h2>
+</section></section>
+<section>
+<section id="hypothesis-testing" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-code" aria-label="code"></i> Hypothesis Testing</h1>
+
+</section>
+<section id="overview-2" class="slide level2">
+<h2>Overview</h2>
+</section>
+<section id="concept" class="slide level2">
 <h2>Concept</h2>
 </section></section>
 <section>
@@ -618,6 +713,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
@@ -694,6 +827,24 @@
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -730,7 +881,11 @@
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

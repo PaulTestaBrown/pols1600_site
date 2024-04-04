@@ -9793,5 +9793,68 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/10-slides.html#confidence-intervals-1",
+    "href": "slides/10-slides.html#confidence-intervals-1",
+    "title": "POLS 1600",
+    "section": "Confidence Intervals",
+    "text": "Confidence Intervals\n\nConfidence intervals provide a way of quantifying uncertainty about estimates\nConfidence intervals describe a range of plausible values for an estimate\nThat range is a function of the standard error of the estimate, and the a critical value determined by \\(\\alpha\\), which describes the degree of confidence we want\n\nA 95% confidence interval corresponds to an \\(\\alpha\\) of 0.05\n\nA standard error is the standard deviation of a theoretical sampling distribution of our estimate\nWe can obtain the sampling distribution via:\n\nsimulation (bootstrapping)\nasymptotic theory (the CLT)\n\nOur confidence is about the interval, not the specific value of the estimate."
+  },
+  {
+    "objectID": "slides/10-slides.html#populations-and-samples",
+    "href": "slides/10-slides.html#populations-and-samples",
+    "title": "POLS 1600",
+    "section": "Populations and Samples",
+    "text": "Populations and Samples\n\n[Population]{.blue: All the cases from which you could have sampled\nParameter: A quantity or quantities of interest often generically called \\(\\theta\\) (“theta”). Something we’d like to know about our population\nSample: A (random) draw from that population\nSample Size: The number of observations in your draw (without replacement)"
+  },
+  {
+    "objectID": "slides/10-slides.html#estimators-estimates-and-statistics",
+    "href": "slides/10-slides.html#estimators-estimates-and-statistics",
+    "title": "POLS 1600",
+    "section": "Estimators, Estimates, and Statistics",
+    "text": "Estimators, Estimates, and Statistics\n\nEstimator: A rule for calculating an estimate of our parameter of interest.\nEstimate: The value produced by some estimator for some parameter from some data. Often called \\(\\hat{\\theta}\\)\nUnbiased estimators: \\(E(\\hat{\\theta})=E(\\theta)\\) On average, the estimates produced by some estimator will be centered around the truth\nConsistent estimates: \\(\\lim_{n\\to \\infty} \\hat{\\theta_N} = \\theta\\) As the sample size increases, the estimates from an estimator converge in probability to the parameter value\nStatistic: A summary of the data (mean, regression coefficient, \\(R^2\\)). An estimator without a specified target of inference"
+  },
+  {
+    "objectID": "slides/10-slides.html#distrubtions-and-standard-errors",
+    "href": "slides/10-slides.html#distrubtions-and-standard-errors",
+    "title": "POLS 1600",
+    "section": "Distrubtions and Standard Errors",
+    "text": "Distrubtions and Standard Errors\n\nSampling Distribution: How some estimate would vary if you took repeated samples from the population\nStandard Error: The standard deviation of the sampling distribution\nResampling Distribution: How some estimate would vary if you took repeated samples from your sample WITH REPLACEMENT\n\n“Sampling from our sample, as the sample was sampled from the population.”"
+  },
+  {
+    "objectID": "slides/10-slides.html#confidence-intervals-interpretation",
+    "href": "slides/10-slides.html#confidence-intervals-interpretation",
+    "title": "POLS 1600",
+    "section": "Confidence Intervals: Interpretation",
+    "text": "Confidence Intervals: Interpretation\n\nConfidence intervals give a range of values that are likely to include the true value of the parameter \\(\\theta\\) with probability \\((1-\\alpha) \\times 100\\%\\)\n\n\\(\\alpha = 0.05\\) corresponds to a “95-percent confidence interval”\n\nOur “confidence” is about the interval\nIn repeated sampling, we expect that \\((1-\\alpha) \\times 100\\%\\) of the intervals we construct would contain the truth.\nFor any one interval, the truth, \\(\\theta\\), either falls within in the lower and upper bounds of the interval or it does not."
+  },
+  {
+    "objectID": "slides/10-slides.html#calculating-confidence-intervals",
+    "href": "slides/10-slides.html#calculating-confidence-intervals",
+    "title": "POLS 1600",
+    "section": "Calculating Confidence Intervals",
+    "text": "Calculating Confidence Intervals\nIn general, there are two ways to calculate confidence intervals:\n\nSimulation: Use our computers to simulate the idea of repeated sampling (e.g. bootstrapping)\n\nFlexible, but more computationally intensive\n\nAsymptotic Theory: Use math to derive the properties of the distributions that would arise under repeated sampling\n\nFaster, but requires more assumptions that may not hold\n\n\nWe will consider both.\n\nThe theory of CIs is easier to illustrate via simulation\nThe practice of calculating CIs is (generally) easier using asymptotic theory"
+  },
+  {
+    "objectID": "slides/10-slides.html#overview-1",
+    "href": "slides/10-slides.html#overview-1",
+    "title": "POLS 1600",
+    "section": "Overview",
+    "text": "Overview"
+  },
+  {
+    "objectID": "slides/10-slides.html#overview-2",
+    "href": "slides/10-slides.html#overview-2",
+    "title": "POLS 1600",
+    "section": "Overview",
+    "text": "Overview"
+  },
+  {
+    "objectID": "slides/10-slides.html#concept",
+    "href": "slides/10-slides.html#concept",
+    "title": "POLS 1600",
+    "section": "Concept",
+    "text": "Concept"
   }
 ]
