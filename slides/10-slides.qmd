@@ -228,75 +228,171 @@ sample_data_fn <- function(dat=df, var=age, samps=16, sample_size=10){
   )
   return(df)
 }
-plot_distribution <- function(x){
-  mu <- mean(x$age,na.rm=T)
-  x %>% 
-    ggplot(aes(age))+
+
+plot_distribution <- function(the_pop,the_samp, the_var, ...){
+  mu_pop <- the_pop %>% pull(!!enquo(the_var)) %>% mean(., na.rm=T)
+  mu_samp <- the_samp %>% pull(!!enquo(the_var)) %>% mean(., na.rm=T)
+  ll <- the_pop %>% pull(!!enquo(the_var)) %>% as.numeric() %>%  min(., na.rm=T)
+  ul <- the_pop %>% pull(!!enquo(the_var)) %>% as.numeric() %>% max(., na.rm=T)
+  p<- the_samp %>% 
+    ggplot(aes(!!enquo(the_var)))+
     geom_density()+
     geom_rug()+
     theme_void()+
-    geom_vline(xintercept = mu, col = "red")+
-    geom_vline(xintercept = mu_age, col = "grey",linetype = "dashed")+
-    xlim(0,95)
+    geom_vline(xintercept = mu_samp, col = "red")+
+    geom_vline(xintercept = mu_pop, col = "grey40",linetype = "dashed")+
+    xlim(ll,ul)
+  return(p)
 }
-
-plot_samples <- function(x){
+plot_samples <- function(pop, x, variable, ...){
   sample_plots <- x$sample[1:16] %>% 
-  purrr::map( \(x) plot_distribution(x))
+  purrr::map( \(x) plot_distribution(the_pop=pop, the_samp = x, 
+                                     the_var = !!enquo(variable)))
   p <- wrap_elements(wrap_plots(sample_plots[1:16], ncol=4))
   return(p)
   
 }
-plot_distribution(tmp)
-tmp <- sample_data_fn(df)
-test <- plot_samples(tmp)
-test+labs(title="men")
-test <- test +plot_annotation(title = "Meh")
-test /test +plot_annotation(title = "Meh")
+
 plot_figure_fn <- function(d=df, v=age, sim=1000, size=10){
   # Population average
   mu <- d %>% pull(!!enquo(v)) %>% mean(., na.rm=T)
+  sd <- d %>% pull(!!enquo(v)) %>% sd(., na.rm=T)
+  se <- sd/sqrt(size)
+  # Range
+  ll <- d %>% pull(!!enquo(v)) %>% as.numeric() %>%  min(., na.rm=T)
+  ul <- d %>% pull(!!enquo(v)) %>% as.numeric() %>% max(., na.rm=T)
   # Population standard deviation
   # Sample data
   samp_df <- sample_data_fn(dat=d, var = !!enquo(v), samps = sim, sample_size = size)
   # Plot Population
   p_pop <- d %>%
-  ggplot(aes(!!enquo(v)))+
-  geom_density(col ="grey60")+
-  geom_rug(col = "grey60", )+
-  geom_vline(xintercept = mu, col="grey40", linetype="dashed")+
-  theme_void()+
-  labs(title ="Population")
+    ggplot(aes(!!enquo(v)))+
+      geom_density(col ="grey60")+
+      geom_rug(col = "grey60", )+
+      geom_vline(xintercept = mu, col="grey40", linetype="dashed")+
+      theme_void()+
+      labs(title ="Population")+
+      xlim(ll,ul)+
+      theme(plot.title = element_text(hjust = 0))
+
+  theme_border <- theme_gray() + 
+  theme(plot.background = element_rect(fill = NA, colour = 'black', size = 3))
   
-  p_samps <- plot_samples(samp_df)
-  p_samps <- p_samps + ggtitle(paste("Repeated samples of size N =",size,"from the population"))
+  p_samps <- plot_samples(pop=d, x= samp_df,variable = !!enquo(v))
+  p_samps <- p_samps + ggtitle(paste("Repeated samples of size N =",size,"from the population"))+theme(plot.title = element_text(hjust = 0.5), 
+                                                                                                       plot.background = element_rect(fill = NA, colour = 'black', linewidth = 2))
+  
   
   p_dist <- samp_df %>% 
   ggplot(aes(sample_mean))+
-  geom_density(col="red")+
+  geom_density(col="red",aes(y= after_stat(ndensity)))+
   geom_rug(col="red")+
-  geom_density(data = df, aes(age),
-               col="grey")+
-  geom_vline(xintercept = mu, linetype="dashed")+
+  geom_density(data = df, aes(!!enquo(v), y= after_stat(ndensity)),
+               col="grey60")+
+  geom_vline(xintercept = mu, col="grey40", linetype="dashed")+
+  xlim(ll,ul)+
   theme_void()+
     labs(
       title = "Sampling Distribution"
-    )
+    )+  theme(plot.title = element_text(hjust = 0))
+  
+  p_upper <- tibble(x=0,y=0) %>%
+  ggplot(aes(x,y,))+
+      geom_segment(aes(x = -1, xend = -5.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = -.75, xend = -5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = -.5, xend = -4.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = -.25, xend = -4 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = -.1, xend = -3.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = -.05, xend = -3 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Center
+          geom_segment(aes(x = 0, xend = -2.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = -2 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = -1.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = -1 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = -.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 0 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 2.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 2 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 1.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 1 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = .5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = 0, xend = 0 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Right
+      geom_segment(aes(x = 1, xend = 5.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = .75, xend = 5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = .5, xend = 4.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = .25, xend = 4 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = .1, xend = 3.5 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_segment(aes(x = .05, xend = 3 , y=.9, yend=0.1),
+               arrow = arrow(length = unit(0.05, "npc")))+
+  theme_void()+
+  coord_fixed(ylim=c(0,1),
+              xlim =c(-6,6),clip="off")
+  # Lower
+  range_df <- samp_df %>% 
+  summarise(
+    min = min(sample_mean),
+    max = max(sample_mean),
+    mean = mean(sample_mean)
+  )
+  
+  plot_df <- tibble(
+  id = 1:50,
+  # x = sort(rnorm(50, mu, sd)),
+  x = sort(runif(50, ll, ul)),
+  xend = sort(rnorm(50, mu, se)),
+  y = 9,
+  yend = 1
+)
+
+p_lower <- plot_df %>%
+  ggplot(aes(x,y, group =id))+
+  geom_segment(aes(xend=xend, yend=yend),
+               col = "red",arrow = arrow(length = unit(0.05, "npc"))
+               )+
+  theme_void()+
+  coord_fixed(ylim=c(0,10),xlim = c(ll,ul),clip="off")
+
   
   design <-"##AAAA##
             ##AAAA##
             ##AAAA##
-            ########
-            #BBBBBB#
-            #BBBBBB#
-            #BBBBBB#
-            #BBBBBB#
-            ########
-            ##CCCC##
-            ##CCCC##
-            ##CCCC##"
+            BBBBBBBB
+            BBBBBBBB
+            #CCCCCC#
+            #CCCCCC#
+            #CCCCCC#
+            #CCCCCC#
+            DDDDDDDD
+            DDDDDDDD
+            ##EEEE##
+            ##EEEE##
+            ##EEEE##"
   
-  fig <- p_pop / p_samps / p_dist +
+  fig <- p_pop / p_upper / p_samps / p_lower / p_dist +
     plot_layout(design = design)
   return(fig)
 
@@ -305,115 +401,183 @@ plot_figure_fn <- function(d=df, v=age, sim=1000, size=10){
   
   
 }
-plot_figure_fn()
+fig_n10 <- plot_figure_fn(v=age,size = 10,sim = 100)
+fig_n30 <- plot_figure_fn(size = 30)
+fig_n300 <- plot_figure_fn(size = 300)
 
+test <- sample_data_fn(df,samps =1000, sample_size = 10)
 
-
-# Samples
-n_samples <- 1000 # Number of samples to draw
-
-
-# N=10
-sample_size <- 10 # Number of observations in each sample
-set.seed(123) # random seed so we get the same "random" sample
-
-age_samp_dist_n10 <- tibble(
-  sim = 1:n_samples,
-  distribution = "Sampling",
-  size = sample_size,
-  sample_from = "Population",
-  pop_mean = mu_age,
-) %>%
-  mutate(
-    sample = purrr::map(sim, ~ slice_sample(df, n = sample_size, replace = F)),
-    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
+range_df <- test %>% 
+  summarise(
+    min = min(sample_mean),
+    max = max(sample_mean),
+    mean = mean(sample_mean)
   )
 
-sample_size <- 25 # Number of observations in each sample
-set.seed(123) # random seed so we get the same "random" sample
-age_samp_dist_n25 <- tibble(
-  sim = 1:n_samples,
-  distribution = "Sampling",
-  size = sample_size,
-  sample_from = "Population",
-  pop_mean = mu_age,
-) %>%
-  mutate(
-    sample = purrr::map(sim, ~ slice_sample(df, n = sample_size, replace = F)),
-    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
-  )
+plot_df <- tibble(
+  id = 1:20,
+  x = sort(runif(20, min(df$age,na.rm=T), max(df$age,na.rm=T))),
+  xend = sort(runif(20, range_df$min, range_df$max)),
+  y = .9,
+  yend = .1
+)
 
-sample_size <- 100 # Number of observations in each sample
-set.seed(123) # random seed so we get the same "random" sample
-age_samp_dist_n100 <- tibble(
-  sim = 1:n_samples,
-  distribution = "Sampling",
-  size = sample_size,
-  sample_from = "Population",
-  pop_mean = mu_age,
-) %>%
-  mutate(
-    sample = purrr::map(sim, \(x) slice_sample(df, n = sample_size, replace = F)), 
-    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
-  )
+plot_df %>%
+  ggplot(aes(x,y, group =id))+
+  geom_segment(aes(xend=xend, yend=yend))
 
-# Sample Data
+```
 
+```{r}
+p_lower <- tibble(x=1,y=1) %>% 
+  ggplot(aes(x,y))+
+  geom_curve(aes(xend= -1, x= -5.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.75, x= -5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.5, x= -4.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.25, x= -4 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.1, x= -3.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.05, x= -3 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Center
+          geom_curve(aes(xend= 0, x= -2.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =80,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -2 , y=.9, yend=0.1),
+               col = "red",curvature = -.08,angle =60,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -1.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.06,angle =40,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -1 , y=.9, yend=0.1),
+               col = "red",curvature = -.04,angle =20,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.02,angle =10,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 0 , y=.9, yend=0.1),
+               col = "red",curvature = 0,angle =0,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 2.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =80,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 2 , y=.9, yend=0.1),
+               col = "red",curvature = .08,angle =60,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 1.5 , y=.9, yend=0.1),
+               col = "red",curvature = 0.06,angle =40,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 1 , y=.9, yend=0.1),
+               col = "red",curvature = 0.04,angle =20,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= .5 , y=.9, yend=0.1),
+               col = "red",curvature = .02,angle =10,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Right
+      geom_curve(aes(xend= 1, x= 5.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .75, x= 5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .5, x= 4.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .25, x= 4 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .1, x= 3.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .05, x= 3 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))
 
+p_lower  
 
-
-
-
-
-p2 <- plot_samples(age_samp_dist_n10)
-p2 <- p2+plot_annotation(title = "Meh")
-p2
-plot_sampling_distribution(age_samp_dist_n25)
-plot_sampling_distribution(age_samp_dist_n100)
-
-
-
-p3 <- age_samp_dist_n25 %>% 
-  ggplot(aes(sample_mean))+
-  geom_density(col="red")+
-  geom_rug(col="red")+
-  geom_density(data = df, aes(age),
-               col="grey")+
-  geom_vline(xintercept = mu_age, linetype="dashed")+
-  theme_void()
-
-ggplot(tibble(x=1, y=1,),aes(x,y))+
-  geom_abline(slope = .5,intercept = 0)+
-  theme_void(
-    
-  )+
-  theme(plot.margin = margin(0, 0, 0, 0))
-
-
-design <- "##AAA##
-           ##AAA##
-           ##AAA##
-           #BBBBB#
-           #DDDDD#
-           #DDDDD#
-           #DDDDD#
-           #DDDDD#
-           #######
-           ##EEE##
-           ##EEE##
-           ##EEE##"
-
-# (plot_spacer() +p1 +plot_spacer() )/p2/ (plot_spacer() +p3+plot_spacer() ) +
-test <-  p1/p_upper/p2/p3+
-  plot_layout(design = design)
-
-library(gridExtra)
-
-test+
-  geom_segment(tibble(x = 1, xend=3, y=1,yend=3),
-               aes(x=x, xend=xend, y=y, yend=yend))
-
-
+ p_lower <- tibble(x=1,y=1) %>% 
+  ggplot(aes(x,y))+
+  geom_curve(aes(xend= -3, x= -5.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -2.25, x= -5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -1.5, x= -4.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -1.25, x= -4 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -1.1, x= -3.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= -.5, x= -3 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Center
+          geom_curve(aes(xend= -.10, x= -2.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.1,angle =80,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -2 , y=.9, yend=0.1),
+               col = "red",curvature = -.08,angle =60,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -1.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.06,angle =40,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -1 , y=.9, yend=0.1),
+               col = "red",curvature = -.04,angle =20,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= -.5 , y=.9, yend=0.1),
+               col = "red",curvature = -.02,angle =10,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 0 , y=.9, yend=0.1),
+               col = "red",curvature = 0,angle =0,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .10, x= 2.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =80,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 2 , y=.9, yend=0.1),
+               col = "red",curvature = .08,angle =60,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 1.5 , y=.9, yend=0.1),
+               col = "red",curvature = 0.06,angle =40,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= 1 , y=.9, yend=0.1),
+               col = "red",curvature = 0.04,angle =20,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 0, x= .5 , y=.9, yend=0.1),
+               col = "red",curvature = .02,angle =10,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      # Right
+      geom_curve(aes(xend= 3, x= 5.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 2.75, x= 5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 1.5, x= 4.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 1.4, x= 4 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= 1.1, x= 3.5 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
+      geom_curve(aes(xend= .5, x= 3 , y=.9, yend=0.1),
+               col = "red",curvature = .1,angle =90,
+               arrow = arrow(length = unit(0.05, "npc")))+
 ```
 
 
