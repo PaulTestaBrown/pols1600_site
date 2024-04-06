@@ -204,10 +204,6 @@ tmp %>%
 ## Repeated Samples
 
 ```{r}
-n_samples <- 1000 # Number of samples to draw
-sample_size <- 100 # Number of observations in each sample
-set.seed(123) # random seed so we get the same "random" sample
-
 # ---- Population ----
 
 # Population average
@@ -215,14 +211,126 @@ mu_age <- mean(df$age, na.rm=T)
 # Population standard deviation
 sd_age <- sd(df$age, na.rm = T)
 
-p1<- df %>% 
-  ggplot(aes(age))+
-  geom_density(col ="grey")+
-  geom_rug(col = "darkgrey", )+
-  geom_vline(xintercept = mu_age, col="black", linetype="dashed")+
-  theme_void()
+
+# Sample Data
+
+sample_data_fn <- function(dat=df, var=age, samps=16, sample_size=10){
+  df <- tibble(
+  sim = 1:samps,
+  distribution = "Sampling",
+  size = sample_size,
+  sample_from = "Population",
+  pop_mean = dat %>% pull(!!enquo(var)) %>% mean(., na.rm=T),
+) %>% 
+  mutate(
+    sample = purrr::map(sim, ~ slice_sample(dat %>% select(!!enquo(var)), n = sample_size, replace = F)),
+    sample_mean = purrr::map_dbl(sample, \(x) x %>% pull(!!enquo(var)) %>% mean(.,na.rm=T))
+  )
+  return(df)
+}
+plot_distribution <- function(x){
+  mu <- mean(x$age,na.rm=T)
+  x %>% 
+    ggplot(aes(age))+
+    geom_density()+
+    geom_rug()+
+    theme_void()+
+    geom_vline(xintercept = mu, col = "red")+
+    geom_vline(xintercept = mu_age, col = "grey",linetype = "dashed")+
+    xlim(0,95)
+}
+
+plot_samples <- function(x){
+  sample_plots <- x$sample[1:16] %>% 
+  purrr::map( \(x) plot_distribution(x))
+  p <- wrap_elements(wrap_plots(sample_plots[1:16], ncol=4))
+  return(p)
+  
+}
+plot_distribution(tmp)
+tmp <- sample_data_fn(df)
+test <- plot_samples(tmp)
+test+labs(title="men")
+test <- test +plot_annotation(title = "Meh")
+test /test +plot_annotation(title = "Meh")
+plot_figure_fn <- function(d=df, v=age, sim=1000, size=10){
+  # Population average
+  mu <- d %>% pull(!!enquo(v)) %>% mean(., na.rm=T)
+  # Population standard deviation
+  # Sample data
+  samp_df <- sample_data_fn(dat=d, var = !!enquo(v), samps = sim, sample_size = size)
+  # Plot Population
+  p_pop <- d %>%
+  ggplot(aes(!!enquo(v)))+
+  geom_density(col ="grey60")+
+  geom_rug(col = "grey60", )+
+  geom_vline(xintercept = mu, col="grey40", linetype="dashed")+
+  theme_void()+
+  labs(title ="Population")
+  
+  p_samps <- plot_samples(samp_df)
+  p_samps <- p_samps + ggtitle(paste("Repeated samples of size N =",size,"from the population"))
+  
+  p_dist <- samp_df %>% 
+  ggplot(aes(sample_mean))+
+  geom_density(col="red")+
+  geom_rug(col="red")+
+  geom_density(data = df, aes(age),
+               col="grey")+
+  geom_vline(xintercept = mu, linetype="dashed")+
+  theme_void()+
+    labs(
+      title = "Sampling Distribution"
+    )
+  
+  design <-"##AAAA##
+            ##AAAA##
+            ##AAAA##
+            ########
+            #BBBBBB#
+            #BBBBBB#
+            #BBBBBB#
+            #BBBBBB#
+            ########
+            ##CCCC##
+            ##CCCC##
+            ##CCCC##"
+  
+  fig <- p_pop / p_samps / p_dist +
+    plot_layout(design = design)
+  return(fig)
 
 
+  
+  
+  
+}
+plot_figure_fn()
+
+
+
+# Samples
+n_samples <- 1000 # Number of samples to draw
+
+
+# N=10
+sample_size <- 10 # Number of observations in each sample
+set.seed(123) # random seed so we get the same "random" sample
+
+age_samp_dist_n10 <- tibble(
+  sim = 1:n_samples,
+  distribution = "Sampling",
+  size = sample_size,
+  sample_from = "Population",
+  pop_mean = mu_age,
+) %>%
+  mutate(
+    sample = purrr::map(sim, ~ slice_sample(df, n = sample_size, replace = F)),
+    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
+  )
+
+sample_size <- 25 # Number of observations in each sample
+set.seed(123) # random seed so we get the same "random" sample
 age_samp_dist_n25 <- tibble(
   sim = 1:n_samples,
   distribution = "Sampling",
@@ -235,25 +343,35 @@ age_samp_dist_n25 <- tibble(
     sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
   )
 
-plot_sample_distributions <- function(x){
-  mu <- mean(x$age,na.rm=T)
-  x %>% 
-    ggplot(aes(age))+
-    geom_density()+
-    geom_rug()+
-    theme_void()+
-    geom_vline(xintercept = mu, col = "red")+
-    geom_vline(xintercept = mu_age, col = "black",linetype = "dashed")+
-    xlim(0,90)
-    # ylim(0, .03)
-}
-plot_sample_distributions(age_samp_dist_n25$sample[[1]])
+sample_size <- 100 # Number of observations in each sample
+set.seed(123) # random seed so we get the same "random" sample
+age_samp_dist_n100 <- tibble(
+  sim = 1:n_samples,
+  distribution = "Sampling",
+  size = sample_size,
+  sample_from = "Population",
+  pop_mean = mu_age,
+) %>%
+  mutate(
+    sample = purrr::map(sim, \(x) slice_sample(df, n = sample_size, replace = F)), 
+    sample_mean = purrr::map_dbl(sample, ~ mean(.$age, na.rm=T))
+  )
 
-sample_plots <- age_samp_dist_n25$sample[1:100] %>% 
-  purrr::map( \(x) plot_sample_distributions(x))
-library(gridExtra)
-library(patchwork)
-p2 <- wrap_plots(sample_plots[1:16], ncol=4)
+# Sample Data
+
+
+
+
+
+
+
+p2 <- plot_samples(age_samp_dist_n10)
+p2 <- p2+plot_annotation(title = "Meh")
+p2
+plot_sampling_distribution(age_samp_dist_n25)
+plot_sampling_distribution(age_samp_dist_n100)
+
+
 
 p3 <- age_samp_dist_n25 %>% 
   ggplot(aes(sample_mean))+
@@ -264,21 +382,29 @@ p3 <- age_samp_dist_n25 %>%
   geom_vline(xintercept = mu_age, linetype="dashed")+
   theme_void()
 
+ggplot(tibble(x=1, y=1,),aes(x,y))+
+  geom_abline(slope = .5,intercept = 0)+
+  theme_void(
+    
+  )+
+  theme(plot.margin = margin(0, 0, 0, 0))
+
+
 design <- "##AAA##
            ##AAA##
            ##AAA##
+           #BBBBB#
+           #DDDDD#
+           #DDDDD#
+           #DDDDD#
+           #DDDDD#
            #######
-           #BBBBB#
-           #BBBBB#
-           #BBBBB#
-           #BBBBB#
-           #######
-           ##CCC##
-           ##CCC##
-           ##CCC##"
+           ##EEE##
+           ##EEE##
+           ##EEE##"
 
 # (plot_spacer() +p1 +plot_spacer() )/p2/ (plot_spacer() +p3+plot_spacer() ) +
-test <-  p1/p2/p3+
+test <-  p1/p_upper/p2/p3+
   plot_layout(design = design)
 
 library(gridExtra)
