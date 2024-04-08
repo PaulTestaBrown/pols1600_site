@@ -109,6 +109,7 @@ library(haven)
 library(labelled)
 library(kableExtra)
 library(ggpubr)
+library(DeclareDesign)
 ## ADD DeclareDesign
 
 ```
