@@ -28,7 +28,7 @@ format:
 filters:
   - openlinksinnewpage
 execute: 
-  eval: true
+  eval: false
   echo: true
   warning: false
   message: false
@@ -61,7 +61,7 @@ library(texreg)
 - Announcements
 - Feedback
 - Review
-- Class plan
+
 
 
 ## Annoucements
@@ -101,7 +101,7 @@ library(texreg)
 ## Populations and Samples{.smaller}
 
 
-- [Population]{.blue: All the cases from which you could have sampled
+- [Population]{.blue}: All the cases from which you could have sampled
 
 - [Parameter:]{.blue} A quantity or quantities of interest often generically called $\theta$ ("theta"). Something we'd like to know about our population
 
@@ -123,7 +123,7 @@ library(texreg)
 
 ## Distrubtions and Standard Errors{.smaller}
 
-- [Sampling Distribution:]{.blue} How some estimate would vary if you took repeated samples from the population
+- [Sampling Distribution:]{.blue} How some estimate would vary if you took [repeated samples]{.blue} from the population
 
 - [Standard Error:]{.blue} The standard deviation of the sampling distribution
 
@@ -162,6 +162,21 @@ We will consider both.
 
 
 # {{< fa code >}} Bootstrapped Confidence Intervals {.inverse}
+
+## Overview
+
+- Simulate repeated sampling from the population, treating the 2024 NES pilot as our population
+
+- Vary the sample size
+
+- 
+
+## Sampling Distributions
+
+## Standard Errors
+
+## Confidence Intervals
+
 
 ## The Population
 

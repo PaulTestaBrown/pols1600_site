@@ -131,7 +131,7 @@ library(DeclareDesign)
 
 In R studio **set your working directory** to the **folder where this lab is** saved by clicking > Session > Set Working Directory > To Source File Location
 
-![](images/09-nes6.png){width=50%}
+![](https://pols1600.paultesta.org/labs/images/09-nes6.png){width=50%}
 
 After doing so uncomment `getwd()` Should print out something like
 
@@ -160,16 +160,16 @@ Please click [here](https://electionstudies.org/data-center/2024-pilot-study/) t
 
 - Click the **Log-in Button**
 
-![](images/09-nes1.png){width=50%}
+![](https://pols1600.paultesta.org/labs/images/09-nes1.png){width=50%}
 
 - Create an account with the NES
 
-![](images/09-nes2.png){width=30%}
+![]((https://pols1600.paultesta.org/labs/images/09-nes2.png){width=30%}
 
 - Right click (Ctrl-click) on the DTA button. This will allow you to select `Save Link As...` Which should in turn allow you to chose where the file is saved. Save it in the **same folder as 09-lab.qmd**
 
-![](images/09-nes3.png){width=50%}
-![](images/09-nes4.png){width=50%}
+![](https://pols1600.paultesta.org/labs/images/09-nes3.png){width=50%}
+![](https://pols1600.paultesta.org/labs/images/09-nes4.png){width=50%}
 
 - Unzip `anes_pilot_2024_dta_20240319.zip`. 
   - On a Mac this creates a new folder called `anes_pilot_2024_dta_20240319` in your course folder which contains the following files:
@@ -177,7 +177,7 @@ Please click [here](https://electionstudies.org/data-center/2024-pilot-study/) t
   - `anes_pilot_2024_userguidecodebook_20240319.pdf` the codebook for the data
   - On a PC i think i it asks you where you want to unzip the files. Please unzip them directly into your course folder.  
 
-![](images/09-nes5.png){width=50%}
+![](https://pols1600.paultesta.org/labs/images/09-nes5.png){width=50%}
 
 - Load the data using some version of the following commands:
 

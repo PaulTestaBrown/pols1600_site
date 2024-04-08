@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.551">
+  <meta name="generator" content="quarto-1.4.545">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,6 +30,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -331,12 +396,12 @@
 
 <section id="title-slide" align="left" data-background-image="images/pols1600_hex.png" data-background-position="90% 50%" data-background-size="40%" class="quarto-title-block center">
   <h1 class="title">POLS 1600</h1>
-  <p class="subtitle">Quantifying uncertainty:<br> Confidence Intervals &amp; Hypothesis Tests</p>
+  <p class="subtitle">Quantifying uncertainty:<br> Confidence Intervals &amp;<br>Hypothesis Tests</p>
 
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Apr 4, 2024</p>
+  <p class="date">Updated Apr 8, 2024</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -349,7 +414,6 @@
 <li class="fragment">Announcements</li>
 <li class="fragment">Feedback</li>
 <li class="fragment">Review</li>
-<li class="fragment">Class plan</li>
 </ul>
 </section>
 <section id="annoucements" class="slide level2">
@@ -398,7 +462,7 @@
 <section id="populations-and-samples" class="slide level2 smaller">
 <h2>Populations and Samples</h2>
 <ul>
-<li class="fragment"><p>[Population]{.blue: All the cases from which you could have sampled</p></li>
+<li class="fragment"><p><span class="blue">Population</span>: All the cases from which you could have sampled</p></li>
 <li class="fragment"><p><span class="blue">Parameter:</span> A quantity or quantities of interest often generically called <span class="math inline">\(\theta\)</span> (“theta”). Something we’d like to know about our population</p></li>
 <li class="fragment"><p><span class="blue">Sample:</span> A (random) draw from that population</p></li>
 <li class="fragment"><p><span class="blue">Sample Size:</span> The number of observations in your draw (without replacement)</p></li>
@@ -417,7 +481,7 @@
 <section id="distrubtions-and-standard-errors" class="slide level2 smaller">
 <h2>Distrubtions and Standard Errors</h2>
 <ul>
-<li class="fragment"><p><span class="blue">Sampling Distribution:</span> How some estimate would vary if you took repeated samples from the population</p></li>
+<li class="fragment"><p><span class="blue">Sampling Distribution:</span> How some estimate would vary if you took <span class="blue">repeated samples</span> from the population</p></li>
 <li class="fragment"><p><span class="blue">Standard Error:</span> The standard deviation of the sampling distribution</p></li>
 <li class="fragment"><p><span class="blue">Resampling Distribution:</span> How some estimate would vary if you took repeated samples <span class="blue">from your sample WITH REPLACEMENT</span></p>
 <ul>
@@ -463,13 +527,448 @@
 </section>
 <section id="overview-1" class="slide level2">
 <h2>Overview</h2>
+<ul>
+<li class="fragment"><p>Simulate repeated sampling from the population, treating the 2024 NES pilot as our population</p></li>
+<li class="fragment"><p>Vary the sample size</p></li>
+<li class="fragment"></li>
+</ul>
+</section>
+<section id="sampling-distributions" class="slide level2">
+<h2>Sampling Distributions</h2>
+</section>
+<section id="standard-errors" class="slide level2">
+<h2>Standard Errors</h2>
+</section>
+<section id="confidence-intervals-2" class="slide level2">
+<h2>Confidence Intervals</h2>
+</section>
+<section id="the-population" class="slide level2">
+<h2>The Population</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co">#</span></span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age))<span class="sc">+</span></span>
+<span id="cb1-6"><a></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb1-7"><a></a>  <span class="fu">geom_rug</span>()<span class="sc">+</span></span>
+<span id="cb1-8"><a></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb1-9"><a></a>    <span class="at">fun =</span> mean,</span>
+<span id="cb1-10"><a></a>    <span class="at">geom =</span> <span class="st">"vline"</span>,</span>
+<span id="cb1-11"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">after_stat</span>(y))</span>
+<span id="cb1-12"><a></a>  )<span class="sc">+</span></span>
+<span id="cb1-13"><a></a>  <span class="fu">xlim</span>(<span class="at">x=</span><span class="dv">0</span>,<span class="dv">100</span>)<span class="sc">+</span></span>
+<span id="cb1-14"><a></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">03</span>)</span>
+<span id="cb1-15"><a></a></span>
+<span id="cb1-16"><a></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-17"><a></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">25</span>) <span class="ot">-&gt;</span>tmp</span>
+<span id="cb1-18"><a></a><span class="fu">mean</span>(df<span class="sc">$</span>age,<span class="at">na.rm=</span>T)</span>
+<span id="cb1-19"><a></a>tmp <span class="sc">%&gt;%</span> </span>
+<span id="cb1-20"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age))<span class="sc">+</span></span>
+<span id="cb1-21"><a></a>  <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb1-22"><a></a>  <span class="fu">geom_rug</span>()<span class="sc">+</span></span>
+<span id="cb1-23"><a></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb1-24"><a></a>    <span class="at">fun =</span> mean,</span>
+<span id="cb1-25"><a></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">na.rm=</span>T),</span>
+<span id="cb1-26"><a></a>    <span class="at">geom =</span> <span class="st">"vline"</span>,</span>
+<span id="cb1-27"><a></a>    <span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">after_stat</span>(y))</span>
+<span id="cb1-28"><a></a>  )<span class="sc">+</span></span>
+<span id="cb1-29"><a></a>  <span class="fu">xlim</span>(<span class="at">x=</span><span class="dv">0</span>,<span class="dv">100</span>)<span class="sc">+</span></span>
+<span id="cb1-30"><a></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,.<span class="dv">03</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="a-single-sample" class="slide level2">
+<h2>A Single Sample</h2>
+</section>
+<section id="repeated-samples" class="slide level2">
+<h2>Repeated Samples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># ---- Population ----</span></span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a><span class="co"># Population average</span></span>
+<span id="cb2-4"><a></a>mu_age <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>age, <span class="at">na.rm=</span>T)</span>
+<span id="cb2-5"><a></a><span class="co"># Population standard deviation</span></span>
+<span id="cb2-6"><a></a>sd_age <span class="ot">&lt;-</span> <span class="fu">sd</span>(df<span class="sc">$</span>age, <span class="at">na.rm =</span> T)</span>
+<span id="cb2-7"><a></a></span>
+<span id="cb2-8"><a></a></span>
+<span id="cb2-9"><a></a><span class="co"># Sample Data</span></span>
+<span id="cb2-10"><a></a></span>
+<span id="cb2-11"><a></a>sample_data_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">dat=</span>df, <span class="at">var=</span>age, <span class="at">samps=</span><span class="dv">16</span>, <span class="at">sample_size=</span><span class="dv">10</span>){</span>
+<span id="cb2-12"><a></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-13"><a></a>  <span class="at">sim =</span> <span class="dv">1</span><span class="sc">:</span>samps,</span>
+<span id="cb2-14"><a></a>  <span class="at">distribution =</span> <span class="st">"Sampling"</span>,</span>
+<span id="cb2-15"><a></a>  <span class="at">size =</span> sample_size,</span>
+<span id="cb2-16"><a></a>  <span class="at">sample_from =</span> <span class="st">"Population"</span>,</span>
+<span id="cb2-17"><a></a>  <span class="at">pop_mean =</span> dat <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(var)) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(., <span class="at">na.rm=</span>T),</span>
+<span id="cb2-18"><a></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-20"><a></a>    <span class="at">sample =</span> purrr<span class="sc">::</span><span class="fu">map</span>(sim, <span class="sc">~</span> <span class="fu">slice_sample</span>(dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!!</span><span class="fu">enquo</span>(var)), <span class="at">n =</span> sample_size, <span class="at">replace =</span> F)),</span>
+<span id="cb2-21"><a></a>    <span class="at">sample_mean =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(sample, \(x) x <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(var)) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(.,<span class="at">na.rm=</span>T))</span>
+<span id="cb2-22"><a></a>  )</span>
+<span id="cb2-23"><a></a>  <span class="fu">return</span>(df)</span>
+<span id="cb2-24"><a></a>}</span>
+<span id="cb2-25"><a></a></span>
+<span id="cb2-26"><a></a>plot_distribution <span class="ot">&lt;-</span> <span class="cf">function</span>(the_pop,the_samp, the_var, ...){</span>
+<span id="cb2-27"><a></a>  mu_pop <span class="ot">&lt;-</span> the_pop <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(the_var)) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-28"><a></a>  mu_samp <span class="ot">&lt;-</span> the_samp <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(the_var)) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-29"><a></a>  ll <span class="ot">&lt;-</span> the_pop <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(the_var)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span>  <span class="fu">min</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-30"><a></a>  ul <span class="ot">&lt;-</span> the_pop <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(the_var)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span> <span class="fu">max</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-31"><a></a>  p<span class="ot">&lt;-</span> the_samp <span class="sc">%&gt;%</span> </span>
+<span id="cb2-32"><a></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="sc">!!</span><span class="fu">enquo</span>(the_var)))<span class="sc">+</span></span>
+<span id="cb2-33"><a></a>    <span class="fu">geom_density</span>()<span class="sc">+</span></span>
+<span id="cb2-34"><a></a>    <span class="fu">geom_rug</span>()<span class="sc">+</span></span>
+<span id="cb2-35"><a></a>    <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb2-36"><a></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu_samp, <span class="at">col =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb2-37"><a></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu_pop, <span class="at">col =</span> <span class="st">"grey40"</span>,<span class="at">linetype =</span> <span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb2-38"><a></a>    <span class="fu">xlim</span>(ll,ul)</span>
+<span id="cb2-39"><a></a>  <span class="fu">return</span>(p)</span>
+<span id="cb2-40"><a></a>}</span>
+<span id="cb2-41"><a></a>plot_samples <span class="ot">&lt;-</span> <span class="cf">function</span>(pop, x, variable, ...){</span>
+<span id="cb2-42"><a></a>  sample_plots <span class="ot">&lt;-</span> x<span class="sc">$</span>sample[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb2-43"><a></a>  purrr<span class="sc">::</span><span class="fu">map</span>( \(x) <span class="fu">plot_distribution</span>(<span class="at">the_pop=</span>pop, <span class="at">the_samp =</span> x, </span>
+<span id="cb2-44"><a></a>                                     <span class="at">the_var =</span> <span class="sc">!!</span><span class="fu">enquo</span>(variable)))</span>
+<span id="cb2-45"><a></a>  p <span class="ot">&lt;-</span> <span class="fu">wrap_elements</span>(<span class="fu">wrap_plots</span>(sample_plots[<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>], <span class="at">ncol=</span><span class="dv">4</span>))</span>
+<span id="cb2-46"><a></a>  <span class="fu">return</span>(p)</span>
+<span id="cb2-47"><a></a>  </span>
+<span id="cb2-48"><a></a>}</span>
+<span id="cb2-49"><a></a></span>
+<span id="cb2-50"><a></a>plot_figure_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">d=</span>df, <span class="at">v=</span>age, <span class="at">sim=</span><span class="dv">1000</span>, <span class="at">size=</span><span class="dv">10</span>){</span>
+<span id="cb2-51"><a></a>  <span class="co"># Population average</span></span>
+<span id="cb2-52"><a></a>  mu <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v)) <span class="sc">%&gt;%</span> <span class="fu">mean</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-53"><a></a>  sd <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v)) <span class="sc">%&gt;%</span> <span class="fu">sd</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-54"><a></a>  se <span class="ot">&lt;-</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(size)</span>
+<span id="cb2-55"><a></a>  <span class="co"># Range</span></span>
+<span id="cb2-56"><a></a>  ll <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span>  <span class="fu">min</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-57"><a></a>  ul <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v)) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>() <span class="sc">%&gt;%</span> <span class="fu">max</span>(., <span class="at">na.rm=</span>T)</span>
+<span id="cb2-58"><a></a>  <span class="co"># Population standard deviation</span></span>
+<span id="cb2-59"><a></a>  <span class="co"># Sample data</span></span>
+<span id="cb2-60"><a></a>  samp_df <span class="ot">&lt;-</span> <span class="fu">sample_data_fn</span>(<span class="at">dat=</span>d, <span class="at">var =</span> <span class="sc">!!</span><span class="fu">enquo</span>(v), <span class="at">samps =</span> sim, <span class="at">sample_size =</span> size)</span>
+<span id="cb2-61"><a></a>  <span class="co"># Plot Population</span></span>
+<span id="cb2-62"><a></a>  p_pop <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb2-63"><a></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v)))<span class="sc">+</span></span>
+<span id="cb2-64"><a></a>      <span class="fu">geom_density</span>(<span class="at">col =</span><span class="st">"grey60"</span>)<span class="sc">+</span></span>
+<span id="cb2-65"><a></a>      <span class="fu">geom_rug</span>(<span class="at">col =</span> <span class="st">"grey60"</span>, )<span class="sc">+</span></span>
+<span id="cb2-66"><a></a>      <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu, <span class="at">col=</span><span class="st">"grey40"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb2-67"><a></a>      <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb2-68"><a></a>      <span class="fu">labs</span>(<span class="at">title =</span><span class="st">"Population"</span>)<span class="sc">+</span></span>
+<span id="cb2-69"><a></a>      <span class="fu">xlim</span>(ll,ul)<span class="sc">+</span></span>
+<span id="cb2-70"><a></a>      <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>))</span>
+<span id="cb2-71"><a></a></span>
+<span id="cb2-72"><a></a>  theme_border <span class="ot">&lt;-</span> <span class="fu">theme_gray</span>() <span class="sc">+</span> </span>
+<span id="cb2-73"><a></a>  <span class="fu">theme</span>(<span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">colour =</span> <span class="st">'black'</span>, <span class="at">size =</span> <span class="dv">3</span>))</span>
+<span id="cb2-74"><a></a>  </span>
+<span id="cb2-75"><a></a>  p_samps <span class="ot">&lt;-</span> <span class="fu">plot_samples</span>(<span class="at">pop=</span>d, <span class="at">x=</span> samp_df,<span class="at">variable =</span> <span class="sc">!!</span><span class="fu">enquo</span>(v))</span>
+<span id="cb2-76"><a></a>  p_samps <span class="ot">&lt;-</span> p_samps <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">"Repeated samples of size N ="</span>,size,<span class="st">"from the population"</span>))<span class="sc">+</span><span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb2-77"><a></a>                                                                                                       <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">colour =</span> <span class="st">'black'</span>, <span class="at">linewidth =</span> <span class="dv">2</span>))</span>
+<span id="cb2-78"><a></a>  </span>
+<span id="cb2-79"><a></a>  </span>
+<span id="cb2-80"><a></a>  p_dist <span class="ot">&lt;-</span> samp_df <span class="sc">%&gt;%</span> </span>
+<span id="cb2-81"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sample_mean))<span class="sc">+</span></span>
+<span id="cb2-82"><a></a>  <span class="fu">geom_density</span>(<span class="at">col=</span><span class="st">"red"</span>,<span class="fu">aes</span>(<span class="at">y=</span> <span class="fu">after_stat</span>(ndensity)))<span class="sc">+</span></span>
+<span id="cb2-83"><a></a>  <span class="fu">geom_rug</span>(<span class="at">col=</span><span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb2-84"><a></a>  <span class="fu">geom_density</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="sc">!!</span><span class="fu">enquo</span>(v), <span class="at">y=</span> <span class="fu">after_stat</span>(ndensity)),</span>
+<span id="cb2-85"><a></a>               <span class="at">col=</span><span class="st">"grey60"</span>)<span class="sc">+</span></span>
+<span id="cb2-86"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mu, <span class="at">col=</span><span class="st">"grey40"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb2-87"><a></a>  <span class="fu">xlim</span>(ll,ul)<span class="sc">+</span></span>
+<span id="cb2-88"><a></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb2-89"><a></a>    <span class="fu">labs</span>(</span>
+<span id="cb2-90"><a></a>      <span class="at">title =</span> <span class="st">"Sampling Distribution"</span></span>
+<span id="cb2-91"><a></a>    )<span class="sc">+</span>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>))</span>
+<span id="cb2-92"><a></a>  </span>
+<span id="cb2-93"><a></a>  p_upper <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-94"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y,))<span class="sc">+</span></span>
+<span id="cb2-95"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-96"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-97"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>.<span class="dv">75</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-98"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-99"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>.<span class="dv">5</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-100"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-101"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>.<span class="dv">25</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-102"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-103"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>.<span class="dv">1</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-104"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-105"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>.<span class="dv">05</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-106"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-107"><a></a>      <span class="co"># Center</span></span>
+<span id="cb2-108"><a></a>          <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-109"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-110"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-111"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-112"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-113"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-114"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="sc">-</span><span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-115"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-116"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="sc">-</span>.<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-117"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-118"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-119"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-120"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-121"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-122"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-123"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-124"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-125"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-126"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-127"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-128"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> .<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-129"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-130"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">xend =</span> <span class="dv">0</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-131"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-132"><a></a>      <span class="co"># Right</span></span>
+<span id="cb2-133"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-134"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-135"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">75</span>, <span class="at">xend =</span> <span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-136"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-137"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">5</span>, <span class="at">xend =</span> <span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-138"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-139"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">25</span>, <span class="at">xend =</span> <span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-140"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-141"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">1</span>, <span class="at">xend =</span> <span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-142"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-143"><a></a>      <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> .<span class="dv">05</span>, <span class="at">xend =</span> <span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb2-144"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb2-145"><a></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb2-146"><a></a>  <span class="fu">coord_fixed</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb2-147"><a></a>              <span class="at">xlim =</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>),<span class="at">clip=</span><span class="st">"off"</span>)</span>
+<span id="cb2-148"><a></a>  <span class="co"># Lower</span></span>
+<span id="cb2-149"><a></a>  range_df <span class="ot">&lt;-</span> samp_df <span class="sc">%&gt;%</span> </span>
+<span id="cb2-150"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-151"><a></a>    <span class="at">min =</span> <span class="fu">min</span>(sample_mean),</span>
+<span id="cb2-152"><a></a>    <span class="at">max =</span> <span class="fu">max</span>(sample_mean),</span>
+<span id="cb2-153"><a></a>    <span class="at">mean =</span> <span class="fu">mean</span>(sample_mean)</span>
+<span id="cb2-154"><a></a>  )</span>
+<span id="cb2-155"><a></a>  </span>
+<span id="cb2-156"><a></a>  plot_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-157"><a></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,</span>
+<span id="cb2-158"><a></a>  <span class="co"># x = sort(rnorm(50, mu, sd)),</span></span>
+<span id="cb2-159"><a></a>  <span class="at">x =</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">50</span>, ll, ul)),</span>
+<span id="cb2-160"><a></a>  <span class="at">xend =</span> <span class="fu">sort</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>, mu, se)),</span>
+<span id="cb2-161"><a></a>  <span class="at">y =</span> <span class="dv">9</span>,</span>
+<span id="cb2-162"><a></a>  <span class="at">yend =</span> <span class="dv">1</span></span>
+<span id="cb2-163"><a></a>)</span>
+<span id="cb2-164"><a></a></span>
+<span id="cb2-165"><a></a>p_lower <span class="ot">&lt;-</span> plot_df <span class="sc">%&gt;%</span></span>
+<span id="cb2-166"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y, <span class="at">group =</span>id))<span class="sc">+</span></span>
+<span id="cb2-167"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend=</span>xend, <span class="at">yend=</span>yend),</span>
+<span id="cb2-168"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>))</span>
+<span id="cb2-169"><a></a>               )<span class="sc">+</span></span>
+<span id="cb2-170"><a></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb2-171"><a></a>  <span class="fu">coord_fixed</span>(<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>),<span class="at">xlim =</span> <span class="fu">c</span>(ll,ul),<span class="at">clip=</span><span class="st">"off"</span>)</span>
+<span id="cb2-172"><a></a></span>
+<span id="cb2-173"><a></a>  </span>
+<span id="cb2-174"><a></a>  design <span class="ot">&lt;-</span><span class="st">"##AAAA##</span></span>
+<span id="cb2-175"><a></a><span class="st">            ##AAAA##</span></span>
+<span id="cb2-176"><a></a><span class="st">            ##AAAA##</span></span>
+<span id="cb2-177"><a></a><span class="st">            BBBBBBBB</span></span>
+<span id="cb2-178"><a></a><span class="st">            BBBBBBBB</span></span>
+<span id="cb2-179"><a></a><span class="st">            #CCCCCC#</span></span>
+<span id="cb2-180"><a></a><span class="st">            #CCCCCC#</span></span>
+<span id="cb2-181"><a></a><span class="st">            #CCCCCC#</span></span>
+<span id="cb2-182"><a></a><span class="st">            #CCCCCC#</span></span>
+<span id="cb2-183"><a></a><span class="st">            DDDDDDDD</span></span>
+<span id="cb2-184"><a></a><span class="st">            DDDDDDDD</span></span>
+<span id="cb2-185"><a></a><span class="st">            ##EEEE##</span></span>
+<span id="cb2-186"><a></a><span class="st">            ##EEEE##</span></span>
+<span id="cb2-187"><a></a><span class="st">            ##EEEE##"</span></span>
+<span id="cb2-188"><a></a>  </span>
+<span id="cb2-189"><a></a>  fig <span class="ot">&lt;-</span> p_pop <span class="sc">/</span> p_upper <span class="sc">/</span> p_samps <span class="sc">/</span> p_lower <span class="sc">/</span> p_dist <span class="sc">+</span></span>
+<span id="cb2-190"><a></a>    <span class="fu">plot_layout</span>(<span class="at">design =</span> design)</span>
+<span id="cb2-191"><a></a>  <span class="fu">return</span>(fig)</span>
+<span id="cb2-192"><a></a></span>
+<span id="cb2-193"><a></a></span>
+<span id="cb2-194"><a></a>  </span>
+<span id="cb2-195"><a></a>  </span>
+<span id="cb2-196"><a></a>  </span>
+<span id="cb2-197"><a></a>}</span>
+<span id="cb2-198"><a></a>fig_n10 <span class="ot">&lt;-</span> <span class="fu">plot_figure_fn</span>(<span class="at">v=</span>age,<span class="at">size =</span> <span class="dv">10</span>,<span class="at">sim =</span> <span class="dv">100</span>)</span>
+<span id="cb2-199"><a></a>fig_n30 <span class="ot">&lt;-</span> <span class="fu">plot_figure_fn</span>(<span class="at">size =</span> <span class="dv">30</span>)</span>
+<span id="cb2-200"><a></a>fig_n300 <span class="ot">&lt;-</span> <span class="fu">plot_figure_fn</span>(<span class="at">size =</span> <span class="dv">300</span>)</span>
+<span id="cb2-201"><a></a></span>
+<span id="cb2-202"><a></a>test <span class="ot">&lt;-</span> <span class="fu">sample_data_fn</span>(df,<span class="at">samps =</span><span class="dv">1000</span>, <span class="at">sample_size =</span> <span class="dv">10</span>)</span>
+<span id="cb2-203"><a></a></span>
+<span id="cb2-204"><a></a>range_df <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
+<span id="cb2-205"><a></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-206"><a></a>    <span class="at">min =</span> <span class="fu">min</span>(sample_mean),</span>
+<span id="cb2-207"><a></a>    <span class="at">max =</span> <span class="fu">max</span>(sample_mean),</span>
+<span id="cb2-208"><a></a>    <span class="at">mean =</span> <span class="fu">mean</span>(sample_mean)</span>
+<span id="cb2-209"><a></a>  )</span>
+<span id="cb2-210"><a></a></span>
+<span id="cb2-211"><a></a>plot_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-212"><a></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb2-213"><a></a>  <span class="at">x =</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">20</span>, <span class="fu">min</span>(df<span class="sc">$</span>age,<span class="at">na.rm=</span>T), <span class="fu">max</span>(df<span class="sc">$</span>age,<span class="at">na.rm=</span>T))),</span>
+<span id="cb2-214"><a></a>  <span class="at">xend =</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">20</span>, range_df<span class="sc">$</span>min, range_df<span class="sc">$</span>max)),</span>
+<span id="cb2-215"><a></a>  <span class="at">y =</span> .<span class="dv">9</span>,</span>
+<span id="cb2-216"><a></a>  <span class="at">yend =</span> .<span class="dv">1</span></span>
+<span id="cb2-217"><a></a>)</span>
+<span id="cb2-218"><a></a></span>
+<span id="cb2-219"><a></a>plot_df <span class="sc">%&gt;%</span></span>
+<span id="cb2-220"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y, <span class="at">group =</span>id))<span class="sc">+</span></span>
+<span id="cb2-221"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend=</span>xend, <span class="at">yend=</span>yend))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>p_lower <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="dv">1</span>,<span class="at">y=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y))<span class="sc">+</span></span>
+<span id="cb3-3"><a></a>  <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-4"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-5"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-6"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">75</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-7"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-8"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-9"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">5</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-10"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-11"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-12"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">25</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-13"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-14"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-15"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">1</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-16"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-17"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-18"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">05</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-19"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-20"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-21"><a></a>      <span class="co"># Center</span></span>
+<span id="cb3-22"><a></a>          <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-23"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">80</span>,</span>
+<span id="cb3-24"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-25"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-26"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">08</span>,<span class="at">angle =</span><span class="dv">60</span>,</span>
+<span id="cb3-27"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-28"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-29"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">06</span>,<span class="at">angle =</span><span class="dv">40</span>,</span>
+<span id="cb3-30"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-31"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-32"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">04</span>,<span class="at">angle =</span><span class="dv">20</span>,</span>
+<span id="cb3-33"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-34"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span>.<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-35"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">02</span>,<span class="at">angle =</span><span class="dv">10</span>,</span>
+<span id="cb3-36"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-37"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">0</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-38"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="dv">0</span>,<span class="at">angle =</span><span class="dv">0</span>,</span>
+<span id="cb3-39"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-40"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-41"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">80</span>,</span>
+<span id="cb3-42"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-43"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-44"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">08</span>,<span class="at">angle =</span><span class="dv">60</span>,</span>
+<span id="cb3-45"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-46"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-47"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="fl">0.06</span>,<span class="at">angle =</span><span class="dv">40</span>,</span>
+<span id="cb3-48"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-49"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-50"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="fl">0.04</span>,<span class="at">angle =</span><span class="dv">20</span>,</span>
+<span id="cb3-51"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-52"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> .<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-53"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">02</span>,<span class="at">angle =</span><span class="dv">10</span>,</span>
+<span id="cb3-54"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-55"><a></a>      <span class="co"># Right</span></span>
+<span id="cb3-56"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">1</span>, <span class="at">x=</span> <span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-57"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-58"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-59"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">75</span>, <span class="at">x=</span> <span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-60"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-61"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-62"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">5</span>, <span class="at">x=</span> <span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-63"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-64"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-65"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">25</span>, <span class="at">x=</span> <span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-66"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-67"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-68"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">1</span>, <span class="at">x=</span> <span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-69"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-70"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-71"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">05</span>, <span class="at">x=</span> <span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-72"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-73"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))</span>
+<span id="cb3-74"><a></a></span>
+<span id="cb3-75"><a></a>p_lower  </span>
+<span id="cb3-76"><a></a></span>
+<span id="cb3-77"><a></a> p_lower <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="dv">1</span>,<span class="at">y=</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-78"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y))<span class="sc">+</span></span>
+<span id="cb3-79"><a></a>  <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-80"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-81"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-82"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="fl">2.25</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-83"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-84"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-85"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-86"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-87"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-88"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="fl">1.25</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-89"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-90"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-91"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span><span class="fl">1.1</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-92"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-93"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-94"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">5</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-95"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-96"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-97"><a></a>      <span class="co"># Center</span></span>
+<span id="cb3-98"><a></a>          <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="sc">-</span>.<span class="dv">10</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-99"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">80</span>,</span>
+<span id="cb3-100"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-101"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-102"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">08</span>,<span class="at">angle =</span><span class="dv">60</span>,</span>
+<span id="cb3-103"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-104"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-105"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">06</span>,<span class="at">angle =</span><span class="dv">40</span>,</span>
+<span id="cb3-106"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-107"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span><span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-108"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">04</span>,<span class="at">angle =</span><span class="dv">20</span>,</span>
+<span id="cb3-109"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-110"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="sc">-</span>.<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-111"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="sc">-</span>.<span class="dv">02</span>,<span class="at">angle =</span><span class="dv">10</span>,</span>
+<span id="cb3-112"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-113"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">0</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-114"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="dv">0</span>,<span class="at">angle =</span><span class="dv">0</span>,</span>
+<span id="cb3-115"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-116"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">10</span>, <span class="at">x=</span> <span class="fl">2.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-117"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">80</span>,</span>
+<span id="cb3-118"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-119"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">2</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-120"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">08</span>,<span class="at">angle =</span><span class="dv">60</span>,</span>
+<span id="cb3-121"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-122"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="fl">1.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-123"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="fl">0.06</span>,<span class="at">angle =</span><span class="dv">40</span>,</span>
+<span id="cb3-124"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-125"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> <span class="dv">1</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-126"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> <span class="fl">0.04</span>,<span class="at">angle =</span><span class="dv">20</span>,</span>
+<span id="cb3-127"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-128"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">0</span>, <span class="at">x=</span> .<span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-129"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">02</span>,<span class="at">angle =</span><span class="dv">10</span>,</span>
+<span id="cb3-130"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-131"><a></a>      <span class="co"># Right</span></span>
+<span id="cb3-132"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="dv">3</span>, <span class="at">x=</span> <span class="fl">5.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-133"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-134"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-135"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="fl">2.75</span>, <span class="at">x=</span> <span class="dv">5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-136"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-137"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-138"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="fl">1.5</span>, <span class="at">x=</span> <span class="fl">4.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-139"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-140"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-141"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="fl">1.4</span>, <span class="at">x=</span> <span class="dv">4</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-142"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-143"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-144"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> <span class="fl">1.1</span>, <span class="at">x=</span> <span class="fl">3.5</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-145"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-146"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span>
+<span id="cb3-147"><a></a>      <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="at">xend=</span> .<span class="dv">5</span>, <span class="at">x=</span> <span class="dv">3</span> , <span class="at">y=</span>.<span class="dv">9</span>, <span class="at">yend=</span><span class="fl">0.1</span>),</span>
+<span id="cb3-148"><a></a>               <span class="at">col =</span> <span class="st">"red"</span>,<span class="at">curvature =</span> .<span class="dv">1</span>,<span class="at">angle =</span><span class="dv">90</span>,</span>
+<span id="cb3-149"><a></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"npc"</span>)))<span class="sc">+</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="confidence-intervals-3" class="slide level2">
+<h2>Confidence Intervals</h2>
+</section>
+<section id="overview-2" class="slide level2">
+<h2>Overview</h2>
 </section></section>
 <section>
 <section id="hypothesis-testing" class="title-slide slide level1 inverse center">
 <h1><i class="fa-solid fa-code" aria-label="code"></i> Hypothesis Testing</h1>
 
 </section>
-<section id="overview-2" class="slide level2">
+<section id="overview-3" class="slide level2">
 <h2>Overview</h2>
 </section>
 <section id="concept" class="slide level2">
@@ -827,24 +1326,6 @@
         // clear code selection
         e.clearSelection();
       });
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
-            }
-          }
-        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -881,11 +1362,7 @@
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
+          return note.innerHTML;
         });
       }
       const findCites = (el) => {
