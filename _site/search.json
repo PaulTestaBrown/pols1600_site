@@ -4377,7 +4377,7 @@
     "href": "labs/09-lab.html#load-packages",
     "title": "Lab 09 - Exploring data in the 2020 National Elections Study",
     "section": "1.1 Load Packages",
-    "text": "1.1 Load Packages\n\n# Libraries\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(labelled)\nlibrary(kableExtra)\nlibrary(ggpubr)\n## ADD DeclareDesign"
+    "text": "1.1 Load Packages\n\n# Libraries\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(labelled)\nlibrary(kableExtra)\nlibrary(ggpubr)\nlibrary(DeclareDesign)\n## ADD DeclareDesign"
   },
   {
     "objectID": "labs/09-lab.html#set-your-working-directory-in-r-studio",
