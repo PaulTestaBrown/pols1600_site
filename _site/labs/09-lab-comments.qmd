@@ -622,7 +622,7 @@ We can then format `df_summary` as table using `knitr()` and styling options fro
 
 ```{r}
 #| label: summarytab_me
-#| echo: false
+#| echo: true
 
 kable(df_summary,
       digits = 2) %>% 

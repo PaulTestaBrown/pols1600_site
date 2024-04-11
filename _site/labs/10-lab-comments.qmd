@@ -1,9 +1,10 @@
 ---
-title: "Lab 10 - Exploring Questions from the 2024 National Elections Pilot Study"
+title: "Comments for Lab 10 - Exploring Questions from the 2024 National Elections Pilot Study"
 author: "Your Group Members Names Here"
 date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
+    embed-resources: true
     toc: true
     toc-location: right
     toc-float: true
@@ -42,6 +43,15 @@ In this week's lab, we'll pick up where we left off:
 
 
 One of these 6 tasks will be randomly selected as the graded question for the lab.
+
+```{r}
+#| label: graded
+set.seed(11042024)
+graded_question <- sample(1:6,size = 1)
+paste("Question",graded_question,"is the graded question for this week")
+```
+
+
 
 ```{r}
 #| label: groups
@@ -88,18 +98,24 @@ As with every lab, you should:
 
 # Set up your workspace
 
-
-## Load Packages
-
 Please load the libraries you will use in your analysis.
 
+
+## Load Packages
 
 ```{r}
 #| label: packages
 #| message: false
 
 # Libraries
-
+library(tidyverse)
+library(haven)
+library(labelled)
+library(kableExtra)
+library(texreg)
+library(ggpubr)
+library(patchwork)
+library(DeclareDesign)
 ```
 
 ## Set your working directory in R Studio
@@ -130,6 +146,12 @@ If `getwd()` says something like '~/Downloads/' click: "File > Save As" and **sa
 
 
 # Load the data from last week.
+
+```{r}
+#| label: datacomments
+#| include: false
+load("../files/data/nes24.rda")
+```
 
 Please uncomment and if needed, update, the code below to load the data from last week
 
@@ -164,76 +186,60 @@ Use the [code](https://pols1600.paultesta.org/labs/09-lab-comments#create-a-tabl
 ```{r}
 #| label: sumstats
 
-# # Vector of numeric variables to summarize
-# the_vars <- c(
-#   "dv_vote_trump2024", 
-#   "dv_participation",
-#   
-#   # ---- Add your outcome here ----
-#   
-#   "age","education","income",
-#   "is_white","is_black","is_hispanic","is_asian","is_other",
-#   "partyid","is_dem","is_rep","is_ind"
-#   
-#   # ----- Add your predictor here ----
-# 
-#   )
-# 
-# # Vector of nicely formatted labels for variables
-# the_labels <- c(
-#   "Vote for Trump in '24",
-#   "Acts of Participation in `20",
-#   
-#   # ---- Add a label for your DV here ----
-#   
-#   "Age","Education", "Income",
-#   "White", "Black","Hispanic","Asian","Other",
-#   "Party ID", "Democrat","Republican","Independent"
-#   
-#   # ---- Add a label for your IV here ----
-# 
-#   )
-# 
-# df_summary <- df %>% 
-#   select(all_of(the_vars)) %>%
-#   rename_with(~the_labels) %>% 
-#   pivot_longer(
-#     cols = everything(),
-#     names_to = "Variable"
-#   ) %>% 
-#   mutate(
-#     Variable = factor(Variable, levels = the_labels)
-#   ) %>% 
-#   group_by(Variable) %>% 
-#   summarise(
-#     Min = min(value,na.rm = T),
-#     p25 = quantile(value, prob = .25,na.rm = T),
-#     Median = quantile(value, prob = .5,na.rm = T),
-#     Mean = mean(value, na.rm = T),
-#     p75 = quantile(value, prob = .75,na.rm = T),
-#     Max = max(value,na.rm = T),
-#     
-#     # ---- Add sd here ----
-#     
-#     `N missing` = sum(is.na(value))
-#   )
+# Vector of numeric variables to summarize
+the_vars <- c(
+  "dv_vote_trump2024", 
+  "dv_participation",
+  "age","education","income",
+  "is_white","is_black","is_hispanic","is_asian","is_other",
+  "partyid","is_dem","is_rep","is_ind"
+)
+
+# Vector of nicely formatted labels for variables
+the_labels <- c(
+  "Vote for Trump in '24",
+  "Acts of Participation in `20",
+  "Age","Education", "Income",
+  "White", "Black","Hispanic","Asian","Other",
+  "Party ID", "Democrat","Republican","Independent"
+)
+
+df_summary <- df %>% 
+  select(all_of(the_vars)) %>%
+  rename_with(~the_labels) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "Variable"
+  ) %>% 
+  mutate(
+    Variable = factor(Variable, levels = the_labels)
+  ) %>% 
+  group_by(Variable) %>% 
+  summarise(
+    Min = min(value,na.rm = T),
+    p25 = quantile(value, prob = .25,na.rm = T),
+    Median = quantile(value, prob = .5,na.rm = T),
+    Mean = mean(value, na.rm = T),
+    p75 = quantile(value, prob = .75,na.rm = T),
+    Max = max(value,na.rm = T),
+    SD = sd(value, na.rm=T),
+    `N missing` = sum(is.na(value))
+  )
 
 
 ```
 
 ## Display the results as a formated table
 
-Once you've created `df_summary`, you can uncomment the code below. Be sure to update the arguments in the `pack_rows()` function
-
 ```{r}
 #| label: summarytab
 
-# kable(df_summary,
-#       digits = 2) %>% 
-#   kable_styling() %>% 
-#   pack_rows("Outcomes", start_row = 1, end_row = 2) %>% 
-#   pack_rows("Demographic Predictors", 3, 10) %>% 
-#   pack_rows("Political Predictors", 11, 14)
+kable(df_summary,
+      digits = 2) %>% 
+  kable_styling() %>% 
+  pack_rows("Outcomes", start_row = 1, end_row = 2) %>% 
+  pack_rows("Demographic Predictors", 3, 10) %>% 
+  pack_rows("Political Predictors", 11, 14)
 
 ```
 
@@ -241,7 +247,7 @@ Once you've created `df_summary`, you can uncomment the code below. Be sure to u
 
 Please use these tables to **describe a typical respondent** to the 2024 NES Pilot Study:
 
-The National Election Study's 2024 Pilot Study contains responses from 1909 individuals. The typical respondent in the data was ...
+The National Election Study's 2024 Pilot Study contains responses from 1909 individuals. The typical respondent in the data was just under 50 years old, with some college, with an income in the range of \$50k-\$59k. Approximately two-thirds of the sample identified as white, with 13 percent of respondents identifying as Black, 13 percent as Hispanic, 2 percent as Asian. Forty-three percent of respondents identified as Democrats, 38 percent as Republicans, and 20 percent as Independents. The respondents were evenly split in who they would vote for 2024, with 50 percent saying they would Vote for Donald Trump, and 50 percent saying Joe Biden. In the 2020 campaign, the average respondent reported engaging in about 1 act of political participation.
 
 # Formulate a research question and expectations
 
@@ -255,7 +261,7 @@ Please take a moment, revisit and revise your research questions developed in la
 
 **ME:** How does support for Trump in the 2024 election vary with age and race?
 
-**YOU:** 
+**YOU:**
 
 ## Expectations
 
@@ -304,27 +310,14 @@ $$
 Below I estimate the three models described above
 
 ```{r}
-#| label: modelsME
+#| label: models
 
-# # Fit models
-# m1vc <- lm_robust(dv_vote_trump2024 ~ age + race_5cat, df)
-# m2vc <- lm_robust(dv_vote_trump2024 ~ age*race_5cat, df)
-# m3vc <- lm_robust(dv_vote_trump2024 ~ age*race_5cat + partyid, df)
-
-```
-
-Please estimate the models described in the previous section
-
-
-```{r}
-#| label: modelsYOU
-
-# # Fit models
-
+# Fit models
+m1 <- lm_robust(dv_vote_trump2024 ~ age + race_5cat, df)
+m2 <- lm_robust(dv_vote_trump2024 ~ age*race_5cat, df)
+m3 <- lm_robust(dv_vote_trump2024 ~ age*race_5cat + partyid, df)
 
 ```
-
-
 
 # Interpret your results
 
@@ -337,143 +330,111 @@ Interpret your results using both confidence intervals and hypothesis tests to a
 
 ## Regression Table
 
-Here is some template code I used, demontstrating how to update the labels of the columns and rows in the model
-
 ```{r}
 #| label: regtabME
 #| results: asis
 
-# htmlreg(list(m1vc, m2vc, m3vc),
-#         custom.model.names = c(
-#           "Baseline", "Interaction", "Alternative"
-#         ),
-#         caption = "Support for Trump in 2024",
-#         caption.above = T,
-#         custom.coef.names = c(
-#           "(Intercept)",
-#           "Age",
-#           "Black",
-#           "Hispanic",
-#           "Asian",
-#           "Other",
-#           "Age:Black",
-#           "Age:Hispanic",
-#           "Age:Asian",
-#           "Age:Other",
-#           "Party ID"
-#         ) ,
-#         include.ci = F,
-#         digits = 3)
+htmlreg(list(m1, m2, m3),
+        custom.model.names = c(
+          "Baseline", "Interaction", "Alternative"
+        ),
+        caption = "Support for Trump in 2024",
+        caption.above = T,
+        custom.coef.names = c(
+          "(Intercept)",
+          "Age",
+          "Black",
+          "Hispanic",
+          "Asian",
+          "Other",
+          "Age:Black",
+          "Age:Hispanic",
+          "Age:Asian",
+          "Age:Other",
+          "Party ID"
+        ) ,
+        include.ci = F,
+        digits = 3)
 ```
-
-**Please produce a similar table for your models**
 
 
 ## Visualize predicted values 
 
-Similarly here is some code to produce predicted values for `m2vc` and `m3vc`. The basic steps are:
-
-1. Create a prediction data frame varying the values of some predictors from a model, while holding others constant using `expand_grid()`
-
-2. Produce predicted values with confidence intervals from your regression model using the `predict()` function
-
-3. Bind those predictions and CIs to the orginal prediction dataframe using `cbind()`
-
-4. Produce a figure using `ggplot()`
-
 ```{r}
-#| label: figME
+#| label: predvalME
 
-# # Predictors for m2
-# pred_dfm2 <- expand_grid(
-#   age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
-#   race_5cat = sort(unique(df$race_5cat))
-# )
-# 
-# # Predictions with confidence intervals
-# pred_dfm2 <- cbind(
-#   pred_dfm2,
-#   predict(m2, newdata = pred_dfm2, interval = "confidence")$fit
-# )
-# 
-# # Plot predictions from m2
-# 
-# fig_m2 <- pred_dfm2 %>% 
-#   ggplot(aes(age, fit, col = race_5cat))+
-#   geom_ribbon(aes(ymin = lwr, ymax = upr, 
-#     fill = race_5cat
-#     ),
-#     alpha = .5)+
-#   geom_line()+
-#   facet_wrap( ~ race_5cat)+
-#   theme_minimal()+
-#   guides(
-#     col = "none",
-#     fill = "none"
-#   )+
-#   labs(
-#     y = "Predicted Vote Choice",
-#     title = "Support for Trump by Age and Race"
-#   )
-# 
-# # Display figure
-# fig_m2
-# 
-# # Predictors for m3
-# pred_dfm3 <- expand_grid(
-#   age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
-#   race_5cat = sort(unique(df$race_5cat)),
-#   partyid = mean(df$partyid, na.rm=T)
-# )
-# 
-# # Predictions with confidence intervals
-# pred_dfm3 <- cbind(
-#   pred_dfm3,
-#   predict(m3, newdata = pred_dfm3, interval = "confidence")$fit
-# )
-# 
-# # Plot predictions from m2
-# 
-# fig_m3 <- pred_dfm3 %>% 
-#   ggplot(aes(age, fit, col = race_5cat))+
-#   geom_ribbon(aes(ymin = lwr, ymax = upr, 
-#     fill = race_5cat
-#     ),
-#     alpha = .5)+
-#   geom_line()+
-#   facet_wrap( ~ race_5cat)+
-#   theme_minimal()+
-#   guides(
-#     col = "none",
-#     fill = "none"
-#   )+
-#   labs(
-#     y = "Predicted Vote Choice",
-#     title = "Support for Trump by Age and Race Controlling for Partisanship"
-#   )
-# 
-# fig_m3
+# Predictors for m2
+pred_dfm2 <- expand_grid(
+  age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
+  race_5cat = sort(unique(df$race_5cat))
+)
+
+# Predictions with confidence intervals
+pred_dfm2 <- cbind(
+  pred_dfm2,
+  predict(m2, newdata = pred_dfm2, interval = "confidence")$fit
+)
+
+# Plot predictions from m2
+
+fig_m2 <- pred_dfm2 %>% 
+  ggplot(aes(age, fit, col = race_5cat))+
+  geom_ribbon(aes(ymin = lwr, ymax = upr, 
+    fill = race_5cat
+    ),
+    alpha = .5)+
+  geom_line()+
+  facet_wrap( ~ race_5cat)+
+  theme_minimal()+
+  guides(
+    col = "none",
+    fill = "none"
+  )+
+  labs(
+    y = "Predicted Vote Choice",
+    title = "Support for Trump by Age and Race"
+  )
+
+# Display figure
+fig_m2
+
+# Predictors for m3
+pred_dfm3 <- expand_grid(
+  age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
+  race_5cat = sort(unique(df$race_5cat)),
+  partyid = mean(df$partyid, na.rm=T)
+)
+
+# Predictions with confidence intervals
+pred_dfm3 <- cbind(
+  pred_dfm3,
+  predict(m3, newdata = pred_dfm3, interval = "confidence")$fit
+)
+
+# Plot predictions from m2
+
+fig_m3 <- pred_dfm3 %>% 
+  ggplot(aes(age, fit, col = race_5cat))+
+  geom_ribbon(aes(ymin = lwr, ymax = upr, 
+    fill = race_5cat
+    ),
+    alpha = .5)+
+  geom_line()+
+  facet_wrap( ~ race_5cat)+
+  theme_minimal()+
+  guides(
+    col = "none",
+    fill = "none"
+  )+
+  labs(
+    y = "Predicted Vote Choice",
+    title = "Support for Trump by Age and Race Controlling for Partisanship"
+  )
+
+fig_m3
 ```
-
-Please produce at least one figure showing predicted values from at least one of your models
-
-```{r}
-#| label: figYOU
-
-# Create a prediction data frame
-
-# Bind predicted values to prediction data frame
-
-# Produce Figure
-
-# Dispaly figure
-
-```
-
 
 ## Interperet results
-
-Here is my interpretation of the models:
 
 **ME:** Our baseline model confirms our initial expectations. Controlling for race, older respondents have higher predicted levels of support for Trump by 0.002 percentage points. Controlling for race, the model predicts that a 60 year old respondent is about 6.3 percentage points more likely to vote for Trump than a 30 year-old respondent. The test statistic for this coefficient is 3.10 corresponding to a p-value < 0.05, suggesting that if there were no relationship between age and vote choice in this model, it would be very unlikely that we observed a test statistic of this magnitude. Similarly the confidence interval for this estimate has suggests that coefficients as small as 0.0008 and as large as 0.0034 are plausible values for the relationship between age and vote choice in these data. Similarly, controlling for age, Black, Hispanic, and Asian respondents report significantly lower levels of support for Trump than white respondents (p < 0.05). 
 
@@ -486,4 +447,4 @@ Finally, looking at the model controlling for partisanship, we see that none of 
 
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_9ZBz6W3H0yxo4rY){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_9ZBz6W3H0yxo4rY){target="_blank"} for this week.){target="_blank"} for this week.

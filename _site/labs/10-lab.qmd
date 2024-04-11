@@ -1,314 +1,489 @@
 ---
-title: "Lab 10 / Assignment 3 - Final Project Data Setup and Explorations"
+title: "Lab 10 - Exploring Questions from the 2024 National Elections Pilot Study"
 author: "Your Group Members Names Here"
 date: "Last Updated `r format(Sys.Date())`"
 format:
   html:
     toc: true
-    toc-location: left
+    toc-location: right
     toc-float: true
     toc-depth: 2
     number-sections: true
+filters:
+  - openlinksinnewpage
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  cache: true
 ---
 
-```{r}
-#| label = "setup",
-#| include = FALSE,
-#| cache = FALSE
-knitr::opts_chunk$set(error = TRUE, 
-                      comment = NA, 
-                      warnings = FALSE, 
-                      errors = FALSE, 
-                      message = FALSE, 
-                      cache = TRUE,
-                      tidy = FALSE)
-
-
-```
 
 # Overview {.unnumbered}
 
-In our final lab, you will apply concepts and skills from this course to explore data from the [2020 American National Election Study](https://electionstudies.org/data-center/2020-time-series-study/). Specifically you will
+In this lab, we'll continue exploring data from the National Election Studies 2024 Pilot Study. 
 
-1.  Identify an outcome of interest (5-10 minutes)
-2.  Identify key predictors and covariates (5-10 minutes)
-3.  Recode your data (20 minutes)
-4.  Describe your data (20 minutes)
-5.  Describe your question, expectations, and models (10 minutes)
-6.  Estimate, present, and interpret your models (20 minutes, Graded Question)
+From last week's lab you should have identified some variables of interest in the data, recoded them as needed, and begun to formulate some research questions. 
 
-Ideally, each group will pursue a question that interests them. I will also complete these tasks live, so, if you're not feeling confident, you can follow along with me and submit the code I demo in class as your lab for a grade of 85..
+In this week's lab, we'll pick up where we left off:
 
-# Set up your workspace and load data {.unnumbered}
+1. Set up your work space (5 minutes)
 
-Here's some code to get you started. Feel free to add additional packages as needed
+2. Load the data from last week (5 minutes)
+
+3. Quickly summarize the data (15)
+
+4. Revisit and revise your research question and expectations (15 minutes)
+
+5. Estimate models to explore your question (10 minutes)
+
+6. Interpret the results of your model (30 minutes)
+
+
+One of these 6 tasks will be randomly selected as the graded question for the lab.
 
 ```{r}
-# Libraries ----
-# Add any additional needed packages below 
-library(tidyverse)
-library(labelled)
-library(texreg)
+#| label: groups
+#| echo: false
+groups_df <- readr::read_csv("https://pols1600.paultesta.org/files/groups.csv")
+
+DT::datatable(groups_df)
+```
+
+# Goals {.unnumbered}
+
+This week's lab will give you practice:
+
+- Loading libraries needed to do your analysis (Q1)
+
+- Loading data you've already recoded (Q2)
+
+- Summarizing data (Q3)
+
+- Translating research questions into empirical expectations
+  
+- Estimating linear models (Q5)
+
+- Interpreting the substantive and statistical significance of these models (Q6)
+
+
+# Workflow {.unnumbered}
+
+## Please render this .qmd file {.unnumbered}
+
+As with every lab, you should:
+
+-   Download the file
+-   Save it in your course folder
+-   **Update the `author:` section of the YAML header to include the names of your group members in attendance.**
+-   Render the document
+-   Open the html file in your browser (Easier to read)
+-   Write your code in the **chunks provided under each section**
+-   Comment out or delete any test code you do not need
+-   **Render the document again after completing a section or chunk** (Error checking)
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
 
 
 
-# Load 2020 NES ----
-# Uncomment if nencessary
-# library(devtools)
-# install_github("jamesmartherus/anesr")
+# Set up your workspace
 
-library(anesr)
-data("timeseries_2020")
 
-# Rename to df
-df <- timeseries_2020
+## Load Packages
 
+Please load the libraries you will use in your analysis.
+
+
+```{r}
+#| label: packages
+#| message: false
+
+# Libraries
 
 ```
 
-# Identify an outcome of interest
+## Set your working directory in R Studio
 
-1.  Open up the [list of variables](https://electionstudies.org/wp-content/uploads/2021/07/anes_timeseries_2020_varlist_20210719.pdf) in the survey
+In R studio **set your working directory** to the **folder where this lab is** saved by clicking > Session > Set Working Directory > To Source File Location
 
-2.  Do a command/ctrl+F find to quickly search for keywords of potential outcomes of interest
+![](https://pols1600.paultesta.org/labs/images/09-nes6.png){width=50%}
 
-3.  If you have questions about how a variable is measured, how the question was asked, search the variable name (e.g `V201144x`) in the [codebook](https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf)
+After doing so uncomment `getwd()` Should print out something like
 
-4.  Pick one variable that you wish to explore.
+> "~/Desktop/pols1600/labs/"
 
-Some potential variables of interest:
-
--   `V202143`-`V202187` various post election feeling thermometers
--   `V202073` POST: Presidential vote choice
--   `V202231x` - `V202248x` attitudes toward immigration
--   `V201246` - `V201262` ideological policy placements of self and parties
--   `V201233` Trust in government
-
-Once you've settled on an outcome of interest, please fill in the following:
-
--   **Conceptual Name:**
-    -   **Raw variable name:**
-    -   **Recoded variable name:**
-
-For example:
-
--   **Conceptual Name:** Trust in government
-    -   **Raw variable name:** `V201233`
-    -   **Recoded variable name:** `dv_trust_in_gov`
-
-# Indentify at least one key predictor of interest, and at least two covariates of interest
-
-Your key predictor of interest should be something you think explains variation in your outcome of interest.
-
-Your additional covariates should be things you think are:
-
--   Correlated with both the outcome and predictor
--   Things that might moderate the relationship between your key predictor, and your outcome of interest
-
-Some commonly used covariates:
-
--   **V201507x** PRE: SUMMARY: Respondent age
--   **V201511x** PRE: SUMMARY: Respondent 5 Category level of education
--   **V202468x** PRE‐POST: SUMMARY: Total (family) income
--   **V201600** PRE: What is your (R) sex? \[revised\]
--   **V201549x** PRE: SUMMARY: R self‐identified race/ethnicity
--   **V201231x** PRE: SUMMARY: Party ID
--   **V201200** PRE: 7pt scale liberal‐conservative self‐placement
-
-In general, if there is a SUMMARY version of the variable, use that.
-
-As you did above, list your key predictor here:
-
--   Conceptual name:
-    -   Raw variable name:
-    -   Recoded variable name:
-
-List your covariates here:
-
--   Conceptual Name:
-    -   Raw variable name:
-    -   Recoded variable name:
--   Conceptual Name:
-    -   Raw variable name:
-    -   Recoded variable name:
-
-# Recode your data
-
-1.  Look at the distributions of your raw variables, perhaps using `table()` or `summary()`
+Depending on where your lab is saved
 
 ```{r}
-# Frequency distribution
-# table(df$V201231x)
-# # Look at variable and value labels
-# var_label(df$V201231x)
-# val_labels(df$V201231x)
+#| label: check_wd
 
+# In the Top Panel of RStudio Click
+# Session > Set Working Directory > Source File Location
+
+# Uncomment to Check Where Your File is Saved 
+# getwd()
 ```
 
-2.  Identify values that need to be recode or transformed
+:::{.callout-note}
+If `getwd()` says something like '~/Downloads/' click: "File > Save As" and **save this lab** in your **course folder**. Then **close** the version `09-lab.qmd` that was opened from your Downloads folder and **open** the version of `09-lab.qmd` that now exists in your course folder.
+:::
 
--   For example are there negative values that need to be recoded as NA
--   Do you wish to create a summary measure that is the average of multiple variables, or the difference or two variables?
 
-3.  Use `%>%` and `mutate()` along with `ifelse()` and `case_when()` to recode your data as needed.
+# Load the data from last week.
 
-Below is some pseudo-code to help get you started
+Please uncomment and if needed, update, the code below to load the data from last week
 
 ```{r}
-#| label = "ex_recode"
-# # Pseudo code
-# # Recode DV ----
-# df %>%
-#   # Recode DV
-#   mutate(
-#     dv_name = ifelse(V20XXXX < 0, NA, V20XXXX) # Replace Negative Values with NA
-#   ) -> df
+#| label: data
+
+# load("nes24.rda")
+```
+
+
+:::{.callout-note}
+You'll need to **have saved** the data from last week's lab to the **same folder** where this lab has been saved. If you didn't save the lab data from last week, you can load a version of the recoded data here:
+
+```{r}
+#| label: backupdata
+# load(url("https://pols1600.paultesta.org/files/data/nes24.rda"))
+```
+
+:::
+
+# Summarize the data
+
+Use the [code](https://pols1600.paultesta.org/labs/09-lab-comments#create-a-table-of-summary-statistics) from last weeks lab to produce a table of summary statistics.
+
+**Please update the code to include**
+
+- Your specific outcome and predictor variables
+- a column for the **standard deviation** of each variable between the `Max` and `N Missing` columns
+
+## Caclulate summary statistics for recoded variables
+
+```{r}
+#| label: sumstats
+
+# # Vector of numeric variables to summarize
+# the_vars <- c(
+#   "dv_vote_trump2024", 
+#   "dv_participation",
+#   
+#   # ---- Add your outcome here ----
+#   
+#   "age","education","income",
+#   "is_white","is_black","is_hispanic","is_asian","is_other",
+#   "partyid","is_dem","is_rep","is_ind"
+#   
+#   # ----- Add your predictor here ----
 # 
-# # Check recode
-# table(df$dv_name, df$V20XXXX, useNA = "ifany")
-
-# # Recode IVs ----
-# df %>%
-#   # Recode IV
+#   )
+# 
+# # Vector of nicely formatted labels for variables
+# the_labels <- c(
+#   "Vote for Trump in '24",
+#   "Acts of Participation in `20",
+#   
+#   # ---- Add a label for your DV here ----
+#   
+#   "Age","Education", "Income",
+#   "White", "Black","Hispanic","Asian","Other",
+#   "Party ID", "Democrat","Republican","Independent"
+#   
+#   # ---- Add a label for your IV here ----
+# 
+#   )
+# 
+# df_summary <- df %>% 
+#   select(all_of(the_vars)) %>%
+#   rename_with(~the_labels) %>% 
+#   pivot_longer(
+#     cols = everything(),
+#     names_to = "Variable"
+#   ) %>% 
 #   mutate(
-#     pid_3cat = case_when(
-      #   V201231x < 4 ~ "Democrat",
-      #   V20XXXX == 2 ~ "Independent"
-      #   V201231x > 4 ~ "Republican",
-      #   T ~ NA_character_
-      #   ),
-      # is_dem = ifelse(pid_3cat == "Democrat", 1, 0),
-      # is_rep = ifelse(pid_3cat == "Republican", 1, 0),
-      # is_ind = ifelse(pid_3cat == "Independent", 1, 0),
-# ) -> df 
-
-# # Check recodes
-# table(df$pid_3cat, df$V201231x, useNA = "ifany")
-
+#     Variable = factor(Variable, levels = the_labels)
+#   ) %>% 
+#   group_by(Variable) %>% 
+#   summarise(
+#     Min = min(value,na.rm = T),
+#     p25 = quantile(value, prob = .25,na.rm = T),
+#     Median = quantile(value, prob = .5,na.rm = T),
+#     Mean = mean(value, na.rm = T),
+#     p75 = quantile(value, prob = .75,na.rm = T),
+#     Max = max(value,na.rm = T),
+#     
+#     # ---- Add sd here ----
+#     
+#     `N missing` = sum(is.na(value))
+#   )
 
 
 ```
 
-# Describe your data
+## Display the results as a formated table
 
-Once you've recoded your data:
-
--   Create a table of summary statistics for your outcome, key predictor(s), and covariates
-
--   Present at least one descriptive figure, that illustrates the distribution of your outcome or key predictor, or shows an interesting relationship between variables.
-
--   Interpret your results
-
-## Summary statistics:
-
-Producing a table of summary statistics requires a little foresight.
-
-Essentially you want to make a data frame where each row is a (numeric) variable, and each column is a statistic (minimum, 25th percentile, median, mean, 75th percentile, max, Number of missing).
-
-To do this, I would:
-
--   create a object called `the_vars` which contains the names (in quotation marks) of the variables you want to summarize.
-
--   Select these variables from your data set. using `df%>%select(all_of(the_vars))`
-
--   Use `%>%pivot_longer()` specifying `cols=select(all_of(the_vars))`, and `names_to` equals `"Variable"` and `values_to = "value"` to transform this wide dataset into a long dataset
-
--   Then use `%>%group_by(Variable)%>%` and `summarise()` to calculate the statistics for each variable of interest (e.g. `%>%summarise(Mean = mean(value, na.rm=T)))`)
-
--   Save the output to an object called something like `sum_df`
-
--   In a new chunk use `knitr::kable(sum_df) %>% kableExtra::kable_styling()` to format your table. Set `echo=F` in the code chunk head
+Once you've created `df_summary`, you can uncomment the code below. Be sure to update the arguments in the `pack_rows()` function
 
 ```{r}
-# Summarise data
+#| label: summarytab
+
+# kable(df_summary,
+#       digits = 2) %>% 
+#   kable_styling() %>% 
+#   pack_rows("Outcomes", start_row = 1, end_row = 2) %>% 
+#   pack_rows("Demographic Predictors", 3, 10) %>% 
+#   pack_rows("Political Predictors", 11, 14)
 
 ```
+
+## Interpret the results
+
+Please use these tables to **describe a typical respondent** to the 2024 NES Pilot Study:
+
+The National Election Study's 2024 Pilot Study contains responses from 1909 individuals. The typical respondent in the data was ...
+
+# Formulate a research question and expectations
+
+Please take a moment, revisit and revise your research questions developed in last weeks lab that contains the following:
+
+- A clear research question
+- A set of expectations and potential alternative explanations
+- The formula for at least two linear models to test these expectations
+
+## Research question
+
+**ME:** How does support for Trump in the 2024 election vary with age and race?
+
+**YOU:** 
+
+## Expectations
+
+**ME:** On average, I expect that older voters will be more supportive of Trump, but suspect that this trend varies by race. I expect it will be particularly true among White voters, but less so among people of color. Since, partisanship is likely to be strong predictor of vote choice, I will explore whether these specific relationships hold, once we control for variations in partisan identification which we know varies both by age and race.
+
+**YOU:**
+
+## Linear Model
+
+**ME:** 
+
+I will estimate the following models:
+
+$$
+y = \beta_0 + \beta_1 age + \sum\beta_k race_k + \epsilon
+$$
+If my expectations hold, I expect the coefficient on `age` in this model to be positive, indicating older voters are more likely to vote for Trump. White respondents are the reference category in this model^[Because `white` is first level the factor variable `race`] and so the coefficients on the racial indicators ($\beta_k race$) correspond to how members of each racial group differ from white respondents in their propensity to vote for Trump. I expect all of these coefficients to be negative.
+
+To explore whether the relationship between age and vote choice varies by race, I will fit an interaction model:
+
+$$
+y = \beta_0 + \beta_1 age + \sum\beta_k race_k + \epsilon + \sum\beta_{jk} age \times race_k  + \epsilon
+$$
+This model allows the relationship between age and vote choice to vary by race. For white respondents, the relationship is described by $\beta_1$. Again I expect it to be positive, suggesting older white voters are more likely to vote for trump. For racial minorities, the marginal effect of age for the racial or ethnic group $k$ is described by $\beta_1 + \beta_{jk}$. In general, I expect that the coefficients on $\beta_{jk}$ to be negative such that older racial minorities are less likely to support Trump than older white respondents. 
+
+Finally, I will estimate a model that controls for partisanship. If the relationships between age, and race and vote choice are simply a reflection of differences in partisan identification, then coefficients on these predictors should no longer be statistically significant, while the coefficient on partisanship should positive and statistically significant.
+
+$$
+y = \beta_0 + \beta_1 pid + \beta_2 age + \sum\beta_k race_k + \epsilon + \sum\beta_{jk} age \times race_k \epsilon
+$$
+
+**You:** 
+
+We will estimate the following models:
+
+$$
+y = \beta_0 + \beta_1 ...
+$$
+
+$$
+y = \beta_0 + \beta_1 ...
+$$
+
+# Estimate your models
+
+Below I estimate the three models described above
 
 ```{r}
-#| results = "asis"
-# Display results
+#| label: modelsME
+
+# # Fit models
+# m1vc <- lm_robust(dv_vote_trump2024 ~ age + race_5cat, df)
+# m2vc <- lm_robust(dv_vote_trump2024 ~ age*race_5cat, df)
+# m3vc <- lm_robust(dv_vote_trump2024 ~ age*race_5cat + partyid, df)
+
 ```
 
-## Descriptive Figures
+Please estimate the models described in the previous section
 
-To create a figure, you'll need to specificy the following
-
--   `data` (e.g. `df %>%`)
-
--   aesthetic mappings, `ggplot(aes(x = predictor, y = outcome))`
-
--   geometries
-
-    -   Univariate: `geom_density()`, `geom_boxplot()` `geom_histogram()`
-
-    -   Bivariate: `geom_point()` (for a scatterplot), `geom_line()` for a trend.
-
-Once you have a minimal working example, play around with other grammars of graphics:
-
--   `labs()` for custom labels
-
--   `theme_XXX` for custom themes
-
--   `facet_wrap(~group)` to produce the same plot *facetted* by some categorical grouping variable
-
-When you're happy with your figure, save it as object in R (e.g. `fig1 <- df %>% ggplot(aes(predictor, outcome))+geom_point())`. Put that object in its own chunk to display it in your document.
-
-Don't let the perfect be the enemy of the good.
 
 ```{r}
-# Descriptive figures
+#| label: modelsYOU
+
+# # Fit models
+
 
 ```
 
-## Descrptive Interpretation:
 
-Please provide an overview of the data (source, number of observations, unit of analysis).
 
-Describe a typical observation, making reference to the statistics in your summary table.
+# Interpret your results
 
-Offer a substantive interpretation of your descriptive figure(s). What do they tell us about the distribution of a key variable, or the relationship between two variables.
+Please produce 
 
-# Summarize your research question, expecations and empirical models
+- A regression table presenting of your model
+- At least one figure showing predicted values from one model
 
-First, summarize your research question and motivation:
+Interpret your results using both confidence intervals and hypothesis tests to assess the **statistical significance** of your claims and predicted values to help interpret the **substantive significance** of your results
 
-> We're interested in how Y varies with X. Specifically, we expect that .... , since ..... To address concerns about omitted variable bias, we will control for A and B, since ....
+## Regression Table
 
-Next, describe a simple bivariate model between your outcome and key predictor
-
-$$\text{DV name here} = \beta_0 + \beta_1 \text{Key Predictor here}$$ If your expectations are correct, then what should should the sign and signficance be $\beta_1$
-
-Then describe a multiple regression model
-
-$$\text{DV name here} = \beta_0 + \beta_1 \text{Key Predictor here} + \beta_2 \text{Covariate 1 here} ... + \beta_k\text{Covariate k here}$$ Explain how you expect the coefficient for your key predictor to change $(\beta_1)$, if at all
-
-If you're feeling frisky, you might describe additional models (interaction models, models with polynomial terms, etc.), but you need not.
-
-# Estimate the models described above
-
-## Fit the models
+Here is some template code I used, demontstrating how to update the labels of the columns and rows in the model
 
 ```{r}
-#| label = "models"
-# Model 1: Bivariate Model
+#| label: regtabME
+#| results: asis
 
-# Model 2: Multiple Regression
+# htmlreg(list(m1vc, m2vc, m3vc),
+#         custom.model.names = c(
+#           "Baseline", "Interaction", "Alternative"
+#         ),
+#         caption = "Support for Trump in 2024",
+#         caption.above = T,
+#         custom.coef.names = c(
+#           "(Intercept)",
+#           "Age",
+#           "Black",
+#           "Hispanic",
+#           "Asian",
+#           "Other",
+#           "Age:Black",
+#           "Age:Hispanic",
+#           "Age:Asian",
+#           "Age:Other",
+#           "Party ID"
+#         ) ,
+#         include.ci = F,
+#         digits = 3)
 ```
 
-## Display the models in a regression table
+**Please produce a similar table for your models**
+
+
+## Visualize predicted values 
+
+Similarly here is some code to produce predicted values for `m2vc` and `m3vc`. The basic steps are:
+
+1. Create a prediction data frame varying the values of some predictors from a model, while holding others constant using `expand_grid()`
+
+2. Produce predicted values with confidence intervals from your regression model using the `predict()` function
+
+3. Bind those predictions and CIs to the orginal prediction dataframe using `cbind()`
+
+4. Produce a figure using `ggplot()`
 
 ```{r}
-#| label = "table"
-# Regression table
+#| label: figME
+
+# # Predictors for m2
+# pred_dfm2 <- expand_grid(
+#   age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
+#   race_5cat = sort(unique(df$race_5cat))
+# )
+# 
+# # Predictions with confidence intervals
+# pred_dfm2 <- cbind(
+#   pred_dfm2,
+#   predict(m2, newdata = pred_dfm2, interval = "confidence")$fit
+# )
+# 
+# # Plot predictions from m2
+# 
+# fig_m2 <- pred_dfm2 %>% 
+#   ggplot(aes(age, fit, col = race_5cat))+
+#   geom_ribbon(aes(ymin = lwr, ymax = upr, 
+#     fill = race_5cat
+#     ),
+#     alpha = .5)+
+#   geom_line()+
+#   facet_wrap( ~ race_5cat)+
+#   theme_minimal()+
+#   guides(
+#     col = "none",
+#     fill = "none"
+#   )+
+#   labs(
+#     y = "Predicted Vote Choice",
+#     title = "Support for Trump by Age and Race"
+#   )
+# 
+# # Display figure
+# fig_m2
+# 
+# # Predictors for m3
+# pred_dfm3 <- expand_grid(
+#   age = seq(min(df$age, na.rm =T), max(df$age, na.rm = T)),
+#   race_5cat = sort(unique(df$race_5cat)),
+#   partyid = mean(df$partyid, na.rm=T)
+# )
+# 
+# # Predictions with confidence intervals
+# pred_dfm3 <- cbind(
+#   pred_dfm3,
+#   predict(m3, newdata = pred_dfm3, interval = "confidence")$fit
+# )
+# 
+# # Plot predictions from m2
+# 
+# fig_m3 <- pred_dfm3 %>% 
+#   ggplot(aes(age, fit, col = race_5cat))+
+#   geom_ribbon(aes(ymin = lwr, ymax = upr, 
+#     fill = race_5cat
+#     ),
+#     alpha = .5)+
+#   geom_line()+
+#   facet_wrap( ~ race_5cat)+
+#   theme_minimal()+
+#   guides(
+#     col = "none",
+#     fill = "none"
+#   )+
+#   labs(
+#     y = "Predicted Vote Choice",
+#     title = "Support for Trump by Age and Race Controlling for Partisanship"
+#   )
+# 
+# fig_m3
 ```
 
-## Interpet your models
-
-Please write a 1 paragraph summary interpreting your results in terms of both their statistical and substantive significance. Assume your audience is smart, but has never taken POLS 1600. Explain to them what a regression model is, what a standard error, p-value, and/or confidence interval is. How should they interepret the substantive findings of your model. How should they assess the statistical uncertainty around these results?
-
-Perhaps you might reade create a plot of predicted values from a model to help facilitate the substantive interpretation of your results. If so, here's a code chunk for you:
+Please produce at least one figure showing predicted values from at least one of your models
 
 ```{r}
-#| label = "interpetation"
-# Additional code chunk to facilitate interpretation of models
+#| label: figYOU
+
+# Create a prediction data frame
+
+# Bind predicted values to prediction data frame
+
+# Produce Figure
+
+# Dispaly figure
+
 ```
+
+
+## Interperet results
+
+Here is my interpretation of the models:
+
+**ME:** Our baseline model confirms our initial expectations. Controlling for race, older respondents have higher predicted levels of support for Trump by 0.002 percentage points. Controlling for race, the model predicts that a 60 year old respondent is about 6.3 percentage points more likely to vote for Trump than a 30 year-old respondent. The test statistic for this coefficient is 3.10 corresponding to a p-value < 0.05, suggesting that if there were no relationship between age and vote choice in this model, it would be very unlikely that we observed a test statistic of this magnitude. Similarly the confidence interval for this estimate has suggests that coefficients as small as 0.0008 and as large as 0.0034 are plausible values for the relationship between age and vote choice in these data. Similarly, controlling for age, Black, Hispanic, and Asian respondents report significantly lower levels of support for Trump than white respondents (p < 0.05). 
+
+Turning to the interaction model, we see that the magnitude of the coefficient on age (which corresponds to the marginal effect of age for white respondents) increases, while the coefficients on the interactions between age and racial indicators are generally negative, suggesting that the relationship between age and support for Trump is less strong for these racial and ethnic groups. Figure 1 helps clarify these marginal effects, as we see that slope for age is clearly positive for white respondents, clearly negative for Black respondents. The confidence intervals for the predicted values of the other racial and ethnic groups are generally wide, and consisent with positive, negative, or no relationship between age and vote choice.
+
+Finally, looking at the model controlling for partisanship, we see that none of the relationships between age, race, and vote choice, remain statistically significant once we account for the relationships between partisanship and vote choice, and the relationships between partisanship and age and race. In sum, apparent demographic differences in support for Trump appear driven by the differences in partisan identification across racial groups and within age groups.
+
+**YOU:**
+
+
+# Take the Class Survey {.unnumbered}
+
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_9ZBz6W3H0yxo4rY){target="_blank"} for this week.

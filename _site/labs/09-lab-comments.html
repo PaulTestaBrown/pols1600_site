@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Group Members Names Here">
-<meta name="dcterms.date" content="2024-04-08">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>POLS 1600 - Comments for Lab 09 - Exploring data in the 2020 National Elections Study</title>
 <style>
@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 8, 2024</p>
+      <p class="date">April 10, 2024</p>
     </div>
   </div>
   
@@ -958,6 +958,12 @@ total   0   1 &lt;NA&gt;
 </div>
 <p>We can then format <code>df_summary</code> as table using <code>knitr()</code> and styling options from the <code>kableExtra</code> package:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df_summary,</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Outcomes"</span>, <span class="at">start_row =</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Demographic Predictors"</span>, <span class="dv">3</span>, <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="st">"Political Predictors"</span>, <span class="dv">11</span>, <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1133,7 +1139,7 @@ total   0   1 &lt;NA&gt;
 <h2 data-number="6.2" class="anchored" data-anchor-id="modify-the-table-to-include-your-predictors"><span class="header-section-number">6.2</span> Modify the table to include your predictors</h2>
 <p>Using the two <strong>previous code chunks as a template</strong>, update the code so that the table includes your chosen outcome and predictors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy, paste, and update code from datasummary_me to include your variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy, paste, and update code from datasummary_me to include your variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="interpret-the-results-of-your-table." class="level2" data-number="6.3">
@@ -1152,10 +1158,10 @@ total   0   1 &lt;NA&gt;
 <p>Survey weights are complicated things, but the basically idea is that each observation is the sample is representative of observations in the population. Some types of observations will be over-represented in our sample – these are given smaller weights – while others are under-represented – these are given greater weights.</p>
 <p>Quick look at the highest and lowest survey weights seems to suggest to me that weighting procedure is giving more weight to respondents with lower levels of education, and income, and less weight to higher incomes and education levels.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a> weight <span class="sc">&gt;</span> <span class="fu">quantile</span>(weight, .<span class="dv">99</span>, <span class="at">na.rm=</span>T)</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a> ) <span class="sc">%&gt;%</span> </span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight, gender, age, race_5cat, education, income, partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a> weight <span class="sc">&gt;</span> <span class="fu">quantile</span>(weight, .<span class="dv">99</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight, gender, age, race_5cat, education, income, partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 7
    weight gender       age race_5cat education                income    partyid 
@@ -1176,10 +1182,10 @@ total   0   1 &lt;NA&gt;
 14   4.20 2 [Female]    63 Black     6 [Post-grad]             3 [$20,…  6 [Not…
 15   3.32 1 [Male]      67 White     2 [High school graduate]  5 [$40,…  3 [Lea…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  weight <span class="sc">&lt;</span> <span class="fu">quantile</span>(weight, .<span class="dv">01</span>, <span class="at">na.rm=</span>T)</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight, gender, age, race_5cat, education, income, partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  weight <span class="sc">&lt;</span> <span class="fu">quantile</span>(weight, .<span class="dv">01</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(weight, gender, age, race_5cat, education, income, partyid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 7
    weight gender       age race_5cat education                income     partyid
@@ -1200,21 +1206,21 @@ total   0   1 &lt;NA&gt;
 </div>
 <p>Sampling weights are a can worms we won’t deal with in this class. Check out these resources on the <a href="https://bookdown.org/mpfoley1973/survey/" target="_blank"><code>survey</code></a> and <a href="https://tidy-survey-r.github.io/tidy-survey-book/c04-getting-started.html" target="_blank"><code>srvyr</code></a> packages for how to incorporate survey weights into your analysis. In the code below we see that distributions of race and ethnicity are pretty similar in the weighted and full samples, but using survey weights seems to suggest that Biden’s support as actually higher than Trumps, although the confidence intervals (Next week!) for both overlap 0.5 suggesting the race is essentially tied.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("survey")</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("srvyr")</span></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as survey_design object</span></span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>df_s <span class="ot">&lt;-</span> <span class="fu">as_survey_design</span>(df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>),<span class="at">weight =</span> weight)</span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate weighted totals and proportions</span></span>
-<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
-<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">survey_total</span>(),</span>
-<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">proption =</span> <span class="fu">survey_mean</span>()</span>
-<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("survey")</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("srvyr")</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Format as survey_design object</span></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>df_s <span class="ot">&lt;-</span> <span class="fu">as_survey_design</span>(df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>),<span class="at">weight =</span> weight)</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate weighted totals and proportions</span></span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb80-12"><a href="#cb80-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb80-13"><a href="#cb80-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">survey_total</span>(),</span>
+<span id="cb80-14"><a href="#cb80-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">proption =</span> <span class="fu">survey_mean</span>()</span>
+<span id="cb80-15"><a href="#cb80-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   race                   total total_se proption proption_se
@@ -1227,15 +1233,15 @@ total   0   1 &lt;NA&gt;
 6 6 [Two or more races]   46.8     7.52  0.0312      0.00499
 7 7 [Other]               17.8     5.53  0.0119      0.00367</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to unweighted estimates</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
-<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to unweighted estimates</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 3
   race                  total propotion
@@ -1249,12 +1255,12 @@ total   0   1 &lt;NA&gt;
 7 7 [Other]                27  0.0141  
 8 8 [Middle Eastern]        1  0.000524</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculated weighted proportions of support</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">proportion =</span> <span class="fu">survey_mean</span>()</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">select</span>(dv_vote_trump2024,proportion, proportion_se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculated weighted proportions of support</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">proportion =</span> <span class="fu">survey_mean</span>()</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">select</span>(dv_vote_trump2024,proportion, proportion_se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   dv_vote_trump2024 proportion proportion_se
@@ -1263,16 +1269,16 @@ total   0   1 &lt;NA&gt;
 2                 1     0.476        0.0142 
 3                NA     0.0139       0.00363</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to unweighted proportions just among those in weighted sample</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
-<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
-<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare to unweighted proportions just among those in weighted sample</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sample_type <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   dv_vote_trump2024 total propotion
@@ -1281,15 +1287,15 @@ total   0   1 &lt;NA&gt;
 2                 1   727     0.485
 3                NA    18     0.012</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And overall</span></span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
-<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
-<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And overall</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dv_vote_trump2024) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">n</span>()</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">propotion =</span> total<span class="sc">/</span><span class="fu">sum</span>(total)</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   dv_vote_trump2024 total propotion
@@ -1298,9 +1304,9 @@ total   0   1 &lt;NA&gt;
 2                 1   869    0.455 
 3                NA   174    0.0911</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formally test whether trumps support is above 50 percent</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>((dv_vote_trump2024<span class="sc">==</span><span class="dv">1</span>) <span class="sc">-</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,<span class="at">design =</span> .,<span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formally test whether trumps support is above 50 percent</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>df_s <span class="sc">%&gt;%</span> </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>((dv_vote_trump2024<span class="sc">==</span><span class="dv">1</span>) <span class="sc">-</span> <span class="dv">0</span> <span class="sc">~</span> <span class="dv">0</span>,<span class="at">design =</span> .,<span class="at">na.rm=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Design-based one-sample t-test
@@ -1327,63 +1333,63 @@ sample estimates:
 </ul>
 <p>And combine these 3 plots into a single figure using two calls to the <code>ggarrange()</code> function from the <code>ggpubr</code> package</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>fig_age_race <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,age,</span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
-<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age"</span>,</span>
-<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
-<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Age by Race"</span></span>
-<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
-<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>fig_pid_race <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,partyid,</span>
-<span id="cb91-15"><a href="#cb91-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
-<span id="cb91-16"><a href="#cb91-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span>.<span class="dv">5</span>))<span class="sc">+</span></span>
-<span id="cb91-17"><a href="#cb91-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb91-18"><a href="#cb91-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
-<span id="cb91-19"><a href="#cb91-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Partisanship"</span>,</span>
-<span id="cb91-20"><a href="#cb91-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
-<span id="cb91-21"><a href="#cb91-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Partisanship by Race"</span></span>
-<span id="cb91-22"><a href="#cb91-22" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
-<span id="cb91-23"><a href="#cb91-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb91-24"><a href="#cb91-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-25"><a href="#cb91-25" aria-hidden="true" tabindex="-1"></a>fig_age_race_pid <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb91-26"><a href="#cb91-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb91-27"><a href="#cb91-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> race_5cat</span>
-<span id="cb91-28"><a href="#cb91-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-29"><a href="#cb91-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,partyid,</span>
-<span id="cb91-30"><a href="#cb91-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat</span>
-<span id="cb91-31"><a href="#cb91-31" aria-hidden="true" tabindex="-1"></a>             ))<span class="sc">+</span></span>
-<span id="cb91-32"><a href="#cb91-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> F) <span class="sc">+</span></span>
-<span id="cb91-33"><a href="#cb91-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb91-34"><a href="#cb91-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb91-35"><a href="#cb91-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"age"</span>,</span>
-<span id="cb91-36"><a href="#cb91-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Partisanship"</span>,</span>
-<span id="cb91-37"><a href="#cb91-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
-<span id="cb91-38"><a href="#cb91-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Partisanship by Age and Race in 2024 NES Pilot Study"</span></span>
-<span id="cb91-39"><a href="#cb91-39" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
-<span id="cb91-40"><a href="#cb91-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb91-41"><a href="#cb91-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-42"><a href="#cb91-42" aria-hidden="true" tabindex="-1"></a>fig_desc <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(</span>
-<span id="cb91-43"><a href="#cb91-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Top Row, two columns</span></span>
-<span id="cb91-44"><a href="#cb91-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggarrange</span>(</span>
-<span id="cb91-45"><a href="#cb91-45" aria-hidden="true" tabindex="-1"></a>    fig_age_race, fig_pid_race,</span>
-<span id="cb91-46"><a href="#cb91-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol =</span><span class="dv">2</span>,</span>
-<span id="cb91-47"><a href="#cb91-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="st">"none"</span></span>
-<span id="cb91-48"><a href="#cb91-48" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb91-49"><a href="#cb91-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bottom row, 1 column</span></span>
-<span id="cb91-50"><a href="#cb91-50" aria-hidden="true" tabindex="-1"></a>  fig_age_race_pid, </span>
-<span id="cb91-51"><a href="#cb91-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">2</span>,</span>
-<span id="cb91-52"><a href="#cb91-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">common.legend =</span> T,</span>
-<span id="cb91-53"><a href="#cb91-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb91-54"><a href="#cb91-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">1.5</span>)</span>
-<span id="cb91-55"><a href="#cb91-55" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb91-56"><a href="#cb91-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-57"><a href="#cb91-57" aria-hidden="true" tabindex="-1"></a>fig_desc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>fig_age_race <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,age,</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Age"</span>,</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
+<span id="cb92-9"><a href="#cb92-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Age by Race"</span></span>
+<span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb92-11"><a href="#cb92-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb92-12"><a href="#cb92-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-13"><a href="#cb92-13" aria-hidden="true" tabindex="-1"></a>fig_pid_race <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb92-14"><a href="#cb92-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(race_5cat,partyid,</span>
+<span id="cb92-15"><a href="#cb92-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat))<span class="sc">+</span></span>
+<span id="cb92-16"><a href="#cb92-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span>.<span class="dv">5</span>))<span class="sc">+</span></span>
+<span id="cb92-17"><a href="#cb92-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb92-18"><a href="#cb92-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
+<span id="cb92-19"><a href="#cb92-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Partisanship"</span>,</span>
+<span id="cb92-20"><a href="#cb92-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
+<span id="cb92-21"><a href="#cb92-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Partisanship by Race"</span></span>
+<span id="cb92-22"><a href="#cb92-22" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb92-23"><a href="#cb92-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb92-24"><a href="#cb92-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-25"><a href="#cb92-25" aria-hidden="true" tabindex="-1"></a>fig_age_race_pid <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb92-26"><a href="#cb92-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb92-27"><a href="#cb92-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Race =</span> race_5cat</span>
+<span id="cb92-28"><a href="#cb92-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-29"><a href="#cb92-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age,partyid,</span>
+<span id="cb92-30"><a href="#cb92-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> race_5cat</span>
+<span id="cb92-31"><a href="#cb92-31" aria-hidden="true" tabindex="-1"></a>             ))<span class="sc">+</span></span>
+<span id="cb92-32"><a href="#cb92-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> F) <span class="sc">+</span></span>
+<span id="cb92-33"><a href="#cb92-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">size=</span>.<span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb92-34"><a href="#cb92-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb92-35"><a href="#cb92-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"age"</span>,</span>
+<span id="cb92-36"><a href="#cb92-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Partisanship"</span>,</span>
+<span id="cb92-37"><a href="#cb92-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"Race"</span>,</span>
+<span id="cb92-38"><a href="#cb92-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Partisanship by Age and Race in 2024 NES Pilot Study"</span></span>
+<span id="cb92-39"><a href="#cb92-39" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb92-40"><a href="#cb92-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb92-41"><a href="#cb92-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-42"><a href="#cb92-42" aria-hidden="true" tabindex="-1"></a>fig_desc <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(</span>
+<span id="cb92-43"><a href="#cb92-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Top Row, two columns</span></span>
+<span id="cb92-44"><a href="#cb92-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggarrange</span>(</span>
+<span id="cb92-45"><a href="#cb92-45" aria-hidden="true" tabindex="-1"></a>    fig_age_race, fig_pid_race,</span>
+<span id="cb92-46"><a href="#cb92-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol =</span><span class="dv">2</span>,</span>
+<span id="cb92-47"><a href="#cb92-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="st">"none"</span></span>
+<span id="cb92-48"><a href="#cb92-48" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb92-49"><a href="#cb92-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bottom row, 1 column</span></span>
+<span id="cb92-50"><a href="#cb92-50" aria-hidden="true" tabindex="-1"></a>  fig_age_race_pid, </span>
+<span id="cb92-51"><a href="#cb92-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow=</span><span class="dv">2</span>,</span>
+<span id="cb92-52"><a href="#cb92-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">common.legend =</span> T,</span>
+<span id="cb92-53"><a href="#cb92-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb92-54"><a href="#cb92-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">1.5</span>)</span>
+<span id="cb92-55"><a href="#cb92-55" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb92-56"><a href="#cb92-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-57"><a href="#cb92-57" aria-hidden="true" tabindex="-1"></a>fig_desc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1409,7 +1415,7 @@ sample estimates:
 <h1 data-number="8"><span class="header-section-number">8</span> Save your data</h1>
 <p>Finally, save your data so you can load all the work you’ve done today and hit the ground running, next lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save(df, file = "nes24.rda")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save(df, file = "nes24.rda")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="take-the-class-survey" class="level1 unnumbered">
