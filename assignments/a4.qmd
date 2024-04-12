@@ -1,6 +1,5 @@
 ---
 title: "A4: Project Drafts"
-date: "[Updated ]MMM D, YYYY"
 format:
   html:
     toc: TRUE
@@ -31,9 +30,124 @@ Your actual grade for the draft will reflect a general assessment of the status 
 - 70: Major revisions needed. We should probably talk in office hours 
 
 Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.
+Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.
+
+I have also posted a <a href="assignments/pols1600_paper_template.qmd" download > template for the final paper</a> and an [example of a final paper](assignments/pols1600_final_paper_example){target="blank"} from a previous version of POLS 1600.
+
+- The template contains some **sample code** to that may be usefully adapted for your projects, but **should not appear** in your final paper (i.e. keep use the structure provided by the template, but delete the code I've included.)
+
+- The final paper assignment has changed over time. There are things this paper does, which I no longer ask you to do (e.g. explain the difference between simulation and asymptotic approaches to statistical inference). There are things I ask you to do (e.g. write a separate theory section that motivates your expectations) which this paper was not required to do.
 
 
-) and number of observations in your data
+---------------------------------------------------
+
+# Introduction 
+
+This section provides an introduction and overview of your project. 
+
+Plan to write at least four paragraphs that
+
+- Clearly articulates your group's research question
+
+- Lays out the theoretical framework that motivates your inquiry
+
+- Describes your empirical strategy
+
+- Provides an outline of the rest of the paper and previews your results.
+
+
+## Grading Criteria (5 points)
+
+- **5 points**
+  - Articulates **clear and compelling research question**
+  - Offers a **strong motivation** for pursuing this question **tied to existing social science theory**
+  - Describes a **convincing empirical strategy** with appropriate data and research design 
+  - Previews interesting results with **substantive interpretation**
+  - Makes reader excited to read the rest of the paper
+  - **Writing throughout** is **clear, precise, and engaging**, with **correct spelling** and **grammar** and consistent citations
+
+- **4 points**
+  - **Articulates research question**
+  - Link between research question and social science theory could be more developed
+  - Describes empirical strategy with data and research design 
+  - Preview of results with **little to no interpretation**
+  - Leaves reader **moderately interested** in the rest of the paper.
+  - **Writing throughout** is **clear and precise**, with **correct spelling** and **grammar** and consistent citations
+
+
+- **< 4 points**
+  - **Research question unclear** or absent
+  - **Little to no discussion** of why this research question is of interest to social scientists and citizens
+  - **Little to no discussion** of the data and research design used to pursue this question.
+  - **No discussion** of empirical results
+  - **Does little** to pique reader's interest in the rest of the paper.
+  - **Writing throughout** is **muddled and vague**, with **uncorrekt spellung** and **grammur** and consistent citations
+
+# Theory and Expectations 
+
+In this section you will provide the necessary context for your research question and develop your theoretical framework to derive testable empirical implications. 
+
+This section should begin by explaining the following:
+
+- What is the phenomena you are studying? (Research Question/Outcome of Interest)
+
+- Why should we care about this phenomena? (Context/Motivation/Importance)
+
+Then it should turn to addressing:
+
+- What are the factors scholars think explain this phenomena? (Literature Review/Key predictors/Alternative explanations)
+
+Which should lead to a discussion of
+
+- What are the empirical implications of these claims? (Testable hypotheses)
+
+You have freedom in how you address these questions, but your final paper must cite at least three relevant academic sources (books and journal articles), using either footnotes or parenthetical citations.
+
+Sometimes it is helpful to formalize your expectations into a set of numbered hypotheses. Other times this can feel a little to formalistic, and it is sufficient to simply describe the expected patterns of relationship ("We expect that as X increases, Y should ...") . It is up to you to decide what works best. If you take the route of listing and numbering your hypotheses, use this ordering to structure the presentation and discussion of your empirical models (e.g. "the coefficient on $\beta_1$ in model 1 provides a test of H1")
+
+## Grading Criteria (10 points)
+
+- **9-10 points:**
+
+  - **Careful discussion** of relevant theoretical, empirical, and/or substantive contexts that motivates research question.
+  - **Cites at least three** relevant pieces of academic literature on research topic. Uses this literature to articulate theoretical framework for thinking about research question.
+  -  Theoretical framework **clearly defines:**
+    - the outcome (or outcomes) of interest
+    - the factors expected to explain variation in that outcome
+    - some potential alternative explanations/omitted variables, that might explain variation in both the outcome and predictors
+  - Develops a clear set of expectations **informed by theoretical framework** for how these explanatory factors should relate to the outcome (and possibly each other)
+
+
+- **8 points:**
+
+  - **Brief discussion** of theoretical, empirical, and/or substantive contexts that motivates research question.
+  - **Cites less than three** relevant pieces of academic literature on research topic. Uses this literature to articulate theoretical framework for thinking about research question.
+  -  Theoretical framework **broadly defines:**
+    - the outcome (or outcomes) of interest
+    - the factors expected to explain variation in that outcome
+    - some potential alternative explanations/omitted variables, that might explain variation in both the outcome and predictors
+  - Develops a set of expectations for how these explanatory factors should relate to the outcome (and possibly each other, but **connection to larger theoretical framework is unclear**
+
+- **<8 points:**
+
+  - **Little to no discussion** of theoretical, empirical, and/or substantive contexts that motivates research question.
+  - **No citation of** relevant pieces of academic literature on research topic. Broader theoretical framework absent.
+  -  **Fails to clearly define:**
+    - the outcome (or outcomes) of interest
+    - the factors expected to explain variation in that outcome
+    - some potential alternative explanations/omitted variables, that might explain variation in both the outcome and predictors
+  - **Fails to articulate a clear set of expectations** for how these explanatory factors should relate to the outcome 
+
+# Data 
+
+Describe the data you will use to explore your question. In doing so you should:
+
+
+- Identify the source or sources of your data
+
+  - If using multiple datasets, briefy describe how your final dataset was constructed.
+
+- Define the unit of analysis (substantively speaking, what is a row in your dataset) and number of observations in your data
 
 - Explain how your key concepts (outcome variable, key predictors, covariates/alternative explanations) are operationalized and measured
 

@@ -1,6 +1,5 @@
 ---
 title: "A3: Initial Analyses"
-date: "[Updated ]MMM D, YYYY"
 format:
   html:
     toc: TRUE
@@ -26,12 +25,12 @@ The final project that you will submit for this class consists of the following:
 7. Appendix (10 percent ~ Variable codebook and all the R code for your project)
 
 
-The specific expectations for each section are discussed in further detail in [Assignment 4](/assignments/a4)
+The specific expectations for each section are discussed in further detail in [Assignment 4](/assignments/a4){target="blank"}
 
 
 Our focus this week will be on the logistical aspects of your final project
 
-- [Downloading the template](https://pols1600.paultesta.org/assignments/pols1600_paper_template.qmd)for your final paper
+- <a href="assignments/pols1600_paper_template.qmd" download >Downloading the template</a> for your final paper
 - Making sure you're set up for collaboration with GoogleDrive
 - Finish wrangling your data in the code of your final paper
   - Loading the data into R
