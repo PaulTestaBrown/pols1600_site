@@ -93,6 +93,7 @@ resources:
   - "/slides"
   - "/class"
   - "/labs"
+  - "/assignments"
   - "*.html"
   
 bibliography: files/paperpile.bib
