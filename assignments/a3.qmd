@@ -1,5 +1,6 @@
 ---
 title: "A3: Initial Analyses"
+date: "[Updated ]MMM D, YYYY"
 format:
   html:
     toc: TRUE
@@ -8,4 +9,40 @@ format:
     number_sections: TRUE
 ---
 
-Check back soon
+# Overview {.unnumbered}
+
+Assignment 3 will also serve as your lab for week 11.
+
+The broad goal for this assignment is to ensure that you're making progress on your final project.
+
+The final project that you will submit for this class consists of the following:
+
+1. Introduction (5 percent, ~ 4 paragraphs)
+2. Theory and Expectations (10 percent, ~4+ paragraphs)
+3. Data (20 percent ~ 4+ paragraphs)
+4. Design (25 percent ~ 5+ paragraphs)
+5. Results (25 percent ~ 5+ paragraphs)
+6. Conclusion (5 percent ~ 3+ paragraphs)
+7. Appendix (10 percent ~ Variable codebook and all the R code for your project)
+
+
+The specific expectations for each section are discussed in further detail in [Assignment 4](/assignments/a4)
+
+
+Our focus this week will be on the logistical aspects of your final project
+
+- [Downloading the template](https://pols1600.paultesta.org/assignments/POLS1600_paper_template.qmd)for your final paper
+- Making sure you're set up for collaboration with GoogleDrive
+- Finish wrangling your data in the code of your final paper
+  - Loading the data into R
+  - Inspect the data
+  - Completing recoding and if necessary, merging of the data
+- Begin describing the data
+- Begin outlining the other sections of your document (Intro, Theory, Data & Design, etc.)
+
+Next week, we will focus on estimating, interpereting and presenting your results.
+
+
+
+
+## 
