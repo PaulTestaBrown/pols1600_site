@@ -31,7 +31,7 @@ The specific expectations for each section are discussed in further detail in [A
 
 Our focus this week will be on the logistical aspects of your final project
 
-- [Downloading the template](https://pols1600.paultesta.org/assignments/POLS1600_paper_template.qmd)for your final paper
+- [Downloading the template](https://pols1600.paultesta.org/assignments/pols1600_paper_template.qmd)for your final paper
 - Making sure you're set up for collaboration with GoogleDrive
 - Finish wrangling your data in the code of your final paper
   - Loading the data into R
@@ -40,9 +40,5 @@ Our focus this week will be on the logistical aspects of your final project
 - Begin describing the data
 - Begin outlining the other sections of your document (Intro, Theory, Data & Design, etc.)
 
-Next week, we will focus on estimating, interpereting and presenting your results.
+Next week, we will focus on estimating, interpreting and presenting your results.
 
-
-
-
-## 
