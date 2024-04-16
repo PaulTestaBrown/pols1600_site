@@ -72,6 +72,7 @@ library(texreg)
 
 ## Annoucements
 
+- Do we need to start taking attendance?
 - Lab 11/[Assignment 3](https://pols1600.paultesta.org/assignments/a3) this week
 - No tutorial this week
 - Next Tuesday, April 23, Work on Presentations/Drafts
@@ -79,6 +80,9 @@ library(texreg)
 - April 30, Final Workshop 
 - May 2 Class Presentations
 
+## Pie me
+
+![](images/11-anchor.png)
 
 ## Setup: Packages for today
 
@@ -130,12 +134,11 @@ ipak(the_packages)
 > Summarize distributions and relationships in data
 
 - You should know how to:
-
   - [Calculate](https://pols1600.paultesta.org/slides/01-slides#/using-r-to-summarize-data) and interpret measures: 
   - Central Tendency
   - Dispersion
   - Association
-  - [Load](https://pols1600.paultesta.org/slides/01-slides#/loading-data-into-r), [look at](https://pols1600.paultesta.org/slides/01-slides#/looking-at-your-data), [wrangle](https://pols1600.paultesta.org/slides/01-slides#/dplyr-functions-for-data-wrangling), and [describe](https://pols1600.paultesta.org/slides/01-slides#/describing-data-in-r) data using:
+- [Load](https://pols1600.paultesta.org/slides/01-slides#/loading-data-into-r), [look at](https://pols1600.paultesta.org/slides/01-slides#/looking-at-your-data), [wrangle](https://pols1600.paultesta.org/slides/01-slides#/dplyr-functions-for-data-wrangling), and [describe](https://pols1600.paultesta.org/slides/01-slides#/describing-data-in-r) data using:
   - Tables
   - Figures
   
@@ -148,7 +151,7 @@ You should know how to:
 - Load, look at,and transform data into R
 - Get a [HLO](https://pols1600.paultesta.org/slides/01-slides#/hlos-allow-you-to) of the raw data:
   - Unit of analysis
-  - Dimensions of the Data
+  - Dimensions of the data
   - Quickly summarize the distributions and values of variables
 - [Recode](https://pols1600.paultesta.org/labs/09-lab-comments#recode-the-data) the data to:
   - Replace values as `NA`s
@@ -393,8 +396,8 @@ power_function <- function(tau = 2, se =1, pval = 0.05){
     x = seq(-4*se, tau+4*se,length.out = 100 ),
     p = dnorm(x, mean = 0, sd = se)
   )
-  the_x_min <- min(df$x)
-  the_x_max <- max(df$x)
+  the_x_min <- min(c(min(df$x), -5))
+  the_x_max <- max(max(df$x), 7)
   the_y_max <- max(df$p)
   
   z <- qnorm(1-(pval/2), sd = se)
@@ -413,6 +416,7 @@ power_function <- function(tau = 2, se =1, pval = 0.05){
   fig_power <- df %>% 
     ggplot(aes(x))+
     ylim(0,the_y_max + the_y_max/10)+
+    xlim(the_x_min, the_x_max)+
     stat_function(geom = "line", fun = dnorm,
                 args = list(sd = se),
                 alpha = 0.5)+
@@ -522,7 +526,7 @@ Power is a function of:
   
 ::::
 
-# {{< fa concept>}} Final Projects {.inverse}
+# {{< fa lightbulb>}} Final Projects {.inverse}
 
 ## Strucutre of Final Paper and Drafts {.smaller}
 
@@ -540,7 +544,7 @@ Power is a function of:
 
 - [Assignment 3](https://pols1600.paultesta.org/assignments/a3)
 
-- [Download template](https://pols1600.paultesta.org/assignments/assignments/pols1600_paper_template.qmd)
+- [Download template](https://pols1600.paultesta.org/assignments/pols1600_paper_template.qmd)
 
 - Create shared google drive.
 

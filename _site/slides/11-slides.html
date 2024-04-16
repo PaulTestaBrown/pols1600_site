@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -596,7 +596,7 @@
   };
 
   // Store cell data
-  globalThis.qwebrCellDetails = [{"options":{"out-height":"","label":"plot_power","warning":"true","editor-quick-suggestions":"false","classes":"","results":"markup","context":"setup","message":"true","fig-height":5,"comment":"","fig-cap":"","read-only":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"editor-max-height":"","output":"true","autorun":"true","out-width":"700px"},"id":1,"code":"\npower_function <- function(tau = 2, se =1, pval = 0.05){\n  df <- tibble(\n    x = seq(-4*se, tau+4*se,length.out = 100 ),\n    p = dnorm(x, mean = 0, sd = se)\n  )\n  the_x_min <- min(c(min(df$x), -5))\n  the_x_max <- max(max(df$x), 7)\n  the_y_max <- max(df$p)\n  \n  z <- qnorm(1-(pval/2), sd = se)\n  power <- pnorm(z, mean = tau, sd =se, lower.tail = F)\n  type2_error <- pnorm(z, mean = tau, sd =se)\n  if(power > type2_error){\n    the_y_power <- dnorm(z, mean = tau, sd = se)*.7\n    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.3\n  }\n  if(power <= type2_error){\n    the_y_power <- dnorm(z, mean = tau, sd = se)*.3\n    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.7\n  }\n\n  \n  fig_power <- df %>% \n    ggplot(aes(x))+\n    ylim(0,the_y_max + the_y_max/10)+\n    xlim(the_x_min, the_x_max)+\n    stat_function(geom = \"line\", fun = dnorm,\n                args = list(sd = se),\n                alpha = 0.5)+\n    stat_function(geom = \"line\", fun = dnorm,\n                alpha = 0.5,\n                col = \"blue\",\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"darkblue\",\n                alpha = 0.5,\n                xlim = c(the_x_min,qnorm(1-(pval/2),sd = se)),\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"lightblue\",\n                alpha = 0.7,\n                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"red\",\n                alpha = .25,\n                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),\n                args =list(mean = 0, sd = se)\n                )+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"red\",\n                alpha = .5,\n                xlim = c(qnorm(pval/2,sd = se),the_x_min),\n                args =list(mean = 0, sd = se)\n                )+\n    geom_vline(xintercept = qnorm(1-(pval/2),sd = se), linetype =2)+\n    geom_segment(\n      data = tibble(x = 0,\n           xend= tau,\n           y = the_y_max,\n           yend = the_y_max),\n      aes(x = x, xend = xend, \n          y=y, yend=yend)\n      )+\n    annotate(\"text\", x = tau/2, y = the_y_max + the_y_max/40, \n             label = expression(tau), hjust=.5)+\n    annotate(\"text\", x = -z-se/10, y = the_y_max*.02, \n             label = expression(\n               paste(alpha,\"/2\", sep =\"\")), hjust=1\n             )+\n    annotate(\"text\", x = z+se/10, y = the_y_max*.02, \n             label = expression(\n               paste(alpha,\"/2\", sep =\"\")), hjust=0\n             )+\n  annotate(\"text\", x = z-se/8, y = the_y_type2-the_y_max/20, label = expression(beta), hjust=1) +\n  annotate(\"text\", x = z-se/8, y = the_y_type2, label = \"Type II-Error\", hjust=1)+\n  annotate(\"text\", x = z+se/8, y = the_y_power, label = paste( \"Statistical Power = \", round(power,2),sep = \"\"), hjust=0)+\n  annotate(\"text\", x = z+se/8, y = the_y_power-the_y_max/20, label = expression(paste(\"1-\",beta,sep=\"\")), hjust=0)+\n\n  annotate(\"text\", x = 0, y = the_y_max + the_y_max/40, label = expression(H[0]), hjust=0.5)+\n  annotate(\"text\", x = tau, y = the_y_max + the_y_max/40, label = expression(H[1]), hjust=0.5)+\nannotate(\"text\", x = z+se/8, y = the_y_max + the_y_max/10, label = \"z=critical value\", hjust=0)+\n    theme_void()\n\n  \n  return(fig_power)\n}"},{"options":{"out-height":"","label":"power","warning":"true","editor-quick-suggestions":"false","classes":"","results":"markup","context":"interactive","message":"false","fig-height":5,"comment":"","fig-cap":"","read-only":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"editor-max-height":"","output":"true","autorun":"true","out-width":"700px"},"id":2,"code":"power_function(tau = 2, se = 1, pval = 0.05)"}];
+  globalThis.qwebrCellDetails = [{"id":1,"options":{"read-only":"false","results":"markup","dpi":72,"editor-quick-suggestions":"false","editor-max-height":"","out-height":"","classes":"","fig-cap":"","warning":"true","fig-width":7,"output":"true","editor-font-scale":1,"context":"setup","label":"plot_power","message":"true","autorun":"true","fig-height":5,"comment":"","out-width":"700px"},"code":"\npower_function <- function(tau = 2, se =1, pval = 0.05){\n  df <- tibble(\n    x = seq(-4*se, tau+4*se,length.out = 100 ),\n    p = dnorm(x, mean = 0, sd = se)\n  )\n  the_x_min <- min(c(min(df$x), -5))\n  the_x_max <- max(max(df$x), 7)\n  the_y_max <- max(df$p)\n  \n  z <- qnorm(1-(pval/2), sd = se)\n  power <- pnorm(z, mean = tau, sd =se, lower.tail = F)\n  type2_error <- pnorm(z, mean = tau, sd =se)\n  if(power > type2_error){\n    the_y_power <- dnorm(z, mean = tau, sd = se)*.7\n    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.3\n  }\n  if(power <= type2_error){\n    the_y_power <- dnorm(z, mean = tau, sd = se)*.3\n    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.7\n  }\n\n  \n  fig_power <- df %>% \n    ggplot(aes(x))+\n    ylim(0,the_y_max + the_y_max/10)+\n    xlim(the_x_min, the_x_max)+\n    stat_function(geom = \"line\", fun = dnorm,\n                args = list(sd = se),\n                alpha = 0.5)+\n    stat_function(geom = \"line\", fun = dnorm,\n                alpha = 0.5,\n                col = \"blue\",\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"darkblue\",\n                alpha = 0.5,\n                xlim = c(the_x_min,qnorm(1-(pval/2),sd = se)),\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"lightblue\",\n                alpha = 0.7,\n                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),\n                args =list(mean = tau, sd = se))+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"red\",\n                alpha = .25,\n                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),\n                args =list(mean = 0, sd = se)\n                )+\n    stat_function(geom = \"area\", fun = dnorm,\n                fill = \"red\",\n                alpha = .5,\n                xlim = c(qnorm(pval/2,sd = se),the_x_min),\n                args =list(mean = 0, sd = se)\n                )+\n    geom_vline(xintercept = qnorm(1-(pval/2),sd = se), linetype =2)+\n    geom_segment(\n      data = tibble(x = 0,\n           xend= tau,\n           y = the_y_max,\n           yend = the_y_max),\n      aes(x = x, xend = xend, \n          y=y, yend=yend)\n      )+\n    annotate(\"text\", x = tau/2, y = the_y_max + the_y_max/40, \n             label = expression(tau), hjust=.5)+\n    annotate(\"text\", x = -z-se/10, y = the_y_max*.02, \n             label = expression(\n               paste(alpha,\"/2\", sep =\"\")), hjust=1\n             )+\n    annotate(\"text\", x = z+se/10, y = the_y_max*.02, \n             label = expression(\n               paste(alpha,\"/2\", sep =\"\")), hjust=0\n             )+\n  annotate(\"text\", x = z-se/8, y = the_y_type2-the_y_max/20, label = expression(beta), hjust=1) +\n  annotate(\"text\", x = z-se/8, y = the_y_type2, label = \"Type II-Error\", hjust=1)+\n  annotate(\"text\", x = z+se/8, y = the_y_power, label = paste( \"Statistical Power = \", round(power,2),sep = \"\"), hjust=0)+\n  annotate(\"text\", x = z+se/8, y = the_y_power-the_y_max/20, label = expression(paste(\"1-\",beta,sep=\"\")), hjust=0)+\n\n  annotate(\"text\", x = 0, y = the_y_max + the_y_max/40, label = expression(H[0]), hjust=0.5)+\n  annotate(\"text\", x = tau, y = the_y_max + the_y_max/40, label = expression(H[1]), hjust=0.5)+\nannotate(\"text\", x = z+se/8, y = the_y_max + the_y_max/10, label = \"z=critical value\", hjust=0)+\n    theme_void()\n\n  \n  return(fig_power)\n}"},{"id":2,"options":{"read-only":"false","results":"markup","dpi":72,"editor-quick-suggestions":"false","editor-max-height":"","out-height":"","classes":"","fig-cap":"","warning":"true","fig-width":7,"output":"true","editor-font-scale":1,"context":"interactive","label":"power","message":"false","autorun":"true","fig-height":5,"comment":"","out-width":"700px"},"code":"power_function(tau = 2, se = 1, pval = 0.05)"}];
 
   </script>
   <script type="module">
@@ -2216,7 +2216,7 @@ RMSE
 <h2>For Thursday</h2>
 <ul>
 <li class="fragment"><p><a href="https://pols1600.paultesta.org/assignments/a3" target="_blank">Assignment 3</a></p></li>
-<li class="fragment"><p><a href="https://pols1600.paultesta.org/assignments/assignments/pols1600_paper_template.qmd" target="_blank">Download template</a></p></li>
+<li class="fragment"><p><a href="https://pols1600.paultesta.org/assignments/pols1600_paper_template.qmd" target="_blank">Download template</a></p></li>
 <li class="fragment"><p>Create shared google drive.</p></li>
 <li class="fragment"><p>Make progress on:</p>
 <ul>
@@ -2558,6 +2558,7 @@ RMSE
 <div id="tabset-5-3">
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table class="table" data-quarto-postprocess="true" style="margin-left: auto; margin-right: auto;">
 <caption>Descriptive Statistics</caption>
 <thead>
@@ -2616,6 +2617,7 @@ RMSE
 </table>
 
 
+</div>
 </div>
 </div>
 </div>
@@ -4560,6 +4562,24 @@ Num. obs.
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -4596,7 +4616,11 @@ Num. obs.
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

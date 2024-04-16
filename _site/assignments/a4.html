@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.545">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -303,7 +303,7 @@ window.Quarto = {
 <li>70: Major revisions needed. We should probably talk in office hours</li>
 </ul>
 <p>Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft. Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.</p>
-<p>I have also posted a <a href="assignments/pols1600_paper_template.qmd" download=""> template for the final paper</a> and an <a href="https://pols1600.paultesta.org/files/pols1600_final_paper_example" target="blank">example of a final paper</a> from a previous version of POLS 1600.</p>
+<p>I have also posted a <a href="pols1600_paper_template.qmd" download=""> template for the final paper</a> and an <a href="https://pols1600.paultesta.org/files/pols1600_final_paper_example" target="blank">example of a final paper</a> from a previous version of POLS 1600.</p>
 <ul>
 <li><p>The template contains some <strong>sample code</strong> to that may be usefully adapted for your projects, but <strong>should not appear</strong> in your final paper (i.e.&nbsp;keep use the structure provided by the template, but delete the code I’ve included.)</p></li>
 <li><p>The final paper assignment has changed over time. There are things this paper does, which I no longer ask you to do (e.g.&nbsp;explain the difference between simulation and asymptotic approaches to statistical inference). There are things I ask you to do (e.g.&nbsp;write a separate theory section that motivates your expectations) which this paper was not required to do.</p></li>
@@ -412,7 +412,7 @@ window.Quarto = {
 <ul>
 <li><p>Identify the source or sources of your data</p>
 <ul>
-<li>If using multiple datasets, briefy describe how your final dataset was constructed.</li>
+<li>If using multiple datasets, briefly describe how your final dataset was constructed.</li>
 </ul></li>
 <li><p>Define the unit of analysis (substantively speaking, what is a row in your dataset) and number of observations in your data</p></li>
 <li><p>Explain how your key concepts (outcome variable, key predictors, covariates/alternative explanations) are operationalized and measured</p></li>
@@ -555,7 +555,7 @@ window.Quarto = {
 <ul>
 <li>Empirical results are
 <ul>
-<li><strong>clearly presented</strong> in tables and figures <strong>appropiate variable names and labels</strong></li>
+<li><strong>clearly presented</strong> in tables and figures <strong>appropriate variable names and labels</strong></li>
 <li><strong>correctly interpreted</strong> in terms of <strong>substantive and statistical</strong> significance</li>
 <li>used to <strong>evaluate theoretical expectations</strong></li>
 <li>interpreted to <strong>demonstrate mastery</strong> of the concepts of
@@ -675,9 +675,9 @@ window.Quarto = {
 <p>The keys to a nicely formatted document are:</p>
 <ul>
 <li>Setting global options for code chunks in the for <code>knitr</code></li>
-<li>Labeling individual code chunks with meaninful names</li>
-<li>Setting <code>results ="asis"</code> for individual chunks you want to display in text.</li>
-<li>Setting <code>echo=T, eval=F</code> in the final appendix code chunk.</li>
+<li>Labeling individual code chunks with meaningful names</li>
+<li>Setting <code>results: asis</code> for individual chunks you want to display in text.</li>
+<li>Setting <code>echo: true, eval: false</code> in the final appendix code chunk.</li>
 </ul>
 <section id="grading-criteria-25-points-2" class="level2">
 <h2 class="anchored" data-anchor-id="grading-criteria-25-points-2">Grading Criteria (25 points)</h2>
@@ -808,6 +808,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -842,7 +860,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

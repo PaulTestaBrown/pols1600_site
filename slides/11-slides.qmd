@@ -544,7 +544,7 @@ Power is a function of:
 
 - [Assignment 3](https://pols1600.paultesta.org/assignments/a3)
 
-- [Download template](https://pols1600.paultesta.org/assignments/assignments/pols1600_paper_template.qmd)
+- [Download template](https://pols1600.paultesta.org/assignments/pols1600_paper_template.qmd)
 
 - Create shared google drive.
 

@@ -32,7 +32,7 @@ Your actual grade for the draft will reflect a general assessment of the status 
 Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.
 Additionally, I will assign points to each section as if it were you final paper to give you a sense of where to focus your efforts. This is not your actual grade for this assignment, but can be though of as a rough estimate of the grade you would receive on a section if you were to submit it, as is, for your final paper. Your grade for that section on the final paper may increase or decrease depending on the changes you make to your draft.
 
-I have also posted a <a href="assignments/pols1600_paper_template.qmd" download > template for the final paper</a> and an [example of a final paper](https://pols1600.paultesta.org/files/pols1600_final_paper_example){target="blank"} from a previous version of POLS 1600.
+I have also posted a <a href="pols1600_paper_template.qmd" download > template for the final paper</a> and an [example of a final paper](https://pols1600.paultesta.org/files/pols1600_final_paper_example){target="blank"} from a previous version of POLS 1600.
 
 - The template contains some **sample code** to that may be usefully adapted for your projects, but **should not appear** in your final paper (i.e. keep use the structure provided by the template, but delete the code I've included.)
 
@@ -145,7 +145,7 @@ Describe the data you will use to explore your question. In doing so you should:
 
 - Identify the source or sources of your data
 
-  - If using multiple datasets, briefy describe how your final dataset was constructed.
+  - If using multiple datasets, briefly describe how your final dataset was constructed.
 
 - Define the unit of analysis (substantively speaking, what is a row in your dataset) and number of observations in your data
 
@@ -298,7 +298,7 @@ Finally use a figure (or figures) to help illustrate the substantive interpretat
 - **23-25 points:**
 
   - Empirical results are 
-    - **clearly presented** in tables and figures **appropiate variable names and labels**
+    - **clearly presented** in tables and figures **appropriate variable names and labels**
     - **correctly interpreted** in terms of **substantive and statistical** significance
     - used to **evaluate theoretical expectations**
     - interpreted to **demonstrate mastery** of the concepts of 
@@ -401,9 +401,9 @@ In the accompanying `POLS1600_paper_template.Rmd` I've demonstrated how to write
 The keys to a nicely formatted document are:
 
 - Setting global options for code chunks in the for `knitr`
-- Labeling individual code chunks with meaninful names
-- Setting `results ="asis"` for individual chunks you want to display in text.
-- Setting `echo=T, eval=F` in the final appendix code chunk.
+- Labeling individual code chunks with meaningful names
+- Setting `results: asis` for individual chunks you want to display in text.
+- Setting `echo: true, eval: false` in the final appendix code chunk.
 
 ## Grading Criteria (25 points)
 
