@@ -10884,7 +10884,7 @@
     "href": "slides/11-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements\n\nLab 11/Assignment 3 this week\nNo tutorial this week\nNext Tuesday, April 23, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 30, Final Workshop\nMay 2 Class Presentations"
+    "text": "Annoucements\n\nDo we need to start taking attendance?\nLab 11/Assignment 3 this week\nNo tutorial this week\nNext Tuesday, April 23, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 30, Final Workshop\nMay 2 Class Presentations"
   },
   {
     "objectID": "slides/11-slides.html#feedback",
@@ -10919,14 +10919,14 @@
     "href": "slides/11-slides.html#descriptive-inference",
     "title": "POLS 1600",
     "section": "Descriptive Inference",
-    "text": "Descriptive Inference\n\nSummarize distributions and relationships in data\n\n\nYou should know how to:\n\nCalculate and interpret measures:\nCentral Tendency\nDispersion\nAssociation\nLoad, look at, wrangle, and describe data using:\nTables\nFigures"
+    "text": "Descriptive Inference\n\nSummarize distributions and relationships in data\n\n\nYou should know how to:\n\nCalculate and interpret measures:\nCentral Tendency\nDispersion\nAssociation\n\nLoad, look at, wrangle, and describe data using:\n\nTables\nFigures"
   },
   {
     "objectID": "slides/11-slides.html#data-wrangling",
     "href": "slides/11-slides.html#data-wrangling",
     "title": "POLS 1600",
     "section": "Data Wrangling",
-    "text": "Data Wrangling\n\nThe process of transforming data into a useable format\n\nYou should know how to:\n\nLoad, look at,and transform data into R\nGet a HLO of the raw data:\n\nUnit of analysis\nDimensions of the Data\nQuickly summarize the distributions and values of variables\n\nRecode the data to:\n\nReplace values as NAs\nCreate categories, indicators (0,1), and factors\nTransform predictors (e.g. standardizing predictors)\n\nReshape the data\n\nPivoting columns and rows\nJoining data sets together.\n\nAggregate the data into summaries"
+    "text": "Data Wrangling\n\nThe process of transforming data into a useable format\n\nYou should know how to:\n\nLoad, look at,and transform data into R\nGet a HLO of the raw data:\n\nUnit of analysis\nDimensions of the data\nQuickly summarize the distributions and values of variables\n\nRecode the data to:\n\nReplace values as NAs\nCreate categories, indicators (0,1), and factors\nTransform predictors (e.g. standardizing predictors)\n\nReshape the data\n\nPivoting columns and rows\nJoining data sets together.\n\nAggregate the data into summaries"
   },
   {
     "objectID": "slides/11-slides.html#data-visualization",
@@ -11256,5 +11256,12 @@
     "title": "POLS 1600",
     "section": "",
     "text": "tab_fetch\n\n\nPartisanship and Vaccine Skepticism\n\n\n\n\n \n\n\nNES 2016\n\n\nNES 2020\n\n\n\n\n \n\n\n(1)\n\n\n(2)\n\n\n(3)\n\n\n(4)\n\n\n(5)\n\n\n(6)\n\n\n\n\n\n\n(Intercept)\n\n\n0.458*\n\n\n0.350*\n\n\n0.417*\n\n\n0.343*\n\n\n0.318*\n\n\n0.352*\n\n\n\n\n \n\n\n(0.025)\n\n\n(0.035)\n\n\n(0.023)\n\n\n(0.018)\n\n\n(0.024)\n\n\n(0.016)\n\n\n\n\nPID (7pt)\n\n\n-0.005\n\n\n0.064*\n\n\n \n\n\n0.021*\n\n\n0.037*\n\n\n \n\n\n\n\n \n\n\n(0.003)\n\n\n(0.016)\n\n\n \n\n\n(0.002)\n\n\n(0.011)\n\n\n \n\n\n\n\nAge\n\n\n-0.004*\n\n\n-0.003*\n\n\n-0.004*\n\n\n-0.004*\n\n\n-0.004*\n\n\n-0.003*\n\n\n\n\n \n\n\n(0.000)\n\n\n(0.000)\n\n\n(0.000)\n\n\n(0.000)\n\n\n(0.000)\n\n\n(0.000)\n\n\n\n\nPID2 (7pt)\n\n\n \n\n\n-0.009*\n\n\n \n\n\n \n\n\n-0.002\n\n\n \n\n\n\n\n \n\n\n \n\n\n(0.002)\n\n\n \n\n\n \n\n\n(0.001)\n\n\n \n\n\n\n\nIndependent\n\n\n \n\n\n \n\n\n0.175*\n\n\n \n\n\n \n\n\n0.200*\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.023)\n\n\n \n\n\n \n\n\n(0.016)\n\n\n\n\nRepublican\n\n\n \n\n\n \n\n\n-0.016\n\n\n \n\n\n \n\n\n0.100*\n\n\n\n\n \n\n\n \n\n\n \n\n\n(0.016)\n\n\n \n\n\n \n\n\n(0.011)\n\n\n\n\nR2\n\n\n0.023\n\n\n0.028\n\n\n0.042\n\n\n0.032\n\n\n0.032\n\n\n0.045\n\n\n\n\nAdj. R2\n\n\n0.022\n\n\n0.027\n\n\n0.042\n\n\n0.032\n\n\n0.032\n\n\n0.045\n\n\n\n\nNum. obs.\n\n\n3494\n\n\n3494\n\n\n3507\n\n\n7041\n\n\n7041\n\n\n7052\n\n\n\n\n\n\n*p &lt; 0.05"
+  },
+  {
+    "objectID": "slides/11-slides.html#pie-me",
+    "href": "slides/11-slides.html#pie-me",
+    "title": "POLS 1600",
+    "section": "Pie me",
+    "text": "Pie me"
   }
 ]
