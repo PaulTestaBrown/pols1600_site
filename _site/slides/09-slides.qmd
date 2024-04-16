@@ -390,7 +390,7 @@ bernoulli_cdf <- df_cdf %>%
   geom_line()+
   scale_x_continuous(breaks=0:1)+
   labs(y = "F(x)",
-       title = paste("PMF of Bernoulli p=",p,sep=""))+
+       title = paste("CDF of Bernoulli p=",p,sep=""))+
   theme_minimal()
 
 #  plot to display paramaters 

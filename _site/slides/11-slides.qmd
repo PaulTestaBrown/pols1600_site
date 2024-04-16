@@ -1,10 +1,11 @@
 ---
-title: "Week 11:"
-subtitle: "Quantifying Uncertainty with Hypothesis Testing"
-author: "Paul Testa"
+title: "POLS 1600"
+subtitle: "Statistical Inference<br>and Course Review"
+date: last-modified
+date-format: "[Updated ]MMM D, YYYY"
 format: 
   revealjs:
-    theme: [default, brownslides.scss]
+    theme: brownslides.scss
     logo: images/pols1600_hex.png
     footer: "POLS 1600"
     multiplex: false
@@ -17,51 +18,92 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    html-math-method: mathjax
+    chalkboard: true
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
       data-background-image: images/pols1600_hex.png
       data-background-position: 90% 50%
       data-background-size: 40%
-execute: 
-  echo: true
 filters:
   - openlinksinnewpage
+  - webr
+webr:
+  packages: ['dplyr',"ggplot2"]
+  autoload-packages: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  cache: false
 ---
 
-```{r}
-#| label = "setup",
-#| include = FALSE
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
-  comment = NA, dpi = 300,
-  fig.align = "center", out.width = "80%", cache = FALSE)
-library("tidyverse")
-```
 
 ```{r}
-#| label = "packages",
-#| include = F
+#| label: init
+#| echo: false
+#| results: hide
+#| warning: false 
+#| message: false
+
+library(tidyverse)
+library(labelled)
+library(haven)
+library(DeclareDesign)
+library(easystats)
+library(texreg)
+
+```
+
+
+
+# {{< fa map-location>}} Overview {.inverse}
+
+## Class Plan
+
+- Announcements
+- Feedback
+- Course Review
+- Statistical Inference
+- Final Projects
+
+
+## Annoucements
+
+- Lab 11/[Assignment 3](https://pols1600.paultesta.org/assignments/a3) this week
+- No tutorial this week
+- Next Tuesday, April 23, Work on Presentations/Drafts
+- [Assignment 4](https://pols1600.paultesta.org/assignments/a3) now due April 25.
+- April 30, Final Workshop 
+- May 2 Class Presentations
+
+
+## Setup: Packages for today
+
+```{r}
+#| label: packages
+#| echo: true
+
+## Pacakges for today
 the_packages <- c(
   ## R Markdown
-  "kableExtra","DT","texreg",
+  "kableExtra","DT","texreg","htmltools",
   ## Tidyverse
-  "tidyverse", "lubridate", "forcats", "haven", "labelled","purrr",
+  "tidyverse", "lubridate", "forcats", "haven", "labelled",
   ## Extensions for ggplot
   "ggmap","ggrepel", "ggridges", "ggthemes", "ggpubr", 
+  "patchwork",
   "GGally", "scales", "dagitty", "ggdag", "ggforce",
-  # Graphics:
-  "scatterplot3d", #<<
   # Data 
   "COVID19","maps","mapdata","qss","tidycensus", "dataverse", 
   # Analysis
-  "DeclareDesign", "modelr", "zoo"
+  "DeclareDesign", "easystats", "zoo"
 )
-```
 
-```{r}
-#| label = "ipak",
-#| include = F
+## Define a function to load (and if needed install) packages
+
 ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
     if (length(new.pkg)) 
@@ -69,766 +111,422 @@ ipak <- function(pkg){
     sapply(pkg, require, character.only = TRUE)
 }
 
-```
-
-```{r}
-#| label = "loadpackages",
-#| cache = F,
-#| include = F
+## Install (if needed) and load libraries in the_packages
 ipak(the_packages)
 ```
 
-class: inverse, center, middle \# Overview
+# {{< fa magnifying-glass>}} Review {.inverse}
 
-## General Plan
+## Three Modes of Inference
 
--   Setup
+- Descriptive
 
--   Review: Confidence Intervals
+- Causal
 
--   Lecture : Hypothesis Testing
+- Predictive
 
--   Demo: Final Projects
+## Descriptive Inference {.smaller}
 
-## Course Plan
+> Summarize distributions and relationships in data
 
--   April 18: Lecture -- Hypothesis Testing
+- You should know how to:
 
--   April 20 Lab -- Hypothesis Testing and Interval Estimation
-
--   April 25: Lecture -- Course Review
-
--   April 27: Workshop:
-
--   April 30: Take Home Final Exam
-
--   May ?: Tacos or Pizza with POLS 1140?
-
--   May 7: Take Home Final Exam due
-
-class:inverse, middle, center \# 💪 \## Get set up to work
-
-## New packages
-
-To easily load survey data for our question, we'll need the `anesr` package, which loads data from the American National Election Studies into R
-
-```{r}
-#| eval = FALSE
-# Uncomment to uninstall package to download NES survey data
-# library(devtools)
-# install_github("jamesmartherus/anesr")
-require(anser)
-
-
-```
-
-## Packages for today
-
-```{r}
-#| ref.label = c("packages")
-
-```
-
-## Define a function to load (and if needed install) packages
-
-```{r}
-#| ref.label = "ipak"
-```
-
-## Load packages for today
-
-```{r}
-#| ref.label = "loadpackages"
-```
-
-class:inverse, middle, center \# 🔍 \# Review \## Confidence Intervals
-
-## Confidence Intervals
-
--   Statistical inference involves quantifying uncertainty about what could have happened
-
--   We can describe this uncertainty in terms of a sampling distribution (what could have happened had we had a different sample)
-
--   The standard deviation of a sampling distribution describes its width (spread) and is called a standard error
-
--   Standard errors decrease with by the $\sqrt{N}$ where $N$ is the size of our sample
-
--   We can estimate standard errors via simulation or analytically.
-
-    -   Simulations require fewer assumptions, but take more time.
-
-    -   Analytic estimates are are quick, but require more assumptions.
-
--   We use standard errors to construct confidence intervals which we interpret as describing a range of plausible values for the thing we're trying to estimate.
-
--   Any one 95% confidence interval may or may not contain the truth, but in repeated sampling, 95% of the intervals we construct would contain the truth.
-
-## Standard Errors of Regression Coefficients
-
-Last class, we calculated the standard error of a sample mean using bootstrapping.
-
-We can take the same approach for regression coefficients:
-
-```{r}
-load(url("https://pols1600.paultesta.org/files/data/df_drww.rda"))
-
-# Fit model
-m1 <- lm(support_war01 ~ age + education_n + sex, df_drww)
-# set seed
-set.seed(123)
-# 1,000 bootstrap samples
-boot <- modelr::bootstrap(df_drww, 1000)
-# Estimate Boostrapped Models
-m1_bs <- purrr::map(boot$strap, ~ lm(support_war01 ~ age + education_n + sex, data =.))
-# Tidy coefficients
-m1_bs_df <- map_df(m1_bs, tidy, .id = "id")
-```
-
-## Bootstrapped Standard Errors
-
-Then we simply calculate the standard error of for the sampling distribution of each coefficient
-
-```{r}
-m1_bs_df %>%
-  group_by(term)%>%
-  summarize(
-    bs_se = sd(estimate)
-  ) -> m1_bs_se
-m1_bs_se
-```
-
-## Analytic Standard Errors.
-
-Alternatively, we can derive the standard error of the sampling distribution **analytically** using **asymptotic** theory (e.g. the Central Limit Theorem).
-
-The process starts by defining the quantity we want to know: the variance of our estimated coefficients $\hat{\beta}$ around their true values in the population $\beta$:
-
-$$V(\hat{\beta}|X) =(E[(\hat{\beta} - \beta)(\hat{\beta} - \beta)' |X]$$
-
-Your textbook walks through the math to estimate this quantity on pages 375-380 for simple bivariate regression (i.e. a regression with 1 predictor)
-
-[In the notes](https://pols1600.paultesta.org/notes/10-notes.html#Assymptotic_Standard_Errors), you'll find some further discussion of the math for the more general case of with multiple predictors.
-
-This is also an excellent walk through of the [linear algebra](https://towardsdatascience.com/a-deep-dive-into-the-variance-covariance-matrices-of-classical-linear-regression-models-4322b2cdc8e6)
-
-## Analytic Standard Errors.
-
-Essentially, if you expand terms from:
-
-$$V(\hat{\beta}|X) =(E[(\hat{\beta} - \beta)(\hat{\beta} - \beta)' |X]$$
-
-make substitutions and some assumptions about the distribution of $\epsilon$, you arrive at a formula for the "Variance Covariance Matrix" of the model:
-
-$$V(\hat{\beta}|X) = \sigma^2(X'X)^{-1}$$ Which is a function of
-
--   $\sigma^2$ the "Sum of Square Errors"
--   $(X'X)^{-1}$ roughly captures the underlying variance and covariance of the predictors in your model, where:
-    -   $X$ is a matrix of predictors (each row is an observation, each column a variable)
-    -   $X'X$ is a symmetric maxtrix (like squaring a variable, but in linear algerba)
-    -   $X'X^{-1}$ is the inverse of this matrix
-    -   $sigma^2(X'X)^{-1}$ is like dividing $\sigma^2$ by $X'X$
-
-## Analytic Standard Errors.
-
-The square root of the elements on the diagonal of $V(\hat{\beta}|X)$ provides the standard error for each coefficient, which is larger if:
-
--   if $\sigma^2$ is large (When there's a lot of unexplained variance, our uncertainty is high)
--   the variance of $X$ is small (When predictors don't vary much our uncertainty increases)
-
-## Analytic Standard Errors.
-
-In practice, you will let your computer calculate these standard errors.
-
-```{r}
-summary(m1)$coef
-```
-
-## Analytic Standard Errors by Hand
-
-Just for fun:
-
-```{r}
-# Sum of Squared Residuals
-sigma_2 <- sum(resid(m1)^2)/m1$df.residual
-# X transpose X
-XtXinv <- solve(t(model.matrix(m1))%*%model.matrix(m1))
-# SE is square root of diagonal of Variance Covariance Matrix
-sqrt(diag(sigma_2*XtXinv))
-summary(m1)$coef[,2]
-```
-
-## Constructing Confidence Intervals for Regression Coefficients
-
-1.  Estimate the model to obtain coefficients $\hat{\beta}$
-
-2.  Calculate Standard Errors using simulation or asymptotic theory
-
-3.  Choose desired confidence level $\alpha$ with a corresponding critical value $z_{\alpha/2}$ derived from an approximation of the hypotehtical sampling distribution
-
-4.  Construct a $(1-\alpha)\times 100 \%$ percent confidence interval:
-
-$$CI(\alpha) = [\hat{\beta} - z_{\alpha/2} \times \text{standard error}, \hat{\beta} + z_{\alpha/2} \times \text{standard error}]$$
-
-1.  Estimate the model to obtain coefficients $\hat{\beta}$
-
-```{r}
-beta <- coef(m1)
-beta
-```
-
-2.  Calculate Standard Errors using simulation or asymptotic theory
-
-```{r}
-se <- summary(m1)$coef[,2]
-se
-# Similar to bs
-m1_bs_se
-```
-
-## Constructing Confidence Intervals for Regression Coefficients
-
-3.  Calculate critical value
-
-```{r}
-z_fs <- abs(qt(.05/2, m1$df.residual))
-z_fs
-```
-
--   Note: For finite samples we use a $t$ distribution...
-
-## Constructing Confidence Intervals for Regression Coefficients
-
-```{r}
-ll <- beta - z_fs *se
-ul <- beta + z_fs *se
-cbind(ll,ul)
-
-# Compare to R:
-confint(m1)
-
-```
-
-## Presenting Confidence Intervals in a Regression Table:
-
-````         
-
-```{r, results="asis"}`r''`
-texreg::htmlreg(m1, 
-  digits = 3, 
-  ci.force = T)
-```
-````
-
-```{r}
-#| results = "asis"
-texreg::htmlreg(m1,
-        digits = 3, 
-        ci.force = T)
-```
-
-## Tidying Regression Models
-
-```{r}
-m1 %>%
-  tidy(., conf.int =  T) -> m1_df
-m1_df
-```
-
-## Coefficient Plots as an Alternative to Regression Tables
-
-```{r}
-#| eval = F
-m1_df %>%
-  filter(term !=  "(Intercept)")%>%
-  ggplot(aes(x = estimate, 
-             y= term, 
-             xmin = conf.low,
-             xmax = conf.high,
-             label = round(estimate,3)
-             ))+
-  geom_pointrange()+
-  geom_text(vjust=-1.5)+
-  geom_vline(xintercept = 0, linetype =2)+
-  theme_bw()
+  - [Calculate](https://pols1600.paultesta.org/slides/01-slides#/using-r-to-summarize-data) and interpret measures: 
+  - Central Tendency
+  - Dispersion
+  - Association
+  - [Load](https://pols1600.paultesta.org/slides/01-slides#/loading-data-into-r), [look at](https://pols1600.paultesta.org/slides/01-slides#/looking-at-your-data), [wrangle](https://pols1600.paultesta.org/slides/01-slides#/dplyr-functions-for-data-wrangling), and [describe](https://pols1600.paultesta.org/slides/01-slides#/describing-data-in-r) data using:
+  - Tables
+  - Figures
   
-```
+## Data Wrangling {.smaller}
 
-```{r}
-#| echo = F
-m1_df %>%
-  filter(term !=  "(Intercept)")%>%
-  ggplot(aes(x = estimate, 
-             y= term, 
-             xmin = conf.low,
-             xmax = conf.high,
-             label = round(estimate,3)
-             ))+
-  geom_pointrange()+
-  geom_text(vjust=-1.5)+
-  geom_vline(xintercept = 0, linetype =2)+
-  theme_bw()
+> The process of transforming data into a useable format
+
+You should know how to:
+
+- Load, look at,and transform data into R
+- Get a [HLO](https://pols1600.paultesta.org/slides/01-slides#/hlos-allow-you-to) of the raw data:
+  - Unit of analysis
+  - Dimensions of the Data
+  - Quickly summarize the distributions and values of variables
+- [Recode](https://pols1600.paultesta.org/labs/09-lab-comments#recode-the-data) the data to:
+  - Replace values as `NA`s
+  - Create categories, indicators (0,1), and factors
+  - Transform predictors (e.g. standardizing predictors)
+- Reshape the data
+  - Pivoting columns and rows
+  - Joining data sets together.
+- [Aggregate](https://pols1600.paultesta.org/labs/02-lab-comments#reproduce-the-figure-from-lab-01) the data into [summaries](https://pols1600.paultesta.org/labs/03-lab-comments#calculate-the-average-treatment-effect)
   
-```
+## Data Visualization{.smaller}
 
-## Confidence Intervals: Summary
+> A tool for describing distributions and relationships
 
-**What is a sampling distribution?**
+You should know:
 
--   A distribution of values we would have observed upon repeated sampling
--   Bootstrapping (sampling from a sample) approximates the width of the sampling distribution
+- The [grammar of graphics](https://pols1600.paultesta.org/slides/02-slides#/the-grammar-of-graphics):
+  - Data
+  - Aesthetic mappings
+  - Geometries
+- How to [generate common plots](https://pols1600.paultesta.org/slides/02-slides#/describing-distributions-and-associations) to describe:
+  - Distributions
+  - Relationships
+  
+## Causal Inference{.smaller}
 
-**What is a standard error?**
+> Causal Inference requires counterfactual comparisons
 
--   Standard deviation of the sampling distribution
-    -   Describes the width or range of plausible observations we would see.
-    -   Decreases as the sample size increases
+You should know:
 
-## Confidence Intervals: Summary
+- [Potential outcomes](https://pols1600.paultesta.org/slides/03-slides#/potential-outcomes-notation) and [DAGs](https://pols1600.paultesta.org/slides/05-slides#/directed-acyclic-graphs-1)
 
-**What is a confidence interval**
+- The [fundamental problem of causal inference](https://pols1600.paultesta.org/slides/03-slides#/fundamental-problem-of-causal-inference)
 
--   Coverage interval for a sampling distribution
-    -   "A confidence interval is a way of expressing the precision or repeatability of a statistic, how much variation would likely be present across the possible different random samples from the population"
--   Three components:
-    -   Point Estimate (i.e. a mean, or coefficient)
-    -   Confidence Level (Often 95 percent by convention)
-    -   Margin of Error (+/- some range (typically 2\*SD for 95 percent CI))
--   Confidence is about the interval
-    -   95 percent of the intervals construct in this manner would contain the truth.
+- Bias caused by:
+  - [Confounding](https://pols1600.paultesta.org/slides/05-slides#/section-1) (Coffee and Cancer)
+  - [Colliding](https://pols1600.paultesta.org/slides/05-slides#/section-2) (Dating Jerks)
+- Casual Identification in:
+  - [Experimental](https://pols1600.paultesta.org/slides/03-slides#/causal-identification-with-experimental-designs) designs
+  - [Observational](https://pols1600.paultesta.org/slides/05-slides#/observational-designs) designs 
+  
+## Prediction with Linear Models {.smaller}
 
-class: inverse, center, middle \# 💡 \# Hypothesis Testing \## How likely is it that we would see what did if our hypothesis were true
+> Linear regression provides a linear estimate of the conditional expectation function 
 
-## What is a hypothesis test
+You should know:
 
--   A formal way of assessing statistical evidence. Combines
+- [How linear regression works](https://pols1600.paultesta.org/slides/05-slides#/understanding-linear-regression)
 
-    -   **Deductive reasoning** (distribution of a test statistic, if the a null hypothesis were true )
+- [What it means to control for](https://pols1600.paultesta.org/slides/07-slides.html#/regression-models-partition-variance) predictors in a multiple regression
 
-    -   **Inductive reasoning** (based on the test statistic we observed, how likely is it that we would observe it if the null were true?)
+- When and [why we should control](https://pols1600.paultesta.org/slides/05-slides#/when-to-control-for-a-variable) for predictors.
 
-## What is a test statistic?
+- How to translate [substantive claims]{.blue} into [empirical expectations](https://pols1600.paultesta.org/labs/06-lab-comments#estimate-a-model-controlling-for-age) for our models
 
--   A way of summarizing data
+- How to [estimate and interpret]{.blue} these models using [tables](https://pols1600.paultesta.org/labs/06-lab-comments#display-the-model-as-a-regression-table) and [figures](https://pols1600.paultesta.org/labs/10-lab-comments#visualize-predicted-values)
 
-    -   difference of means
+- How to [quantify uncertainty]{.blue} about these estimates using [confidence intervals](https://pols1600.paultesta.org/slides/10-slides#/confidence-intervals-1) and [hypothesis tests](https://pols1600.paultesta.org/slides/10-slides#/what-is-a-hypothesis-test).
 
-    -   coefficients from a linear model
 
-    -   **coefficients from a linear model divded by their standard errors**
+# {{< fa lightbulb>}} Quantifying Uncertainty {.inverse}
 
-    -   R\^2
+## Probability {.smaller}
 
-## What is a null hypothesis?
+- [Probability](https://pols1600.paultesta.org/slides/08-slides#/probability-1) describes the likelihood of an event
 
--   A statement about the world
+- [Random variables](https://pols1600.paultesta.org/slides/08-slides#/random-variables) assign numeric values to all the events that could occur.
 
-    -   Only interesting if we reject it
+- [Probability distributions](https://pols1600.paultesta.org/slides/08-slides#/probability-distributions) assign probabilities to every value of a random variable. Can be:
 
-    -   Would yield a distribution of test statistics "under the null"
+  - discrete
+  - continuous
+  - characterized by their expected values and variances
+  - used to:
+  - describe the [data generating process]{.blue}
+  - [quantify uncertainty]{.blue} about estimates
 
-    -   Typically something like "X has no effect on Y" (Null = no effect)
 
-    -   Never accept the null can only reject
+## Sampling Distributions and Standard Errors {.smaller}
 
-## What is a p-value?
+- A sampling distribution is a theoretical probability distribution of estimates obtained from taking repeated samples of size $n$ from some population
 
--   A p-value is a conditional probability summarizing the likelihood of observing a test statistic as far from our hypothesis or farther, if our hypothesis were true.
+  - A distribution of what we could have seen
 
--   It's the area in the "tails of the curve" of the distribution of the test statistic under the null.
+- A standard errors is simply the standard deviation ($\sigma$) of the sampling distribution
 
-## How do we do hypothesis testing?
+  - A measure of how much our estimate could have varied.
 
-0.  Posit a hypothesis (e.g. $\beta = 0$)
+- Law of Large Numbers: As $N \to \infty$ $\bar{x} \to \mu$
+- Central Limit Theorem: As $N \to \infty$ $\bar{x} \sim \mathcal{N}(\mu, \sigma^2)$
 
---
+## Confidence Intervals {.smaller}
 
-1.  Calculate the test statistic (e.g. $(\hat{\beta}-\beta)/se_\beta$)
+> Confidence intervals provide a range of plausible values for our estimate
 
---
+- Three components:
+  - Point Estimate (i.e. a mean, or coefficient)
+  - Confidence Level (Often 95 percent by convention)
+  - Margin of Error (+/- some range (typically 2\*SD for 95 percent CI))
+- Confidence is about the interval
+  - 95 percent of the intervals construct in this manner would contain the truth.
 
-2.  Derive the distribution of the test statistic under the null via
+## Hypothesis Testing {.smaller}
 
--   Simulation
--   Asymptotic theory
+- A hypothesis test quantifies how likely it is that we would observe what we did (our test statistic), if some claim about the world were true (our hypothesis, typically a null ).
 
---
+- If our claim were true, then [under this null hypothesis]{.blue}, our test statistic would have a distribution centered around the truth.
 
-3.  Compare the test statistic to the distribution under the null
+- A [p-value]() which describes the probability of observing a test statistic as extreme or more extreme in a world where our null hypothesis was true
 
-    -   If it's in the tails $\to$ very unlikely that we would observe what we did if our hypothesis were true
+  - If our [p-value is small]{.blue} ($p < 0.05$), we [reject the null]{.blue} hypothesis
 
---
+     If our [p-value is large]{.blue} ($p > 0.05$), we [fail to reject the null]{.blue}, or retain the null hypothesis
 
-4.  Calculate p-value
-    -   Quantify how often we would see test statistics as big or bigger
-    -   Two-side tests: how often do we see test statics as big or bigger in absolute value as our observed test statistic
-    -   One-side test: how often do we see test statistics as extreme as our observed statistic in a particular direction (positive/negative)
 
---
+## {.smaller}
+#### Relationship between CIs and Hypothsis Testing
 
-5.  Reject or fail to reject/retain our hypothesis based on some threshold of statistical significance (e.g. p \< 0.05)
+:::: panel-tabset
+## Concept
 
-## Outcomes of Hypothesis Tests
+We can think of a confidence interval as a [range of hypotheses we would fail to reject]{.blue} with $p < \alpha$
 
--   Two conclusions from of a hypothesis test: we can reject or fail to reject a hypothesis test.
 
--   **We never "accept" a hypothesis**, since there are, in theory, an infinite number of other hypotheses we could have tested.
 
-Our decision can produce four outcomes and two types of error:
-
-|                | Reject $H_0$   | Fail to Reject $H_0$ |
-|----------------|----------------|----------------------|
-| $H_0$ is true  | False Positive | Correct!             |
-| $H_0$ is false | Correct!       | False Negative       |
-
-## Outcomes of Hypothesis Tests
-
-|                | Reject $H_0$   | Fail to Reject $H_0$ |
-|----------------|----------------|----------------------|
-| $H_0$ is true  | False Positive | Correct!             |
-| $H_0$ is false | Correct!       | False Negative       |
-
-Suppose we chose to reject a hypothesis if our p-value was less than 0.05.
-
-What we're saying is that we're willing to falsely reject our hypothesis 5 times out of 100.
-
-Typically we want to minimize this false positive rate (Type 1 error), but there's a trade off:
-
--   Reducing Type 1 error means, we're more likely to make a Type 2 error -- failing to reject when our null is false.
-
-class:inverse, middle, center \# 💪 \## Application: Hypothesis Testing for Linear Models
-
-## 0. Posit a Null Hypothesis
-
--   Typically, we will test a null hypothesis that the coefficient for variable $X$ equals 0 (e.g. $H_0: \beta_x = 0$ )
-
--   Our alternative hypothesis in a two sided test then is that $\beta_0$ doesn't equal 0 ($H_1: \beta_x \neq 0$)
-
--   In a one-sided test, our alternative is directional ($H_1: \beta_x > 0$ or $H_1: \beta_x < 0$ )
-
-    -   One-sided tests are rare in practice -- need a strong substantive reason for directional expectation
-
-## 1. Calculate the test statistic
-
-For a linear regression, we could use the $\hat{\beta}$ as our test statistic.
-
-In practice, we we use a "t-stat" which is our observed coefficiet, $\hat{\beta}$ minus our hypothesized value $\beta$ (e.g. 0), divided by the standard error of $\hat{\beta}$.
-
-$$t= \frac{\hat\beta-\beta}{\widehat{SE}_{\hat{\beta}}} \sim \text{Students's } t \text{ with } n-k \text{ degrees of freedom}$$ Fisher showed that this statistic from a regression follows a $t$ distribution -- which looks like a normal distribution but with "fatter tails" (e.g. more probability assigned to extreme values)
-
-## 1. Calculate the test statistic in R
-
-We can caclulate test statistics from our model by dividing the coefficients by their standard errors
+## {{<fa code>}} Code
 
 ```{r}
-t_stat <- coef(m1) / summary(m1)$coef[,2]
-t_stat
+#| label: pval_ci
+
+# Load Data
+load(url("https://pols1600.paultesta.org/files/data/nes24.rda"))
+
+# Fit Model
+m1 <- lm_robust(dv_participation ~   education + income, df,
+                se = "classical")
+
+# Range of hypotheses for education
+pval_ci_df <- tibble(
+  # Hypothesized Betas for Education
+  Hypothesis = seq(0, .32, length.out = 100),
+  # Test Statistics
+  Statistic = (m1$coefficients["education"] - Hypothesis) /
+  m1$std.error["education"],
+  # P-value for two sided test
+  `p-value` = 2*pt(abs(Statistic), df = m1$df,lower.tail = F)
+)
+
+fig_pval_ci <- pval_ci_df %>% 
+  ggplot(aes(Hypothesis, `p-value`))+
+  geom_line()+
+  geom_vline(xintercept = m1$coefficients["education"],
+             linetype = "solid",
+             col = "red")+
+  geom_vline(xintercept = m1$conf.low["education"],
+             linetype = "dotted")+
+  geom_vline(xintercept = m1$conf.high["education"],
+             linetype = "dotted")+
+  geom_hline(yintercept = 0.05,
+             linetype = "dashed")+
+  labs(
+    x = "Hypothesized Education, Coefficent",
+    title = "Confidence intervals are a range\nof plausible hypotheses"
+  )+
+  theme_minimal()
+
 ```
 
-Which is exactly what the third column of `summary()` shows
+## {{<fa table>}} Table
 
 ```{r}
-summary(m1)$coef
+#| label: tabm1
+#| echo: false
+#| results: asis
+
+htmlreg(m1)
+
 ```
 
-## 2. Derive the distribution of the test statistic under the null via
 
-Two approaches:
-
--   Simulation: Calculate test statistics in a world where $H_0$ is true
-
--   Asymptotic theory: Use statistics to approximate this distribution
-
-## 2. Derive the distribution of the test statistic under the null
-
-We can make the null true, by **randomly permuting** (sampling without replacement) the outcome of our model:
+## {{<fa chart-line>}} Figure
 
 ```{r}
-# One perumtation
-set.seed(123)
-df_drww$support_war01_null <- sample(df_drww$support_war01)
+#| label: fig_pval_ci
+#| echo: false
+
+fig_pval_ci
 ```
 
-Our permuted outcome is now uncorrelated with any predictors, it's just a random sample of 0s, and 1s.
+::::
 
-```{r}
-cor(df_drww$support_war01, df_drww$age, use = "complete.obs")
-cor(df_drww$support_war01_null, df_drww$age, use = "complete.obs")
-```
+## Four Possible Outcomes of a hypothesis Test {.smaller}
 
-## 2. Derive the distribution of the test statistic under the null
+::::{.columns}
 
-As such when we estimate a model with data where we have made our null hypothesis true (e.g $\beta = 0$ for all predictors), we get coefficients that are close to 0. Of course, by chance some might be a little negative, or a little positive.
+:::{.column width=45%}
 
-```{r}
-m1_null <- lm(support_war01_null ~ age + education_n + sex, df_drww)
+- **False Positive: (Type I Error)** 
+  - Rejecting a True $H_0$.
+  - $\tau = 0$, but $\hat{\tau}$ has a $p<0.05$
+  - Probability=$\alpha$
 
-tidy(m1_null)%>%mutate_if(is.numeric, round,2)
-```
+- **True Positive: (Correct Decision)** 
+  - Rejecting a false $H_0$: 
+  - $\tau \neq 0$, and  $\hat{\tau}$ has a $p<0.05$
+  - Occurs with Probability = $1-\beta$
 
-## 2. Derive the distribution of the test statistic under the null
 
-The logic of hypothesis testing is to compare what we observed, to what we could have observed when our null is true.
+:::
 
-By repeatedly permuting our outcome, estimating models, caclulating test statistics to generate the distributions **under the null**
 
-To do this, we'll write a function to make our life easier:
+:::{.column width=45%}
 
-```{r}
-my_null_fn <- function(
-  df=df_drww, 
-  y = "support_war01", 
-  f = formula(m1)
-  ){
-  df[, y] <- sample(df[,y])
-  m <- lm(f, df)
-  stat <- summary(m)$coef[,3]
-  return(stat)
+- **True Negative: (Correct Decision) ** 
+  - Failing to reject a True $H_0$: 
+  - $\tau = 0$, and $\hat{\tau}$ has a $p>0.05$
+  - Occurs with Probability = $1-\alpha$
+
+- **False Negative: (Type II Error)** 
+  - Failing to reject a false $H_0$. 
+  - $\tau \neq 0$ but $\hat{\tau}$ has a $p>0.05$
+  - Occurs with Probability= $\beta$
+
+:::
+
+::::
+
+## Type 1 and 2 Errors
+
+![](https://miro.medium.com/max/1400/1*uF5aBZ63BZ8IDEyF8wo-CA.png)
+
+[Source](https://towardsdatascience.com/a-general-guidance-of-hypothesis-testing-7cab119ca999)
+
+## Statistical Power{.smaller}
+
+```{webr-r}
+#| label: plot_power
+#| context: setup
+
+power_function <- function(tau = 2, se =1, pval = 0.05){
+  df <- tibble(
+    x = seq(-4*se, tau+4*se,length.out = 100 ),
+    p = dnorm(x, mean = 0, sd = se)
+  )
+  the_x_min <- min(df$x)
+  the_x_max <- max(df$x)
+  the_y_max <- max(df$p)
+  
+  z <- qnorm(1-(pval/2), sd = se)
+  power <- pnorm(z, mean = tau, sd =se, lower.tail = F)
+  type2_error <- pnorm(z, mean = tau, sd =se)
+  if(power > type2_error){
+    the_y_power <- dnorm(z, mean = tau, sd = se)*.7
+    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.3
+  }
+  if(power <= type2_error){
+    the_y_power <- dnorm(z, mean = tau, sd = se)*.3
+    the_y_type2 <- dnorm(z, mean = tau, sd = se)*.7
+  }
+
+  
+  fig_power <- df %>% 
+    ggplot(aes(x))+
+    ylim(0,the_y_max + the_y_max/10)+
+    stat_function(geom = "line", fun = dnorm,
+                args = list(sd = se),
+                alpha = 0.5)+
+    stat_function(geom = "line", fun = dnorm,
+                alpha = 0.5,
+                col = "blue",
+                args =list(mean = tau, sd = se))+
+    stat_function(geom = "area", fun = dnorm,
+                fill = "darkblue",
+                alpha = 0.5,
+                xlim = c(the_x_min,qnorm(1-(pval/2),sd = se)),
+                args =list(mean = tau, sd = se))+
+    stat_function(geom = "area", fun = dnorm,
+                fill = "lightblue",
+                alpha = 0.7,
+                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),
+                args =list(mean = tau, sd = se))+
+    stat_function(geom = "area", fun = dnorm,
+                fill = "red",
+                alpha = .25,
+                xlim = c(qnorm(1-(pval/2), sd = se),the_x_max),
+                args =list(mean = 0, sd = se)
+                )+
+    stat_function(geom = "area", fun = dnorm,
+                fill = "red",
+                alpha = .5,
+                xlim = c(qnorm(pval/2,sd = se),the_x_min),
+                args =list(mean = 0, sd = se)
+                )+
+    geom_vline(xintercept = qnorm(1-(pval/2),sd = se), linetype =2)+
+    geom_segment(
+      data = tibble(x = 0,
+           xend= tau,
+           y = the_y_max,
+           yend = the_y_max),
+      aes(x = x, xend = xend, 
+          y=y, yend=yend)
+      )+
+    annotate("text", x = tau/2, y = the_y_max + the_y_max/40, 
+             label = expression(tau), hjust=.5)+
+    annotate("text", x = -z-se/10, y = the_y_max*.02, 
+             label = expression(
+               paste(alpha,"/2", sep ="")), hjust=1
+             )+
+    annotate("text", x = z+se/10, y = the_y_max*.02, 
+             label = expression(
+               paste(alpha,"/2", sep ="")), hjust=0
+             )+
+  annotate("text", x = z-se/8, y = the_y_type2-the_y_max/20, label = expression(beta), hjust=1) +
+  annotate("text", x = z-se/8, y = the_y_type2, label = "Type II-Error", hjust=1)+
+  annotate("text", x = z+se/8, y = the_y_power, label = paste( "Statistical Power = ", round(power,2),sep = ""), hjust=0)+
+  annotate("text", x = z+se/8, y = the_y_power-the_y_max/20, label = expression(paste("1-",beta,sep="")), hjust=0)+
+
+  annotate("text", x = 0, y = the_y_max + the_y_max/40, label = expression(H[0]), hjust=0.5)+
+  annotate("text", x = tau, y = the_y_max + the_y_max/40, label = expression(H[1]), hjust=0.5)+
+annotate("text", x = z+se/8, y = the_y_max + the_y_max/10, label = "z=critical value", hjust=0)+
+    theme_void()
+
+  
+  return(fig_power)
 }
-my_null_fn()
-my_null_fn()
-```
-
-## 2. Derive the distribution of the test statistic under the null
-
-Then we'll use the `replicate()` function to repeat this process 1000, saving the distribution of test statistics $((\hat{\beta}-\beta)/se_\beta)$ to an object called `m1_null`
-
-```{r}
-set.seed(123)
-m1_null <- data.frame(t(
-  replicate(1000, my_null_fn(df_drww, "support_war01",formula(m1)))))
-head(m1_null)
-```
-
-## 2. Derive the distribution of the test statistic under the null
-
-We can visualize this distribution of test statistics for the `education_n`:
-
-```{r}
-#| eval = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density()+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  theme_bw()
-```
-
-```{r}
-#| echo = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density()+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  theme_bw()
-```
-
-## 2. Compare Permutation Distribution to Asymptotic t-Distribution
-
-This simulated distribution (grey) can be approximated by a $t$ distribution (black), with $n$ (the number of observations) minus $k$ (the number of coefficients in our model) degrees of freedom.
-
--   Roughly, you can think of "degrees of freedom" as a way of reflecting the fact that we have to estimate parameters of the distribution, and so we use up pieces of information (degrees of freedom),
--   Because we're estimating parameters our uncertainty (the spread of the distribution) increases as the degrees of freedom decreases
--   For a small $N$ reducing degrees of freedom, can increase uncertainty a lot
--   For a large $N$ the differences are minute
-
-```{r}
-#| eval = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col = "grey")+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  stat_function(fun =dt,args =list(df = m1$df.residual), #<<
-                xlim =c(-3.5,3.5))+ #<<
-  theme_bw()
-```
-
-```{r}
-#| echo = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col = "grey")+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  stat_function(fun =dt,args =list(df = m1$df.residual), #<<
-                xlim =c(-3.5,3.5))+ #<<
-  theme_bw()
-```
-
-## 3. Compare the test statistic to the distribution assuming the null were true
-
-Next we'll compare our observed test statistic -1.45 to its hypothesized distribution under the null
-
--   For a two sided test, we interested in absolute distance from the null, so we'll put lines at both -1.45 and 1.45
-
-```{r}
-#| eval = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col = "grey")+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  stat_function(fun =dt,args =list(df = m1$df.residual),
-                xlim =c(-3.5,3.5))+
-  geom_vline(xintercept =t_stat["education_n"], linetype = 3)+ #<<
-  geom_vline(xintercept =t_stat["education_n"]*-1, linetype = 3)+ #<<
-  theme_bw()
-```
-
-```{r}
-#| echo = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col = "grey")+
-  geom_rug()+
-  geom_vline(xintercept = 0, linetype =2)+
-  stat_function(fun =dt,args =list(df = m1$df.residual),
-                xlim =c(-3.5,3.5))+
-  geom_vline(xintercept =t_stat["education_n"], linetype = 3)+ #<<
-  geom_vline(xintercept =t_stat["education_n"]*-1, linetype = 3)+ #<<
-  theme_bw()
-```
-
-## 4. Calculate p-value
-
-To quantify how often we would see test statistics as big or bigger, we can simply take the mean of a logical comparison of the absolute value of the test statistics under the null greater than the absolute value of our observed test statistic
-
-```{r}
-# Simulation
-mean(abs(m1_null$education_n) > abs(t_stat["education_n"]))
-```
-
-Or, we can calculate the area under the curve for a $t$-distribution, as with 1459 degrees of freedom, that is less than -1.45 and multiply this by 2 (because the distribution is symetric), to get the p-value
-
-```{r}
-# Asymptotic
-2*pt(t_stat["education_n"], m1$df.residual)
-```
-
-## 4. Calculate p-value
-
-```{r}
-# Asymptotic
-2*pt(t_stat["education_n"], m1$df.residual)
-```
-
-Os exactly what R's `summary()` function returns:
-
-```{r}
-# R's summary
-summary(m1)$coef[4,]
-```
-
-Visually, these calculations look like this:
-
-```{r}
-#| eval = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col="grey")+
-  geom_rug(col = ifelse(abs(m1_null$education_n) >= abs(t_stat["education_n"]), "red","black"))+ #<<
-  geom_vline(xintercept =0, linetype = 2)+
-  geom_vline(xintercept =t_stat["education_n"], linetype = 3)+
-  geom_vline(xintercept =t_stat["education_n"]*-1, linetype = 3)+
-  stat_function(fun =dt,args =list(df = m1$df.residual),
-                xlim =c(-3.5,3.5))+
-  stat_function(fun =dt,args =list(df = m1$df.residual), #<<
-                geom ="area", xlim = c(-3.5,t_stat["education_n"]),#<<
-                alpha = .5,fill ="red")+#<<
-  stat_function(fun =dt, args =list(df = m1$df.residual), #<<
-                geom ="area", xlim = c(abs(t_stat["education_n"]),3.5),#<<
-                alpha = .5, fill ="red")+#<<
-  theme_bw()
 
 ```
 
-```{r}
-#| echo = F
-m1_null %>%
-  ggplot(aes(education_n))+
-  geom_density(col="grey")+
-  geom_rug(col = ifelse(abs(m1_null$education_n) >= abs(t_stat["education_n"]), "red","black"))+
-  geom_vline(xintercept =0, linetype = 2)+
-  geom_vline(xintercept =t_stat["education_n"], linetype = 3)+
-  geom_vline(xintercept =t_stat["education_n"]*-1, linetype = 3)+
-  stat_function(fun =dt,args =list(df = m1$df.residual),
-                xlim =c(-3.5,3.5))+
-  stat_function(fun =dt,args =list(df = m1$df.residual),
-                geom ="area", xlim = c(-3.5,t_stat["education_n"]),
-                alpha = .5,fill ="red")+
-  stat_function(fun =dt,
-                args =list(df = m1$df.residual),
-                geom ="area", xlim = c(abs(t_stat["education_n"]),3.5),
-                alpha = .5, fill ="red")+
-  theme_bw()
+:::: panel-tabset
 
+## Concept
+
+:::{.nonincremental}
+
+- Consider two distributions of statistics under 
+  - a null of no effect ($H_0$) 
+  - an effect of $\tau$ ($H_1$)
+- For a significance threshold of $\alpha$ we would:
+  - Fail to reject the null $\beta$  (Type II Errors)
+  - Correctly reject the null $1 -\beta$ (Statistical Power)
+
+:::
+
+## Power
+
+Try changing $\tau$ (the effect size), and se (the standard deviation of the effect)
+
+```{webr-r}
+#| label: power
+#| autorun: true
+#| context: interactive
+#| message: false
+power_function(tau = 2, se = 1, pval = 0.05)
 ```
 
-## Reject or fail to reject/retain our hypothesis
+## Comments
 
-For an estimated p-value of 0.145 for coefficient on `education_n` and a significance threshold of p \< 0.05, we would...
+Power is a function of:
 
---
+- Sample size ($N$)
+  - Larger samples, smaller standard errors (LLN)
 
-Fail to reject the null hypothesis that $H_0: \beta_{education} = 0$
+- Effect size ($\tau$)
+  - Bigger effects less overlap
+  
+- Significance threshold ($\alpha$)
+  - Decrease Type 1 (False Positives) error leads to increased Type 2 (False Negatives)
+  
+- The distribution of the data 
+  - Variance, asympotitc approximations
+  
+::::
 
-Because in a world where the truth was $\beta_{education} = 0$ test statistics reflecting coefficients as far as $t-stat = |-1.459|$ about 14.5 percent of the time.
+# {{< fa concept>}} Final Projects {.inverse}
 
-If we were to reject the null, 14.5 percent of the time, we would be making a Type-1 error \| False Positive \| concluding there was a relationship when in fact their wasn't.
+## Strucutre of Final Paper and Drafts {.smaller}
 
-class:inverse, middle, center \# Break
-
-class:inverse, middle, center \# Final Projects
-
-## Timelines: This Week
-
-**NOTE: I'm leaving these slides in for nw**
-
--   Feedback on Data today
-
--   Questions/office hours today tomorrow/by appointment
-
--   Thursday: Work on analyzing your data
-
--   Drafts are still due April 24th.
-
--   Your draft need not, and probably will not, be a completed project.
-
--   At a minimum what you want is:
-
-    -   A clean data set
-    -   Exploratory descriptives
-    -   Initial results
-
--   The rest can come later. Our goal on Thursday is to move you from the data portions of your projects, into the analysis.
-
-## Timelines: Next Week
-
--   Tuesday, April 26: Workshop: Review and Presentations
-
--   Thursday April 28: Workshop: Producing Presentations
-
-    -   7-10 Slides
-    -   Drafts/Analysis, just need to fill those slides
-
--   Sunday, May 1: Presentations due (Monday at the latests)
-
-## Timelines: First Week of May:
-
--   Tuesday, May 3: Presentations
-
--   Thursday, May 5: Last class and Food?
-
-    -   Class at Dolores at 5pm?
-    -   Bagels/Treats in class
-
--   Sunday May 8: Final Papers Due
-
-## Strucutre of Final Paper and Drafts:
-
-Seven sections:
+[Assignment 4:](https://pols1600.paultesta.org/assignments/a4) Seven sections
 
 1.  Introduction (5 percent, \~ 4 paragraphs)
 2.  Theory and Expectations (10 percent, \~4+ paragraphs)
@@ -838,60 +536,59 @@ Seven sections:
 6.  Conclusion (5 percent \~ 3+ paragraphs)
 7.  Appendix (10 percent \~ Variable codebook and all the R code for your project)
 
-## Focus on for Sunday
+## For Thursday {.smaller}
 
-Seven sections:
+- [Assignment 3](https://pols1600.paultesta.org/assignments/a3)
 
-1.  Introduction (5 percent, \~ 4 paragraphs)
-2.  Theory and Expectations (10 percent, \~4+ paragraphs)
-3.  **Data** (20 percent \~ 4+ paragraphs)
-4.  *Design* (25 percent \~ 5+ paragraphs)
-5.  **Results** (25 percent \~ 5+ paragraphs)
-6.  Conclusion (5 percent \~ 3+ paragraphs)
-7.  Appendix (10 percent \~ Variable codebook and all the R code for your project)
+- [Download template](https://pols1600.paultesta.org/assignments/assignments/pols1600_paper_template.qmd)
 
-## Motivating Questions:
+- Create shared google drive.
+
+- Make progress on:
+  - 3.  **Data** (20 percent \~ 4+ paragraphs)
+  - 4.  *Design* (25 percent \~ 5+ paragraphs)
+  - 5.  **Results** (25 percent \~ 5+ paragraphs)
+
+## Motivating Questions {.smaller}
 
 In the reset of today's class, we'll get some practice putting together the various skills you need for your drafts by exploring the following:
 
--   How does partisanship shape American's perceptions of vaccines?
+- How does partisanship shape American's perceptions of vaccines?
 
--   Who is skeptical of the benefits of vaccination?
+- Who is skeptical of the benefits of vaccination?
 
--   Have these perceptions about vaccines changed over time?
+- Have these perceptions about vaccines changed over time?
 
-## Tasks:
+## Tasks:{.smaller}
 
 To explore these questions, we need to
 
--   Get setup to work
+- Get setup to work
 
--   Load our data
+- Load our data
 
--   Recode our data
+- Recode our data
 
--   Summarize our data
+- Summarize our data
 
--   Specify our expectations
+- Specify our expectations
 
--   Estimate models to test these expectations
+- Estimate models to test these expectations
 
--   Present and interpret results using
+- Present and interpret results using
 
-    -   Tables
-    -   Figures
-    -   Confidence intervals (review)
-    -   Hypothesis tests (new!)
-
-class:inverse, middle, center \# 💪 \## Get set up to work
+  - Tables
+  - Figures
+  - Confidence intervals 
+  - Hypothesis tests 
 
 ## New packages
 
 To easily load survey data for our question, we'll need the `anesr` package, which loads data from the American National Election Studies into R
 
 ```{r}
-#| eval = FALSE
-# Uncomment to uninstall package to download NES survey data
+#| label: anesr
+# # Uncomment to uninstall package to download NES survey data
 # library(devtools)
 # install_github("jamesmartherus/anesr")
 require(anesr)
@@ -902,29 +599,16 @@ require(anesr)
 ## Packages for today
 
 ```{r}
-#| ref.label = c("packages")
+<<packages>>
 
 ```
 
-## Define a function to load (and if needed install) packages
-
-```{r}
-#| ref.label = "ipak"
-```
-
-## Load packages for today
-
-```{r}
-#| ref.label = "loadpackages"
-```
-
-class:inverse, center, middle \# 💪 \## Loading Data
-
-## Data
+## Data {.smaller}
 
 Now that we have `anesr` installed, let's load data from the 2016 and 2020 National Election Studies:
 
 ```{r}
+#| label: anesdata
 # Load data
 data(timeseries_2016, package = "anesr")
 data(timeseries_2020, package = "anesr")
@@ -933,14 +617,13 @@ data(timeseries_2020, package = "anesr")
 And copy those data frames into new dataframes with shorter names
 
 ```{r}
+#| label: rename
 # Rename datasets
 nes16 <- timeseries_2016
 nes20 <- timeseries_2020
 ```
 
-class:inverse, center, middle \# 💪 \## Recoding Data
-
-## Finding variables of interest
+## Finding variables: Outcomes {.smaller}
 
 Our primary outcome of interest are beliefs about vaccines.
 
@@ -948,23 +631,27 @@ Variables `V162162x` in the 2016 NES and `V202383x` in the 2020 NES will serve a
 
 > Do the health benefits of vaccinations generally outweigh the risks, do the risks outweigh the benefits, or is there no difference?
 
+## Finding variables: Predictors {.smaller}
+
 Similarly, `V161158x` in the 2016 NES and `V201231x` in the 2020 NES will serve our key predictor (respondent's partisanship).
 
 Finally, we'll control respondents' age, using `V161267` in the 2016 NES and `V201507x` in the 2020 NES
 
-Let's take a look at the values and distributions of these raw variables and think about what we need to do to recode these data so that they are suitable for analysis
 
-## Look at the distribution and coding of our outcome: Vaccine Beliefs
+## Examine Distributions: Vaccine Beliefs {.smaller}
 
 The variables in the NES datasets are of a class `labelled` which allows numeric values to have substantive labels
 
 ```{r}
+#| label: class
+
 class(nes16$V162162x)
 ```
 
 Our outcome variable has the following labels:
 
 ```{r}
+#| label: labels
 labelled::val_labels(nes16$V162162x)
 
 ```
@@ -972,28 +659,30 @@ labelled::val_labels(nes16$V162162x)
 And distribution of responses:
 
 ```{r}
+#| label: table
 table(nes16$V162162x)
 ```
 
-## Recoding our outcome variable
+## Recoding outcome variables
+
+:::: panel-tabset
+
+## Tasks
 
 What transformations do we need to make to `V162162x` in `nes16` and `V202383x` in `nes20` so that these variables are suitable for analysis?
 
---
 
--   Recode negative values to be `NA`
+- Recode negative values to be `NA`
 
---
+- Reverse code so that higher values indicate greater belief vaccines benefits
 
--   Reverse code so that higher values indicate greater belief in the benefits of vaccines
+- Create an indicator of people who are vaccine skeptics
 
---
-
--   Create an indicator of people who are skeptical of the benefits of vaccines
-
-## Recoding V162162x in 2016 NES
+## {{< fa code >}} Code
 
 ```{r}
+#| label: recodedv
+
 nes16 %>%
   mutate(
     # Make Negative values NA, Reverse Code So Higher Values = Benefits > Risks
@@ -1005,11 +694,7 @@ nes16 %>%
       TRUE ~ NA_real_
     )
   ) -> nes16 # Save recodes to nes16
-```
 
-## Recoding V202383x in 2020 NES
-
-```{r}
 nes20 %>%
   mutate(
     # Make Negative values NA, Reverse Code So Higher Values = Benefits > Risks
@@ -1023,21 +708,33 @@ nes20 %>%
   ) -> nes20 # Save recodes to nes20
 ```
 
+::::
+
 ## Recoding Predictors
+
+:::: panel-tabset
+
+## Tasks
+
+:::{.nonincremental}
 
 Now we repeat this process for our key predictor, partisanship.
 
--   Recode the the summary partisanship variables `V161158x` in `nes16` and `V201231x` in `nes20`
+- Recode partisanship variables `V161158x` in `nes16` and `V201231x` in `nes20`
 
--   Create indicators from this recoded variable that classify partisanship as categorical variable (with Democrats as the reference category)
+- Create indicators from this recoded variable that classify partisanship as categorical variable (with Democrats as the reference category)
 
 And our covariate, age variables `V161267` in `nes16` and `V201507x` in `nes20`
 
--   Recode negative values to be `NA`
+- Recode negative values to be `NA`
 
-## Recoding Partisanship (V161158x) in 2016 NES
+:::
+
+## {{<fa code >}} Code 
 
 ```{r}
+#| label: recode
+
 nes16 %>%
   mutate(
     pid = ifelse(V161158x < 0, NA, V161158x),
@@ -1049,11 +746,9 @@ nes16 %>%
     ) %>% factor(., levels = c("Democrat","Independent","Republican")),
     age = ifelse(V161267 < 0, NA, V161267)
   ) -> nes16
-```
 
 ## Recoding Partisanship (V201231x) in 2020 NES
 
-```{r}
 nes20 %>%
   mutate(
     pid = ifelse(V201231x < 0, NA, V201231x),
@@ -1068,34 +763,39 @@ nes20 %>%
 
 ```
 
-## Progress Report
+::::
+
+## Progress Report {.smaller}
 
 To explore these questions, we need to
 
--   *Get setup to work* ✅
+- *Get setup to work* ✅
 
--   *Load our data* ✅
+- *Load our data* ✅
 
--   *Recode our data* ✅
+- *Recode our data* ✅
 
--   **Summarize our data**📥
+- **Summarize our data**📥
 
--   Specify our expectations
+- Specify our expectations
 
--   Estimate models to test these expectations
+- Estimate models to test these expectations
 
--   Presenting and interpreting results using
+- Presenting and interpreting results using
 
-    -   Tables
-    -   Figures
-    -   Confidence intervals (review)
-    -   Hypothesis tests (new!)
+  - Tables
+  - Figures
+  - Confidence intervals 
+  - Hypothesis tests 
 
-class:inverse, center, middle \# 💪 \## Summarizing data
 
-## Tables of descriptive statistics
+## Descriptive statistics (2016) {.smaller}
 
-1.  Create a object with the names of the variables you want to summarize
+:::: panel-tabset
+
+## Tasks 
+
+1.  Create `the_vars`
 
 2.  Select these variables
 
@@ -1105,9 +805,11 @@ class:inverse, center, middle \# 💪 \## Summarizing data
 
 5.  Format as an html table
 
-## Tables of descriptive statistics
+## {{< fa code >}} Code
 
 ```{r}
+#| label: sumcode
+
 # 1. Create a object with the names of the variables you want to summarize
 the_vars <- c("vaccine_skeptic01","pid","age")
 # 2. Select these variables
@@ -1132,14 +834,10 @@ nes16 %>%
     p75 = quantile(value, na.rm=T, prob = 0.25),
     max = max(value, na.rm=T),
     missing = sum(is.na(value))
-  ) -> sum_tab
-```
+  ) -> sum_df 
 
-## Format Table
-
-```{r}
-#| eval = F
-knitr::kable(sum_tab,
+sum_tab <- 
+knitr::kable(sum_df,
              caption = "Descriptive Statistics",
              digits = 2) %>%
   kableExtra::kable_styling() %>%
@@ -1148,122 +846,126 @@ knitr::kable(sum_tab,
   kableExtra::pack_rows("Covariates", start_row = 3, end_row =3)
 ```
 
+## {{<fa table >}} Table
+
 ```{r}
-#| echo = F
-knitr::kable(sum_tab,
-             caption = "Descriptive Statistics",
-             digits = 2) %>%
-  kableExtra::kable_styling() %>%
-  kableExtra::pack_rows("Outcome", start_row = 1, end_row =1) %>%
-  kableExtra::pack_rows("Key Predictors", start_row = 2, end_row =2) %>%
-  kableExtra::pack_rows("Covariates", start_row = 3, end_row =3)
+#| label: sum_tab
+#| echo: false
+sum_tab
 ```
 
-## Progress Report
+::::
+
+## Progress Report {.smaller}
 
 To explore these questions, we need to
 
--   *Get setup to work* ✅
+- *Get setup to work* ✅
 
--   *Load our data* ✅
+- *Load our data* ✅
 
--   *Recode our data* ✅
+- *Recode our data* ✅
 
--   *Summarize our data* ✅
+- *Summarize our data* ✅
 
--   **Specify our expectations** 📥
+- **Specify our expectations** 📥
 
--   Estimate models to test these expectations
+- Estimate models to test these expectations
 
--   Presenting and interpreting results using
+- Presenting and interpreting results using
 
-    -   Tables
-    -   Figures
-    -   Confidence intervals (review)
-    -   Hypothesis tests (new!)
+  - Tables
+  - Figures
+  - Confidence intervals (review)
+  - Hypothesis tests (new!)
 
-class:inverse, center, middle \# 💪 \## Specificying Expecations
+## Specificying Expecations {.smaller}
 
-## Specificying Expecations
+:::{.nonincremental}
 
 Consider our first two motivating questions
 
--   How does partisanship shape American's perceptions of vaccines?
+- How does partisanship shape American's perceptions of vaccines?
 
--   Who is skeptical of the benefits of vaccination?
+- Who is skeptical of the benefits of vaccination?
 
 And some illustrative stereotypes:
 
--   "Republicans are *anti-science*"
--   "Liberal always for Goopy *pseudo-science*"
--   "Independents love to *do their own research*"
+- "Republicans are *anti-science*"
+- "Liberal always fall for Goopy *pseudo-science*"
+- "Independents love to *do their own research*"
 
 What are the empirical implications of these claims?
 
-## Specificying Expecations
+:::
+
+## Specificying Expecations {.smaller}
+
+:::{.nonincremental}
 
 Similarly, consider our third question:
 
--   Have these perceptions about vaccines changed over time?
+- Have these perceptions about vaccines changed over time?
 
 And some similar simplified claims:
 
--   "The Covid-19 vaccine is a miracle of modern science"
--   "Social media is rife with misinformation about the Covid-19 vaccine"
--   "Politicians are politicizing vaccine politics for political benefits"
+- "The Covid-19 vaccine is a miracle of modern science"
+- "Social media is rife with misinformation about the Covid-19 vaccine"
+- "Politicians are politicizing vaccine politics for political benefits"
 
 What are the empirical implications of these claims?
 
-## Specificying Expecations
+:::
+
+## Specificying Expecations {.smaller}
 
 Our goal is to take claims/conventional wisdom/theories, and derive their empirical implications:
 
--   **H1: Partisan Differences in Vaccine Skepticism**
-    -   **H1a:** Republicans will be the most skeptical of vaccines
-    -   **H1b:** Democrats will be the most skeptical of vaccines
-    -   **H1a:** Independents will be the most skeptical of vaccines
--   **H2: Temporal Differences in Vaccine Skepticism**
-    -   **H2a:** Vaccine skepticism will decrease from 2016 to 2020 with the widespread roll out of the Covid-19 vaccine
-    -   **H2b:** Vaccine skepticism will increase from 2016 to 2020 with increased amounts of misinformation about the Covid-19 vaccine
--   **H3: Partisan Difference in Vaccine Skepticism Over Time** Partisan differences in Vaccine Skepticism will increase from 2016 to 2020 with the politicization of Covid-19 policies
+- **H1: Partisan Differences in Vaccine Skepticism**
+  - **H1a:** Republicans will be the most skeptical of vaccines
+  - **H1b:** Democrats will be the most skeptical of vaccines
+  - **H1c:** Independents will be the most skeptical of vaccines
+  
+## Specificying Expecations {.smaller}
 
-## Motivating your expectations.
 
-In your papers, unlike in these slides, your expectations should be grounded in existing theory, research, and evidence. For the present question, we might cite sources such as:
+- **H2: Temporal Differences in Vaccine Skepticism**
+  - **H2a:** Vaccine skepticism will decrease from 2016 to 2020 with the widespread roll out of the Covid-19 vaccine
+  - **H2b:** Vaccine skepticism will increase from 2016 to 2020 with increased amounts of misinformation about the Covid-19 vaccine
+  
+- **H3: Partisan Difference in Vaccine Skepticism Over Time** Partisan differences in Vaccine Skepticism will increase from 2016 to 2020 with the politicization of Covid-19 policies
 
--   Enders, Adam M., and Steven M. Smallpage. "Informational cues, partisan-motivated reasoning, and the manipulation of conspiracy beliefs." Political Communication 36.1 (2019): 83-102.
+## Motivating your expectations {.smaller}
 
--   Stecula, Dominik A., and Mark Pickup. "How populism and conservative media fuel conspiracy beliefs about COVID-19 and what it means for COVID-19 behaviors." Research & Politics 8.1 (2021): 2053168021993979.
+In your final papers, unlike in these slides, your expectations should be grounded in existing theory, research, and evidence. For the present question, we might cite sources such as:
 
--   Jennings, Will, et al. "Lack of trust, conspiracy beliefs, and social media use predict COVID-19 vaccine hesitancy." Vaccines 9.6 (2021): 593.
+- Enders, Adam M., and Steven M. Smallpage. "Informational cues, partisan-motivated reasoning, and the manipulation of conspiracy beliefs." Political Communication 36.1 (2019): 83-102.
 
--   Hollander, Barry A. "Partisanship, individual differences, and news media exposure as predictors of conspiracy beliefs." Journalism & Mass Communication Quarterly 95.3 (2018): 691-713.
+- Stecula, Dominik A., and Mark Pickup. "How populism and conservative media fuel conspiracy beliefs about COVID-19 and what it means for COVID-19 behaviors." Research & Politics 8.1 (2021): 2053168021993979.
 
-## Model Specification
+- Jennings, Will, et al. "Lack of trust, conspiracy beliefs, and social media use predict COVID-19 vaccine hesitancy." Vaccines 9.6 (2021): 593.
+
+- Hollander, Barry A. "Partisanship, individual differences, and news media exposure as predictors of conspiracy beliefs." Journalism & Mass Communication Quarterly 95.3 (2018): 691-713.
+
+## Model Specification {.smaller}
 
 Translate these expectations into empirical models requires choices about **how to specify our models**
 
---
+- How should we measure/operationalize our outcome
 
--   How should we measure/operationalize our outcome
+  - Should we measure beliefs about vaccines with 7-point ordinal scale or as a binary indicator of vaccine skepticism
 
-    -   Should we measure beliefs about vaccines with 7-point ordinal scale or as a binary indicator of vaccine skepticism
+- How should we measure/operationalize our key predictor(s)
 
--   How should we measure/operationalize our key predictor(s)
+  - Should we measure partisanship using a 7 point scale or as categorical variable?
 
-    -   Should we measure partisanship using a 7 point scale or as categorical variable?
+- What should we control for in our model?
 
--   What should we control for in our model?
+  - Factors likely to predict both our outcome and our key predictor of interest
 
-    -   Factors likely to predict both our outcome and our key predictor of interest
+- There are rarely *definitive* answers to these questions. Instead, we will often estimate **multiple models** to try and show that our findings are **robust** to alternative specifications
 
---
-
--   There are rarely definitive answers to these questions.
-
--   In practice, we will often estimate **multiple models** to try and show that our findings are **robust** to alternative modeling strategies/specifications
-
-## Model Specification
+## Model Specification {.smaller}
 
 For your projects, every group will almost surely estimate some form of the following:
 
@@ -1271,76 +973,89 @@ For your projects, every group will almost surely estimate some form of the foll
 
 2.  Multiple regression model: A test of the robustness of this relationship, controlling for alternative explanations
 
+## Model Specification {.smaller}
+
 In practice, I suspect you may estimate multiple regression models such as:
 
--   Alternative specifications/operationalizations of outcomes and predictors
+- Alternative specifications/operationalizations of outcomes and predictors
 
--   Interaction models to test conditional relationships
+- Interaction models to test conditional relationships
 
--   Polynomial models to test non-linear relationships
+- Polynomial models to test non-linear relationships
 
-## Translating Theoretical Expectations into Empirical Models
+## {.smaller}
+#### Translating Theoretical Claims into Empirical Expectations
 
 Before we estimate our models in R, we will write down our models formally and empirical implications of our theoretical expectations in terms of the coefficients of our model.
 
-For example, test for partisan differences in vaccine skepticism, we might fit the following baseline model:
+For example, our baseline model might be:
 
-$$\text{Vaccine Skepticism} = \beta_0 + \beta_1 \text{PID}_{7pt} + X\beta + \epsilon$$ - If $\beta_1$ is positive this is consistent with **H1a** (greater skepticism among Republicans), - If $\beta_2$ is negative this is consistent with **H1b** (greater skepticism among Democrats),
+$$\text{Vaccine Skepticism} = \beta_0 + \beta_1 \text{PID}_{7pt} + X\beta + \epsilon$$ 
 
-But how could we test **H1c** -- greater skepticism among Independents, who are "4s" on $\text{PID}_{7pt}$?
+If $\beta_1$ is positive this is consistent with **H1a** (greater skepticism among Republicans), - If $\beta_2$ is negative this is consistent with **H1b** (greater skepticism among Democrats),
 
-## Translating Theoretical Expectations into Empirical Models
+- But how could we test **H1c** -- greater skepticism among Independents, who are "4s" on $\text{PID}_{7pt}$?
 
-We could fit a polynomial regression, including both partisanship and partinaship squared to allow the relationship between partisanship and vaccine skepticism to vary non-linearly
+## {.smaller}
+#### Translating Theoretical Claims into Empirical Expectations
 
-$$\text{Vaccine Skepticism} = \beta_0 + \beta_1 \text{PID}_{7pt} +  \beta_2 \text{PID}_{7pt}^2+ X\beta+ \epsilon$$ Or we could estimate a model treating Partisanship as a **categorical** variable rather than an **ordinal interval** variable. In our recoding, we set `"Democrat"` to be the first level of the variable `pid3cat`, so the model R will estimate by default is:
+We could fit a polynomial regression, including both partisanship and "partissanship squared" to allow the relationship between partisanship and vaccine skepticism to vary non-linearly
+
+$$\text{Vaccine Skepticism} = \beta_0 + \beta_1 \text{PID}_{7pt} +  \beta_2 \text{PID}_{7pt}^2+ X\beta+ \epsilon$$ 
+
+## {.smaller}
+#### Translating Theoretical Claims into Empirical Expectations
+
+Or we could estimate a model treating Partisanship as a **categorical** variable rather than an **ordinal interval** variable. 
+
+In our recoding, we set `"Democrat"` to be the first level of the variable `pid3cat`, so the model R will estimate by default is:
 
 $$\text{Vaccine Skepticism} = \beta_0 + \beta_1 \text{PID}_{Ind} +  \beta_2 \text{PID}_{Rep}+ X\beta + \epsilon$$
 
-## Testing differences over time.
+## Testing differences over time {.smaller}
 
 Testing Hypotheses 2 and 3 involve making comparisons across models estimated on data from different surveys.
 
 Formally, testing these expectations is a little more complicated
 
--   we could pool our two surveys together include an interaction term for survey year
+- we could pool our two surveys together include an interaction term for survey year
 
 For our purposes, we'll treat these as more qualitative/exploratory hypotheses:
 
--   H2a/b implies overall rates of vaccine skepticism will be lower/higher in 2020 compared to 2016
+- H2a/b implies overall rates of vaccine skepticism will be lower/higher in 2020 compared to 2016
 
--   H3 implies that whatever partisan differences we find in 2016 should be larger in 2020.
+- H3 implies that whatever partisan differences we find in 2016 should be larger in 2020.
 
-## Progress Report
+## Progress Report {.smaller}
 
 To explore these questions, we need to
 
--   *Get setup to work* ✅
+- *Get setup to work* ✅
 
--   *Load our data* ✅
+- *Load our data* ✅
 
--   *Recode our data* ✅
+- *Recode our data* ✅
 
--   *Specify our expectations* ✅
+- *Specify our expectations* ✅
 
--   **Estimate models to test these expectations** 📥
+- **Estimate models to test these expectations** 📥
 
--   Presenting and interpreting results using
+- Presenting and interpreting results using
 
-    -   Tables
-    -   Figures
-    -   Confidence intervals (review)
-    -   Hypothesis tests (new!)
+  - Tables
+  - Figures
+  - Confidence intervals 
+  - Hypothesis tests 
 
-class:inverse, center, middle \# 💪 \## Estimating Empirical Models
 
-## Estimating Empirical Models
+## Estimating Empirical Models 
 
 Having derived empirical implications of our theoretical expectations expressed in terms of linear regressions, now we simply have to estimate our models in R.
 
 When estimating the **same model** on **different datasets** we can write the formulas once
 
 ```{r}
+#| label: formula
 f1 <- formula(vaccine_skeptic01 ~ pid + age)
 f2 <- formula(vaccine_skeptic01 ~ pid + I(pid^2) + age)
 f3 <- formula(vaccine_skeptic01 ~ pid3cat + age)
@@ -1351,6 +1066,7 @@ f3 <- formula(vaccine_skeptic01 ~ pid3cat + age)
 And then pass it to `lm()` with different `data` arguments:
 
 ```{r}
+#| label: models
 m1_2016 <- lm(formula = f1, data = nes16)
 m1_2020 <- lm(formula = f1, data = nes20)
 m2_2016 <- lm(formula = f2, data = nes16)
@@ -1359,91 +1075,84 @@ m3_2016 <- lm(formula = f3, data = nes16)
 m3_2020 <- lm(formula = f3, data = nes20)
 ```
 
-## Estimating Empirical Models
+## Estimating Empirical Models {.smaller}
 
-If you've
+:::{.nonincremental}
 
--   coded your data correctly
+If you've:
 
--   developed clear testable implications from your theoretical expectations
+- coded your data correctly
+
+- developed clear testable implications from your theoretical expectations
 
 Specifying and estimating empirical models is straightforward. Literally a few lines of code.
 
-## Progress Report
+:::
+
+## Progress Report {.smaller}
 
 To explore these questions, we need to
 
--   *Get setup to work* ✅
+- *Get setup to work* ✅
 
--   *Load our data* ✅
+- *Load our data* ✅
 
--   *Recode our data* ✅
+- *Recode our data* ✅
 
--   *Specify our expectations* ✅
+- *Specify our expectations* ✅
 
--   *Estimate models to test these expectations* ✅
+- *Estimate models to test these expectations* ✅
 
--   *Present our results* 📥
+- *Present our results* 📥
 
-    -   Tables
-    -   Figures
-    -   Confidence intervals (review)
-    -   Hypothesis testing (new!)
+  - Tables
+  - Figures
+  - Confidence intervals 
+  - Hypothesis testing
 
-class:inverse, center, middle \# 💪 \## Presenting and Interpreting Your Results
-
-## Presenting and Interpreting Your Results
+## Presenting and Interpreting Your Results {.smaller}
 
 Presenting and interpreting your results is requires both art and science.
 
-Your goal is to tell a story with your results, walking your reader through the substantive and statsitical interpretation of tables and figures.
+Your goal is to tell a story with your results,
 
 Let's start by producing a regression table, which provides a concise summary of multiple regression models.
 
-Like figures, producing a good regression table is an interactive process.
 
-## Regression Tables with htmlreg
+## Regression Tables {.smaller}
 
-The following code produces a basic regression table.
+:::: panel-tabset
 
+## Tasks
+
+:::{.nonincremental}
+
+- Giving the variables in substantive names
+
+- Reporting coefficients to 3 decimal places
+
+- Using a single significance threshold of $p < 0.05$
+
+- Giving the models custom names
+
+- Adding a header to group models by year
+
+- Changing the caption of the table
+
+:::
+
+## {{< fa code >}} Code
 ```{r}
-#| eval = F
-texreg::htmlreg(
+#| label: regtabs
+
+# Basic
+tab_basic <- texreg::htmlreg(
   list(m1_2016,m2_2016,m3_2016,
        m1_2020,m2_2020,m3_2020)
 )
-```
 
-## Regression Tables with htmlreg
-
-```{r}
-#| echo = F,
-#| results = "asis"
-texreg::htmlreg(
-  list(m1_2016,m2_2016,m3_2016,
-       m1_2020,m2_2020,m3_2020)
-)
-```
-
-## Customizing our Regression Table
-
-Let's make this regression table more reader friendly and informative by:
-
--   Giving the variables in substantive names
-
--   Reporting coefficients to 3 decimal places
-
--   Using a single significance threshold of $p < 0.05$
-
--   Giving the models custom names
-
--   Adding a header to group models by year
-
--   Changing the caption of the table
-
-```{r}
-#| eval = F
-texreg::htmlreg(
+# Formatted
+tab_fetch <- texreg::htmlreg(
   list(m1_2016,m2_2016,m3_2016,
        m1_2020,m2_2020,m3_2020),
   # Reporting coefficients to 3 decimal places
@@ -1459,8 +1168,10 @@ texreg::htmlreg(
     "Independent",
     "Republican"
   ),
+  # Use SE instead o CIs
+  include.ci = F,
   # Giving the models custom names
-  custom.model.names = paste("Model",c(1:3,1:3)),
+  custom.model.names = paste("(",c(1:6),")", sep=""),
   # Adding a header to group models by year
   custom.header = list("NES 2016" = 1:3, "NES 2020" = 4:6),
   # Changing the caption of the table
@@ -1468,111 +1179,94 @@ texreg::htmlreg(
 )
 ```
 
+## {{< fa table >}} Basic
+
 ```{r}
-#| echo = F,
-#| results = "asis"
-texreg::htmlreg(
-  list(m1_2016,m2_2016,m3_2016,
-       m1_2020,m2_2020,m3_2020),
-  digits = 3,
-  stars = 0.05,
-  custom.coef.names = c(
-    "(Intercept)",
-    "PID (7pt)",
-    "Age",
-    "PID<sup>2</sup> (7pt)",
-    "Independent",
-    "Republican"
-  ),
-  custom.model.names = paste("Mod",c(1:6)),
-  custom.header = list("NES 2016" = 1:3, "NES 2020" = 4:6),
-  caption = "Partisanship and Vaccine Skepticism"
-)
+#| label: tab_basic
+#| echo: false
+#| results: asis
+
+tab_basic
 ```
 
-## Telling a Story with Regression
+## {{< fa table >}} Fetch
+
+```{r}
+#| label: tab_fetch
+#| echo: false
+#| results: asis
+
+
+tab_fetch
+```
+
+::::
+
+## Telling a Story with Regression {.smaller}
+
+:::{.nonincremental}
 
 First, provide an overview the models presented in the table
 
--   Explain what each model is doing conceptually
+- Explain what each model is doing conceptually
 
-Then, start with your simplest model (Typically the first column in your table).
+Then start with your simplest model (first column)
 
--   Use this as a chance to explain core concepts from the course
-    -   What is regression
-    -   How should I interpret a coefficient substantively
-    -   How should I interepret the statistical signficance of a give coefficient
--   As you move from left to right (simple to more complex)
-    -   you need not interpret every single coefficient in the model
-    -   instead highlight the factors that are important for the reader to note (e.g. a comparison between one coefficient in model or another.)
+- Use this as a chance to explain core concepts from the course
+  - What is regression
+  - How should I interpret a coefficient substantively
+  - How should I interepret the statistical signficance of a give coefficient
+- As you move from left to right (simple to more complex)
+  - you need not interpret every single coefficient in the model
+  - instead highlight the factors that are important for the reader to note (e.g. a comparison between one coefficient in model or another.)
 
-```{r}
-#| echo = F,
-#| results = "asis"
-texreg::htmlreg(
-  list(m1_2016,m2_2016,m3_2016,
-       m1_2020,m2_2020,m3_2020),
-  digits = 3,
-  stars = 0.05,
-  custom.coef.names = c(
-    "(Intercept)",
-    "PID (7pt)",
-    "Age",
-    "PID<sup>2</sup> (7pt)",
-    "Independent",
-    "Republican"
-  ),
-  custom.model.names = paste("Mod",c(1:6)),
-  custom.header = list("NES 2016" = 1:3, "NES 2020" = 4:6),
-  caption = "Partisanship and Vaccine Skepticism"
-)
-```
+:::
 
-## Overview
+## Example {.smaller}
 
--   Table 1 presents the results of three specifications exploring the relationship between partisanship and vaccine skepticism using data from the 2016 (Models 1-3) and 2020 (Models 4-5) National Election Studies.
+Table 1 presents the results of three specifications exploring the relationship between partisanship and vaccine skepticism using data from the 2016 (Models 1-3) and 2020 (Models 4-5) National Election Studies.
 
--   Models 1 and 4 operationalize partisanship as a 7-point scale, where 1 corresponds to Strong Democrats, 4 to Indepndents, and 7 to Strong Republicans in the 2016 (Model 1) and 2020 (Model 2) surveys.
+Models 1 and 4 operationalize partisanship as a 7-point scale, where 1 corresponds to Strong Democrats, 4 to Indepndents, and 7 to Strong Republicans in the 2016 (Model 1) and 2020 (Model 2) surveys.
 
--   Models 2 and 5 allow the relationship between partisanship and vaccine skepticism to vary non-linear again for the 2016 (Model 2) and 2020 (Model 5) elections.
+Models 2 and 5 allow the relationship between partisanship and vaccine skepticism to vary non-linear again for the 2016 (Model 2) and 2020 (Model 5) elections.
 
--   Models 3 and 6 treat partisanship as categorical variable, describing how Independents and Republicans differ from Democrats, the reference category in these models.
+Models 3 and 6 treat partisanship as categorical variable, describing how Independents and Republicans differ from Democrats, the reference category in these models.
 
--   All models control age, since (put in substantive justification for controlling for age here)
+All models control age, since (put in substantive justification for controlling for age here)
 
-## Story: Testing for Partisan Differences
+## Story: Testing for Partisan Differences {.smaller}
 
--   The results from Model 1 provide little initial evidence for partisan differences in vaccine skepticism in the 2016 Election.
+- The results from Model 1 provide little initial evidence for partisan differences in vaccine skepticism in the 2016 Election.
 
-    -   The coefficient on the partisanship variable is -0.005, suggesting that a unit increase in partisanship (going from being a Strong Democrat to just a Democrat, or an Independent to an independent who leans Republican), is associated with just a 0.5 percentage point increase in the probability of being a vaccine skeptic (believing that the risks of vaccination outweigh the benefits or that their is no difference in the risks versus benefits).
+  - The coefficient on the partisanship variable is -0.005, suggesting that a unit increase in partisanship (going from being a Strong Democrat to just a Democrat, or an Independent to an independent who leans Republican), is associated with just a 0.5 percentage point increase in the probability of being a vaccine skeptic (believing that the risks of vaccination outweigh the benefits or that their is no difference in the risks versus benefits).
 
--   Furthermore the 95-percent confidence interval for this estimate (-0.011, 0.002) brackets 0, suggesting the true population estimate from this model could be either positive or negative. Similarly, we fail to reject the null hypothesis that the true coefficient on partisanship in this model is 0 as the test statistic for this estimate ( -1.38) corresponds to a p-value of 0.168 suggesting that we would see test statistics this large or larger fairly often when the true relationship was 0.
+- Furthermore the 95-percent confidence interval for this estimate (-0.011, 0.002) brackets 0, suggesting the true population estimate from this model could be either positive or negative. Similarly, we fail to reject the null hypothesis that the true coefficient on partisanship in this model is 0 as the test statistic for this estimate ( -1.38) corresponds to a p-value of 0.168 suggesting that we would see test statistics this large or larger fairly often when the true relationship was 0.
 
--   In some the results from Model 1 provide little support for any of the expectations described by *H1*
+- In sum, the results from Model 1 provide little support for any of the expectations described by *H1*
 
-## Testing for Partisan Differences: Model 2
+## Testing for Partisan Differences: Model 2 {.smaller}
 
--   While coefficients from Model 1 suggest little evidence of partisan differences in vaccine skepticism, the coefficients on both partisanship, and partisanship squared are statistically significant (p \< 0.05).
+- While coefficients from Model 1 suggest little evidence of partisan differences in vaccine skepticism, the coefficients on both partisanship, and partisanship squared are statistically significant (p < 0.05).
 
-## Interpreting Model 2
+## Interpreting Model 2 {.smaller}
 
--   The coefficients from polynomial regressions can be difficult to interpret jointly and so Figure 1 presents the predicted values from Model 2, holding age constant at its sample mean.
+:::: panel-tabset
+
+## Task
+
+- The coefficients from polynomial regressions can be difficult to interpret jointly and so Figure 1 presents the predicted values from Model 2, holding age constant at its sample mean.
+
+## {{< fa code >}}
 
 ```{r}
+#| label: predm2
 pred_df_m2 <- expand_grid(
   pid = 1:7,
   age = mean(nes16$age, na.rm=T)
 )
 pred_df_m2 <- cbind(pred_df_m2, predict(m2_2016,pred_df_m2, interval ="confidence"))
-pred_df_m2
-```
 
-## Interpreting Model 2
-
-```{r}
-#| eval = F
-
-pred_df_m2 %>%
+fig_m2 <- pred_df_m2 %>%
   ggplot(aes(pid, fit, ymin =lwr, ymax =upr))+
   geom_line()+
   geom_ribbon(alpha=.2, fill="grey")+
@@ -1582,35 +1276,33 @@ pred_df_m2 %>%
        title = "Independents are the most skeptical of vaccines",
        subtitle = "Data: 2016 NES"
        )
-
 ```
 
-## Interpreting Model 2
-
--   We see from Model 2 that 29.7 percent \[27.3%, 32.1%\] of Independents in the 2016 NES were predicted to be vaccine skeptics compared to 23.7 percent \[20.8%, 26.5%\] of Strong Democrats and only 20.1 percent \[16.9%, 23.3%\] of Strong Republicans.
+## {{< fa chart-lines>}} Figure
 
 ```{r}
-#| echo = F,
-#| fig.height = 5
-
-pred_df_m2 %>%
-  ggplot(aes(pid, fit, ymin =lwr, ymax =upr))+
-  geom_line()+
-  geom_ribbon(alpha=.2, fill="grey")+
-  theme_bw()+
-  labs(x = "Partisanship",
-       y = "Predicted Vaccine Skepticism",
-       title = "Independents are the most skeptical of vaccines",
-       subtitle = "Data: 2016 NES"
-       )
+#| label: pred
+fig_m2
 
 ```
 
-## Testing for Partisan Differences: Model 3
+## Interpretation
+
+We see from Model 2 that 29.7 percent \[27.3%, 32.1%\] of Independents in the 2016 NES were predicted to be vaccine skeptics compared to 23.7 percent \[20.8%, 26.5%\] of Strong Democrats and only 20.1 percent \[16.9%, 23.3%\] of Strong Republicans.
+
+::::
+
+## Interpreting Model 3 {.smaller}
+
+:::: panel-tabset
+
+## Interpretation
 
 Model 3 tells a similar story to model 2. Again, adjusting for differences in vaccine skepticism explained by age, Model 3 predicts that 41.7 percent \[37.7%, 45.6%\] of Independents in the 2016 NES are vaccine skeptics compared to 24.2 percent \[22.1%, 26.2%\] of Democrats, and 22.6 percent \[20.4%, 24.8%\] of Republicans.
 
 Note the coefficients from Model 3 imply that the differences between Independents and Democrats are statistically significant ($\beta_{Ind} = 0.175, p < 0.05$), the differences between Republicans and Democrats are not ($\beta_{Rep} = -0.004, p = 0.31$)
+
+## {{< fa code >}} Code
 
 ```{r}
 pred_df_m3 <- expand_grid(
@@ -1621,36 +1313,25 @@ pred_df_m3 <- cbind(pred_df_m3, predict(m3_2016,pred_df_m3, interval ="confidenc
 pred_df_m3
 ```
 
-## Testing for Differences Over Time
+::::
+
+## {.smaller}
+
+
+```{r}
+#| results: asis
+tab_fetch
+```
+
+
+## Testing for Differences Over Time {.smaller}
 
 The results for the 2016 NES suggest political independents are most skeptical of vaccines.
 
 The results for 2020 suggest the relationship between partisanship and vaccine skepticism has changed overtime.
 
-```{r}
-#| echo = F,
-#| results = "asis"
-texreg::htmlreg(
-  list(m1_2016,m2_2016,m3_2016,
-       m1_2020,m2_2020,m3_2020),
-  digits = 3,
-  stars = 0.05,
-  custom.coef.names = c(
-    "(Intercept)",
-    "PID (7pt)",
-    "Age",
-    "PID<sup>2</sup> (7pt)",
-    "Independent",
-    "Republican"
-  ),
-  custom.model.names = paste("Mod",c(1:6)),
-  custom.header = list("NES 2016" = 1:3, "NES 2020" = 4:6),
-  caption = "Partisanship and Vaccine Skepticism"
-)
-```
+- The coefficient on partisanship in model 4 is now positive and statistically significant (p \< 0.05), suggesting that as respondents become more Republican, they are more likely to be skeptical of vaccines
 
--   The coefficient on partisanship in model 4 is now positive and statistically significant (p \< 0.05), suggesting that as respondents become more Republican, they are more likely to be skeptical of vaccines
+- The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.
 
--   The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.
-
--   In Model 6, we see that independents remain the most skeptical of vaccines in 2020 $(\beta = 0.20,\, p <0.05)$, but that Republicans now tend to be more skeptical of vaccines than Democrats $(\beta = 0.10,\, p <0.05)$
+- In Model 6, we see that independents remain the most skeptical of vaccines in 2020 $(\beta = 0.20,\, p <0.05)$, but that Republicans now tend to be more skeptical of vaccines than Democrats $(\beta = 0.10,\, p <0.05)$
