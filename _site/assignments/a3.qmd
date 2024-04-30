@@ -30,7 +30,8 @@ The specific expectations for each section are discussed in further detail in [A
 
 Our focus this week will be on the logistical aspects of your final project
 
-- <a href="assignments/pols1600_paper_template.qmd" download >Downloading the template</a> for your final paper
+
+- <a href="pols1600_paper_template.qmd" download="" >Downloading the template</a> for your final paper
 - Making sure you're set up for collaboration with GoogleDrive
 - Finish wrangling your data in the code of your final paper
   - Loading the data into R
