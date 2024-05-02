@@ -5945,7 +5945,7 @@
     "href": "labs/pols1600-final-exam.html",
     "title": "POLS 1600 Take Home Final",
     "section": "",
-    "text": "This document provides your final exam for POLS 1600.\nThe exam consists of four parts corresponding to core concepts and skills from POLS 1600:\n\nCasual Inference (20 Points)\nInterpreting Linear Models (20 points)\nQuantifying Uncertainty through Statistical Inference (20 points)\nConducting applied empirical analysis (40 points)\n\nEach section contains a series of conceptual questions, and or coding tasks for your to accomplish.\nYou will write your answers to these questions and tasks in this Rmd file.\nYou will submit the html file produced by this .Rmd file on on Canvas by May 12, 11:59 pm.\nExams submitted after May 12 will automatically lose 10 points for each late day.\nIf you submit the qmd file instead of the html file you will lose 5 points from your exam grade.\nIf you like, I will meet with you by Zoom or in person for 30 minutes to answer general questions about material from the course. I will not answer specific questions from the exam.\nThis exam is designed to test your knowledge and understanding of concepts and skills from the course. You can and should make use of material from lectures and labs, but if I find evidence of plagiarism (copying and pasting answers verbatim from Google or ChatGPT), I will initiate plagiarism procedures described in Brown’s Academic Code"
+    "text": "This document provides your final exam for POLS 1600.\nThe exam consists of four parts corresponding to core concepts and skills from POLS 1600:\n\nCausal Inference (20 Points)\nInterpreting Linear Models (20 points)\nQuantifying Uncertainty through Statistical Inference (20 points)\nConducting applied empirical analysis (40 points)\n\nEach section contains a series of conceptual questions, and or coding tasks for your to accomplish.\nYou will write your answers to these questions and tasks in this Rmd file.\nYou will submit the html file produced by this .Rmd file on on Canvas by May 12, 11:59 pm.\nExams submitted after May 12 will automatically lose 10 points for each late day.\nIf you submit the qmd file instead of the html file you will lose 5 points from your exam grade.\nIf you like, I will meet with you by Zoom or in person for 30 minutes to answer general questions about material from the course. I will not answer specific questions from the exam.\nThis exam is designed to test your knowledge and understanding of concepts and skills from the course. You can and should make use of material from lectures and labs, but if I find evidence of plagiarism (copying and pasting answers verbatim from Google or ChatGPT), I will initiate plagiarism procedures described in Brown’s Academic Code"
   },
   {
     "objectID": "labs/pols1600-final-exam.html#what-is-the-fundamental-problem-of-causal-inference-3-points",
@@ -6975,7 +6975,7 @@
     "href": "index.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
+    "text": "This course provides a foundation in the principles and practice of quantitative social science, with a focus on building tools to make descriptive, causal, and predictive inferences.\n\nLogistics\nWe meet twice a week, alternating lectures on Tuesdays and labs on Thursday. Both sessions require laptops that run R and RStudio\n\n\n\n\nLecture\nTuesdays 9-10:20 am\n\n\n\n\n\nLabs\nThursdays 9-10:20 am\n\n\n\n\n\nAssignments\nDue on Canvas\n\n\n\n\n\nLocation\nBarus & Holley 751\n\n\n\n\n\nZoom\n\n\n\n\n\nOffice Hours\n111 Thayer St Rm 339\n\n\n\n\n\nSchedule\n\n\n\n\n\n\n\n\n\n\n\nLecture\nLabs\nSolutions\nAssignments\n\n\n\n\nWeek 0\n\n\n\n\n\n\nIntroductions\n\n\n\n\n\n\n\n\n\n\nWeek 1\n\n\n\n\n\n\nData & Measurement\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 2\n\n\n\n\n\n\nData Visualization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\n\n\n\n\nCausation -- Experiments\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\n\n\n\n\nCausation -- Observational Studies\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 5\n\n\n\n\n\n\nBivariate Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\n\n\n\n\nMultiple Regression\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\n\n\n\n\nRegression Extensions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\n\n\n\n\nProbability - Random Variables & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\n\n\n\n\nProbability - Limit Theorems\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 10\n\n\n\n\n\n\nInference -- Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 11\n\n\n\n\n\n\nInference -- Hypothesis Testing\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 12\n\n\n\n\n\n\nWorkshop\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 13\n\n\n\n\n\n\nPresentations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstructors\n\n\nPaul Testa\nAssistant Professor\nDepartment of Political Science\nBrown University &lt;paul_testa@brown.edu&gt;\n\n\n\n\n\nManuel Moscoso Rojas\nTeaching Assistant\nDepartment of Political Science\nBrown University &lt;Manuel_Moscoso_Rojas@Brown.edu&gt;"
   },
   {
     "objectID": "slides/00-slides-template.html#class-plan",
@@ -10780,5 +10780,131 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/13-slides.html#presentation-order",
+    "href": "slides/13-slides.html#presentation-order",
+    "title": "POLS 1600",
+    "section": "Presentation Order",
+    "text": "Presentation Order\n\n\nGroup 7 - Mariana, Kahrie, Shannon, Jarret\nGroup 4 - Tiffany, Dan, Zoe, Lorena\nGroup 5 - Chris, Dan, Neve, Olivia\nGroup 1 - Maia, Guadalupe, Stephen, Jeremiah\nGroup 3 - Serafym, Rachel, Kai, Emma\nGroup 8 - Logan, Keiley, Lydell, Mahir\nGroup 6 - Mia, Emily, Davis, Talia\nGroup 2 - Andrew, Spencer, Lucinda, Serenity\n\n~ Roughly 8 minutes each"
+  },
+  {
+    "objectID": "slides/13-slides.html#class-survey-and-course-evals",
+    "href": "slides/13-slides.html#class-survey-and-course-evals",
+    "title": "POLS 1600",
+    "section": "Class Survey and Course Evals",
+    "text": "Class Survey and Course Evals\n\nClick here to take the last survey ever\nAlso, at some point please complete the course evaluations at:\nhttps://brown.evaluationkit.com"
+  },
+  {
+    "objectID": "slides/13-slides.html#parting-shots",
+    "href": "slides/13-slides.html#parting-shots",
+    "title": "POLS 1600",
+    "section": "Parting shots",
+    "text": "Parting shots\n\n\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/13-slides.html#parting-thoughts",
+    "href": "slides/13-slides.html#parting-thoughts",
+    "title": "POLS 1600",
+    "section": "Parting thoughts",
+    "text": "Parting thoughts\n\n\n\n\nSeriously, thank you. It’s been a pleasure teaching you all!\n\n\n\n\nPOLS 1600"
+  },
+  {
+    "objectID": "slides/13-slides-old.html",
+    "href": "slides/13-slides-old.html",
+    "title": "Week 13:",
+    "section": "",
+    "text": "class:inverse, bottom, center\nbackground-image: url(“https://www.visitithaca.com/sites/default/files/inline-images/lucifer%20falls%20Brad%20Marzolf%20-%20web%20size_1.PNG”) background-size: cover"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#general-plan",
+    "href": "slides/13-slides-old.html#general-plan",
+    "title": "Week 13:",
+    "section": "General Plan",
+    "text": "General Plan\n\nCourse Summary\nCourse Feedback\nAMA\nPaper Workshop\n\nclass: bottom, center background-image: url(“https://www.powerthesaurus.org/_images/terms/summery-synonyms-2.png”) bacground-size: contain"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-was-this-course-about",
+    "href": "slides/13-slides-old.html#what-was-this-course-about",
+    "title": "Week 13:",
+    "section": "What was this course about?",
+    "text": "What was this course about?\n–\n\nHow would you know?\n\n–\n\nHow would convince someone who thinks they know different?\n\n–\n\nWhat would it take to change what you think you know?"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#why-quantitative-social-science",
+    "href": "slides/13-slides-old.html#why-quantitative-social-science",
+    "title": "Week 13:",
+    "section": "Why Quantitative Social Science?",
+    "text": "Why Quantitative Social Science?\nWhat makes for quantitative social science\n\nCompelling?\nUseful?\nHard?\n\n–\nStatistical methods and programming are tools not answers\n–\nProducing knowledge requires us to match theory with empirical design\n–\nBeing “right” is less important than understanding all the ways you might be wrong.\n–\nGood social science is urgent, eclectic, transparent, contingent, and ?"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-youve-learned",
+    "href": "slides/13-slides-old.html#what-youve-learned",
+    "title": "Week 13:",
+    "section": "What you’ve learned",
+    "text": "What you’ve learned\nSkills and concepts to help understand and practice quantitative social science\n\nCausal Inference is about counterfactual comparisons\n\nExperimental designs \\(\\to\\) random assignment\nObservational design \\(\\to\\) identifying assumptions \\(\\to\\) conditional independence\n\nRegression is a tool for describing relationships\n\nOLS provides a linear approximation of the Conditional Expectation Function\nRegression can be used for descriptive, predictive, and causal inference.\n\nStatistical inference is about quantifying uncertainty about what could have happened\n\nConfidence intervals provide a range of plausible values for we observed\nHypothesis tests describe the conditional probability of observing what we did, if some hypothesis were true.\n\n\nclass:inverse, bottom, center background-image: url(“https://i.imgflip.com/6f1aul.jpg”) bacground-size: cover # 📢 ## Feedback"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-we-liked",
+    "href": "slides/13-slides-old.html#what-we-liked",
+    "title": "Week 13:",
+    "section": "What we liked",
+    "text": "What we liked"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-we-disliked",
+    "href": "slides/13-slides-old.html#what-we-disliked",
+    "title": "Week 13:",
+    "section": "What we disliked",
+    "text": "What we disliked"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-we-learned",
+    "href": "slides/13-slides-old.html#what-we-learned",
+    "title": "Week 13:",
+    "section": "What we learned",
+    "text": "What we learned"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-were-still-learning",
+    "href": "slides/13-slides-old.html#what-were-still-learning",
+    "title": "Week 13:",
+    "section": "What we’re still learning",
+    "text": "What we’re still learning"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#howd-i-do",
+    "href": "slides/13-slides-old.html#howd-i-do",
+    "title": "Week 13:",
+    "section": "How’d I do?",
+    "text": "How’d I do?\n.pull-left[\n]\n–\n.pull-right[\n\n\n\n\n\n\n\n\n\n]"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#howd-you-do",
+    "href": "slides/13-slides-old.html#howd-you-do",
+    "title": "Week 13:",
+    "section": "How’d you do?",
+    "text": "How’d you do?"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#are-you-happy-you-took-pols-1600",
+    "href": "slides/13-slides-old.html#are-you-happy-you-took-pols-1600",
+    "title": "Week 13:",
+    "section": "Are you happy you took POLS 1600?",
+    "text": "Are you happy you took POLS 1600?"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#what-ill-do",
+    "href": "slides/13-slides-old.html#what-ill-do",
+    "title": "Week 13:",
+    "section": "What I’ll Do",
+    "text": "What I’ll Do\n\nLectures:\n\nLess is more\nHow much math…\nMore supplemental content (class notes)\nMore active learning\nIntegrating the textbook\n\n\n–\n\nLabs:\n\nSeemed to work ok\nGroup work vs individual learning?\nGreater integration with textbook and lecture\n\n\n–\n\nAssignments and Grading\n\nMostly liked the group project\nTutorials were helpful\nMore individualized assignments/accountability?\n\n\nclass:inverse, middle, center # 🔍 ## AMA"
+  },
+  {
+    "objectID": "slides/13-slides-old.html#ask-you-anthing-ok-boomer",
+    "href": "slides/13-slides-old.html#ask-you-anthing-ok-boomer",
+    "title": "Week 13:",
+    "section": "Ask you anthing? Ok boomer…",
+    "text": "Ask you anthing? Ok boomer…\n\nsum(df$ama == \"\")\n\n[1] 7\n\n\n\n“how many cats do you have”\n\n–\nWe’ve had three cats, Isla, Abby and, currently Toby.\n\n“What is the craziest moment from your time in undergrad?”\n\n–\n\n\n\n\n\n\n\n\n\n\n\n\n“I am interested to know why you decided to go to graduate school, what other career paths you were deciding between, and whether you believe you made the right decision to go into academia and why?”\n\n–\n\n\n\n\n\n\n\n\n\n\n“What’s your favorite musical”\n\n–\n\n\n\n\n\n\n\n\n\n\n“If we want to, how should we develop our R skills by ourselves at Brown?\n\n\nBest book you ever read?\n\n\nBook you think someone in their early 20s should read?”"
   }
 ]

@@ -25,7 +25,7 @@ This document provides your final exam for POLS 1600.
 
 The exam consists of four parts corresponding to core concepts and skills from POLS 1600:
 
-- Casual Inference (20 Points)
+- Causal Inference (20 Points)
 - Interpreting Linear Models (20 points)
 - Quantifying Uncertainty through Statistical Inference (20 points)
 - Conducting applied empirical analysis (40 points)
