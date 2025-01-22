@@ -8333,14 +8333,14 @@
     "href": "slides/00-slides.html#overview",
     "title": "Welcome to POLS 1600",
     "section": "Overview",
-    "text": "Overview\n\n\nGoals and Expectations\n\n\n\n\nCourse Structure\n\n\n\n\nCourse Policies\n\n\n\n\nA Few Fundamental Truths"
+    "text": "Overview\n\nGoals and Expectations\nCourse Structure\nCourse Policies\nA Few Fundamental Truths"
   },
   {
     "objectID": "slides/00-slides.html#what-you-will-learn",
     "href": "slides/00-slides.html#what-you-will-learn",
     "title": "Welcome to POLS 1600",
     "section": "What you will learn",
-    "text": "What you will learn\nYou will learn\n\n\nhow to think like a social scientist\n\n\n\n\nhow to use data to make descriptive, predictive, and causal claims\n\n\n\n\nhow to quantify uncertainty about these claims\n\n\n\n\nhow to present, interpret, and critique these claims"
+    "text": "What you will learn\nYou will learn\n\nhow to think like a social scientist\nhow to use data to make descriptive, predictive, and causal claims\nhow to quantify uncertainty about these claims\nhow to present, interpret, and critique these claims"
   },
   {
     "objectID": "slides/00-slides.html#reasons-to-take-this-class",
@@ -8354,7 +8354,7 @@
     "href": "slides/00-slides.html#why-is-this-study-important",
     "title": "Welcome to POLS 1600",
     "section": "Why is this study important?",
-    "text": "Why is this study important?\n\n\nFindings provide evidence of benefits of social spending/universal basic income"
+    "text": "Why is this study important?\n\nFindings provide evidence of benefits of social spending/universal basic income"
   },
   {
     "objectID": "slides/00-slides.html#why-should-we-believe-these-results",
@@ -8431,7 +8431,7 @@
     "href": "slides/00-slides.html#class-websites",
     "title": "Welcome to POLS 1600",
     "section": "Class websites",
-    "text": "Class websites\n\nSlides, labsm and additional resources available here: pols1600.paultesta.org\nAssignments uploaded here: Canvas"
+    "text": "Class websites\n\nSlides, labs and additional resources available here: pols1600.paultesta.org\nAssignments uploaded here: Canvas"
   },
   {
     "objectID": "slides/00-slides.html#software-and-computing",
@@ -8613,7 +8613,7 @@
     "href": "slides/00-slides.html#course-policies",
     "title": "Welcome to POLS 1600",
     "section": "Course policies",
-    "text": "Course policies\n\nAcademic honesty\nCommunity standards\nIncomplete/late work"
+    "text": "Course policies\n\nAcademic honesty\nChatGPT and generative AI\nCommunity standards\nIncomplete/late work"
   },
   {
     "objectID": "slides/00-slides.html#two-fundamental-truths",
@@ -8802,7 +8802,7 @@
     "href": "slides/00-slides.html#next-week",
     "title": "Welcome to POLS 1600",
     "section": "Next Week:",
-    "text": "Next Week:\n\nComplete the class survey\nDownload and Install R and R studio\nRead Chapters 1 (Friday) and start Chapter 3 in QSS\nTuesday: Lecture: Describing Data in R\nThursday: Lab: Exploring COVID-19 data in the US\nFriday: Submit Tutorials: “00-intro” & “01-measurement”\n\nOnly time you’ll have two tutorials due (Ok to submit late)\n\n\n\n\n\n\nPOLS 1600"
+    "text": "Next Week:\n\nComplete the class survey\nDownload and Install R and R studio\nRead Chapters 1 (Friday) and start Chapter 3 in QSS\nTuesday: Lecture: Describing Data in R\nThursday: Lab: Exploring COVID-19 data in the US\nFriday: Submit Tutorials: “00-intro” & “01-measurement”\n\nOnly time you’ll have two tutorials due (Ok to submit late)"
   },
   {
     "objectID": "slides/08-slides-old.html#class-plan",
@@ -11788,5 +11788,19 @@
     "title": "POLS 1600",
     "section": "References",
     "text": "References\n\n\n\n\nBlair, Graeme, Alexander Coppock, and Macartan Humphreys. 2023. Research Design in the Social Sciences: Declaration, Diagnosis, and Redesign. Princeton University Press."
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-4",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-4",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?"
+  },
+  {
+    "objectID": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-5",
+    "href": "slides/00-slides.html#why-might-we-be-skeptical-of-these-results-5",
+    "title": "Welcome to POLS 1600",
+    "section": "Why might we be skeptical of these results?",
+    "text": "Why might we be skeptical of these results?"
   }
 ]

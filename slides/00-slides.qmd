@@ -1,6 +1,5 @@
 ---
 title: "Welcome to POLS 1600"
-subtitle: "Data and Measurement"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
 format: 
@@ -43,47 +42,38 @@ library(babynames)
 
 ## Overview
 
-. . .
 
 -   Goals and Expectations
 
-. . .
+
 
 -   Course Structure
 
-. . .
+
 
 -   Course Policies
 
-. . .
+
 
 -   A Few Fundamental Truths
 
-# Goals and Expectations
+# Goals and Expectations  {.inverse}
 
 ## What you will learn
 
 You will learn
 
-. . .
+
 
 -   how to think like a social scientist
 
-. . .
 
-. . .
 
 -   how to use data to make descriptive, predictive, and causal claims
 
-. . .
-
-. . .
 
 -   how to quantify uncertainty about these claims
 
-. . .
-
-. . .
 
 -   how to present, interpret, and critique these claims
 
@@ -107,7 +97,7 @@ You will learn
 
 ## Why is this study important?
 
-. . .
+
 
 -   Findings provide evidence of benefits of social spending/universal basic income
 
@@ -154,6 +144,15 @@ Source: [Andrew Gelman](https://statmodeling.stat.columbia.edu/)
 ![](https://statmodeling.stat.columbia.edu/wp-content/uploads/2022/01/Rplot04.png)
 
 Source: [Andrew Gelman](https://statmodeling.stat.columbia.edu/)
+
+
+## Why might we be skeptical of these results?
+
+![](images/00_cash1.png)
+
+## Why might we be skeptical of these results?
+
+![](images/00_cash2.png)
 
 ## Reasons to take this class
 
@@ -212,7 +211,8 @@ I assume that you will
 4.  Ask questions
 :::
 
-## Course structure
+
+# Course structure {.inverse}
 
 ## Class
 
@@ -222,7 +222,7 @@ I assume that you will
 
 ## Class websites
 
--   Slides, labsm and additional resources available here: [pols1600.paultesta.org](https://pols1600.paultesta.org)
+-   Slides, labs and additional resources available here: [pols1600.paultesta.org](https://pols1600.paultesta.org)
 
 -   Assignments uploaded here: [Canvas](https://canvas.brown.edu/courses/1087979)
 
@@ -337,7 +337,7 @@ summary(afghan$age)
 
 -   Occasionally, I will provide additional readings, available on both Canvas and [pols1600.paultesta.org](https://pols1600.paultesta.org)
 
-# Assignments
+# Assignments  {.inverse}
 
 ## Assignments
 
@@ -430,7 +430,7 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
     -   Week 12 Presentations
     -   Week 13 Final Paper
 
-# Grading and Other Policies
+# Grading and Other Policies  {.inverse}
 
 ## Grading
 
@@ -460,10 +460,11 @@ learnr::run_tutorial("00-intro", package = "qsslearnr")
 ## Course policies
 
 -   Academic honesty
+  - ChatGPT and generative AI
 -   Community standards
 -   Incomplete/late work
 
-# Introductions
+# Introductions  {.inverse}
 
 ## Two Fundamental Truths
 
@@ -614,11 +615,11 @@ knitr::include_graphics("images/stops2.png")
 
 ## Class survey
 
-Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi) to take a brief survey that will help me structure the class going forward.
+Please click [here](https://brown.co1.qualtrics.com/jfe/form/SV_6nC2J3UIFZELI0u) to take a brief survey that will help me structure the class going forward.
 
 ## Next Week:
 
--   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_0pRsCrUTIiCvuKi)
+-   Complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_6nC2J3UIFZELI0u)
 -   [Download and Install R and R studio](https://pols1600.paultesta.org/labs/00-software-setup.html)
 -   Read Chapters 1 (Friday) and start Chapter 3 in QSS
 -   Tuesday: Lecture: Describing Data in R

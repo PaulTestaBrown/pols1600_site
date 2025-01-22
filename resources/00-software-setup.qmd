@@ -109,8 +109,9 @@ If you're still getting errors / having trouble installing R, R Studio, or relat
 # Download `R`
 
 -   **Download R here:** <https://cran.r-project.org/>
-    -   Make sure your operating systems are up to date.
-        -   Mac: at least macOS 12 (Monterey) (Latest: macOS Sonoma 14.3 ). Note different versions for Intel vs Apple M1/M2/M3 chips
+  - It should be `R version 4.4.2 (2024-10-31) -- "Pile of Leaves"`
+  -   Make sure your operating systems are up to date.
+        -   Mac: at least macOS 12 (Monterey) (Latest: macOS Sequoia 15.2 ). Note different versions for Intel vs Apple M1/M2/M3 chips
         -   PC: It should work on most versions you have installed
 
 ![](images/00_r01.png) - Just click yes, on everything the installer asks
