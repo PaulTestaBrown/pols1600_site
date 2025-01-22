@@ -10801,5 +10801,992 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/04-slides.html#overview-1",
+    "href": "slides/04-slides.html#overview-1",
+    "title": "POLS 1600",
+    "section": "Overview",
+    "text": "Overview\n\nAnnouncements\nSetup\nFeedback\nReview\nClass plan"
+  },
+  {
+    "objectID": "slides/04-slides.html#learing-goals",
+    "href": "slides/04-slides.html#learing-goals",
+    "title": "POLS 1600",
+    "section": "Learing goals",
+    "text": "Learing goals\n\nIntroduce the concept of Directed Acyclic Graphs to describe causal relationships and illustrate potential bias from confounders and colliders\nDiscuss three approaches to covariate adjustment\n\nSubclassification\nMatching\nLinear Regression\n\nBegin discussing three research designs to make causal claims with observational data\n\nDifferences-in-Differences (More likely next week)\nRegression Discontinuity Designs\nInstrumental Variables"
+  },
+  {
+    "objectID": "slides/04-slides.html#annoucements",
+    "href": "slides/04-slides.html#annoucements",
+    "title": "POLS 1600",
+    "section": "Annoucements",
+    "text": "Annoucements\n\nAssignment 1 due October 9 on Canvas\nDo we want the opportunity to provide weekly feedback?"
+  },
+  {
+    "objectID": "slides/04-slides.html#review-1",
+    "href": "slides/04-slides.html#review-1",
+    "title": "POLS 1600",
+    "section": "Review",
+    "text": "Review\n\nData wrangling\nDescriptive Statistics\nLevels of understanding\nData visualization"
+  },
+  {
+    "objectID": "slides/04-slides.html#data-wrangling-1",
+    "href": "slides/04-slides.html#data-wrangling-1",
+    "title": "POLS 1600",
+    "section": "Data wrangling",
+    "text": "Data wrangling\n\n\n\nYou’re learning how to map conceptual tasks to commands in R\n\n\nSkill\nCommon Commands\n\n\n\n\nSetup R\ninstall.packages(),library(), ipak()\n\n\nLoad data\nread_csv(), load()\n\n\nGet HLO of data\ndf$x, glimpse(), table(), summary()\n\n\nTransform data\n&lt;-, mutate(), ifelse(), case_when()\n\n\nReshape data\npivot_longer(), left_join()\n\n\nSummarize data numerically\nmean(), median(), summarise(), group_by()\n\n\nSummarize data graphically\nggplot(), aes(), geom_"
+  },
+  {
+    "objectID": "slides/04-slides.html#mapping-concepts-to-code",
+    "href": "slides/04-slides.html#mapping-concepts-to-code",
+    "title": "POLS 1600",
+    "section": "Mapping Concepts to Code",
+    "text": "Mapping Concepts to Code\n\nTakes time and practice\nDon’t be afraid to FAAFO\nBreak long blocks of code into sequential parts\nDon’t worry about memorizing everything.\nStatistical programming is necessary to actually do empirical research\nLearning to code will help us understand statistical concepts.\nLearning to think programmatically and algorithmically will help us tackle complex problems"
+  },
+  {
+    "objectID": "slides/04-slides.html#descriptive-statistics",
+    "href": "slides/04-slides.html#descriptive-statistics",
+    "title": "POLS 1600",
+    "section": "Descriptive statistics",
+    "text": "Descriptive statistics\n\nDescriptive statistics help us describe what’s typical of our data\nWhat’s a typical value in our data\n\nMean\nMedian\nMode\n\nHow much do our data vary?\n\nVariance\nStandard deviation\n\nAs one variable changes how does another change?\n\nCovariance\nCorrelation\n\nDescriptive statistics are:\n\nDiagnostic\nGenerative"
+  },
+  {
+    "objectID": "slides/04-slides.html#levels-of-understanding-in-pols-2580",
+    "href": "slides/04-slides.html#levels-of-understanding-in-pols-2580",
+    "title": "POLS 1600",
+    "section": "Levels of understanding in POLS 2580",
+    "text": "Levels of understanding in POLS 2580\n\nConceptual\nPractical\nDefinitional\nTheoretical\n\n\nLet’s illustrate these different levels of understanding about our old friend the mean"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-conceptual-understanding",
+    "href": "slides/04-slides.html#mean-conceptual-understanding",
+    "title": "POLS 1600",
+    "section": "Mean: Conceptual Understanding",
+    "text": "Mean: Conceptual Understanding\nA mean is:\n\nA common and important measure of central tendency (what’s typical)\nIt’s the arithmetic average you learned in school\nWe can think of it as the balancing point of a distribution\nA conditional mean is the average of one variable \\(X\\), when some other variable, \\(Z\\) takes a value \\(z\\)\n\nThink about the average height in our class (unconditional mean) vs the average height among men and women ([conditional means].{blue})"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-as-a-balancing-point",
+    "href": "slides/04-slides.html#mean-as-a-balancing-point",
+    "title": "POLS 1600",
+    "section": "Mean as a balancing point",
+    "text": "Mean as a balancing point\n\nSource"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-practical",
+    "href": "slides/04-slides.html#mean-practical",
+    "title": "POLS 1600",
+    "section": "Mean: Practical",
+    "text": "Mean: Practical\nThere are lots of ways to calculate means in R\n\nThe simplest is to use the mean() function\n\nIf our data have missing values, we need to to tell R to remove them\n\n\n\nmean(df$x, na.rm=T)"
+  },
+  {
+    "objectID": "slides/04-slides.html#conditional-means-practical",
+    "href": "slides/04-slides.html#conditional-means-practical",
+    "title": "POLS 1600",
+    "section": "Conditional Means: Practical",
+    "text": "Conditional Means: Practical\n\nTo calculate a conditional mean we could us a logical index [df$z == 1]\n\n\nmean(df$x[df$z == 1], na.rm=T)\n\n\nIf we wanted to a calculate a lot of conditional means we could use the mean() in combination with group_by() and summarise()\n\n\ndf %&gt;% \n  group_by(z)%&gt;%\n  summarise(\n    x = mean(x, na.rm=T)\n  )"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-definitional",
+    "href": "slides/04-slides.html#mean-definitional",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\nFormally, we define the arithmetic mean of \\(x\\) as \\(\\bar{x}\\):\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n{x_i}\\right ) = \\frac{x_1+x_2+\\cdots +x_n}{n}\n\\]\nIn words, this formula says, to calculate the average of x, we sum up all the values of \\(x_i\\) from observation \\(i=1\\) to \\(i=n\\) and then divide by the total number of observations \\(n\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-definitional-1",
+    "href": "slides/04-slides.html#mean-definitional-1",
+    "title": "POLS 1600",
+    "section": "Mean: Definitional",
+    "text": "Mean: Definitional\n\nIn this class, I don’t put a lot of weight on memorizing definitions (that’s what Google’s for).\nBut being comfortable with “the math” is important and useful\nDefinitional knowledge is a prerequisite for understanding more theoretical claims."
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical",
+    "href": "slides/04-slides.html#mean-theoretical",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nSuppose I asked you to show that the sum of deviations from a mean equals 0?\n\\[\n\\text{Claim:} \\sum_{i=1}^n (x_i -\\bar{x}) = 0\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-1",
+    "href": "slides/04-slides.html#mean-theoretical-1",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nKnowing the definition of an arithmetic mean, we could write:\n\\[\n\\begin{aligned}\n\\sum_{i=1}^n (x_i -\\bar{x}) &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n\\bar{x} & \\text{Distribute Summation}\\\\\n              &= \\sum_{i=1}^n x_i - n\\bar{x} & \\text{Summing a constant, } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - n\\times \\left ( \\frac{1}{n} \\sum_{i=1}^n{x_i}\\right ) & \\text{Definition of } \\bar{x}\\\\\n              &= \\sum_{i=1}^n x_i - \\sum_{i=1}^n{x_i} & n \\times \\frac{1}{n}=1\\\\\n              &= 0             \n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-2",
+    "href": "slides/04-slides.html#mean-theoretical-2",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nWhy do we care?\n\nShowing the deviations sum to 0 is another way of saying the mean is a balancing point.\nThis turns out to be a useful property of means that will reappear throughout the course\nIf I asked you to make a prediction, \\(\\hat{x}\\) of a random person’s height in this class, the mean would have the lowest mean squared error (MSE \\(=\\frac{1}{n}\\sum (x_i - \\hat{x_i})^2)\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#mean-theoretical-3",
+    "href": "slides/04-slides.html#mean-theoretical-3",
+    "title": "POLS 1600",
+    "section": "Mean: Theoretical",
+    "text": "Mean: Theoretical\nOccasionally, you’ll read or here me say say things like:\n\nThe sample mean is an unbiased estimator of the population mean\n\nIn a statistics class, we would take time to prove this."
+  },
+  {
+    "objectID": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "href": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nClaim:\nLet \\(x_1, x_2, \\dots x_n\\) from a random sample from a population with mean \\(\\mu\\) and variance \\(\\sigma^2\\)\nThen:\n\\[\n\\bar{x} = \\frac{1}{n}\\left (\\sum_{i=1}^n x_i\\right )\n\\]\nis an unbiased estimator of \\(\\mu\\)\n\\[\nE[\\bar{x}] = \\mu\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "href": "slides/04-slides.html#the-sample-mean-is-an-unbiased-estimator-of-the-population-mean-1",
+    "title": "POLS 1600",
+    "section": "The sample mean is an unbiased estimator of the population mean",
+    "text": "The sample mean is an unbiased estimator of the population mean\nProof:\n\\[\n\\begin{aligned}\nE\\left [\\bar{x} \\right] &= E\\left [\\frac{1}{n}\\left (\\sum_{i=1}^n x_i \\right) \\right] & \\text{Definition of } \\bar{x} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^nE\\left [ x_i \\right]  & \\text{Linearity of Expectations} \\\\\n&= \\frac{1}{n} \\sum_{i=1}^n \\mu  & E[x_i] = \\mu \\\\\n&= \\frac{n}{n}  \\mu  & \\sum_{i=1}^n \\mu = n\\mu \\\\\n&= \\mu  & \\blacksquare \\\\\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#levels-of-understanding-1",
+    "href": "slides/04-slides.html#levels-of-understanding-1",
+    "title": "POLS 1600",
+    "section": "Levels of understanding",
+    "text": "Levels of understanding\n\nIn this course, we tend to emphasize the\n\nConceptual\nPractical\n\nOver\n\nDefinitional\nTheoretical\n\nIn an intro statistics class, the ordering might be reversed.\nTrade offs:\n\n\nPro: We actually get to work with data and do empirical research much sooner\nCons: We substitute intuitive understandings for more rigorous proofs"
+  },
+  {
+    "objectID": "slides/04-slides.html#data-visualization-1",
+    "href": "slides/04-slides.html#data-visualization-1",
+    "title": "POLS 1600",
+    "section": "Data Visualization",
+    "text": "Data Visualization\n\nThe grammar of graphics\nAt minimum you need:\n\ndata\naesthetic mappings\ngeometries\n\nTake a sad plot and make it better by:\n\nlabels\nthemes\nstatistics\ncooridnates\nfacets\ntransforming your data before plotting"
+  },
+  {
+    "objectID": "slides/04-slides.html#youre-about-to-be-reincaranted",
+    "href": "slides/04-slides.html#youre-about-to-be-reincaranted",
+    "title": "POLS 1600",
+    "section": "You’re about to be reincaranted…",
+    "text": "You’re about to be reincaranted…\nDo you want to come back as a…\n\nAnimal/Land dweller\nBird/Air dweller\nFish/Sea dweller\nInsect\nPlant\nSingle-celled organism"
+  },
+  {
+    "objectID": "slides/04-slides.html#my-undergrads-are-about-to-be-reincarnated-hlo",
+    "href": "slides/04-slides.html#my-undergrads-are-about-to-be-reincarnated-hlo",
+    "title": "POLS 1600",
+    "section": "My undergrads are about to be reincarnated: HLO",
+    "text": "My undergrads are about to be reincarnated: HLO\n\nlibrary(tidyverse)\nlibrary(haven)\nlibrary(labelled)\n\nload(url(\"https://pols2580.paultesta.org/files/data/wk04_df.rda\"))\n\ndf$reincarnation\n\n&lt;labelled&lt;double&gt;[30]&gt;: You're about to be re-incarnated. Do you want to come back as a:\n [1]  6  1  1  6  1  9  6  6  7 10  7  1  6  1  1  6  1  6  6  1  6  6  6  6  1\n[26]  6  1  7  1  1\n\nLabels:\n value               label\n     1 Animal/land dweller\n     6    Bird/air dweller\n     7  Fish/water dweller\n     2              Insect\n     9               Plant\n    10    Single-celled or\n\ntable(df$reincarnation)\n\n\n 1  6  7  9 10 \n12 13  3  1  1"
+  },
+  {
+    "objectID": "slides/04-slides.html#basic-plot",
+    "href": "slides/04-slides.html#basic-plot",
+    "title": "POLS 1600",
+    "section": "Basic Plot",
+    "text": "Basic Plot\n\nCodeFigure\n\n\n\ndf %&gt;%\n  ggplot(aes(x = reincarnation, \n             fill = reincarnation))+\n  geom_bar(\n    stat = \"count\"\n  )"
+  },
+  {
+    "objectID": "slides/04-slides.html#use-a-factor-to-label-and-order-responses",
+    "href": "slides/04-slides.html#use-a-factor-to-label-and-order-responses",
+    "title": "POLS 1600",
+    "section": "Use a factor to label and order responses",
+    "text": "Use a factor to label and order responses\n\nRecodeCheck recoding\n\n\n\ndf %&gt;%\n  mutate(\n    # Turn numeric values into factor labels \n    Reincarnation = forcats::as_factor(reincarnation),\n    # Order factor in decreasing frequency of levels\n    Reincarnation = forcats::fct_infreq(Reincarnation),\n    # Reverse order so levels are increasing in frequency\n    Reincarnation = forcats::fct_rev(Reincarnation),\n    # Rename explanations\n    Why = reincarnation_why\n  ) -&gt; df\n\n\n\n\ntable(recode= df$Reincarnation, \n      original = df$reincarnation)\n\n                     original\nrecode                 1  6  7  9 10\n  Insect               0  0  0  0  0\n  Single-celled or     0  0  0  0  1\n  Plant                0  0  0  1  0\n  Fish/water dweller   0  0  3  0  0\n  Animal/land dweller 12  0  0  0  0\n  Bird/air dweller     0 13  0  0  0"
+  },
+  {
+    "objectID": "slides/04-slides.html#revised-figure",
+    "href": "slides/04-slides.html#revised-figure",
+    "title": "POLS 1600",
+    "section": "Revised figure",
+    "text": "Revised figure\n\nCodeRevised Figure\n\n\n\ndf %&gt;% # Data\n  # Aesthetics\n  ggplot(aes(x = Reincarnation, \n             fill = Reincarnation))+\n  # Geometry\n  geom_bar(stat = \"count\")+ # Statistic\n  ## Include levels of Reincarnation w/ no values\n  scale_x_discrete(drop=FALSE)+\n  # Don't include a legend\n  scale_fill_discrete(drop=FALSE, guide=\"none\")+\n  # Flip x and y\n  coord_flip()+\n  # Remove lines\n  theme_classic() -&gt; fig1"
+  },
+  {
+    "objectID": "slides/04-slides.html#section",
+    "href": "slides/04-slides.html#section",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "What creature and why?"
+  },
+  {
+    "objectID": "slides/04-slides.html#adding-labelled-values",
+    "href": "slides/04-slides.html#adding-labelled-values",
+    "title": "POLS 1600",
+    "section": "Adding labelled values",
+    "text": "Adding labelled values\n\nRecodesRecode OutputAggregate Data\n\n\n\ndf %&gt;%\n  mutate(\n    # Create numeric id\n    id = 1:n(),\n    # Create a label with 3 answers and NA elsewhere\n    Label = case_when(\n      id == 10 ~ str_wrap(reincarnation_why[10],30),\n      id == 20 ~ str_wrap(reincarnation_why[20],30),\n      id == 18 ~ str_wrap(reincarnation_why[18],30),\n      TRUE ~ NA_character_\n\n    )\n\n  ) -&gt; df\n\n\n\n\n\n\n\n\n\n\n\n\n# Calculate totals before calling ggplot\nplot_df &lt;- df %&gt;%\n  group_by(Reincarnation)%&gt;%\n  summarise( \n    Count = n(), \n    Why = unique(Label)\n  ) %&gt;% \n  ungroup() %&gt;% \n  # Kludge to get rid of NA rows...\n  slice(c(1,2,3,5,7))"
+  },
+  {
+    "objectID": "slides/04-slides.html#youre-about-to-be-reincarnated",
+    "href": "slides/04-slides.html#youre-about-to-be-reincarnated",
+    "title": "POLS 1600",
+    "section": "You’re about to be reincarnated:",
+    "text": "You’re about to be reincarnated:\n\nAggregate dfRevised Figure CodeLabelled Figure\n\n\n\n\n\n\n\n\n\n\n\nplot_df %&gt;%\n  ggplot(aes(x = Reincarnation, \n             y = Count,\n             fill = Reincarnation, \n             label=Why))+\n  geom_bar(stat = \"identity\")+ #&lt;&lt;\n  ## Include levels of Reincarnation w/ no values\n  scale_x_discrete(drop=FALSE)+\n  # Don't include a legend\n  scale_fill_discrete(drop=FALSE, guide=\"none\")+\n  coord_flip()+\n  labs(x = \"\",y=\"\",title=\"You're about to be reincarnated.\\nWhat do you want to come back as?\")+\n  theme_classic()+\n  ggrepel::geom_label_repel(\n    fill=\"white\",\n    nudge_y = 1, \n    hjust = \"left\",\n    size=3,\n    arrow = arrow(length = unit(0.015, \"npc\"))\n    )+ \n  scale_y_continuous(\n    breaks = c(0,2,4,6,8,10,12),\n    expand = expansion(add =c(0,6))\n    ) -&gt; fig1"
+  },
+  {
+    "objectID": "slides/04-slides.html#data-visualization-is-an-iterative-process",
+    "href": "slides/04-slides.html#data-visualization-is-an-iterative-process",
+    "title": "POLS 1600",
+    "section": "Data visualization is an iterative process",
+    "text": "Data visualization is an iterative process\n\nData visualization is an iterative process\nGood data viz requires lots of data transformations\nStart with a minimum working example and build from there\nDon’t let the perfect be the enemy of the good enough."
+  },
+  {
+    "objectID": "slides/04-slides.html#new-packages",
+    "href": "slides/04-slides.html#new-packages",
+    "title": "POLS 1600",
+    "section": "New packages",
+    "text": "New packages\nThis week’s lab we’ll be using the dataverse package to download data on presidential elections\nNext week’s lab, we’ll be using the tidycensus package to download census data.\nWe’ll also need to install a census API to get the data.\nHere’s a detailed guide of what we’ll do in class right now."
+  },
+  {
+    "objectID": "slides/04-slides.html#install-new-packages",
+    "href": "slides/04-slides.html#install-new-packages",
+    "title": "POLS 1600",
+    "section": "Install new packages",
+    "text": "Install new packages\nThese packages are easier to install live:\n\ninstall.packages(\"dataverse\")\ninstall.packages(\"tidycensus\")\ninstall.packages(\"easystats\")\ninstall.packages(\"DeclareDesign\")"
+  },
+  {
+    "objectID": "slides/04-slides.html#census-api",
+    "href": "slides/04-slides.html#census-api",
+    "title": "POLS 1600",
+    "section": "Census API",
+    "text": "Census API\nPlease follow these steps so you can download data directly from the U.S. Census here:\n\nInstall the tidycensus package\nLoad the installed package\nRequest an API key from the Census\nCheck your email\nActivate your key\nInstall your API key in R\nCheck that everything worked"
+  },
+  {
+    "objectID": "slides/04-slides.html#packages-for-today",
+    "href": "slides/04-slides.html#packages-for-today",
+    "title": "POLS 1600",
+    "section": "Packages for today",
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     tidyverse     lubridate \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      forcats         haven      labelled         ggmap       ggrepel \n         TRUE          TRUE          TRUE          TRUE          TRUE \n     ggridges      ggthemes        ggpubr        GGally        scales \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      dagitty         ggdag       ggforce       COVID19          maps \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      mapdata           qss    tidycensus     dataverse DeclareDesign \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    easystats           zoo \n         TRUE          TRUE"
+  },
+  {
+    "objectID": "slides/04-slides.html#red-covid",
+    "href": "slides/04-slides.html#red-covid",
+    "title": "POLS 1600",
+    "section": "Red Covid",
+    "text": "Red Covid\n\n\n\nRed Covid New York Times, 27 September, 2021\n\n Red Covid, an Update New York Times, 18 February, 2022"
+  },
+  {
+    "objectID": "slides/04-slides.html#preview-of-the-lab",
+    "href": "slides/04-slides.html#preview-of-the-lab",
+    "title": "POLS 1600",
+    "section": "Preview of the Lab",
+    "text": "Preview of the Lab\nPlease download the lab here\n\nConceptually, this lab is designed to help reinforce the relationship between linear models like \\(y=\\beta_0 + \\beta_1x\\) and the conditional expectation function \\(E[Y|X]\\).\nSubstantively, we will explore whether David Leonhardt’s claims about Red Covid the political polarization of vaccines and its consequences"
+  },
+  {
+    "objectID": "slides/04-slides.html#lab-questions-1-5-review",
+    "href": "slides/04-slides.html#lab-questions-1-5-review",
+    "title": "POLS 1600",
+    "section": "Lab: Questions 1-5: Review",
+    "text": "Lab: Questions 1-5: Review\nQuestions 1-5 are designed to reinforce your data wrangling skills. In particular, you will get practice:\n\nCreating and recoding variables using mutate()\nCalculating a moving average or rolling mean using the rollmean() function from the zoo package\nTransforming the data on presidential elections so that it can be merged with the data on Covid-19 using the pivot_wider() function.\nMerging data together using the left_join() function."
+  },
+  {
+    "objectID": "slides/04-slides.html#lab-questions-6-10-simple-linear-regression",
+    "href": "slides/04-slides.html#lab-questions-6-10-simple-linear-regression",
+    "title": "POLS 1600",
+    "section": "Lab: Questions 6-10: Simple Linear Regression",
+    "text": "Lab: Questions 6-10: Simple Linear Regression\n\nIn question 6, you will see how calculating conditional means provides a simple test of “Red Covid” claim.\nIn question 7, you will see how a linear model returns the same information as these conditional means (in a sligthly different format)\nIn question 8, you will get practice interpreting linear models with continuous predictors (i.e. predictors that take on a range of values)\nIn question 9, you will get practice visualizing these models and using the figures help interpret your results substantively.\nQuestion 10 asks you to play the role of a skeptic and consider what other factors might explain the relationships we found in Questions 6-9. We will explore these factors in next week’s lab."
+  },
+  {
+    "objectID": "slides/04-slides.html#guidance",
+    "href": "slides/04-slides.html#guidance",
+    "title": "POLS 1600",
+    "section": "Guidance",
+    "text": "Guidance\nThe following slides provide detailed explanations of all the code you’ll need for each question."
+  },
+  {
+    "objectID": "slides/04-slides.html#q1-setup-your-workspace",
+    "href": "slides/04-slides.html#q1-setup-your-workspace",
+    "title": "POLS 1600",
+    "section": "Q1: Setup your workspace",
+    "text": "Q1: Setup your workspace\n\nTaskCode for Q1\n\n\nQ1 asks you to setup your workspace\nThis means loading and, if needed, installing the packages you will use.\n\n\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)"
+  },
+  {
+    "objectID": "slides/04-slides.html#q2-load-the-data",
+    "href": "slides/04-slides.html#q2-load-the-data",
+    "title": "POLS 1600",
+    "section": "Q2 Load the data",
+    "text": "Q2 Load the data\nTo explore Leonhardt’s claims about Red Covid, we’ll need data on:\n\nCovid-19\nThe 2020 Presidential Election"
+  },
+  {
+    "objectID": "slides/04-slides.html#q2.1-load-the-covid-19-data",
+    "href": "slides/04-slides.html#q2.1-load-the-covid-19-data",
+    "title": "POLS 1600",
+    "section": "Q2.1 Load the Covid-19 Data",
+    "text": "Q2.1 Load the Covid-19 Data\nTo load data on Covid-19 just run this\n\nload(url(\"https://pols2580.paultesta.org/files/data/covid.rda\"))"
+  },
+  {
+    "objectID": "slides/04-slides.html#q2.2-load-election-data",
+    "href": "slides/04-slides.html#q2.2-load-election-data",
+    "title": "POLS 1600",
+    "section": "Q2.2 Load Election Data",
+    "text": "Q2.2 Load Election Data\n\nTaskCode for Q2.2\n\n\nQ2.2. asks you to write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse\n\nOnce you’ve installed the dataverse package you should be able to do this:\n\n\n\n\n# Try this code first\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\")\n\npres_df &lt;- dataverse::get_dataframe_by_name(\n  \"1976-2020-president.tab\",\n  \"doi:10.7910/DVN/42MVDX\"\n)\n\n# If the code above fails, comment out and uncomment the code below:\n\n# load(url(\"https://pols2580.paultesta.org/files/data/pres_df.rda\"))"
+  },
+  {
+    "objectID": "slides/04-slides.html#q3-describe-the-structure-of-each-dataset",
+    "href": "slides/04-slides.html#q3-describe-the-structure-of-each-dataset",
+    "title": "POLS 1600",
+    "section": "Q3 Describe the structure of each dataset",
+    "text": "Q3 Describe the structure of each dataset\nQuestion 3 asks you to describe the structure of each dataset.\n\nSpecifically, it asks you to get a high level overview of covid and pres_df and describe the unit of analysis in each dataset:\n\nDescribe substantively what specific, observation each row in the dataset corresponds to\nIn covid covid dataset, the unit of analysis is a state-date"
+  },
+  {
+    "objectID": "slides/04-slides.html#q3-describe-the-structure-of-each-dataset-1",
+    "href": "slides/04-slides.html#q3-describe-the-structure-of-each-dataset-1",
+    "title": "POLS 1600",
+    "section": "Q3 Describe the structure of each dataset",
+    "text": "Q3 Describe the structure of each dataset\nHere’s some possible code you could use to get a quick HLO of each dataset:\n\nHLO covidHLO pres_df\n\n\n\n# check names in `covid`\nnames(covid)\n\n# take a quick look values of each variable\n\nglimpse(covid)\n\n# Look at first few observations for:\n# date, administrative_area_level_2, \n\ncovid %&gt;% \n  select(date, administrative_area_level_2) %&gt;%\n  head()\n\n# Summarize data to get a better sense of the unit of observastion\n\ncovid %&gt;% \n  group_by(administrative_area_level_2) %&gt;%\n  summarise(\n    n = n(), # Number of observations for each state\n    start_date = min(date, na.rm = T),\n    end_date = max(date, na.rm=T)\n  ) -&gt; hlo_covid_df\n\nhlo_covid_df\n\n\n# How many unique values of date and state are their:\n\nn_dates &lt;- length(unique(covid$date))\nn_states &lt;- length(unique(covid$administrative_area_level_2))\nn_dates\nn_states\n\n# If we had observations for every state on every date then the number of rows \n# in the data \ndim(covid)[1]\n# Should equal\ndim(covid)[1] == n_dates * n_states\n\n# This is what economists would call an unbalanced panel\n\n\n\n\n# check names in `pres_df`\nnames(pres_df)\n\n# take a quick look values of each variable\n\nglimpse(pres_df)\n\n# Unit of analysis is a year-state-candidate\npres_df %&gt;% \n  select(year, state_po, candidate) %&gt;%\n  head()\n\n# How many states?\nlength(unique(pres_df$state_po))\n\n\n\n# How many candidates and parties on the ballot in a given election year\npres_df %&gt;% \n  group_by(year) %&gt;%\n  summarise(\n    n_candidates = length(unique(candidate)),\n    # Look at both party_detailed and party_simplified\n    n_parties_detailed = length(unique(party_detailed)),\n    n_parties_simplified = length(unique(party_simplified))\n  ) -&gt; hlo_pres_df\nhlo_pres_df\n\n# Look at 2020\n# pres_df$candidate[pres_df$year == \"2020\"]"
+  },
+  {
+    "objectID": "slides/04-slides.html#q4-recode-the-data-for-analysis",
+    "href": "slides/04-slides.html#q4-recode-the-data-for-analysis",
+    "title": "POLS 1600",
+    "section": "Q4 Recode the data for analysis",
+    "text": "Q4 Recode the data for analysis\nUsing our understanding of the structure of the data, Q4 asks you to:\n\nRecode the Covid-19 data like we’ve done before plus\nCalculate rolling means, 7 and 14 day averages\nReshape, recode, and filter the presidential election data"
+  },
+  {
+    "objectID": "slides/04-slides.html#q4.1-recode-the-covid-19",
+    "href": "slides/04-slides.html#q4.1-recode-the-covid-19",
+    "title": "POLS 1600",
+    "section": "Q4.1 Recode the Covid-19",
+    "text": "Q4.1 Recode the Covid-19\n\nTaskCode for Q4.1Template Code for Q4.2\n\n\nThis is the same code we’ve used before to create covid_us from covid with the addition of code to calculate a rolling mean or moving average of the number of new cases\n\n\n\n# Create a vector containing of US territories\nterritories &lt;- c(\n  \"American Samoa\",\n  \"Guam\",\n  \"Northern Mariana Islands\",\n  \"Puerto Rico\",\n  \"Virgin Islands\"\n  )\n\n# Filter out Territories and create state variable\ncovid_us &lt;- covid %&gt;%\n  filter(!administrative_area_level_2 %in% territories)%&gt;%\n  mutate(\n    state = administrative_area_level_2\n  )\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7da = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us\n\n# Recode facemask policy\n\ncovid_us %&gt;%\nmutate(\n  # Recode facial_coverings to create face_masks\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ),\n    # Turn face_masks into a factor with ordered policy levels\n    face_masks = factor(face_masks,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n# Create year-month and percent vaccinated variables\n\ncovid_us %&gt;%\n  mutate(\n    year = year(date),\n    month = month(date),\n    year_month = paste(year, \n                       str_pad(month, width = 2, pad=0), \n                       sep = \"-\"),\n    percent_vaccinated = people_fully_vaccinated/population*100  \n    ) -&gt; covid_us\n\n\n\n\n# Calculate new cases, new cases per capita, and 7-day average\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000,\n    new_cases_pc_7day = zoo::rollmean(new_cases_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "slides/04-slides.html#q4.2-calculate-rolling-means-of-covid-deaths",
+    "href": "slides/04-slides.html#q4.2-calculate-rolling-means-of-covid-deaths",
+    "title": "POLS 1600",
+    "section": "Q4.2 Calculate Rolling Means of Covid Deaths",
+    "text": "Q4.2 Calculate Rolling Means of Covid Deaths\n\nTaskCode for Q4.2\n\n\nQ4.2 asks you to create new measures of the 7-day and 14-day averages of new deaths from Covid-19 per 100,000 residents\nIt encourages you to use the code new_cases_pc_7da as a template\nTo build your coding skills, try writing this yourself, then comparing it to the code in the next tab:\n\n\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_deaths = deaths - lag(deaths),\n    new_deaths_pc = new_deaths / population *100000,\n    new_deaths_pc_7day = zoo::rollmean(new_deaths_pc, \n                                     k = 7, \n                                     align = \"right\",\n                                     fill=NA ),\n    new_deaths_pc_14day = zoo::rollmean(new_deaths_pc, \n                                     k = 14, \n                                     align = \"right\",\n                                     fill=NA )\n    ) -&gt; covid_us"
+  },
+  {
+    "objectID": "slides/04-slides.html#rolling-averages",
+    "href": "slides/04-slides.html#rolling-averages",
+    "title": "POLS 1600",
+    "section": "Rolling Averages",
+    "text": "Rolling Averages\nThe next slides aren’t necessary for the lab but are designed to illustrate:\n\nthe concept of a rolling mean\nwhat the code does\nwhy might prefer rolling averages over daily values"
+  },
+  {
+    "objectID": "slides/04-slides.html#look-at-the-output-of-zoorollmean",
+    "href": "slides/04-slides.html#look-at-the-output-of-zoorollmean",
+    "title": "POLS 1600",
+    "section": "Look at the output of zoo::rollmean()",
+    "text": "Look at the output of zoo::rollmean()\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\") %&gt;%\n  select(date,new_cases_pc,new_cases_pc_7day)\n\n# A tibble: 52,580 × 4\n# Groups:   state [51]\n   state     date       new_cases_pc new_cases_pc_7day\n   &lt;chr&gt;     &lt;date&gt;            &lt;dbl&gt;             &lt;dbl&gt;\n 1 Minnesota 2020-03-06      NA                NA     \n 2 Minnesota 2020-03-07       0                NA     \n 3 Minnesota 2020-03-08       0.0177           NA     \n 4 Minnesota 2020-03-09       0                NA     \n 5 Minnesota 2020-03-10       0.0177           NA     \n 6 Minnesota 2020-03-11       0.0355           NA     \n 7 Minnesota 2020-03-12       0.0709           NA     \n 8 Minnesota 2020-03-13       0.0887            0.0329\n 9 Minnesota 2020-03-14       0.124             0.0507\n10 Minnesota 2020-03-15       0.248             0.0836\n# ℹ 52,570 more rows"
+  },
+  {
+    "objectID": "slides/04-slides.html#comparing-daily-cases-to-rolling-average",
+    "href": "slides/04-slides.html#comparing-daily-cases-to-rolling-average",
+    "title": "POLS 1600",
+    "section": "Comparing Daily Cases to Rolling Average",
+    "text": "Comparing Daily Cases to Rolling Average\nThe following code illustrates how a 7-day rolling mean smooths (new_cases_pc_7da) over the noisiness of the daily measure\n\nCodeFigure\n\n\n\ncovid_us %&gt;%\n  filter(date &gt; \"2020-03-05\", \n         state == \"Minnesota\") %&gt;%\n  select(date,\n         new_cases_pc,\n         new_cases_pc_7day)%&gt;%\n  ggplot(aes(date,new_cases_pc ))+\n  geom_line(aes(col=\"Daily\"))+\n  # set y aesthetic for second line of rolling average\n  geom_line(aes(y = new_cases_pc_7day,\n                col = \"7-day average\")\n            ) +\n  theme(legend.position=\"bottom\")+\n    labs( col = \"Measure\",\n    y = \"New Cases Per 100k\", x = \"\",\n    title = \"Minnesota\"\n  ) -&gt; fig_covid_mn"
+  },
+  {
+    "objectID": "slides/04-slides.html#q4.3-recode-presidential-data",
+    "href": "slides/04-slides.html#q4.3-recode-presidential-data",
+    "title": "POLS 1600",
+    "section": "Q4.3 Recode Presidential data",
+    "text": "Q4.3 Recode Presidential data\n\nTaskCode for Q4.3\n\n\nQ4.3 Gives you a long list of steps to recode, reshape, and filter pres_df to produce pres_df2020\nMost of this is review but it can seem like a lot.\nWalk through the provided code and see if you can map each conceptual step in Q4.3 to its implementation in the code\n\n\n\npres_df %&gt;%\n  mutate(\n    year_election = year,\n    state = str_to_title(state),\n    # Fix DC\n    state = ifelse(state == \"District Of Columbia\", \"District of Columbia\", state)\n  ) %&gt;%\n  filter(party_simplified %in% c(\"DEMOCRAT\",\"REPUBLICAN\"))%&gt;%\n  filter(year == 2020) %&gt;%\n  select(state, state_po, year_election, party_simplified, candidatevotes, totalvotes\n         ) %&gt;%\n  pivot_wider(names_from = party_simplified,\n              values_from = candidatevotes) %&gt;%\n  mutate(\n    dem_voteshare = DEMOCRAT/totalvotes *100,\n    rep_voteshare = REPUBLICAN/totalvotes*100,\n    winner = forcats::fct_rev(factor(ifelse(rep_voteshare &gt; dem_voteshare,\"Trump\",\"Biden\")))\n  ) -&gt; pres2020_df\n\n# Check Output:\n\nglimpse(pres2020_df)\n\nRows: 51\nColumns: 9\n$ state         &lt;chr&gt; \"Alabama\", \"Alaska\", \"Arizona\", \"Arkansas\", \"California\"…\n$ state_po      &lt;chr&gt; \"AL\", \"AK\", \"AZ\", \"AR\", \"CA\", \"CO\", \"CT\", \"DE\", \"DC\", \"F…\n$ year_election &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 20…\n$ totalvotes    &lt;dbl&gt; 2323282, 359530, 3387326, 1219069, 17500881, 3279980, 18…\n$ DEMOCRAT      &lt;dbl&gt; 849624, 153778, 1672143, 423932, 11110250, 1804352, 1080…\n$ REPUBLICAN    &lt;dbl&gt; 1441170, 189951, 1661686, 760647, 6006429, 1364607, 7147…\n$ dem_voteshare &lt;dbl&gt; 36.56999, 42.77195, 49.36469, 34.77506, 63.48395, 55.011…\n$ rep_voteshare &lt;dbl&gt; 62.031643, 52.833143, 49.055981, 62.395730, 34.320724, 4…\n$ winner        &lt;fct&gt; Trump, Trump, Biden, Trump, Biden, Biden, Biden, Biden, …"
+  },
+  {
+    "objectID": "slides/04-slides.html#q5-merging-data",
+    "href": "slides/04-slides.html#q5-merging-data",
+    "title": "POLS 1600",
+    "section": "Q5 merging data",
+    "text": "Q5 merging data\n\nTaskMerge election data into Covid data\n\n\nQ5 asks you to merge the 2020 election data from pres2020_df into covid_us using the common state variable in each dataset using the function left_join()\n\n\n\ndim(covid_us)\n\n[1] 53678    61\n\ndim(pres2020_df)\n\n[1] 51  9\n\ncovid_us &lt;- covid_us %&gt;% left_join(\n  pres2020_df,\n  by = c(\"state\" = \"state\")\n)\ndim(covid_us) \n\n[1] 53678    69"
+  },
+  {
+    "objectID": "slides/04-slides.html#advice-for-merging",
+    "href": "slides/04-slides.html#advice-for-merging",
+    "title": "POLS 1600",
+    "section": "Advice for merging",
+    "text": "Advice for merging\n\nAdviceIllustration\n\n\nWhen merging datasets:\n\nCheck the matches in your joining variables\n\nMake sure the values state are the same in each dataset\nCheck for differences in spelling, punctuation, etc.\n\nCheck the dimensions of output of your left_join()\n\nIf there is a 1-1 match the number of rows should be the same before after\n\n\n\n\n\n\n\n\nTip\n\n\nIn general (although not in my sample code), you should save the merged data to a new object in R. Saving it back into an existing object can cause issues if you run the merge code multiple times by mistake.\n\n\n\n\n\n\n# Should be 51 states and DC in each\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 0\n\n# Look at each state variable\n## With [] index\npres_df$state[1:5]\n\n[1] \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\" \"ALABAMA\"\n\ncovid_us$state[1:5]\n\n[1] \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\"\n\n# Matching is case sensitive \n\n# make pres_df$state title case\n\n## Base R:\npres_df$state &lt;- str_to_title(pres_df$state )\n## Tidy R:\npres_df %&gt;% \n  mutate(\n    state = str_to_title(state )\n  ) -&gt; pres_df\n\n# Should be 51\nsum(unique(pres_df$state) %in% covid_us$state)\n\n[1] 50\n\n# Find the mismatch:\nunique(pres_df$state[!pres_df$state %in% covid_us$state])\n\n[1] \"District Of Columbia\"\n\n# Two equivalent ways to fix this mismatch\n## Base R: Quick fix to change spelling of DC\npres_df$state[pres2020_df$state == \"District Of Columbia\"] &lt;- \"District of Columbia\"\n\n## Tidy R: Quick fix to change spelling of DC\n\npres_df %&gt;% \n  mutate(\n    state = ifelse(test = state == \"District Of Columbia\",\n                   yes = \"District of Columbia\",\n                   no = state\n                   )\n  ) -&gt; pres_df\n\n\n# Problem Solved\nsum(unique(pres2020_df$state) %in% covid_us$state)\n\n[1] 51"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-inference-is-about-counterfactual-comparisons",
+    "href": "slides/04-slides.html#causal-inference-is-about-counterfactual-comparisons",
+    "title": "POLS 1600",
+    "section": "Causal inference is about counterfactual comparisons",
+    "text": "Causal inference is about counterfactual comparisons\n\nCausal inference is about counterfactual comparisons\n\nWhat would have happened if some aspect of the world either had or had not been present"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-identification",
+    "href": "slides/04-slides.html#causal-identification",
+    "title": "POLS 1600",
+    "section": "Causal Identification",
+    "text": "Causal Identification\n\nCasual Identification refers to “the assumptions needed for statistical estimates to be given a causal interpretation” Keele (2015)]\n\nWhat do we need to assume to make our claims about cause and effect credible\n\nExperimental Designs rely on randomization of treatment to justify their causal claims\nObservational Designs require additional assumptions and knowledge to make causal claims"
+  },
+  {
+    "objectID": "slides/04-slides.html#experimental-designs",
+    "href": "slides/04-slides.html#experimental-designs",
+    "title": "POLS 1600",
+    "section": "Experimental Designs",
+    "text": "Experimental Designs\n\nExperimental designs are studies in which a causal variable of interest, the treatement, is manipulated by the researcher to examine its causal effects on some outcome of interest\nRandom assignment is the key to causal identification in experiments because it creates statistical independence between treatment and potential outcomes any potential confounding factors\n\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#randomization-creates-credible-counterfactual-comparisons",
+    "href": "slides/04-slides.html#randomization-creates-credible-counterfactual-comparisons",
+    "title": "POLS 1600",
+    "section": "Randomization creates credible counterfactual comparisons",
+    "text": "Randomization creates credible counterfactual comparisons\nIf treatment has been randomly assigned, then:\n\nThe only thing that differs between treatment and control is that one group got the treatment, and another did not.\nWe can estimate the Average Treatment Effect (ATE) using the difference of sample means\n\n\n\\[\n\\begin{aligned}\nE \\left[ \\frac{\\sum_1^m Y_i}{m}-\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]&=\\overbrace{E \\left[ \\frac{\\sum_1^m Y_i}{m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among treated}\\\\ \\text{units}}}\n-\\overbrace{E \\left[\\frac{\\sum_{m+1}^N Y_i}{N-m}\\right]}^{\\substack{\\text{Average outcome}\\\\\n\\text{among control}\\\\ \\text{units}}}\\\\\n&= E [Y_i(1)|D_i=1] -E[Y_i(0)|D_i=0]\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#observational-designs",
+    "href": "slides/04-slides.html#observational-designs",
+    "title": "POLS 1600",
+    "section": "Observational Designs",
+    "text": "Observational Designs\n\nObservational designs are studies in which a causal variable of interest is determined by someone/thing other than the researcher (nature, governments, people, etc.)\nSince treatment has not been randomly assigned, observational studies typically require stronger assumptions to make causal claims.\nGenerally speaking, these assumptions amount to a claim about conditional independence\n\n\n\\[\nY_i(1),Y_i(0),\\mathbf{X_i},\\mathbf{U_i} \\unicode{x2AEB} D_i | K_i\n\\]\n\n\nWhere after conditioning on \\(K_i\\), some knowledge about the world and how the data were generated, our treatment is as good as (as-if) randomly assigned (hence conditionally independent)\n\nEconomists often call this assumption of selection on observables"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-inference-in-observational-studies",
+    "href": "slides/04-slides.html#causal-inference-in-observational-studies",
+    "title": "POLS 1600",
+    "section": "Causal Inference in Observational Studies",
+    "text": "Causal Inference in Observational Studies\nTo understand how to make causal claims in observational studies we will:\n\nIntroduce the concept of Directed Acyclic Graphs to describe causal relationships\nDiscuss three approaches to covariate adjustment\n\nSubclassification\nMatching\nLinear Regression\n\nThree research designs for observational data\n\nDifferences-in-Differences\nRegression Discontinuity Designs\nInstrumental Variables"
+  },
+  {
+    "objectID": "slides/04-slides.html#two-ways-to-describe-causal-claims",
+    "href": "slides/04-slides.html#two-ways-to-describe-causal-claims",
+    "title": "POLS 1600",
+    "section": "Two Ways to Describe Causal Claims",
+    "text": "Two Ways to Describe Causal Claims\nIn this course, we will use two forms of notation to describe our causal claims.\n\nPotential Outcomes Notation (last lecture)\n\nIllustrates the fundamental problem of causal inference\n\nDirected Acyclic Graphs (DAGs)\n\nIllustrates potential bias from confounders and colliders"
+  },
+  {
+    "objectID": "slides/04-slides.html#directed-acyclic-graphs-1",
+    "href": "slides/04-slides.html#directed-acyclic-graphs-1",
+    "title": "POLS 1600",
+    "section": "Directed Acyclic Graphs",
+    "text": "Directed Acyclic Graphs\n\nDirected Acyclic Graphs provide a way of encoding assumptions about casual relationships\n\nDirected Arrows \\(\\to\\) describe a direct causal effect\nArrow from \\(D\\to Y\\) means \\(Y_i(d) \\neq Y_i(d^\\prime)\\) “The outcome ( \\(Y\\)) for person \\(i\\) when D happens ( \\(Y_i(d)\\) ) is different than the the outcome when \\(D\\) doesn’t happen ( \\(Y_i(d^\\prime)\\) )\nNo arrow = no effect ( \\(Y_i(d) = Y_i(d^\\prime)\\) )\nAcyclic: No cycles. A variable can’t cause itself"
+  },
+  {
+    "objectID": "slides/04-slides.html#types-of-variables-in-a-dag",
+    "href": "slides/04-slides.html#types-of-variables-in-a-dag",
+    "title": "POLS 1600",
+    "section": "Types of variables in a DAG",
+    "text": "Types of variables in a DAG\n\nDAGVariables\n\n\n\nBlair, Coppock, and Humphreys (2023) (Chap. 6.2)\n\n\n\nCausal Explanations Involve:\n\nY our outcome\nD A possible cause of Y\nM A mediator or mechanism through which D effects Y\nZ An instrument that can help us isolate the effects of D on Y\nX2 a covariate that may moderate the effect of D on Y\n\nThreats to causal claims/Sources of bias:\n\nX1 an observed confounder that is a common cause of both D & Y\nU an unobserved confounder a common cause of both D & Y\nK a collider that is a common consequence of both D & Y"
+  },
+  {
+    "objectID": "slides/04-slides.html#dags-illustrate-two-sources-of-bias",
+    "href": "slides/04-slides.html#dags-illustrate-two-sources-of-bias",
+    "title": "POLS 1600",
+    "section": "DAGs illustrate two sources of bias:",
+    "text": "DAGs illustrate two sources of bias:\n\n\nConfounder bias: Failing to control for a common cause of D and Y (aka Omitted Variable Bias)\nCollider bias: Controlling for a common consequence (aka Selection Bias1)\n\n\nNote in practice there’s some slippage/debate/disagreement around this nomenclature"
+  },
+  {
+    "objectID": "slides/04-slides.html#section-1",
+    "href": "slides/04-slides.html#section-1",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Confounding Bias: The Coffee Example\n\nConfounding BiasCoffee and CancerAdjusting for Smoking\n\n\n\n\nDrinking coffee doesn’t cause lung cancer we might find correlation between them because they share a common cause: smoking.\nSmoking is a confounding variable, that if omitted will bias our results producing a spurious relationship\nAdjusting for confounders removes this source of bias"
+  },
+  {
+    "objectID": "slides/04-slides.html#section-2",
+    "href": "slides/04-slides.html#section-2",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Collider Bias: The Dating Example\n\nCollider biasSelection biasNo relationship in population\n\n\n\n\nWhy are attractive people such jerks?\nSuppose dating is a function of looks and personality\nDating is a common consequences of looks and personality\nBasing our claim off of who we date is an example of selection bias created by controlling for collider"
+  },
+  {
+    "objectID": "slides/04-slides.html#when-to-control-for-a-variable",
+    "href": "slides/04-slides.html#when-to-control-for-a-variable",
+    "title": "POLS 1600",
+    "section": "When to control for a variable:",
+    "text": "When to control for a variable:\n\n(Blair, Coppock, and Humphreys 2023) (Chap. 6.2)"
+  },
+  {
+    "objectID": "slides/04-slides.html#covariate-adjustment-1",
+    "href": "slides/04-slides.html#covariate-adjustment-1",
+    "title": "POLS 1600",
+    "section": "Covariate Adjustment",
+    "text": "Covariate Adjustment\nCovariate adjustment refers a broad class of procedures that try to make a comparison more credible or meaningful by adjusting for some other potentially confounding factor."
+  },
+  {
+    "objectID": "slides/04-slides.html#covariate-adjustment-2",
+    "href": "slides/04-slides.html#covariate-adjustment-2",
+    "title": "POLS 1600",
+    "section": "Covariate Adjustment",
+    "text": "Covariate Adjustment\nWhen you hear people talk about\n\nControlling for age\nConditional on income\nHolding age and income constant\nCeteris paribus (All else equal)\n\nThey are typically talking about some sort of covariate adjustment."
+  },
+  {
+    "objectID": "slides/04-slides.html#three-approaches-to-covariate-adjustment",
+    "href": "slides/04-slides.html#three-approaches-to-covariate-adjustment",
+    "title": "POLS 1600",
+    "section": "Three approaches to covariate adjustment",
+    "text": "Three approaches to covariate adjustment\n\nSubclassification\nMatching\nRegression"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-identification-through-subclassification",
+    "href": "slides/04-slides.html#causal-identification-through-subclassification",
+    "title": "POLS 1600",
+    "section": "Causal Identification through Subclassification",
+    "text": "Causal Identification through Subclassification\nMotivation: Treatment, \\(D\\) is not randomly assigned\n\\[\nY_i(1),Y_i(0) \\text{ is not} \\perp D_i\n\\]\nIdentifying assumptions\n\\[\\begin{aligned}\nY_i(1),Y_i(0) \\perp D_i |X_i && \\text{Selection on Observables}\\\\\n0 &lt; Pr(D_i = 1|X_i) &lt; 1  && \\text{Common Support}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-identification-through-subclassification-1",
+    "href": "slides/04-slides.html#causal-identification-through-subclassification-1",
+    "title": "POLS 1600",
+    "section": "Causal Identification through Subclassification",
+    "text": "Causal Identification through Subclassification\nIf these assumptions hold, we can estimate the average treatment effect:\n\\[\\begin{aligned}\nATE = E[Y_i(1)- Y_i(0)|X_i] &= E[Y_i(1)- Y_i(0)|X_i, D_i=1]\\\\\n& = E[Y_i |X_i, D_i=1] - E[Y_i |X_i, D_i=0]\n\\end{aligned}\\]\nThe average treatment effect is identified by the observed difference of means between treatment and control conditional on the values of \\(X\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-identification-through-subclassification-2",
+    "href": "slides/04-slides.html#causal-identification-through-subclassification-2",
+    "title": "POLS 1600",
+    "section": "Causal Identification through Subclassification",
+    "text": "Causal Identification through Subclassification\n\nEconomists call \\(Y_i(1),Y_i(0) \\perp D_i |X_i\\) an assumption of Selection on Observables\n\nControlling for what we can observe, \\(X\\), \\(D\\) is conditionally independent of Potential Outcomes\nViolated if there were some other factor, \\(U\\) that influenced both \\(D\\) and \\(Y\\) (i.e. \\(U\\) is a confounder)\n\n\\(0 &lt; Pr(D = 1|X) &lt; 1\\) is called an assumption of Common Support\n\nThere is a non-zero probability of receiving the treatment for all values of X\nViolated if only one subgroup had access to the treatment (e.g. Vaccine by age group comparisons)"
+  },
+  {
+    "objectID": "slides/04-slides.html#example-of-subclassification",
+    "href": "slides/04-slides.html#example-of-subclassification",
+    "title": "POLS 1600",
+    "section": "Example of Subclassification",
+    "text": "Example of Subclassification\n\nWe used subclassification when we compared the unconditional rates of new Covid-19 cases by face mask policy to the conditional rates new cases by policy regime in each month of our data.\n\nOverall rates are misleading.\nLots of things differ between January 2020 and January 2022\nSubclassification by month provides a “fairer” comparison\nBut is it “causal”"
+  },
+  {
+    "objectID": "slides/04-slides.html#limits-of-subclassification",
+    "href": "slides/04-slides.html#limits-of-subclassification",
+    "title": "POLS 1600",
+    "section": "Limits of Subclassification",
+    "text": "Limits of Subclassification\n\nEven controlling for “month” there are other omitted variables:\n\nOther policies in place?\nSocio-economic differences between states\nOthers?\n\nTrying to subclassify (stratify) comparisons on more than one or two variables gets hard\n\nThe Curse of Dimensionality"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-curse-of-dimensionality",
+    "href": "slides/04-slides.html#the-curse-of-dimensionality",
+    "title": "POLS 1600",
+    "section": "The Curse of Dimensionality",
+    "text": "The Curse of Dimensionality\n\nAs we try to control for more factors, the number of observations per dimension declines rapidly\n\nMen vs Women\nMen, ages 20-30 vs Men ages 30-40\nMen, ages 20-30 with college degrees and blue eyes vs Men ages 20-30 with college degrees and green eyes\n\nSubclassification with more than a few variables, will often produce a lack of common support:\n\nNot enough observations to make credible counterfactual comparisons"
+  },
+  {
+    "objectID": "slides/04-slides.html#matching",
+    "href": "slides/04-slides.html#matching",
+    "title": "POLS 1600",
+    "section": "Matching",
+    "text": "Matching\n\nMatching refers to a broad set of procedures that essentially try to generalize subclassification to\n\naddress to curse of dimensionality\nachieve balance on a range of observable covariates between treated and control groups"
+  },
+  {
+    "objectID": "slides/04-slides.html#matching-1",
+    "href": "slides/04-slides.html#matching-1",
+    "title": "POLS 1600",
+    "section": "Matching",
+    "text": "Matching\nDifferent types of matching procedures:\n\nExact matching: Find exact matches between treatment and control observations for all covariates \\(X\\)\nCoarsened exact matching: Find approximate matches within ranges of values for \\(X\\)\nDistance-metric matching: Calculate a distance metric between observations based on their values of \\(X\\), and match treated and control to minimize that distance\nPropensity score matching: Calculate the propsenity to receive treatment using \\(X\\) to predict \\(D\\) and treated and control based on their propensity scores"
+  },
+  {
+    "objectID": "slides/04-slides.html#section-3",
+    "href": "slides/04-slides.html#section-3",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Source"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-identification-with-matching-icyi",
+    "href": "slides/04-slides.html#causal-identification-with-matching-icyi",
+    "title": "POLS 1600",
+    "section": "Causal Identification with Matching (ICYI)",
+    "text": "Causal Identification with Matching (ICYI)\nMatching again requires an assumption of selection on observables\n\\[\n\\begin{aligned}\nY_i(1),Y_i(0) \\perp D_i |X_i && \\text{Selection on Observables}\\\\\n0 &lt; Pr(D_i = 1|X_i) &lt; 1  && \\text{Common Support}\n\\end{aligned}\n\\]\nMatching procedures like propensity score matching, allow us to match treated and control observations based on a propensity score, a predicted value of receiving the treatment, \\(D\\) based on observed variables, \\(X\\).\n\\[\np(X_i) = Pr(D=1|X_i) = \\pi_i\n\\]\nAllowing us to estimate an ATE conditional on \\(\\pi_i\\)\n\\[\n\\begin{aligned}\nATE &= E[Y_i(1)- Y_i(0)|p(X_i) = \\pi_i] \\\\\n&= E[Y_i(1)- Y_i(0)|p(X_i) = \\pi_i, D_i=1]\\\\\n& = E[Y_i |p(X_i) = \\pi_i, D_i=1] - E[Y_i |p(X_i) = \\pi_i, D_i=0]\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-to-know-about-matching",
+    "href": "slides/04-slides.html#what-to-know-about-matching",
+    "title": "POLS 1600",
+    "section": "What to Know about Matching",
+    "text": "What to Know about Matching\n\nThe mechanics of matching are beyond the scope of this course\nJust think of it as a generalization of subclassification when we want to condition on multiple variables\n“Solves” the curse of dimensionality, creating Treatment-Control comparisons between groups that are similar on observed covariates\nBut no guarantee that matching produces balance on unobserved covariates."
+  },
+  {
+    "objectID": "slides/04-slides.html#regression",
+    "href": "slides/04-slides.html#regression",
+    "title": "POLS 1600",
+    "section": "Regression",
+    "text": "Regression\n\nWe will spend the next two weeks talking in detail about regression, in general and linear regression in particular.\nToday we’ll introduce some basic notation and simple examples\nConceptually, think of regression as\n\na tool to make predictions\nby fitting lines to data\n\nTheoretically, we will build towards an understanding of linear regression as a “linear estimate of the conditional expectation function \\((CEF = E[Y|X])\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#three-approaches-to-covariate-adjustment-1",
+    "href": "slides/04-slides.html#three-approaches-to-covariate-adjustment-1",
+    "title": "POLS 1600",
+    "section": "Three approaches to covariate adjustment",
+    "text": "Three approaches to covariate adjustment\n\nSubclassification\n\n👍: Easy to implement and interpret\n👎: Curse of dimensionality, Selection on observables,\n\nMatching\n\n👍: Balance on multiple covariates, Mirrors logic of experimental design, Fewer functional form assumptions\n👎: Selection on observables, Only provides balance on observed variables, Lot’s of technical details…\n\nRegression\n\n👍: Easy to implement, control for many factors (good and bad)\n👎: Selection on observables, Assumes a linear functional form, easy to fit “bad” models"
+  },
+  {
+    "objectID": "slides/04-slides.html#understanding-linear-regression",
+    "href": "slides/04-slides.html#understanding-linear-regression",
+    "title": "POLS 1600",
+    "section": "Understanding Linear Regression",
+    "text": "Understanding Linear Regression\n\n\nConceptual\n\nSimple linear regression estimates “a line of best fit” that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nlm(y ~ x, data = df)"
+  },
+  {
+    "objectID": "slides/04-slides.html#understanding-linear-regression-1",
+    "href": "slides/04-slides.html#understanding-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Understanding Linear Regression",
+    "text": "Understanding Linear Regression\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#conceptual-linear-regression-1",
+    "href": "slides/04-slides.html#conceptual-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Conceptual: Linear Regression",
+    "text": "Conceptual: Linear Regression\n\nRegression is a tool for describing relationships.\n\nHow does some outcome we’re interested in tend to change as some predictor of that outcome changes?\nHow does economic development vary with democracy?\nHow does economic development vary with democracy, adjusting for natural resources like oil and gas"
+  },
+  {
+    "objectID": "slides/04-slides.html#conceptual-linear-regression-2",
+    "href": "slides/04-slides.html#conceptual-linear-regression-2",
+    "title": "POLS 1600",
+    "section": "Conceptual: Linear Regression",
+    "text": "Conceptual: Linear Regression\n\nMore formally:\n\\[\ny_i = f(x_i) + \\epsilon\n\\]\n\nY is a function of X plus some error, \\(\\epsilon\\)\nLinear regression assumes that relationship between an outcome and a predictor can be by a linear function\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#linear-regression-and-the-line-of-best-fit",
+    "href": "slides/04-slides.html#linear-regression-and-the-line-of-best-fit",
+    "title": "POLS 1600",
+    "section": "Linear Regression and the Line of Best Fit",
+    "text": "Linear Regression and the Line of Best Fit\n\n\nThe goal of linear regression is to choose coefficients \\(\\beta_0\\) and \\(\\beta_1\\) to summarizes the relationship between \\(y\\) and \\(x\\)\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]\n\nTo accomplish this we need some sort of criteria.\nFor linear regression, that criteria is minimizing the error between what our model predicts \\(\\hat{y_i} = \\beta_0 + \\beta_1 x_i\\) and what we actually observed \\((y_i)\\)\nMore on this to come. But first…"
+  },
+  {
+    "objectID": "slides/04-slides.html#regression-notation",
+    "href": "slides/04-slides.html#regression-notation",
+    "title": "POLS 1600",
+    "section": "Regression Notation",
+    "text": "Regression Notation\n\n\\(y_i\\) an outcome variable or thing we’re trying to explain\n\nAKA: The dependent variable, The response Variable, The left hand side of the model\n\n\\(x_i\\) a predictor variables or things we think explain variation in our outcome\n\nAKA: The independent variable, covariates, the right hand side of the model.\nCap or No Cap: I’ll use \\(X\\) (should be \\(\\mathbf{X}\\)) to denote a set (matrix) of predictor variables. \\(y\\) vs \\(Y\\) can also have technical distinctions (Sample vs Population, observed value vs Random Variable, …)\n\n\\(\\beta\\) a set of unknown parameters that describe the relationship between our outcome \\(y_i\\) and our predictors \\(x_i\\)\n\\(\\epsilon\\) the error term representing variation in \\(y_i\\) not explained by our model.\n\nTechnically \\(\\epsilon\\) refers to theoretical error inherent to the data generating process, while \\(\\hat{\\epsilon}_i\\) or \\(u_i\\) is used to refer to residuals, an estimated error that reflects the difference between the observed (\\(y_i\\)) and predicted (\\(\\hat{y}_i\\)) values."
+  },
+  {
+    "objectID": "slides/04-slides.html#linear-regression",
+    "href": "slides/04-slides.html#linear-regression",
+    "title": "POLS 1600",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\n\nWe call this a bivariate regression, because there are only two variables\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]\n\nWe call this a linear regression, because \\(y_i = \\beta_0 + \\beta_1 x_i\\) is the equation for a line, where:\n\n\\(\\beta_0\\) corresponds to the \\(y\\) intercept, or the model’s prediction when \\(x = 0\\).\n\\(\\beta_1\\) corresponds to the slope, or how \\(y\\) is predicted to change as \\(x\\) changes."
+  },
+  {
+    "objectID": "slides/04-slides.html#linear-regression-1",
+    "href": "slides/04-slides.html#linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\n\nIf you find this notation confusing, try plugging in substantive concepts for what \\(y\\) and \\(x\\) represent\nSay we wanted to know how attitudes to transgender people varied with age in the baseline survey from Lab 03.\n\nThe generic linear model\n\\[y_i = \\beta_0 + \\beta_1 x_i + \\epsilon\\]\nReflects:\n\\[\\text{Transgender Feeling Thermometer}_i = \\beta_0 + \\beta_1\\text{Age}_i + \\epsilon_i\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-estimating-a-linear-regression-1",
+    "href": "slides/04-slides.html#practical-estimating-a-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Practical: Estimating a Linear Regression",
+    "text": "Practical: Estimating a Linear Regression\n\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\nload(url(\"https://pols2580.paultesta.org/files/data/03_lab.rda\"))\nm1 &lt;- lm(therm_trans_t0 ~ vf_age, data = df)\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-lm-function",
+    "href": "slides/04-slides.html#the-lm-function",
+    "title": "POLS 1600",
+    "section": "The lm() function",
+    "text": "The lm() function\n\nThe coefficients from lm() are saved in object called m1\n\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031  \n\n\nm1 actually contains a lot of information\n\nnames(m1)\n\n [1] \"coefficients\"  \"residuals\"     \"effects\"       \"rank\"         \n [5] \"fitted.values\" \"assign\"        \"qr\"            \"df.residual\"  \n [9] \"na.action\"     \"xlevels\"       \"call\"          \"terms\"        \n[13] \"model\"        \n\nm1$coefficients\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-interpreting-a-linear-regression",
+    "href": "slides/04-slides.html#practical-interpreting-a-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Interpreting a Linear Regression",
+    "text": "Practical: Interpreting a Linear Regression\nWe can extract the intercept and slope from this simple bivariate model, using the coef() function\n\n# All the coefficients\ncoef(m1)\n\n(Intercept)      vf_age \n 62.8195994  -0.2030711 \n\n# Just the intercept\ncoef(m1)[1]\n\n(Intercept) \n    62.8196 \n\n# Just the slope\ncoef(m1)[2]\n\n    vf_age \n-0.2030711"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-interpreting-a-linear-regression-1",
+    "href": "slides/04-slides.html#practical-interpreting-a-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Practical: Interpreting a Linear Regression",
+    "text": "Practical: Interpreting a Linear Regression\nThe two coefficients from m1 define a line of best fit, summarizing how feelings toward transgender individuals change with age\n\\[y_i = \\beta_0 + \\beta_1 x_i + \\epsilon\\]\n\\[\\text{Transgender Feeling Thermometer}_i = \\beta_0 + \\beta_1\\text{Age}_i + \\epsilon_i\\]\n\\[\\text{Transgender Feeling Thermometer}_i = 62.82 + -0.2 \\text{Age}_i + \\epsilon_i\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression",
+    "href": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\n\n\nOften it’s useful for interpretation to obtain predicted values from a regression.\nTo obtain predicted vales \\((\\hat{y})\\), we simply plug in a value for \\(x\\) (In this case, \\(Age\\)) and evaluate our equation.\nFor example, might we expect attitudes to differ among an 18-year-old college student and their 68-year-old grandparent?\n\n\\[\\hat{FT}_{x=18} = 62.82 + -0.2 \\times 18  = 59.16\\] \\[\\hat{FT}_{x=65} = 62.82 + -0.2 \\times 68  = 49.01\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-1",
+    "href": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-1",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\nWe could do this by hand\n\ncoef(m1)[1] + coef(m1)[2] * 18\n\n(Intercept) \n   59.16432 \n\ncoef(m1)[1] + coef(m1)[2] * 68\n\n(Intercept) \n   49.01076"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-2",
+    "href": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-2",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\nMore often we will:\n\nMake a prediction data frame (called pred_df below) with the values of interests\nUse the predict() function with our linear model (m1) and pred_df\nSave the predicted values to our new column in our prediction data frame"
+  },
+  {
+    "objectID": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-3",
+    "href": "slides/04-slides.html#practical-predicted-values-from-a-linear-regression-3",
+    "title": "POLS 1600",
+    "section": "Practical: Predicted values from a Linear Regression",
+    "text": "Practical: Predicted values from a Linear Regression\n\n# Make prediction data frame\npred_df &lt;- data.frame(\n  vf_age = c(18, 68)\n)\n# Predict FT for 18 and 68 year-olds\npredict(m1, newdata = pred_df)\n\n       1        2 \n59.16432 49.01076 \n\n# Save predictions to data frame\npred_df$ft_trans_hat &lt;- predict(m1, newdata = pred_df)\npred_df\n\n  vf_age ft_trans_hat\n1     18     59.16432\n2     68     49.01076"
+  },
+  {
+    "objectID": "slides/04-slides.html#section-4",
+    "href": "slides/04-slides.html#section-4",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Practical: Visualizing Linear Regression\n\nConceptCodeInterceptSlopeErrors\n\n\nWe can visualize simple regression by:\n\nplotting a scatter plot of the outcome (y-axis) and predictors (x-axis)\noverlaying the line defined by lm()\n\n\n\n\nfig_lm &lt;- df %&gt;%\n  ggplot(aes(vf_age,therm_trans_t0))+\n  geom_point(size=.5, alpha=.5)+\n  geom_abline(intercept = coef(m1)[1],\n              slope = coef(m1)[2],\n              col = \"blue\"\n              )+\n  geom_vline(xintercept = 0,linetype = 2)+\n  xlim(0,100)+\n  annotate(\"point\",\n           x = 0, y = coef(m1)[1],\n           col= \"red\",\n           )+\n  annotate(\"text\",\n           label = expression(paste(beta[0],\"= 62.81\" )),\n           x = 1, y = coef(m1)[1]+5,\n           hjust = \"left\",\n           )+\n  labs(\n    x = \"Age\",\n    y = \"Feeling Thermometer toward\\nTransgender People\"\n  )+\n  theme_classic() -&gt; fig_lm"
+  },
+  {
+    "objectID": "slides/04-slides.html#how-did-lm-choose-beta_0-and-beta_1",
+    "href": "slides/04-slides.html#how-did-lm-choose-beta_0-and-beta_1",
+    "title": "POLS 1600",
+    "section": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)",
+    "text": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)\n\n\nP: By minimizing the sum of squared errors, in procedure called Ordinary Least Squares (OLS) regression\nQ: Ok, that’s not really that helpful…\n\nWhat’s an error?\nWhy would we square and sum them\nHow do we minimize them.\n\n\nP: Good questions!"
+  },
+  {
+    "objectID": "slides/04-slides.html#whats-an-error",
+    "href": "slides/04-slides.html#whats-an-error",
+    "title": "POLS 1600",
+    "section": "What’s an error?",
+    "text": "What’s an error?\nAn error, \\(\\epsilon_i\\) is simply the difference between the observed value of \\(y_i\\) and what our model would predict, \\(\\hat{y_i}\\) given some value of \\(x_i\\). So for a model:\n\\[y_i=\\beta_0+\\beta_1 x_{i} + \\epsilon_i\\]\nWe simply subtract our model’s prediction \\(\\beta_0+\\beta_1 x_{i}\\) from the the observed value, \\(y_i\\)\n\\[\\hat{\\epsilon_i}=y_i-\\hat{y_i}=(Y_i-(\\beta_0+\\beta_1 x_{i}))\\]\nTo get \\(\\epsilon_i\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#why-are-we-squaring-and-summing-epsilon",
+    "href": "slides/04-slides.html#why-are-we-squaring-and-summing-epsilon",
+    "title": "POLS 1600",
+    "section": "Why are we squaring and summing \\(\\epsilon\\)",
+    "text": "Why are we squaring and summing \\(\\epsilon\\)\n\nThere are more mathy reasons for this, but at intuitive level, the Sum of Squared Residuals (SSR)\n\nSquaring \\(\\epsilon\\) treats positive and negative residuals equally.\nSumming produces single value summarizing our models overall performance.\n\nThere are other criteria we could use (e.g. minimizing the sum of absolute errors), but SSR has some nice properties"
+  },
+  {
+    "objectID": "slides/04-slides.html#how-do-we-minimize-sum-epsilon2",
+    "href": "slides/04-slides.html#how-do-we-minimize-sum-epsilon2",
+    "title": "POLS 1600",
+    "section": "How do we minimize \\(\\sum \\epsilon^2\\)",
+    "text": "How do we minimize \\(\\sum \\epsilon^2\\)\nOLS chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize \\(\\sum \\epsilon^2\\), the Sum of Squared Residuals (SSR)\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#how-did-lm-choose-beta_0-and-beta_1-1",
+    "href": "slides/04-slides.html#how-did-lm-choose-beta_0-and-beta_1-1",
+    "title": "POLS 1600",
+    "section": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)",
+    "text": "How did lm() choose \\(\\beta_0\\) and \\(\\beta_1\\)\nIn an intro stats course, we would walk through the process of finding\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\] Which involves a little bit of calculus. The big payoff is that\n\\[\\beta_0 = \\bar{y} - \\beta_1 \\bar{x}\\] And\n\\[ \\beta_1 = \\frac{Cov(x,y)}{Var(x)}\\] Which is never quite the epiphany, I think we think it is…\nThe following slides walk you through the mechanics of this exercise. We’re gonna skip through them in class, but they’re there for your reference"
+  },
+  {
+    "objectID": "slides/04-slides.html#how-do-we-minimize-sum-epsilon2-1",
+    "href": "slides/04-slides.html#how-do-we-minimize-sum-epsilon2-1",
+    "title": "POLS 1600",
+    "section": "How do we minimize \\(\\sum \\epsilon^2\\)",
+    "text": "How do we minimize \\(\\sum \\epsilon^2\\)\nTo understand what’s going on under the hood, you need a broad understanding of some basic calculus.\nThe next few slides provide a brief review of derivatives and differential calculus."
+  },
+  {
+    "objectID": "slides/04-slides.html#derivatives",
+    "href": "slides/04-slides.html#derivatives",
+    "title": "POLS 1600",
+    "section": "Derivatives",
+    "text": "Derivatives\n\nThe derivative of \\(f\\) at \\(x\\) is its rate of change at \\(x\\)\n\nFor a line: the slope\nFor a curve: the slope of a line tangent to the curve\n\nYou’ll see two notations for derivatives:\n\nLeibniz notation:\n\n\\[\n\\frac{df}{dx}(x)=\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{(x+h)-x}\n\\]\n\nLagrange: \\(f^{\\prime}(x)\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#some-useful-facts-about-derivatives",
+    "href": "slides/04-slides.html#some-useful-facts-about-derivatives",
+    "title": "POLS 1600",
+    "section": "Some useful facts about derivatives",
+    "text": "Some useful facts about derivatives\nDerivative of a constant\n\\[\nf^{\\prime}(c)=0\n\\]\nDerivative of a line f(x)=2x\n\\[\nf^{\\prime}(2x)=2\n\\]\nDerivative of \\(f(x)=x^2\\)\n\\[\nf^{\\prime}(x^2)=2x\n\\]\nChain rule: y= f(g(x)). The derivative of y with respect to x is\n\\[\n\\frac{d}{dx}(f(g(x)))=f^{\\prime}(g(x))g^{\\prime}(x)\n\\]\nThe derivative of the “outside” times the derivative of the “inside,” remembering that the derivative of the outside function is evaluated at the value of the inside function."
+  },
+  {
+    "objectID": "slides/04-slides.html#finding-a-local-minimums",
+    "href": "slides/04-slides.html#finding-a-local-minimums",
+    "title": "POLS 1600",
+    "section": "Finding a Local Minimums",
+    "text": "Finding a Local Minimums\nLocal minimum:\n\\[\nf^{\\prime}(x)=0 \\text{ and } f^{\\prime\\prime}(x)&gt;0\n\\]\n\nSource"
+  },
+  {
+    "objectID": "slides/04-slides.html#partial-derivatives",
+    "href": "slides/04-slides.html#partial-derivatives",
+    "title": "POLS 1600",
+    "section": "Partial Derivatives",
+    "text": "Partial Derivatives\nLet \\(f\\) be a function of the variables \\((x, \\dots, X_n)\\). The partial derivative of \\(f\\) with respect to \\(X_i\\) is\n\\[\\begin{align*}\n\\frac{\\partial f(x, \\dots, X_n)}{\\partial X_i}=\\lim_{h\\to0}\\frac{f(x, \\dots X_i+h \\dots, X_n)-f(x, \\dots X_i \\dots, X_n)}{h}\n\\end{align*}\\]\n\nSource"
+  },
+  {
+    "objectID": "slides/04-slides.html#minimizing-the-sum-of-squared-errors",
+    "href": "slides/04-slides.html#minimizing-the-sum-of-squared-errors",
+    "title": "POLS 1600",
+    "section": "Minimizing the sum of squared errors",
+    "text": "Minimizing the sum of squared errors\nOur model\n\\[y_i =\\beta_0+\\beta_1x_{i}+\\epsilon_i\\]\nFinds coefficients \\(\\beta_0\\) and \\(\\beta_1\\) to to minimize the sum of squared residuals, \\(\\hat{\\epsilon}_i\\):\n\\[\\begin{aligned}\n\\sum \\hat{\\epsilon_i}^2 &= \\sum (y_i-\\beta_0-\\beta_1 x_{i})^2\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#minimizing-the-sum-of-squared-errors-1",
+    "href": "slides/04-slides.html#minimizing-the-sum-of-squared-errors-1",
+    "title": "POLS 1600",
+    "section": "Minimizing the sum of squared errors",
+    "text": "Minimizing the sum of squared errors\nWe solve for \\(\\beta_0\\) and \\(\\beta_1\\), by taking the partial derivatives with respect to \\(\\beta_0\\) and \\(\\beta_1\\), and setting them equal to zero\n\\[\\begin{aligned}\n\\frac{\\partial \\sum \\hat{\\epsilon_i}^2}{\\partial \\beta_0} &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})=0 & f'(-x^2) = -2x\\\\\n\\frac{\\partial \\sum \\hat{\\epsilon_i}^2}{\\partial\\beta_1} &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})x_{i}=0 & \\text{chain rule}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#solving-for-beta_0",
+    "href": "slides/04-slides.html#solving-for-beta_0",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_0\\)",
+    "text": "Solving for \\(\\beta_0\\)\nFirst, we’ll solve for \\(\\beta_0\\), by multiplying both sides by -1/2 and distributing the \\(\\sum\\):\n\\[\\begin{aligned}\n0 &= -2\\sum (y_i-\\beta_0-\\beta_1 x_{i})\\\\\n\\sum \\beta_0 &= \\sum y_i - \\sum \\beta_1 x_{i}\\\\\nN \\beta_0 &= \\sum y_i -\\sum \\beta_1 x_{i}\\\\\n\\beta_0 &= \\frac{\\sum y_i}{N} - \\frac{\\beta_1 \\sum x_{i}}{N}\\\\\n\\beta_0 &= \\bar{y} - \\beta_1 \\bar{x}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#solving-for-beta_1",
+    "href": "slides/04-slides.html#solving-for-beta_1",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nNow, we can solve for \\(\\beta_1\\) plugging in \\(\\beta_0\\).\n\\[\\begin{aligned}\n0 &= -2\\sum [(y_i-\\beta_0-\\beta_1 x_{i})x_{i}]\\\\\n0 &= \\sum [y_ix_i-(\\bar{y} - \\beta_1 \\bar{x})x_{i}-\\beta_1 x_{i}^2]\\\\\n0 &= \\sum [y_ix_i-\\bar{y}x_{i} + \\beta_1 \\bar{x}x_{i}-\\beta_1 x_{i}^2]\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#solving-for-beta_1-1",
+    "href": "slides/04-slides.html#solving-for-beta_1-1",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nNow we’ll rearrange some terms and pull out an \\(x_{i}\\) to get\n\\[\\begin{aligned}\n0 &= \\sum [(y_i -\\bar{y} + \\beta_1 \\bar{x}-\\beta_1 x_{i})x_{i}]\n\\end{aligned}\\]\nDividing both sides by \\(x_{i}\\) and distributing the summation, we can isolate \\(\\beta_1\\)\n\\[\\begin{aligned}\n\\beta_1 \\sum (x_{i}-\\bar{x}) &= \\sum (y_i -\\bar{y})\n\\end{aligned}\\]\nDividing by \\(\\sum (x_{i}-\\bar{x})\\) to get\n\\[\\begin{aligned}\n\\beta_1  &= \\frac{\\sum (y_i -\\bar{y})}{\\sum (x_{i}-\\bar{x})}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#solving-for-beta_1-2",
+    "href": "slides/04-slides.html#solving-for-beta_1-2",
+    "title": "POLS 1600",
+    "section": "Solving for \\(\\beta_1\\)",
+    "text": "Solving for \\(\\beta_1\\)\nFinally, by multiplying by \\(\\frac{(x_{i}-\\bar{x})}{(x_{i}-\\bar{x})}\\) we get\n\\[\\begin{aligned}\n\\beta_1  &= \\frac{\\sum (y_i -\\bar{y})(x_{i}-\\bar{x})}{\\sum (\\bar{x}-x_{i})^2}\n\\end{aligned}\\]\nWhich has a nice interpretation:\n\\[\\begin{aligned}\n\\beta_1 &= \\frac{Cov(x,y)}{Var(x)}\n\\end{aligned}\\]\nSo the coefficient in a simple linear regression of \\(Y\\) on \\(X\\) is simply the ratio of the covariance between \\(X\\) and \\(Y\\) over the variance of \\(X\\). Neat!"
+  },
+  {
+    "objectID": "slides/04-slides.html#linear-regression-is-a-many-splendored-thing",
+    "href": "slides/04-slides.html#linear-regression-is-a-many-splendored-thing",
+    "title": "POLS 1600",
+    "section": "Linear Regression is a many splendored thing",
+    "text": "Linear Regression is a many splendored thing\nTimothy Lin provides a great overview of the various interpretations/motivations for linear regression.\n\nA least squares estimator\nA linear projection of \\(y\\) on the subspace spanned by \\(X\\beta\\)\nA method of moments estimator\nA maximum likelihood estimator\nA singular vector decomposition\nA linear approximation of the conditional expectation function"
+  },
+  {
+    "objectID": "slides/04-slides.html#linear-regression-is-a-many-splendored-thing-1",
+    "href": "slides/04-slides.html#linear-regression-is-a-many-splendored-thing-1",
+    "title": "POLS 1600",
+    "section": "Linear Regression is a many splendored thing",
+    "text": "Linear Regression is a many splendored thing\n\nTimothy Lin provides a great overview of various interpretations/motivations for linear regression.\n\nA least squares estimator\nA linear projection of \\(y\\) on the subspace spanned by \\(X\\beta\\)\nA method of moments estimator\nA maximum likelihood estimator\nA singular vector decomposition\nA linear approximation of the conditional expectation function"
+  },
+  {
+    "objectID": "slides/04-slides.html#the-conditional-expectation-function",
+    "href": "slides/04-slides.html#the-conditional-expectation-function",
+    "title": "POLS 1600",
+    "section": "The Conditional Expectation Function",
+    "text": "The Conditional Expectation Function\nOf all the functions we could choose to describe the relationship between \\(Y\\) and \\(X\\),\n\\[\nY_i = f(X_i) + \\epsilon_i\n\\]\nthe conditional expectation of \\(Y\\) given \\(X\\) \\((E[Y|X])\\), has some appealing properties\n\\[\nY_i = E[Y_i|X_i] + \\epsilon\n\\]\nThe error, by definition, is uncorrelated with X and \\(E[\\epsilon|X]=0\\)\n\\[\nE[\\epsilon|X] = E[Y - E[Y|X]|X]= E[Y|X] - E[Y|X] = 0\n\\]\nOf all the possible functions \\(g(X)\\), we can show that \\(E[Y_i|X_i]\\) is the best predictor in terms of minimizing mean squared error\n\\[\nE[ (Y - g(Y))^2] \\geq E[(Y - E[Y|X])^2]\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#section-5",
+    "href": "slides/04-slides.html#section-5",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Linear Approximations to the Conditional Expectation Function\n\nConceptCEFOLS\n\n\n\n\nWe can then show (in a different class) that linear regression provides the best linear predictor of the CEF\n\nChapter 3, of Mostly Harmless Econometrics\nChapter 4 of Foundations of Agnostic Statistics\n\nFurthermore, when the CEF is linear, it’s equal exactly to OLS regression"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-you-need-to-know-about-regression",
+    "href": "slides/04-slides.html#what-you-need-to-know-about-regression",
+    "title": "POLS 1600",
+    "section": "What you need to know about Regression",
+    "text": "What you need to know about Regression\n\n\nConceptual\n\nSimple linear regression estimates a line of best fit that summarizes relationships between two variables\n\n\n\\[\ny_i = \\beta_0 + \\beta_1x_i + \\epsilon_i\n\\]\n\nPractical\n\nWe estimate linear models in R using the lm() function\n\n\n\nlm(y ~ x, data = df)"
+  },
+  {
+    "objectID": "slides/04-slides.html#what-you-need-to-know-about-regression-1",
+    "href": "slides/04-slides.html#what-you-need-to-know-about-regression-1",
+    "title": "POLS 1600",
+    "section": "What you need to know about Regression",
+    "text": "What you need to know about Regression\n\n\nTechnical/Definitional\n\nLinear regression chooses \\(\\beta_0\\) and \\(\\beta_1\\) to minimize the Sum of Squared Residuals (SSR):\n\n\n\\[\\textrm{Find }\\hat{\\beta_0},\\,\\hat{\\beta_1} \\text{ arg min}_{\\beta_0, \\beta_1} \\sum (y_i-(\\beta_0+\\beta_1x_i))^2\\]\n\nTheoretical\n\nLinear regression provides a linear estimate of the conditional expectation function (CEF): \\(E[Y|X]\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#motivating-example-what-causes-cholera",
+    "href": "slides/04-slides.html#motivating-example-what-causes-cholera",
+    "title": "POLS 1600",
+    "section": "Motivating Example: What causes Cholera?",
+    "text": "Motivating Example: What causes Cholera?\n\nIn the 1800s, cholera was thought to be transmitted through the air.\nJohn Snow (the physician, not the snack), to explore the origins eventunally concluding that cholera was transmitted through living organisms in water.\nLeveraged a natural experiment in which one water company in London moved its pipes further upstream (reducing contamination for Lambeth), while other companies kept their pumps serving Southwark and Vauxhall in the same location."
+  },
+  {
+    "objectID": "slides/04-slides.html#notation",
+    "href": "slides/04-slides.html#notation",
+    "title": "POLS 1600",
+    "section": "Notation",
+    "text": "Notation\nLet’s adopt a little notation to help us think about the logic of Snow’s design:\n\n\\(D\\): treatment indicator, 1 for treated neighborhoods (Lambeth), 0 for control neighborhoods (Southwark and Vauxhall)\n\\(T\\): period indicator, 1 if post treatment (1854), 0 if pre-treatment (1849).\n\\(Y_{di}(t)\\) the potential outcome of unit \\(i\\)\n\n\\(Y_{1i}(t)\\) the potential outcome of unit \\(i\\) when treated between the two periods\n\\(Y_{0i}(t)\\) the potential outcome of unit \\(i\\) when control between the two periods"
+  },
+  {
+    "objectID": "slides/04-slides.html#causal-effects",
+    "href": "slides/04-slides.html#causal-effects",
+    "title": "POLS 1600",
+    "section": "Causal Effects",
+    "text": "Causal Effects\nThe individual causal effect for unit i at time t is:\n\\[\\tau_{it} = Y_{1i}(t) − Y_{0i}(t)\\]\nWhat we observe is\n\\[Y_i(t) = Y_{0i}(t)\\cdot(1 − D_i(t)) + Y_{1i}(t)\\cdot D_i(t)\\]\n\\(D\\) only equals 1, when \\(T\\) equals 1, so we never observe \\(Y_0i(1)\\) for the treated units.\nIn words, we don’t know what Lambeth’s outcome would have been in the second period, had they not been treated."
+  },
+  {
+    "objectID": "slides/04-slides.html#average-treatment-on-treated",
+    "href": "slides/04-slides.html#average-treatment-on-treated",
+    "title": "POLS 1600",
+    "section": "Average Treatment on Treated",
+    "text": "Average Treatment on Treated\nOur goal is to estimate the average effect of treatment on treated (ATT):\n\\[\\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\]\nThat is, what would have happened in Lambeth, had their water company not moved their pipes"
+  },
+  {
+    "objectID": "slides/04-slides.html#average-treatment-on-treated-1",
+    "href": "slides/04-slides.html#average-treatment-on-treated-1",
+    "title": "POLS 1600",
+    "section": "Average Treatment on Treated",
+    "text": "Average Treatment on Treated\nOur goal is to estimate the average effect of treatment on treated (ATT):\nWe we can observe is:\n\n\n\n\n\n\n\n\n\nPre-Period (T=0)\nPost-Period (T=1)\n\n\n\n\nTreated \\(D_{i}=1\\)\n\\(E[Y_{0i}(0)\\vert D_i = 1]\\)\n\\(E[Y_{1i}(1)\\vert D_i = 1]\\)\n\n\nControl \\(D_i=0\\)\n\\(E[Y_{0i}(0)\\vert D_i = 0]\\)\n\\(E[Y_{0i}(1)\\vert D_i = 0]\\)"
+  },
+  {
+    "objectID": "slides/04-slides.html#data",
+    "href": "slides/04-slides.html#data",
+    "title": "POLS 1600",
+    "section": "Data",
+    "text": "Data\nBecause potential outcomes notation is abstract, let’s consider a modified description of the Snow’s cholera death data from Scott Cunningham:\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+  },
+  {
+    "objectID": "slides/04-slides.html#how-can-we-estimate-the-effect-of-moving-pumps-upstream",
+    "href": "slides/04-slides.html#how-can-we-estimate-the-effect-of-moving-pumps-upstream",
+    "title": "POLS 1600",
+    "section": "How can we estimate the effect of moving pumps upstream?",
+    "text": "How can we estimate the effect of moving pumps upstream?\nRecall, our goal is to estimate the effect of the the treatment on the treated:\n\\[\\tau_{ATT} = E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\]\nLet’s conisder some strategies Snow could take to estimate this quantity:"
+  },
+  {
+    "objectID": "slides/04-slides.html#before-vs-after-comparisons",
+    "href": "slides/04-slides.html#before-vs-after-comparisons",
+    "title": "POLS 1600",
+    "section": "Before vs after comparisons:",
+    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+  },
+  {
+    "objectID": "slides/04-slides.html#treatment-control-comparisons-in-the-post-period.",
+    "href": "slides/04-slides.html#treatment-control-comparisons-in-the-post-period.",
+    "title": "POLS 1600",
+    "section": "Treatment-Control comparisons in the Post Period.",
+    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+  },
+  {
+    "objectID": "slides/04-slides.html#difference-in-differences-1",
+    "href": "slides/04-slides.html#difference-in-differences-1",
+    "title": "POLS 1600",
+    "section": "Difference in Differences",
+    "text": "Difference in Differences\n\nTo address these concerns, Snow employed what we now call a difference-in-differences design,\nThere are two, equivalent ways to view this design.\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\\}}_{\\text{1. Treat-Control |Post }}− \\overbrace{\\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Treated-Control|Pre}}\\]\n\nDifference 1: Average change between Treated and Control in Post Period\nDifference 2: Average change between Treated and Control in Pre Period"
+  },
+  {
+    "objectID": "slides/04-slides.html#difference-in-differences-2",
+    "href": "slides/04-slides.html#difference-in-differences-2",
+    "title": "POLS 1600",
+    "section": "Difference in Differences",
+    "text": "Difference in Differences\n\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\\}}_{\\text{1. Treat-Control |Post }}− \\overbrace{\\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Treated-Control|Pre}}\\] Is equivalent to:\n\\[\\underbrace{\\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(0)|D_{i} = 1]\\}}_{\\text{Post - Pre |Treated }}− \\overbrace{\\{E[Y_{i}(1)|D_{i} = 0] − E[Y_{i}(0)|D_{i}=0 ]}^{\\text{Post-Pre|Control}}\\]\n\nDifference 1: Average change between Treated over time\nDifference 2: Average change between Control over time"
+  },
+  {
+    "objectID": "slides/04-slides.html#difference-in-differences-3",
+    "href": "slides/04-slides.html#difference-in-differences-3",
+    "title": "POLS 1600",
+    "section": "Difference in Differences",
+    "text": "Difference in Differences\nYou’ll see the DiD design represented both ways, but they produce the same result:\n\\[\n\\tau_{ATT} = (19-147) - (85-135) = -78\n\\]\n\\[\n\\tau_{ATT} = (19-85) - (147-135) = -78\n\\]"
+  },
+  {
+    "objectID": "slides/04-slides.html#identifying-assumption-of-a-difference-in-differences-design",
+    "href": "slides/04-slides.html#identifying-assumption-of-a-difference-in-differences-design",
+    "title": "POLS 1600",
+    "section": "Identifying Assumption of a Difference in Differences Design",
+    "text": "Identifying Assumption of a Difference in Differences Design\nThe key assumption in this design is what’s known as the parallel trends assumption: \\(E[Y_{0i}(1) − Y_{0i}(0)|D_i = 1] = E[Y_{0i}(1) − Y_{0i}(0)|D_i = 0]\\)\n\nIn words: If Lambeth hadn’t moved its pumps, it would have followed a similar path as S&V"
+  },
+  {
+    "objectID": "slides/04-slides.html#parralel-trends",
+    "href": "slides/04-slides.html#parralel-trends",
+    "title": "POLS 1600",
+    "section": "Parralel Trends",
+    "text": "Parralel Trends"
+  },
+  {
+    "objectID": "slides/04-slides.html#summary",
+    "href": "slides/04-slides.html#summary",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary\n\nA Difference in Differences (DiD, or diff-in-diff) design combines a pre-post comparison, with a treated and control comparison\n\nTaking the pre-post difference removes any fixed differences between the units\nThen taking the difference between treated and control differences removes any common differences over time\n\nThe key identifying assumption of a DiD design is the “assumption of parallel trends”\n\nAbsent treatment, treated and control groups would see the same changes over time.\nHard to prove, possible to test"
+  },
+  {
+    "objectID": "slides/04-slides.html#extensions-and-limitations",
+    "href": "slides/04-slides.html#extensions-and-limitations",
+    "title": "POLS 1600",
+    "section": "Extensions and limitations",
+    "text": "Extensions and limitations\n\nDiff-in-Diff easy to estimate with linear regression\nGeneralizes to multiple periods and treatment interventions\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\n\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
+  },
+  {
+    "objectID": "slides/04-slides.html#applications",
+    "href": "slides/04-slides.html#applications",
+    "title": "POLS 1600",
+    "section": "Applications",
+    "text": "Applications\n\nCard and Krueger (1994) What effect did raising the minimum wage in NJ have on employment\nAbadie, Diamond, & Hainmueller (2014) What effect did German Unification have on economic development in West Germany\nMalesky, Nguyen and Tran (2014) How does decentralization influence public services?"
+  },
+  {
+    "objectID": "slides/04-slides.html#references",
+    "href": "slides/04-slides.html#references",
+    "title": "POLS 1600",
+    "section": "References",
+    "text": "References\n\n\n\n\nBlair, Graeme, Alexander Coppock, and Macartan Humphreys. 2023. Research Design in the Social Sciences: Declaration, Diagnosis, and Redesign. Princeton University Press."
   }
 ]
