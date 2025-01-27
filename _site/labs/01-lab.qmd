@@ -55,7 +55,7 @@ To do this, we copied and pasted a lot of code. Today, we'll **get practice writ
 
 3.  Render your .qmd file to produce an `html` file
 
-# Install the some additional packages
+# Install some additional packages
 
 -   In the code chunk below, we'll use the `install.packages()` function to install the `lubridate` and `DT` package packages
 -   Uncomment the code by removing \#

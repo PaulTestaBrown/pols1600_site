@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.545">
+  <meta name="generator" content="quarto-1.4.551">
 
   <title>POLS 1600</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -387,9 +387,10 @@
       margin-right: 0; 
     }
   </style>
+  <link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
   <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
   <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-  <script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+  <script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
   <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
@@ -408,14 +409,14 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Feb 6, 2024</p>
+  <p class="date">Updated Jan 27, 2025</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
 <h1><i class="fa-solid fa-map-location" aria-label="map-location"></i> Overview</h1>
 
 </section>
-<section id="class-plan" class="slide level2">
+<section id="class-plan" class="slide level2 smaller">
 <h2>Class Plan</h2>
 <ul>
 <li class="fragment">Logistics (15 minutes)
@@ -443,23 +444,14 @@
 <li class="fragment"><p>If you’re still on the waitlist on CAB, speak to me after class</p></li>
 </ul>
 </section>
-<section id="announcements" class="slide level2">
-<h2>Announcements</h2>
-<blockquote class="twitter-tweet" data-media-max-width="560">
-<p lang="en" dir="ltr">
-</p><p>“Uh ohhh, the Cavs are playing playoff basketball” <a href="https://t.co/WrOrzeuEtW">pic.twitter.com/WrOrzeuEtW</a></p>
-<p></p>
-<p>— Bottlegate (<span class="citation" data-cites="Bottlegate">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Bottlegate?</strong></a>)</span>) <a href="https://twitter.com/Bottlegate/status/855250365402447872?ref_src=twsrc%5Etfw">April 21, 2017</a></p>
-</blockquote>
-<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</section>
 <section id="tutorials" class="slide level2">
 <h2>Tutorials</h2>
 <p>Once you’ve done the following</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/learnr"</span>)</span>
-<span id="cb1-2"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio-education/gradethis"</span>)</span>
-<span id="cb1-3"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"PaulTestaBrown/qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"kosukeimai/qss-package"</span>, <span class="at">build_vignettes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/learnr"</span>)</span>
+<span id="cb1-3"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio-education/gradethis"</span>)</span>
+<span id="cb1-4"><a></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"PaulTestaBrown/qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can see the available problem sets by running the following code in your console:</p>
 <div class="cell">
@@ -472,7 +464,19 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>learnr<span class="sc">::</span><span class="fu">run_tutorial</span>(<span class="st">"00-intro"</span>, <span class="at">package =</span> <span class="st">"qsslearnr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><span class="blue">Please upload tutorials 00-intro and 01-measurement1 to Canvas by Friday</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Please upload tutorials 00-intro and 01-measurement1 to <a href="https://canvas.brown.edu/courses/1098409/assignments" target="_blank">Canvas</a> by Friday</p>
+</div>
+</div>
+</div>
 </section>
 <section id="section" class="slide level2" data-background-image="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg" data-background-size="contain">
 <h2></h2>
@@ -485,8 +489,8 @@
 <h2>Why</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-bcc5c86a733a520da6e5" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-bcc5c86a733a520da6e5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"],["Dad","Mom","Mom","Mom","Dad","Dad","Dad","Mom","Mom","Dad","Mom","Mom","Mom","Mom","Mom","Dad","Dad","Dad"],["he doesn't trust the government but also he'd get me a really good lawyer","She won't remember I told her","My mom watches all these murder mystery shows, so she must have picked up something to help.","While I think she would be shocked, she would be understanding and help me. She is really good at research and dealing with furstrating systems of people and getting her way. I think she would do a good job covering it up and bribing people and tying up all the loose ends. She is detail-oriented and organized.","I will probably get caught, so running away is not an option. The next course of action for me is to discuss what steps I need to take to receive the lowest charge/conviction possible (I would have likely murdered someone accidentally because I do not have the guts to do such as act even if I thought about it). My mother has been a stay at home mother most of her life so it is a natural decision for me to ask my father for advise.","He'd help me get away with it","he's a lawyer","1. My mom is a literal Harvard lawyer. 2. My mom will be more willing to help me address the issue. 3. My mom is more responsive.","My mom is the coolest person you will ever meet and my best friend. She's also somehow always right.","My dad is an incredible problem-solver and he is always the person I turn to ask for help with concerning issues that require quick thinking and non-BS immediate action. My mom, on the other hand, tends to be the person that I ask for help with when I need emotional and mental support, which I also 100% need given that I am a murderer, but I think my primary concern here is more logistical ie. discarding the body, creating my alibi, framing someone (?)","She'll help me cover it up!!!","I don't speak to my dad &amp;lt;3","She knows ME very well, the good, bad, and confusing. Also, she's completely prepared for any situation and somehow always has a plan for everything. Over the years, I've come to trust her judgement 1000%.","I have a closer relationship with my mom, and she's more of a logical problem-solver so I believe she'll be objective and know what to do next.","I feel like she would just know what to do. My dad would ask too many questions.","My dad is very calm and I feel like he would be able to keep a secret better than my mom. I think my mom would probably be very driven to help me but would leave more loose ends...hopefully it never comes to this!","My dad would help me bury the body no questions asked. I'm his baby girl anything to keep his daughter safe.","I think he would be more calm and have a better idea of what to do."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Who would you tell?<\/th>\n      <th>Why?<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Who would you tell?","targets":1},{"name":"Why?","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-03e0e3b423cd8e5c7ddd" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-03e0e3b423cd8e5c7ddd">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["Dad","Dad","Dad","Mom","Dad","Mom","Mom","Mom","Mom","Mom","Mom","Mom","Dad","Mom","Mom","Dad","Dad","Dad","Dad","Dad"],["He wouldn't ask as many questions","Dad's pretty practical, we can get away with it.","My mom would freak out and make things worse... my dad would stay more calm and be able to help me","She would do anything in her ability to help me hide the body and not get caught.","I would tell both however in this situation I would tell my dad first as I think my mom would be much more inclined to worry first and then give advice second. Assuming I'm asking for advice on how to proceed, I think my dad would probably give me advice first and then worry privately.","My mom is my best friend! Also, she would help me bury the body in a more calm, cool, and collected manner unlike my dad who would probably go into a state of panic and shock.","I tell my mom more of my direct secrets and personal information, and she is usually very good at staying calm and helping me develop an action plan.","I feel that she would give better advice on how to handle the situation.","She is slightly better at problem-solving and planning, so I feel like she would be more helpful in guiding me through what to do next whereas my dad would question me more.","I feel like she would have more compassion, but my father would probably be better at handling the situation.","I'm not entirely sure. This is kind of a gut-feeling I have. I think I generally just talk to my mom about big issues first. I've never had to discuss anything like murder, but I usually bring my large concerns to her.","She would do anything to protect me","Dad is a lawyer, decent problem solver (and a bit of a mansplainer, so he'll be confident at least). Mom would be a bit all over the place but couldn't keep it to herself.","She's smart and would help me cover it up.","My mom is just so nonchalant that I feel like she would know how to help me navigate the situation without immediately judging me","I would tell my dad because he is a lawyer, I can therefore make him my attorney and he will then be bound by attorney-client privilege. As a result of this agreement, he will not be able to testify against me nor will he be able to disclose any of my actions.","He's a lawyer and can help with the aftermath.","He is the practical choice as someone who could help with the logistics of what comes next, and there's no way he's turning me in.","He'll stay calm and tell me what to do.","he's the more level-headed and practical one of my parents under stress"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Who would you tell?<\/th>\n      <th>Why?<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Who would you tell?","targets":1},{"name":"Why?","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -532,7 +536,7 @@
 <li class="fragment">Learning to code</li>
 </ul>
 </div><div class="column" style="width:48%;">
-<p><span class="fragment">What are we</span><span class="blue">worried</span> about?</p>
+<p><span class="fragment">What are we <span class="blue">worried</span> about?</span></p>
 <ul>
 <li class="fragment">Engaging with social science</li>
 <li class="fragment">Learning statistics and math</li>
@@ -559,7 +563,7 @@
 <ul>
 <li class="fragment"><p><span class="blue">R</span> is an open source <span class="blue">statistical programming language</span> (<a href="https://rstudio.github.io/cheatsheets/base-r.pdf" target="_blank">cheatsheet</a>)</p></li>
 <li class="fragment"><p><span class="blue">R Studio</span> is an <span class="blue">integrated development environment (IDE)</span> that makes working in R <span class="blue">much</span> easier (<a href="https://rstudio.github.io/cheatsheets/html/rstudio-ide.html?_gl=1*1i40yim*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA.." target="_blank">cheatsheet</a>)</p></li>
-<li class="fragment"><p><span class="blue">Quarto</span> is a publishing system that allows us to write and present code in <span class="blue">different formats</span> (<a href="https://rstudio.github.io/cheatsheets/html/quarto.html?_gl=1*nz9m6y*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA.." target="_blank">cheatsheet</a>)</p></li>
+<li class="fragment"><p><span class="blue">Quarto</span> is a <span class="blue">publishing system</span> that allows us to write and present code in <span class="blue">different formats</span> (<a href="https://rstudio.github.io/cheatsheets/html/quarto.html?_gl=1*nz9m6y*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA.." target="_blank">cheatsheet</a>)</p></li>
 </ul>
 </section>
 <section id="general-tuesday-workflow" class="slide level2">
@@ -608,11 +612,17 @@
 <section id="the-basics-of-r" class="slide level2">
 <h2>The Basics of R</h2>
 <ul>
-<li class="fragment"><p>R is an interpreter (&gt;)</p></li>
-<li class="fragment"><p>“Everything that exists in R is an object”</p></li>
-<li class="fragment"><p>“Everything that happens in R is the result of a function”</p></li>
+<li class="fragment"><p>R is an interpreter (&gt;)</p>
+<ul>
+<li class="fragment"><p>Everything that <span class="blue">exists</span> in R is an <span class="blue">object</span></p></li>
+<li class="fragment"><p>Everything that <span class="blue">happens</span> in R is the <span class="blue">result of a function</span></p></li>
+</ul></li>
 <li class="fragment"><p>Data come in different types, shapes, and sizes</p></li>
-<li class="fragment"><p>Packages make R great</p></li>
+<li class="fragment"><p>Packages extend what R can do</p>
+<ul>
+<li class="fragment"><code>install.packages("pacakge_name")</code> once to download a package</li>
+<li class="fragment">load packages <span class="blue">every session</span> using <code>library("package_name")</code></li>
+</ul></li>
 </ul>
 </section>
 <section id="r-is-an-interpreter" class="slide level2">
@@ -633,6 +643,7 @@
 </section>
 <section id="r-is-a-calculator" class="slide level2">
 <h2>R is a Calculator</h2>
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -686,9 +697,11 @@
 </table>
 
 
+</div>
 </section>
 <section id="r-is-logical" class="slide level2">
 <h2>R is logical</h2>
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -722,6 +735,7 @@
 </table>
 
 
+</div>
 </section>
 <section id="r-is-logical-1" class="slide level2">
 <h2>R is logical</h2>
@@ -746,8 +760,9 @@
 </div>
 </div>
 </section>
-<section id="r-can-make-comparisons" class="slide level2">
+<section id="r-can-make-comparisons" class="slide level2 smaller">
 <h2>R can make comparisons</h2>
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -806,8 +821,9 @@
 </table>
 
 
+</div>
 </section>
-<section id="everything-that-exists-in-r-is-an-object" class="slide level2">
+<section id="everything-that-exists-in-r-is-an-object" class="slide level2 smaller">
 <h2>Everything that exists in R is an object</h2>
 <div>
 <ul>
@@ -820,7 +836,7 @@
 </div>
 </div>
 <ul>
-<li>We can assign the object 5, the name x, using the assignment operator <code>&lt;-</code>+</li>
+<li>We can assign the object 5, the name x, using the assignment operator <code>&lt;-</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Read this as "x gets 5"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -844,7 +860,7 @@
 <h2>Data come in different types</h2>
 
 <img data-src="http://r4ds.had.co.nz/diagrams/data-structures-overview.png" width="500" class="r-stretch"></section>
-<section id="data-come-in-different-types-1" class="slide level2">
+<section id="data-come-in-different-types-1" class="slide level2 smaller">
 <h2>Data come in different types</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -886,6 +902,22 @@
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">class</span>(grades)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>One common portal of discovery, is that a function in R is expecting data of one type but (e.g.&nbsp;<code>numeric</code>) but actually gets data of different type (e.g.&nbsp;<code>character</code>)</p>
+<p>The <code>class()</code> function is a useful <code>base R</code> for troubleshooting such errors.</p>
 </div>
 </div>
 </div>
@@ -1035,7 +1067,7 @@
 <h2>Getting setup to work in R</h2>
 <p>Each time you start a project in R, you will want to:</p>
 <ul>
-<li class="fragment"><p>Set your working directory</p></li>
+<li class="fragment"><p>Set your working directory in R Studio</p></li>
 <li class="fragment"><p>Load (and if needed, install) the R packages you will use</p></li>
 <li class="fragment"><p>Set any “global” options you want</p></li>
 <li class="fragment"><p>Load the data you’ll be using</p></li>
@@ -1073,7 +1105,7 @@
 </div>
 <div>
 <ul>
-<li>Once you’ve installed these packages comment out the code</li>
+<li>Once you’ve installed these packages comment out the code (Why?)</li>
 </ul>
 </div>
 <div class="cell">
@@ -1105,34 +1137,29 @@
 <span id="cb38-2"><a></a><span class="fu">library</span>(COVID19)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="set-any-global-options-you-want" class="slide level2 scrollable">
-<h2>Set any “global” options you want</h2>
-<p>Here are the global options for these slides:<sup>1</sup></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="co"># Options for these slides</span></span>
-<span id="cb39-2"><a></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
-<span id="cb39-3"><a></a>  <span class="at">warning =</span> <span class="cn">FALSE</span>,       <span class="co"># Don't display warnings</span></span>
-<span id="cb39-4"><a></a>  <span class="at">message =</span> <span class="cn">FALSE</span>,       <span class="co"># Don't display messages</span></span>
-<span id="cb39-5"><a></a>  <span class="at">comment =</span> <span class="cn">NA</span>,          <span class="co"># No prefix before line of text</span></span>
-<span id="cb39-6"><a></a>  <span class="at">dpi =</span> <span class="dv">300</span>,             <span class="co"># Figure resolution</span></span>
-<span id="cb39-7"><a></a>  <span class="at">fig.align =</span> <span class="st">"center"</span>,  <span class="co"># Figure alignment</span></span>
-<span id="cb39-8"><a></a>  <span class="at">out.width =</span> <span class="st">"80%"</span>,     <span class="co"># Figure width</span></span>
-<span id="cb39-9"><a></a>  <span class="at">cache =</span> <span class="cn">FALSE</span>          <span class="co"># Don't cache code chunks</span></span>
-<span id="cb39-10"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>I’ll generally do this for you, but it’s useful to know that you can change options globally (for every chunk) and locallys (for specific chunks)</p></li></ol></aside></section>
-<section id="load-the-data-youll-be-using" class="slide level2">
+<section id="load-the-data-youll-be-using" class="slide level2 smaller">
 <h2>Load the data you’ll be using</h2>
 <p>There are three ways to load data.</p>
 <ul>
-<li class="fragment">Load a pre-existing dataset
+<li class="fragment"><p>Load a <span class="blue">pre-existing</span> dataset</p>
 <ul>
-<li class="fragment"><code>data("dataset")</code> will load the dataset named “dataset”</li>
+<li class="fragment"><code>data("dataset")</code> will load the dataset named “dataset”
+<ul>
 <li class="fragment"><code>data()</code> will list all datasets</li>
 </ul></li>
-<li class="fragment">Load a .Rdata/.rda file using <code>load("dataset.rda")</code></li>
-<li class="fragment">Read data of a different format (.csv, .dta, .spss) into R using specific functions from packages like <code>haven</code> and <code>readr</code></li>
+</ul></li>
+<li class="fragment"><p>Load a .Rdata/.rda file using <code>load("dataset.rda")</code></p></li>
+<li class="fragment"><p>Read data of a different format (.csv, .dta, .spss) into R using specific functions from packages like <code>haven</code> and <code>readr</code></p></li>
 </ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="co"># EXAMPLE CODE (Won't actually run)</span></span>
+<span id="cb39-2"><a></a><span class="co"># Read a .csv file saved locally on my Desktop</span></span>
+<span id="cb39-3"><a></a>df_csv <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"~/Desktop/data.csv"</span>)</span>
+<span id="cb39-4"><a></a><span class="co"># Read a .dta file saved on the web</span></span>
+<span id="cb39-5"><a></a>df_dta <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"https://paultesta.org/data.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="working-with-data-in-r" class="title-slide slide level1 inverse center">
@@ -1184,14 +1211,14 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/covid.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>30 people trying to download this data live sometimes causes errors with the server</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>30 people trying to download this data live sometimes causes errors with the server</p></li></ol></aside></section>
 <section id="loading-state-level-covid-data-2" class="slide level2 smaller">
 <h2>Loading state-level Covid data</h2>
 <div>
 <ul>
 <li><code>country = US</code> tells the function we want data for the US</li>
 <li><code>start = "2020-01-01"</code> sets the start date for the data</li>
-<li><code>start = "2020-01-01"</code> sets the end date for the data</li>
+<li><code>end = "2022-12-31""</code> sets the end date for the data</li>
 <li><code>level = 2</code> tells the function we want state-level data</li>
 <li><code>verbose = F</code> tells the function not to print other stuff</li>
 </ul>
@@ -1209,7 +1236,52 @@
 </section>
 <section id="looking-at-your-data" class="slide level2 smaller">
 <h2>Looking at your data</h2>
-<p>Anytime you load data into R, try some combination of the following to get a <span class="blue">high-level overview (HLO)</span> of the data</p>
+<p>The first time you load a dataset into R, you should try to get a <span class="blue">high-level overview (HLO)</span> of the data</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>This is an iterative, dynamic process. Something you do “live” but won’t necessarily save in your final code you submit. Over time you’ll develop intuitions about what to look for, what questions to ask of your data, and what functions and code will help you answer these questions.</p>
+<p>For example, I might want to know, how many unique values the variable <code>school_closing</code> in the <code>covid</code> dataset takes?</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">table</span>(covid<span class="sc">$</span>school_closing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   -3    -2    -1     0     1     2     3 
+ 3357 20721  3831  9509  9581  1366  5313 </code></pre>
+</div>
+</div>
+</section>
+<section id="hlos-allow-you-to" class="slide level2 smaller">
+<h2>HLOs allow you to</h2>
+<ul>
+<li class="fragment">Describe the <span class="blue">structure</span> of your data:
+<ul>
+<li class="fragment">How many observations (rows)</li>
+<li class="fragment">How many variables (columns)</li>
+</ul></li>
+<li class="fragment">Describe the <span class="blue">unit of observation</span>
+<ul>
+<li class="fragment">In plain language, what <em>is</em> a row in your data</li>
+</ul></li>
+<li class="fragment">Identify the <span class="blue">class and type</span> of variables (columns)
+<ul>
+<li class="fragment">Numeric, character, logical</li>
+<li class="fragment">Is there missing data (<code>NA</code>s)</li>
+</ul></li>
+<li class="fragment">Figure out what <span class="blue">transformations, cleaning, and recoding</span> you need to do</li>
+</ul>
+</section>
+<section id="functions-to-help-you-get-a-high-level-overview" class="slide level2 smaller">
+<h2>Functions to help you get a high level overview</h2>
 <ul>
 <li class="fragment"><code>dim(data)</code> gives you the dimensions (# of rows and columns)</li>
 <li class="fragment"><code>View(data)</code> opens data in a separate pane</li>
@@ -1222,30 +1294,14 @@
 <ul>
 <li class="fragment">Good for categorical data</li>
 </ul></li>
+<li class="fragment"><code>table(data$variable1, data$variable2)</code> creates a “crosstab” or contingency table
+<ul>
+<li class="fragment">Great for checking recodes of data</li>
+</ul></li>
 <li class="fragment"><code>summary(data$variable)</code> summary statistics
 <ul>
 <li class="fragment">Good for numeric data</li>
 </ul></li>
-</ul>
-</section>
-<section id="hlos-allow-you-to" class="slide level2 smaller">
-<h2>HLOs allow you to</h2>
-<ul>
-<li class="fragment">Describe the <span class="blue">structure</span> of your data:
-<ul>
-<li class="fragment">How many observations (rows)</li>
-<li class="fragment">How many variables (columns)</li>
-</ul></li>
-<li class="fragment">Describe the <span class="blue">unit of analysis</span>
-<ul>
-<li class="fragment">What does a row in your data correspond to</li>
-</ul></li>
-<li class="fragment">Identify the <span class="blue">class and type</span> of variables (columns)
-<ul>
-<li class="fragment">Numeric, character, logical</li>
-<li class="fragment">Is there missing data (<code>NA</code>s)</li>
-</ul></li>
-<li class="fragment">Figure out what <span class="blue">transformations, cleaning, and recoding</span> you need to do</li>
 </ul>
 </section></section>
 <section>
@@ -1295,13 +1351,13 @@
 <h2>The <code>%&gt;%</code> (“pipe” operator)</h2>
 <p>The <code>%&gt;%</code> lets us chain functions together so we can read left to right</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">slice</span>(<span class="fu">filter</span>(covid, administrative_area_level_2 <span class="sc">==</span> <span class="st">"Rhode Island"</span>), <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">slice</span>(<span class="fu">filter</span>(covid, administrative_area_level_2 <span class="sc">==</span> <span class="st">"Rhode Island"</span>), <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Becomes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a>covid <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a></a>  <span class="fu">filter</span>(administrative_area_level_2 <span class="sc">==</span> <span class="st">"Rhode Island"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>covid <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a></a>  <span class="fu">filter</span>(administrative_area_level_2 <span class="sc">==</span> <span class="st">"Rhode Island"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1314,6 +1370,7 @@
 <div class="callout-content">
 <p>macOS: <code>CMD</code> + <code>SHIFT</code> + <code>M</code></p>
 <p>PC: <code>CTRL</code> + <code>SHIFT</code> + <code>M</code></p>
+<p>n.b.&nbsp;<code>|&gt;</code> is the <code>base</code> R or native pipe. It’s <a href="https://ivelasq.rbind.io/blog/understanding-the-r-pipe/" target="_blank">similar in function but also subtlely different in execution</a> to the <code>%&gt;%</code> in ways that won’t matter for us right now.</p>
 </div>
 </div>
 </div>
@@ -1347,6 +1404,7 @@
 <section id="using-r-to-summarize-data" class="slide level2 smaller">
 <h2>Using R to Summarize Data</h2>
 <p>Here are some common ways of summarizing data and how to calculate them with <code>R</code></p>
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1399,6 +1457,7 @@
 </table>
 
 
+</div>
 <p>All of these functions have an argument called <code>na.rm=F</code>. If your data have missing values, you’ll need to set <code>na.rm=F</code> (e.g.&nbsp;<code>mean(x, na.rm=T)</code>)</p>
 </section></section>
 <section>
@@ -1436,17 +1495,17 @@
 </div>
 </div><div class="column" style="width:70%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">dim</span>(covid)</span>
-<span id="cb45-2"><a></a><span class="fu">head</span>(covid)</span>
-<span id="cb45-3"><a></a><span class="fu">glimpse</span>(covid)</span>
-<span id="cb45-4"><a></a><span class="fu">table</span>(covid<span class="sc">$</span>administrative_area_level_2)</span>
-<span id="cb45-5"><a></a><span class="fu">length</span>(<span class="fu">unique</span>(covid<span class="sc">$</span>administrative_area_level_2))</span>
-<span id="cb45-6"><a></a>covid<span class="sc">$</span>confirmed[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb45-7"><a></a>covid <span class="sc">%&gt;%</span></span>
-<span id="cb45-8"><a></a>  <span class="fu">select</span>(administrative_area_level_2, date, confirmed) <span class="sc">%&gt;%</span></span>
-<span id="cb45-9"><a></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb45-10"><a></a><span class="fu">summary</span>(covid<span class="sc">$</span>confirmed)</span>
-<span id="cb45-11"><a></a><span class="fu">table</span>(covid<span class="sc">$</span>facial_coverings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="fu">dim</span>(covid)</span>
+<span id="cb47-2"><a></a><span class="fu">head</span>(covid)</span>
+<span id="cb47-3"><a></a><span class="fu">glimpse</span>(covid)</span>
+<span id="cb47-4"><a></a><span class="fu">table</span>(covid<span class="sc">$</span>administrative_area_level_2)</span>
+<span id="cb47-5"><a></a><span class="fu">length</span>(<span class="fu">unique</span>(covid<span class="sc">$</span>administrative_area_level_2))</span>
+<span id="cb47-6"><a></a>covid<span class="sc">$</span>confirmed[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb47-7"><a></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb47-8"><a></a>  <span class="fu">select</span>(administrative_area_level_2, date, confirmed) <span class="sc">%&gt;%</span></span>
+<span id="cb47-9"><a></a>  <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb47-10"><a></a><span class="fu">summary</span>(covid<span class="sc">$</span>confirmed)</span>
+<span id="cb47-11"><a></a><span class="fu">table</span>(covid<span class="sc">$</span>facial_coverings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1457,7 +1516,7 @@
 <ul>
 <li>How many observations are there (rows)</li>
 <li>How many variables (columns)</li>
-<li>What’s the unit of analysis?
+<li>What’s the unit of observation?
 <ul>
 <li>In words, how would you describe what a row in your data set corresponds to?</li>
 </ul></li>
@@ -1465,7 +1524,7 @@
 <li>What range of values can <code>facial_coverings</code> take?<sup>1</sup></li>
 </ul>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>See: https://covid19datahub.io/articles/docs.html</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>See: https://covid19datahub.io/articles/docs.html</p></li></ol></aside></section>
 <section id="subsetting-our-data-to-only-u.s.-states" class="slide level2 scrollable">
 <h2>Subsetting our data to only U.S. States</h2>
 <p><span class="blue">Goal:</span> Subset our Covid data to include only the 50 states + DC</p>
@@ -1478,26 +1537,26 @@
 <section id="create-a-vector-of-the-territories-we-dont-want" class="slide level2">
 <h2>1. Create a vector of the territories we <strong>don’t</strong> want</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>territories <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb46-2"><a></a>  <span class="st">"American Samoa"</span>,</span>
-<span id="cb46-3"><a></a>  <span class="st">"Guam"</span>,</span>
-<span id="cb46-4"><a></a>  <span class="st">"Northern Mariana Islands"</span>,</span>
-<span id="cb46-5"><a></a>  <span class="st">"Puerto Rico"</span>,</span>
-<span id="cb46-6"><a></a>  <span class="st">"Virgin Islands"</span></span>
-<span id="cb46-7"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>territories <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb48-2"><a></a>  <span class="st">"American Samoa"</span>,</span>
+<span id="cb48-3"><a></a>  <span class="st">"Guam"</span>,</span>
+<span id="cb48-4"><a></a>  <span class="st">"Northern Mariana Islands"</span>,</span>
+<span id="cb48-5"><a></a>  <span class="st">"Puerto Rico"</span>,</span>
+<span id="cb48-6"><a></a>  <span class="st">"Virgin Islands"</span></span>
+<span id="cb48-7"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="use-the-filter-command-to-filter-out-these-territories" class="slide level2">
 <h2>2. Use the <code>filter()</code> command to “filter” out these territories</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>covid_us <span class="ot">&lt;-</span> covid <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>administrative_area_level_2 <span class="sc">%in%</span> territories )</span>
-<span id="cb47-3"><a></a></span>
-<span id="cb47-4"><a></a><span class="fu">dim</span>(covid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>covid_us <span class="ot">&lt;-</span> covid <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>administrative_area_level_2 <span class="sc">%in%</span> territories )</span>
+<span id="cb49-3"><a></a></span>
+<span id="cb49-4"><a></a><span class="fu">dim</span>(covid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 58809    47</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 53678    47</code></pre>
 </div>
@@ -1522,20 +1581,20 @@
 <h2>Calculate new Covid-19 cases</h2>
 <p>Please run and comment the following code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 53678    47</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb53-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb53-3"><a></a>    <span class="at">state =</span> administrative_area_level_2,</span>
-<span id="cb53-4"><a></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb53-5"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb53-6"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb53-7"><a></a>    <span class="at">new_cases =</span> confirmed <span class="sc">-</span> <span class="fu">lag</span>(confirmed),</span>
-<span id="cb53-8"><a></a>    <span class="at">new_cases_pc =</span> new_cases<span class="sc">/</span>population <span class="sc">*</span><span class="dv">100000</span></span>
-<span id="cb53-9"><a></a>    ) <span class="ot">-&gt;</span> covid_us</span>
-<span id="cb53-10"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb55-3"><a></a>    <span class="at">state =</span> administrative_area_level_2,</span>
+<span id="cb55-4"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb55-5"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb55-6"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb55-7"><a></a>    <span class="at">new_cases =</span> confirmed <span class="sc">-</span> <span class="fu">lag</span>(confirmed),</span>
+<span id="cb55-8"><a></a>    <span class="at">new_cases_pc =</span> new_cases<span class="sc">/</span>population <span class="sc">*</span><span class="dv">100000</span></span>
+<span id="cb55-9"><a></a>    ) <span class="ot">-&gt;</span> covid_us</span>
+<span id="cb55-10"><a></a><span class="fu">dim</span>(covid_us)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 53678    50</code></pre>
 </div>
@@ -1544,19 +1603,19 @@
 <section id="create-face-mask-policy-variable" class="slide level2">
 <h2>Create Face Mask Policy variable</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb55-3"><a></a>    <span class="at">face_masks =</span> <span class="fu">case_when</span>(</span>
-<span id="cb55-4"><a></a>      facial_coverings <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No policy"</span>,</span>
-<span id="cb55-5"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Recommended"</span>,</span>
-<span id="cb55-6"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Some requirements"</span>,</span>
-<span id="cb55-7"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Required shared places"</span>,</span>
-<span id="cb55-8"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Required all times"</span>,</span>
-<span id="cb55-9"><a></a>      </span>
-<span id="cb55-10"><a></a>    ) </span>
-<span id="cb55-11"><a></a>  ) <span class="ot">-&gt;</span> covid_us</span>
-<span id="cb55-12"><a></a></span>
-<span id="cb55-13"><a></a><span class="fu">levels</span>(<span class="fu">factor</span>(covid_us<span class="sc">$</span>face_masks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb57-3"><a></a>    <span class="at">face_masks =</span> <span class="fu">case_when</span>(</span>
+<span id="cb57-4"><a></a>      facial_coverings <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No policy"</span>,</span>
+<span id="cb57-5"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Recommended"</span>,</span>
+<span id="cb57-6"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Some requirements"</span>,</span>
+<span id="cb57-7"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Required shared places"</span>,</span>
+<span id="cb57-8"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Required all times"</span>,</span>
+<span id="cb57-9"><a></a>      </span>
+<span id="cb57-10"><a></a>    ) </span>
+<span id="cb57-11"><a></a>  ) <span class="ot">-&gt;</span> covid_us</span>
+<span id="cb57-12"><a></a></span>
+<span id="cb57-13"><a></a><span class="fu">levels</span>(<span class="fu">factor</span>(covid_us<span class="sc">$</span>face_masks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "No policy"              "Recommended"            "Required all times"    
 [4] "Required shared places" "Some requirements"     </code></pre>
@@ -1566,26 +1625,26 @@
 <section id="make-face_masks-a-factor-to-reflect-order-of-policies" class="slide level2">
 <h2>Make <code>face_masks</code> a factor to reflect order of policies</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="fu">levels</span>(<span class="fu">factor</span>(covid_us<span class="sc">$</span>face_masks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">levels</span>(<span class="fu">factor</span>(covid_us<span class="sc">$</span>face_masks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "No policy"              "Recommended"            "Required all times"    
 [4] "Required shared places" "Some requirements"     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb59-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb59-3"><a></a>    <span class="at">face_masks =</span> <span class="fu">factor</span>(</span>
-<span id="cb59-4"><a></a>      face_masks,</span>
-<span id="cb59-5"><a></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb59-6"><a></a>        <span class="st">"No policy"</span>, </span>
-<span id="cb59-7"><a></a>        <span class="st">"Recommended"</span>, </span>
-<span id="cb59-8"><a></a>        <span class="st">"Some requirements"</span>,</span>
-<span id="cb59-9"><a></a>        <span class="st">"Required shared places"</span>,</span>
-<span id="cb59-10"><a></a>        <span class="st">"Required all times"</span></span>
-<span id="cb59-11"><a></a>        )</span>
-<span id="cb59-12"><a></a>    )</span>
-<span id="cb59-13"><a></a>  ) <span class="ot">-&gt;</span> covid_us</span>
-<span id="cb59-14"><a></a></span>
-<span id="cb59-15"><a></a><span class="fu">levels</span>(covid_us<span class="sc">$</span>face_masks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb61-3"><a></a>    <span class="at">face_masks =</span> <span class="fu">factor</span>(</span>
+<span id="cb61-4"><a></a>      face_masks,</span>
+<span id="cb61-5"><a></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb61-6"><a></a>        <span class="st">"No policy"</span>, </span>
+<span id="cb61-7"><a></a>        <span class="st">"Recommended"</span>, </span>
+<span id="cb61-8"><a></a>        <span class="st">"Some requirements"</span>,</span>
+<span id="cb61-9"><a></a>        <span class="st">"Required shared places"</span>,</span>
+<span id="cb61-10"><a></a>        <span class="st">"Required all times"</span></span>
+<span id="cb61-11"><a></a>        )</span>
+<span id="cb61-12"><a></a>    )</span>
+<span id="cb61-13"><a></a>  ) <span class="ot">-&gt;</span> covid_us</span>
+<span id="cb61-14"><a></a></span>
+<span id="cb61-15"><a></a><span class="fu">levels</span>(covid_us<span class="sc">$</span>face_masks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "No policy"              "Recommended"            "Some requirements"     
 [4] "Required shared places" "Required all times"    </code></pre>
@@ -1602,15 +1661,15 @@
 <section id="face-masks-and-new-covid-19-cases-per-100k" class="slide level2">
 <h2>Face Masks and New Covid-19 Cases (per 100k)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb61-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(face_masks))<span class="sc">%&gt;%</span></span>
-<span id="cb61-3"><a></a>  <span class="fu">group_by</span>(face_masks)<span class="sc">%&gt;%</span></span>
-<span id="cb61-4"><a></a>  <span class="fu">summarize</span>(</span>
-<span id="cb61-5"><a></a>    <span class="st">`</span><span class="at">Average No. of New Cases</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(new_cases_pc, <span class="at">na.rm=</span>T),<span class="dv">2</span>)</span>
-<span id="cb61-6"><a></a>  )<span class="sc">%&gt;%</span></span>
-<span id="cb61-7"><a></a>  <span class="fu">rename</span>(</span>
-<span id="cb61-8"><a></a>    <span class="st">"Face Mask Policy"</span> <span class="ot">=</span> face_masks</span>
-<span id="cb61-9"><a></a>  ) <span class="ot">-&gt;</span> face_mask_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(face_masks))<span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a></a>  <span class="fu">group_by</span>(face_masks)<span class="sc">%&gt;%</span></span>
+<span id="cb63-4"><a></a>  <span class="fu">summarize</span>(</span>
+<span id="cb63-5"><a></a>    <span class="st">`</span><span class="at">Average No. of New Cases</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(new_cases_pc, <span class="at">na.rm=</span>T),<span class="dv">2</span>)</span>
+<span id="cb63-6"><a></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb63-7"><a></a>  <span class="fu">rename</span>(</span>
+<span id="cb63-8"><a></a>    <span class="st">"Face Mask Policy"</span> <span class="ot">=</span> face_masks</span>
+<span id="cb63-9"><a></a>  ) <span class="ot">-&gt;</span> face_mask_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="face-masks-and-new-covid-19-cases-per-100k-1" class="slide level2 smaller">
@@ -1625,6 +1684,7 @@
 </ul>
 </div>
 </div><div class="column" style="width:60%;">
+<div>
 <table data-quarto-postprocess="true">
 <thead>
 <tr class="header">
@@ -1659,84 +1719,85 @@
 
 </div>
 </div>
+</div>
 </section>
 <section id="commented-code" class="slide level2">
 <h2>Commented Code</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a></a><span class="co"># ---- Libraries ----</span></span>
-<span id="cb62-2"><a></a><span class="do">## Uncomment to install</span></span>
-<span id="cb62-3"><a></a><span class="co"># install.packages("tidyverse")</span></span>
-<span id="cb62-4"><a></a><span class="co"># install.packages("COVID19")</span></span>
-<span id="cb62-5"><a></a></span>
-<span id="cb62-6"><a></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb62-7"><a></a><span class="fu">library</span>(<span class="st">"COVID19"</span>)</span>
-<span id="cb62-8"><a></a></span>
-<span id="cb62-9"><a></a><span class="co"># ---- Load data ----</span></span>
-<span id="cb62-10"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/covid.rda"</span>))</span>
-<span id="cb62-11"><a></a></span>
-<span id="cb62-12"><a></a><span class="co"># ---- Subset to US states and DC ----</span></span>
-<span id="cb62-13"><a></a></span>
-<span id="cb62-14"><a></a>territories <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb62-15"><a></a>  <span class="st">"American Samoa"</span>,</span>
-<span id="cb62-16"><a></a>  <span class="st">"Guam"</span>,</span>
-<span id="cb62-17"><a></a>  <span class="st">"Northern Mariana Islands"</span>,</span>
-<span id="cb62-18"><a></a>  <span class="st">"Puerto Rico"</span>,</span>
-<span id="cb62-19"><a></a>  <span class="st">"Virgin Islands"</span></span>
-<span id="cb62-20"><a></a>  )</span>
-<span id="cb62-21"><a></a></span>
-<span id="cb62-22"><a></a></span>
-<span id="cb62-23"><a></a>covid_us <span class="ot">&lt;-</span> covid <span class="sc">%&gt;%</span></span>
-<span id="cb62-24"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>administrative_area_level_2 <span class="sc">%in%</span> territories )</span>
-<span id="cb62-25"><a></a></span>
-<span id="cb62-26"><a></a><span class="do">## Check subsetting</span></span>
-<span id="cb62-27"><a></a><span class="fu">dim</span>(covid)[<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="fu">dim</span>(covid_us)[<span class="dv">1</span>]</span>
-<span id="cb62-28"><a></a></span>
-<span id="cb62-29"><a></a><span class="co"># ---- Recode covid_us ----</span></span>
-<span id="cb62-30"><a></a></span>
-<span id="cb62-31"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb62-32"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb62-33"><a></a>    <span class="at">state =</span> administrative_area_level_2,</span>
-<span id="cb62-34"><a></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb62-35"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
-<span id="cb62-36"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb62-37"><a></a>    <span class="at">new_cases =</span> confirmed <span class="sc">-</span> <span class="fu">lag</span>(confirmed),</span>
-<span id="cb62-38"><a></a>    <span class="at">new_cases_pc =</span> new_cases<span class="sc">/</span>population <span class="sc">*</span><span class="dv">100000</span></span>
-<span id="cb62-39"><a></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb62-40"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb62-41"><a></a>    <span class="at">face_masks =</span> <span class="fu">case_when</span>(</span>
-<span id="cb62-42"><a></a>      facial_coverings <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No policy"</span>,</span>
-<span id="cb62-43"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Recommended"</span>,</span>
-<span id="cb62-44"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Some requirements"</span>,</span>
-<span id="cb62-45"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Required shared places"</span>,</span>
-<span id="cb62-46"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Required all times"</span></span>
-<span id="cb62-47"><a></a>      ) </span>
-<span id="cb62-48"><a></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb62-49"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb62-50"><a></a>    <span class="at">face_masks =</span> <span class="fu">factor</span>(</span>
-<span id="cb62-51"><a></a>      face_masks,</span>
-<span id="cb62-52"><a></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb62-53"><a></a>        <span class="st">"No policy"</span>, </span>
-<span id="cb62-54"><a></a>        <span class="st">"Recommended"</span>, </span>
-<span id="cb62-55"><a></a>        <span class="st">"Some requirements"</span>,</span>
-<span id="cb62-56"><a></a>        <span class="st">"Required shared places"</span>,</span>
-<span id="cb62-57"><a></a>        <span class="st">"Required all times"</span></span>
-<span id="cb62-58"><a></a>        )</span>
-<span id="cb62-59"><a></a>      )</span>
-<span id="cb62-60"><a></a>    )<span class="ot">-&gt;</span> covid_us</span>
-<span id="cb62-61"><a></a></span>
-<span id="cb62-62"><a></a></span>
-<span id="cb62-63"><a></a><span class="co"># ---- Calculate new cases per capita by facemask policy</span></span>
-<span id="cb62-64"><a></a>covid_us <span class="sc">%&gt;%</span></span>
-<span id="cb62-65"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(face_masks))<span class="sc">%&gt;%</span></span>
-<span id="cb62-66"><a></a>  <span class="fu">group_by</span>(face_masks)<span class="sc">%&gt;%</span></span>
-<span id="cb62-67"><a></a>  <span class="fu">summarize</span>(</span>
-<span id="cb62-68"><a></a>    <span class="st">`</span><span class="at">Average No. of New Cases</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(new_cases_pc, <span class="at">na.rm=</span>T),<span class="dv">2</span>)</span>
-<span id="cb62-69"><a></a>  )<span class="sc">%&gt;%</span></span>
-<span id="cb62-70"><a></a>  <span class="fu">rename</span>(</span>
-<span id="cb62-71"><a></a>    <span class="st">"Face Mask Policy"</span> <span class="ot">=</span> face_masks</span>
-<span id="cb62-72"><a></a>  ) <span class="ot">-&gt;</span> face_mask_summary</span>
-<span id="cb62-73"><a></a></span>
-<span id="cb62-74"><a></a>face_mask_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a></a><span class="co"># ---- Libraries ----</span></span>
+<span id="cb64-2"><a></a><span class="do">## Uncomment to install</span></span>
+<span id="cb64-3"><a></a><span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb64-4"><a></a><span class="co"># install.packages("COVID19")</span></span>
+<span id="cb64-5"><a></a></span>
+<span id="cb64-6"><a></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb64-7"><a></a><span class="fu">library</span>(<span class="st">"COVID19"</span>)</span>
+<span id="cb64-8"><a></a></span>
+<span id="cb64-9"><a></a><span class="co"># ---- Load data ----</span></span>
+<span id="cb64-10"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/covid.rda"</span>))</span>
+<span id="cb64-11"><a></a></span>
+<span id="cb64-12"><a></a><span class="co"># ---- Subset to US states and DC ----</span></span>
+<span id="cb64-13"><a></a></span>
+<span id="cb64-14"><a></a>territories <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb64-15"><a></a>  <span class="st">"American Samoa"</span>,</span>
+<span id="cb64-16"><a></a>  <span class="st">"Guam"</span>,</span>
+<span id="cb64-17"><a></a>  <span class="st">"Northern Mariana Islands"</span>,</span>
+<span id="cb64-18"><a></a>  <span class="st">"Puerto Rico"</span>,</span>
+<span id="cb64-19"><a></a>  <span class="st">"Virgin Islands"</span></span>
+<span id="cb64-20"><a></a>  )</span>
+<span id="cb64-21"><a></a></span>
+<span id="cb64-22"><a></a></span>
+<span id="cb64-23"><a></a>covid_us <span class="ot">&lt;-</span> covid <span class="sc">%&gt;%</span></span>
+<span id="cb64-24"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span>administrative_area_level_2 <span class="sc">%in%</span> territories )</span>
+<span id="cb64-25"><a></a></span>
+<span id="cb64-26"><a></a><span class="do">## Check subsetting</span></span>
+<span id="cb64-27"><a></a><span class="fu">dim</span>(covid)[<span class="dv">1</span>] <span class="sc">&gt;</span> <span class="fu">dim</span>(covid_us)[<span class="dv">1</span>]</span>
+<span id="cb64-28"><a></a></span>
+<span id="cb64-29"><a></a><span class="co"># ---- Recode covid_us ----</span></span>
+<span id="cb64-30"><a></a></span>
+<span id="cb64-31"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb64-32"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb64-33"><a></a>    <span class="at">state =</span> administrative_area_level_2,</span>
+<span id="cb64-34"><a></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb64-35"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(state) <span class="sc">%&gt;%</span></span>
+<span id="cb64-36"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb64-37"><a></a>    <span class="at">new_cases =</span> confirmed <span class="sc">-</span> <span class="fu">lag</span>(confirmed),</span>
+<span id="cb64-38"><a></a>    <span class="at">new_cases_pc =</span> new_cases<span class="sc">/</span>population <span class="sc">*</span><span class="dv">100000</span></span>
+<span id="cb64-39"><a></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb64-40"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb64-41"><a></a>    <span class="at">face_masks =</span> <span class="fu">case_when</span>(</span>
+<span id="cb64-42"><a></a>      facial_coverings <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No policy"</span>,</span>
+<span id="cb64-43"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Recommended"</span>,</span>
+<span id="cb64-44"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Some requirements"</span>,</span>
+<span id="cb64-45"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Required shared places"</span>,</span>
+<span id="cb64-46"><a></a>      <span class="fu">abs</span>(facial_coverings) <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="st">"Required all times"</span></span>
+<span id="cb64-47"><a></a>      ) </span>
+<span id="cb64-48"><a></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb64-49"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb64-50"><a></a>    <span class="at">face_masks =</span> <span class="fu">factor</span>(</span>
+<span id="cb64-51"><a></a>      face_masks,</span>
+<span id="cb64-52"><a></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb64-53"><a></a>        <span class="st">"No policy"</span>, </span>
+<span id="cb64-54"><a></a>        <span class="st">"Recommended"</span>, </span>
+<span id="cb64-55"><a></a>        <span class="st">"Some requirements"</span>,</span>
+<span id="cb64-56"><a></a>        <span class="st">"Required shared places"</span>,</span>
+<span id="cb64-57"><a></a>        <span class="st">"Required all times"</span></span>
+<span id="cb64-58"><a></a>        )</span>
+<span id="cb64-59"><a></a>      )</span>
+<span id="cb64-60"><a></a>    )<span class="ot">-&gt;</span> covid_us</span>
+<span id="cb64-61"><a></a></span>
+<span id="cb64-62"><a></a></span>
+<span id="cb64-63"><a></a><span class="co"># ---- Calculate new cases per capita by facemask policy</span></span>
+<span id="cb64-64"><a></a>covid_us <span class="sc">%&gt;%</span></span>
+<span id="cb64-65"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(face_masks))<span class="sc">%&gt;%</span></span>
+<span id="cb64-66"><a></a>  <span class="fu">group_by</span>(face_masks)<span class="sc">%&gt;%</span></span>
+<span id="cb64-67"><a></a>  <span class="fu">summarize</span>(</span>
+<span id="cb64-68"><a></a>    <span class="st">`</span><span class="at">Average No. of New Cases</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(new_cases_pc, <span class="at">na.rm=</span>T),<span class="dv">2</span>)</span>
+<span id="cb64-69"><a></a>  )<span class="sc">%&gt;%</span></span>
+<span id="cb64-70"><a></a>  <span class="fu">rename</span>(</span>
+<span id="cb64-71"><a></a>    <span class="st">"Face Mask Policy"</span> <span class="ot">=</span> face_masks</span>
+<span id="cb64-72"><a></a>  ) <span class="ot">-&gt;</span> face_mask_summary</span>
+<span id="cb64-73"><a></a></span>
+<span id="cb64-74"><a></a>face_mask_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -2105,6 +2166,24 @@
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -2141,7 +2220,11 @@
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

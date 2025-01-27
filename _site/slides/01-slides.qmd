@@ -52,7 +52,7 @@ df <- haven::read_spss("../files/data/class_surveys/wk00.sav")
 
 # {{< fa map-location>}} Overview {.inverse}
 
-## Class Plan
+## Class Plan {.smaller}
 
 -   Logistics (15 minutes)
     -   Announcements
@@ -72,29 +72,15 @@ df <- haven::read_spss("../files/data/class_surveys/wk00.sav")
 
 -   If you're still on the waitlist on CAB, speak to me after class
 
-## Announcements
 
-<blockquote class="twitter-tweet" data-media-max-width="560">
-
-<p lang="en" dir="ltr">
-
-"Uh ohhh, the Cavs are playing playoff basketball" <a href="https://t.co/WrOrzeuEtW">pic.twitter.com/WrOrzeuEtW</a>
-
-</p>
-
-— Bottlegate (@Bottlegate) <a href="https://twitter.com/Bottlegate/status/855250365402447872?ref_src=twsrc%5Etfw">April 21, 2017</a>
-
-</blockquote>
-
-```{=html}
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-```
 ## Tutorials
 
 Once you've done the following
 
 ```{r}
 #| eval = F
+
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
 remotes::install_github("rstudio/learnr")
 remotes::install_github("rstudio-education/gradethis")
 remotes::install_github("PaulTestaBrown/qsslearnr")
@@ -115,7 +101,12 @@ And start a specific tutorial by running:
 learnr::run_tutorial("00-intro", package = "qsslearnr")
 ```
 
-[Please upload tutorials 00-intro and 01-measurement1 to Canvas by Friday]{.blue}
+
+:::{.callout-important}
+
+Please upload tutorials 00-intro and 01-measurement1 to [Canvas](https://canvas.brown.edu/courses/1098409/assignments) by Friday
+
+:::
 
 ##  {background-image="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/How_to_Get_Away_with_Murder_season_5_poster.jpg/220px-How_to_Get_Away_with_Murder_season_5_poster.jpg" background-size="contain"}
 
@@ -186,7 +177,7 @@ It's cousin Nick's fault...
 
 ## Hopes and Dreams, Fears and Worries
 
-::: columns
+:::: columns
 ::: {.column width="48%"}
 What are we [excited]{.blue} about?
 
@@ -196,13 +187,14 @@ What are we [excited]{.blue} about?
 :::
 
 ::: {.column width="48%"}
-[What are we ]{.fragment}[worried]{.blue} about?
+
+[What are we [worried]{.blue} about?]{.fragment}
 
 -   Engaging with social science
 -   Learning statistics and math
 -   Learning to code
 :::
-:::
+::::
 
 # {{< fa lightbulb >}} Introduction to R, R Studio and Quarto {.inverse}
 
@@ -220,7 +212,7 @@ What are we [excited]{.blue} about?
 
 -   [R Studio]{.blue} is an [integrated development environment (IDE)]{.blue} that makes working in R [much]{.blue} easier ([cheatsheet](https://rstudio.github.io/cheatsheets/html/rstudio-ide.html?_gl=1*1i40yim*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA..))
 
--   [Quarto]{.blue} is a publishing system that allows us to write and present code in [different formats]{.blue} ([cheatsheet](https://rstudio.github.io/cheatsheets/html/quarto.html?_gl=1*nz9m6y*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA..))
+-   [Quarto]{.blue} is a [publishing system]{.blue} that allows us to write and present code in [different formats]{.blue} ([cheatsheet](https://rstudio.github.io/cheatsheets/html/quarto.html?_gl=1*nz9m6y*_ga*MTE1MDU5MzUyNC4xNzAzMTgzMDI2*_ga_2C0WZ1JHG0*MTcwNjU3MDk4Mi43LjAuMTcwNjU3MDk4Mi4wLjAuMA..))
 
 ## General Tuesday Workflow
 
@@ -269,15 +261,18 @@ What are we [excited]{.blue} about?
 
 ## The Basics of R
 
--   R is an interpreter (\>)
+- R is an interpreter (\>)
 
--   "Everything that exists in R is an object"
+  - Everything that [exists]{.blue} in R is an [object]{.blue}
 
--   "Everything that happens in R is the result of a function"
+  - Everything that [happens]{.blue} in R is the [result of a function]{.blue}
 
--   Data come in different types, shapes, and sizes
+- Data come in different types, shapes, and sizes
 
--   Packages make R great
+- Packages extend what R can do
+
+  - `install.packages("pacakge_name")` once to download a package
+  - load packages [every session]{.blue} using `library("package_name")`
 
 ## R is an interpreter (\>)
 
@@ -349,7 +344,7 @@ x == T | y == T
 !x
 ```
 
-## R can make comparisons
+## R can make comparisons {.smaller}
 
 ```{r}
 #| include = FALSE
@@ -373,7 +368,7 @@ comp_table <- tibble::tribble(
 knitr::kable(comp_table, format = "html")
 ```
 
-## Everything that exists in R is an object
+## Everything that exists in R is an object {.smaller}
 
 ::: nonincremental
 -   The number 5 is an object in R
@@ -383,7 +378,7 @@ knitr::kable(comp_table, format = "html")
 5
 ```
 
--   We can assign the object 5, the name x, using the assignment operator `<-`+
+-   We can assign the object 5, the name x, using the assignment operator `<-`
 
 ```{r}
 #| echo: true
@@ -408,7 +403,7 @@ print(x)
 knitr::include_graphics("http://r4ds.had.co.nz/diagrams/data-structures-overview.png")
 ```
 
-## Data come in different types
+## Data come in different types {.smaller}
 
 ::: columns
 ::: {.column width="50%"}
@@ -447,6 +442,18 @@ class(grades)
 ```
 :::
 :::
+
+::::{.fragment}
+
+:::{.callout-tip}
+
+One common portal of discovery, is that a function in R is expecting data of one type but (e.g. `numeric`) but actually gets data of different type (e.g. `character`)
+
+The `class()` function is a useful `base R` for troubleshooting such errors.
+
+:::
+::::
+
 
 ## Data come in different "shapes" and "sizes"
 
@@ -531,7 +538,7 @@ can_x_kick_it("Paul")
 
 Each time you start a project in R, you will want to:
 
--   Set your working directory
+-   Set your working directory in R Studio
 
 -   Load (and if needed, install) the R packages you will use
 
@@ -573,7 +580,7 @@ install.packages("COVID19")
 ```
 
 ::: nonincremental
--   Once you've installed these packages comment out the code
+-   Once you've installed these packages comment out the code (Why?)
 :::
 
 ```{r}
@@ -601,38 +608,32 @@ library("tidyverse")
 library(COVID19)
 ```
 
-## Set any "global" options you want
 
-Here are the global options for these slides:[^2]
-
-[^2]: I'll generally do this for you, but it's useful to know that you can change options globally (for every chunk) and locallys (for specific chunks)
-
-```{r}
-#| eval: false
-#| echo: true
-#| code-fold: false  
-# Options for these slides
-knitr::opts_chunk$set(
-  warning = FALSE,       # Don't display warnings
-  message = FALSE,       # Don't display messages
-  comment = NA,          # No prefix before line of text
-  dpi = 300,             # Figure resolution
-  fig.align = "center",  # Figure alignment
-  out.width = "80%",     # Figure width
-  cache = FALSE          # Don't cache code chunks
-  )
-```
-
-## Load the data you'll be using
+## Load the data you'll be using {.smaller}
 
 There are three ways to load data.
 
--   Load a pre-existing dataset
-    -   `data("dataset")` will load the dataset named "dataset"
-    -   `data()` will list all datasets
--   Load a .Rdata/.rda file using `load("dataset.rda")`
--   Read data of a different format (.csv, .dta, .spss) into R using specific functions from packages like `haven` and `readr`
+- Load a [pre-existing]{.blue} dataset
+  - `data("dataset")` will load the dataset named "dataset"
+    - `data()` will list all datasets
 
+- Load a .Rdata/.rda file using `load("dataset.rda")`
+
+- Read data of a different format (.csv, .dta, .spss) into R using specific functions from packages like `haven` and `readr`
+
+:::{.fragment}
+
+```{r}
+#| eval: false
+
+# EXAMPLE CODE (Won't actually run)
+# Read a .csv file saved locally on my Desktop
+df_csv <- readr::read_csv("~/Desktop/data.csv")
+# Read a .dta file saved on the web
+df_dta <- haven::read_dta("https://paultesta.org/data.dta")
+```
+
+:::
 # {{< fa lightbulb >}} Working with Data in R {.inverse}
 
 ## Overview: Working with Data in R
@@ -682,6 +683,7 @@ Please run the following[^3]
 load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 
 
+
 ```
 
 ## Loading state-level Covid data {.smaller}
@@ -698,6 +700,7 @@ load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 #| echo: true
 #| eval: false
 #| code-line-numbers: "|2|3|4-5|6|7"
+
 covid <- COVID19::covid19(
   country = "US",
   start = "2020-01-01",
@@ -706,11 +709,41 @@ covid <- COVID19::covid19(
   verbose = F
     
 )
+
 ```
 
 ## Looking at your data {.smaller}
 
-Anytime you load data into R, try some combination of the following to get a [high-level overview (HLO)]{.blue} of the data
+The first time you load a dataset into R, you should try to get a [high-level overview (HLO)]{.blue} of the data
+
+:::{.callout-tip}
+
+This is an iterative, dynamic process. Something you do "live" but won't necessarily save in your final code you submit. Overtime you'll develop ways of quickly looking at data and quickly answering questions like. For example, I might want to know, how many unique val
+
+:::
+
+
+```{r}
+
+table(covid$school_closing)
+
+```
+
+
+## HLOs allow you to {.smaller}
+
+-   Describe the [structure]{.blue} of your data:
+    -   How many observations (rows)
+    -   How many variables (columns)
+-   Describe the [unit of observation]{.blue}
+    -   In plain language, what *is* a row in your data
+-   Identify the [class and type]{.blue} of variables (columns)
+    -   Numeric, character, logical
+    -   Is there missing data (`NA`s)
+-   Figure out what [transformations, cleaning, and recoding]{.blue} you need to do
+
+
+## Functions to help you get a high level overview {.smaller}
 
 -   `dim(data)` gives you the dimensions (# of rows and columns)
 -   `View(data)` opens data in a separate pane
@@ -724,17 +757,7 @@ Anytime you load data into R, try some combination of the following to get a [hi
 -   `summary(data$variable)` summary statistics
     -   Good for numeric data
 
-## HLOs allow you to {.smaller}
 
--   Describe the [structure]{.blue} of your data:
-    -   How many observations (rows)
-    -   How many variables (columns)
--   Describe the [unit of analysis]{.blue}
-    -   What does a row in your data correspond to
--   Identify the [class and type]{.blue} of variables (columns)
-    -   Numeric, character, logical
-    -   Is there missing data (`NA`s)
--   Figure out what [transformations, cleaning, and recoding]{.blue} you need to do
 
 # {{< fa lightbulb >}} Data Wrangling in the Tidyverse {.inverse}
 
