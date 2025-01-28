@@ -9488,14 +9488,14 @@
     "href": "slides/01-slides.html#r-is-a-calculator",
     "title": "POLS 1600",
     "section": "R is a Calculator",
-    "text": "R is a Calculator\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n+\naddition\nx + y\n\n\n-\nsubtraction\nx - y\n\n\n*\nmultiplication\nx * y\n\n\n/\ndivision\nx / y\n\n\n^\nraised to the power of\nx ^ y\n\n\nabs\nabsolute value\nabs(x)\n\n\n%/%\ninteger division\nx %/% y\n\n\n%%\nremainder after division\nx %% y"
+    "text": "R is a Calculator\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n+\naddition\nx + y\n\n\n-\nsubtraction\nx - y\n\n\n*\nmultiplication\nx * y\n\n\n/\ndivision\nx / y\n\n\n^\nraised to the power of\nx ^ y\n\n\nabs\nabsolute value\nabs(x)\n\n\n%/%\ninteger division\nx %/% y\n\n\n%%\nremainder after division\nx %% y"
   },
   {
     "objectID": "slides/01-slides.html#r-is-logical",
     "href": "slides/01-slides.html#r-is-logical",
     "title": "POLS 1600",
     "section": "R is logical",
-    "text": "R is logical\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&\nand\nx & y\n\n\n|\nor\nx | y\n\n\nxor\nexactly x or y\nxor(x, y)\n\n\n!\nnot\n!x"
+    "text": "R is logical\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&\nand\nx & y\n\n\n|\nor\nx | y\n\n\nxor\nexactly x or y\nxor(x, y)\n\n\n!\nnot\n!x"
   },
   {
     "objectID": "slides/01-slides.html#r-is-logical-1",
@@ -9509,7 +9509,7 @@
     "href": "slides/01-slides.html#r-can-make-comparisons",
     "title": "POLS 1600",
     "section": "R can make comparisons",
-    "text": "R can make comparisons\n\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&lt;\nless than\nx &lt; y\n\n\n&lt;=\nless than or equal to\nx &lt;= y\n\n\n&gt;\ngreater than\nx &gt; y\n\n\n&gt;=\ngreater than or equal to\nx &gt;= y\n\n\n==\nexactly equal to\nx == y\n\n\n!=\nnot equal to\nx != y\n\n\n%in%\ngroup membership*\nx %in% y\n\n\nis.na\nis missing\nis.na(x)\n\n\n!is.na\nis not missing\n!is.na(x)"
+    "text": "R can make comparisons\n\n\n\nOperator\nDescription\nUsage\n\n\n\n\n&lt;\nless than\nx &lt; y\n\n\n&lt;=\nless than or equal to\nx &lt;= y\n\n\n&gt;\ngreater than\nx &gt; y\n\n\n&gt;=\ngreater than or equal to\nx &gt;= y\n\n\n==\nexactly equal to\nx == y\n\n\n!=\nnot equal to\nx != y\n\n\n%in%\ngroup membership*\nx %in% y\n\n\nis.na\nis missing\nis.na(x)\n\n\n!is.na\nis not missing\n!is.na(x)"
   },
   {
     "objectID": "slides/01-slides.html#everything-that-exists-in-r-is-an-object",
@@ -9530,7 +9530,7 @@
     "href": "slides/01-slides.html#data-come-in-different-types-1",
     "title": "POLS 1600",
     "section": "Data come in different types",
-    "text": "Data come in different types\n\n\n\n# Create some data\n\n# Numeric\nx &lt;- 2 # Double\ny &lt;- 6L # Integer\n\n# Logical\nonly_two_types_of_people &lt;- TRUE \n\n# Character\nme &lt;- \"Paul\"\n\n# Factor\ngrades = factor(c(\"A\",\"B\",\"C\"))\n\n\n\n# What type are they?\nclass(x)\n\n[1] \"numeric\"\n\nclass(y)\n\n[1] \"integer\"\n\nclass(only_two_types_of_people)\n\n[1] \"logical\"\n\nclass(me)\n\n[1] \"character\"\n\nclass(grades)\n\n[1] \"factor\"\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\nOne common portal of discovery, is that a function in R is expecting data of one type but (e.g. numeric) but actually gets data of different type (e.g. character)\nThe class() function is a useful base R for troubleshooting such errors."
+    "text": "Data come in different types\n\n\n\n# Create some data\n\n# Numeric\nx &lt;- 2 # Double\ny &lt;- 6L # Integer\n\n# Logical\nonly_two_types_of_people &lt;- TRUE \n\n# Character\nme &lt;- \"Paul\"\n\n# Factor\ngrades = factor(c(\"A\",\"B\",\"C\"))\n\n\n\n# What type are they?\nclass(x)\n\n[1] \"numeric\"\n\nclass(y)\n\n[1] \"integer\"\n\nclass(only_two_types_of_people)\n\n[1] \"logical\"\n\nclass(me)\n\n[1] \"character\"\n\nclass(grades)\n\n[1] \"factor\"\n\n\n\n\n\n\n\n\n\n\nTip\n\n\nOne common portal of discovery, is that a function in R is expecting data of one type but (e.g. numeric) but actually gets data of different type (e.g. character)\nThe class() function is a useful base R for troubleshooting such errors."
   },
   {
     "objectID": "slides/01-slides.html#data-come-in-different-shapes-and-sizes",
@@ -9558,7 +9558,7 @@
     "href": "slides/01-slides.html#three-sources-of-functions",
     "title": "POLS 1600",
     "section": "Three sources of functions",
-    "text": "Three sources of functions\nThree sources of functions:\n\nbase R\n\n&lt;-; mean(x); library(\"package_name\")\n\npackages\n\ninstall.packages(\"packageName)\"\nremotes::intall_github(\"user/repository\")\n\nYou\n\nmy_function &lt;- function(x){x^2}"
+    "text": "Three sources of functions\nThree sources of functions:\n\nbase R\n\n&lt;-; mean(x); library(\"package_name\")\n\npackages\n\ninstall.packages(\"packageName)\"\nremotes::intall_github(\"user/repository\")\n\nYou\n\nmy_function &lt;- function(x){x^2}\n\n\n\n\n\n\n\n\n\nTip\n\n\nCan you spot the portal of discovery in the code above?"
   },
   {
     "objectID": "slides/01-slides.html#functions-are-like-recipes",
@@ -9719,7 +9719,7 @@
     "href": "slides/01-slides.html#using-r-to-summarize-data",
     "title": "POLS 1600",
     "section": "Using R to Summarize Data",
-    "text": "Using R to Summarize Data\nHere are some common ways of summarizing data and how to calculate them with R\n\n\n\n\nDescription\nUsage\n\n\n\n\nsum\nsum(x)\n\n\nminimum\nmin(x)\n\n\nmaximum\nmax(x)\n\n\nrange\nrange(x)\n\n\nmean\nmean(x)\n\n\nmedian\nmedian(x)\n\n\npercentile\nquantile(x)\n\n\nvariance\nvar(x)\n\n\nstandard deviation\nsd(x)\n\n\nrank\nrank(x)\n\n\n\n\n\n\nAll of these functions have an argument called na.rm=F. If your data have missing values, you’ll need to set na.rm=F (e.g. mean(x, na.rm=T))"
+    "text": "Using R to Summarize Data\nHere are some common ways of summarizing data and how to calculate them with R\n\n\n\nDescription\nUsage\n\n\n\n\nsum\nsum(x)\n\n\nminimum\nmin(x)\n\n\nmaximum\nmax(x)\n\n\nrange\nrange(x)\n\n\nmean\nmean(x)\n\n\nmedian\nmedian(x)\n\n\npercentile\nquantile(x)\n\n\nvariance\nvar(x)\n\n\nstandard deviation\nsd(x)\n\n\nrank\nrank(x)\n\n\n\n\n\nAll of these functions have an argument called na.rm=F. If your data have missing values, you’ll need to set na.rm=F (e.g. mean(x, na.rm=T))"
   },
   {
     "objectID": "slides/01-slides.html#exploring-covid-19-data-for-lab-1",
@@ -9817,7 +9817,7 @@
     "href": "slides/01-slides.html#face-masks-and-new-covid-19-cases-per-100k-1",
     "title": "POLS 1600",
     "section": "Face Masks and New Covid-19 Cases (per 100k)",
-    "text": "Face Masks and New Covid-19 Cases (per 100k)\n\n\n\n\nWhat should we conclude?\nWhat’s wrong with this simple comparison?\nWhat’s a better comparison? (Thursday)\n\n\n\n\n\n\n\nFace Mask Policy\nAverage No. of New Cases\n\n\n\n\nNo policy\n10.26\n\n\nRecommended\n16.61\n\n\nSome requirements\n36.18\n\n\nRequired shared places\n29.38\n\n\nRequired all times\n32.18"
+    "text": "Face Masks and New Covid-19 Cases (per 100k)\n\n\n\n\nWhat should we conclude?\nWhat’s wrong with this simple comparison?\nWhat’s a better comparison? (Thursday)\n\n\n\n\n\n\nFace Mask Policy\nAverage No. of New Cases\n\n\n\n\nNo policy\n10.26\n\n\nRecommended\n16.61\n\n\nSome requirements\n36.18\n\n\nRequired shared places\n29.38\n\n\nRequired all times\n32.18"
   },
   {
     "objectID": "slides/01-slides.html#commented-code",
@@ -9838,7 +9838,7 @@
     "href": "slides/01-slides.html#congrats",
     "title": "POLS 1600",
     "section": "Congrats!",
-    "text": "Congrats!\n\nWe covered A LOT\nIt’s OK to feel overwhelmed\n\nBut please don’t suffer in silence\n\nDon’t worry if everything didn’t make sense.\n\nEventually it will, but this takes time and practice\nTesta’s 50-50 rule\nFAAFO\n\n\n\n\n\n\nPOLS 1600"
+    "text": "Congrats!\n\nWe covered A LOT\nIt’s OK to feel overwhelmed\n\nBut please don’t suffer in silence\n\nDon’t worry if everything didn’t make sense.\n\nEventually it will, but this takes time and practice\nTesta’s 50-50 rule\nFAAFO"
   },
   {
     "objectID": "slides/09-slides.html#class-plan",
@@ -11998,5 +11998,12 @@
     "title": "Week 12:",
     "section": "",
     "text": "class: inverse, center, middle # Overview"
+  },
+  {
+    "objectID": "slides/01-slides.html#section-2",
+    "href": "slides/01-slides.html#section-2",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Source"
   }
 ]

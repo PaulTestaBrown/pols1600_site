@@ -18,6 +18,7 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    chalkboard: true
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -484,7 +485,7 @@ Source: [Gaurav Tiwari](https://medium.com/@tiwarigaurav2512/r-data-types-847fff
     -   `install.packages()` installs packages
     -   `library()` loads packages you've installed so you can use functions and data that are part of that package
 
-## Three sources of functions
+## Three sources of functions {.smaller}
 
 Three sources of functions:
 
@@ -495,6 +496,14 @@ Three sources of functions:
     -   `remotes::intall_github("user/repository")`
 -   You
     -   `my_function <- function(x){x^2}`
+
+::::{.fragment}
+
+:::{.callout-tip}
+Can you spot the portal of discovery in the code above?
+:::
+
+::::
 
 ## Functions are like recipes {.smaller}
 
@@ -594,11 +603,13 @@ install.packages("COVID19")
 ```
 
 ::: callout-tip
+
 ## Keyboard Shortcuts to toggle `#` comments
 
 macOS: `CMD` + `SHIFT` + `C`
 
 PC: `CTRL` + `SHIFT` + `C`
+
 :::
 
 ## Loading the `tidyverse` and `COVID19` packages
@@ -834,6 +845,12 @@ PC: `CTRL` + `SHIFT` + `M`
 
 n.b. `|>` is the `base` R or native pipe. It's [similar in function but also subtlely different in execution](https://ivelasq.rbind.io/blog/understanding-the-r-pipe/) to the `%>%` in ways that won't matter for us right now.  
 :::
+
+## 
+
+![](https://ivelasq.rbind.io/blog/understanding-the-r-pipe/padme.jpg)
+[Source]((https://ivelasq.rbind.io/blog/understanding-the-r-pipe/))
+
 
 # {{< fa lightbulb >}} Describing Data in R {.inverse}
 
