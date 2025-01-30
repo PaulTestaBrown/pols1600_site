@@ -9,22 +9,9 @@ format:
     toc-float: true
     toc-depth: 2
     number-sections: true
+    embed-resources: true
 ---
 
-```{r}
-#| label: setup
-#| include: FALSE
-#| cache: FALSE
-
-
-knitr::opts_chunk$set(error = TRUE, 
-                      comment = NA, 
-                      warnings = FALSE, 
-                      errors = FALSE, 
-                      messages = FALSE, 
-                      cache = TRUE,
-                      tidy = FALSE)
-```
 
 # Overview {.unnumbered}
 
@@ -259,7 +246,7 @@ To make sure we understand what this policy variable `facial_coverings` is measu
 
 ```{r}
 #| label: oxford
-oxford_us <- read_csv("https://github.com/OxCGRT/USA-covid-policy/raw/master/data/OxCGRT_US_latest.csv")
+oxford_us <- readr::read_csv("https://github.com/OxCGRT/USA-covid-policy/raw/master/data/OxCGRT_US_latest.csv")
 ```
 
 Now let's look at the policy on face masks for Illinois. From Oxford's [codebook](https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md), we learn that variables describing face mask policies all begin with the prefix `H6_`
@@ -273,28 +260,28 @@ Now let's look at the policy on face masks for Illinois. From Oxford's [codebook
 ```{r}
 #| label: ilfacemask
 
-oxford_us %>%
-  mutate(
-    date = ymd(Date)
-  ) %>%
-  filter(
+oxford_us |>
+  dplyr::mutate(
+    date = lubridate::ymd(Date)
+  ) |>
+  dplyr::filter(
     RegionName == "Illinois",
     date > "2020-08-01", 
     date < "2021-01-01",
     !is.na(H6_Notes)
-    ) %>%
-  select(date,starts_with("H6_")) -> il_facemasks
+    ) |>
+  dplyr::select(date,starts_with("H6_")) -> il_facemasks
 il_facemasks
 ```
 
 ## Again, explain in words, what the components of this code are doing:
 
--   `oxford_us %>%`
--   `mutate(date = ymd(Date))%>%`
+-   `oxford_us |>`
+-   `mutate(date = ymd(Date))|>`
 -   `filter(RegionName == "Illinois",`
 -   `date > "2020-08-01",`
 -   `date < "2021-01-01",`
--   `!is.na(H6_Notes)) %>%`
+-   `!is.na(H6_Notes)) |>`
 -   `select(date,starts_with("H6_")) -> il_facemasks`
 -   `il_facemasks`
 
@@ -388,7 +375,7 @@ By using `group_by()` with `summarise()` we can accomplish this more quickly:
 
 The median is another measure of what's typical for variables that take numeric values
 
-Imagine, we took our data new Covid-19 cases and arranged them in ascending order, from the smallest value to highest value
+Imagine, we took our data new Covid-19 cases and *arranged them in ascending order*, from the smallest value to highest value
 
 The median would be the value in the exact middle of that sequence, also known as the 50th percentile.[^1]
 
@@ -400,7 +387,7 @@ $$
 M_x = X_i : \int_{-\infty}^{x_i} f_x(X)dx=\int_{x_i}^\infty f_x(X)dx=1/2
 $$
 
-Which might look like Greek to you, which is fine. Just think of it as the middle value.
+Which might look like Greek to you, which is fine for now. Just think of it as the middle value.
 
 #### Please calculate the median number of new Covid-19 cases per 100,000 using the `median()` function. How does it compare to the mean?
 
@@ -698,6 +685,6 @@ When you encounter a problem you can solve, send me an email, or ask your friend
 
 The only dumb question in this course is a question you don't ask!
 
-Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1094972/assignments)
+Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1098409/assignments)
 
 Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bPGJjZUbZ55PR2K)

@@ -11,18 +11,6 @@ format:
     number-sections: true
 ---
 
-```{r}
-#| label: setup
-#| include: FALSE
-#| cache: FALSE
-knitr::opts_chunk$set(error = TRUE, 
-                      comment = NA, 
-                      warnings = FALSE, 
-                      errors = FALSE, 
-                      messages = FALSE, 
-                      cache = TRUE,
-                      tidy = FALSE)
-```
 
 # Overview {.unnumbered}
 
@@ -768,6 +756,6 @@ When you encounter a problem you can solve, send me an email, or ask your friend
 
 The only dumb question in this course is a question you don't ask!
 
-Please upload the html file produced by your .Rmd file to [Canvas](https://canvas.brown.edu/courses/1094972/assignments)
+Please upload the html file produced by your .Rmd file to [Canvas]https://canvas.brown.edu/courses/1098409/assignments)
 
 Finally, please take a moment to complete this weeks [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bPGJjZUbZ55PR2K)

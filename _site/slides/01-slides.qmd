@@ -18,6 +18,7 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    chalkboard: true
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -115,6 +116,8 @@ Please upload tutorials 00-intro and 01-measurement1 to [Canvas](https://canvas.
 ```{r}
 #| echo: false
 #| label: murder
+
+
 df %>%
   filter(!is.na(murder)) %>%
   mutate(
@@ -124,12 +127,13 @@ df %>%
   geom_bar()+
   geom_text(stat='count', aes(label=after_stat(count)), hjust=-0.25)+
   coord_flip()+
+  ylim(0,11)+
   theme_bw()+
   labs(
     y="Count",
     x="",
     fill = "Tell",
-    title = "Who would you tell"
+    title = "Who would you tell?"
   )
 
 ```
@@ -481,7 +485,7 @@ Source: [Gaurav Tiwari](https://medium.com/@tiwarigaurav2512/r-data-types-847fff
     -   `install.packages()` installs packages
     -   `library()` loads packages you've installed so you can use functions and data that are part of that package
 
-## Three sources of functions
+## Three sources of functions {.smaller}
 
 Three sources of functions:
 
@@ -492,6 +496,14 @@ Three sources of functions:
     -   `remotes::intall_github("user/repository")`
 -   You
     -   `my_function <- function(x){x^2}`
+
+::::{.fragment}
+
+:::{.callout-tip}
+Can you spot the portal of discovery in the code above?
+:::
+
+::::
 
 ## Functions are like recipes {.smaller}
 
@@ -591,11 +603,13 @@ install.packages("COVID19")
 ```
 
 ::: callout-tip
+
 ## Keyboard Shortcuts to toggle `#` comments
 
 macOS: `CMD` + `SHIFT` + `C`
 
 PC: `CTRL` + `SHIFT` + `C`
+
 :::
 
 ## Loading the `tidyverse` and `COVID19` packages
@@ -691,7 +705,7 @@ load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ::: nonincremental
 -   `country = US` tells the function we want data for the US
 -   `start = "2020-01-01"` sets the start date for the data
--   `start = "2020-01-01"` sets the end date for the data
+-   `end = "2022-12-31""` sets the end date for the data
 -   `level = 2` tells the function we want state-level data
 -   `verbose = F` tells the function not to print other stuff
 :::
@@ -718,7 +732,9 @@ The first time you load a dataset into R, you should try to get a [high-level ov
 
 :::{.callout-tip}
 
-This is an iterative, dynamic process. Something you do "live" but won't necessarily save in your final code you submit. Overtime you'll develop ways of quickly looking at data and quickly answering questions like. For example, I might want to know, how many unique val
+This is an iterative, dynamic process. Something you do "live" but won't necessarily save in your final code you submit. Over time you'll develop intuitions about what to look for, what questions to ask of your data, and what functions and code will help you answer these questions. 
+
+For example, I might want to know, how many unique values the variable `school_closing` in the `covid` dataset takes? 
 
 :::
 
@@ -754,6 +770,8 @@ table(covid$school_closing)
 -   `data$variable` extracts `variable` from `data`
 -   `table(data$variable)` creates a frequency table
     -   Good for categorical data
+-   `table(data$variable1, data$variable2)` creates a  "crosstab" or contingency table
+    -   Great for checking recodes of data
 -   `summary(data$variable)` summary statistics
     -   Good for numeric data
 
@@ -824,7 +842,15 @@ covid %>%
 macOS: `CMD` + `SHIFT` + `M`
 
 PC: `CTRL` + `SHIFT` + `M`
+
+n.b. `|>` is the `base` R or native pipe. It's [similar in function but also subtlely different in execution](https://ivelasq.rbind.io/blog/understanding-the-r-pipe/) to the `%>%` in ways that won't matter for us right now.  
 :::
+
+## 
+
+![](https://ivelasq.rbind.io/blog/understanding-the-r-pipe/padme.jpg)
+[Source]((https://ivelasq.rbind.io/blog/understanding-the-r-pipe/))
+
 
 # {{< fa lightbulb >}} Describing Data in R {.inverse}
 
@@ -926,7 +952,7 @@ table(covid$facial_coverings)
 ::: nonincremental
 -   How many observations are there (rows)
 -   How many variables (columns)
--   What's the unit of analysis?
+-   What's the unit of observation?
     -   In words, how would you describe what a row in your data set corresponds to?
 -   Are there any missing values for `confirmed`
 -   What range of values can `facial_coverings` take?[^4]
