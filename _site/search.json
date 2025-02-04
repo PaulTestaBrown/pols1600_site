@@ -2043,22 +2043,22 @@
     "objectID": "slides/02-slides.html#concept-check",
     "href": "slides/02-slides.html#concept-check",
     "title": "POLS 1600",
-    "section": " Concept check",
+    "section": "Concept check",
     "text": "Concept check\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\nLook at the data to get a high level overview of its structure\nSubset or filter the data to include just observations with certain values\nSelect specific columns from data\nAdd new columns to the data\nSummarize multiple values by collapsing them into a single value\nDoing some function group-by-group?"
   },
   {
     "objectID": "slides/02-slides.html#concept-check-1",
     "href": "slides/02-slides.html#concept-check-1",
     "title": "POLS 1600",
-    "section": "Concept check",
-    "text": "Concept check\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\n\nread_xxx() (tidy), read.xxx() (base)\n\nLook at the data to get a high level overview of its structure\n\nhead(), tail(), glimpse(), table(), summary(), View()\n\nFilter the data to include just observations with certain values\n\ndata %&gt;% filter(x &gt; 0), data[data$x &gt; 0], subset(data, x &gt; 0)\n\nSelect specific columns from data\n\ndata$variable, data %&gt;% select(variable1, variable2), data[,c(\"x1\",\"x2\")]\n\nAdd new columns to the data\n\ndata %&gt;% mutate(x = y/10) data$x &lt;- data$y/10\n\nSummarize multiple values by collapsing them into a single value\n\ndata %&gt;% summarise(x_mn = mean(x, na.rm=T))\n\nDoing some function group-by-group?\n\ndata %&gt;% group_by(g) %&gt;% summarise(x_mn = mean(x, na.rm=T))"
+    "section": " Concept check",
+    "text": "Concept check\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\nLook at the data to get a high level overview of its structure\nSubset or filter the data to include just observations with certain values\nSelect specific columns from data\nAdd new columns to the data\nSummarize multiple values by collapsing them into a single value\nDoing some function group-by-group?"
   },
   {
     "objectID": "slides/02-slides.html#concept-check-2",
     "href": "slides/02-slides.html#concept-check-2",
     "title": "POLS 1600",
     "section": "Concept check",
-    "text": "Concept check\nShould you know exactly how to do all of this?\n\nNO! Of course not. For Pete’s sake, Paul, It’s only the second week\n\n\nWill you learn how to do much of this?\n\n\nMaybe, but I’m feeling pretty overwhelmed…\n\n\nHow will you learn how do these things?\n\n\nWith lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about"
+    "text": "Concept check\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\n\nread_xxx() (tidy), read.xxx() (base)\n\nLook at the data to get a high level overview of its structure\n\nhead(), tail(), glimpse(), table(), summary(), View()\n\nFilter the data to include just observations with certain values\n\ndata %&gt;% filter(x &gt; 0), data[data$x &gt; 0], subset(data, x &gt; 0)\n\nSelect specific columns from data\n\ndata$variable, data %&gt;% select(variable1, variable2), data[,c(\"x1\",\"x2\")]\n\nAdd new columns to the data\n\ndata %&gt;% mutate(x = y/10) data$x &lt;- data$y/10\n\nSummarize multiple values by collapsing them into a single value\n\ndata %&gt;% summarise(x_mn = mean(x, na.rm=T))\n\nDoing some function group-by-group?\n\ndata %&gt;% group_by(g) %&gt;% summarise(x_mn = mean(x, na.rm=T))"
   },
   {
     "objectID": "slides/02-slides.html#advice-on-learning-how-to-code",
@@ -2184,7 +2184,7 @@
     "href": "slides/02-slides.html#make-a-basic-plot",
     "title": "POLS 1600",
     "section": "3. Make a basic plot",
-    "text": "3. Make a basic plot\n\nCodePlot\n\n\n\n#|\ndf %&gt;% #&lt;&lt; Raw data\n  mutate(\n    Playlist =forcats::as_factor(trip)\n  ) %&gt;% # Transformed data\n  ggplot(aes(x = Playlist, # Aesthetics\n             fill = Playlist))+\n  geom_bar( # Geometry\n    stat = \"count\" # Statistic\n    ) -&gt; fig_roadtrip\n\n\n\n\nfig_roadtrip"
+    "text": "3. Make a basic plot\n\nCodePlot\n\n\n\ndf %&gt;% #&lt;&lt; Raw data\n  mutate(\n    Playlist =forcats::as_factor(trip)\n  ) %&gt;% # Transformed data\n  ggplot(aes(x = Playlist, # Aesthetics\n             fill = Playlist))+\n  geom_bar( # Geometry\n    stat = \"count\" # Statistic\n    ) -&gt; fig_roadtrip\n\n\n\n\nfig_roadtrip"
   },
   {
     "objectID": "slides/02-slides.html#tinker-with-data",
@@ -12019,5 +12019,12 @@
     "title": "POLS 1600",
     "section": "Tutorials",
     "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\n\n\n\n\n\n\nImportant\n\n\nPlease upload tutorials 00-intro and 01-measurement1 to Canvas by Friday"
+  },
+  {
+    "objectID": "slides/02-slides.html#concept-check-3",
+    "href": "slides/02-slides.html#concept-check-3",
+    "title": "POLS 1600",
+    "section": "Concept check",
+    "text": "Concept check\nShould you know exactly how to do all of this?\n\nNO! Of course not. For Pete’s sake, Paul, It’s only the second week\n\n\nWill you learn how to do much of this?\n\n\nMaybe, but I’m feeling pretty overwhelmed…\n\n\nHow will you learn how do these things?\n\n\nWith lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about"
   }
 ]

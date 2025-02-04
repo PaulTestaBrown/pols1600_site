@@ -67,6 +67,18 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
     -   Basic plots to describe:
         -   Distributions
         -   Associations
+        
+## Concept check {.smaller}
+
+Suppose you want to do the following, what function or functions would you use:
+
+-   Read data into `R`
+-   Look at the data to get a high level overview of its structure
+-   Subset or filter the data to include just observations with certain values
+-   Select specific columns from data
+-   Add new columns to the data
+-   Summarize multiple values by collapsing them into a single value
+-   Doing some function group-by-group?        
 
 ## Announcements
 
@@ -1078,7 +1090,7 @@ df %>%
 ## Code
 
 ```{r}
-#|
+
 df %>% #<< Raw data
   mutate(
     Playlist =forcats::as_factor(trip)
