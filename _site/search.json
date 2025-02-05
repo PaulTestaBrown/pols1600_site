@@ -1791,15 +1791,15 @@
     "objectID": "slides/02-slides.html#class-plan",
     "href": "slides/02-slides.html#class-plan",
     "title": "POLS 1600",
-    "section": "Class Plan",
-    "text": "Class Plan\n\nAnnouncments\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations"
+    "section": "",
+    "text": "Announcements\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations"
   },
   {
     "objectID": "slides/02-slides.html#announcements",
     "href": "slides/02-slides.html#announcements",
     "title": "POLS 1600",
-    "section": "Announcements",
-    "text": "Announcements\n\nSubmit tutorials from last week for full credit by this Sunday.\nGroups for the course assigned next week"
+    "section": "",
+    "text": "Submit tutorials from last week for full credit by this Sunday.\nGroups for the course assigned next week"
   },
   {
     "objectID": "slides/02-slides.html#setup-for-today",
@@ -1827,7 +1827,7 @@
     "href": "slides/02-slides.html#installing-and-loading-new-packages-1",
     "title": "POLS 1600",
     "section": "Installing and loading new packages",
-    "text": "Installing and loading new packages\nFinally, let’s use ipak to install and load the_packages\nWhat should we replace some_function and some_input with to do this?\n\nsome_function(some_input)\n\n\n\nipak(the_packages)\n\n   tinytex kableExtra  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally       maps \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n   mapdata         DT \n      TRUE       TRUE \n\n\n\nR may ask you to install a package’s dependencies (other packages your package needs). Try entering the number 1 into your console\nR may tell you need to restart R Try saying yes. If it doesn’t start downloading, say no\nR may then ask if you want to compile some packages from source. Type Y into your console. If this doesn’t work, try again, but this time type N when asked"
+    "text": "Installing and loading new packages\nFinally, let’s use ipak to install and load the_packages\nWhat should we replace some_function and some_input with to do this?\n\nsome_function(some_input)\n\n. . .\n\nipak(the_packages)\n\n   tinytex kableExtra  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally       maps \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n   mapdata         DT \n      TRUE       TRUE \n\n\n\nR may ask you to install a package’s dependencies (other packages your package needs). Try entering the number 1 into your console\nR may tell you need to restart R Try saying yes. If it doesn’t start downloading, say no\nR may then ask if you want to compile some packages from source. Type Y into your console. If this doesn’t work, try again, but this time type N when asked"
   },
   {
     "objectID": "slides/02-slides.html#loading-the-covid-19-data",
@@ -1848,7 +1848,7 @@
     "href": "slides/02-slides.html#two-kinds-of-errors",
     "title": "POLS 1600",
     "section": "Two kinds of errors:",
-    "text": "Two kinds of errors:\n\nSyntactic\n\nR doesn’t understand how to run your code\nMost common, easy to fix (eventually…)\n\n\n\n\nSemantic\n\nR runs your code but doesn’t give you the expected result\nLess common, harder to fix\n\n\n\n\nMost errors happen because R is looking for something that isn’t there.\nMore discussion here and here"
+    "text": "Two kinds of errors:\n\nSyntactic\n\nR doesn’t understand how to run your code\nMost common, easy to fix (eventually…)\n\n\n. . .\n\nSemantic\n\nR runs your code but doesn’t give you the expected result\nLess common, harder to fix\n\n\n. . .\nMost errors happen because R is looking for something that isn’t there.\nMore discussion here and here"
   },
   {
     "objectID": "slides/02-slides.html#common-syntactic-errors",
@@ -1869,14 +1869,14 @@
     "href": "slides/02-slides.html#semantic-errors",
     "title": "POLS 1600",
     "section": "Semantic Errors",
-    "text": "Semantic Errors\n\nYour code runs, but doesn’t produce what you expected.\nLess common; can be harder to identify and fix\nOne example: Two packages have a function with the same name that do different things\n\n\n\n# dplyr::summarize\n# Hmisc::summarize"
+    "text": "Semantic Errors\n\nYour code runs, but doesn’t produce what you expected.\nLess common; can be harder to identify and fix\nOne example: Two packages have a function with the same name that do different things\n\n. . .\n\n# dplyr::summarize\n# Hmisc::summarize"
   },
   {
     "objectID": "slides/02-slides.html#semantic-errors-1",
     "href": "slides/02-slides.html#semantic-errors-1",
     "title": "POLS 1600",
     "section": "Semantic Errors",
-    "text": "Semantic Errors\n\nSome general solutions/practices to avoid semantic errors:\n\nSpecify the package and the function you want: package_name::function_name()\nWrite helpful comments in your code.\nInclude “sanity” checks in your code.\nIf a function should produce an output that’s a data.frame, check to see if it is a data frame\n\n\n\n\n# Here's some pseudo code:\n\n# I expect my_function produces a data frame\nx &lt;- my_function(y) \n\n# Check to see if x is a data frame\n# If x is not a data frame, return an Error\nstopifnot(is.data.frame(x))"
+    "text": "Semantic Errors\n\nSome general solutions/practices to avoid semantic errors:\n\nSpecify the package and the function you want: package_name::function_name()\nWrite helpful comments in your code.\nInclude “sanity” checks in your code.\nIf a function should produce an output that’s a data.frame, check to see if it is a data frame\n\n\n. . .\n\n# Here's some pseudo code:\n\n# I expect my_function produces a data frame\nx &lt;- my_function(y) \n\n# Check to see if x is a data frame\n# If x is not a data frame, return an Error\nstopifnot(is.data.frame(x))"
   },
   {
     "objectID": "slides/02-slides.html#why-do-we-need-to-wrangle-data",
@@ -1939,7 +1939,7 @@
     "href": "slides/02-slides.html#wrangling-the-covid-19-data-1",
     "title": "POLS 1600",
     "section": "Wrangling the Covid-19 data",
-    "text": "Wrangling the Covid-19 data\nSpecifically, we did the following:\n\nCreated an object called territories that is a vector containing the names of U.S. territories\nCreated a new dataframe, called covid_us, by filtering out observations from the U.S. territories\nCreated a state variable that is a copy of the administrative_area_level_2\nCreated a variable called new_cases from the confirmed. Create a variable called new_cases_pc that is the number of new Covid-19 cases per 100,000 citizens\nCreated a variable called face_masks from the facial_coverings variable.\nCalculated the average number of new cases, by different levels of face_masks\n\n\nLet’s take some time to make sure we understand everything that was happening."
+    "text": "Wrangling the Covid-19 data\nSpecifically, we did the following:\n\nCreated an object called territories that is a vector containing the names of U.S. territories\nCreated a new dataframe, called covid_us, by filtering out observations from the U.S. territories\nCreated a state variable that is a copy of the administrative_area_level_2\nCreated a variable called new_cases from the confirmed. Create a variable called new_cases_pc that is the number of new Covid-19 cases per 100,000 citizens\nCreated a variable called face_masks from the facial_coverings variable.\nCalculated the average number of new cases, by different levels of face_masks\n\n. . .\nLet’s take some time to make sure we understand everything that was happening."
   },
   {
     "objectID": "slides/02-slides.html#created-an-object-called-territories",
@@ -1960,14 +1960,14 @@
     "href": "slides/02-slides.html#created-a-variable-called-state",
     "title": "POLS 1600",
     "section": "Created a variable called state",
-    "text": "Created a variable called state\n\n\nTaskCode\n\n\nCopy administrative_area_level_2 into a new variable called state\n\n\n\n\n\n\nNote\n\n\nNote that we have to save the output of mutate back into covid_us for our state to exist as new column in covid_us\n\n\n\n\n\n\ndim(covid_us)\n\n[1] 53678    47\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2\n  ) -&gt; covid_us\ndim(covid_us)\n\n[1] 53678    48\n\nnames(covid_us)[48]\n\n[1] \"state\""
+    "text": "Created a variable called state\n\n\nTaskCode\n\n\nCopy administrative_area_level_2 into a new variable called state\n\n\n\n\n\n\nNote\n\n\n\nNote that we have to save the output of mutate back into covid_us for our state to exist as new column in covid_us\n\n\n\n\n\ndim(covid_us)\n\n[1] 53678    47\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2\n  ) -&gt; covid_us\ndim(covid_us)\n\n[1] 53678    48\n\nnames(covid_us)[48]\n\n[1] \"state\""
   },
   {
     "objectID": "slides/02-slides.html#created-a-variable-called-state-1",
     "href": "slides/02-slides.html#created-a-variable-called-state-1",
     "title": "POLS 1600",
     "section": "Created a variable called state",
-    "text": "Created a variable called state\nNow there’s a new column in covid_us called state, that we can access by calling covid_us$state\n\ncovid_us$state[1:5] # Just show first 5 observations\n\n[1] \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\"\n\n\n\nWe could have done the same thing in “Base” R\n\ncovid_us$state &lt;- covid_us$administrative_area_level_2\n\n\n\nWhy didn’t we?\n\nConsistent preference for tidyverse &gt; base R\nSaves time when recoding lots of variables\nmutate() plays nicely with functions like group_by()"
+    "text": "Created a variable called state\nNow there’s a new column in covid_us called state, that we can access by calling covid_us$state\n\ncovid_us$state[1:5] # Just show first 5 observations\n\n[1] \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\" \"Minnesota\"\n\n\n. . .\nWe could have done the same thing in “Base” R\n\ncovid_us$state &lt;- covid_us$administrative_area_level_2\n\n. . .\nWhy didn’t we?\n\nConsistent preference for tidyverse &gt; base R\nSaves time when recoding lots of variables\nmutate() plays nicely with functions like group_by()"
   },
   {
     "objectID": "slides/02-slides.html#create-a-variable-called-new_cases-from-the-confirmed-variable",
@@ -1988,21 +1988,21 @@
     "href": "slides/02-slides.html#create-a-variable-called-new_cases-from-the-confirmed-variable-1",
     "title": "POLS 1600",
     "section": "Create a variable called new_cases from the confirmed variable",
-    "text": "Create a variable called new_cases from the confirmed variable\n\nTaskCodeData\n\n\nTake the difference between a given day’s value of confirmed and yesterday’s value of confirmed to create a measure of new_cases on a given date for each state\n\n\n\n\n\n\nNote\n\n\n\nUse lag() to shift values in a column down one row in the data\nUse group_by() to respect the state-date structure of the data\n\n\n\n\n\n\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed)\n  ) -&gt; covid_us"
+    "text": "Create a variable called new_cases from the confirmed variable\n\nTaskCodeData\n\n\nTake the difference between a given day’s value of confirmed and yesterday’s value of confirmed to create a measure of new_cases on a given date for each state\n\n\n\n\n\n\nNote\n\n\n\n\nUse lag() to shift values in a column down one row in the data\nUse group_by() to respect the state-date structure of the data\n\n\n\n\n\n\ncovid_us %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed)\n  ) -&gt; covid_us"
   },
   {
     "objectID": "slides/02-slides.html#create-a-variable-called-new_cases_pc",
     "href": "slides/02-slides.html#create-a-variable-called-new_cases_pc",
     "title": "POLS 1600",
     "section": "Create a variable called new_cases_pc",
-    "text": "Create a variable called new_cases_pc\n\n\nTaskCode - WranglingCode - CheckingData\n\n\n\nScale new_cases by population to create a per capita measure (new_cases_pc)\n\n\n\n\n\n\n\nNote\n\n\nWe can create multiple variables in a single mutate() by separating lines of code with a ,\n\n\n\n\n\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2,\n  ) %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000\n    ) -&gt;covid_us\n\n\n\n\n# Check recoding\ncovid_us %&gt;% \n  # Look at two states\n  filter(state == \"Rhode Island\" | state == \"New York\") %&gt;% \n  # In a small date range\n  filter(date &gt; \"2021-01-01\" & date &lt; \"2021-01-05\") %&gt;% \n  # Select only the columns we want\n  select(state, date, new_cases, new_cases_pc) -&gt; hlo_df\n# save to object hlo_df\n\n\n\n\nhlo_df\n\n# A tibble: 6 × 4\n# Groups:   state [2]\n  state        date       new_cases new_cases_pc\n  &lt;chr&gt;        &lt;date&gt;         &lt;int&gt;        &lt;dbl&gt;\n1 Rhode Island 2021-01-02         0          0  \n2 Rhode Island 2021-01-03         0          0  \n3 Rhode Island 2021-01-04      4759        449. \n4 New York     2021-01-02     15849         81.5\n5 New York     2021-01-03     12232         62.9\n6 New York     2021-01-04     11242         57.8"
+    "text": "Create a variable called new_cases_pc\n\n\nTaskCode - WranglingCode - CheckingData\n\n\n\nScale new_cases by population to create a per capita measure (new_cases_pc)\n\n\n\n\n\n\n\nNote\n\n\n\nWe can create multiple variables in a single mutate() by separating lines of code with a ,\n\n\n\n\n\ncovid_us %&gt;%\n  mutate(\n    state = administrative_area_level_2,\n  ) %&gt;%\n  dplyr::group_by(state) %&gt;%\n  mutate(\n    new_cases = confirmed - lag(confirmed),\n    new_cases_pc = new_cases / population *100000\n    ) -&gt;covid_us\n\n\n\n\n# Check recoding\ncovid_us %&gt;% \n  # Look at two states\n  filter(state == \"Rhode Island\" | state == \"New York\") %&gt;% \n  # In a small date range\n  filter(date &gt; \"2021-01-01\" & date &lt; \"2021-01-05\") %&gt;% \n  # Select only the columns we want\n  select(state, date, new_cases, new_cases_pc) -&gt; hlo_df\n# save to object hlo_df\n\n\n\n\nhlo_df\n\n# A tibble: 6 × 4\n# Groups:   state [2]\n  state        date       new_cases new_cases_pc\n  &lt;chr&gt;        &lt;date&gt;         &lt;int&gt;        &lt;dbl&gt;\n1 Rhode Island 2021-01-02         0          0  \n2 Rhode Island 2021-01-03         0          0  \n3 Rhode Island 2021-01-04      4759        449. \n4 New York     2021-01-02     15849         81.5\n5 New York     2021-01-03     12232         62.9\n6 New York     2021-01-04     11242         57.8"
   },
   {
     "objectID": "slides/02-slides.html#created-a-variable-called-face_masks",
     "href": "slides/02-slides.html#created-a-variable-called-face_masks",
     "title": "POLS 1600",
     "section": "Created a variable called face_masks",
-    "text": "Created a variable called face_masks\n\n\nTaskHLOCodeCheck\n\n\nCreate a variable called face_masks from the facial_coverings that describes the face mask policy experienced by most people in a given state on a given date.\n\n\n\n\n\n\nNote\n\n\n\nUse case_when() inside of mutate() to create a variable that takes certain values when certain logical statements are true\nSeting the levels = c(value1, value2, etc.) argument in factor() lets us control the ordering of categorical/character data.\n\n\n\n\n\n\nRecall, that the facial_coverings variable took on range of substantive values from 0 to 4, but empirically could take both positve and negative values\n\ntable(covid_us$facial_coverings)\n\n\n   -4    -3    -2    -1     0     1     2     3     4 \n  410  5897  7362   275  3893  8604 17424  9191   622 \n\n\n\n\n\ncovid_us %&gt;%\nmutate(\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ) %&gt;% factor(.,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n\n\n\ncovid_us%&gt;%\n  filter(state == \"Illinois\", date &gt; \"2020-9-28\") %&gt;%\n  select(state, date, facial_coverings, face_masks) %&gt;% \n  slice(1:5)\n\n# A tibble: 5 × 4\n# Groups:   state [1]\n  state    date       facial_coverings face_masks        \n  &lt;chr&gt;    &lt;date&gt;                &lt;int&gt; &lt;fct&gt;             \n1 Illinois 2020-09-29                2 Some requirements \n2 Illinois 2020-09-30                2 Some requirements \n3 Illinois 2020-10-01               -4 Required all times\n4 Illinois 2020-10-02               -4 Required all times\n5 Illinois 2020-10-03               -4 Required all times"
+    "text": "Created a variable called face_masks\n\n\nTaskHLOCodeCheck\n\n\nCreate a variable called face_masks from the facial_coverings that describes the face mask policy experienced by most people in a given state on a given date.\n\n\n\n\n\n\nNote\n\n\n\n\nUse case_when() inside of mutate() to create a variable that takes certain values when certain logical statements are true\nSeting the levels = c(value1, value2, etc.) argument in factor() lets us control the ordering of categorical/character data.\n\n\n\n\n\nRecall, that the facial_coverings variable took on range of substantive values from 0 to 4, but empirically could take both positve and negative values\n\ntable(covid_us$facial_coverings)\n\n\n   -4    -3    -2    -1     0     1     2     3     4 \n  410  5897  7362   275  3893  8604 17424  9191   622 \n\n\n\n\n\ncovid_us %&gt;%\nmutate(\n    face_masks = case_when(\n      facial_coverings == 0 ~ \"No policy\",\n      abs(facial_coverings) == 1 ~ \"Recommended\",\n      abs(facial_coverings) == 2 ~ \"Some requirements\",\n      abs(facial_coverings) == 3 ~ \"Required shared places\",\n      abs(facial_coverings) == 4 ~ \"Required all times\",\n    ) %&gt;% factor(.,\n      levels = c(\"No policy\",\"Recommended\",\n                 \"Some requirements\",\n                 \"Required shared places\",\n                 \"Required all times\")\n    ) \n    ) -&gt; covid_us\n\n\n\n\ncovid_us%&gt;%\n  filter(state == \"Illinois\", date &gt; \"2020-9-28\") %&gt;%\n  select(state, date, facial_coverings, face_masks) %&gt;% \n  slice(1:5)\n\n# A tibble: 5 × 4\n# Groups:   state [1]\n  state    date       facial_coverings face_masks        \n  &lt;chr&gt;    &lt;date&gt;                &lt;int&gt; &lt;fct&gt;             \n1 Illinois 2020-09-29                2 Some requirements \n2 Illinois 2020-09-30                2 Some requirements \n3 Illinois 2020-10-01               -4 Required all times\n4 Illinois 2020-10-02               -4 Required all times\n5 Illinois 2020-10-03               -4 Required all times"
   },
   {
     "objectID": "slides/02-slides.html#addtional-recoding",
@@ -2030,21 +2030,21 @@
     "href": "slides/02-slides.html#summarizing-the-averge-number-of-new_cases-by-face_mask-policy",
     "title": "POLS 1600",
     "section": "Summarizing the averge number of new_cases by face_mask policy",
-    "text": "Summarizing the averge number of new_cases by face_mask policy\n\nTaskCodeResults\n\n\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect\n\n\n\n\n\n\nNote\n\n\n\nThe group_by() command will do each calculation inside of summarise() for each level of the grouping variable\n\n\n\n\n\n\n\ncovid_us %&gt;%\n  filter(!is.na(face_masks)) %&gt;%\n  group_by(face_masks) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; face_mask_summary\n\n\n\n\nface_mask_summary\n\n# A tibble: 5 × 2\n  face_masks             new_cases_pc\n  &lt;fct&gt;                         &lt;dbl&gt;\n1 No policy                      10.3\n2 Recommended                    16.6\n3 Some requirements              36.2\n4 Required shared places         29.4\n5 Required all times             32.2"
+    "text": "Summarizing the averge number of new_cases by face_mask policy\n\nTaskCodeResults\n\n\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect\n\n\n\n\n\n\nNote\n\n\n\n\nThe group_by() command will do each calculation inside of summarise() for each level of the grouping variable\n\n\n\n\n\n\ncovid_us %&gt;%\n  filter(!is.na(face_masks)) %&gt;%\n  group_by(face_masks) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; face_mask_summary\n\n\n\n\nface_mask_summary\n\n# A tibble: 5 × 2\n  face_masks             new_cases_pc\n  &lt;fct&gt;                         &lt;dbl&gt;\n1 No policy                      10.3\n2 Recommended                    16.6\n3 Some requirements              36.2\n4 Required shared places         29.4\n5 Required all times             32.2"
   },
   {
     "objectID": "slides/02-slides.html#summarizing-the-averge-number-of-new_cases-by-face_mask-policy-by-month",
     "href": "slides/02-slides.html#summarizing-the-averge-number-of-new_cases-by-face_mask-policy-by-month",
     "title": "POLS 1600",
     "section": "Summarizing the averge number of new_cases by face_mask policy by month",
-    "text": "Summarizing the averge number of new_cases by face_mask policy by month\n\nTaskCodeResults\n\n\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect for each year_month in our dataset\n\n\n\n\n\n\nNote\n\n\n\nThe group_by() command can group on multiple variables\n\n\n\n\n\n\n\ncovid_us %&gt;%\n  group_by(face_masks, year_month) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; cases_by_month_and_policy\n\n\n\n\ncases_by_month_and_policy\n\n# A tibble: 102 × 3\n# Groups:   face_masks [5]\n   face_masks year_month new_cases_pc\n   &lt;fct&gt;      &lt;chr&gt;             &lt;dbl&gt;\n 1 No policy  2020-01        0.000463\n 2 No policy  2020-02        0.00188 \n 3 No policy  2020-03        1.70    \n 4 No policy  2020-04        6.50    \n 5 No policy  2022-04       19.8     \n 6 No policy  2022-05       20.4     \n 7 No policy  2022-06       37.6     \n 8 No policy  2022-07       36.2     \n 9 No policy  2022-08       35.7     \n10 No policy  2022-09       19.0     \n# ℹ 92 more rows\n\n# In base R:\nmean(\n  covid_us$new_cases_pc[\n    covid_us$face_masks == \"No policy\" &\n      covid_us$year_month == \"2020-01\"], na.rm = T)\n\n[1] 0.0004626161"
+    "text": "Summarizing the averge number of new_cases by face_mask policy by month\n\nTaskCodeResults\n\n\nCalculate the mean (average) number of new_cases of Covid-19 when each type of face_mask policy was in effect for each year_month in our dataset\n\n\n\n\n\n\nNote\n\n\n\n\nThe group_by() command can group on multiple variables\n\n\n\n\n\n\ncovid_us %&gt;%\n  group_by(face_masks, year_month) %&gt;%\n  summarize(\n    new_cases_pc = mean(new_cases_pc, na.rm=T)\n  ) -&gt; cases_by_month_and_policy\n\n\n\n\ncases_by_month_and_policy\n\n# A tibble: 102 × 3\n# Groups:   face_masks [5]\n   face_masks year_month new_cases_pc\n   &lt;fct&gt;      &lt;chr&gt;             &lt;dbl&gt;\n 1 No policy  2020-01        0.000463\n 2 No policy  2020-02        0.00188 \n 3 No policy  2020-03        1.70    \n 4 No policy  2020-04        6.50    \n 5 No policy  2022-04       19.8     \n 6 No policy  2022-05       20.4     \n 7 No policy  2022-06       37.6     \n 8 No policy  2022-07       36.2     \n 9 No policy  2022-08       35.7     \n10 No policy  2022-09       19.0     \n# ℹ 92 more rows\n\n# In base R:\nmean(\n  covid_us$new_cases_pc[\n    covid_us$face_masks == \"No policy\" &\n      covid_us$year_month == \"2020-01\"], na.rm = T)\n\n[1] 0.0004626161"
   },
   {
     "objectID": "slides/02-slides.html#concept-check",
     "href": "slides/02-slides.html#concept-check",
     "title": "POLS 1600",
-    "section": "Concept check",
-    "text": "Concept check\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\nLook at the data to get a high level overview of its structure\nSubset or filter the data to include just observations with certain values\nSelect specific columns from data\nAdd new columns to the data\nSummarize multiple values by collapsing them into a single value\nDoing some function group-by-group?"
+    "section": "",
+    "text": "Suppose you want to do the following, what function or functions would you use:\n\nRead data into R\nLook at the data to get a high level overview of its structure\nSubset or filter the data to include just observations with certain values\nSelect specific columns from data\nAdd new columns to the data\nSummarize multiple values by collapsing them into a single value\nDoing some function group-by-group?"
   },
   {
     "objectID": "slides/02-slides.html#concept-check-1",
@@ -2107,7 +2107,7 @@
     "href": "slides/02-slides.html#what-you-dont-really-need-to-know-for-pols-1600-smaller",
     "title": "POLS 1600",
     "section": "What you don’t really need to know for POLS 1600 {smaller}",
-    "text": "What you don’t really need to know for POLS 1600 {smaller}\nWe won’t spend much time on the formal definitions, math, and proofs\n\\[\n\\bar{x}=\\frac{1}{n}\\sum_{i=1}^n x_i\n\\]\n\\[\nM_x = X_i : \\int_{-\\infty}^{x_i} f_x(X)dx=\\int_{x_i}^\\infty f_x(X)dx=1/2\n\\]\n\nUseful eventually. Not necessary right now."
+    "text": "What you don’t really need to know for POLS 1600 {smaller}\nWe won’t spend much time on the formal definitions, math, and proofs\n\\[\n\\bar{x}=\\frac{1}{n}\\sum_{i=1}^n x_i\n\\]\n\\[\nM_x = X_i : \\int_{-\\infty}^{x_i} f_x(X)dx=\\int_{x_i}^\\infty f_x(X)dx=1/2\n\\]\n. . .\nUseful eventually. Not necessary right now."
   },
   {
     "objectID": "slides/02-slides.html#data-visualizaiton",
@@ -11843,7 +11843,7 @@
     "href": "slides/02-slides.html",
     "title": "POLS 1600",
     "section": "",
-    "text": "Announcments\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations\n\n\n\n\n\n\n\nManuel’s office hours today\nPaul’s office hours on Thursday\nSubmit tutorials from last week for full credit by this Sunday.\nGroups for the course assigned next week"
+    "text": "Announcements\nSetup (5 minutes)\nReview\n\nTroubleshooting Errors (5 min)\nData wrangling in R (20 min)\nDescriptive Statistics (10 min)\n\nData Visualization (40 min)\n\nThe grammar of graphics\nBasic plots to describe:\n\nDistributions\nAssociations\n\n\n\n\n\n\nSuppose you want to do the following, what function or functions would you use:\n\nRead data into R\nLook at the data to get a high level overview of its structure\nSubset or filter the data to include just observations with certain values\nSelect specific columns from data\nAdd new columns to the data\nSummarize multiple values by collapsing them into a single value\nDoing some function group-by-group?\n\n\n\n\n\nSubmit tutorials from last week for full credit by this Sunday.\nGroups for the course assigned next week"
   },
   {
     "objectID": "slides/07-slides.html",
@@ -12018,13 +12018,13 @@
     "href": "slides/02-slides.html#tutorials-2",
     "title": "POLS 1600",
     "section": "Tutorials",
-    "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\n\n\n\n\n\n\nImportant\n\n\nPlease upload tutorials 00-intro and 01-measurement1 to Canvas by Friday"
+    "text": "Tutorials\nAnd start a specific tutorial by running:\n\nlearnr::run_tutorial(\"00-intro\", package = \"qsslearnr\")\n\n\n\n\n\n\n\nImportant\n\n\n\nPlease upload tutorials 00-intro and 01-measurement1 to Canvas by Friday"
   },
   {
     "objectID": "slides/02-slides.html#concept-check-3",
     "href": "slides/02-slides.html#concept-check-3",
     "title": "POLS 1600",
     "section": "Concept check",
-    "text": "Concept check\nShould you know exactly how to do all of this?\n\nNO! Of course not. For Pete’s sake, Paul, It’s only the second week\n\n\nWill you learn how to do much of this?\n\n\nMaybe, but I’m feeling pretty overwhelmed…\n\n\nHow will you learn how do these things?\n\n\nWith lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about"
+    "text": "Concept check\nShould you know exactly how to do all of this?\n. . .\nNO! Of course not. For Pete’s sake, Paul, It’s only the second week\n. . .\nWill you learn how to do much of this?\n. . .\nMaybe, but I’m feeling pretty overwhelmed…\n. . .\nHow will you learn how do these things?\n. . .\nWith lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about"
   }
 ]

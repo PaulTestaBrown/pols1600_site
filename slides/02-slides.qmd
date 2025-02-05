@@ -56,7 +56,7 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
 
 ## Class Plan {.smaller}
 
-- Announcments
+- Announcements
 -   Setup (5 minutes)
 -   Review
     -   Troubleshooting Errors (5 min)
