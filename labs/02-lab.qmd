@@ -18,7 +18,7 @@ execute:
 
 # Overview {.unnumbered}
 
-Our goal for today is to first, reproduce this figure:
+Our goal for today is to first reproduce this figure:
 
 ```{r}
 #| label: goal
@@ -48,7 +48,7 @@ My hope is that this lab will help you do the following:
         -   Write a brief overview in words that a normal human can understand, what the code in that section is doing
         -   Paste the code for that section into a code chunk
         -   Add brief comments to this code to help your reader understand what's happening
-        -   Knit your document after completing each section.
+        -   Render your document after completing each section.
 -   **Mapping concepts to code**
     -   You shouldn't have to write much new code. Just copy and paste from the labs and slides.
     -   Your goal for today is to interpret that code and develop a mental map that allows you to say when I want to do this type of task (say "recode data"), I need to use some combination of these functions (`%>%`, `mutate()`, maybe `group_by()` or `case_when()`)
