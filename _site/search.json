@@ -1028,15 +1028,15 @@
     "objectID": "slides/03-slides.html#class-plan",
     "href": "slides/03-slides.html#class-plan",
     "title": "POLS 1600",
-    "section": "",
-    "text": "Announcements\nFeedback\nReview\nClass plan\n\nCausal Inference\nNotation for Causal Inference\nCausal Identification\nCausal Identification in Experiments\nresume data from QSS\nExplore Broockman and Kalla (2016)"
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements\nFeedback\nReview\nClass plan\n\nCausal Inference\nNotation for Causal Inference\nCausal Identification\nCausal Identification in Experiments\nresume data from QSS (Skipping, but their for your reference)\nExplore Broockman and Kalla (2016)"
   },
   {
     "objectID": "slides/03-slides.html#annoucements",
     "href": "slides/03-slides.html#annoucements",
     "title": "POLS 1600",
-    "section": "",
-    "text": "Revised Schedule\n\nLecture 3 today\nRead  Broockman and Kalla (2016) pdf\nLab 3 next week\nWeek 4 content spread out over weeks 5/6/7 condensed\nMore updates to come"
+    "section": "Annoucements",
+    "text": "Annoucements\n\nWe start taking attendance this week\nReadings for this week:\n\nQSS Chapter 2: pp. 38–65\nBroockman and Kalla (2016)\n\nNo class next Tuesdays\nNo lab next Thursday\nMeet your groups!"
   },
   {
     "objectID": "slides/03-slides.html#group-assignments",
@@ -1064,7 +1064,7 @@
     "href": "slides/03-slides.html#setup",
     "title": "POLS 1600",
     "section": "Setup",
-    "text": "Setup\nEvery time you work in R\n\nSave your file to your course or project folder\nSet your working directory\nLoad, and if needed, install packages\nMaybe change some global options in your .Rmd file"
+    "text": "Setup\nEvery time you work in R\n\nSave your file to your course or project folder\nSet your working directory to where your file is saved\nLoad, and if needed, install packages\nMaybe change some global options in your .Qmd file"
   },
   {
     "objectID": "slides/03-slides.html#setting-your-working-directory",
@@ -1085,7 +1085,7 @@
     "href": "slides/03-slides.html#packages-for-today",
     "title": "POLS 1600",
     "section": "Packages for today",
-    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\n  \n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \n  \"haven\", \"labelled\",\n  \n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \n  \"ggthemes\", \"ggpubr\", \"GGally\",\n  \"scales\", \"dagitty\", \"ggdag\", #&lt;&lt;\n  \n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\n  \"qss\" #&lt;&lt;\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\nkableExtra         DT  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally     scales \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n   dagitty      ggdag    COVID19       maps    mapdata        qss \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE"
+    "text": "Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\n  \n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \n  \"haven\", \"labelled\",\n  \n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \n  \"ggthemes\", \"ggpubr\", \"GGally\",\n  \"scales\", \"dagitty\", \"ggdag\", #&lt;&lt;\n  \n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\n  \"qss\" #&lt;&lt;\n)\n\n## Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\nkableExtra         DT  tidyverse  lubridate    forcats      haven   labelled \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n     ggmap    ggrepel   ggridges   ggthemes     ggpubr     GGally     scales \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE       TRUE \n   dagitty      ggdag    COVID19       maps    mapdata        qss \n      TRUE       TRUE       TRUE       TRUE       TRUE       TRUE"
   },
   {
     "objectID": "slides/03-slides.html#review-data-wrangling",
@@ -1106,14 +1106,14 @@
     "href": "slides/03-slides.html#data-visualization",
     "title": "POLS 1600",
     "section": "Data Visualization",
-    "text": "Data Visualization\n\nThe grammar of graphics\nAt minimum you need:\n\ndata\naesthetic mappings\ngeometries\n\nHey Jude, make a sad plot and make it better by:\n\nlabels\nthemes\nstatistics\ncooridnates\nfacets\ntransforming your data before plotting"
+    "text": "Data Visualization\n\nThe grammar of graphics\nAt minimum you need:\n\ndata\naesthetic mappings\ngeometries\n\nHey Jude, take a sad plot and make it better by:\n\nlabels\nthemes\nstatistics\ncooridnates\nfacets\ntransforming your data before plotting"
   },
   {
     "objectID": "slides/03-slides.html#causal-claims-imply-counterfactual-comparisons",
     "href": "slides/03-slides.html#causal-claims-imply-counterfactual-comparisons",
     "title": "POLS 1600",
     "section": "Causal claims imply counterfactual comparisons",
-    "text": "Causal claims imply counterfactual comparisons\n\n\n\nCausal claims imply claims about counterfactuals\nWhat would have happened if we were to change some aspect of the world?"
+    "text": "Causal claims imply counterfactual comparisons\n\n\n\nCausal claims imply counterfactual comparisons\nWhat would have happened if we were to change some aspect of the world?"
   },
   {
     "objectID": "slides/03-slides.html#whats-the-counter-factual-for-these-claims",
@@ -1176,7 +1176,7 @@
     "href": "slides/03-slides.html#error-and-bias",
     "title": "POLS 1600",
     "section": "Error and Bias",
-    "text": "Error and Bias\nWe’ll talk about lots of types of bias throughout this course.\nFormally, we’ll say an estimate, \\(\\hat{\\theta}\\) (“theta hat”) is an unbiased estimator of a parameter, \\(\\theta\\) (“theta”) if:\n\\[\nE[\\hat{\\theta}] = \\theta\n\\]\nBias or error, \\(\\epsilon\\), is the difference between our estimate and the truth\n\\[\n\\epsilon = \\hat{\\theta} -\\theta\n\\]\nAn estimator is unbiased if, on average, the errors equal 0\n\\[\nE[\\epsilon] = E[\\hat{\\theta} -\\theta] = 0\n\\]"
+    "text": "Error and Bias\nFormally, we’ll say an estimate, \\(\\hat{\\theta}\\) (“theta hat”) is an unbiased estimator of a parameter, \\(\\theta\\) (“theta”) if:\n\\[\nE[\\hat{\\theta}] = \\theta\n\\]\nBias or error, \\(\\epsilon\\), is the difference between our estimate and the truth\n\\[\n\\epsilon = \\hat{\\theta} -\\theta\n\\]\nAn estimator is unbiased if, on average, the errors equal 0\n\\[\nE[\\epsilon] = E[\\hat{\\theta} -\\theta] = 0\n\\]"
   },
   {
     "objectID": "slides/03-slides.html#bias-vs.-variance",
@@ -1197,7 +1197,7 @@
     "href": "slides/03-slides.html#potential-outcomes-notation",
     "title": "POLS 1600",
     "section": "Potential outcomes notation",
-    "text": "Potential outcomes notation\n\n\\(Y_i(1)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they received the treatment \\((D_i = 1)\\)\n\nShorthand for \\(Y_i(D_i=1)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) with the vaccine (\\(D_i = 1\\))\n\n\\(Y_i(0)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they did not receive the treatment \\((D_i = 0)_i\\)\n\nShorthand for \\(Y_i(D_i=0)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) without the vaccine (\\(D_i=0\\))\n\n\n. . .\nThe treatment received determines which potential outcome we actually observe:\n\\[\nY_i = (1 - D_i)*Y_i(0) + D_i*Y_i(1)\n\\]\nPotential outcomes are fixed, but we only observe one (of many) potential outcomes \\(\\to\\) Fundamental Problem of Causal Inference"
+    "text": "Potential outcomes notation\n\n\\(Y_i(1)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they received the treatment \\((D_i = 1)\\)\n\nShorthand for \\(Y_i(D_i=1)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) with the vaccine (\\(D_i = 1\\))\n\n\\(Y_i(0)\\) describes individual \\(i\\)’s outcome, \\(Y_i\\) if they did not receive the treatment \\((D_i = 0)_i\\)\n\nShorthand for \\(Y_i(D_i=0)\\)\nPaul’s Covid-19 status (\\(Y_i\\)) without the vaccine (\\(D_i=0\\))\n\n\n\nThe treatment received determines which potential outcome we actually observe:\n\\[\nY_i = (1 - D_i)*Y_i(0) + D_i*Y_i(1)\n\\]\nPotential outcomes are fixed, but we only observe one (of many) potential outcomes \\(\\to\\) Fundamental Problem of Causal Inference"
   },
   {
     "objectID": "slides/03-slides.html#fundamental-problem-of-causal-inference",
@@ -1211,7 +1211,7 @@
     "href": "slides/03-slides.html#identification",
     "title": "POLS 1600",
     "section": "Identification",
-    "text": "Identification\n\nIdentification refers to what we can learn from the data available\nA quantity of interest is identified if, with infinite data it can only take one value\nMathematically, we’ll sometimes say a coefficient in an equation is unidentified if\n\nWe have more predictors than observations, or\nSome of predictors are linear combinations of other predictors."
+    "text": "Identification\n\nIdentification refers to what we can learn from the data available\nA quantity of interest is identified if, with infinite data it can only take one value\nFor example, a coefficient in an equation can be unidentified if\n\nWe have more predictors than observations, or\nSome of predictors are linear combinations of other predictors."
   },
   {
     "objectID": "slides/03-slides.html#causal-identification-1",
@@ -1253,35 +1253,35 @@
     "href": "slides/03-slides.html#section",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(E[\\tau_i]\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nIf we could observe everyone’s potential outcomes, we could calculate the ICE\nOn average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)\nSuppose we conducted a study and let folks select what they wanted to eat."
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(E[\\tau_i]\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\nIf we could observe everyone’s potential outcomes, we could calculate the ICE\nOn average eating chocolate increases happiness by 1 point on our 10-point scale (ATE = 1)\nSuppose we conducted a study and let folks select what they wanted to eat."
   },
   {
     "objectID": "slides/03-slides.html#section-1",
     "href": "slides/03-slides.html#section-1",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nObserved Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43"
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\nObserved Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43"
   },
   {
     "objectID": "slides/03-slides.html#section-2",
     "href": "slides/03-slides.html#section-2",
     "title": "POLS 1600",
     "section": "",
-    "text": "Observed Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43\n\n\n\n\n\n\n\n\nSelection Bias\n\nOur estimate of the ATE is biased by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example\nIn general, selection bias occurs when folks who receive the treatment differ systematically from folks who don’t\nWhat if instead of letting people pick and choose, we randomly assigned half our respondents to chocolate and half to receive fruit"
+    "text": "Observed Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n1\n5\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n1\n6\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.57\n9\n-3.43\n\n\n\n\n\n\nSelection Bias\n\nOur estimate of the ATE is biased by the fact that folks who prefer fruit seem to be happier than folks who prefer chocolate in this example\nIn general, selection bias occurs when folks who receive the treatment differ systematically from folks who don’t\nWhat if instead of letting people pick and choose, we randomly assigned half our respondents to chocolate and half to receive fruit"
   },
   {
     "objectID": "slides/03-slides.html#section-3",
     "href": "slides/03-slides.html#section-3",
     "title": "POLS 1600",
     "section": "",
-    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\n\n\nRandomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1"
+    "text": "Potential Outcomes:\n\n\n\n\n\n\n\n\n\n\n\\(Y_i(1)\\)\n\\(Y_i(0)\\)\n\\(\\tau_i\\)\n\n\n\n\n7\n3\n4\n\n\n8\n6\n2\n\n\n5\n4\n1\n\n\n4\n3\n1\n\n\n6\n10\n-4\n\n\n8\n9\n-1\n\n\n5\n4\n1\n\n\n7\n8\n-1\n\n\n4\n3\n1\n\n\n6\n0\n6\n\n\n\n\n\n\n\n\n\n\n\\(E[Y_i(1)]\\)\n\\(E[Y_i(0)]\\)\n\\(ATE\\)\n\n\n\n\n6\n5\n1\n\n\n\n\n\n\nRandomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1"
   },
   {
     "objectID": "slides/03-slides.html#section-4",
     "href": "slides/03-slides.html#section-4",
     "title": "POLS 1600",
     "section": "",
-    "text": "Randomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\n\n\nRandom Assignment\n\nWhen treatment has been randomly assigned, a difference in sample means provides an unbiased estimate of the ATE\nThe fact that our \\(\\hat{ATE} = ATE\\) in this example is pure coincidence.\nIf we randomly assigned treatment a different way, we’d get a different estimate.\nIn general unbiased estimators will tend to be neither too high nor too low (e.g. \\(E[\\hat{\\theta} - \\theta] = 0\\)])"
+    "text": "Randomly Assigned Treatment:\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\nRandom Assignment\n\nWhen treatment has been randomly assigned, a difference in sample means provides an unbiased estimate of the ATE\nThe fact that our \\(\\hat{ATE} = ATE\\) in this example is pure coincidence.\nIf we randomly assigned treatment a different way, we’d get a different estimate.\nIn general unbiased estimators will tend to be neither too high nor too low (e.g. \\(E[\\hat{\\theta} - \\theta] = 0\\)])"
   },
   {
     "objectID": "slides/03-slides.html#estimating-an-average-treatment-effect",
@@ -1295,7 +1295,7 @@
     "href": "slides/03-slides.html#section-5",
     "title": "POLS 1600",
     "section": "",
-    "text": "Random Assignment 1\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\n\n\nRandom Assignment 2\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n0\n3\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n1\n6\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n0\n3\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.6\n2.8\n3.8\n\n\n\n\n\n\n\n\nRandom Assignment 3\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n0\n6\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.4\n5.8\n-0.4"
+    "text": "Random Assignment 1\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n0\n8\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.2\n5.2\n1\n\n\n\n\n\n\nRandom Assignment 2\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n0\n3\n\n\nchocolate\n1\n8\n\n\nchocolate\n0\n4\n\n\nchocolate\n1\n4\n\n\nfruit\n1\n6\n\n\nfruit\n1\n8\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n0\n3\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n6.6\n2.8\n3.8\n\n\n\n\n\n\nRandom Assignment 3\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(d_i\\)\n\\(y_i\\)\n\n\n\n\nchocolate\n1\n7\n\n\nchocolate\n0\n6\n\n\nchocolate\n1\n5\n\n\nchocolate\n1\n4\n\n\nfruit\n0\n10\n\n\nfruit\n0\n9\n\n\nchocolate\n0\n4\n\n\nfruit\n1\n7\n\n\nchocolate\n1\n4\n\n\nchocolate\n0\n0\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{y}_{d=1}\\)\n\\(\\bar{y}_{d=0}\\)\n\\(\\hat{ATE}\\)\n\n\n\n\n5.4\n5.8\n-0.4"
   },
   {
     "objectID": "slides/03-slides.html#distribution-of-sample-ates",
@@ -1484,7 +1484,7 @@
     "href": "slides/03-slides.html#references",
     "title": "POLS 1600",
     "section": "References",
-    "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nBroockman, David, and Joshua Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing.” Science 352 (6282): 220–24."
+    "text": "References\n\n\n\n\nBroockman, David, and Joshua Kalla. 2016. “Durably reducing transphobia: A field experiment on door-to-door canvassing.” Science 352 (6282): 220–24."
   },
   {
     "objectID": "slides/10-slides.html#class-plan",
@@ -12026,5 +12026,33 @@
     "title": "POLS 1600",
     "section": "Concept check",
     "text": "Concept check\nShould you know exactly how to do all of this?\n. . .\nNO! Of course not. For Pete’s sake, Paul, It’s only the second week\n. . .\nWill you learn how to do much of this?\n. . .\nMaybe, but I’m feeling pretty overwhelmed…\n. . .\nHow will you learn how do these things?\n. . .\nWith lots of practice, patience, and repetition motivated by a sense that these skills will help me learn about things I care about"
+  },
+  {
+    "objectID": "slides/03-slides.html#whats-the-counterfactual-for-these-claims",
+    "href": "slides/03-slides.html#whats-the-counterfactual-for-these-claims",
+    "title": "POLS 1600",
+    "section": "What’s the counterfactual for these claims:",
+    "text": "What’s the counterfactual for these claims:\n\nForeign aid increases develop\nJoe Rogan cost Kamala the 2024 election\nDemocracies don’t fight wars with other democracies\nUniversal Pre-K improves child development"
+  },
+  {
+    "objectID": "slides/03-slides.html#casual-claims-are-all-around-us",
+    "href": "slides/03-slides.html#casual-claims-are-all-around-us",
+    "title": "POLS 1600",
+    "section": "Casual claims are all around us",
+    "text": "Casual claims are all around us"
+  },
+  {
+    "objectID": "slides/03-slides.html#casual-claims-are-all-around-us-1",
+    "href": "slides/03-slides.html#casual-claims-are-all-around-us-1",
+    "title": "POLS 1600",
+    "section": "Casual claims are all around us",
+    "text": "Casual claims are all around us\nWhat are some questions that interest you?\nWhat are the counterfactual comparisons they imply?"
+  },
+  {
+    "objectID": "slides/03-slides.html#the-resume-experiment",
+    "href": "slides/03-slides.html#the-resume-experiment",
+    "title": "POLS 1600",
+    "section": "The Resume Experiment",
+    "text": "The Resume Experiment\nLet’s take a look at the resume experiment from your text book and compare some of Imai’s code to its tidyverse equivalent\n\n# make sure qss package is loaded\nlibrary(qss)\ndata(\"resume\")"
   }
 ]

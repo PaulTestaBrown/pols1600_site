@@ -742,7 +742,7 @@ cov_bal_t4
 
 # Take the Class Survey
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_b4bgr3yL24atI1M){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cup6UNpClKXAo06){target="_blank"} for this week.
 
 If you're interested, the intellectual history of this study is quite the tail:
 

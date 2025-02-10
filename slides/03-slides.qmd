@@ -3,6 +3,7 @@ title: "POLS 1600"
 subtitle: "Causal Inference in<br>Experimental Designs"
 date: last-modified
 date-format: "[Updated ]MMM D, YYYY"
+bibliography: ../files/paperpile.bib
 format: 
   revealjs:
     theme: brownslides.scss
@@ -18,6 +19,7 @@ format:
     highlight-style: github
     progress: true
     code-overflow: wrap
+    html-math-method: mathjax
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -57,31 +59,36 @@ library(easystats)
     -   Notation for Causal Inference
     -   Causal Identification
     -   Causal Identification in Experiments
-    -   `resume` data from QSS
+    -   `resume` data from QSS (Skipping, but their for your reference)
     -   Explore Broockman and Kalla (2016)
 
 ## Annoucements
 
--   Revised Schedule
-    -   Lecture 3 today
-    -   Read {{< fa book >}} @Broockman2016-pi [pdf](../files/readings/broockman_kalla_2016.pdf){target="blank"}
-    -   Lab 3 next week
-    -   Week 4 content spread out over weeks 5/6/7 condensed
-    -   More updates to come
+- We start taking attendance this week
+
+- Readings for this week:
+
+  - QSS Chapter 2: pp. 38--65
+  - [@Broockman2016-pi](https://pols1600.paultesta.org/files/readings/broockman_kalla_2016.pdf)
+
+- No class next Tuesdays
+
+- No lab next Thursday
+
+- Meet your groups!
 
 ## Group Assignments {.smaller}
 
 ```{r}
 #| echo: false
 groups_df <- tibble::tibble(
-`Group 1` = c("Maia Eng","Guadalupe Herrera","Stephen Robinson","Jeremiah Harrington"),
-`Group 2` = c("Andrew Rovinsky", "Spencer Lorin","Lucinda Anderson","Serenity Hamilton"),
-`Group 3` = c("Serafym Rybachkivskyi","Rachel Kim","Kai Blades","Emma Coleman"),
-`Group 4` = c("Tiffany Eddy","Daniel Solomon","Zoe Smith","Lorena Calderon"),
-`Group 5` = c("Christopher Maron","Daniel Baker","Neve Diaz-Carr","Olivia Hanley"),
-`Group 6` = c("Mia Hamilton","Emily Colon","Davis Kelly","Talia Levine"),
-`Group 7` = c("Mariana Melzer","Kahrie Langham", "Shannon Feerick-Hillenbrand","Jarret Fernandes"),
-`Group 8` = c("Logan Szittai", "Keiley Thompson","Lydell Dyer","Mahir Arora")
+`Group 1` = c("Gurpartap Singh","Niyah Whitten", "Marisa Coghlin", "Aidan Choi"),
+`Group 2` = c("Sylvie Watts","Amani Diallo", "Sinclair Harris","Peter Zucker"),
+`Group 3` = c("Joshua Okwaning","Eiffel Sunga","Jenna Hercher", "Ella Hendelman"),
+`Group 4` = c( "Jacqueline Zhang", "Charlie Jeffers","Meleah Neely", "Nene Mokonchu"),
+`Group 5` = c("Talib Reddick","Zoe Kaufman","Jenna Lowry", "Harry Laferriere"),
+`Group 6` = c("Tess	Naquet-Radiguet"," Anisha Kumar","Nash Riebe", "Sophia Wotman"),
+`Group 7` = c("Ben Buka","Ianthe Ince","Riya Srinivasan","Kaelah Kimura")
 )
 
 groups_df |> 
@@ -96,7 +103,7 @@ groups_df |>
   pivot_wider(id_cols = Group,
               names_from = id,
               values_from = Name) -> groups_df
-# write_csv(groups_df, file = "../files/groups.csv" )
+#write_csv(groups_df, file = "../files/groups.csv" )
 DT::datatable(groups_df)
 ```
 
@@ -146,27 +153,11 @@ Every time you work in R
 
 -   Save your file to your course or project folder
 
--   Set your working directory
+-   Set your working directory to where your file is saved
 
 -   Load, and if needed, install packages
 
--   Maybe change some global options in your .Rmd file
-
-## Setting your working directory:
-
--   My default code for setting a working directory is:
-
-```{r}
-# Set working directory
-wd <- "." # Change to file path on your computer
-setwd(wd)
-```
-
--   This is really just a reminder to someone else using my code that they need to have their working directories set up correctly
-
--   R Studio sets the working directory automatically, when you knit the file
-
--   When I work on a file, I set the working directory manually
+-   Maybe change some global options in your .Qmd file
 
 ## Setting your working directory when working "Live"
 
@@ -202,7 +193,6 @@ the_packages <- c(
 
 ## Define a function to load (and if needed install) packages
 
-#| label = "ipak"
 ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
     if (length(new.pkg)) 
@@ -262,7 +252,7 @@ You could use
     -   `aesthetic` mappings
     -   `geometries`
 
--   Hey Jude, make a sad plot and make it better by:
+-   Hey Jude, take a sad plot and make it better by:
 
     -   `labels`
     -   `themes`
@@ -277,7 +267,7 @@ You could use
 
 ::: columns
 ::: {.column width="40%"}
--   Causal claims imply claims about counterfactuals
+-   Causal claims imply counterfactual comparisons
 
 -   What would have happened if we were to change some aspect of the world?
 :::
@@ -287,17 +277,17 @@ You could use
 :::
 :::
 
-## What's the counter factual for these claims:
+## What's the counterfactual for these claims:
 
 -   Foreign aid increases develop
 
--   Wikileaks cost Hillary Clinton the 2016 election
+-   Joe Rogan cost Kamala the 2024 election
 
 -   Democracies don't fight wars with other democracies
 
 -   Universal Pre-K improves child development
 
-## Casual claims are are all around us
+## Casual claims are all around us
 
 ::: columns
 ::: {.column width="45%"}
@@ -315,7 +305,7 @@ knitr::include_graphics("https://press.uchicago.edu/.imaging/mte/ucp/medium/dam/
 :::
 :::
 
-## Casual claims are are all around us
+## Casual claims  are all around us
 
 What are some questions that interest you?
 
@@ -387,8 +377,6 @@ $$\operatorname{E}[Y \vert X=x] = \int_{-\infty}^\infty y f (y\vert x) \, dy$$
 
 ## Error and Bias {.smaller}
 
-We'll talk about lots of types of bias throughout this course.
-
 Formally, we'll say an estimate, $\hat{\theta}$ ("theta hat") is an unbiased estimator of a parameter, $\theta$ ("theta") if:
 
 $$
@@ -458,9 +446,9 @@ $$
 
 -   Identification refers to [what we can learn]{.blue} from the data available
 
--   A quantity of interest is [identified]{.blue} if, with infinite data it can only take one value
+-   A quantity of interest is [identified](https://en.wikipedia.org/wiki/Identifiability) if, with infinite data it can only take one value
 
--   Mathematically, we'll sometimes say a coefficient in an equation is [unidentified]{.blue} if
+-   For example, a coefficient in an equation can be [unidentified]{.blue} if
 
     -   We have more predictors than observations, or
 
@@ -525,7 +513,7 @@ Let's consider a simple example
 -   $X_i$ a person's self-reported preference $(X_i \in$ {[chocolate]{style="color: chocolate"}, [fruit]{style="color:purple"} })
 
 ```{r}
-#| echo=F
+#| echo: false
 candy_df <- tibble(
   y1 = c(7, 8, 5, 4, 6, 8, 5, 7, 4, 6),
   y0 = c(3, 6, 4, 3, 10, 9, 4, 8, 3, 0),
@@ -582,18 +570,24 @@ candy_tab$y <- cell_spec(
 #### Potential Outcomes:
 
 ```{r}
+#| echo: false
+#| results: asis
+
 kable(candy_tab |> 
         select(y1, y0,tau)
-      ,escape = F,
-      format = "markdown",
+      ,escape = FALSE,
+      # format = "markdown",
       col.names = c(
         "$Y_i(1)$",
         "$Y_i(0)$",
         "$\\tau_i$"
-      )) |> kable_styling()
+      ))
 ```
 
 ```{r}
+#| echo: false
+#| results: asis
+
 kable(estimand_df,escape = F,
       format = "markdown",
       col.names = c(
@@ -601,7 +595,7 @@ kable(estimand_df,escape = F,
         "$E[Y_i(0)]$",
         "$E[\\tau_i]$"
       )
-      ) |> kable_styling()
+      )  
 ```
 :::
 
@@ -621,6 +615,8 @@ kable(estimand_df,escape = F,
 #### Potential Outcomes:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(y1, y0,tau)
       ,escape = F,
@@ -629,10 +625,12 @@ kable(candy_tab |>
         "$Y_i(1)$",
         "$Y_i(0)$",
         "$\\tau_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(estimand_df,escape = F,
       format = "markdown",
       col.names = c(
@@ -640,7 +638,7 @@ kable(estimand_df,escape = F,
         "$E[Y_i(0)]$",
         "$ATE$"
       )
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -648,6 +646,8 @@ kable(estimand_df,escape = F,
 #### Observed Treatment:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(x, d,y)
       ,escape = F,
@@ -656,17 +656,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
 :::
@@ -678,6 +680,8 @@ kable(effects_df,escape = F,
 #### Observed Treatment:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(x, d,y)
       ,escape = F,
@@ -686,17 +690,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -714,6 +720,8 @@ kable(effects_df,escape = F,
 ##  {.smaller}
 
 ```{r}
+#| echo: false
+
 set.seed(12)
 candy_df |> 
   mutate(
@@ -760,6 +768,8 @@ candy_tab$y <- cell_spec(
 #### Potential Outcomes:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(y1, y0,tau)
       ,escape = F,
@@ -768,10 +778,12 @@ kable(candy_tab |>
         "$Y_i(1)$",
         "$Y_i(0)$",
         "$\\tau_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(estimand_df,escape = F,
       format = "markdown",
       col.names = c(
@@ -779,7 +791,7 @@ kable(estimand_df,escape = F,
         "$E[Y_i(0)]$",
         "$ATE$"
       )
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -787,6 +799,8 @@ kable(estimand_df,escape = F,
 #### Randomly Assigned Treatment:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(x, d,y)
       ,escape = F,
@@ -795,17 +809,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      )
 ```
 :::
 :::
@@ -817,6 +833,8 @@ kable(effects_df,escape = F,
 #### Randomly Assigned Treatment:
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(x, d,y)
       ,escape = F,
@@ -825,17 +843,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      ))
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -852,7 +872,7 @@ kable(effects_df,escape = F,
 :::
 :::
 
-## Estimating an Average Treatment Effect
+## Estimating an Average Treatment Effect {.smaller}
 
 If we treatment has been randomly assigned, we can estimate the ATE by taking the difference of means between treatment and control:
 
@@ -870,11 +890,13 @@ That is, the ATE is causally identified by the **difference of means** estimator
 
 ##  {.smaller}
 
-::: columns
+:::: columns
 ::: {.column width="30%"}
 #### Random Assignment 1
 
 ```{r}
+#| echo: false
+
 kable(candy_tab |> 
         select(x, d,y)
       ,escape = F,
@@ -883,17 +905,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -901,6 +925,8 @@ kable(effects_df,escape = F,
 #### Random Assignment 2
 
 ```{r}
+#| echo: false
+
 set.seed(123)
 candy_df |> 
   mutate(
@@ -949,17 +975,19 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
 
@@ -967,6 +995,8 @@ kable(effects_df,escape = F,
 #### Random Assignment 3
 
 ```{r}
+#| echo: false
+
 set.seed(123456)
 candy_df |> 
   mutate(
@@ -1014,24 +1044,27 @@ kable(candy_tab |>
         "$x_i$",
         "$d_i$",
         "$y_i$"
-      )) |> kable_styling()
+      )) 
 ```
 
 ```{r}
+#| echo: false
+
 kable(effects_df,escape = F,
       format = "markdown",
       digits = 2,
       col.names = c("$\\bar{y}_{d=1}$",
         "$\\bar{y}_{d=0}$",
         "$\\hat{ATE}$")
-      ) |> kable_styling()
+      ) 
 ```
 :::
-:::
+::::
 
 ## Distribution of Sample ATEs
 
 ```{r}
+#| echo: false
 
 ate_fn <- function(df){
   df |> 
@@ -1056,10 +1089,12 @@ plot_df |>
   labs(
     title = "Distribution of Difference of Means under Different Randomizations of Treamtent",
     x = "Difference of Means"
-  )
+  )+
+  xlim(-3,4)
 
 
 ```
+
 
 ## Why Random Assignment Matters? {.smaller}
 
@@ -1104,7 +1139,7 @@ Causal identification for experimental designs requires very few assumptions:
 
 # {{< fa code>}} Estimating ATEs with the `resume` data {.inverse}
 
-## The Resume Experimento
+## The Resume Experiment
 
 Let's take a look at the resume experiment from your text book and compare some of Imai's code to its `tidyverse` equivalent
 
