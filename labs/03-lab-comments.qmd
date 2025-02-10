@@ -65,6 +65,7 @@ Here are your assigned groups for the semester.
 #| echo: false
 #| message: false
 
+
 groups_df <- read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
 DT::datatable(groups_df)
@@ -106,7 +107,7 @@ As with every lab, you should:
 -   Render the document (Check `[X] Render on Save`)
 -   Open the html file in your browser (Easier to read)
 -   Render the document again after completing a section or chunk (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1098409/assignments){target="_blank"}.
 
 # Summarize the study
 
