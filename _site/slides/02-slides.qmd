@@ -56,7 +56,7 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
 
 ## Class Plan {.smaller}
 
-- Announcments
+- Announcements
 -   Setup (5 minutes)
 -   Review
     -   Troubleshooting Errors (5 min)
@@ -67,16 +67,62 @@ df <- haven::read_spss("../files/data/class_surveys/wk01.sav")
     -   Basic plots to describe:
         -   Distributions
         -   Associations
+        
+## Concept check {.smaller}
+
+Suppose you want to do the following, what function or functions would you use:
+
+-   Read data into `R`
+-   Look at the data to get a high level overview of its structure
+-   Subset or filter the data to include just observations with certain values
+-   Select specific columns from data
+-   Add new columns to the data
+-   Summarize multiple values by collapsing them into a single value
+-   Doing some function group-by-group?        
 
 ## Announcements
-
-- Manuel's [office hours](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UU1kMTREWlJTbW50fGRlZmF1bHR8NDkxYmJjYmM0OTBlY2I3MzhhNjk4MGQ4ZDdjNDg0OWE) today
-
-- Paul's [office hours](https://calendar.google.com/calendar/u/0/selfsched?sstoken=UU50c3dUNS1IVy04fGRlZmF1bHR8ZmRjZjI4YWI5YmE2YmFlZDg3ZjA4ZmFhNzcxNjdkZWY) on Thursday
 
 - Submit tutorials from last week for full credit by this Sunday.
 
 - Groups for the course assigned next week
+
+# {{< fa code>}} Tutorials {.inverse}
+
+
+## Tutorials
+
+Once you've done the following
+
+```{r}
+#| eval = F
+
+remotes::install_github("kosukeimai/qss-package", build_vignettes = TRUE)
+remotes::install_github("rstudio/learnr")
+remotes::install_github("rstudio-education/gradethis")
+remotes::install_github("PaulTestaBrown/qsslearnr")
+```
+
+You can see the available problem sets by running the following code in your console:
+
+```{r}
+learnr::run_tutorial(package = "qsslearnr")
+```
+
+## Tutorials
+
+And start a specific tutorial by running:
+
+```{r}
+#| eval = F
+learnr::run_tutorial("00-intro", package = "qsslearnr")
+```
+
+
+:::{.callout-important}
+
+Please upload tutorials 00-intro and 01-measurement1 to [Canvas](https://canvas.brown.edu/courses/1098409/assignments) by Friday
+
+:::
 
 # {{< fa code>}} Setup {.inverse}
 
@@ -101,7 +147,7 @@ the_packages <- c(
   "GGally",
   
   # Data 
-  "COVID19","maps","mapdata","DT"
+  "maps","mapdata","DT"
 )
 the_packages
 ```
@@ -158,6 +204,7 @@ Let's load the Covid-19 data we worked with last week:
 ```{r}
 #| label = "covid"
 load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
+
 ```
 
 # {{< fa magnifying-glass>}} Troubleshooting Errors {.inverse}
@@ -206,7 +253,7 @@ More discussion [here](https://github.com/noamross/zero-dependency-problems/blob
 
 -   Have someone else look at your code (Fresh eyes, [paired programming](https://en.wikipedia.org/wiki/Pair_programming))
 
--   Copy and paste the "general part" of error message into Google.
+-   Copy and paste the "general part" of error message into Google/ChatGPT
 
 -   Knit your document after each completed code chunk
 
@@ -310,11 +357,12 @@ All of these "verb" functions from the `dplyr` package (e.g. `filter()`,`mutate(
 
 ![](https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/2444.png){fig-align="center"}
 
-## The pipe command `%>%`
+## The pipe command `%>%` {.smaller}
 
 -   The pipe command is way of "chaining" lines of code together, piping the results of one `tidyverse` function into the next function.
 
 -   The pipe command works because these functions always expect a data frame as their first argument, and always produce a data frame as their output.
+
 
 ## The pipe command `%>%`
 
@@ -666,7 +714,7 @@ covid_us %>%
 
 ## {{< fa face-meh >}} Working with dates
 
-R treat's dates differently
+R treats dates differently
 
 ```{r}
 covid_us$date[1:3]
@@ -786,7 +834,7 @@ Suppose you want to do the following, what function or functions would you use:
     -   `read_xxx()` (tidy), `read.xxx()` (base)
 -   Look at the data to get a high level overview of its structure
     -   `head()`, `tail()`, `glimpse()`, `table()`, `summary()`, `View()`
--   Subset the data to include just obersvations with certain values
+-   Filter the data to include just observations with certain values
     -   `data %>% filter(x > 0)`, `data[data$x > 0]`, `subset(data, x > 0)`
 -   Select specific columns from data
     -   `data$variable`, `data %>% select(variable1, variable2)`, `data[,c("x1","x2")]`
@@ -1042,7 +1090,7 @@ df %>%
 ## Code
 
 ```{r}
-#|
+
 df %>% #<< Raw data
   mutate(
     Playlist =forcats::as_factor(trip)
