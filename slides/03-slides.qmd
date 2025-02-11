@@ -261,6 +261,163 @@ You could use
     -   `facets`
     -   transforming your data before plotting
 
+## Practice {.smaller}
+
+
+
+- Create two variables `x` and `y`
+  - `x` should be a random variable with 100 observations from a random normal (`rnorm`) distribution  with mean 0 and standard deviation 1
+  - `y` should be a function of x plus the square of a random normal distribution with mean 0 and standard deviation 1
+- Combine  `x` and `y` into a `data.frame` called `df` 
+- `summarize` the `mean`, `median`, standard deviation (`sd`), 16th and 84th percentile (`quantile`) of `x` and `y` and save this to an object called `df_sum`
+- Plot the distributions of `x` and `y`, separately, using a density plot (`geom_density`)
+  - Add a rug to each density plot
+  - Add vertical lines for the mean and median of each variable
+  - A vertical lines at the 16th and and 84th percentile of each plot
+    - Hint use your object `df_sum` as the data for these geometries
+
+
+## Practice {.smaller}
+
+:::: panel-tabset
+
+## Tasks
+
+:::{.nonincremental}
+
+- Create two variables `x` and `y`
+  - `x` should be a random variable with 100 observations from a random normal (`rnorm`) distribution  with mean 0 and standard deviation 1
+  - `y` should be a function of x plus the square of a random normal distribution with mean 0 and standard deviation 1
+- Combine  `x` and `y` into a `data.frame` called `df` 
+- `summarize` the `mean`, `median`, standard deviation (`sd`), 16th and 84th percentile (`quantile`) of `x` and `y` and save this to an object called `df_sum`
+- Plot the distributions of `x` and `y`, separately, using a density plot (`geom_density`)
+  - Add a rug to each density plot
+  - Add vertical lines for the mean and median of each variable
+  - A vertical lines at the 16th and and 84th percentile of each plot
+    - Hint: use your object `df_sum` as the data for these geometries
+
+:::
+
+## {{<fa code>}}
+
+```{r}
+#| echo: true
+
+# Load libraries
+library(tidyverse)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Number of observations
+n <- 1000
+
+# Generate data
+x <- rnorm(n, mean = 0, sd = 1)
+y <- x + (rnorm(n, mean = 0, sd = 1))^2
+
+# Create dataframe
+df <- data.frame(x = x, y = y)
+
+# Calculate summary statistics
+
+df_sum <- df %>% 
+  dplyr::summarise(
+    x_mean = mean(x),
+    x_median = median(x),
+    x_sd = sd(x),
+    x_16th = quantile(x, probs = .16),
+    x_84th = quantile(x, probs = .84),
+    y_mean = mean(y),
+    y_median = median(y),
+    y_sd = sd(y),
+    y_16th = quantile(y, probs = .16),
+    y_84th = quantile(y, probs = .84)
+  )
+
+df_sum
+
+fig_x <- df %>% 
+  ggplot(aes(x))+
+  geom_density()+
+  geom_rug()+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = x_mean, col="Mean"))+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = x_median, col="Median"),
+    linetype = "dashed")+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = x_16th, col="16th percentile"))+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = x_84th, col="84th percentile"))+
+  geom_segment(
+    aes(y=.45, yend=.45,
+        x = df_sum$x_mean - df_sum$x_sd,
+        xend = df_sum$x_mean + df_sum$x_sd)
+  )+
+  ylim(0,.5)+
+  labs(
+    col = "Statistic"
+  )
+
+fig_y <- df %>% 
+  ggplot(aes(y))+
+  geom_density()+
+  geom_rug()+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = y_mean, col="Mean"))+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = y_median, col="Median"),
+    linetype = "dashed")+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = y_16th, col="16th percentile"))+
+  geom_vline(
+    data = df_sum,
+    aes(xintercept = y_84th, col="84th percentile"))+
+  geom_segment(
+    aes(y=.45, yend=.45,
+        x = df_sum$y_mean - df_sum$y_sd,
+        xend = df_sum$y_mean + df_sum$y_sd)
+  )+
+  ylim(0,.5)+
+  labs(
+    col = "Statistic"
+  )
+
+cor(df$x, df$y)
+
+fig_xy <- df %>% 
+  ggplot(aes(x,y))+
+  geom_point()+
+  geom_smooth(method="lm")
+
+```
+
+## Figures
+
+```{r}
+fig_x
+
+fig_y
+
+fig_xy
+```
+
+## Summary
+
+- Measures of central tendency describe [what's typical]{.blue}
+
+- Measures of dispersion describe [variation around what's typical]{.blue}
+
+:::
+
 # {{< fa lightbulb >}} Causal Inference {.inverse}
 
 ## Causal claims imply counterfactual comparisons
