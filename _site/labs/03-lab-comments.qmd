@@ -47,7 +47,7 @@ One of these 9 tasks (excluding the weekly survey) will be randomly selected as 
 ```{r}
 #| label: graded
 
-set.seed(22022024)
+set.seed(22022025)
 graded_question <- sample(1:9,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
@@ -64,6 +64,7 @@ Here are your assigned groups for the semester.
 #| label: groups
 #| echo: false
 #| message: false
+
 
 groups_df <- read_csv("https://pols1600.paultesta.org/files/groups.csv")
 
@@ -106,7 +107,7 @@ As with every lab, you should:
 -   Render the document (Check `[X] Render on Save`)
 -   Open the html file in your browser (Easier to read)
 -   Render the document again after completing a section or chunk (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1098409/assignments){target="_blank"}.
 
 # Summarize the study
 
@@ -742,7 +743,7 @@ cov_bal_t4
 
 # Take the Class Survey
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_b4bgr3yL24atI1M){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_cup6UNpClKXAo06){target="_blank"} for this week.
 
 If you're interested, the intellectual history of this study is quite the tail:
 
