@@ -391,7 +391,7 @@ pres_df %>%
 
 Now that we've got our election data structured as electoral results per state, we can merge this state-level data into our Covid-19 data, using the common variable `state` in each data frame.
 
-- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data.**
+- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data  and save this combined dataset into a new object called `covid_df`**
 
 Again, you should be able to just copy and paste the code from [here](https://pols1600.paultesta.org/slides/05-slides.html#/q5-merging-data){target="_blank"}
 
@@ -399,11 +399,12 @@ Again, you should be able to just copy and paste the code from [here](https://po
 #| label: merge_pres
 dim(covid_us)
 dim(pres2020_df)
-covid_us <- covid_us %>% left_join(
+covid_df <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
-dim(covid_us) # Same number of rows as covid_us w/ 8 additional columns
+
+dim(covid_df) # Same number of rows as covid_us w/ 8 additional columns
 ```
 
 ------------------------------------------------------------------------
@@ -418,14 +419,14 @@ Let's start with some simple descriptive statistics.
 
 ## For all the observations
 
-With the `covid_us` data set:
+With the `covid_df` data set:
 
 - use the `group_by()` command to have `summarise()` calculate values separately by the `winner` of each state.
 - use the `summarise()` command with `mean()` function to calculate the average number of new deaths (`new_deaths`) and the average of the 7-day rolling average of new deaths per 100,000 citizens (`new_deaths_pc_7day`)
   - Remember to tell `mean()` what to do with NAs using the `na.rm` argument.
 
 ```{r}
-covid_us %>%
+covid_df %>%
   group_by(winner)%>%
   summarise(
     new_deaths = mean(new_deaths, na.rm=T),
@@ -444,7 +445,7 @@ If that's true, then the differences between Red and Blue states in terms of new
 - In the code chunk below, take the your code from the previous chunk, and use the `filter()` command to subset the data to include only obsevations with a value of `date` less than `"2021-04-19`
 
 ```{r}
-covid_us %>%
+covid_df %>%
   filter(date < "2021-04-19") %>%
   group_by(winner)%>%
   summarise(
@@ -460,7 +461,7 @@ Similarly, if Leonhardt's claim is true, then the differences between Red and Bl
 - In the code chunk below, take the your code from the previous chunk, and use the `filter()` command to subset the data to include only obsevations with a value of `date` greater than `"2021-04-19`
 
 ```{r}
-covid_us %>%
+covid_df %>%
   filter(date > "2021-04-19") %>%
   group_by(winner)%>%
   summarise(
@@ -492,25 +493,25 @@ $$ \text{7-day average of New Deaths (per 100k)} = \beta_0 + \beta_1 \text{Elect
 Save the output of lm into objects called `m1` and `m2` and display the results of each model (by printing the objects on their own line)
 
 ```{r}
-m1 <- lm(new_deaths ~ winner, covid_us)
-m2 <- lm(new_deaths_pc_7day ~ winner, covid_us)
+m1 <- lm(new_deaths ~ winner, covid_df)
+m2 <- lm(new_deaths_pc_7day ~ winner, covid_df)
 
 # Intercept corresponds to the mean among Red States
 coef(m1)[1]
-mean(covid_us$new_deaths[covid_us$winner == "Trump"], na.rm=T)
+mean(covid_df$new_deaths[covid_df$winner == "Trump"], na.rm=T)
 
 # Slope corresponds to the difference in means between Red and Blue States
 coef(m1)[1] + coef(m1)[2]
-mean(covid_us$new_deaths[covid_us$winner == "Biden"], na.rm=T)
+mean(covid_df$new_deaths[covid_df$winner == "Biden"], na.rm=T)
 
 
 # Intercept corresponds to the mean among Red States
 coef(m2)[1]
-mean(covid_us$new_deaths_pc_7day[covid_us$winner == "Trump"], na.rm=T)
+mean(covid_df$new_deaths_pc_7day[covid_df$winner == "Trump"], na.rm=T)
 
 # Slope corresponds to the difference in means between Red and Blue States
 coef(m2)[1] + coef(m2)[2]
-mean(covid_us$new_deaths_pc_7day[covid_us$winner == "Biden"], na.rm=T)
+mean(covid_df$new_deaths_pc_7day[covid_df$winner == "Biden"], na.rm=T)
 ```
 
 - **Please interpret the coefficients of these models in terms of the conditional means you estimated for all the observations in the previous section**
@@ -555,7 +556,7 @@ In the code chunk below, use `lm()` to estimate the relationship between:
 
 - Deaths modeled by Republican vote share on 2021-09-23
 
-To estimate these models using only data from September 23, 2021, place the following argument: `subset = date == "2021-09-23"` after the `data = covid_us` argument in `lm()` in each of your models.
+To estimate these models using only data from September 23, 2021, place the following argument: `subset = date == "2021-09-23"` after the `data = covid_df` argument in `lm()` in each of your models.
 
 Remember to separate arguments in lm using a comma ( `lm(formula = ??? ~ ???, data = ???, subset = ??? == ???)`)
 
@@ -563,17 +564,17 @@ Please assign the output of each model to objects called `m3`, `m4`, and `m5`. P
 
 ```{r}
 # Deaths modeled by percent vaccinated on 2021-09-23
-m3 <- lm(new_deaths_pc_14day ~ percent_vaccinated, covid_us,
+m3 <- lm(new_deaths_pc_14day ~ percent_vaccinated, covid_df,
          subset = date == "2021-09-23")
 m3
 
 #  Percent vaccinated modeled by Republican vote share on 2021-09-23
-m4 <- lm(percent_vaccinated ~ rep_voteshare, covid_us,
+m4 <- lm(percent_vaccinated ~ rep_voteshare, covid_df,
          subset = date == "2021-09-23")
 m4 
 
 # Deaths modeled by Republican vote share on 2021-09-23
-m5 <- lm(new_deaths_pc_14day ~ rep_voteshare, covid_us,
+m5 <- lm(new_deaths_pc_14day ~ rep_voteshare, covid_df,
          subset = date == "2021-09-23")
 m5
 
@@ -597,7 +598,7 @@ In the code chunk below, uncomment the code to produce a basic figure, for model
 
 ```{r}
 # # # # Data for plot
-# covid_us %>%
+# covid_df %>%
 #   # Only use observations from September 23, 2021
 #   filter(date == "2021-09-23") %>%
 #   # Exclude DC
@@ -730,7 +731,7 @@ This turned out to be more annoying than I thought, but if you really wanted to 
 # Vector containing labeled states
 the_labs <- c("WV","WY","MS","KY","TX","FL","GA","IL","NY","VT","MD","CA")
 
-covid_us %>%
+covid_df %>%
   # Only include labels for states in the the_labs
   mutate(
     nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)
@@ -806,7 +807,7 @@ covid_us %>%
 #| label: nty2
 # Same as above, but now modeling deaths with rep vote share
 
-covid_us %>%
+covid_df %>%
   mutate(
     nyt_labs = ifelse(state_po %in%the_labs, state_po, NA)
   )%>%
