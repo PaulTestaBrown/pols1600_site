@@ -277,7 +277,7 @@ Which, I know sounds like a lot, but...
 
 Now that we've got our election data structured as electoral results per state, we can merge this state-level data into our Covid-19 data, using the common variable `state` in each data frame.
 
-- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data.**
+- **In the code chunk below, use the `left_join()` command to merge the `pres2020_df` data into the `covid_us` data and save this combined dataset into a new object called `covid_df`**
 
 Again, you should be able to just copy and paste the code from [here](https://pols1600.paultesta.org/slides/05-slides.html#/q5-merging-data){target="_blank"}
 
@@ -298,7 +298,7 @@ Let's start with some simple descriptive statistics.
 
 ## For all the observations
 
-With the `covid_us` data set:
+With the `covid_df` data set:
 
 - use the `group_by()` command to have `summarise()` calculate values separately by the `winner` of each state.
 - use the `summarise()` command with `mean()` function to calculate the average number of new deaths (`new_deaths`) and the average of the 7-day rolling average of new deaths per 100,000 citizens (`new_deaths_pc_7day`)
@@ -414,7 +414,7 @@ In the code chunk below, use `lm()` to estimate the relationship between:
 
 - Deaths modeled by Republican vote share on 2021-09-23
 
-To estimate these models using only data from September 23, 2021, place the following argument: `subset = date == "2021-09-23"` after the `data = covid_us` argument in `lm()` in each of your models.
+To estimate these models using only data from September 23, 2021, place the following argument: `subset = date == "2021-09-23"` after the `data = covid_df` argument in `lm()` in each of your models.
 
 Remember to separate arguments in lm using a comma ( `lm(formula = ??? ~ ???, data = ???, subset = ??? == ???)`)
 
@@ -451,7 +451,7 @@ In the code chunk below, uncomment the code to produce a basic figure, for model
 
 ```{r}
 # # # # Data for plot
-# covid_us %>%
+# covid_df %>%
 #   # Only use observations from September 23, 2021
 #   filter(date == "2021-09-23") %>%
 #   # Exclude DC

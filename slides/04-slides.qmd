@@ -171,7 +171,7 @@ kable(sp_df,
 
 # {{< fa magnifying-glass>}} Levels of understanding{.inverse}
 
-## Levels of understanding in POLS 2580
+## Levels of understanding in POLS 1600
 
 - Conceptual
 
@@ -191,9 +191,9 @@ A mean is:
 
 - A common and important [measure of central tendency]{.blue} (what's typical)
 
-- It's the [arithmetic average]{.blue} you learned in school
-
-- We can think of it as the [balancing point]{.blue} of a distribution
+  - It's the [arithmetic average]{.blue} you learned in school
+  - It's an unbiased estiamte of $E[X]$,
+  - We can think of it as the [balancing point]{.blue} of a distribution
 
 - A [conditional mean]{.blue} is the average of one variable $X$, when some other variable, $Z$ takes a value $z$
 
@@ -330,6 +330,59 @@ E\left [\bar{x} \right] &= E\left [\frac{1}{n}\left (\sum_{i=1}^n x_i \right) \r
 &= \mu  & \blacksquare \\
 \end{aligned}
 $$
+
+## Theoretical: Moment Generating Functions{.smaller}
+
+The moment generating function of a random variable $X$ is defined as:
+
+$$
+M_X(t) = E[e^{tX}]
+$$
+
+for values of  $t$ where the expectation exists.
+
+- Why is it Called "Moment Generating"?
+
+- If we take derivatives of  $M_X(t)$ and evaluate at $t = 0$, we can extract the moments of $X$:
+
+:::{.fragment}
+
+$$
+M_X^{(n)}(0) = E[X^n]
+$$
+
+:::
+
+
+## Theoretical: Distributions can be described by their moments {.smaller}
+
+- **First Moment (Mean)**  
+$$
+  \mu_1' = E[X]
+$$
+  - This is simply the **expected value** (mean) of \( X \).
+
+- **Second Central Moment (Variance)**  
+  $$
+  \mu_2 = E[(X - \mu)^2]
+  $$
+  
+  - Measures the spread or dispersion of \( X \) around the mean.
+
+- **Third Central Moment (Skewness)**  
+  $$
+  \gamma_1 = \frac{E[(X - \mu)^3]}{\sigma^3}
+  $$
+  - Measures the **asymmetry** of the distribution.
+
+- **Fourth Central Moment (Kurtosis)**  
+  $$
+  \gamma_2 = \frac{E[(X - \mu)^4]}{\sigma^4}
+  $$
+  - Measures the **tailedness** of the distribution (how extreme values occur compared to a normal distribution).
+
+
+
 
 ## Levels of understanding {.smaller}
 
@@ -1226,11 +1279,13 @@ Q5 asks you to merge the 2020 election data from `pres2020_df` into `covid_us` u
 #| label: merge_pres
 dim(covid_us)
 dim(pres2020_df)
-covid_us <- covid_us %>% left_join(
+covid_df <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
 dim(covid_us) 
+dim(covid_df) 
+
 ```
 :::
 
@@ -1257,12 +1312,12 @@ In general (although not in my sample code), you should save the merged data to 
 ```{r}
 #| label: merge_check
 # Should be 51 states and DC in each
-sum(unique(pres_df$state) %in% covid_us$state)
+sum(unique(pres_df$state) %in% covid_df$state)
 
 # Look at each state variable
 ## With [] index
 pres_df$state[1:5]
-covid_us$state[1:5]
+covid_df$state[1:5]
 
 # Matching is case sensitive 
 
@@ -1298,7 +1353,7 @@ pres_df %>%
 
 
 # Problem Solved
-sum(unique(pres2020_df$state) %in% covid_us$state)
+sum(unique(pres2020_df$state) %in% covid_df$state)
 
 ```
 
@@ -1756,7 +1811,7 @@ Y_i(1),Y_i(0) \perp D_i |X_i && \text{Selection on Observables}\\
 \end{aligned}$$
 
 
-##  Causal Identification through Subclassification
+##  Causal Identification through Subclassification {.smaller}
 
 If these assumptions hold, we can estimate the average treatment effect:
 
