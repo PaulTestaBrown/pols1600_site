@@ -11101,14 +11101,14 @@
     "href": "slides/04-slides.html#q2.1-load-the-covid-19-data",
     "title": "POLS 1600",
     "section": "Q2.1 Load the Covid-19 Data",
-    "text": "Q2.1 Load the Covid-19 Data\nTo load data on Covid-19 just run this\n\nload(url(\"https://pols2580.paultesta.org/files/data/covid.rda\"))"
+    "text": "Q2.1 Load the Covid-19 Data\nTo load data on Covid-19 just run this\n\nload(url(\"https://pols1600.paultesta.org/files/data/covid.rda\"))"
   },
   {
     "objectID": "slides/04-slides.html#q2.2-load-election-data",
     "href": "slides/04-slides.html#q2.2-load-election-data",
     "title": "POLS 1600",
     "section": "Q2.2 Load Election Data",
-    "text": "Q2.2 Load Election Data\n\nTaskCode for Q2.2\n\n\nQ2.2. asks you to write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse\n\nOnce you’ve installed the dataverse package you should be able to do this:\n\n\n\n\n# Try this code first\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\")\n\npres_df &lt;- dataverse::get_dataframe_by_name(\n  \"1976-2020-president.tab\",\n  \"doi:10.7910/DVN/42MVDX\"\n)\n\n# If the code above fails, comment out and uncomment the code below:\n\n# load(url(\"https://pols2580.paultesta.org/files/data/pres_df.rda\"))"
+    "text": "Q2.2 Load Election Data\n\nTaskCode for Q2.2\n\n\nQ2.2. asks you to write code that will download data presidential elections from 1976 to 2020 from the MIT Election Lab’s dataverse\n\nOnce you’ve installed the dataverse package you should be able to do this:\n\n\n\n\n# Try this code first\nSys.setenv(\"DATAVERSE_SERVER\" = \"dataverse.harvard.edu\")\n\npres_df &lt;- dataverse::get_dataframe_by_name(\n  \"1976-2020-president.tab\",\n  \"doi:10.7910/DVN/42MVDX\"\n)\n\n# If the code above fails, comment out and uncomment the code below:\n\n# load(url(\"https://pols1600.paultesta.org/files/data/pres_df.rda\"))"
   },
   {
     "objectID": "slides/04-slides.html#q3-describe-the-structure-of-each-dataset",
@@ -11451,7 +11451,7 @@
     "href": "slides/04-slides.html#practical-estimating-a-linear-regression-1",
     "title": "POLS 1600",
     "section": "Practical: Estimating a Linear Regression",
-    "text": "Practical: Estimating a Linear Regression\n\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\nload(url(\"https://pols2580.paultesta.org/files/data/03_lab.rda\"))\nm1 &lt;- lm(therm_trans_t0 ~ vf_age, data = df)\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031"
+    "text": "Practical: Estimating a Linear Regression\n\n\nWe estimate linear regressions in R using the lm() function.\nlm() requires two arguments:\n\na formula argument of the general form y ~ x read as “Y modeled by X” or below “Transgender Feeling Thermometer (y) modeled by (~) Age (x)\na data argument telling R where to find the variables in the formula\n\n\n\nload(url(\"https://pols1600.paultesta.org/files/data/03_lab.rda\"))\nm1 &lt;- lm(therm_trans_t0 ~ vf_age, data = df)\nm1\n\n\nCall:\nlm(formula = therm_trans_t0 ~ vf_age, data = df)\n\nCoefficients:\n(Intercept)       vf_age  \n    62.8196      -0.2031"
   },
   {
     "objectID": "slides/04-slides.html#the-lm-function",

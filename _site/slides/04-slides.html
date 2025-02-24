@@ -432,7 +432,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Feb 19, 2025</p>
+  <p class="date">Updated Feb 24, 2025</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -562,19 +562,19 @@
 <li class="fragment"><p>Descriptive statistics help us describe what’s typical of our data</p></li>
 <li class="fragment"><p><span class="blue">What’s a typical value in our data</span></p>
 <ul>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#mean" target="_blank">Mean</a></li>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#median" target="_blank">Median</a></li>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#modes" target="_blank">Mode</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#mean" target="_blank">Mean</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#median" target="_blank">Median</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#modes" target="_blank">Mode</a></li>
 </ul></li>
 <li class="fragment"><p><span class="blue">How much do our data vary?</span></p>
 <ul>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#variance" target="_blank">Variance</a></li>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#standard-deviations" target="_blank">Standard deviation</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#variance" target="_blank">Variance</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations" target="_blank">Standard deviation</a></li>
 </ul></li>
 <li class="fragment"><p>As one variable changes <span class="blue">how does another change</span>?</p>
 <ul>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#covariance" target="_blank">Covariance</a></li>
-<li class="fragment"><a href="https://pols2580.paultesta.org/labs/01-lab-comments.html#correlation" target="_blank">Correlation</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance" target="_blank">Covariance</a></li>
+<li class="fragment"><a href="https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation" target="_blank">Correlation</a></li>
 </ul></li>
 <li class="fragment"><p>Descriptive statistics are:</p>
 <ul>
@@ -1110,7 +1110,7 @@ recode                 1  6  7  9 10
 <p>This week’s lab we’ll be using the <code>dataverse</code> package to download data on presidential elections</p>
 <p>Next week’s lab, we’ll be using the <code>tidycensus</code> package to download census data.</p>
 <p>We’ll also need to <span class="blue">install a census API</span> to get the data.</p>
-<p>Here’s a <a href="https://pols2580.paultesta.org/resources/04-packages" target="_blank">detailed guide</a> of what we’ll do in class right now.</p>
+<p>Here’s a <a href="https://pols1600.paultesta.org/resources/04-packages" target="_blank">detailed guide</a> of what we’ll do in class right now.</p>
 </section>
 <section id="install-new-packages" class="slide level2">
 <h2>Install new packages</h2>
@@ -1124,7 +1124,7 @@ recode                 1  6  7  9 10
 </section>
 <section id="census-api" class="slide level2 smaller scrollable">
 <h2>Census API</h2>
-<p>Please follow these steps so you can download data directly from the U.S. Census <a href="https://pols2580.paultesta.org/resources/04-packages.html#3_Install_a_Census_API_tidycensus_package" target="_blank">here</a>:</p>
+<p>Please follow these steps so you can download data directly from the U.S. Census <a href="https://pols1600.paultesta.org/resources/04-packages.html#3_Install_a_Census_API_tidycensus_package" target="_blank">here</a>:</p>
 <ol type="1">
 <li class="fragment">Install the <code>tidycensus</code> package</li>
 <li class="fragment">Load the installed package</li>
@@ -1197,7 +1197,7 @@ recode                 1  6  7  9 10
 </section>
 <section id="preview-of-the-lab" class="slide level2 smaller">
 <h2>Preview of the Lab</h2>
-<p><span class="blue">Please download</span> the lab <a href="https://pols2580.paultesta.org/labs/05-lab.qmd" target="_blank">here</a></p>
+<p><span class="blue">Please download</span> the lab <a href="https://pols1600.paultesta.org/labs/05-lab.qmd" target="_blank">here</a></p>
 <ul>
 <li class="fragment"><p>Conceptually, this lab is designed to help reinforce the relationship between linear models like <span class="math inline">\(y=\beta_0 + \beta_1x\)</span> and the conditional expectation function <span class="math inline">\(E[Y|X]\)</span>.</p></li>
 <li class="fragment"><p>Substantively, we will explore whether David Leonhardt’s claims about <a href="https://www.nytimes.com/2021/09/27/briefing/covid-red-states-vaccinations.html" target="_blank">Red Covid</a> the political polarization of vaccines and its consequences</p></li>
@@ -1281,7 +1281,7 @@ recode                 1  6  7  9 10
 <h2>Q2.1 Load the Covid-19 Data</h2>
 <p>To load data on Covid-19 just run this</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols2580.paultesta.org/files/data/covid.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/covid.rda"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="q2.2-load-election-data" class="slide level2 smaller">
@@ -1307,7 +1307,7 @@ recode                 1  6  7  9 10
 <span id="cb21-8"><a></a></span>
 <span id="cb21-9"><a></a><span class="co"># If the code above fails, comment out and uncomment the code below:</span></span>
 <span id="cb21-10"><a></a></span>
-<span id="cb21-11"><a></a><span class="co"># load(url("https://pols2580.paultesta.org/files/data/pres_df.rda"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-11"><a></a><span class="co"># load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2409,7 +2409,7 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols2580.paultesta.org/files/data/03_lab.rda"</span>))</span>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/03_lab.rda"</span>))</span>
 <span id="cb53-2"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(therm_trans_t0 <span class="sc">~</span> vf_age, <span class="at">data =</span> df)</span>
 <span id="cb53-3"><a></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
