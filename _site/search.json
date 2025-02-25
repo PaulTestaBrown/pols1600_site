@@ -3710,7 +3710,7 @@
     "href": "slides/05-slides.html#conceptual-linear-regression-2",
     "title": "POLS 1600",
     "section": "Conceptual: Linear Regression",
-    "text": "Conceptual: Linear Regression\n\nMore formally:\n\\[\ny_i = f(x_i) + \\epsilon\n\\]\n\nY is a function of X plus some error, \\(\\epsilon\\)\nLinear regression assumes that relationship between an outcome and a predictor can be by a linear function\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]"
+    "text": "Conceptual: Linear Regression\n\nMore formally:\n\\[\ny_i = f(x_i) + \\epsilon\n\\]\n\nY is a function of X plus some error, \\(\\epsilon\\)\nLinear regression assumes that relationship between an outcome and a predictor can be described by a linear function\n\n\\[\ny_i = \\beta_0 + \\beta_1 x_i + \\epsilon\n\\]"
   },
   {
     "objectID": "slides/05-slides.html#linear-regression-and-the-line-of-best-fit",
@@ -12109,7 +12109,7 @@
     "href": "slides/05-slides.html#whats-an-error-whats-a-residual",
     "title": "POLS 1600",
     "section": "What’s an error? What’s a residual",
-    "text": "What’s an error? What’s a residual\nRecall an error, \\(\\epsilon_i\\), is the deviation of from an unknown true model\n\\[\ny_i = f(x_i) + \\epsilon_i\n\\]\nA residual, \\(\\hat{\\)_i\\(}\\) is an estimate of the error obtained by taking the difference between the observed value of \\(y_i\\) and what our model would predict, \\(\\hat{y_i}\\) given some value of \\(x_i\\). So for a model:\n\\[y_i=\\beta_0+\\beta_1 x_{i} + \\epsilon_i\\]\nWe simply subtract our model’s prediction \\(\\beta_0+\\beta_1 x_{i}\\) from the observed value, \\(y_i\\)\n\\[\\hat{\\epsilon_i}=y_i-\\hat{y_i}=(Y_i-(\\beta_0+\\beta_1 x_{i}))\\]"
+    "text": "What’s an error? What’s a residual\nRecall an error, \\(\\epsilon_i\\), is the deviation of from an unknown true model\n\\[\ny_i = f(x_i) + \\epsilon_i\n\\]\nA residual, \\(\\hat{\\epsilon_i}\\) is an estimate of the error obtained by taking the difference between the observed value of \\(y_i\\) and what our model would predict, \\(\\hat{y_i}\\) given some value of \\(x_i\\). So for a model:\n\\[y_i=\\beta_0+\\beta_1 x_{i} + \\epsilon_i\\]\nWe simply subtract our model’s prediction \\(\\beta_0+\\beta_1 x_{i}\\) from the observed value, \\(y_i\\)\n\\[\\hat{\\epsilon_i}=y_i-\\hat{y_i}=(Y_i-(\\beta_0+\\beta_1 x_{i}))\\]"
   },
   {
     "objectID": "slides/05-slides.html#finding-a-local-minimum",

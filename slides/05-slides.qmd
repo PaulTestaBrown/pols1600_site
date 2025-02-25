@@ -1897,7 +1897,7 @@ $$
 
 - Y is a function of X plus some error, $\epsilon$
 
-- Linear regression assumes that relationship between an outcome and a predictor can be by a [linear](https://en.wikipedia.org/wiki/Linearity) function
+- Linear regression assumes that relationship between an outcome and a predictor can be described by a [linear](https://en.wikipedia.org/wiki/Linearity) function
 
 $$
 y_i = \beta_0 + \beta_1 x_i + \epsilon
@@ -2244,7 +2244,7 @@ $$
 y_i = f(x_i) + \epsilon_i
 $$
 
-A residual, $\hat{$\epsilon_i$}$ is an estimate of the error obtained by taking the difference between the observed value of $y_i$ and what our model would predict, $\hat{y_i}$ given some value of $x_i$. So for a model:
+A residual, $\hat{\epsilon_i}$ is an estimate of the error obtained by taking the difference between the observed value of $y_i$ and what our model would predict, $\hat{y_i}$ given some value of $x_i$. So for a model:
 
 $$y_i=\beta_0+\beta_1 x_{i} + \epsilon_i$$
 
