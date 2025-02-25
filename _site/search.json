@@ -3185,7 +3185,7 @@
     "href": "slides/05-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements\n\nAssignment 1 do this Sunday"
+    "text": "Annoucements\n\nCorrect link to the lab this week here\nAssignment 1 do this Sunday"
   },
   {
     "objectID": "slides/05-slides.html#group-assignments",
@@ -12152,5 +12152,12 @@
     "title": "POLS 1600",
     "section": "DiD",
     "text": "DiD\n\ntexreg::htmlreg(m_did)\n\n&lt;table class=\"texreg\" style=\"margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;\"&gt;\n&lt;caption&gt;Statistical models&lt;/caption&gt;\n&lt;thead&gt;\n&lt;tr&gt;\n&lt;th style=\"padding-left: 5px;padding-right: 5px;\"&gt;&nbsp;&lt;/th&gt;\n&lt;th style=\"padding-left: 5px;padding-right: 5px;\"&gt;Model 1&lt;/th&gt;\n&lt;/tr&gt;\n&lt;/thead&gt;\n&lt;tbody&gt;\n&lt;tr style=\"border-top: 1px solid #000000;\"&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;(Intercept)&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;135.00&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;PeriodPost&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;12.00&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;TreatedTreated&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;-50.00&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;PeriodPost:TreatedTreated&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;-78.00&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr style=\"border-top: 1px solid #000000;\"&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;1.00&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;Adj. R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;&nbsp;&lt;/td&gt;\n&lt;/tr&gt;\n&lt;tr style=\"border-bottom: 2px solid #000000;\"&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;Num. obs.&lt;/td&gt;\n&lt;td style=\"padding-left: 5px;padding-right: 5px;\"&gt;4&lt;/td&gt;\n&lt;/tr&gt;\n&lt;/tbody&gt;\n&lt;tfoot&gt;\n&lt;tr&gt;\n&lt;td style=\"font-size: 0.8em;\" colspan=\"2\"&gt;&lt;sup&gt;&#42;&#42;&#42;&lt;/sup&gt;p &lt; 0.001; &lt;sup&gt;&#42;&#42;&lt;/sup&gt;p &lt; 0.01; &lt;sup&gt;&#42;&lt;/sup&gt;p &lt; 0.05&lt;/td&gt;\n&lt;/tr&gt;\n&lt;/tfoot&gt;\n&lt;/table&gt;"
+  },
+  {
+    "objectID": "slides/05-slides.html#assignment-1",
+    "href": "slides/05-slides.html#assignment-1",
+    "title": "POLS 1600",
+    "section": "Assignment 1",
+    "text": "Assignment 1\nCome up with three research questions topics that interest your group. For each:\n\nWhy do we care:\n\nHow would you explain this question to your parents?\n\nThe ideal experiment:\n\nWhat would you have to be able to randomly assign?\n\nThe observational study:\n\nWhat kinds of data would you need? How would you measure outcome(s) and key predictors?\n\nA published study:\n\nHow have others studied this question?\n\nFeasibility: (X/10)\n\nAre data available?"
   }
 ]

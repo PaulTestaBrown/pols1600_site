@@ -80,7 +80,27 @@ library(easystats)
 
 ## Annoucements
 
+- Correct link to the lab this week [here](https://pols1600.paultesta.org/labs/05-lab.qmd)
+
 - [Assignment 1](https://pols1600.paultesta.org/assignments/a1) do this Sunday
+
+## Assignment 1 {.smaller}
+
+Come up with three research questions topics that interest your group. For each:
+
+
+- Why do we care:
+  - How would you explain this question to your parents?
+- The ideal [experiment]{.blue}:
+  - What would you have to be able to randomly assign?
+- The [observational]{.blue} study:
+  - What kinds of data would you need? How would you measure outcome(s) and key predictors?
+- A [published]{.blue} study:
+  - How have others studied this question?
+- Feasibility: (X/10)
+  - Are data available?
+
+
 
 ## Group Assignments {.smaller}
 
