@@ -150,19 +150,19 @@ kable(sp_df,
 
 - [What's a typical value in our data]{.blue}
 
-  - [Mean](https://pols2580.paultesta.org/labs/01-lab-comments.html#mean)
-  - [Median](https://pols2580.paultesta.org/labs/01-lab-comments.html#median)
-  - [Mode](https://pols2580.paultesta.org/labs/01-lab-comments.html#modes)
+  - [Mean](https://pols1600.paultesta.org/labs/01-lab-comments.html#mean)
+  - [Median](https://pols1600.paultesta.org/labs/01-lab-comments.html#median)
+  - [Mode](https://pols1600.paultesta.org/labs/01-lab-comments.html#modes)
 
 - [How much do our data vary?]{.blue}
 
-  - [Variance](https://pols2580.paultesta.org/labs/01-lab-comments.html#variance)
-  - [Standard deviation](https://pols2580.paultesta.org/labs/01-lab-comments.html#standard-deviations)
+  - [Variance](https://pols1600.paultesta.org/labs/01-lab-comments.html#variance)
+  - [Standard deviation](https://pols1600.paultesta.org/labs/01-lab-comments.html#standard-deviations)
 
 - As one variable changes [how does another change]{.blue}?
 
-  - [Covariance](https://pols2580.paultesta.org/labs/01-lab-comments.html#covariance)
-  - [Correlation](https://pols2580.paultesta.org/labs/01-lab-comments.html#correlation)
+  - [Covariance](https://pols1600.paultesta.org/labs/01-lab-comments.html#covariance)
+  - [Correlation](https://pols1600.paultesta.org/labs/01-lab-comments.html#correlation)
 
 - Descriptive statistics are:
 
@@ -704,7 +704,7 @@ Next week's lab, we'll be using the `tidycensus` package to download census data
 
 We'll also need to [install a census API]{.blue} to get the data.
 
-Here's a [detailed guide](https://pols2580.paultesta.org/resources/04-packages) of what we'll do in class right now.
+Here's a [detailed guide](https://pols1600.paultesta.org/resources/04-packages) of what we'll do in class right now.
 
 ## Install new packages
 
@@ -722,7 +722,7 @@ install.packages("DeclareDesign")
 
 ## Census API {.smaller}
 
-Please follow these steps so you can download data directly from the U.S. Census [here](https://pols2580.paultesta.org/resources/04-packages.html#3_Install_a_Census_API_tidycensus_package):
+Please follow these steps so you can download data directly from the U.S. Census [here](https://pols1600.paultesta.org/resources/04-packages.html#3_Install_a_Census_API_tidycensus_package):
 
 1.  Install the `tidycensus` package
 2.  Load the installed package
@@ -792,7 +792,7 @@ ipak(the_packages)
 
 ## Preview of the Lab{.smaller}
 
-[Please download]{.blue} the lab [here](https://pols2580.paultesta.org/labs/05-lab.qmd)
+[Please download]{.blue} the lab [here](https://pols1600.paultesta.org/labs/05-lab.qmd)
 
 - Conceptually, this lab is designed to help reinforce the relationship between linear models like $y=\beta_0 + \beta_1x$ and the conditional expectation function $E[Y|X]$.
 
@@ -892,7 +892,7 @@ To load data on Covid-19 just run this
 ```{r}
 #| label: covid
 
-load(url("https://pols2580.paultesta.org/files/data/covid.rda"))
+load(url("https://pols1600.paultesta.org/files/data/covid.rda"))
 ```
 
 ## Q2.2 Load Election Data {.smaller}
@@ -918,7 +918,7 @@ pres_df <- dataverse::get_dataframe_by_name(
 
 # If the code above fails, comment out and uncomment the code below:
 
-# load(url("https://pols2580.paultesta.org/files/data/pres_df.rda"))
+# load(url("https://pols1600.paultesta.org/files/data/pres_df.rda"))
 ```
 :::
 
@@ -2112,7 +2112,7 @@ $$\text{Transgender Feeling Thermometer}_i = \beta_0 + \beta_1\text{Age}_i + \ep
 
 ```{r}
 #| label: lmdata
-load(url("https://pols2580.paultesta.org/files/data/03_lab.rda"))
+load(url("https://pols1600.paultesta.org/files/data/03_lab.rda"))
 m1 <- lm(therm_trans_t0 ~ vf_age, data = df)
 m1
 

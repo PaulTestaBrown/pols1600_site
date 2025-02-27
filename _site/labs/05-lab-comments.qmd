@@ -65,8 +65,8 @@ One of these 10 tasks (excluding the weekly survey) will be randomly selected as
 
 ```{r}
 #| label: graded
-set.seed(3032022)
-graded_question <- sample(1:10,size = 1)
+set.seed(20250227)
+graded_question <- sample(1:7,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
 
