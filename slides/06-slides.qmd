@@ -59,9 +59,9 @@ library(texreg)
 ## Class Plan
 
 - Announcements (20)
-  - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
-  - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) due Friday March 22
-- Feedback
+  - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) graded by Thursday, March 6
+  - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) now due Sunday March 16
+  - [Assignment 3  Data:](https://pols1600.paultesta.org/assignments/a2) now due Sunday March 30 ? (Or should it be right before spring break?)
 - Review: Simple Linear Regression and Lab 5 (15-20 min)
 - Preview: Setup for Lab 6 (10-15 min)
 - Estimating and Interpreting Multiple Regression (25-30 min)
@@ -70,23 +70,12 @@ library(texreg)
 
 ## Annoucements
 
-## Assignment 1
-
-- Prompt posted on website [here](https://pols1600.paultesta.org/assignments/a1)
-
-- 3 possible research questions uploaded to Canvas by [Next Tuesday, March 12]{.blue}
-
-- The ideal experiment = "What would you have to randomly assign to create a meaningful counterfactual comparison"
-
-- Observational study = "What could you say with data that likely exist?"
-
-- Feedback will help you narrow down a topic for final project
 
 ## Assignment 2
 
 - Prompt posted on website [here]{https://pols1600.paultesta.org/assignments/a2}
 
-- Uploaded to Canvas by [Friday, March 22]{.blue}
+- Uploaded to Canvas by [Sunday, March 16]{.blue}
 
 - Revised Research Question
 
@@ -96,9 +85,9 @@ library(texreg)
 
 ## Feedback
 
-- Only 9 people completed the survey last week...
+- Not a lot
 
-- So let's try to get those numbers up and will summarize the results of the [survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} next week
+- So let's try to get those numbers up and will summarize the results of the [survey](https://brown.co1.qualtrics.com/jfe/form/SV_aVqL4lh92U7igGG){target="_blank"} next week
 
 
 

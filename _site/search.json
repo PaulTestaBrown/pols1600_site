@@ -595,7 +595,7 @@
     "href": "slides/06-slides.html#class-plan",
     "title": "POLS 1600",
     "section": "Class Plan",
-    "text": "Class Plan\n\nAnnouncements (20)\n\nAssignment 1: Research Questions due Tuesday, March 12\nAssignment 2 Data: due Friday March 22\n\nFeedback\nReview: Simple Linear Regression and Lab 5 (15-20 min)\nPreview: Setup for Lab 6 (10-15 min)\nEstimating and Interpreting Multiple Regression (25-30 min)\nDifference-in-Differences (15-20 min)"
+    "text": "Class Plan\n\nAnnouncements (20)\n\nAssignment 1: Research Questions graded by Thursday, March 6\nAssignment 2 Data: now due Sunday March 16\nAssignment 3 Data: now due Sunday March 30 ? (Or should it be right before spring break?)\n\nReview: Simple Linear Regression and Lab 5 (15-20 min)\nPreview: Setup for Lab 6 (10-15 min)\nEstimating and Interpreting Multiple Regression (25-30 min)\nDifference-in-Differences (15-20 min)"
   },
   {
     "objectID": "slides/06-slides.html#annoucements",
@@ -616,14 +616,14 @@
     "href": "slides/06-slides.html#assignment-2",
     "title": "POLS 1600",
     "section": "Assignment 2",
-    "text": "Assignment 2\n\nPrompt posted on website [here]{https://pols1600.paultesta.org/assignments/a2}\nUploaded to Canvas by Friday, March 22\nRevised Research Question\nImplied Linear Model\nCode to load possible data"
+    "text": "Assignment 2\n\nPrompt posted on website [here]{https://pols1600.paultesta.org/assignments/a2}\nUploaded to Canvas by Sunday, March 16\nRevised Research Question\nImplied Linear Model\nCode to load possible data"
   },
   {
     "objectID": "slides/06-slides.html#feedback",
     "href": "slides/06-slides.html#feedback",
     "title": "POLS 1600",
     "section": "Feedback",
-    "text": "Feedback\n\nOnly 9 people completed the survey last week…\nSo let’s try to get those numbers up and will summarize the results of the survey next week"
+    "text": "Feedback\n\nNot a lot\nSo let’s try to get those numbers up and will summarize the results of the survey next week"
   },
   {
     "objectID": "slides/06-slides.html#packages-for-today",
