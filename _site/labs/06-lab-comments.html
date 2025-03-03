@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.6.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Group Members Names Here">
-<meta name="dcterms.date" content="2024-03-05">
+<meta name="dcterms.date" content="2025-03-03">
 
-<title>POLS 1600 - Lab 06 - Examining Alternative Explanations for Red Covid</title>
+<title>Lab 06 - Examining Alternative Explanations for Red Covid – POLS 1600</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3a01e2046221230fdceeea94b1ec5d67.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4c749e6abf46aa1a30ac81be7ead6993.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,9 +102,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="../site_libs/datatables-binding-0.33/datatables.js"></script>
 <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
 <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -157,7 +158,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -180,7 +181,7 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -267,7 +268,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 5, 2024</p>
+      <p class="date">March 3, 2025</p>
     </div>
   </div>
   
@@ -306,11 +307,11 @@ window.Quarto = {
 <p>Finally, we’ll take the weekly survey which will serve as a mid semester check in.</p>
 <p>One of these 6 tasks (excluding the weekly survey) will be randomly selected as the graded question for the lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3052024</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3052025</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>graded_question <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">size =</span> <span class="dv">1</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Question"</span>,graded_question,<span class="st">"is the graded question for this week"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Question 4 is the graded question for this week"</code></pre>
+<pre><code>[1] "Question 5 is the graded question for this week"</code></pre>
 </div>
 </div>
 <p>You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.</p>
@@ -319,8 +320,8 @@ window.Quarto = {
 <p>Here are your assigned groups for the semester.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-69269acebed2e4298fbc" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-69269acebed2e4298fbc">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b04d1d66156e4ccbb594" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b04d1d66156e4ccbb594">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7"],["Gurpartap Singh","Sylvie Watts","Joshua Okwaning","Jacqueline Zhang","Talib Reddick","Tess\tNaquet-Radiguet","Ben Buka"],["Niyah Whitten","Amani Diallo","Eiffel Sunga","Charlie Jeffers","Zoe Kaufman","Anisha Kumar","Ianthe Ince"],["Marisa Coghlin","Sinclair Harris","Jenna Hercher","Meleah Neely","Jenna Lowry","Nash Riebe","Riya Srinivasan"],["Aidan Choi","Peter Zucker","Ella Hendelman","Nene Mokonchu","Harry Laferriere","Sophia Wotman","Kaelah Kimura"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -364,7 +365,7 @@ window.Quarto = {
 <li>Write your code in the <strong>chunks provided under each section</strong></li>
 <li>Comment out or delete any test code you do not need</li>
 <li><strong>Render the document again after completing a section or chunk</strong> (Error checking)</li>
-<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1094972/assignments" target="_blank">Canvas</a>.</li>
+<li>Upload the final lab to <a href="https://canvas.brown.edu/courses/1098409/assignments" target="_blank">Canvas</a>.</li>
 </ul>
 </section>
 <section id="get-setup-to-work" class="level1" data-number="1">
@@ -583,8 +584,7 @@ F-statistic: 21.73 on 1 and 49 DF,  p-value: 2.44e-05</code></pre>
 <p>The code after <code>htmlreg(m1)</code> allows you to see what output of the table will look like in the html document while you’re working in the Rmd file.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -622,7 +622,7 @@ F-statistic: 21.73 on 1 and 49 DF,  p-value: 2.44e-05</code></pre>
 <td style="padding-left: 5px; padding-right: 5px">51</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="2" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -630,7 +630,6 @@ F-statistic: 21.73 on 1 and 49 DF,  p-value: 2.44e-05</code></pre>
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -744,8 +743,7 @@ F-statistic: 10.94 on 2 and 48 DF,  p-value: 0.0001218</code></pre>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -801,7 +799,7 @@ F-statistic: 10.94 on 2 and 48 DF,  p-value: 0.0001218</code></pre>
 <td style="padding-left: 5px; padding-right: 5px">51</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="3" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -809,7 +807,6 @@ F-statistic: 10.94 on 2 and 48 DF,  p-value: 0.0001218</code></pre>
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -874,15 +871,14 @@ F-statistic: 0.7729 on 1 and 49 DF,  p-value: 0.3836</code></pre>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span>,<span class="st">"Median Age (std)"</span>),</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.header =</span> <span class="fu">list</span>(<span class="st">"DV"</span><span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)  )<span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">&nbsp;</th>
 <th colspan="2" data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px; border-bottom: 1px solid #000000">DV</th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">&nbsp;</th>
 <th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Deaths</th>
 <th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Rep Vote</th>
@@ -933,7 +929,6 @@ F-statistic: 0.7729 on 1 and 49 DF,  p-value: 0.3836</code></pre>
 </table>
 
 
-</div>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the models</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>covid_lab <span class="sc">%&gt;%</span></span>
@@ -1016,8 +1011,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(m1,m2,m3)) <span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -1095,7 +1089,7 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 <td style="padding-left: 5px; padding-right: 5px">51</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="4" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -1103,7 +1097,6 @@ F-statistic: 12.28 on 3 and 47 DF,  p-value: 4.689e-06</code></pre>
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -1160,8 +1153,7 @@ F-statistic: 13.02 on 4 and 46 DF,  p-value: 3.621e-07</code></pre>
 <p>And add <code>m4</code> to list of models in our regression table</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -1265,7 +1257,7 @@ F-statistic: 13.02 on 4 and 46 DF,  p-value: 3.621e-07</code></pre>
 <td style="padding-left: 5px; padding-right: 5px">51</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="5" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -1273,7 +1265,6 @@ F-statistic: 13.02 on 4 and 46 DF,  p-value: 3.621e-07</code></pre>
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -1334,8 +1325,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Display them in a regression table</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -1389,7 +1379,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 <td style="padding-left: 5px; padding-right: 5px">51</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="2" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -1397,7 +1387,6 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -1419,7 +1408,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="take-the-class-survey" class="level1 unnumbered">
 <h1 class="unnumbered">Take the Class Survey</h1>
-<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk" target="_blank">class survey</a> for this week.</p>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_aVqL4lh92U7igGG" target="_blank">class survey</a> for this week.</p>
 
 
 </section>
@@ -1429,7 +1418,7 @@ F-statistic: 68.09 on 3 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <ol>
 <li id="fn1"><p>In short, these <code>*</code> correspond to <span class="math inline">\(p-values\)</span> below different thresholds. One <code>*</code> typically means <span class="math inline">\(p &lt; 0.05\)</span>. A p-value is a conditional probability that arises from a hypothesis test summarizing the likelihood of observing a particular test statistic (here a regression coefficient, or more specifically, a t-statistic which is the regression coefficient divided by its standard error) given a paritcular hypothesis (typically, but not allows a <em>null hypothesis</em> that the true coefficient is 0). In sum, a p-value assess the likelihood of seeing what we did, if in fact, there was no relationship. If that likelihood is small (p&lt;0.05), we reject the claim of no relationship. We remain uncertain about the true value of the coefficient, but we are pretty confident it’s not 0.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A standard error is another one of those things that in the cart we’re putting before horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample…<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>A standard error is another one of those things in the cart that we’re putting before the horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample…<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1467,18 +1456,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1510,7 +1488,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1518,7 +1518,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
