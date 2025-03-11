@@ -2295,29 +2295,29 @@
     "objectID": "slides/07-slides.html#class-plan",
     "href": "slides/07-slides.html#class-plan",
     "title": "POLS 1600",
-    "section": "",
-    "text": "Announcements (2-3 min)\nSetup (2-3 min)\nFeedback (15 min)\nTopics:\n\nWhat does it mean to control for X\nHow to make predictions with regression\nEvaluating model fit\nDifference-in-Differences\nSet up for Lab 7"
+    "section": "Class Plan",
+    "text": "Class Plan\n\nAnnouncements (2-3 min)\nSetup (2-3 min)\nFeedback (15 min)\nTopics:\n\nWhat does it mean to control for X\nHow to make predictions with regression\nEvaluating model fit\nDifference-in-Differences\nSet up for Lab 7"
   },
   {
     "objectID": "slides/07-slides.html#goals",
     "href": "slides/07-slides.html#goals",
     "title": "POLS 1600",
-    "section": "",
-    "text": "Regression models partition variation in an outcome into variation explained by the model and not explained by the model\nIndividual regression coefficients reflect the variation explained by that predictor, and only that predictor\nPredicted values for regression models aid in substantive interpretation\nMeasures of model fit like \\(R^2\\) can be useful for comparing different regression models\nDifference-in-differences designs combine pre-post and treatment-control comparisons to make stronger causal claims."
+    "section": "Goals",
+    "text": "Goals\n\nRegression models partition variation in an outcome into variation explained by the model and not explained by the model\nIndividual regression coefficients reflect the variation explained by that predictor, and only that predictor\nPredicted values for regression models aid in substantive interpretation\nMeasures of model fit like \\(R^2\\) can be useful for comparing different regression models\nDifference-in-differences designs combine pre-post and treatment-control comparisons to make stronger causal claims."
   },
   {
     "objectID": "slides/07-slides.html#annoucements",
     "href": "slides/07-slides.html#annoucements",
     "title": "POLS 1600",
-    "section": "",
-    "text": "Assignment 1: Research Questions due Tuesday, March 12\n\nFeedback by class on Thursday\n\nAssignment 2 Data: due Friday March 22"
+    "section": "Annoucements",
+    "text": "Annoucements\n\nAssignment 1: Research Questions Feedback end of today\n\nFeedback by class on Thursday\n\nAssignment 2 Data: due Friday March 22"
   },
   {
     "objectID": "slides/07-slides.html#setup-packages-for-today",
     "href": "slides/07-slides.html#setup-packages-for-today",
     "title": "POLS 1600",
-    "section": "",
-    "text": "## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\"htmltools\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\n#| label = \"ipak\"\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     htmltools     tidyverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    lubridate       forcats         haven      labelled         ggmap \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      ggrepel      ggridges      ggthemes        ggpubr        GGally \n         TRUE          TRUE          TRUE          TRUE          TRUE \n       scales       dagitty         ggdag       ggforce       COVID19 \n         TRUE          TRUE          TRUE          TRUE          TRUE \n         maps       mapdata           qss    tidycensus     dataverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \nDeclareDesign     easystats           zoo \n         TRUE          TRUE          TRUE"
+    "section": "Setup: Packages for today",
+    "text": "Setup: Packages for today\n\n## Pacakges for today\nthe_packages &lt;- c(\n  ## R Markdown\n  \"kableExtra\",\"DT\",\"texreg\",\"htmltools\",\n  ## Tidyverse\n  \"tidyverse\", \"lubridate\", \"forcats\", \"haven\", \"labelled\",\n  ## Extensions for ggplot\n  \"ggmap\",\"ggrepel\", \"ggridges\", \"ggthemes\", \"ggpubr\", \n  \"GGally\", \"scales\", \"dagitty\", \"ggdag\", \"ggforce\",\n  # Data \n  \"COVID19\",\"maps\",\"mapdata\",\"qss\",\"tidycensus\", \"dataverse\", \n  # Analysis\n  \"DeclareDesign\", \"easystats\", \"zoo\"\n)\n\n## Define a function to load (and if needed install) packages\n\nipak &lt;- function(pkg){\n    new.pkg &lt;- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) \n        install.packages(new.pkg, dependencies = TRUE)\n    sapply(pkg, require, character.only = TRUE)\n}\n\n## Install (if needed) and load libraries in the_packages\nipak(the_packages)\n\n   kableExtra            DT        texreg     htmltools     tidyverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \n    lubridate       forcats         haven      labelled         ggmap \n         TRUE          TRUE          TRUE          TRUE          TRUE \n      ggrepel      ggridges      ggthemes        ggpubr        GGally \n         TRUE          TRUE          TRUE          TRUE          TRUE \n       scales       dagitty         ggdag       ggforce       COVID19 \n         TRUE          TRUE          TRUE          TRUE          TRUE \n         maps       mapdata           qss    tidycensus     dataverse \n         TRUE          TRUE          TRUE          TRUE          TRUE \nDeclareDesign     easystats           zoo \n         TRUE          TRUE          TRUE"
   },
   {
     "objectID": "slides/07-slides.html#feedback",
@@ -2372,8 +2372,8 @@
     "objectID": "slides/07-slides.html#what-should-we-do-going-forward",
     "href": "slides/07-slides.html#what-should-we-do-going-forward",
     "title": "POLS 1600",
-    "section": "",
-    "text": "From me:\n\nShorter labs\nShorter slides\nMore coding, less copy-pasting\n\nFrom you?"
+    "section": "What should we do going forward?",
+    "text": "What should we do going forward?\n\nFrom me:\n\nShorter labs\nShorter slides\nMore coding, less copy-pasting\n\nFrom you?"
   },
   {
     "objectID": "slides/07-slides.html#regression-models-partition-variance",
@@ -2387,7 +2387,7 @@
     "href": "slides/07-slides.html#section-1",
     "title": "POLS 1600",
     "section": "",
-    "text": "Coefficients describe the unique variance in Y explained by X (and only X)\n\nTask\n\n\nThe coefficients in a regression model describe the variation in the outcome explained by that predictor, and only that predictor.\nLet’s fit three models from last week’s lab and look at how the coefficients change from model to model\n\n\n\nload(url(\"https://pols1600.paultesta.org/files/data/06_lab.rda\"))\nm1 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)\nm2 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std, covid_lab)\nm3 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)\n\n\n\n\nhtmlreg(list(m1, m2, m3)) %&gt;% HTML() %&gt;% browsable()\n\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\nModel 3\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n\n\n \n(0.05)\n(0.05)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n0.07\n\n\n \n(0.05)\n(0.05)\n(0.07)\n\n\nmed_age_std\n \n0.03\n-0.02\n\n\n \n \n(0.05)\n(0.05)\n\n\nmed_income_std\n \n \n-0.22**\n\n\n \n \n \n(0.07)\n\n\nR2\n0.31\n0.31\n0.44\n\n\nAdj. R2\n0.29\n0.28\n0.40\n\n\nNum. obs.\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "Coefficients describe the unique variance in Y explained by X (and only X)\n\nTask\n\n\nThe coefficients in a regression model describe the variation in the outcome explained by that predictor, and only that predictor.\nLet’s fit three models from last week’s lab and look at how the coefficients change from model to model\n\n\n\nload(url(\"https://pols1600.paultesta.org/files/data/06_lab.rda\"))\nm1 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std, covid_lab)\nm2 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std, covid_lab)\nm3 &lt;- lm(new_deaths_pc_14day ~ rep_voteshare_std + med_age_std + med_income_std, covid_lab)\n\n\n\n\nhtmlreg(list(m1, m2, m3)) %&gt;% HTML() %&gt;% browsable()\n\n\nStatistical models\n\n\n \nModel 1\nModel 2\nModel 3\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n\n\n \n(0.05)\n(0.05)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n0.07\n\n\n \n(0.05)\n(0.05)\n(0.07)\n\n\nmed_age_std\n \n0.03\n-0.02\n\n\n \n \n(0.05)\n(0.05)\n\n\nmed_income_std\n \n \n-0.22**\n\n\n \n \n \n(0.07)\n\n\nR2\n0.31\n0.31\n0.44\n\n\nAdj. R2\n0.29\n0.28\n0.40\n\n\nNum. obs.\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#why-do-coefficients-change-when-we-control-for-variables",
@@ -2415,7 +2415,7 @@
     "href": "slides/07-slides.html#residuals-are-uncorrelated-with-x-and-haty",
     "title": "POLS 1600",
     "section": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)",
-    "text": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)\n\n\nResiduals are uncorrelated with (orthogonal to) the predictors \\(X\\), and predicted values \\(X\\beta\\)\n\n# Trust but verify\ncor(resid(m2),covid_lab$rep_voteshare_std) \n\n[1] 3.600777e-17\n\ncor(resid(m2),covid_lab$med_age_std)\n\n[1] 7.021125e-17\n\ncor(resid(m2),fitted(m2))\n\n[1] -1.036606e-17"
+    "text": "Residuals are uncorrelated with \\(X\\) and \\(\\hat{y}\\)\n\n\nResiduals are uncorrelated with (orthogonal to) the predictors \\(X\\), and predicted values \\(X\\beta\\)\n\n# Trust but verify\ncor(resid(m2),covid_lab$rep_voteshare_std) \n\n[1] 4.337636e-17\n\ncor(resid(m2),covid_lab$med_age_std)\n\n[1] 2.946319e-17\n\ncor(resid(m2),fitted(m2))\n\n[1] -7.506391e-17"
   },
   {
     "objectID": "slides/07-slides.html#section-4",
@@ -2450,28 +2450,28 @@
     "href": "slides/07-slides.html#section-9",
     "title": "POLS 1600",
     "section": "",
-    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Deaths\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n-0.00\n\n\n \n(0.05)\n(0.05)\n(0.06)\n(0.14)\n(0.05)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n \n \n \n\n\n \n(0.05)\n(0.05)\n \n \n \n\n\nmed_age_std\n \n0.03\n0.00\n-0.12\n \n\n\n \n \n(0.05)\n(0.06)\n(0.14)\n \n\n\nres_repvs_no_age\n \n \n \n \n0.23***\n\n\n \n \n \n \n \n(0.05)\n\n\nR2\n0.31\n0.31\n0.00\n0.02\n0.31\n\n\nAdj. R2\n0.29\n0.28\n-0.02\n-0.00\n0.30\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Deaths\n\n\n \nBaseline\nMutliple\nAge\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n-0.00\n\n\n \n(0.05)\n(0.05)\n(0.06)\n(0.14)\n(0.05)\n\n\nrep_voteshare_std\n0.23***\n0.23***\n \n \n \n\n\n \n(0.05)\n(0.05)\n \n \n \n\n\nmed_age_std\n \n0.03\n0.00\n-0.12\n \n\n\n \n \n(0.05)\n(0.06)\n(0.14)\n \n\n\nres_repvs_no_age\n \n \n \n \n0.23***\n\n\n \n \n \n \n \n(0.05)\n\n\nR2\n0.31\n0.31\n0.00\n0.02\n0.31\n\n\nAdj. R2\n0.29\n0.28\n-0.02\n-0.00\n0.30\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#section-10",
     "href": "slides/07-slides.html#section-10",
     "title": "POLS 1600",
     "section": "",
-    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age}\n\\]\n\n\n\n\n\n\n\n\n\n\\(\\beta_1\\) doesn’t change because age has no relationship to deaths in these data"
+    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age}\n\\]\n\n\\(\\beta_1\\) doesn’t change because age has no relationship to deaths in these data"
   },
   {
     "objectID": "slides/07-slides.html#section-11",
     "href": "slides/07-slides.html#section-11",
     "title": "POLS 1600",
     "section": "",
-    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Death\n\n\n \nBaseline\nMutliple\nDeaths\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n0.00\n\n\n \n(0.05)\n(0.04)\n(0.04)\n(0.10)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.07\n \n \n \n\n\n \n(0.05)\n(0.07)\n \n \n \n\n\nmed_age_std\n \n-0.02\n-0.03\n-0.22*\n \n\n\n \n \n(0.05)\n(0.05)\n(0.10)\n \n\n\nmed_income_std\n \n-0.22**\n-0.27***\n-0.74***\n \n\n\n \n \n(0.07)\n(0.05)\n(0.10)\n \n\n\nres_repvs_no_age_income\n \n \n \n \n0.07\n\n\n \n \n \n \n \n(0.07)\n\n\nR2\n0.31\n0.44\n0.43\n0.55\n0.02\n\n\nAdj. R2\n0.29\n0.40\n0.40\n0.53\n0.00\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
+    "text": "Statistical models\n\n\n \nDV: Death\nDV: Vote Share\nDV: Res. Death\n\n\n \nBaseline\nFull\nNo Rep\nVote Share\nDeaths\n\n\n\n\n(Intercept)\n0.57***\n0.57***\n0.57***\n-0.00\n0.00\n\n\n \n(0.05)\n(0.04)\n(0.04)\n(0.10)\n(0.04)\n\n\nrep_voteshare_std\n0.23***\n0.07\n \n \n \n\n\n \n(0.05)\n(0.07)\n \n \n \n\n\nmed_age_std\n \n-0.02\n-0.03\n-0.22*\n \n\n\n \n \n(0.05)\n(0.05)\n(0.10)\n \n\n\nmed_income_std\n \n-0.22**\n-0.27***\n-0.74***\n \n\n\n \n \n(0.07)\n(0.05)\n(0.10)\n \n\n\nres_repvs_no_age_income\n \n \n \n \n0.07\n\n\n \n \n \n \n \n(0.07)\n\n\nR2\n0.31\n0.44\n0.43\n0.55\n0.02\n\n\nAdj. R2\n0.29\n0.40\n0.40\n0.53\n0.00\n\n\nNum. obs.\n51\n51\n51\n51\n51\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05"
   },
   {
     "objectID": "slides/07-slides.html#section-12",
     "href": "slides/07-slides.html#section-12",
     "title": "POLS 1600",
     "section": "",
-    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age} + \\beta_3 \\text{Income}\n\\]\n\n\n\n\n\n\n\n\n\n\\(\\beta_1\\) decreases because after controlling for income there is less unique variation explained only by republican vote share"
+    "text": "\\[\n\\text{Deaths} = \\beta_0 + \\beta_1 \\text{Rep VS} + \\beta_2 \\text{Age} + \\beta_3 \\text{Income}\n\\]\n\n\\(\\beta_1\\) decreases because after controlling for income there is less unique variation explained only by republican vote share"
   },
   {
     "objectID": "slides/07-slides.html#using-regression-to-produce-predicted-values",
@@ -2583,14 +2583,14 @@
     "href": "slides/07-slides.html#before-vs-after-comparisons",
     "title": "POLS 1600",
     "section": "Before vs after comparisons:",
-    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+    "text": "Before vs after comparisons:\n\n\nSnow could have compared Labmeth in 1854 \\((E[Y_i(1)|D_i = 1] = 19)\\) to Lambeth in 1849 \\((E[Y_i(0)|D_i = 1]=85)\\), and claimed that moving the pumps upstream led to 66 fewer cholera deaths.\nAssumes Lambeth’s pre-treatment outcomes in 1849 are a good proxy for what its outcomes would have been in 1954 if the pumps hadn’t moved \\((E[Y_{0i}(1)|D_i = 1])\\).\nA skeptic might argue that Lambeth in 1849 \\(\\neq\\) Lambeth in 1854\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/07-slides.html#treatment-control-comparisons-in-the-post-period.",
     "href": "slides/07-slides.html#treatment-control-comparisons-in-the-post-period.",
     "title": "POLS 1600",
     "section": "Treatment-Control comparisons in the Post Period.",
-    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
+    "text": "Treatment-Control comparisons in the Post Period.\n\n\nSnow could have compared outcomes between Lambeth and S&V in 1954 (\\(E[Yi(1)|Di = 1] − E[Yi(1)|Di = 0]\\)), concluding that the change in pump locations led to 128 fewer deaths.\nHere the assumption is that the outcomes in S&V and in 1854 provide a good proxy for what would have happened in Lambeth in 1954 had the pumps not been moved \\((E[Y_{0i}(1)|D_i = 1])\\)\nAgain, our skeptic could argue Lambeth \\(\\neq\\) S&V\n\n\n\n\n\n\nCompany\n1849 (T=0)\n1854 (T=1)\n\n\n\n\nLambeth (D=1)\n85\n19\n\n\nSouthwark and Vauxhall (D=0)\n135\n147"
   },
   {
     "objectID": "slides/07-slides.html#difference-in-differences-1",
@@ -2653,7 +2653,7 @@
     "href": "slides/07-slides.html#extensions-and-limitations",
     "title": "POLS 1600",
     "section": "Extensions and limitations",
-    "text": "Extensions and limitations\n\nInterpretation of two-way fixed effects DiD estimator is complicated…\n\nGoodman-Bacon (2021)\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
+    "text": "Extensions and limitations\n\nInterpretation of two-way fixed effects DiD estimator is complicated…\n\nGoodman-Bacon (2021)\nCallaway and Sant’Anna (2021)\n\nMore pre-treatment periods allow you assess “parallel trends” assumption\nAlternative methods\n\nSynthetic control\nEvent Study Designs\n\nWhat if you have multiple treatments or treatments that come and go?\n\nPanel Matching\nGeneralized Synthetic control"
   },
   {
     "objectID": "slides/07-slides.html#applications",
@@ -2744,7 +2744,7 @@
     "href": "slides/07-slides.html#references",
     "title": "POLS 1600",
     "section": "References",
-    "text": "References\n\n\n\n\nPOLS 1600\n\n\n\n\nGoodman-Bacon, Andrew. 2021. “Difference-in-differences with variation in treatment timing.” Journal of Econometrics 225 (2): 254–77.\n\n\nGrumbach, Jacob M, and Charlotte Hill. 2022. “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.” The Journal of Politics 84 (1): 405–17."
+    "text": "References\n\n\n\n\nCallaway, Brantly, and Pedro H C Sant’Anna. 2021. “Difference-in-Differences with multiple time periods.” Journal of Econometrics 225 (2): 200–230.\n\n\nGoodman-Bacon, Andrew. 2021. “Difference-in-differences with variation in treatment timing.” Journal of Econometrics 225 (2): 254–77.\n\n\nGrumbach, Jacob M, and Charlotte Hill. 2022. “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.” The Journal of Politics 84 (1): 405–17."
   },
   {
     "objectID": "slides/11-slides.html#class-plan",
@@ -12170,6 +12170,27 @@
   {
     "objectID": "slides/06-slides.html#using-linear-regression-to-estimate-a-difference-in-difference",
     "href": "slides/06-slides.html#using-linear-regression-to-estimate-a-difference-in-difference",
+    "title": "POLS 1600",
+    "section": "Using linear regression to estimate a Difference in Difference",
+    "text": "Using linear regression to estimate a Difference in Difference\n\nConceptCodeDataDiDFigure\n\n\n\nRecall that linear regression provides a…\n\nlinear estimate of the conditional expectation function\n\nIn the canonincal pre-post, treated and control DiD, \\(\\beta_3\\) from the following linear regression will give us the ATT:\n\n\n\\[\ny = \\beta_0 + \\beta_1 Post + \\beta_2 Treated + \\underbrace{\\beta_3Post\\times Treated}_{\\tau_{ATT}}\n\\]\n\n\n\n\ncholera_df &lt;- tibble(\n  Period = factor(c(\"Pre\",\"Pre\",\"Post\",\"Post\"),\n                  levels = c(\"Pre\",\"Post\")),\n  Year = c(1849,1849, 1854,1854),\n  Treated = factor(c(\"Control\",\"Treated\",\"Control\",\"Treated\")),\n  Company = c(\"S&V\",\"Lambeth\",\"S&V\",\"Lambeth\"),\n  Deaths = c(135,85,147,19)\n)\n\nm_did &lt;- lm(Deaths~Period + Treated + Period:Treated, cholera_df)\n\nm_did\n\n\nCall:\nlm(formula = Deaths ~ Period + Treated + Period:Treated, data = cholera_df)\n\nCoefficients:\n              (Intercept)                 PeriodPost  \n                      135                         12  \n           TreatedTreated  PeriodPost:TreatedTreated  \n                      -50                        -78  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n135.00\n\n\n\n\nPost (1854)\n\n\n12.00\n\n\n\n\nTreated (Lambeth)\n\n\n-50.00\n\n\n\n\nPost X Treated (DID)\n\n\n-78.00\n\n\n\n\nR2\n\n\n1.00\n\n\n\n\nAdj. R2\n\n\n \n\n\n\n\nNum. obs.\n\n\n4\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\beta_0=\\) Outcome in control (S&V) before treatment\n\\(\\beta_1=\\) Fixed, unit invariant differences between pre and post periods\n\\(\\beta_2=\\) Fixed, time invariant differences between treated and control\n\\(\\beta_3=\\) Difference-in-Differences = \\(E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\)"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-15",
+    "href": "slides/07-slides.html#section-15",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "Standardized vs Non Standardized Predictors\n\n m6 Table Comments\n\n\nWhy are we using standardized predictors?\nStandardizing variables is a common transformation:\n\\[z\\text{-scores of x} = \\frac{x_i - \\mu_{x}}{\\sigma_x}\\] When variables are measured on very different scales or units (e.g. age in years, income in dollars), using standardized (or normalized) versions rescales them to a unit-less measures that all have:\n\na mean of zero\na standard deviation of 1\n\n\n\n\n# Estimate model  with unstandardized predictors\nm6 &lt;- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare + med_age + med_income, covid_lab\n           )\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\nModel 2\n\n\n\n\n\n\n(Intercept)\n\n\n2.532***\n\n\n2.470*\n\n\n\n\n \n\n\n(0.657)\n\n\n(1.063)\n\n\n\n\npercent_vaccinated\n\n\n-0.035**\n\n\n-0.035**\n\n\n\n\n \n\n\n(0.012)\n\n\n(0.012)\n\n\n\n\nrep_voteshare_std\n\n\n-0.089\n\n\n \n\n\n\n\n \n\n\n(0.082)\n\n\n \n\n\n\n\nmed_age_std\n\n\n0.071\n\n\n \n\n\n\n\n \n\n\n(0.053)\n\n\n \n\n\n\n\nmed_income_std\n\n\n-0.119\n\n\n \n\n\n\n\n \n\n\n(0.070)\n\n\n \n\n\n\n\nrep_voteshare\n\n\n \n\n\n-0.007\n\n\n\n\n \n\n\n \n\n\n(0.007)\n\n\n\n\nmed_age\n\n\n \n\n\n0.029\n\n\n\n\n \n\n\n \n\n\n(0.022)\n\n\n\n\nmed_income\n\n\n \n\n\n-0.000\n\n\n\n\n \n\n\n \n\n\n(0.000)\n\n\n\n\nR2\n\n\n0.531\n\n\n0.531\n\n\n\n\nAdj. R2\n\n\n0.490\n\n\n0.490\n\n\n\n\nNum. obs.\n\n\n51\n\n\n51\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\nWhen should you standardize variables? It depends on what you’re trying to do.\n\nIt’s the same information, just rescaled:\n\n\ncoef(m5)[5] # Standardized coef\n\nmed_income_std \n    -0.1188812 \n\ncoef(m6)[5] # Unstandaried\n\n  med_income \n-1.10947e-05 \n\ncoef(m6)[5]*sd(covid_lab$med_income) # Same as standardized\n\nmed_income \n-0.1188812 \n\n\n\nCan facilitate comparison and estimation\nMight make interpretation easier (but the onus is on you to describe your models well)\n\nDon’t standardized binary predictors"
+  },
+  {
+    "objectID": "slides/07-slides.html#section-18",
+    "href": "slides/07-slides.html#section-18",
+    "title": "POLS 1600",
+    "section": "",
+    "text": "5. Save and unzip the downloaded files into your course folder where your labs are saved"
+  },
+  {
+    "objectID": "slides/07-slides.html#using-linear-regression-to-estimate-a-difference-in-difference",
+    "href": "slides/07-slides.html#using-linear-regression-to-estimate-a-difference-in-difference",
     "title": "POLS 1600",
     "section": "Using linear regression to estimate a Difference in Difference",
     "text": "Using linear regression to estimate a Difference in Difference\n\nConceptCodeDataDiDFigure\n\n\n\nRecall that linear regression provides a…\n\nlinear estimate of the conditional expectation function\n\nIn the canonincal pre-post, treated and control DiD, \\(\\beta_3\\) from the following linear regression will give us the ATT:\n\n\n\\[\ny = \\beta_0 + \\beta_1 Post + \\beta_2 Treated + \\underbrace{\\beta_3Post\\times Treated}_{\\tau_{ATT}}\n\\]\n\n\n\n\ncholera_df &lt;- tibble(\n  Period = factor(c(\"Pre\",\"Pre\",\"Post\",\"Post\"),\n                  levels = c(\"Pre\",\"Post\")),\n  Year = c(1849,1849, 1854,1854),\n  Treated = factor(c(\"Control\",\"Treated\",\"Control\",\"Treated\")),\n  Company = c(\"S&V\",\"Lambeth\",\"S&V\",\"Lambeth\"),\n  Deaths = c(135,85,147,19)\n)\n\nm_did &lt;- lm(Deaths~Period + Treated + Period:Treated, cholera_df)\n\nm_did\n\n\nCall:\nlm(formula = Deaths ~ Period + Treated + Period:Treated, data = cholera_df)\n\nCoefficients:\n              (Intercept)                 PeriodPost  \n                      135                         12  \n           TreatedTreated  PeriodPost:TreatedTreated  \n                      -50                        -78  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical models\n\n\n\n\n \n\n\nModel 1\n\n\n\n\n\n\n(Intercept)\n\n\n135.00\n\n\n\n\nPost (1854)\n\n\n12.00\n\n\n\n\nTreated (Lambeth)\n\n\n-50.00\n\n\n\n\nPost X Treated (DID)\n\n\n-78.00\n\n\n\n\nR2\n\n\n1.00\n\n\n\n\nAdj. R2\n\n\n \n\n\n\n\nNum. obs.\n\n\n4\n\n\n\n\n\n\n***p &lt; 0.001; **p &lt; 0.01; *p &lt; 0.05\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\beta_0=\\) Outcome in control (S&V) before treatment\n\\(\\beta_1=\\) Fixed, unit invariant differences between pre and post periods\n\\(\\beta_2=\\) Fixed, time invariant differences between treated and control\n\\(\\beta_3=\\) Difference-in-Differences = \\(E[Y_{1i}(1) -  Y_{0i}(1)|D=1]\\)"
