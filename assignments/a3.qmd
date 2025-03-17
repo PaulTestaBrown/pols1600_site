@@ -10,8 +10,6 @@ format:
 
 # Overview {.unnumbered}
 
-Assignment 3 will also serve as your lab for week 11.
-
 The broad goal for this assignment is to ensure that you're making progress on your final project.
 
 The final project that you will submit for this class consists of the following:

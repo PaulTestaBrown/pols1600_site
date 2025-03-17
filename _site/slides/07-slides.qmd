@@ -17,6 +17,7 @@ format:
     scrollable: true
     highlight-style: github
     progress: true
+    html-math-method: mathjax
     code-overflow: wrap
     chalkboard: true
     # include-after-body: title-slide.html
@@ -82,7 +83,7 @@ library(texreg)
 
 ## Annoucements
 
-- [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
+- [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) Feedback end of today
   - Feedback by class on Thursday
 - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) due Friday March 22
 
@@ -109,7 +110,6 @@ the_packages <- c(
 
 ## Define a function to load (and if needed install) packages
 
-#| label = "ipak"
 ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
     if (length(new.pkg)) 
@@ -370,7 +370,9 @@ cor(resid(m2),fitted(m2))
 :::
 
 :::{.column width=55%}
-![](https://i.stack.imgur.com/UEOIP.png)
+
+![](https://www.researchgate.net/publication/299483509/figure/fig1/AS:992683870937088@1613685686096/llustration-of-the-linear-regression-model-as-a-projection-method.png)
+
 :::
 
 ::::
@@ -384,6 +386,7 @@ cor(resid(m2),fitted(m2))
 ## {{< fa lightbulb >}}
 
 :::{.nonincremental}
+
 For a model like `m2` we can recover the coefficient on `rep_voteshare_std` by:
   
 1. Regressing `new_deaths_pc_14day` on `med_age_std` to get the [residual]{.blue} variation in Covid-19 deaths [not explained]{.blue} by median age 
@@ -515,12 +518,13 @@ coord_equal()
 #| echo: false
 
 htmlreg(list(m1,m2, m2_death_by_age,m2_repvs_by_age, m2_res),
-        custom.model.names = c("Baseline","Mutliple","Deaths","Vote Share","Deaths"),
+        custom.model.names = c("Baseline","Mutliple","Age","Vote Share","Deaths"),
         custom.header = list("DV: Death"=1:3, "DV: Vote Share"=4, "DV: Res. Deaths"=5)) %>% HTML() %>% browsable()
 ```
 
 
 ##
+
 $$
 \text{Deaths} = \beta_0 + \beta_1 \text{Rep VS} + \beta_2 \text{Age}
 $$
@@ -558,7 +562,7 @@ $\beta_1$ doesn't change because `age` has no relationship to `deaths` in these 
 #| label: ivtab3
 #| echo: false
 htmlreg(list(m1, m3, m3_death_by_age_income, m3_repvs_by_age_income,m3_res),
-          custom.model.names = c("Baseline","Mutliple","Deaths","Vote Share","Deaths"),
+          custom.model.names = c("Baseline","Full","No Rep","Vote Share","Deaths"),
         custom.header = list("DV: Death"=1:3, "DV: Vote Share"=4, "DV: Res. Death"=5)
         ) %>% HTML() %>% browsable()
 ```
@@ -616,9 +620,9 @@ The basic steps to producing predicted values in R as follows:
 
 - Fit a model using `lm()`
 - Create a [prediction data frame]{.blue} using `expand_grid()`:
-  - vary the values of the predictor you're interested in
-  - hold all the other predictors in your model constant at some typical value.
-- Input the model from `lm()` and the [prediction data frame]{.blue}, into the `predict()` function to obtain [predicted values]{.blue}. 
+  - [vary]{.blue} the values of [the predictor]{.blue} you're interested in
+  - [hold]{.blue} all the other predictors in your model [constant]{.blue} at some typical value.
+- Input the [model]{.blue} from `lm()` and the [prediction data frame]{.blue}, into the `predict()` function to obtain [predicted values]{.blue}. 
   - Save predictions as a new column in your [prediction data frame]{.blue} (I generally call them `fit`)
 - Plot predicted values in your [prediction data frame]{.blue} to help interpret your model
 
@@ -846,6 +850,66 @@ anova(m5, m4)
 
 ::::
 
+
+## {.smaller}
+#### Standardized vs Non Standardized Predictors
+
+::::panel-tabset
+
+## {{<fa light-bulb>}}
+
+Why are we using standardized predictors?
+
+Standardizing variables is a common transformation:
+
+$$z\text{-scores of x} = \frac{x_i - \mu_{x}}{\sigma_x}$$
+When variables are measured on very different scales or units (e.g. age in years, income in dollars), using standardized (or normalized) versions rescales them to a unit-less measures that all have:
+
+- a mean of `zero`
+- a standard deviation of `1`
+
+
+## {{<fa code >}} m6
+
+```{r}
+# Estimate model  with unstandardized predictors
+m6 <- lm(new_deaths_pc_14day ~ percent_vaccinated  + rep_voteshare + med_age + med_income, covid_lab
+           )
+```
+
+## {{<fa table >}} Table
+
+```{r}
+#| label: tabm6
+#| echo: false
+#| results: asis
+htmlreg(list(m5, m6), digits = 3)
+```
+
+## {{<fa code >}} Comments
+
+When should you standardize variables? It depends on what you're trying to do.
+
+- It's the same information, just rescaled:
+
+```{r}
+coef(m5)[5] # Standardized coef
+coef(m6)[5] # Unstandaried
+coef(m6)[5]*sd(covid_lab$med_income) # Same as standardized
+```
+
+
+- Can facilitate comparison and estimation
+
+- Might make interpretation easier (but the onus is on you to describe your models well)
+
+  - Don't standardized binary predictors
+
+
+
+
+::::
+
 # {{< fa lightbulb >}} Difference-in-Differences {.inverse}
 
 ## Motivating Example: What causes Cholera? {.smaller background-image=https://www.finebooksmagazine.com/sites/default/files/styles/gallery_item/public/media-images/2020-11/map-lead-4.jpg?h=2ded5a3f&itok=Mn-K5rQc, background-opacity=.3}
@@ -878,9 +942,12 @@ The individual causal effect for unit i at time t is:
 
 $$\tau_{it} = Y_{1i}(t) − Y_{0i}(t)$$
 
+
 What we observe is 
 
 $$Y_i(t) = Y_{0i}(t)\cdot(1 − D_i(t)) + Y_{1i}(t)\cdot D_i(t)$$
+
+
 
 $D$ only equals 1, when $T$ equals 1, so we never observe $Y_0i(1)$ for the treated units. 
 
@@ -984,6 +1051,7 @@ There are two, equivalent ways to view this design.
 
 $$\underbrace{\{E[Y_{i}(1)|D_{i} = 1] − E[Y_{i}(1)|D_{i} = 0]\}}_{\text{1. Treat-Control |Post }}− \overbrace{\{E[Y_{i}(0)|D_{i} = 1] − E[Y_{i}(0)|D_{i}=0 ]}^{\text{Treated-Control|Pre}}$$
 
+
 - Difference 1: Average change between Treated and Control  in Post Period
 
 - Difference 2: Average change between Treated and Control  in Pre Period
@@ -1032,12 +1100,11 @@ The key assumption in this design is what's known as the parallel trends assumpt
 #| echo: false
 
 snow_g <- tibble(
-  Time = c(0,0,3,3,0,3),
-  Treated = c(0,1,0, 1,1,1),
+  Period = c(0,0,3,3,0,3),
+  Treatment = c(0,1,0, 1,1,1),
   Line = c(1,1,1,1,2,2),
   Company = c("S&V","Lambeth","S&V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
-  Deaths = c(135,85,147,19,85,97),
-  line_col = c("red","red","red","red","blue","blue")
+  Deaths = c(135,85,147,19,85,97)
 )
 
 line_df <- tibble(
@@ -1046,7 +1113,7 @@ line_df <- tibble(
 )
 
 snow_g %>%
-  ggplot(aes(Time,Deaths, col=Company))+
+  ggplot(aes(Period,Deaths, col=Company))+
   geom_point()+
   geom_line(linetype=line_df$line_type
             )+
@@ -1066,103 +1133,122 @@ snow_p
 
 ```
 
-## Using lm to estimate Diff-in-Diff
+## Using linear regression to estimate a Difference in Difference {.smaller}
 
 :::: panel-tabset
 
-## {{< fa table >}} Data
+## Concept
+
+- Recall that linear regression provides a...
+  - linear estimate of the conditional expectation function
+- In the canonincal pre-post, treated and control DiD, $\beta_3$ from the following linear regression will give us the ATT:
+
+:::{.fragment}
+
+$$
+y = \beta_0 + \beta_1 Post + \beta_2 Treated + \underbrace{\beta_3Post\times Treated}_{\tau_{ATT}}
+$$
+
+:::
+
+## Code
 
 ```{r}
-#| label: cholera_df
+#| echo: true
+#| label: didcode
 
 cholera_df <- tibble(
-  Location = c("S&V","Lambeth","S&V","Lambeth"),
-  Treated = c(0,1,0, 1),
-  Time = c(0,0,1,1),
+  Period = factor(c("Pre","Pre","Post","Post"),
+                  levels = c("Pre","Post")),
+  Year = c(1849,1849, 1854,1854),
+  Treated = factor(c("Control","Treated","Control","Treated")),
+  Company = c("S&V","Lambeth","S&V","Lambeth"),
   Deaths = c(135,85,147,19)
 )
-cholera_df
+
+m_did <- lm(Deaths~Period + Treated + Period:Treated, cholera_df)
+
+m_did
 
 ```
 
-## {{< fa code >}} lm()
-$$
-\text{Deaths} = \beta_0 + \beta_1\text{Treated} + \beta_2\text{Time} + \beta_3 \text{Treated}\times\text{Time}
-$$
+## Data
 
 ```{r}
-#| label: did
-diff_in_diff <- lm(Deaths ~ Treated + Time + Treated:Time, cholera_df)
-diff_in_diff
-
-```
-
-## {{< fa chart-line >}} Diff-in-Diff
-
-```{r}
-#| label: didplot
 #| echo: false
+#| label: diddata
+
+
+DT::datatable(cholera_df)
+```
+
+
+## DiD
+
+```{r}
+#| echo: false
+#| results: asis
+#| label: didtab
+
+texreg::htmlreg(m_did,
+                custom.coef.names = c("(Intercept)",
+                                      "Post (1854)",
+                                      "Treated (Lambeth)",
+                                      "Post X Treated (DID)")
+                )
+```
+
+## Figure
+
+```{r}
+#| echo: false
+#| label: didfig
+
 
 snow_g %>%
-  ggplot(aes(Time,Deaths, col=Company))+
+  ggplot(aes(Period,Deaths,col = Company))+
   geom_point()+
-  coord_cartesian(xlim = c(-.5,3.5))+
-  geom_line(linetype=line_df$line_type
-            )+
-  scale_color_manual(values = c("red","red","blue"))+
-  annotate(geom="text",x = 0 ,
-           y=coef(diff_in_diff)[1], 
-           label = expression(paste(beta[0])),vjust=-.5,
-           col = "blue")+
-  geom_segment(aes(x=0,xend=0,y=85,yend=135), linetype = 2,col="magenta")+
-  annotate(geom="text",x = 2.9 ,
-           y=122, 
-           label = expression(paste(beta[1])),
-           col = "magenta",
-           hjust=.75)+
-    geom_segment(aes(x=3,xend= 3,y=97,yend=147), linetype = 2,col="magenta")+
-  annotate(geom="text",x = -.1 ,
-           y=coef(diff_in_diff)[1]-25, 
-           label = expression(paste(beta[1])),
-           col = "magenta",
-           hjust=.75)+
-  geom_segment(aes(x=0,xend=3,y=84.9,yend=84.9), linetype = 2,col="pink")+
-  geom_segment(aes(x=3,xend=3,y=85,yend=97), linetype = 2,col="pink")+
-  annotate(geom="text",x = 2.9 ,
-           y=91, 
-           label = expression(paste(beta[2])),
-           col = "pink",
-           hjust=.75)+
-  geom_segment(aes(x=0,xend=3,y=134.9,yend=134.9), linetype = 2,col="pink")+
-  geom_segment(aes(x=3,xend=3,y=135,yend=147), linetype = 2,col="pink")+
-  annotate(geom="text",x = 2.9 ,
-           y=141, 
-           label = expression(paste(beta[2])),
-           col = "pink",
-           hjust=.75)+
-  geom_segment(aes(x=3,xend=3,y=97,yend=19), linetype = 2,col="red")+
-  annotate(geom="text",x = 3 ,
-           y=58, 
-           label = expression(paste(beta[3])),
-           col = "red",
-           hjust=-.75)+
-  xlim(-2,6)+
+  geom_line()+
+  xlim(-1,4)+
+  annotate(geom = "text", x = 0, y = 135,
+           label = expression(beta[0]), hjust=0.5, vjust =-.5)+
+  geom_segment(aes(x=0, xend = 3, y=135, yend=135), 
+               linetype = 1, col ="gray30",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  geom_segment(aes(x=3, xend = 3, y=135, yend=147), 
+               linetype = 1, col ="gray30",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 141,
+           label = expression(beta[1]), hjust=-0.5, vjust =0.5,
+           col = "gray30") +
+  geom_segment(aes(x=3.2, xend = 3.2, y=147, yend=97), 
+               linetype = 1, col ="gray50",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 122.5,
+           label = expression(beta[2]), hjust=-0.5, vjust =0.5,col = "gray50")+
+  geom_segment(aes(x=3, xend = 3, y=97, yend=19), 
+               linetype = 1, col ="gray70",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 58,
+           label = expression(beta[3]), hjust=-0.5, vjust =0.5,col = "gray70")+
   scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
-  theme_bw()-> snow_lm
+  theme_bw() -> did_p
 
-
-
-snow_lm
-
+did_p
 
 ```
+
+
+
+
+
 
 
 :::{.nonincremental}
 
 - $\beta_0=$ Outcome in control (S&V) before treatment
-- $\beta_1=$ Fixed, [time invariant]{.blue} differences between [treated]{.blue} and [control]{.blue}
-- $\beta_2=$ Fixed, [unit invariant]{.blue} differences between [pre]{.blue} and [post]{.blue} periods
+- $\beta_1=$ Fixed, [unit invariant]{.blue} differences between [pre]{.blue} and [post]{.blue} periods
+- $\beta_2=$ Fixed, [time invariant]{.blue} differences between [treated]{.blue} and [control]{.blue}
 - $\beta_3=$ [Difference-in-Differences]{.blue} = $E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$
 
 :::
@@ -1204,6 +1290,7 @@ $$
 
 - Interpretation of [two-way fixed effects]{.blue} DiD estimator is [complicated]{.blue}...
   - @Goodman-Bacon2021-ah
+  - @Callaway2021-av
 - More pre-treatment periods allow you assess "parallel trends" assumption
 - Alternative methods 
   - Synthetic control
@@ -1227,7 +1314,7 @@ $$
 
 ## Replicating Grumbach and Hill (2022)
 
-- In this week's lab, we'll be conducting a partial replication of @Grumbach2022-zj “Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”
+- In this week's lab, we'll be conducting a partial replication of @Grumbach2022-zj [“Rock the Registration: Same Day Registration Increases Turnout of Young Voters.”](../files/readings/grumbach_hill_2021.pdf)
 
 - On Thursday, we'll walk through 
   - the paper's design and argument

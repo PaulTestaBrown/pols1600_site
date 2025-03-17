@@ -19,6 +19,7 @@ format:
     progress: true
     code-overflow: wrap
     chalkboard: true
+    html-math-method: mathjax
     # include-after-body: title-slide.html
     title-slide-attributes:
       align: left
@@ -58,9 +59,9 @@ library(texreg)
 ## Class Plan
 
 - Announcements (20)
-  - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) due Tuesday, March 12
-  - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) due Friday March 22
-- Feedback
+  - [Assignment 1: Research Questions](https://pols1600.paultesta.org/assignments/a1) graded by Thursday, March 6
+  - [Assignment 2  Data:](https://pols1600.paultesta.org/assignments/a2) now due Sunday March 16
+  - [Assignment 3  Data:](https://pols1600.paultesta.org/assignments/a2) now due Sunday March 30 ? (Or should it be right before spring break?)
 - Review: Simple Linear Regression and Lab 5 (15-20 min)
 - Preview: Setup for Lab 6 (10-15 min)
 - Estimating and Interpreting Multiple Regression (25-30 min)
@@ -69,23 +70,12 @@ library(texreg)
 
 ## Annoucements
 
-## Assignment 1
-
-- Prompt posted on website [here](https://pols1600.paultesta.org/assignments/a1)
-
-- 3 possible research questions uploaded to Canvas by [Next Tuesday, March 12]{.blue}
-
-- The ideal experiment = "What would you have to randomly assign to create a meaningful counterfactual comparison"
-
-- Observational study = "What could you say with data that likely exist?"
-
-- Feedback will help you narrow down a topic for final project
 
 ## Assignment 2
 
 - Prompt posted on website [here]{https://pols1600.paultesta.org/assignments/a2}
 
-- Uploaded to Canvas by [Friday, March 22]{.blue}
+- Uploaded to Canvas by [Sunday, March 16]{.blue}
 
 - Revised Research Question
 
@@ -95,9 +85,9 @@ library(texreg)
 
 ## Feedback
 
-- Only 9 people completed the survey last week...
+- Not a lot
 
-- So let's try to get those numbers up and will summarize the results of the [survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} next week
+- So let's try to get those numbers up and will summarize the results of the [survey](https://brown.co1.qualtrics.com/jfe/form/SV_aVqL4lh92U7igGG){target="_blank"} next week
 
 
 
@@ -259,7 +249,7 @@ pres_df %>%
 
 dim(covid_us)
 dim(pres2020_df)
-covid_us <- covid_us %>% left_join(
+covid_df <- covid_us %>% left_join(
   pres2020_df,
   by = c("state" = "state")
 )
@@ -287,7 +277,7 @@ Now let's revisit question 6, which asked you to calculate some conditional mean
 #| label: q6_code
 
 # ---- Deaths: Overall ----
-covid_us %>%
+covid_df %>%
   group_by(winner)%>%
   summarise(
     new_deaths = mean(new_deaths, na.rm=T),
@@ -298,7 +288,7 @@ covid_us %>%
   ) -> deaths_overall
 
 # ---- Deaths: Pre Vaccine ----
-covid_us %>%
+covid_df %>%
   filter(date < "2021-04-19") %>%
   group_by(winner)%>%
   summarise(
@@ -310,7 +300,7 @@ covid_us %>%
   ) -> deaths_pre_vax
 
 # ---- Deaths: Post Vaccine ----
-covid_us %>%
+covid_df %>%
   filter(date >= "2021-04-19") %>%
   group_by(winner)%>%
   summarise(
@@ -410,8 +400,8 @@ Recall `winner` is a [factor]{.blue} whose levels we set to be `c("Trump","Biden
 ```{r}
 #| label: q7code
 
-m1_lab <- lm(new_deaths ~ winner, covid_us)
-m2_lab <- lm(new_deaths_pc_7day ~ winner, covid_us)
+m1_lab <- lm(new_deaths ~ winner, covid_df)
+m2_lab <- lm(new_deaths_pc_7day ~ winner, covid_df)
 ```
 
 ## Output
@@ -463,7 +453,7 @@ In a [saturated]{.blue} linear model, every [group]{.blue} in the data can be re
 ```{r}
 #| label: code_q7cef
 
-covid_us %>%
+covid_df %>%
   mutate(
     biden01 = ifelse(winner == "Biden",1,0)
   ) %>% 
@@ -579,17 +569,17 @@ On September 23, 2021, when Leonhardt was writing
 #| label: q8_code
 # Deaths modeled by percent vaccinated on 2021-09-23
 m3_lab <- lm(new_deaths_pc_14day ~ percent_vaccinated, 
-         covid_us,
+         covid_df,
          subset = date == "2021-09-23")
 
 #  Percent vaccinated modeled by Republican vote share on 2021-09-23
 m4_lab <- lm(percent_vaccinated ~ rep_voteshare, 
-         covid_us,
+         covid_df,
          subset = date == "2021-09-23")
 
 # Deaths modeled by Republican vote share on 2021-09-23
 m5_lab <- lm(new_deaths_pc_14day ~ rep_voteshare, 
-         covid_us,
+         covid_df,
          subset = date == "2021-09-23")
 
 ```
@@ -623,7 +613,7 @@ Let's take a basic figure, and make it fetch!
 ```{r}
 #| label: q9_basic_code
 
-covid_us %>%
+covid_df %>%
   # Only use observations from September 23, 2021
   filter(date == "2021-09-23") %>%
   # Exclude DC
@@ -804,7 +794,7 @@ dim(acs_df)
 dim(acs_df)
 dim(covid_us)
 # Merge tmp with acs_df and save as final covid_df file
-covid_df <- covid_us %>% left_join(
+covid_df <- covid_df %>% left_join(
   acs_df,
   by = c("state" = "state")
 )
@@ -1031,20 +1021,40 @@ lm(y ~ x + z + x:z, data = df)
 
 :::
 
-## Technical: Multiple Regression {.smaller}
+## Technical: Simple Linear Regression {.smaller}
 
 :::{.nonincremental}
 
 
 - Simple linear regression chooses a $\hat{\beta_0}$ and $\hat{\beta_1}$ to minimize the Sum of Squared Residuals (SSR):
 
-$$\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2$$ 
+$$
+\textrm{Find }\hat{\beta_0},\,\hat{\beta_1} \text{ arg min}_{\beta_0, \beta_1} \sum (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2
+$$
+Which yields:
+
+$$\begin{aligned} 
+\beta_0 &= \bar{y} - \beta_1 \bar{x}\\
+\beta_1 &= \frac{Cov(x,y)}{Var(x)}
+\end{aligned}$$
+
+:::
+
+## Technical: Multiple Regression {.smaller}
+
+:::{.nonincremental}
+
 
 - Multiple linear regression chooses a vector of coefficients $\hat{\beta}$ to minimize the Sum of Squared Residuals (SSR):
 
-$$\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(y-X\widehat{\beta})^\prime(y-X\widehat{\beta})$$
+$$
+\textrm{Find }\widehat{\beta} \text{ argmin }_{\widehat{\beta}} \sum \epsilon^2=\epsilon^\prime\epsilon=(y-X\widehat{\beta})^\prime(y-X\widehat{\beta})
+$$
+Which yields
 
-
+$$
+\hat{\beta} = (X'X)^{-1}X'y
+$$
 
 :::
 
@@ -2367,12 +2377,11 @@ The key assumption in this design is what's known as the parallel trends assumpt
 #| echo: false
 
 snow_g <- tibble(
-  Time = c(0,0,3,3,0,3),
-  Treated = c(0,1,0, 1,1,1),
+  Period = c(0,0,3,3,0,3),
+  Treatment = c(0,1,0, 1,1,1),
   Line = c(1,1,1,1,2,2),
   Company = c("S&V","Lambeth","S&V","Lambeth","Lambeth (D=0)","Lambeth (D=0)"),
-  Deaths = c(135,85,147,19,85,97),
-  line_col = c("red","red","red","red","blue","blue")
+  Deaths = c(135,85,147,19,85,97)
 )
 
 line_df <- tibble(
@@ -2381,7 +2390,7 @@ line_df <- tibble(
 )
 
 snow_g %>%
-  ggplot(aes(Time,Deaths, col=Company))+
+  ggplot(aes(Period,Deaths, col=Company))+
   geom_point()+
   geom_line(linetype=line_df$line_type
             )+
@@ -2401,108 +2410,129 @@ snow_p
 
 ```
 
-## Using lm to estimate Diff-in-Diff
+## Using linear regression to estimate a Difference in Difference {.smaller}
 
 :::: panel-tabset
 
-## {{< fa table >}} Data
+## Concept
+
+- Recall that linear regression provides a...
+  - linear estimate of the conditional expectation function
+- In the canonincal pre-post, treated and control DiD, $\beta_3$ from the following linear regression will give us the ATT:
+
+:::{.fragment}
+
+$$
+y = \beta_0 + \beta_1 Post + \beta_2 Treated + \underbrace{\beta_3Post\times Treated}_{\tau_{ATT}}
+$$
+
+:::
+
+## Code
 
 ```{r}
-#| label: cholera_df
+#| echo: true
+#| label: didcode
 
 cholera_df <- tibble(
-  Location = c("S&V","Lambeth","S&V","Lambeth"),
-  Treated = c(0,1,0, 1),
-  Time = c(0,0,1,1),
+  Period = factor(c("Pre","Pre","Post","Post"),
+                  levels = c("Pre","Post")),
+  Year = c(1849,1849, 1854,1854),
+  Treated = factor(c("Control","Treated","Control","Treated")),
+  Company = c("S&V","Lambeth","S&V","Lambeth"),
   Deaths = c(135,85,147,19)
 )
-cholera_df
+
+m_did <- lm(Deaths~Period + Treated + Period:Treated, cholera_df)
+
+m_did
 
 ```
 
-## {{< fa code >}} lm()
-$$
-\text{Deaths} = \beta_0 + \beta_1\text{Treated} + \beta_2\text{Time} + \beta_3 \text{Treated}\times\text{Time}
-$$
+## Data
 
 ```{r}
-#| label: did
-diff_in_diff <- lm(Deaths ~ Treated + Time + Treated:Time, cholera_df)
-diff_in_diff
-
-```
-
-## {{< fa chart-line >}} Diff-in-Diff
-
-```{r}
-#| label: didplot
 #| echo: false
+#| label: diddata
+
+
+DT::datatable(cholera_df)
+```
+
+
+## DiD
+
+```{r}
+#| echo: false
+#| results: asis
+#| label: didtab
+
+texreg::htmlreg(m_did,
+                custom.coef.names = c("(Intercept)",
+                                      "Post (1854)",
+                                      "Treated (Lambeth)",
+                                      "Post X Treated (DID)")
+                )
+```
+
+## Figure
+
+```{r}
+#| echo: false
+#| label: didfig
+
 
 snow_g %>%
-  ggplot(aes(Time,Deaths, col=Company))+
+  ggplot(aes(Period,Deaths,col = Company))+
   geom_point()+
-  coord_cartesian(xlim = c(-.5,3.5))+
-  geom_line(linetype=line_df$line_type
-            )+
-  scale_color_manual(values = c("red","red","blue"))+
-  annotate(geom="text",x = 0 ,
-           y=coef(diff_in_diff)[1], 
-           label = expression(paste(beta[0])),vjust=-.5,
-           col = "blue")+
-  geom_segment(aes(x=0,xend=0,y=85,yend=135), linetype = 2,col="magenta")+
-  annotate(geom="text",x = 2.9 ,
-           y=122, 
-           label = expression(paste(beta[1])),
-           col = "magenta",
-           hjust=.75)+
-    geom_segment(aes(x=3,xend= 3,y=97,yend=147), linetype = 2,col="magenta")+
-  annotate(geom="text",x = -.1 ,
-           y=coef(diff_in_diff)[1]-25, 
-           label = expression(paste(beta[1])),
-           col = "magenta",
-           hjust=.75)+
-  geom_segment(aes(x=0,xend=3,y=84.9,yend=84.9), linetype = 2,col="pink")+
-  geom_segment(aes(x=3,xend=3,y=85,yend=97), linetype = 2,col="pink")+
-  annotate(geom="text",x = 2.9 ,
-           y=91, 
-           label = expression(paste(beta[2])),
-           col = "pink",
-           hjust=.75)+
-  geom_segment(aes(x=0,xend=3,y=134.9,yend=134.9), linetype = 2,col="pink")+
-  geom_segment(aes(x=3,xend=3,y=135,yend=147), linetype = 2,col="pink")+
-  annotate(geom="text",x = 2.9 ,
-           y=141, 
-           label = expression(paste(beta[2])),
-           col = "pink",
-           hjust=.75)+
-  geom_segment(aes(x=3,xend=3,y=97,yend=19), linetype = 2,col="red")+
-  annotate(geom="text",x = 3 ,
-           y=58, 
-           label = expression(paste(beta[3])),
-           col = "red",
-           hjust=-.75)+
-  xlim(-2,6)+
+  geom_line()+
+  xlim(-1,4)+
+  annotate(geom = "text", x = 0, y = 135,
+           label = expression(beta[0]), hjust=0.5, vjust =-.5)+
+  geom_segment(aes(x=0, xend = 3, y=135, yend=135), 
+               linetype = 1, col ="gray30",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  geom_segment(aes(x=3, xend = 3, y=135, yend=147), 
+               linetype = 1, col ="gray30",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 141,
+           label = expression(beta[1]), hjust=-0.5, vjust =0.5,
+           col = "gray30") +
+  geom_segment(aes(x=3.2, xend = 3.2, y=147, yend=97), 
+               linetype = 1, col ="gray50",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 122.5,
+           label = expression(beta[2]), hjust=-0.5, vjust =0.5,col = "gray50")+
+  geom_segment(aes(x=3, xend = 3, y=97, yend=19), 
+               linetype = 1, col ="gray70",
+               arrow = arrow(length = unit(0.01, "npc")))+
+  annotate(geom = "text", x = 3, y = 58,
+           label = expression(beta[3]), hjust=-0.5, vjust =0.5,col = "gray70")+
   scale_x_continuous(breaks = c(0,3),labels = c("Pre","Post"))+
-  theme_bw()-> snow_lm
+  theme_bw() -> did_p
 
-
-
-snow_lm
-
+did_p
 
 ```
+
+
+
+
+
 
 
 :::{.nonincremental}
 
 - $\beta_0=$ Outcome in control (S&V) before treatment
-- $\beta_1=$ Fixed, [time invariant]{.blue} differences between [treated]{.blue} and [control]{.blue}
-- $\beta_2=$ Fixed, [unit invariant]{.blue} differences between [pre]{.blue} and [post]{.blue} periods
+- $\beta_1=$ Fixed, [unit invariant]{.blue} differences between [pre]{.blue} and [post]{.blue} periods
+- $\beta_2=$ Fixed, [time invariant]{.blue} differences between [treated]{.blue} and [control]{.blue}
 - $\beta_3=$ [Difference-in-Differences]{.blue} = $E[Y_{1i}(1) -  Y_{0i}(1)|D=1]$
 
 :::
 
 ::::
+
+
 
 
 ## Summary {.smaller}

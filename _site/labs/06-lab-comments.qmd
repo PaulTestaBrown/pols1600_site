@@ -54,7 +54,7 @@ One of these 6 tasks (excluding the weekly survey) will be randomly selected as 
 
 ```{r}
 #| label: graded
-set.seed(3052024)
+set.seed(3052025)
 graded_question <- sample(1:6,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
@@ -114,7 +114,7 @@ As with every lab, you should:
 -   Write your code in the **chunks provided under each section**
 -   Comment out or delete any test code you do not need
 -   **Render the document again after completing a section or chunk** (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1098409/assignments){target="_blank"}.
 
 # Get setup to work
 
@@ -263,7 +263,7 @@ Regression tables are a the standard way of concisely presenting the results of 
 
 -   The bottom of the table contains summary statistics of of our model, which we'll ignore for today.
 
-[^2]: A standard error is another one of those things that in the cart we're putting before horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
+[^2]: A standard error is another one of those things in the cart that we're putting before the horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
 
 The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the Rmd file.
 
@@ -564,4 +564,4 @@ Still it's hard to think what that kind of design would be for something like fo
 
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_aVqL4lh92U7igGG){target="_blank"} for this week.

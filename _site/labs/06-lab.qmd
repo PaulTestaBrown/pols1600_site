@@ -10,6 +10,7 @@ format:
     toc-float: true
     toc-depth: 2
     number-sections: true
+    embed-resources: true
 execute: 
   eval: true
   echo: true
@@ -106,7 +107,7 @@ As with every lab, you should:
 -   Write your code in the **chunks provided under each section**
 -   Comment out or delete any test code you do not need
 -   **Render the document again after completing a section or chunk** (Error checking)
--   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1094972/assignments){target="_blank"}.
+-   Upload the final lab to [Canvas](https://canvas.brown.edu/courses/1098409/assignments){target="_blank"}.
 
 # Get setup to work
 
@@ -251,7 +252,7 @@ Regression tables are a the standard way of concisely presenting the results of 
 
 -   The bottom of the table contains summary statistics of of our model, which we'll ignore for today.
 
-[^2]: A standard error is another one of those things that in the cart we're putting before horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
+[^2]: A standard error is another one of those things in the cart that we're putting before the horse today. Briefly, it is an estimate of the standard deviation of the sampling distribution of a coefficient and describes how much our coefficient might vary had we had a different sample...
 
 The code after `htmlreg(m1)` allows you to see what output of the table will look like in the html document while you're working in the qmd file.
 
@@ -395,7 +396,7 @@ And then display the results of models `m1`, `m2`, and `m3`.
 
 **In a few sentences, explain whether the results from `m3` support the skeptics criticisms or not?**
 
-Controlling for median age and income, the coefficient on Republican sote share decreases in size by more than half and is no longer statistically significant. The coefficient on median income is statistically significant and substantively suggests that states with higher median incomes tended to have fewer Covid-19 deaths on September 23, 2021.
+
 
 # Estimate a model controlling for age, income, and percent vaccinated
 
@@ -487,4 +488,4 @@ Display them in a regression table
 
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_bDFDWRGcnpm09hk){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_aVqL4lh92U7igGG){target="_blank"} for this week.

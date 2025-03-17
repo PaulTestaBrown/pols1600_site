@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.6.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="P.F. Testa">
-<meta name="dcterms.date" content="2024-03-21">
+<meta name="dcterms.date" content="2025-03-17">
 
-<title>POLS 1600 - Comments for Lab 08 - Replicating Grumbach and Hill (2022):</title>
+<title>Comments for Lab 08 - Replicating Grumbach and Hill (2022): – POLS 1600</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3a01e2046221230fdceeea94b1ec5d67.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4c749e6abf46aa1a30ac81be7ead6993.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../site_libs/datatables-binding-0.32/datatables.js"></script>
+<script src="../site_libs/datatables-binding-0.31/datatables.js"></script>
 <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
 <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -157,7 +157,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -180,7 +180,7 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -256,7 +256,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 21, 2024</p>
+      <p class="date">March 17, 2025</p>
     </div>
   </div>
   
@@ -284,11 +284,11 @@ window.Quarto = {
 <p>Finally, we’ll take the survey for this week</p>
 <p>One of these 6 tasks will be randomly selected as the graded question for the lab.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3212024</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3202025</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>graded_question <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">size =</span> <span class="dv">1</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"Question"</span>,graded_question,<span class="st">"is the graded question for this week"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Question 2 is the graded question for this week"</code></pre>
+<pre><code>[1] "Question 6 is the graded question for this week"</code></pre>
 </div>
 </div>
 <p>You will work in your assigned groups. Only one member of each group needs to submit the html file of lab.</p>
@@ -297,8 +297,8 @@ window.Quarto = {
 <p>Here are your assigned groups for the semester.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-c5c38bb38cd6d29a6e24" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c5c38bb38cd6d29a6e24">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-39c3f98e803d8e4c44b2" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-39c3f98e803d8e4c44b2">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8"],["Group 1","Group 2","Group 3","Group 4","Group 5","Group 6","Group 7","Group 8"],["Maia Eng","Andrew Rovinsky","Serafym Rybachkivskyi","Tiffany Eddy","Christopher Maron","Mia Hamilton","Mariana Melzer","Logan Szittai"],["Guadalupe Herrera","Spencer Lorin","Rachel Kim","Daniel Solomon","Daniel Baker","Emily Colon","Kahrie Langham","Keiley Thompson"],["Stephen Robinson","Lucinda Anderson","Kai Blades","Zoe Smith","Neve Diaz-Carr","Davis Kelly","Shannon Feerick-Hillenbrand","Lydell Dyer"],["Jeremiah Harrington","Serenity Hamilton","Emma Coleman","Lorena Calderon","Olivia Hanley","Talia Levine","Jarret Fernandes","Mahir Arora"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Group<\/th>\n      <th>1<\/th>\n      <th>2<\/th>\n      <th>3<\/th>\n      <th>4<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Group","targets":1},{"name":"1","targets":2},{"name":"2","targets":3},{"name":"3","targets":4},{"name":"4","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -701,8 +701,7 @@ Note
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">include.ci =</span> F,</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -778,7 +777,7 @@ Note
 <td style="padding-left: 5px; padding-right: 5px">49</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="5" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -786,7 +785,6 @@ Note
 </table>
 
 
-</div>
 </div>
 </div>
 <p><strong>Please write a few sentences</strong> explaining how the coefficient on <code>sdr</code> and it’s standard error changes across the four models. I’ll get you started:</p>
@@ -854,11 +852,11 @@ Note
 <span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>time_m3_within</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 2.45665 secs</code></pre>
+<pre><code>Time difference of 1.42573 secs</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>time_m3_indicator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 9.88044 secs</code></pre>
+<pre><code>Time difference of 4.27558 secs</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -869,8 +867,7 @@ Note
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">"lm_robust (within transformation)"</span>,<span class="st">"Within transformation by hand"</span>,<span class="st">"Indicator FE"</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -938,7 +935,6 @@ Note
 </table>
 
 
-</div>
 </div>
 </div>
 <p>Finally, model 4 presents the results of a TWFE regression with fixed effects for state and year with robust standard errors clustered by state. The coefficient on <code>sdr</code> remains the same as in Model 3, predicting about 0.6 percentage points higher turnout in states with same day registration. We see, however, that once we relax the assumption that our errors are independent, and allow for correlations between observations from the same state, our uncertainty about this estimate (quantified by its standard error) increases 10-fold, and we are non longer confident that there is a statistically significant relationship between same day registration and voting in these data.</p>
@@ -1019,8 +1015,7 @@ y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span> <span class="dv">4</span>,</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">include.ci =</span> F) <span class="sc">%&gt;%</span> <span class="fu">HTML</span>() <span class="sc">%&gt;%</span> <span class="fu">browsable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<table class="texreg table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="texreg caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Statistical models</caption>
 <thead>
 <tr class="header">
@@ -1466,7 +1461,7 @@ y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_
 <td style="padding-left: 5px; padding-right: 5px">49</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr class="odd">
 <td colspan="3" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
 </tr>
 </tfoot>
@@ -1474,7 +1469,6 @@ y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_
 </table>
 
 
-</div>
 </div>
 </div>
 </section>
@@ -1742,7 +1736,7 @@ Note
 </section>
 <section id="take-the-class-survey" class="level1 unnumbered">
 <h1 class="unnumbered">Take the Class Survey</h1>
-<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_9AoYCyElyryi1pk" target="_blank">class survey</a> for this week.){target=“_blank”} for this week.</p>
+<p>Please take a few moments to complete the <a href="https://brown.co1.qualtrics.com/jfe/form/SV_eFmwvHaKLBBLoJU" target="_blank">class survey</a> for this week.){target=“_blank”} for this week.</p>
 
 
 </section>
@@ -1790,18 +1784,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1833,7 +1816,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1841,7 +1846,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
