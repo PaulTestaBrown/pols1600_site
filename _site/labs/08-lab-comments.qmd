@@ -45,7 +45,7 @@ One of these 6 tasks will be randomly selected as the graded question for the la
 
 ```{r}
 #| label: graded
-set.seed(3212024)
+set.seed(3202025)
 graded_question <- sample(1:6,size = 1)
 paste("Question",graded_question,"is the graded question for this week")
 ```
@@ -926,4 +926,4 @@ Finally, I hope that in looking at the data by state and year and age group, we'
 
 # Take the Class Survey {.unnumbered}
 
-Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_9AoYCyElyryi1pk){target="_blank"} for this week.){target="_blank"} for this week.
+Please take a few moments to complete the [class survey](https://brown.co1.qualtrics.com/jfe/form/SV_eFmwvHaKLBBLoJU){target="_blank"} for this week.

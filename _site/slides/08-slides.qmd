@@ -11,6 +11,7 @@ format:
     multiplex: false
     transition: fade
     slide-number: c
+    html-math-method: mathjax
     incremental: true
     center: false
     menu: true
@@ -69,6 +70,15 @@ library(texreg)
   - Standard Errors (10 min)
   - Previewing Lab 8 (10 min)
 
+## Assignments
+
+- [Assignment 2: Due March 23](https://pols1600.paultesta.org/assignments/a2)
+  - Feedback over Spring Break
+
+- [Assignment 3](https://pols1600.paultesta.org/assignments/a3): Now Due April 6
+
+- [Assignment 4](https://pols1600.paultesta.org/assignments/a3): Still due April 20
+
 
 ## Annoucements: Assignment 2 {.smaller}
 
@@ -84,6 +94,34 @@ Full prompt [here](https://pols1600.paultesta.org/assignments/a2)
     - Your group's theme song
     - Your group's astrological sign
     - Anything else that you think well help you form strong ingroup bounds that facilitate collaboration
+
+## Final Project {.smaller}
+
+The final project that you will submit for this class consists of the following:
+
+1. Introduction (5 percent, ~ 4 paragraphs)
+2. Theory and Expectations (10 percent, ~4+ paragraphs)
+3. Data (20 percent ~ 4+ paragraphs)
+4. Design (25 percent ~ 5+ paragraphs)
+5. Results (25 percent ~ 5+ paragraphs)
+6. Conclusion (5 percent ~ 3+ paragraphs)
+7. Appendix (10 percent ~ Variable codebook and all the R code for your project)
+
+## Assignments 3 and 4 {.smaller}
+
+Assignment 3 will focus on the logistics
+
+  - Setup
+  - Data
+  - Recoding
+  - HLO
+
+Assignment 4 will focus on estimation and interpretation, and presentation
+
+  - Intro + Theory
+  - Data and Design
+  - Results
+
 
 ## Setup: Packages for today
 
@@ -120,103 +158,10 @@ ipak(the_packages)
 ```
 
 
-## Feedback
+## Course Survey
 
-![](https://media.tenor.com/rAdl6RX2ci4AAAAe/spongebob-oh-brother-this-guy-stinks.png)
+Please take the course survey [here](https://brown.co1.qualtrics.com/jfe/form/SV_eFmwvHaKLBBLoJU)
 
-```{r}
-#| label: feeback
-#| echo: false
-df <- haven::read_spss("../files/data/class_surveys/wk07.sav")
-
-
-df_poll <- df
-
-df %>%
-  filter(optout == 1) -> df
-
-```
-
-
-## What did we like {.smaller}
-
-```{r}
-#| label: likes
-#| echo: false
-DT::datatable(df %>% 
-                select(Likes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 5
-              )
-              )
-```
-
-## What did we dislike {.smaller}
-
-```{r}
-#| label: dislikes
-#| echo: false
-
-DT::datatable(df %>% 
-                select(Dislikes),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 5
-              )
-              )
-```
-
-## Our advice for POLS 1600 {.smaller}
-
-```{r}
-#| label: advice
-#| echo: false
-
-DT::datatable(df %>% 
-                select(Advice),
-               fillContainer = F,
-              height = "90%",
-              options = list(
-                pageLength = 5
-              )
-              )
-```
-
-## Our Fashion Advice
-
-```{r}
-#| echo: false
-df_poll %>% 
-  mutate(across(starts_with("fit"), forcats::as_factor)) ->df_poll
-
-df_poll %>% 
-  select(starts_with("fit")) %>% 
-  pivot_longer(cols = starts_with("fit")) %>% 
-  group_by(name, value) %>% 
-  summarise(
-    n =n(),
-  ) %>% 
-  group_by(name) %>% 
-  summarise(
-    Choice = value[n==max(n)],
-    Votes = max(n)
-  ) %>% 
-  mutate(
-    Option = str_to_title(gsub("fit_","",name)),
-
-  ) %>% select(
-    Option, Choice, Votes
-  ) -> fashion_tab
-
-kable(fashion_tab)
-```
-
-##
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Naive professor in class survey: &quot;Help me with my fit&quot;<br>Students: &quot;Ok, bet. Tuxedo, crocs, and a jersey&quot; <a href="https://t.co/NPmBZhsfen">https://t.co/NPmBZhsfen</a> <a href="https://t.co/cWlytcZ12h">pic.twitter.com/cWlytcZ12h</a></p>&mdash; Paul Testa (@ProfPaulTesta) <a href="https://twitter.com/ProfPaulTesta/status/1636820286950522894?ref_src=twsrc%5Etfw">March 17, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 # {{< fa lightbulb >}} Probability {.inverse}
@@ -801,7 +746,7 @@ ggarrange(p.pmf,p.cdf)
 
 - $p(X=1)...p(X=6) = 1/6$
 
-- $p( 2 < X \leq 5) = F(5)-F(2)=5/6-1/6=4/6=2/3$
+- $p( 2 < X \leq 5) = F(5)-F(2)=5/6-2/6=3/6=1/2$
 
 ## What we'll use proability distributions for:
 
@@ -856,7 +801,7 @@ $$
 
 Which follows from the law of total probability
 
-## What's the expected value of a 1 roll of fair die?
+## What's the expected value of one roll of fair die?
 
 $$\begin{align*}
 E(X)&=\sum_{i=1}^{6}x_ip(x_i)\\
@@ -935,7 +880,7 @@ $$\begin{align*}
 
 A standard deviation is just the square root of the variance
 
-$$\sigma=\sqrt{Var[X]}$$
+$$\sigma_{X}=\sqrt{Var[X]}$$
 
 Standard deviations are useful for describing:
 
@@ -1051,7 +996,7 @@ $$
 
 $$
 \begin{aligned}
-E[(\hat{\beta} -\beta)-(\hat{\beta} -\beta)'] &= \sigma^2(X'X)^{-1}\\
+E[(\hat{\beta} -\beta)(\hat{\beta} -\beta)'] &= \sigma^2(X'X)^{-1}\\
 & = \begin{bmatrix}
 Var(\hat\beta_0) & Cov(\hat{\beta_0},\hat{\beta_1}) & \cdots & Cov(\hat{\beta_0},\hat{\beta_k}))\\
 Cov(\hat\beta_1,\hat{\beta_0}) & Var(\hat{\beta_1},) & \cdots & Cov(\hat{\beta_1},\hat{\beta_k}))\\
