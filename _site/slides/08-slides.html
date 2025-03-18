@@ -1332,7 +1332,7 @@ y = X\beta + \epsilon
 <p><a href="https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf" target="_blank">One can show</a> under a <a href="https://en.wikipedia.org/wiki/Linear_regression#Assumptions" target="_blank">set of assumptions</a> that variance-covariance matrix of <span class="math inline">\(\hat{\beta}\)</span> is</p>
 <p><span class="math display">\[
 \begin{aligned}
-E[(\hat{\beta} -\beta)-(\hat{\beta} -\beta)'] &amp;= \sigma^2(X'X)^{-1}\\
+E[(\hat{\beta} -\beta)(\hat{\beta} -\beta)'] &amp;= \sigma^2(X'X)^{-1}\\
 &amp; = \begin{bmatrix}
 Var(\hat\beta_0) &amp; Cov(\hat{\beta_0},\hat{\beta_1}) &amp; \cdots &amp; Cov(\hat{\beta_0},\hat{\beta_k}))\\
 Cov(\hat\beta_1,\hat{\beta_0}) &amp; Var(\hat{\beta_1},) &amp; \cdots &amp; Cov(\hat{\beta_1},\hat{\beta_k}))\\
