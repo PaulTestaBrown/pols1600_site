@@ -85,11 +85,11 @@ library(texreg)
 
 ## Annoucements: Assignment 2 {.smaller}
 
-- Feedback on Assignment 2 before your labs on Thursday
+- Feedback on Assignment 2 posted to Canvas
 
 - Proposal:
 
-  - Substitute Labs 11 with in class workshops on Final Project
+  - Substitute Lab 11 with in class workshops on Final Project
   - This will count as both your grade on Assignment 3 and the Lab for that week
 
 
@@ -142,8 +142,10 @@ df <- haven::read_spss("../files/data/class_surveys/wk08.sav")
 
 df %>%
   mutate(
-    optout =ifelse(is.na(optout),1, optout)
+    optout =ifelse(is.na(optout),1, optout),
+    year = lubridate::year(StartDate)
   ) %>% 
+  filter(year == 2025) %>% 
   filter(optout != 2) -> df
 
 ```
@@ -181,14 +183,15 @@ DT::datatable(df %>%
               )
 ```
 
-## How do we want to be remembered {.smaller}
+## Advice for Others
+
 
 ```{r}
-#| label: namesake
+#| label: advice
 #| echo: false
 
 DT::datatable(df %>% 
-                select(Namesake),
+                select(Advice),
                fillContainer = F,
               height = "90%",
               options = list(
@@ -196,6 +199,51 @@ DT::datatable(df %>%
               )
               )
 ```
+
+## Help me with my fit
+
+![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDBrNm1ycms0NnJkZm53MTJkZHY4MWJpMnM1dDJhYmthbXRyMmw5OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9WxhJU5SUVhao/giphy.gif)
+
+## Our Fashion Advice
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(kableExtra)
+
+
+df_poll <- df
+
+
+df_poll %>% 
+  mutate(across(starts_with("fit"), forcats::as_factor)) ->df_poll
+
+df_poll %>% 
+  select(starts_with("fit")) %>% 
+  pivot_longer(cols = starts_with("fit")) %>% 
+  group_by(name, value) %>% 
+  summarise(
+    n =n(),
+  ) %>% 
+  group_by(name) %>% 
+  summarise(
+    Choice = value[n==max(n)],
+    Votes = max(n)
+  ) %>% 
+  mutate(
+    Option = str_to_title(gsub("fit_","",name)),
+
+  ) %>% select(
+    Option, Choice, Votes
+  ) %>% ungroup() %>% na.omit() -> fashion_tab
+
+kable(fashion_tab[,2:4])
+```
+
+## What would Derek Guy say?
+
+
+{{< tweet ProfPaulTesta 1860348618294603905 >}}
 
 
 
@@ -457,7 +505,7 @@ Var[X] = np(1-p)
 $$    
 
 :::{.callout-tip}
-Binomial distributions are useful for modeling the a binary (yes/no) outcome like Voting
+Binomial distributions are useful for modeling the binary (yes/no) outcome like voting
 :::
 
  
@@ -566,7 +614,7 @@ Var[X] =  \lambda
 $$    
 
 :::{.callout-tip}
-Poisson distributions are useful for modeling counts (yes/no) like total acts of political participation
+Poisson distributions are useful for modeling counts (0,1,2,3 ...) like total acts of political participation
 :::
  
 
@@ -678,7 +726,7 @@ Var[X] =  \sigma^2
 $$    
 
 ::: {.callout-tip}
-As we will see shortly distributions that involve summing random variables (say, like the distribution of E[Y|X]) will tend towards normal distributions
+Distributions  that involve summing random variables (with finite variance...) say, like the distribution of E[Y|X]) will tend towards normal distributions
 :::
 
  
@@ -1206,7 +1254,7 @@ $$\begin{align*}
 
 -   The [distribution of means]{.blue} $(\bar{X_n})$ from almost any distribution $X$ is [approximately Normal]{.blue} (converges in distribution), but with a smaller variance than ($\sigma^2/n$)
 
--   Proof: [Several ways](https://towardsdatascience.com/central-limit-theorem-proofs-actually-working-through-the-math-a994cd582b33), but requires a little more math than is required for this course
+-   Proof: [Several ways](https://www.cs.toronto.edu/~yuvalf/CLT.pdf), but requires a little more math than is required for this course
 
 ## CLT: Why it matters
 
@@ -1729,5 +1777,18 @@ $$
 
 Clustered standard errors go a step further, summing up the residuals within clusters (groups) in the data. 
 
+## Replicating Grumbach and Hill
+
+Ok, let's revisit some of the questions from [lab 8](https://pols1600.paultesta.org/labs/08-lab-comments)
+
+## Summary
+
+- [Probability distributions]{.blue} allow us to describe different [data generating processes]{.blue} and [quantify uncertainty]{.blue} about estimates
+
+- [The Law of Large Numbers]{.blue} tells us that the mean of a sample converges to the mean of population as the size of the sample grows larger.
+
+- [The Central Limit Theorem]{.blue} tells us that distribution of sample means of a given sample size converges in distribution to a Normal probability distribution
+
+- [Standard Errors]{.blue} describe the [width of a sampling distribution]{.blue} and allow us to assess the [statistical significance]{.blue} of regression estimates
 
 ## References

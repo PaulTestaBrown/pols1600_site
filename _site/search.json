@@ -1512,7 +1512,7 @@
     "href": "slides/09-slides.html#annoucements-assignment-2",
     "title": "POLS 1600",
     "section": "Annoucements: Assignment 2",
-    "text": "Annoucements: Assignment 2\n\nFeedback on Assignment 2 before your labs on Thursday\nProposal:\n\nSubstitute Labs 11 with in class workshops on Final Project\nThis will count as both your grade on Assignment 3 and the Lab for that week"
+    "text": "Annoucements: Assignment 2\n\nFeedback on Assignment 2 posted to Canvas\nProposal:\n\nSubstitute Lab 11 with in class workshops on Final Project\nThis will count as both your grade on Assignment 3 and the Lab for that week"
   },
   {
     "objectID": "slides/09-slides.html#setup-packages-for-today",
@@ -1617,21 +1617,21 @@
     "href": "slides/09-slides.html#section-1",
     "title": "POLS 1600",
     "section": "",
-    "text": "Binomial Distribution\n\nBinomial Distribution Visualize Distribution\n\n\nA Binomial random variable is sum of successes from a series of \\(n\\) trials from a Bernoulli Distribution with probability of success \\(p\\)\n\\[\nPr(X=x) = f(x)=\\binom{n}{x}p^x (1-p) ^{1-x} \\ \\text{for x 0,1,2},\\dots n\n\\]\n\\[\nE[X] = np\n\\]\n\\[\nVar[X] = np(1-p)\n\\]\n\n\n\n\n\n\nTip\n\n\nBinomial distributions are useful for modeling the a binary (yes/no) outcome like Voting\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Binomial Distribution\n\nBinomial Distribution Visualize Distribution\n\n\nA Binomial random variable is sum of successes from a series of \\(n\\) trials from a Bernoulli Distribution with probability of success \\(p\\)\n\\[\nPr(X=x) = f(x)=\\binom{n}{x}p^x (1-p) ^{1-x} \\ \\text{for x 0,1,2},\\dots n\n\\]\n\\[\nE[X] = np\n\\]\n\\[\nVar[X] = np(1-p)\n\\]\n\n\n\n\n\n\nTip\n\n\nBinomial distributions are useful for modeling the binary (yes/no) outcome like voting\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "slides/09-slides.html#section-2",
     "href": "slides/09-slides.html#section-2",
     "title": "POLS 1600",
     "section": "",
-    "text": "Poisson Distribution\n\nPoisson Distribution Visualize Distribution\n\n\nA Poisson random variable describes the probability of observing a discrete number of events in a fixed period of time given that occur with a fixed average rate of \\(\\lambda\\)\n\\[\nPr(X=x) = f(x)=\\frac{\\lambda^x}{x!}e^{-\\lambda}\n\\]\n\\[\nE[X] = \\lambda\n\\]\n\\[\nVar[X] =  \\lambda\n\\]\n\n\n\n\n\n\nTip\n\n\nPoisson distributions are useful for modeling counts (yes/no) like total acts of political participation\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Poisson Distribution\n\nPoisson Distribution Visualize Distribution\n\n\nA Poisson random variable describes the probability of observing a discrete number of events in a fixed period of time given that occur with a fixed average rate of \\(\\lambda\\)\n\\[\nPr(X=x) = f(x)=\\frac{\\lambda^x}{x!}e^{-\\lambda}\n\\]\n\\[\nE[X] = \\lambda\n\\]\n\\[\nVar[X] =  \\lambda\n\\]\n\n\n\n\n\n\nTip\n\n\nPoisson distributions are useful for modeling counts (0,1,2,3 …) like total acts of political participation\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "slides/09-slides.html#section-3",
     "href": "slides/09-slides.html#section-3",
     "title": "POLS 1600",
     "section": "",
-    "text": "Normal Distribution\n\nNormal Distribution Visualize DistributionPr(X&lt;0)Pr(-1 &lt; X &lt; 1)\n\n\nA Normal distribution is a continuous random variable defined by two parameters: a location parameter \\(\\mu\\) that determines the center of a distribution and a scale parameter \\(\\sigma\\) that determines the spread of a distribution\n\\[\nf(x)=\\frac{1}{\\sqrt{2\\pi\\sigma^2}}\\exp \\left[\n-\\frac{1}{2\\sigma^2}(x-\\mu)^2\n\\right]\n\\]\n\\[\nE[X] = \\mu\n\\]\n\\[\nVar[X] =  \\sigma^2\n\\]\n\n\n\n\n\n\nTip\n\n\nAs we will see shortly distributions that involve summing random variables (say, like the distribution of E[Y|X]) will tend towards normal distributions\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Normal Distribution\n\nNormal Distribution Visualize DistributionPr(X&lt;0)Pr(-1 &lt; X &lt; 1)\n\n\nA Normal distribution is a continuous random variable defined by two parameters: a location parameter \\(\\mu\\) that determines the center of a distribution and a scale parameter \\(\\sigma\\) that determines the spread of a distribution\n\\[\nf(x)=\\frac{1}{\\sqrt{2\\pi\\sigma^2}}\\exp \\left[\n-\\frac{1}{2\\sigma^2}(x-\\mu)^2\n\\right]\n\\]\n\\[\nE[X] = \\mu\n\\]\n\\[\nVar[X] =  \\sigma^2\n\\]\n\n\n\n\n\n\nTip\n\n\nDistributions that involve summing random variables (with finite variance…) say, like the distribution of E[Y|X]) will tend towards normal distributions\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "slides/09-slides.html#the-law-of-large-numbers-intuitive",
@@ -11844,5 +11844,47 @@
     "title": "Hex Logo for POLS 1600",
     "section": "",
     "text": "Linking to ImageMagick 6.9.12.93\nEnabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp\nDisabled features: fftw, ghostscript, x11\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "slides/09-slides.html#advice-for-others",
+    "href": "slides/09-slides.html#advice-for-others",
+    "title": "POLS 1600",
+    "section": "Advice for Others",
+    "text": "Advice for Others"
+  },
+  {
+    "objectID": "slides/09-slides.html#help-me-with-my-fit",
+    "href": "slides/09-slides.html#help-me-with-my-fit",
+    "title": "POLS 1600",
+    "section": "Help me with my fit",
+    "text": "Help me with my fit"
+  },
+  {
+    "objectID": "slides/09-slides.html#our-fashion-advice",
+    "href": "slides/09-slides.html#our-fashion-advice",
+    "title": "POLS 1600",
+    "section": "Our Fashion Advice",
+    "text": "Our Fashion Advice\n\n\n\n\n\nOption\nChoice\nVotes\n\n\n\n\nJacket\nTweed\n3\n\n\nJacket\nTuxedo\n3\n\n\nPalette\nFall (Warm + Dark)\n3\n\n\nPalette\nSpring (Warm + Light)\n3\n\n\nPant\nShorts\n3\n\n\nPatterns\nHow ’bout a fun graphic or print\n6\n\n\nShoe\nThe most garish basketball sneaker you have\n3\n\n\nTie\nBow tie\n5\n\n\nTop\nSports jersey\n6"
+  },
+  {
+    "objectID": "slides/09-slides.html#what-would-derek-guy-say",
+    "href": "slides/09-slides.html#what-would-derek-guy-say",
+    "title": "POLS 1600",
+    "section": "What would Derek Guy say?",
+    "text": "What would Derek Guy say?"
+  },
+  {
+    "objectID": "slides/09-slides.html#replicating-grumbach-and-hill",
+    "href": "slides/09-slides.html#replicating-grumbach-and-hill",
+    "title": "POLS 1600",
+    "section": "Replicating Grumbach and Hill",
+    "text": "Replicating Grumbach and Hill\nOk, let’s revisit some of the questions from lab 8"
+  },
+  {
+    "objectID": "slides/09-slides.html#summary-1",
+    "href": "slides/09-slides.html#summary-1",
+    "title": "POLS 1600",
+    "section": "Summary",
+    "text": "Summary\n\nProbability distributions allow us to describe different data generating processes and quantify uncertainty about estimates\nThe Law of Large Numbers tells us that the mean of a sample converges to the mean of population as the size of the sample grows larger.\nThe Central Limit Theorem tells us that distribution of sample means of a given sample size converges in distribution to a Normal probability distribution\nStandard Errors describe the width of a sampling distribution and allow us to assess the statistical significance of regression estimates"
   }
 ]
