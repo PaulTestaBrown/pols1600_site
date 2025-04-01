@@ -90,7 +90,8 @@ library(texreg)
 - Proposal:
 
   - Substitute Lab 11 with in class workshops on Final Project
-  - This will count as both your grade on Assignment 3 and the Lab for that week
+  - This will count as both your grade on [Assignment 3](https://pols1600.paultesta.org/assignments/a3) and the Lab for that week
+  - Assignment 3 no longer due April 6, but you can upload questions for feedback this weekend.
 
 
 ## Setup: Packages for today
@@ -156,6 +157,8 @@ df %>%
 ```{r}
 #| label: likes
 #| echo: false
+
+
 DT::datatable(df %>% 
                 select(Likes),
                fillContainer = F,
@@ -183,7 +186,7 @@ DT::datatable(df %>%
               )
 ```
 
-## Advice for Others
+## Advice for Others{.smaller}
 
 
 ```{r}
@@ -204,7 +207,7 @@ DT::datatable(df %>%
 
 ![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDBrNm1ycms0NnJkZm53MTJkZHY4MWJpMnM1dDJhYmthbXRyMmw5OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9WxhJU5SUVhao/giphy.gif)
 
-## Our Fashion Advice
+## Our Fashion Advice {.smaller}
 
 ```{r}
 #| echo: false
