@@ -388,15 +388,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-  <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-  <script src="../site_libs/datatables-binding-0.32/datatables.js"></script>
-  <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-  <script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-  <link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-  <script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
   <script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
   <link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
@@ -411,7 +402,7 @@
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Apr 9, 2024</p>
+  <p class="date">Updated Apr 8, 2025</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -422,13 +413,13 @@
 <h2>Class Plan</h2>
 <ul>
 <li class="fragment">Announcements</li>
-<li class="fragment">Feedback</li>
 <li class="fragment">Topics:
 <ul>
 <li class="fragment">Sampling distributions and standard errors (15 minutes)</li>
 <li class="fragment">Confidence intervals (15 minutes )</li>
 <li class="fragment">Hypothesis testing (15 minutes)</li>
 <li class="fragment">Quantifying uncertainty for regression (15 minutes)</li>
+<li class="fragment">Lab 8 (Finally)</li>
 </ul></li>
 </ul>
 </section>
@@ -441,7 +432,10 @@
 <li class="fragment">Workshop/Review/special topics</li>
 <li class="fragment">Ask questions in the survey</li>
 </ul></li>
-<li class="fragment"><p>Feedback on A2 by tomorrow.</p></li>
+<li class="fragment"><p>Next week’s lab:</p>
+<ul>
+<li class="fragment">Work on draft (A3 leading into A4)</li>
+</ul></li>
 </ul>
 </section>
 <section id="setup-packages-for-today" class="slide level2">
@@ -491,37 +485,57 @@
          TRUE          TRUE </code></pre>
 </div>
 </div>
-</section>
-<section id="feedback" class="slide level2">
-<h2>Feedback</h2>
-
-<img data-src="https://media1.tenor.com/m/wDzDbUBVbW4AAAAC/the-critic-it-stinks.gif" class="r-stretch"></section>
-<section id="what-did-we-like" class="slide level2 smaller">
-<h2>What did we like</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div id="htmlwidget-4b41ed1e6c04f9540c23" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4b41ed1e6c04f9540c23">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6"],["Great question!","- conditional probability","I liked how we were able to chose our own predictors/outcomes to look into from the provided data","The background information on probability was very interesting and helpful!","I loved the embedded code in this week's lecture that allowed us to play around with graphs. It helped me understand the concepts and get some coding practice","Tuesday's class had good timing and I liked using data from the ANES during lab."]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Likes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Likes","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</section>
-<section id="what-did-we-dislike" class="slide level2 smaller">
-<h2>What did we dislike</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div id="htmlwidget-9fff1b267981bddf18d8" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9fff1b267981bddf18d8">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6"],["Also a great question!","i did not have fun with this lab lol - i couldn't keep up and had a lot of trouble downloading the data","I think we should make loading data before class mandatory because my group struggled to get things moving in the beginning of the class because some of us were not ready.","Nothing!","a cipher","Visualizing data is still hard"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Dislikes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Dislikes","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-</section>
-<section id="what-are-we-streaming" class="slide level2 smaller">
-<h2>What are we streaming</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div id="htmlwidget-63c727e71790b0a5de6d" style="width:100%;height:90%;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-63c727e71790b0a5de6d">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6"],["Nimona","gossip girl","YouTube?","40hz 6hz gamma waves for focus, concentration, memory","Nikita","Bel-Air on peacock"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Streaming<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Streaming","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+<!-- ## Feedback -->
+<!-- ![](https://media1.tenor.com/m/wDzDbUBVbW4AAAAC/the-critic-it-stinks.gif) -->
+<!-- ```{r} -->
+<!-- #| label: feeback -->
+<!-- #| echo: false -->
+<!-- df_wk09 <- haven::read_spss("../files/data/class_surveys/wk09.sav") -->
+<!-- df_wk09 %>% -->
+<!--   mutate( -->
+<!--     optout =ifelse(is.na(optout),1, optout) -->
+<!--   ) %>%  -->
+<!--   filter(optout != 2) -> df_wk09 -->
+<!-- ``` -->
+<!-- ## What did we like {.smaller} -->
+<!-- ```{r} -->
+<!-- #| label: likes -->
+<!-- #| echo: false -->
+<!-- DT::datatable(df_wk09 %>%  -->
+<!--                 select(Likes), -->
+<!--                fillContainer = F, -->
+<!--               height = "90%", -->
+<!--               options = list( -->
+<!--                 pageLength = 6 -->
+<!--               ) -->
+<!--               ) -->
+<!-- ``` -->
+<!-- ## What did we dislike {.smaller} -->
+<!-- ```{r} -->
+<!-- #| label: dislikes -->
+<!-- #| echo: false -->
+<!-- DT::datatable(df_wk09 %>%  -->
+<!--                 select(Dislikes), -->
+<!--                fillContainer = F, -->
+<!--               height = "90%", -->
+<!--               options = list( -->
+<!--                 pageLength = 6 -->
+<!--               ) -->
+<!--               ) -->
+<!-- ``` -->
+<!-- ## What are we streaming {.smaller} -->
+<!-- ```{r} -->
+<!-- #| label: namesake -->
+<!-- #| echo: false -->
+<!-- DT::datatable(df_wk09 %>%  -->
+<!--                 select(Streaming), -->
+<!--                fillContainer = F, -->
+<!--               height = "90%", -->
+<!--               options = list( -->
+<!--                 pageLength = 6 -->
+<!--               ) -->
+<!--               ) -->
+<!-- ``` -->
 </section>
 <section id="goals" class="slide level2 smaller">
 <h2>Goals:</h2>
@@ -555,7 +569,7 @@
 <li class="fragment"><p><span class="blue">Estimator:</span> A rule for calculating an <em>estimate</em> of our parameter of interest.</p></li>
 <li class="fragment"><p><span class="blue">Estimate:</span> The value produced by some estimator for some parameter from some data. Often called <span class="math inline">\(\hat{\theta}\)</span></p></li>
 <li class="fragment"><p><span class="blue">Unbiased estimators:</span> <span class="math inline">\(E(\hat{\theta})=E(\theta)\)</span> On average, the estimates produced by some estimator will be centered around the truth</p></li>
-<li class="fragment"><p><span class="blue">Consistent estimates:</span> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta_N} = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
+<li class="fragment"><p><span class="blue">Consistent estimates:</span> <span class="math inline">\(\lim_{n\to \infty} \hat{\theta}_N = \theta\)</span> As the sample size increases, the estimates from an estimator converge in probability to the parameter value</p></li>
 <li class="fragment"><p><span class="blue">Statistic:</span> A summary of the data (mean, regression coefficient, <span class="math inline">\(R^2\)</span>). An estimator without a specified target of inference</p></li>
 </ul>
 </section>
@@ -1824,8 +1838,8 @@ RMSE
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">coef</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)   education      income 
-0.311609712 0.166755964 0.007034253 </code></pre>
+<pre><code>(Intercept)      income   education 
+0.311609712 0.007034253 0.166755964 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(m1,<span class="at">data=</span>df)</span>
 <span id="cb15-2"><a></a>y <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(m1)<span class="sc">$</span>dv_participation</span>
@@ -1834,8 +1848,8 @@ RMSE
 <div class="cell-output cell-output-stdout">
 <pre><code>                   [,1]
 (Intercept) 0.311609712
-education   0.166755964
-income      0.007034253</code></pre>
+income      0.007034253
+education   0.166755964</code></pre>
 </div>
 </div>
 </div>
@@ -2443,6 +2457,847 @@ RMSE
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="review-lab-8" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-magnifiying-glass" aria-label="magnifiying-glass"></i>Review: Lab 8</h1>
+
+</section>
+<section id="lab-8-robust-ses-and-fes" class="slide level2 smaller">
+<h2>Lab 8: Robust SEs and FEs</h2>
+<div class="panel-tabset">
+<ul id="tabset-10" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-10-1">Overview</a></li><li><a href="#tabset-10-2"><i class="fa-solid fa-code" aria-label="code"></i> Code</a></li><li><a href="#tabset-10-3"><i class="fa-solid fa-table" aria-label="table"></i> FE Models</a></li><li><a href="#tabset-10-4"><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i></a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1">
+<div>
+<ul>
+<li>Last week we explored the effects of:
+<ul>
+<li>Cluster robust standard errors</li>
+<li>Fixed effects for state and year</li>
+</ul></li>
+<li>Today, we examine the interaction models at the heart of the Grumbach and Hill’s claims</li>
+</ul>
+</div>
+</div>
+<div id="tabset-10-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="co"># Load data</span></span>
+<span id="cb23-2"><a></a></span>
+<span id="cb23-3"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://pols1600.paultesta.org/files/data/cps_clean.rda"</span>))</span>
+<span id="cb23-4"><a></a></span>
+<span id="cb23-5"><a></a><span class="co"># Recode data</span></span>
+<span id="cb23-6"><a></a></span>
+<span id="cb23-7"><a></a></span>
+<span id="cb23-8"><a></a>presidential_elections <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1980</span>, <span class="dv">2016</span>, <span class="at">by =</span> <span class="dv">4</span>)</span>
+<span id="cb23-9"><a></a> </span>
+<span id="cb23-10"><a></a>cps <span class="sc">%&gt;%</span> </span>
+<span id="cb23-11"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-12"><a></a>    <span class="at">age_group =</span> <span class="fu">fct_relevel</span>(age_group, <span class="st">"65+"</span>),</span>
+<span id="cb23-13"><a></a>    <span class="at">SDR =</span> <span class="fu">ifelse</span>(sdr <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"SDR"</span>,<span class="st">"non-SDR"</span>),</span>
+<span id="cb23-14"><a></a>    <span class="at">election_type =</span> <span class="fu">ifelse</span>(year <span class="sc">%in%</span> presidential_elections, <span class="st">"General"</span>,<span class="st">"Midterm"</span>),</span>
+<span id="cb23-15"><a></a>  ) <span class="ot">-&gt;</span> cps</span>
+<span id="cb23-16"><a></a></span>
+<span id="cb23-17"><a></a><span class="co"># ---- m1: Simple OLS regression ----</span></span>
+<span id="cb23-18"><a></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr, </span>
+<span id="cb23-19"><a></a>                <span class="at">data =</span> cps,</span>
+<span id="cb23-20"><a></a>                <span class="at">se_type =</span> <span class="st">"classical"</span>,</span>
+<span id="cb23-21"><a></a>                <span class="at">try_cholesky =</span> T)</span>
+<span id="cb23-22"><a></a></span>
+<span id="cb23-23"><a></a><span class="co"># ---- m2: Simple OLS with robust standard errors ----</span></span>
+<span id="cb23-24"><a></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr, </span>
+<span id="cb23-25"><a></a>                <span class="at">data =</span> cps,</span>
+<span id="cb23-26"><a></a>                <span class="at">se_type =</span> <span class="st">"stata"</span>,</span>
+<span id="cb23-27"><a></a>                <span class="at">try_cholesky =</span> T)</span>
+<span id="cb23-28"><a></a></span>
+<span id="cb23-29"><a></a><span class="co"># ---- m3: Two-way Fixed Effects for State and Year ----</span></span>
+<span id="cb23-30"><a></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr,</span>
+<span id="cb23-31"><a></a>                <span class="at">data =</span> cps,</span>
+<span id="cb23-32"><a></a>                <span class="at">fixed_effects =</span> <span class="sc">~</span> st <span class="sc">+</span> year,</span>
+<span id="cb23-33"><a></a>                <span class="at">se_type =</span> <span class="st">"stata"</span>,</span>
+<span id="cb23-34"><a></a>                <span class="at">try_cholesky =</span> T)</span>
+<span id="cb23-35"><a></a></span>
+<span id="cb23-36"><a></a><span class="co"># ---- m4: TWFE for State and Year and cluster robust SEs ----</span></span>
+<span id="cb23-37"><a></a></span>
+<span id="cb23-38"><a></a>m4 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr,</span>
+<span id="cb23-39"><a></a>                <span class="at">data =</span> cps,</span>
+<span id="cb23-40"><a></a>                <span class="at">fixed_effects =</span> <span class="sc">~</span> st <span class="sc">+</span> year,</span>
+<span id="cb23-41"><a></a>                <span class="at">se_type =</span> <span class="st">"stata"</span>,</span>
+<span id="cb23-42"><a></a>                <span class="at">clusters =</span> st,</span>
+<span id="cb23-43"><a></a>                <span class="at">try_cholesky =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-10-3">
+<div class="cell">
+<div class="cell-output-display">
+<table class="texreg caption-top" data-quarto-postprocess="true" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>Statistical models</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 1</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 2</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 3</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd" style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">(Intercept)</td>
+<td style="padding-left: 5px; padding-right: 5px">0.54787<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.54787<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.00037)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.00038)</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr</td>
+<td style="padding-left: 5px; padding-right: 5px">0.06159<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.06159<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.00671<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.00671</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.00110)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.00108)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.00185)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.01405)</td>
+</tr>
+<tr class="odd" style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">R<sup>2</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.00157</td>
+<td style="padding-left: 5px; padding-right: 5px">0.00157</td>
+<td style="padding-left: 5px; padding-right: 5px">0.02845</td>
+<td style="padding-left: 5px; padding-right: 5px">0.02845</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">Adj. R<sup>2</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.00157</td>
+<td style="padding-left: 5px; padding-right: 5px">0.00157</td>
+<td style="padding-left: 5px; padding-right: 5px">0.02841</td>
+<td style="padding-left: 5px; padding-right: 5px">0.02841</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">Num. obs.</td>
+<td style="padding-left: 5px; padding-right: 5px">1988501</td>
+<td style="padding-left: 5px; padding-right: 5px">1988501</td>
+<td style="padding-left: 5px; padding-right: 5px">1988501</td>
+<td style="padding-left: 5px; padding-right: 5px">1988501</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">RMSE</td>
+<td style="padding-left: 5px; padding-right: 5px">0.49658</td>
+<td style="padding-left: 5px; padding-right: 5px">0.49658</td>
+<td style="padding-left: 5px; padding-right: 5px">0.48986</td>
+<td style="padding-left: 5px; padding-right: 5px">0.48986</td>
+</tr>
+<tr class="odd" style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">N Clusters</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">49</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td colspan="5" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
+</tr>
+</tfoot>
+
+</table>
+
+
+</div>
+</div>
+</div>
+<div id="tabset-10-4">
+<ul>
+<li class="fragment"><p>Fixed effects drastically reduce the overall size of the effect of SDR</p></li>
+<li class="fragment"><p>Robust standard errors change our estimates of uncertainty.</p></li>
+<li class="fragment"><p>Adjusting for:</p>
+<ul>
+<li class="fragment">Simple non-constant error variance <span class="math inline">\(\to\)</span> no difference</li>
+<li class="fragment">Cluster <span class="math inline">\(\to\)</span> non-significant result</li>
+</ul></li>
+<li class="fragment"><p>Generally prefer <em>conservative</em> models (e.g.&nbsp;<code>m4</code>)</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sdr-and-age" class="slide level2 smaller">
+<h2>SDR and Age</h2>
+<p>Grumbach and Hill, however, are interested in a different question, namely, <strong>whether the effects of same day registration vary by age.</strong></p>
+<p>Formally, we we can describe these models using an <span class="blue">interaction model</span>:</p>
+<p><span class="math display">\[
+y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_t}_{\text{FE Year}} + \overbrace{\beta_1sdr_{st}}^{\text{ME of SDR for 65+}} + \underbrace{\sum_{k = 18-14}^{k = 55-64}\beta_{k} sdr_{st}\times age_{ist}}_{\Delta \text{ in ME of SDR for Age }}  +\overbrace{X\beta}^{\text{Controls}}+\epsilon_{ist}
+\]</span> Where the <span class="blue">marginal effect</span> of SDR varies based on the age of the respondent.</p>
+</section>
+<section id="marginal-effects-general" class="slide level2 smaller">
+<h2>Marginal Effects: General</h2>
+<p>The marginal effect of any variable in a multiple regression as the partial derivative of the outcome with respect to that variable.</p>
+<p><span class="math display">\[
+\begin{aligned}
+y &amp;= \beta_0 + \beta_1 x +\beta_2z \\
+\frac{\partial y}{\partial x} &amp;= 0 + \beta_1*(1) + 0\\
+\frac{\partial y}{\partial x} &amp;= \beta_1
+\end{aligned}
+\]</span></p>
+<p>In multiple regression with no interactions between terms, the <span class="math inline">\(\beta\)</span>s correspond to marginal effects.</p>
+</section>
+<section id="marginal-effects-interactions" class="slide level2 smaller">
+<h2>Marginal Effects: Interactions</h2>
+<p>Now consider a multiple regression with an interaction between two variables <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span></p>
+<p><span class="math display">\[
+y = \beta_0 +\beta_1x +\beta_2 z + \beta_3 x*z
+\]</span></p>
+<p>Taking the partial derivative of y with respect to x <span class="math inline">\((\frac{\partial y}{\partial x})\)</span>, there are now two terms with <span class="math inline">\(x\)</span> in them:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y &amp;= \beta_0 +\beta_1x +\beta_2 z + \beta_3 x*z \\
+\frac{\partial y}{\partial x} &amp;= 0 + \beta_1*(1) +0 + \beta_3*(1)*z\\
+\frac{\partial y}{\partial x} &amp;= \beta_1 +\beta_3z
+\end{aligned}
+\]</span></p>
+<p>And the marginal effect of <span class="math inline">\(x\)</span> now depends on value of <span class="math inline">\(z\)</span> at which we evaluate the model.</p>
+</section>
+<section id="marginal-effects-ses-for-interactions" class="slide level2 smaller">
+<h2>Marginal Effects: SEs for Interactions</h2>
+<p>The <a href="https://www.jstor.org/stable/25791835" target="_blank">standard error</a> of this marginal effect of <span class="math inline">\(x\)</span> (and <span class="math inline">\(z\)</span>…) in this model:</p>
+<p><span class="math display">\[
+y = \beta_0 +\beta_1x +\beta_2 z + \beta_3 x*z
+\]</span></p>
+<p>is now a function of the variance and covariance of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_3\)</span> and the value of the conditioning term <span class="math inline">\(z\)</span></p>
+<p><span class="math display">\[
+\text{Var}(\frac{\partial y}{\partial x}) = \text{Var}(\beta_1) + z^2\text{Var}(\beta_3) + 2\times z \text{Cov}(\beta_1,\beta_3)
+\]</span></p>
+</section>
+<section id="mariginal-effects-grumbach-and-hill" class="slide level2 smaller">
+<h2>Mariginal Effects: Grumbach and Hill</h2>
+<p>In G&amp;H’s models, the ME of SDR varies with age.</p>
+<p><span class="math display">\[
+y_{ist} = \beta_0 + \overbrace{\alpha_s}^{\text{FE State}} + \underbrace{\gamma_t}_{\text{FE Year}} + \overbrace{\beta_1sdr_{st}}^{\text{ME of SDR for 65+}} + \underbrace{\sum_{k = 18-14}^{k = 55-64}\beta_{k} sdr_{st}\times age_{ist}}_{\Delta \text{ in ME of SDR for Age }}  +\overbrace{X\beta}^{\text{Controls}}+\epsilon_{ist}
+\]</span></p>
+<p>Since 65+ is the <span class="blue">excluded/reference category</span>:</p>
+<p><span class="math display">\[
+\text{Marginal Effect of SDR for 65+} = \beta_1
+\]</span></p>
+<p>For 18-24 year olds the quantity of interest is the sum of:</p>
+<p><span class="math display">\[
+\text{Marginal Effect of SDR for 18-24} = \beta_1 + \beta_{sdr \times 18-24}
+\]</span></p>
+<p>The SEs of the Marginal effects is function of the variances and covariances of both <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_{sdr\times age}\)</span></p>
+</section>
+<section id="lab-8-robust-ses-and-fes-1" class="slide level2 smaller">
+<h2>Lab 8: Robust SEs and FEs</h2>
+<div class="panel-tabset">
+<ul id="tabset-11" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-11-1">Overview</a></li><li><a href="#tabset-11-2"><i class="fa-solid fa-code" aria-label="code"></i></a></li><li><a href="#tabset-11-3"><i class="fa-solid fa-table" aria-label="table"></i></a></li><li><a href="#tabset-11-4"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i> Figure 3</a></li><li><a href="#tabset-11-5"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i> G&amp;H</a></li><li><a href="#tabset-11-6"><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i></a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1">
+<p>Let’s estimate the interaction models used by G&amp;H and recreate figure 3 calculating the correct standard errrors for the interactions</p>
+</div>
+<div id="tabset-11-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>m1gh <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr<span class="sc">*</span>age_group, </span>
+<span id="cb24-2"><a></a>                  <span class="at">data =</span> cps,</span>
+<span id="cb24-3"><a></a>                  <span class="at">fixed_effects =</span> <span class="sc">~</span> st <span class="sc">+</span> year,</span>
+<span id="cb24-4"><a></a>                  <span class="at">se_type =</span> <span class="st">"stata"</span>,</span>
+<span id="cb24-5"><a></a>                  <span class="at">clusters =</span> st,</span>
+<span id="cb24-6"><a></a>                  <span class="at">try_cholesky =</span> T</span>
+<span id="cb24-7"><a></a>                  )</span>
+<span id="cb24-8"><a></a></span>
+<span id="cb24-9"><a></a></span>
+<span id="cb24-10"><a></a>m2gh <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(dv_voted <span class="sc">~</span> sdr<span class="sc">*</span>age_group <span class="sc">+</span></span>
+<span id="cb24-11"><a></a>                    <span class="fu">factor</span>(race) <span class="sc">+</span> is_female <span class="sc">+</span></span>
+<span id="cb24-12"><a></a>                    income <span class="sc">+</span> education, </span>
+<span id="cb24-13"><a></a>                  <span class="at">data =</span> cps,</span>
+<span id="cb24-14"><a></a>                  <span class="at">fixed_effects =</span> <span class="sc">~</span> st <span class="sc">+</span> year,</span>
+<span id="cb24-15"><a></a>                  <span class="at">se_type =</span> <span class="st">"stata"</span>,</span>
+<span id="cb24-16"><a></a>                  <span class="at">clusters =</span> st,</span>
+<span id="cb24-17"><a></a>                  <span class="at">try_cholesky =</span> T</span>
+<span id="cb24-18"><a></a>                  )</span>
+<span id="cb24-19"><a></a></span>
+<span id="cb24-20"><a></a></span>
+<span id="cb24-21"><a></a><span class="co"># ---- Function to calculate marginal effect and SE of interactions ----</span></span>
+<span id="cb24-22"><a></a></span>
+<span id="cb24-23"><a></a>me_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(mod, cohort, <span class="at">ci=</span><span class="fl">0.95</span>){</span>
+<span id="cb24-24"><a></a>  <span class="co"># Confidence Level for CI</span></span>
+<span id="cb24-25"><a></a>  alpha <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>ci</span>
+<span id="cb24-26"><a></a>  z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb24-27"><a></a>  </span>
+<span id="cb24-28"><a></a>  <span class="co"># Age (Always one for indicator of specific cohort)</span></span>
+<span id="cb24-29"><a></a>  age <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb24-30"><a></a>  </span>
+<span id="cb24-31"><a></a>  <span class="co"># Variance Covariance Matrix from Model</span></span>
+<span id="cb24-32"><a></a>  cov <span class="ot">&lt;-</span> <span class="fu">vcov</span>(mod)</span>
+<span id="cb24-33"><a></a>  </span>
+<span id="cb24-34"><a></a>  <span class="co"># coefficient for SDR (Marginal Effect for reference category: 65+)</span></span>
+<span id="cb24-35"><a></a>  b1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[<span class="st">"sdr"</span>]</span>
+<span id="cb24-36"><a></a>  </span>
+<span id="cb24-37"><a></a>  <span class="co"># If age is one of the interactions</span></span>
+<span id="cb24-38"><a></a>  <span class="cf">if</span>(cohort <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"18-24"</span>,<span class="st">"25-34"</span>,<span class="st">"35-44"</span>,<span class="st">"45-54"</span>,<span class="st">"55-64"</span>)){</span>
+<span id="cb24-39"><a></a>    <span class="co"># get the name of the specific interaction</span></span>
+<span id="cb24-40"><a></a>    the_int <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"sdr:age_group"</span>,cohort,<span class="at">sep=</span><span class="st">""</span>)</span>
+<span id="cb24-41"><a></a>    <span class="co"># the coefficient on the interaction</span></span>
+<span id="cb24-42"><a></a>    b2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod)[the_int]</span>
+<span id="cb24-43"><a></a>    <span class="co"># Calculate marginal effect for age cohort</span></span>
+<span id="cb24-44"><a></a>    me <span class="ot">&lt;-</span> b1 <span class="sc">+</span> b2<span class="sc">*</span>age</span>
+<span id="cb24-45"><a></a>    me_se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(cov[<span class="st">"sdr"</span>,<span class="st">"sdr"</span>] <span class="sc">+</span> age<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>cov[the_int,the_int] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>age<span class="sc">*</span>cov[<span class="st">"sdr"</span>,the_int])</span>
+<span id="cb24-46"><a></a>    ll <span class="ot">&lt;-</span> me <span class="sc">-</span> z<span class="sc">*</span>me_se</span>
+<span id="cb24-47"><a></a>    ul <span class="ot">&lt;-</span> me <span class="sc">+</span> z<span class="sc">*</span>me_se</span>
+<span id="cb24-48"><a></a>  }</span>
+<span id="cb24-49"><a></a>  <span class="cf">if</span>(<span class="sc">!</span>cohort <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"18-24"</span>,<span class="st">"25-34"</span>,<span class="st">"35-44"</span>,<span class="st">"45-54"</span>,<span class="st">"55-64"</span>)){</span>
+<span id="cb24-50"><a></a>    me <span class="ot">&lt;-</span> b1 </span>
+<span id="cb24-51"><a></a>    me_se <span class="ot">&lt;-</span> mod<span class="sc">$</span>std.error[<span class="st">"sdr"</span>]</span>
+<span id="cb24-52"><a></a>    ll <span class="ot">&lt;-</span> mod<span class="sc">$</span>conf.low[<span class="st">"sdr"</span>]</span>
+<span id="cb24-53"><a></a>    ul <span class="ot">&lt;-</span> mod<span class="sc">$</span>conf.high[<span class="st">"sdr"</span>]</span>
+<span id="cb24-54"><a></a>  }</span>
+<span id="cb24-55"><a></a></span>
+<span id="cb24-56"><a></a>  <span class="co"># scale results to be percentage points</span></span>
+<span id="cb24-57"><a></a>  res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb24-58"><a></a>    <span class="at">Age =</span> cohort,</span>
+<span id="cb24-59"><a></a>    <span class="at">Effect =</span> me<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb24-60"><a></a>    <span class="at">SE =</span> me_se<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb24-61"><a></a>    <span class="at">ll =</span> ll<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb24-62"><a></a>    <span class="at">ul =</span> ul<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb24-63"><a></a>  )</span>
+<span id="cb24-64"><a></a>  <span class="fu">return</span>(res)</span>
+<span id="cb24-65"><a></a></span>
+<span id="cb24-66"><a></a></span>
+<span id="cb24-67"><a></a>}</span>
+<span id="cb24-68"><a></a></span>
+<span id="cb24-69"><a></a></span>
+<span id="cb24-70"><a></a><span class="do">## List of age cohorts</span></span>
+<span id="cb24-71"><a></a>the_age_groups <span class="ot">&lt;-</span> <span class="fu">levels</span>(cps<span class="sc">$</span>age_group)</span>
+<span id="cb24-72"><a></a></span>
+<span id="cb24-73"><a></a><span class="do">## Model 1: No controls</span></span>
+<span id="cb24-74"><a></a><span class="do">## Estimate Marginal effect for each age cohort</span></span>
+<span id="cb24-75"><a></a>the_age_groups <span class="sc">%&gt;%</span> </span>
+<span id="cb24-76"><a></a>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">me_fn</span>(m1gh, <span class="at">cohort=</span>.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-77"><a></a>  <span class="co"># Add labels for plotting</span></span>
+<span id="cb24-78"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-79"><a></a>    <span class="at">Age =</span> <span class="fu">factor</span>(Age),</span>
+<span id="cb24-80"><a></a>    <span class="at">Model =</span> <span class="st">"No controls"</span></span>
+<span id="cb24-81"><a></a>  ) <span class="ot">-&gt;</span> fig3_no_controls</span>
+<span id="cb24-82"><a></a></span>
+<span id="cb24-83"><a></a><span class="do">## Model 3: Controls for Education, Income, Race,and Sex </span></span>
+<span id="cb24-84"><a></a><span class="do">## Estimate Marginal effect for each age cohort</span></span>
+<span id="cb24-85"><a></a>the_age_groups <span class="sc">%&gt;%</span> </span>
+<span id="cb24-86"><a></a>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="sc">~</span><span class="fu">me_fn</span>(m2gh, <span class="at">cohort=</span>.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-87"><a></a>  <span class="co"># Add labels for plotting</span></span>
+<span id="cb24-88"><a></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-89"><a></a>    <span class="at">Age =</span> <span class="fu">factor</span>(Age),</span>
+<span id="cb24-90"><a></a>    <span class="at">Model =</span> <span class="st">"With controls"</span></span>
+<span id="cb24-91"><a></a>  ) <span class="ot">-&gt;</span> fig3_controls</span>
+<span id="cb24-92"><a></a>  </span>
+<span id="cb24-93"><a></a><span class="do">## Combine estimates into data frame for plotting</span></span>
+<span id="cb24-94"><a></a>fig3_df <span class="ot">&lt;-</span> fig3_no_controls <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>(fig3_controls)</span>
+<span id="cb24-95"><a></a></span>
+<span id="cb24-96"><a></a><span class="do">## Recreate Figure 3</span></span>
+<span id="cb24-97"><a></a></span>
+<span id="cb24-98"><a></a></span>
+<span id="cb24-99"><a></a>fig3_df <span class="sc">%&gt;%</span> </span>
+<span id="cb24-100"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Age, Effect))<span class="sc">+</span></span>
+<span id="cb24-101"><a></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb24-102"><a></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ll, <span class="at">ymax =</span>ul))<span class="sc">+</span></span>
+<span id="cb24-103"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)<span class="sc">+</span></span>
+<span id="cb24-104"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Model)<span class="sc">+</span></span>
+<span id="cb24-105"><a></a>  <span class="fu">theme_minimal</span>() <span class="ot">-&gt;</span> fig3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-11-3">
+<div class="cell">
+<div class="cell-output-display">
+<table class="texreg caption-top" data-quarto-postprocess="true" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>Statistical models</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 1</th>
+<th data-quarto-table-cell-role="th" style="padding-left: 5px; padding-right: 5px">Model 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd" style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">sdr</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0120</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0004</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0162)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0128)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">age_group18-24</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.3518<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">-0.4125<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0061)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0051)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">age_group25-34</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.2149<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">-0.3198<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0060)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0040)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">age_group35-44</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1026<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">-0.2179<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0063)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0038)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">age_group45-54</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0431<sup>***</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1450<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0059)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0038)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">age_group55-64</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0064</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0642<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0047)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0036)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr:age_group18-24</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0142</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0472<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0108)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0081)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr:age_group25-34</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0003</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0219<sup>**</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0137)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0076)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr:age_group35-44</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0142</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0074</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0162)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0087)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr:age_group45-54</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0147</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0001</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0120)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0068)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">sdr:age_group55-64</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0149</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0108</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0096)</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0062)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)200</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0518<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0081)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)300</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0548<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0118)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)650</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1619<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0305)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)651</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1784<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0090)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)652</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1277<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0188)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)700</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0916<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0236)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)801</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0130</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0110)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)802</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0233<sup>*</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0097)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)803</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0406</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0277)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)804</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0566</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0403)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)805</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0548</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0291)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)806</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0432</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0520)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)807</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0486</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0574)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)808</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0593</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0473)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)809</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1125<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0271)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)810</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0169</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0340)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)811</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0932</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.1396)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)812</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0474</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0891)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)813</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0445<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0076)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)814</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0316</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.1223)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)815</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1124</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0601)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)816</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.2548</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.1910)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)817</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.1245</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.1979)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)818</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.8195<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0074)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)819</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.0831</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.1869)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)820</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0325</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0592)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">factor(race)830</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">-0.1871<sup>**</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0667)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">is_female</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0240<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0017)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">income</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0093<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0002)</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">education</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">0.0895<sup>***</sup></td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">&nbsp;</td>
+<td style="padding-left: 5px; padding-right: 5px">(0.0016)</td>
+</tr>
+<tr class="odd" style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">R<sup>2</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.0864</td>
+<td style="padding-left: 5px; padding-right: 5px">0.1707</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">Adj. R<sup>2</sup></td>
+<td style="padding-left: 5px; padding-right: 5px">0.0864</td>
+<td style="padding-left: 5px; padding-right: 5px">0.1706</td>
+</tr>
+<tr class="odd">
+<td style="padding-left: 5px; padding-right: 5px">Num. obs.</td>
+<td style="padding-left: 5px; padding-right: 5px">1980510</td>
+<td style="padding-left: 5px; padding-right: 5px">1616508</td>
+</tr>
+<tr class="even">
+<td style="padding-left: 5px; padding-right: 5px">RMSE</td>
+<td style="padding-left: 5px; padding-right: 5px">0.4748</td>
+<td style="padding-left: 5px; padding-right: 5px">0.4515</td>
+</tr>
+<tr class="odd" style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px; padding-right: 5px">N Clusters</td>
+<td style="padding-left: 5px; padding-right: 5px">49</td>
+<td style="padding-left: 5px; padding-right: 5px">49</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td colspan="3" style="font-size: 0.8em"><sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05</td>
+</tr>
+</tfoot>
+
+</table>
+
+
+</div>
+</div>
+</div>
+<div id="tabset-11-4">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="10-slides_files/figure-revealjs/fig3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-11-5">
+<p><img data-src="https://pols1600.paultesta.org/labs/images/08_fig3.png"></p>
+</div>
+<div id="tabset-11-6">
+<ul>
+<li class="fragment">Why the differences?
+<ul>
+<li class="fragment">Differences in how we calculated the SEs for marginal effects</li>
+<li class="fragment">Differences in coding of age and other covariates</li>
+</ul></li>
+<li class="fragment">Same substantive pattern, but somewhat weaker…</li>
+</ul>
 </div>
 </div>
 </div>
