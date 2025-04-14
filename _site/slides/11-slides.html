@@ -1670,7 +1670,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="quarto-title-authors">
 </div>
 
-  <p class="date">Updated Apr 30, 2024</p>
+  <p class="date">Updated Apr 14, 2025</p>
 </section>
 <section>
 <section id="overview" class="title-slide slide level1 inverse center">
@@ -1690,19 +1690,13 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <section id="annoucements" class="slide level2">
 <h2>Annoucements</h2>
 <ul>
-<li class="fragment">Do we need to start taking attendance?</li>
 <li class="fragment">Lab 11/<a href="https://pols1600.paultesta.org/assignments/a3" target="_blank">Assignment 3</a> this week</li>
-<li class="fragment">No tutorial this week</li>
-<li class="fragment">Next Tuesday, April 23, Work on Presentations/Drafts</li>
+<li class="fragment">Next Tuesday, April 22, Work on Presentations/Drafts</li>
 <li class="fragment"><a href="https://pols1600.paultesta.org/assignments/a3" target="_blank">Assignment 4</a> now due April 25.</li>
-<li class="fragment">April 30, Final Workshop</li>
-<li class="fragment">May 2 Class Presentations</li>
+<li class="fragment">April 29, Final Workshop</li>
+<li class="fragment">May 1x`` Class Presentations</li>
 </ul>
 </section>
-<section id="pie-me" class="slide level2">
-<h2>Pie me</h2>
-
-<img data-src="images/11-anchor.png" class="r-stretch"></section>
 <section id="setup-packages-for-today" class="slide level2">
 <h2>Setup: Packages for today</h2>
 <div class="cell">
@@ -4223,6 +4217,516 @@ Num. obs.
 <li class="fragment"><p>The coefficient on partisanship in model 4 is now positive and statistically significant (p &lt; 0.05), suggesting that as respondents become more Republican, they are more likely to be skeptical of vaccines</p></li>
 <li class="fragment"><p>The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.</p></li>
 <li class="fragment"><p>In Model 6, we see that independents remain the most skeptical of vaccines in 2020 <span class="math inline">\((\beta = 0.20,\, p &lt;0.05)\)</span>, but that Republicans now tend to be more skeptical of vaccines than Democrats <span class="math inline">\((\beta = 0.10,\, p &lt;0.05)\)</span></p></li>
+</ul>
+</section></section>
+<section>
+<section id="regression-discontinuity-design" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Regression Discontinuity Design</h1>
+
+</section>
+<section id="motivating-example" class="slide level2">
+<h2>Motivating Example</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment">Do Members of Parliament in the UK get richer from holding office (QSS Chapter 4.3.4)</li>
+</ul>
+</div><div class="column" style="width:70%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="./images/04_eggers.png" width="386"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="https://www.cambridge.org/core/journals/american-political-science-review/article/abs/mps-for-sale-returns-to-office-in-postwar-british-politics/E4C2B102194AA1EA0D2F1F777EAE3C08" target="_blank">Eggers and Hainmueller (2009)</a> ]</p>
+</div></div>
+</section>
+<section id="logic-of-the-regression-discontinuity-design-rdd" class="slide level2">
+<h2>Logic of the Regression Discontinuity Design (RDD)</h2>
+<ul>
+<li class="fragment"><p>What’s the effect of holding elected office in the UK on personal wealth?</p></li>
+<li class="fragment"><p>People who win elections differ in many ways from people who lose elections.</p></li>
+<li class="fragment"><p>Logic of an RDD:</p>
+<ul>
+<li class="fragment"><p>Just look at the wealth of individuals who either narrowly won or lost elections.</p></li>
+<li class="fragment"><p>Candidates close to 50 percent cutoff (discontinuity) should be more comparable (better counterfactuals)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="eggers-and-hainmueller-2009" class="slide level2 smaller">
+<h2>Eggers and Hainmueller (2009)</h2>
+<div class="panel-tabset">
+<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Data</a></li><li><a href="#tabset-9-2">Variables</a></li><li><a href="#tabset-9-3"><i class="fa-solid fa-code" aria-label="code"></i></a></li><li><a href="#tabset-9-4"><i class="fa-solid fa-chart-line" aria-label="chart-line"></i></a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">library</span>(qss)</span>
+<span id="cb26-2"><a></a><span class="fu">data</span>(MPs)</span>
+<span id="cb26-3"><a></a><span class="fu">glimpse</span>(MPs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 427
+Columns: 10
+$ surname    &lt;chr&gt; "Llewellyn", "Morris", "Walker", "Walker", "Waring", "Brown…
+$ firstname  &lt;chr&gt; "David", "Claud", "George", "Harold", "John", "Ronald", "Le…
+$ party      &lt;chr&gt; "tory", "labour", "tory", "labour", "tory", "labour", "tory…
+$ ln.gross   &lt;dbl&gt; 12.13591, 12.44809, 12.42845, 11.91845, 13.52022, 12.46052,…
+$ ln.net     &lt;dbl&gt; 12.135906, 12.448091, 10.349009, 12.395034, 13.520219, 9.63…
+$ yob        &lt;int&gt; 1916, 1920, 1914, 1927, 1923, 1921, 1907, 1912, 1905, 1920,…
+$ yod        &lt;int&gt; 1992, 2000, 1999, 2003, 1989, 2002, 1987, 1984, 1998, 2004,…
+$ margin.pre &lt;dbl&gt; NA, NA, -0.057168204, -0.072508894, -0.269689620, 0.3409586…
+$ region     &lt;chr&gt; "Wales", "South West England", "North East England", "Yorks…
+$ margin     &lt;dbl&gt; 0.05690404, -0.04973833, -0.04158868, 0.02329524, -0.230005…</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-9-2">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">surname</td>
+<td style="text-align: left;">surname of the candidate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">firstname</td>
+<td style="text-align: left;">first name of the candidate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">party</td>
+<td style="text-align: left;">party of the candidate (labour or tory)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ln.gross</td>
+<td style="text-align: left;">log gross wealth at the time of death</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ln.net</td>
+<td style="text-align: left;">log net wealth at the time of death</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yob</td>
+<td style="text-align: left;">year of birth of the candidate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yod</td>
+<td style="text-align: left;">year of death of the candidate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">margin.pre</td>
+<td style="text-align: left;">margin of the candidate’s party in the previous election electoral</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">region</td>
+<td style="text-align: left;">region</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">margin</td>
+<td style="text-align: left;">margin of victory (vote share)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-9-3">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(margin, ln.net))<span class="sc">+</span></span>
+<span id="cb28-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">shape=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb28-4"><a></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>party)<span class="sc">+</span></span>
+<span id="cb28-5"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a></a>                <span class="fu">filter</span>(margin <span class="sc">&lt;</span><span class="dv">0</span>),</span>
+<span id="cb28-7"><a></a>              <span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb28-8"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span>MPs <span class="sc">%&gt;%</span></span>
+<span id="cb28-9"><a></a>                <span class="fu">filter</span>(margin <span class="sc">&gt;</span><span class="dv">0</span>),</span>
+<span id="cb28-10"><a></a>              <span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb28-11"><a></a>  <span class="fu">theme_bw</span>() <span class="ot">-&gt;</span> fig_rdd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-9-4">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="11-slides_files/figure-revealjs/rddfig-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="rdd-notation" class="slide level2 smaller">
+<h2>RDD Notation</h2>
+<ul>
+<li class="fragment"><span class="math inline">\(X\)</span> is a <strong>forcing</strong> variable</li>
+<li class="fragment">Treatment <span class="math inline">\(D\)</span> is a determined by <span class="math inline">\(X\)</span></li>
+</ul>
+<p><span class="math display">\[
+D_i = 1\{X_i &gt; c\}
+\]</span></p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(X\)</span> is the <code>margin</code> variable in the example data, and <span class="math inline">\(D=1\)</span> if <code>margin</code> is greater than 0 (i.e.&nbsp;the candidate won the election)</p></li>
+<li class="fragment"><p>Interested in the differences in the outcome at the threshold</p></li>
+</ul>
+<p><span class="math display">\[\lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x]\]</span></p>
+</section>
+<section id="causal-identification-with-an-rdd" class="slide level2 smaller">
+<h2>Causal Identification with an RDD</h2>
+<p>If we assume <span class="math inline">\(E[Y_i(0)|X=x]\)</span> and <span class="math inline">\(E[Y_i(1)|X=x]\)</span> are continuous in x, then we can estimate a (local) ATE at the threshold:</p>
+<p><span class="math display">\[\begin{align}
+ATE_{RDD} &amp;= E[Y(1)-Y(0)|X_i=c] \\
+&amp;=  E[Y(1)|X_i=c] -  E[Y(0)|X_i=c]\\
+&amp;= \lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x] \\
+\end{align}\]</span></p>
+</section>
+<section id="continuity-assumption" class="slide level2">
+<h2>Continuity Assumption</h2>
+
+<img data-src="https://mixtape.scunning.com/graphics/rdd_simul_ex.jpg" class="r-stretch"><p><a href="https://mixtape.scunning.com/regression-discontinuity.html#continuity-assumption" target="_blank">Cunningham (2022)</a></p>
+</section>
+<section id="causal-identification-with-an-rdd-1" class="slide level2 smaller">
+<h2>Causal Identification with an RDD</h2>
+<ul>
+<li class="fragment"><p>The continuity assumption is a formal way of saying that observations close to the threshold are good counterfactuals for each other</p></li>
+<li class="fragment"><p>We can’t prove this assumption</p></li>
+<li class="fragment"><p>But if it holds, we should observe</p>
+<ul>
+<li class="fragment"><p>no sorting around the cutoff (no self selection)</p></li>
+<li class="fragment"><p>similar distributions of covariates around the cutoff (balance tests)</p></li>
+<li class="fragment"><p>no effect of treatment on things measured pre-treatment (placebo tests)</p></li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="instrumental-variables" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Instrumental Variables</h1>
+
+</section>
+<section id="instrumental-variables-1" class="slide level2 smaller">
+<h2>Instrumental Variables</h2>
+<p>Instrumental variables are an economists favorite tool for dealing with <strong>omitted variable bias</strong></p>
+<ul>
+<li class="fragment">We have some non random treatment whose effects we’d like to assess</li>
+<li class="fragment">We’re worried that these effects are <strong>confounded</strong> by some unobserved, omitted variable, that influences both the treatment and the outcome</li>
+<li class="fragment">We find an <strong>instrumental variable</strong> that satisfies the following:
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relatioship</li>
+<li class="fragment">Monotonicity</li>
+</ul></li>
+<li class="fragment">Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is <strong>exogenous</strong> (uncorrelated with ommited variables)</li>
+</ul>
+</section>
+<section id="iv-assumption-randomization" class="slide level2">
+<h2>IV Assumption: Randomization</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment">No path from <span class="math inline">\(U\)</span> to <span class="math inline">\(Z\)</span></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="https://book.declaredesign.org/figures/figure-16-7.svg"> <a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+</div></div>
+</section>
+<section id="iv-assumption-excludability" class="slide level2">
+<h2>IV Assumption: Excludability</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment">No path from <span class="math inline">\(Z\)</span> to <span class="math inline">\(Y\)</span></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="https://book.declaredesign.org/figures/figure-16-7.svg"></p>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+</div></div>
+</section>
+<section id="iv-assumption-first-stage" class="slide level2">
+<h2>IV Assumption: First Stage</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment">Path from <span class="math inline">\(Z\)</span> to <span class="math inline">\(D\)</span></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="https://book.declaredesign.org/figures/figure-16-7.svg"></p>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+</div></div>
+</section>
+<section id="iv-assumption-monotonicity" class="slide level2">
+<h2>IV Assumption: Monotonicity</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li class="fragment"><span class="math inline">\(D_i(Z=1)\geq D_i(Z=0)\)</span></li>
+<li class="fragment">“No Defiers”</li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="https://book.declaredesign.org/figures/figure-16-7.svg"></p>
+<p><a href="https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables" target="_blank">Source</a></p>
+</div></div>
+</section>
+<section id="compliance" class="slide level2">
+<h2>Compliance</h2>
+<p>With a binary treatment, <span class="math inline">\(D\)</span> and binary instrument <span class="math inline">\(Z\)</span> there are four types of compliance</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: right;"><span class="math inline">\(D_i(Z=1)\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(D_i(Z=0)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Always Takers</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Never Takers</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Compliers</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Defiers</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li class="fragment">Assuming Monotonicity means there are “No Defiers”</li>
+</ul>
+</section>
+<section id="estimating-the-local-average-treatment-effect" class="slide level2">
+<h2>Estimating the Local Average Treatment Effect</h2>
+<p>If we believe our assumptions of:</p>
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relationship</li>
+<li class="fragment">Monotonicity</li>
+</ul>
+<p>Then we can estimate <span class="blue">Local Average Treatment Effect (LATE)</span> sometimes called the <span class="blue">Complier Average Treatment Effect (CATE)</span></p>
+</section>
+<section id="estimating-the-local-average-treatment-effect-1" class="slide level2">
+<h2>Estimating the Local Average Treatment Effect</h2>
+<p>It can be <a href="https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf" target="_blank">shown</a> that the LATE:</p>
+<p><span class="math display">\[LATE = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[D|Z=1]-E[D|Z=0]}= \frac{ATE_{Z\to Y}}{ATE_{Z\to D}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li class="fragment"><p><span class="math inline">\(ATE_{Z\to Y}\)</span> is the known as the “Intent to Treat” effect (ITT) (i.e.&nbsp;the effect of being assigned to treatment)</p></li>
+<li class="fragment"><p><span class="math inline">\(ATE_{Z\to D}\)</span> is the “effect” of being assigned to treatment on actually receiving treatment</p></li>
+</ul>
+</section>
+<section id="example-earnings-and-military-service" class="slide level2 smaller">
+<h2>Example: Earnings and Military Service</h2>
+<p>Adapted from <a href="https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#42" target="_blank">Edward Rubin</a></p>
+<p><em>Example:</em> If we want to estimate the effect of veteran status on earnings,</p>
+<p><span class="math display">\[
+\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1}
+\end{align}
+\]</span></p>
+<p>We would love to calculate <span class="math inline">\(\color{#e64173}{\text{Earnings}_{1i}} - \color{#6A5ACD}{\text{Earnings}_{0i}}\)</span>, but we can’t.</p>
+<p>And OLS will likely be biased for <span class="math inline">\((1)\)</span> due to selection/omitted-variable bias.</p>
+</section>
+<section id="introductory-example" class="slide level2 smaller">
+<h2>Introductory example</h2>
+<p>Imagine that we can split veteran status into an exogenous (as-if random, unbiased) part and an endogenous (non-random, biased) part…</p>
+<p><span class="math display">\[
+\begin{align}
+  \text{Earnings}_i
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1} \\
+  &amp;= \beta_0 + \beta_1 \left(\text{Veteran}_i^{\text{Exog.}} + \text{Veteran}_i^{\text{Endog.}}\right) + u_i \\
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + \underbrace{\beta_1 \text{Veteran}_i^{\text{Endog.}} + u_i}_{w_i} \\
+  &amp;= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + w_i
+\end{align}
+\]</span></p>
+<p>We could use this exogenous variation in veteran status to consistently estimate <span class="math inline">\(\beta_1\)</span>.</p>
+<p><strong>Q:</strong> What would exogenous variation in veteran status mean?</p>
+</section>
+<section id="introductory-example-1" class="slide level2 smaller">
+<h2>Introductory example</h2>
+<p><strong>Q:</strong> What would exogenous variation in veteran status mean?</p>
+<p><span class="math inline">\(A_1\)</span> Choices to enlist in the military that are essentially random—or at least uncorrelated with omitted variables and the disturbance.</p>
+<p><span class="math inline">\(A_2\)</span> .No selection bias:</p>
+<p><span class="math display">\[
+\begin{align}
+  \color{#e64173}{\mathop{E}\left(\text{Earnings}_{0i}\mid\text{Veteran}_i = 1\right)} - \color{#6A5ACD}{\mathop{E}\left( \text{Earnings}_{0i} \mid \text{Veteran}_i = 0 \right)} = 0
+\end{align}
+\]</span></p>
+</section>
+<section id="instruments" class="slide level2 smaller scrollable">
+<h2>Instruments</h2>
+<ul>
+<li class="fragment"><p><strong>Q:</strong> How do we isolate this <em>exogenous variation</em> in our explanatory variable?</p></li>
+<li class="fragment"><p><strong>A:</strong> Find an instrument (an instrumental variable).</p></li>
+<li class="fragment"><p><strong>Q:</strong> What’s an instrument?</p></li>
+<li class="fragment"><p><strong>A:</strong> An <strong>instrument</strong> is a variable that is</p>
+<ol type="1">
+<li class="fragment"><strong>correlated</strong> with the <strong>explanatory variable</strong> of interest (<em>relevant</em>),</li>
+<li class="fragment"><strong>uncorrelated</strong> with the <strong>error</strong> term (<em>exogenous</em>).</li>
+</ol></li>
+</ul>
+</section>
+<section id="instruments-1" class="slide level2 smaller scrollable">
+<h2>Instruments</h2>
+<p>So if we want an instrument <span class="math inline">\(z_i\)</span> for endogenous veteran status in</p>
+<p><span class="math display">\[
+\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i
+\end{align}
+\]</span></p>
+<ol type="1">
+<li class="fragment"><strong>Relevant:</strong> <span class="math inline">\(\mathop{\text{Cov}} \left( \text{Veteran}_i,\, z_i \right) \neq 0\)</span></li>
+<li class="fragment"><strong>Exogenous:</strong> <span class="math inline">\(\mathop{\text{Cov}} \left( z_i,\, u_i \right) = 0\)</span></li>
+</ol>
+</section>
+<section id="instruments-relevance" class="slide level2 smaller scrollable">
+<h2>Instruments: Relevance</h2>
+<p><strong>Relevance:</strong> We need the instrument to cause a change in (correlate with) our endogenous explanatory variable.</p>
+<p>We can actually test this requirement using regression and a <em>t</em> test.</p>
+<p><strong><em>Example:</em></strong> For the veteran status, consider three potential instruments:</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ol type="1">
+<li class="fragment"><p>Social security number</p></li>
+<li class="fragment"><p>Physical fitness</p></li>
+<li class="fragment"><p>Vietnam War draft</p></li>
+</ol>
+</div><div class="column" style="width:70%;">
+<ul>
+<li class="fragment"><p><strong>Probably not relevant</strong> uncorrelated with military service</p></li>
+<li class="fragment"><p><em>Potentially relevant</em> service may correlate with fitness</p></li>
+<li class="fragment"><p><strong>Relevant</strong> being drafted led to service</p></li>
+</ul>
+</div></div>
+</section>
+<section id="instruments-exogeneity" class="slide level2 smaller scrollable">
+<h2>Instruments: Exogeneity</h2>
+<p><span class="blue">Exogeneity:</span> The instrument to be independent of omitted factors that affect our outcome variable—as good as randomly assigned.</p>
+<p><span class="math inline">\(z_i\)</span> must be uncorrelated with our disturbance <span class="math inline">\(u_i\)</span>. <span class="blue">Not testable.</span></p>
+<p><strong><em>Example:</em></strong> For the <span class="blue">veteran status</span>, consider three potential instruments:</p>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ol type="1">
+<li class="fragment"><p>Social security number</p></li>
+<li class="fragment"><p>Physical fitness</p></li>
+<li class="fragment"><p>Vietnam War draft</p></li>
+</ol>
+</div><div class="column" style="width:70%;">
+<ul>
+<li class="fragment"><p><strong>Exogenous</strong> SSN essentially random</p></li>
+<li class="fragment"><p><em>Not Exogenous</em> fitness correlated with many things</p></li>
+<li class="fragment"><p><strong>Exogenous</strong> draft via lottery</p></li>
+</ul>
+</div></div>
+</section>
+<section id="venn-diagram-explanation" class="slide level2">
+<h2>Venn diagram explanation</h2>
+<p>In the following figures (Venn diagrams)</p>
+<ul>
+<li class="fragment">Each circle illustrates a variable.</li>
+<li class="fragment">Overlap gives the share of correlatation between two variables.</li>
+<li class="fragment">Dotted borders denote <em>omitted</em> variables.</li>
+</ul>
+</section>
+<section id="relevant-and-exogenous" class="slide level2">
+<h2>Relevant and Exogenous</h2>
+
+<img data-src="11-slides_files/figure-revealjs/venn_iv-1.png" width="960" class="r-stretch"></section>
+<section id="relevant-not-exogenous" class="slide level2">
+<h2>Relevant, Not Exogenous</h2>
+
+<img data-src="11-slides_files/figure-revealjs/venn_iv_endog-1.png" width="960" class="r-stretch"></section>
+<section id="not-relevant-and-not-exogenous" class="slide level2">
+<h2>Not Relevant and Not Exogenous</h2>
+
+<img data-src="11-slides_files/figure-revealjs/venn_iv_irrelevant-1.png" width="960" class="r-stretch"></section>
+<section id="relevant-not-exogenous-1" class="slide level2">
+<h2>Relevant, Not Exogenous</h2>
+
+<img data-src="11-slides_files/figure-revealjs/venn_iv_endog2-1.png" width="960" class="r-stretch"></section>
+<section id="take-aways" class="slide level2">
+<h2>Take-aways</h2>
+<ul>
+<li class="fragment">Figure 1: <span class="blue">Valid instrument</span> (relevant; exogenous, e.g.&nbsp;draft lotto number)</li>
+<li class="fragment">Figure 2: <span class="yellow">Invalid instrument</span> (relevant; not exogenous, e.g.&nbsp;physical fitness)</li>
+<li class="fragment">Figure 3: <span class="yellow">Invalid instrument</span> (not relevant; not exogenous)</li>
+<li class="fragment">Figure 4: <span class="yellow">Invalid instrument</span> (relevant; not exogenous)</li>
+</ul>
+</section>
+<section id="iv-applications" class="slide level2">
+<h2>IV Applications</h2>
+
+<img data-src="images/ivtweet.png" class="r-stretch"></section>
+<section id="iv-summary" class="slide level2">
+<h2>IV Summary</h2>
+<p>Instrumental variables require a number of assumptions to yield credible causal claims:</p>
+<ul>
+<li class="fragment">Randomization</li>
+<li class="fragment">Excludability</li>
+<li class="fragment">First-stage relationship</li>
+<li class="fragment">Monotonicity</li>
+</ul>
+<p>Estimation and inference of IVs is beyond the scope of this course.</p>
+<ul>
+<li class="fragment"><p>See Edward Rubin’s excellent <a href="https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#85" target="_blank">slides</a></p></li>
+<li class="fragment"><p>And Matt Blackwells <a href="https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf" target="_blank">notes</a></p></li>
+<li class="fragment"><p>Understanding the identifying assumptions of IV can help you critique a study (even if the you don’t fully understand the math)</p></li>
+</ul>
+</section></section>
+<section>
+<section id="summary" class="title-slide slide level1 inverse center">
+<h1><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Summary</h1>
+
+</section>
+<section id="what-you-need-to-know" class="slide level2">
+<h2>What you need to know</h2>
+<ul>
+<li class="fragment">Causal inference in observational and experimental studies is about counterfactual comparisons</li>
+<li class="fragment">In observational studies, to make causal claims we generally make some assumption of conditional independence:</li>
+</ul>
+<p><span class="math display">\[
+Y_i(1),Y_i(0), \perp D_i |X_i
+\]</span></p>
+<ul>
+<li class="fragment">The credibility of this assumption depends less on the data, and more on how the data were generated.</li>
+<li class="fragment"><strong>Selection on Observables</strong> is rarely a credible assumption</li>
+<li class="fragment">Observational designs that produce credible causal inference, leverage aspects of the world that create <em>natural experiments</em></li>
+<li class="fragment">You should be able to describe the logic and assumptions of common designs in social science
+<ul>
+<li class="fragment"><strong>Difference-in-Differences:</strong> <em>Parallel Trends</em></li>
+<li class="fragment"><strong>Regression Discontiniuity:</strong> <em>Continuity at the cutoff</em></li>
+<li class="fragment"><strong>Instrumental Variables:</strong> Instruments need to be <em>Relevant and Exogenous</em></li>
+</ul></li>
 </ul>
 
 

@@ -8536,7 +8536,7 @@
     "href": "slides/11-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements\n\nDo we need to start taking attendance?\nLab 11/Assignment 3 this week\nNo tutorial this week\nNext Tuesday, April 23, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 30, Final Workshop\nMay 2 Class Presentations"
+    "text": "Annoucements\n\nLab 11/Assignment 3 this week\nNext Tuesday, April 22, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 29, Final Workshop\nMay 1x`` Class Presentations"
   },
   {
     "objectID": "slides/11-slides.html#pie-me",
@@ -11963,5 +11963,222 @@
     "title": "POLS 1600",
     "section": "",
     "text": "Standard errors & confidence intervals\n\nSEs and CI Code SEs SEsComments\n\n\nThe default standard errors from lm_robust() are calculated as follows\n\\[\nSE_{\\beta} = (X'X)^{-1}X'\\text{diag}\\left[\\frac{e_i^2}{1-h_{ii}}\\right]X(X'X)^{-1}\n\\]\nWhich we could also obtain via bootstrapping.\nThe confidence intervals are calculated as follows:\n\\[\nCI = \\beta \\pm 1.96\\times SE_\\beta\n\\]\n\n\n\n# 0 Set seed\nset.seed(123)\n\n# 1,000 bootstrap samples\nboot &lt;- modelr::bootstrap(df %&gt;% select(dv_participation, income, education), 1000)\n# Estimate Boostrapped Models\nm1_bs &lt;- purrr::map(boot$strap, ~ lm_robust(dv_participation ~  income + education, data = .))\n\n# Tidy coefficients\nm1_bs_df &lt;- map_df(m1_bs, tidy, .id = \"id\")\nm1_asymp_df &lt;- tidy(m1) %&gt;% \n  mutate(\n    term = factor(term)\n  ) %&gt;% \n  select(term,estimate, std.error,conf.low, conf.high) %&gt;% \n  mutate(\n    ll = conf.low,\n    ul = conf.high,\n    y = 1.1,\n    type = \"Analytic\"\n  )\n\nm1_bs_ci_df &lt;- m1_bs_df %&gt;%\n  mutate(\n    term = factor(term)\n  ) %&gt;% \n  group_by(term) %&gt;% \n  summarise(\n  beta = mean(estimate,na.rm=T),\n  se = sd(estimate,na.rm=T)\n  ) %&gt;% \n  mutate(\n  ll = beta - 1.96*se,\n  ul = beta + 1.96*se,\n  y = 1.05,\n  type = \"Bootstrap\"\n) \n\n# Compare SEs\n\ncompare_m1_se_tab &lt;-\n  tibble(\n    `Predictor` = m1_bs_ci_df$term,\n    Estimate = m1_asymp_df$estimate,\n    `SE` = m1_asymp_df$std.error,\n     `CI` = paste(\"[\", round(m1_asymp_df$ll,2),\n                  \"; \", round(m1_asymp_df$ul,2),\"]\",\n                  sep =\"\"),\n    `SE ` = m1_bs_ci_df$se,\n    `CI ` = paste(\"[\", round(m1_bs_ci_df$ll,2),\n                  \"; \", round(m1_bs_ci_df$ul,2),\"]\",\n                  sep =\"\"),\n  )\n\n\n# Figure\nfig_m1_bs &lt;- m1_bs_df %&gt;% \n  ggplot(aes(estimate))+\n  geom_density(aes(y=after_stat(ndensity)))+\n  geom_rug()+\n  geom_vline(xintercept = 0, linetype = \"dashed\")+\n  facet_wrap(~term,scales = \"free\")+\n  theme_minimal()+\n  ylim(0, 1.2)+\n  geom_vline(\n    data = m1_asymp_df,\n    aes(xintercept = estimate)\n  ) +\n  geom_segment(\n    data = m1_bs_ci_df,\n    aes(x = ll, xend = ul,\n        y = y, yend = y,\n        col = \"Bootstrap\")\n    \n  ) +\n  geom_segment(\n    data = m1_asymp_df,\n    aes(x = ll, xend = ul,\n        y = y, yend = y,\n        col = \"Analytic\")\n    \n  ) +\n  labs(\n    col = \"Confidence Interval\",\n    x = \"Bootstrapped Sampling Distribution\\n of Coefficients\"\n  )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalytic\n\n\nBootstrap\n\n\n\nPredictor\nEstimate\nSE\nCI\nSE\nCI\n\n\n\n\n(Intercept)\n0.3116\n0.0797\n[0.16; 0.47]\n0.0805\n[0.15; 0.47]\n\n\neducation\n0.1668\n0.0242\n[0.12; 0.21]\n0.0248\n[0.12; 0.22]\n\n\nincome\n0.0070\n0.0105\n[-0.01; 0.03]\n0.0107\n[-0.01; 0.03]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe main takeaway here is that for linear models, bootstrapped SEs and CIs are quite similar to those obtained via analytically (via math and asymptotic theory)\nFor common estimators and large samples, we’ll generally use analytic SEs (quicker)\nFor less common estimators (ratios of estimates), analytic estimates of the SEs may not exist. Bootstrapping will still provide valid SEs, provided we “sample from the sample, as the sample was drawn from the population”"
+  },
+  {
+    "objectID": "slides/11-slides.html#motivating-example",
+    "href": "slides/11-slides.html#motivating-example",
+    "title": "POLS 1600",
+    "section": "Motivating Example",
+    "text": "Motivating Example\n\n\n\nDo Members of Parliament in the UK get richer from holding office (QSS Chapter 4.3.4)\n\n\n\n\n\n\n\n\n\n\n\nEggers and Hainmueller (2009) ]"
+  },
+  {
+    "objectID": "slides/11-slides.html#logic-of-the-regression-discontinuity-design-rdd",
+    "href": "slides/11-slides.html#logic-of-the-regression-discontinuity-design-rdd",
+    "title": "POLS 1600",
+    "section": "Logic of the Regression Discontinuity Design (RDD)",
+    "text": "Logic of the Regression Discontinuity Design (RDD)\n\nWhat’s the effect of holding elected office in the UK on personal wealth?\nPeople who win elections differ in many ways from people who lose elections.\nLogic of an RDD:\n\nJust look at the wealth of individuals who either narrowly won or lost elections.\nCandidates close to 50 percent cutoff (discontinuity) should be more comparable (better counterfactuals)"
+  },
+  {
+    "objectID": "slides/11-slides.html#eggers-and-hainmueller-2009",
+    "href": "slides/11-slides.html#eggers-and-hainmueller-2009",
+    "title": "POLS 1600",
+    "section": "Eggers and Hainmueller (2009)",
+    "text": "Eggers and Hainmueller (2009)\n\nDataVariables\n\n\n\nlibrary(qss)\ndata(MPs)\nglimpse(MPs)\n\nRows: 427\nColumns: 10\n$ surname    &lt;chr&gt; \"Llewellyn\", \"Morris\", \"Walker\", \"Walker\", \"Waring\", \"Brown…\n$ firstname  &lt;chr&gt; \"David\", \"Claud\", \"George\", \"Harold\", \"John\", \"Ronald\", \"Le…\n$ party      &lt;chr&gt; \"tory\", \"labour\", \"tory\", \"labour\", \"tory\", \"labour\", \"tory…\n$ ln.gross   &lt;dbl&gt; 12.13591, 12.44809, 12.42845, 11.91845, 13.52022, 12.46052,…\n$ ln.net     &lt;dbl&gt; 12.135906, 12.448091, 10.349009, 12.395034, 13.520219, 9.63…\n$ yob        &lt;int&gt; 1916, 1920, 1914, 1927, 1923, 1921, 1907, 1912, 1905, 1920,…\n$ yod        &lt;int&gt; 1992, 2000, 1999, 2003, 1989, 2002, 1987, 1984, 1998, 2004,…\n$ margin.pre &lt;dbl&gt; NA, NA, -0.057168204, -0.072508894, -0.269689620, 0.3409586…\n$ region     &lt;chr&gt; \"Wales\", \"South West England\", \"North East England\", \"Yorks…\n$ margin     &lt;dbl&gt; 0.05690404, -0.04973833, -0.04158868, 0.02329524, -0.230005…\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable\nDescription\n\n\n\n\nsurname\nsurname of the candidate\n\n\nfirstname\nfirst name of the candidate\n\n\nparty\nparty of the candidate (labour or tory)\n\n\nln.gross\nlog gross wealth at the time of death\n\n\nln.net\nlog net wealth at the time of death\n\n\nyob\nyear of birth of the candidate\n\n\nyod\nyear of death of the candidate\n\n\nmargin.pre\nmargin of the candidate’s party in the previous election electoral\n\n\nregion\nregion\n\n\nmargin\nmargin of victory (vote share)\n\n\n\n\n\n\n\n\nMPs %&gt;%\n  ggplot(aes(margin, ln.net))+\n  geom_point(shape=1)+\n  facet_grid(~party)+\n  geom_smooth(data =MPs %&gt;%\n                filter(margin &lt;0),\n              method = \"lm\")+\n  geom_smooth(data =MPs %&gt;%\n                filter(margin &gt;0),\n              method = \"lm\")+\n  theme_bw() -&gt; fig_rdd"
+  },
+  {
+    "objectID": "slides/11-slides.html#rdd-notation",
+    "href": "slides/11-slides.html#rdd-notation",
+    "title": "POLS 1600",
+    "section": "RDD Notation",
+    "text": "RDD Notation\n\n\\(X\\) is a forcing variable\nTreatment \\(D\\) is a determined by \\(X\\)\n\n\\[\nD_i = 1\\{X_i &gt; c\\}\n\\]\n\n\\(X\\) is the margin variable in the example data, and \\(D=1\\) if margin is greater than 0 (i.e. the candidate won the election)\nInterested in the differences in the outcome at the threshold\n\n\\[\\lim_{x \\downarrow  c} E[Y_i|X=x] - \\lim_{x \\uparrow  c} E[Y_i|X=x]\\]"
+  },
+  {
+    "objectID": "slides/11-slides.html#causal-identification-with-an-rdd",
+    "href": "slides/11-slides.html#causal-identification-with-an-rdd",
+    "title": "POLS 1600",
+    "section": "Causal Identification with an RDD",
+    "text": "Causal Identification with an RDD\nIf we assume \\(E[Y_i(0)|X=x]\\) and \\(E[Y_i(1)|X=x]\\) are continuous in x, then we can estimate a (local) ATE at the threshold:\n\\[\\begin{align}\nATE_{RDD} &= E[Y(1)-Y(0)|X_i=c] \\\\\n&=  E[Y(1)|X_i=c] -  E[Y(0)|X_i=c]\\\\\n&= \\lim_{x \\downarrow  c} E[Y_i|X=x] - \\lim_{x \\uparrow  c} E[Y_i|X=x] \\\\\n\\end{align}\\]"
+  },
+  {
+    "objectID": "slides/11-slides.html#continuity-assumption",
+    "href": "slides/11-slides.html#continuity-assumption",
+    "title": "POLS 1600",
+    "section": "Continuity Assumption",
+    "text": "Continuity Assumption\n\nCunningham (2022)"
+  },
+  {
+    "objectID": "slides/11-slides.html#causal-identification-with-an-rdd-1",
+    "href": "slides/11-slides.html#causal-identification-with-an-rdd-1",
+    "title": "POLS 1600",
+    "section": "Causal Identification with an RDD",
+    "text": "Causal Identification with an RDD\n\nThe continuity assumption is a formal way of saying that observations close to the threshold are good counterfactuals for each other\nWe can’t prove this assumption\nBut if it holds, we should observe\n\nno sorting around the cutoff (no self selection)\nsimilar distributions of covariates around the cutoff (balance tests)\nno effect of treatment on things measured pre-treatment (placebo tests)"
+  },
+  {
+    "objectID": "slides/11-slides.html#instrumental-variables-1",
+    "href": "slides/11-slides.html#instrumental-variables-1",
+    "title": "POLS 1600",
+    "section": "Instrumental Variables",
+    "text": "Instrumental Variables\nInstrumental variables are an economists favorite tool for dealing with omitted variable bias\n\nWe have some non random treatment whose effects we’d like to assess\nWe’re worried that these effects are confounded by some unobserved, omitted variable, that influences both the treatment and the outcome\nWe find an instrumental variable that satisfies the following:\n\nRandomization\nExcludability\nFirst-stage relatioship\nMonotonicity\n\nAllowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is exogenous (uncorrelated with ommited variables)"
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-assumption-randomization",
+    "href": "slides/11-slides.html#iv-assumption-randomization",
+    "title": "POLS 1600",
+    "section": "IV Assumption: Randomization",
+    "text": "IV Assumption: Randomization\n\n\n\nNo path from \\(U\\) to \\(Z\\)\n\n\n Source"
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-assumption-excludability",
+    "href": "slides/11-slides.html#iv-assumption-excludability",
+    "title": "POLS 1600",
+    "section": "IV Assumption: Excludability",
+    "text": "IV Assumption: Excludability\n\n\n\nNo path from \\(Z\\) to \\(Y\\)\n\n\n\nSource"
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-assumption-first-stage",
+    "href": "slides/11-slides.html#iv-assumption-first-stage",
+    "title": "POLS 1600",
+    "section": "IV Assumption: First Stage",
+    "text": "IV Assumption: First Stage\n\n\n\nPath from \\(Z\\) to \\(D\\)\n\n\n\nSource"
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-assumption-monotonicity",
+    "href": "slides/11-slides.html#iv-assumption-monotonicity",
+    "title": "POLS 1600",
+    "section": "IV Assumption: Monotonicity",
+    "text": "IV Assumption: Monotonicity\n\n\n\n\\(D_i(Z=1)\\geq D_i(Z=0)\\)\n“No Defiers”\n\n\n\nSource"
+  },
+  {
+    "objectID": "slides/11-slides.html#compliance",
+    "href": "slides/11-slides.html#compliance",
+    "title": "POLS 1600",
+    "section": "Compliance",
+    "text": "Compliance\nWith a binary treatment, \\(D\\) and binary instrument \\(Z\\) there are four types of compliance\n\n\n\n\n\nType\n\\(D_i(Z=1)\\)\n\\(D_i(Z=0)\\)\n\n\n\n\nAlways Takers\n1\n1\n\n\nNever Takers\n0\n0\n\n\nCompliers\n1\n0\n\n\nDefiers\n0\n1\n\n\n\n\n\n\nAssuming Monotonicity means there are “No Defiers”"
+  },
+  {
+    "objectID": "slides/11-slides.html#estimating-the-local-average-treatment-effect",
+    "href": "slides/11-slides.html#estimating-the-local-average-treatment-effect",
+    "title": "POLS 1600",
+    "section": "Estimating the Local Average Treatment Effect",
+    "text": "Estimating the Local Average Treatment Effect\nIf we believe our assumptions of:\n\nRandomization\nExcludability\nFirst-stage relationship\nMonotonicity\n\nThen we can estimate Local Average Treatment Effect (LATE) sometimes called the Complier Average Treatment Effect (CATE)"
+  },
+  {
+    "objectID": "slides/11-slides.html#estimating-the-local-average-treatment-effect-1",
+    "href": "slides/11-slides.html#estimating-the-local-average-treatment-effect-1",
+    "title": "POLS 1600",
+    "section": "Estimating the Local Average Treatment Effect",
+    "text": "Estimating the Local Average Treatment Effect\nIt can be shown that the LATE:\n\\[LATE = \\frac{E[Y|Z=1] - E[Y|Z=0]}{E[D|Z=1]-E[D|Z=0]}= \\frac{ATE_{Z\\to Y}}{ATE_{Z\\to D}}\\]\nWhere:\n\n\\(ATE_{Z\\to Y}\\) is the known as the “Intent to Treat” effect (ITT) (i.e. the effect of being assigned to treatment)\n\\(ATE_{Z\\to D}\\) is the “effect” of being assigned to treatment on actually receiving treatment"
+  },
+  {
+    "objectID": "slides/11-slides.html#example-earnings-and-military-service",
+    "href": "slides/11-slides.html#example-earnings-and-military-service",
+    "title": "POLS 1600",
+    "section": "Example: Earnings and Military Service",
+    "text": "Example: Earnings and Military Service\nAdapted from Edward Rubin\nExample: If we want to estimate the effect of veteran status on earnings,\n\\[\n\\begin{align}\n  \\text{Earnings}_i = \\beta_0 + \\beta_1 \\text{Veteran}_i + u_i \\tag{1}\n\\end{align}\n\\]\nWe would love to calculate \\(\\color{#e64173}{\\text{Earnings}_{1i}} - \\color{#6A5ACD}{\\text{Earnings}_{0i}}\\), but we can’t.\nAnd OLS will likely be biased for \\((1)\\) due to selection/omitted-variable bias."
+  },
+  {
+    "objectID": "slides/11-slides.html#introductory-example",
+    "href": "slides/11-slides.html#introductory-example",
+    "title": "POLS 1600",
+    "section": "Introductory example",
+    "text": "Introductory example\nImagine that we can split veteran status into an exogenous (as-if random, unbiased) part and an endogenous (non-random, biased) part…\n\\[\n\\begin{align}\n  \\text{Earnings}_i\n  &= \\beta_0 + \\beta_1 \\text{Veteran}_i + u_i \\tag{1} \\\\\n  &= \\beta_0 + \\beta_1 \\left(\\text{Veteran}_i^{\\text{Exog.}} + \\text{Veteran}_i^{\\text{Endog.}}\\right) + u_i \\\\\n  &= \\beta_0 + \\beta_1 \\text{Veteran}_i^{\\text{Exog.}} + \\underbrace{\\beta_1 \\text{Veteran}_i^{\\text{Endog.}} + u_i}_{w_i} \\\\\n  &= \\beta_0 + \\beta_1 \\text{Veteran}_i^{\\text{Exog.}} + w_i\n\\end{align}\n\\]\nWe could use this exogenous variation in veteran status to consistently estimate \\(\\beta_1\\).\nQ: What would exogenous variation in veteran status mean?"
+  },
+  {
+    "objectID": "slides/11-slides.html#introductory-example-1",
+    "href": "slides/11-slides.html#introductory-example-1",
+    "title": "POLS 1600",
+    "section": "Introductory example",
+    "text": "Introductory example\nQ: What would exogenous variation in veteran status mean?\n\\(A_1\\) Choices to enlist in the military that are essentially random—or at least uncorrelated with omitted variables and the disturbance.\n\\(A_2\\) .No selection bias:\n\\[\n\\begin{align}\n  \\color{#e64173}{\\mathop{E}\\left(\\text{Earnings}_{0i}\\mid\\text{Veteran}_i = 1\\right)} - \\color{#6A5ACD}{\\mathop{E}\\left( \\text{Earnings}_{0i} \\mid \\text{Veteran}_i = 0 \\right)} = 0\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "slides/11-slides.html#instruments",
+    "href": "slides/11-slides.html#instruments",
+    "title": "POLS 1600",
+    "section": "Instruments",
+    "text": "Instruments\n\nQ: How do we isolate this exogenous variation in our explanatory variable?\nA: Find an instrument (an instrumental variable).\nQ: What’s an instrument?\nA: An instrument is a variable that is\n\ncorrelated with the explanatory variable of interest (relevant),\nuncorrelated with the error term (exogenous)."
+  },
+  {
+    "objectID": "slides/11-slides.html#instruments-1",
+    "href": "slides/11-slides.html#instruments-1",
+    "title": "POLS 1600",
+    "section": "Instruments",
+    "text": "Instruments\nSo if we want an instrument \\(z_i\\) for endogenous veteran status in\n\\[\n\\begin{align}\n  \\text{Earnings}_i = \\beta_0 + \\beta_1 \\text{Veteran}_i + u_i\n\\end{align}\n\\]\n\nRelevant: \\(\\mathop{\\text{Cov}} \\left( \\text{Veteran}_i,\\, z_i \\right) \\neq 0\\)\nExogenous: \\(\\mathop{\\text{Cov}} \\left( z_i,\\, u_i \\right) = 0\\)"
+  },
+  {
+    "objectID": "slides/11-slides.html#instruments-relevance",
+    "href": "slides/11-slides.html#instruments-relevance",
+    "title": "POLS 1600",
+    "section": "Instruments: Relevance",
+    "text": "Instruments: Relevance\nRelevance: We need the instrument to cause a change in (correlate with) our endogenous explanatory variable.\nWe can actually test this requirement using regression and a t test.\nExample: For the veteran status, consider three potential instruments:\n\n\n\nSocial security number\nPhysical fitness\nVietnam War draft\n\n\n\nProbably not relevant uncorrelated with military service\nPotentially relevant service may correlate with fitness\nRelevant being drafted led to service"
+  },
+  {
+    "objectID": "slides/11-slides.html#instruments-exogeneity",
+    "href": "slides/11-slides.html#instruments-exogeneity",
+    "title": "POLS 1600",
+    "section": "Instruments: Exogeneity",
+    "text": "Instruments: Exogeneity\nExogeneity: The instrument to be independent of omitted factors that affect our outcome variable—as good as randomly assigned.\n\\(z_i\\) must be uncorrelated with our disturbance \\(u_i\\). Not testable.\nExample: For the veteran status, consider three potential instruments:\n\n\n\nSocial security number\nPhysical fitness\nVietnam War draft\n\n\n\nExogenous SSN essentially random\nNot Exogenous fitness correlated with many things\nExogenous draft via lottery"
+  },
+  {
+    "objectID": "slides/11-slides.html#relevant-and-exogenous",
+    "href": "slides/11-slides.html#relevant-and-exogenous",
+    "title": "POLS 1600",
+    "section": "Relevant and Exogenous",
+    "text": "Relevant and Exogenous"
+  },
+  {
+    "objectID": "slides/11-slides.html#relevant-not-exogenous",
+    "href": "slides/11-slides.html#relevant-not-exogenous",
+    "title": "POLS 1600",
+    "section": "Relevant, Not Exogenous",
+    "text": "Relevant, Not Exogenous"
+  },
+  {
+    "objectID": "slides/11-slides.html#not-relevant-and-not-exogenous",
+    "href": "slides/11-slides.html#not-relevant-and-not-exogenous",
+    "title": "POLS 1600",
+    "section": "Not Relevant and Not Exogenous",
+    "text": "Not Relevant and Not Exogenous"
+  },
+  {
+    "objectID": "slides/11-slides.html#relevant-not-exogenous-1",
+    "href": "slides/11-slides.html#relevant-not-exogenous-1",
+    "title": "POLS 1600",
+    "section": "Relevant, Not Exogenous",
+    "text": "Relevant, Not Exogenous"
+  },
+  {
+    "objectID": "slides/11-slides.html#venn-diagram-explanation",
+    "href": "slides/11-slides.html#venn-diagram-explanation",
+    "title": "POLS 1600",
+    "section": "Venn diagram explanation",
+    "text": "Venn diagram explanation\nIn the following figures (Venn diagrams)\n\nEach circle illustrates a variable.\nOverlap gives the share of correlatation between two variables.\nDotted borders denote omitted variables."
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-applications",
+    "href": "slides/11-slides.html#iv-applications",
+    "title": "POLS 1600",
+    "section": "IV Applications",
+    "text": "IV Applications"
+  },
+  {
+    "objectID": "slides/11-slides.html#iv-summary",
+    "href": "slides/11-slides.html#iv-summary",
+    "title": "POLS 1600",
+    "section": "IV Summary",
+    "text": "IV Summary\nInstrumental variables require a number of assumptions to yield credible causal claims:\n\nRandomization\nExcludability\nFirst-stage relationship\nMonotonicity\n\nEstimation and inference of IVs is beyond the scope of this course.\n\nSee Edward Rubin’s excellent slides\nAnd Matt Blackwells notes\nUnderstanding the identifying assumptions of IV can help you critique a study (even if the you don’t fully understand the math)"
+  },
+  {
+    "objectID": "slides/11-slides.html#what-you-need-to-know",
+    "href": "slides/11-slides.html#what-you-need-to-know",
+    "title": "POLS 1600",
+    "section": "What you need to know",
+    "text": "What you need to know\n\nCausal inference in observational and experimental studies is about counterfactual comparisons\nIn observational studies, to make causal claims we generally make some assumption of conditional independence:\n\n\\[\nY_i(1),Y_i(0), \\perp D_i |X_i\n\\]\n\nThe credibility of this assumption depends less on the data, and more on how the data were generated.\nSelection on Observables is rarely a credible assumption\nObservational designs that produce credible causal inference, leverage aspects of the world that create natural experiments\nYou should be able to describe the logic and assumptions of common designs in social science\n\nDifference-in-Differences: Parallel Trends\nRegression Discontiniuity: Continuity at the cutoff\nInstrumental Variables: Instruments need to be Relevant and Exogenous"
+  },
+  {
+    "objectID": "slides/11-slides.html#take-aways",
+    "href": "slides/11-slides.html#take-aways",
+    "title": "POLS 1600",
+    "section": "Take-aways",
+    "text": "Take-aways\n\nFigure 1: Valid instrument (relevant; exogenous, e.g. draft lotto number)\nFigure 2: Invalid instrument (relevant; not exogenous, e.g. physical fitness)\nFigure 3: Invalid instrument (not relevant; not exogenous)\nFigure 4: Invalid instrument (relevant; not exogenous)"
   }
 ]

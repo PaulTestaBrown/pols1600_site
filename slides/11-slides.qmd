@@ -72,17 +72,12 @@ library(texreg)
 
 ## Annoucements
 
-- Do we need to start taking attendance?
 - Lab 11/[Assignment 3](https://pols1600.paultesta.org/assignments/a3) this week
-- No tutorial this week
-- Next Tuesday, April 23, Work on Presentations/Drafts
+- Next Tuesday, April 22, Work on Presentations/Drafts
 - [Assignment 4](https://pols1600.paultesta.org/assignments/a3) now due April 25.
-- April 30, Final Workshop 
-- May 2 Class Presentations
+- April 29, Final Workshop 
+- May 1x``   Class Presentations
 
-## Pie me
-
-![](images/11-anchor.png)
 
 ## Setup: Packages for today
 
@@ -1339,3 +1334,686 @@ The results for 2020 suggest the relationship between partisanship and vaccine s
 - The coefficients from Model 5 suggest the relationship between partisanship skepticism is non linear, which is confirmed by model 6.
 
 - In Model 6, we see that independents remain the most skeptical of vaccines in 2020 $(\beta = 0.20,\, p <0.05)$, but that Republicans now tend to be more skeptical of vaccines than Democrats $(\beta = 0.10,\, p <0.05)$
+
+
+# {{< fa lightbulb>}} Regression Discontinuity Design {.inverse}
+
+## Motivating Example
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+- Do Members of Parliament in the UK get richer from holding office (QSS Chapter 4.3.4)
+
+:::
+
+:::{.column width="70%"}
+
+```{r}
+#| label: eggers1
+#| echo: false
+
+knitr::include_graphics("./images/04_eggers.png")
+```
+[Eggers and Hainmueller (2009)](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/mps-for-sale-returns-to-office-in-postwar-british-politics/E4C2B102194AA1EA0D2F1F777EAE3C08)
+]
+
+:::
+
+::::
+
+## Logic of the Regression Discontinuity Design (RDD) 
+
+- What's the effect of holding elected office in the UK on personal wealth?
+
+- People who win elections differ in many ways from people who lose elections.
+
+- Logic of an RDD: 
+
+  - Just look at the wealth of individuals who either narrowly won or lost elections.
+
+  - Candidates close to 50 percent cutoff (discontinuity) should be more comparable (better counterfactuals)
+
+##  Eggers and Hainmueller (2009)  {.smaller}
+
+:::: panel-tabset
+
+## Data
+
+```{r}
+#| label: mpdata
+
+library(qss)
+data(MPs)
+glimpse(MPs)
+
+```
+
+## Variables
+
+```{r}
+#| label: rddtab
+#| echo: false
+
+rdd_vars <- data.frame(
+Variable = c("surname", "firstname", "party", "ln.gross", "ln.net", "yob", "yod", "margin.pre", "region", "margin"),
+Description = c(
+"surname of the candidate",
+"first name of the candidate",
+"party of the candidate (labour or tory)",
+"log gross wealth at the time of death",
+"log net wealth at the time of death",
+"year of birth of the candidate",
+"year of death of the candidate",
+"margin of the candidate’s party in the previous election electoral", 
+"region",
+"margin of victory (vote share)")
+)
+# DT::datatable(rdd_vars,
+#               options = list(pageLength = "5"))
+kable(rdd_vars)
+```
+
+
+## {{<fa code>}}
+
+```{r}
+#| label: rddfigcode
+
+MPs %>%
+  ggplot(aes(margin, ln.net))+
+  geom_point(shape=1)+
+  facet_grid(~party)+
+  geom_smooth(data =MPs %>%
+                filter(margin <0),
+              method = "lm")+
+  geom_smooth(data =MPs %>%
+                filter(margin >0),
+              method = "lm")+
+  theme_bw() -> fig_rdd
+
+```
+
+## {{<fa chart-line>}}
+
+```{r}
+#| label: rddfig
+#| echo: false
+fig_rdd
+```
+
+::::
+
+## RDD Notation {.smaller}
+
+- $X$ is a **forcing** variable
+- Treatment $D$ is a determined by $X$
+
+$$
+D_i = 1\{X_i > c\}
+$$
+
+- $X$ is the `margin` variable in the example data, and $D=1$ if `margin` is greater than 0 (i.e. the candidate won the election)
+
+- Interested in the differences in the outcome at the threshold
+
+$$\lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x]$$
+
+## Causal Identification with an RDD {.smaller}
+
+If we assume $E[Y_i(0)|X=x]$ and $E[Y_i(1)|X=x]$ are continuous in x, then we can estimate a (local) ATE at the threshold:
+
+$$\begin{align}
+ATE_{RDD} &= E[Y(1)-Y(0)|X_i=c] \\
+&=  E[Y(1)|X_i=c] -  E[Y(0)|X_i=c]\\
+&= \lim_{x \downarrow  c} E[Y_i|X=x] - \lim_{x \uparrow  c} E[Y_i|X=x] \\
+\end{align}$$
+
+## Continuity Assumption
+
+```{r}
+#| label: continuity
+#| echo: false
+
+knitr::include_graphics("https://mixtape.scunning.com/graphics/rdd_simul_ex.jpg")
+```
+
+[Cunningham (2022)](https://mixtape.scunning.com/regression-discontinuity.html#continuity-assumption)
+
+## Causal Identification with an RDD {.smaller}
+
+- The continuity assumption is a formal way of saying that observations close to the threshold are good counterfactuals for each other
+
+- We can't prove this assumption
+
+- But if it holds, we should observe
+ 
+  - no sorting around the cutoff (no self selection)
+ 
+  - similar distributions of covariates around the cutoff (balance tests)
+  
+  - no effect of treatment on things measured pre-treatment (placebo tests)
+
+
+
+
+
+# {{< fa lightbulb>}} Instrumental Variables {.inverse}
+
+
+
+## Instrumental Variables  {.smaller}
+
+Instrumental variables are an economists favorite tool for dealing with **omitted variable bias**
+
+- We have some non random treatment whose effects we'd like to assess
+- We're worried that these effects are **confounded** by some unobserved, omitted variable, that influences both the treatment and the outcome
+- We find an **instrumental variable** that satisfies the following:
+  - Randomization
+  - Excludability
+  - First-stage relatioship
+  - Monotonicity
+- Allowing us estimate a Local Average Treatment Effect (LATE) using the only the variation in our treatment is **exogenous** (uncorrelated with ommited variables)
+
+
+
+## IV Assumption: Randomization
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+- No path from $U$ to $Z$
+
+:::
+
+::: {.column width="70%"}
+
+![](https://book.declaredesign.org/figures/figure-16-7.svg)
+[Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
+
+:::
+
+::::
+
+
+## IV Assumption: Excludability
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+- No path from $Z$ to $Y$
+
+:::
+
+::: {.column width="70%"}
+
+![](https://book.declaredesign.org/figures/figure-16-7.svg)
+
+[Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
+
+
+:::
+
+::::
+
+
+## IV Assumption:  First Stage
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+- Path from $Z$ to $D$
+
+:::
+
+::: {.column width="70%"}
+
+![](https://book.declaredesign.org/figures/figure-16-7.svg)
+
+[Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
+
+
+:::
+
+::::
+
+
+
+
+## IV Assumption: Monotonicity
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+-  $D_i(Z=1)\geq D_i(Z=0)$
+- "No Defiers"
+
+
+:::
+
+::: {.column width="70%"}
+
+![](https://book.declaredesign.org/figures/figure-16-7.svg)
+
+[Source](https://book.declaredesign.org/observational-causal.html?q=instrumental#instrumental-variables)
+
+
+:::
+
+::::
+
+
+## Compliance
+
+With a binary treatment, $D$ and binary instrument $Z$ there are four types of compliance
+
+```{r}
+#| label: compliance
+#| echo: false
+
+comp_tab <- tibble(
+  Type = c("Always Takers",
+           "Never Takers",
+           "Compliers",
+           "Defiers"),
+   '$D_i(Z=1)$' = c(1,0,1,0),
+   '$D_i(Z=0)$' = c(1,0,0,1)
+)
+kable(comp_tab)
+```
+
+- Assuming Monotonicity means there are "No Defiers"
+
+## Estimating the Local Average Treatment Effect
+
+If we believe our assumptions of:
+
+- Randomization
+- Excludability
+- First-stage relationship
+- Monotonicity
+
+Then we can estimate [Local Average Treatment Effect (LATE)]{.blue} sometimes called the [Complier Average Treatment Effect (CATE)]{.blue} 
+
+## Estimating the Local Average Treatment Effect
+
+It can be [shown](https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf) that the LATE:
+
+$$LATE = \frac{E[Y|Z=1] - E[Y|Z=0]}{E[D|Z=1]-E[D|Z=0]}= \frac{ATE_{Z\to Y}}{ATE_{Z\to D}}$$
+
+Where:
+
+- $ATE_{Z\to Y}$ is the known as the "Intent to Treat" effect (ITT) (i.e. the effect of being assigned to treatment)
+
+- $ATE_{Z\to D}$ is the "effect" of being assigned to treatment on actually receiving treatment
+
+
+
+
+
+
+## Example: Earnings and Military Service {.smaller}
+
+Adapted from [Edward Rubin](https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#42)
+
+*Example:* If we want to estimate the effect of veteran status on earnings,
+
+$$
+\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1}
+\end{align}
+$$
+
+
+
+We would love to calculate $\color{#e64173}{\text{Earnings}_{1i}} - \color{#6A5ACD}{\text{Earnings}_{0i}}$, but we can't.
+
+
+
+And OLS will likely be biased for $(1)$ due to selection/omitted-variable bias.
+
+
+
+## Introductory example {.smaller}
+
+Imagine that we can split veteran status into an exogenous (as-if random, unbiased) part and an endogenous (non-random, biased) part...
+
+
+
+$$
+\begin{align}
+  \text{Earnings}_i
+  &= \beta_0 + \beta_1 \text{Veteran}_i + u_i \tag{1} \\
+  &= \beta_0 + \beta_1 \left(\text{Veteran}_i^{\text{Exog.}} + \text{Veteran}_i^{\text{Endog.}}\right) + u_i \\
+  &= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + \underbrace{\beta_1 \text{Veteran}_i^{\text{Endog.}} + u_i}_{w_i} \\
+  &= \beta_0 + \beta_1 \text{Veteran}_i^{\text{Exog.}} + w_i
+\end{align}
+$$
+
+
+
+We could use this exogenous variation in veteran status to consistently estimate $\beta_1$.
+
+
+
+**Q:** What would exogenous variation in veteran status mean?
+
+
+
+## Introductory example {.smaller}
+
+**Q:** What would exogenous variation in veteran status mean?
+
+
+
+$A_1$ Choices to enlist in the military that are essentially random—or at least uncorrelated with omitted variables and the disturbance.
+
+
+
+$A_2$ .No selection bias:
+
+$$
+\begin{align}
+  \color{#e64173}{\mathop{E}\left(\text{Earnings}_{0i}\mid\text{Veteran}_i = 1\right)} - \color{#6A5ACD}{\mathop{E}\left( \text{Earnings}_{0i} \mid \text{Veteran}_i = 0 \right)} = 0
+\end{align}
+$$
+
+## Instruments {.smaller}
+
+- **Q:** How do we isolate this *exogenous variation* in our explanatory variable?
+
+- **A:** Find an instrument (an instrumental variable).
+
+
+
+- **Q:** What's an instrument?
+
+- **A:** An **instrument** is a variable that is
+  
+  1. **correlated** with the **explanatory variable** of interest (*relevant*),
+  2. **uncorrelated** with the **error** term (*exogenous*).
+
+
+
+## Instruments {.smaller}
+
+
+So if we want an instrument $z_i$ for endogenous veteran status in
+
+$$
+\begin{align}
+  \text{Earnings}_i = \beta_0 + \beta_1 \text{Veteran}_i + u_i
+\end{align}
+$$
+
+1. **Relevant:** $\mathop{\text{Cov}} \left( \text{Veteran}_i,\, z_i \right) \neq 0$
+2. **Exogenous:** $\mathop{\text{Cov}} \left( z_i,\, u_i \right) = 0$
+
+## Instruments: Relevance {.smaller}
+
+**Relevance:** We need the instrument to cause a change in (correlate with) our endogenous explanatory variable.
+
+We can actually test this requirement using regression and a *t* test.
+
+
+
+***Example:*** For the veteran status, consider three potential instruments:
+
+:::: {.columns}
+
+::: {.column width="30%"}
+1. Social security number
+
+2. Physical fitness
+
+3. Vietnam War draft
+
+:::
+
+::: {.column width="70%"}
+- **Probably not relevant** uncorrelated with military service
+
+- *Potentially relevant* service may correlate with fitness
+
+- **Relevant** being drafted led to service
+
+:::
+
+::::
+
+
+
+
+
+
+
+## Instruments: Exogeneity {.smaller}
+
+[Exogeneity:]{.blue} The instrument to be independent of omitted factors that affect our outcome variable—as good as randomly assigned.
+
+$z_i$ must be uncorrelated with our disturbance $u_i$. [Not testable.]{.blue}
+
+
+
+***Example:*** For the [veteran status]{.blue}, consider three potential instruments:
+
+:::: {.columns}
+
+::: {.column width="30%"}
+1. Social security number
+
+2. Physical fitness
+
+3. Vietnam War draft
+
+:::
+
+::: {.column width="70%"}
+- **Exogenous** SSN essentially random
+
+- *Not Exogenous* fitness correlated with many things
+
+- **Exogenous** draft via lottery
+
+:::
+
+::::
+
+## Venn diagram explanation
+
+In the following figures (Venn diagrams)
+
+- Each circle illustrates a variable.
+- Overlap gives the share of correlatation between two variables.
+- Dotted borders denote *omitted* variables.
+
+
+## Relevant and Exogenous
+
+
+```{r}
+#| label: venn_iv
+#| echo: false
+
+# Colors (order: x1, x2, x3, y, z)
+venn_colors <- c("purple", "red", "grey60", "orange", "blue")
+# Line types (order: x1, x2, x3, y, z)
+venn_lines <- c("solid", "dotted", "dotted", "solid", "solid")
+# Locations of circles
+venn_df <- tibble(
+  x  = c( 0.0,   -0.5,    1.5,   -1.0, -1.4),
+  y  = c( 0.0,   -2.5,   -1.8,    2.0, -2.6),
+  r  = c( 1.9,    1.5,    1.5,    1.3,  1.3),
+  l  = c( "Y", "D", "X[2]", "X[3]",  "Z"),
+  xl = c( 0.0,    0.7,    1.6,   -1.0, -2.9),
+  yl = c( 0.0,   -3.8,   -1.9,    2.2, -2.6)
+)
+# Venn
+ggplot(data = venn_df, aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, parse = T) +
+annotate(
+  x = -5.5, y = 3.3,
+  geom = "text", label = "Figure 1", size = 10, hjust = 0
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+## Relevant, Not Exogenous
+
+```{r}
+#| label: venn_iv_endog
+#| echo: false
+
+# Change locations of circles
+venn_df %>%
+mutate(
+  x = x +   c(0, 0, 0, 0, 0),
+  xl = xl + c(0, 0, 0, 0, 0),
+  y = y +   c(0, 0, 0, 0, 1),
+  yl = yl + c(0, 0, 0, 0, 1)
+) %>%
+# Venn
+ggplot(data = ., aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, parse = T) +
+annotate(
+  x = -5.5, y = 3.3,
+  geom = "text", label = "Figure 2", size = 10, hjust = 0
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+## Not Relevant and Not Exogenous
+
+
+```{r}
+#| label: venn_iv_irrelevant
+#| echo: false
+
+# Change locations of circles
+venn_df %>%
+mutate(
+  x = x +   c(0, 0, 0, 0,-1),
+  xl = xl + c(0, 0, 0, 0,-1),
+  y = y +   c(0, 0, 0, 0, 2.3),
+  yl = yl + c(0, 0, 0, 0, 2.3)
+) %>%
+# Venn
+ggplot(data = ., aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, parse = T) +
+annotate(
+  x = -5.5, y = 3.3,
+  geom = "text", label = "Figure 3", size = 10, hjust = 0
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+## Relevant, Not Exogenous
+```{r}
+#| label: venn_iv_endog2
+#| echo: false
+
+# Change locations of circles
+venn_df %>%
+mutate(
+  x = x +   c(0,    0,   0, 0,    2),
+  xl = xl + c(0, -2.4, 0.8, 0,  4.6),
+  y = y +   c(0,    0,   0, 0,    0),
+  yl = yl + c(0,    0,   0, 0, -1.1)
+) %>%
+# Venn
+ggplot(data = ., aes(x0 = x, y0 = y, r = r, fill = l, color = l)) +
+geom_circle(aes(linetype = l), alpha = 0.3, size = 0.75) +
+theme_void() +
+theme(legend.position = "none") +
+scale_fill_manual(values = venn_colors) +
+scale_color_manual(values = venn_colors) +
+scale_linetype_manual(values = venn_lines) +
+geom_text(aes(x = xl, y = yl, label = l), size = 9, parse = T) +
+annotate(
+  x = -5.5, y = 3.3,
+  geom = "text", label = "Figure 4", size = 10, hjust = 0
+) +
+xlim(-5.5, 4.5) +
+ylim(-4.2, 3.4) +
+coord_equal()
+```
+
+
+
+## Take-aways
+
+- Figure 1: [Valid instrument]{.blue} (relevant; exogenous, e.g. draft lotto number)
+- Figure 2: [Invalid instrument]{.yellow} (relevant; not exogenous, e.g. physical fitness)
+- Figure 3: [Invalid instrument]{.yellow} (not relevant; not exogenous)
+- Figure 4: [Invalid instrument]{.yellow} (relevant; not exogenous)
+
+## IV Applications
+
+![](images/ivtweet.png)
+
+
+## IV Summary
+
+Instrumental variables require a number of assumptions to yield credible causal claims:
+
+- Randomization
+- Excludability
+- First-stage relationship
+- Monotonicity
+
+Estimation and inference of IVs is beyond the scope of this course. 
+
+  - See Edward Rubin's excellent [slides](https://raw.githack.com/edrubin/EC421W19/master/LectureNotes/11InstrumentalVariables/11_instrumental_variables.html#85)
+  - And Matt Blackwells [notes](https://www.mattblackwell.org/files/teaching/s10-iv-handout.pdf)
+
+- Understanding the identifying assumptions of IV can help you critique a study (even if the you don't fully understand the math)
+
+# {{< fa lightbulb>}} Summary {.inverse}
+
+## What you need to know
+
+- Causal inference in observational and experimental studies is about counterfactual comparisons
+- In observational studies, to make causal claims we generally make some  assumption of conditional independence:
+
+$$
+Y_i(1),Y_i(0), \perp D_i |X_i
+$$
+
+- The credibility of this assumption depends less on the data, and more on how the data were generated.
+- **Selection on Observables** is rarely a credible assumption
+- Observational designs that produce credible causal inference, leverage aspects of the world that create *natural experiments*
+- You should be able to describe the logic and assumptions of common designs in social science 
+  - **Difference-in-Differences:** *Parallel Trends* 
+  - **Regression Discontiniuity:** *Continuity at the cutoff*
+  - **Instrumental Variables:** Instruments need to be *Relevant and Exogenous*
+
