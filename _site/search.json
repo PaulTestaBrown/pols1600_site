@@ -8536,7 +8536,7 @@
     "href": "slides/11-slides.html#annoucements",
     "title": "POLS 1600",
     "section": "Annoucements",
-    "text": "Annoucements\n\nLab 11/Assignment 3 this week\nNext Tuesday, April 22, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 29, Final Workshop\nMay 1x`` Class Presentations"
+    "text": "Annoucements\n\nLab 11/Assignment 3 this week\nNext Tuesday, April 22, Work on Presentations/Drafts\nAssignment 4 now due April 25.\nApril 29, Final Workshop\nMay 1 Class Presentations"
   },
   {
     "objectID": "slides/11-slides.html#pie-me",
@@ -8571,7 +8571,7 @@
     "href": "slides/11-slides.html#data-wrangling",
     "title": "POLS 1600",
     "section": "Data Wrangling",
-    "text": "Data Wrangling\n\nThe process of transforming data into a useable format\n\nYou should know how to:\n\nLoad, look at,and transform data into R\nGet a HLO of the raw data:\n\nUnit of analysis\nDimensions of the data\nQuickly summarize the distributions and values of variables\n\nRecode the data to:\n\nReplace values as NAs\nCreate categories, indicators (0,1), and factors\nTransform predictors (e.g. standardizing predictors)\n\nReshape the data\n\nPivoting columns and rows\nJoining data sets together.\n\nAggregate the data into summaries"
+    "text": "Data Wrangling\n\nThe process of transforming data into a useable format\n\nYou should know how to:\n\nLoad, look at,and transform data into R\nGet a HLO of the raw data:\n\nUnit of observation\nDimensions of the data\nQuickly summarize the distributions and values of variables\n\nRecode the data to:\n\nReplace values as NAs\nCreate categories, indicators (0,1), and factors\nTransform predictors (e.g. standardizing predictors)\n\nReshape the data\n\nPivoting columns and rows\nJoining data sets together.\n\nAggregate the data into summaries"
   },
   {
     "objectID": "slides/11-slides.html#data-visualization",
@@ -8606,7 +8606,7 @@
     "href": "slides/11-slides.html#sampling-distributions-and-standard-errors",
     "title": "POLS 1600",
     "section": "Sampling Distributions and Standard Errors",
-    "text": "Sampling Distributions and Standard Errors\n\nA sampling distribution is a theoretical probability distribution of estimates obtained from taking repeated samples of size \\(n\\) from some population\n\nA distribution of what we could have seen\n\nA standard errors is simply the standard deviation (\\(\\sigma\\)) of the sampling distribution\n\nA measure of how much our estimate could have varied.\n\nLaw of Large Numbers: As \\(N \\to \\infty\\) \\(\\bar{x} \\to \\mu\\)\nCentral Limit Theorem: As \\(N \\to \\infty\\) \\(\\bar{x} \\sim \\mathcal{N}(\\mu, \\sigma^2)\\)"
+    "text": "Sampling Distributions and Standard Errors\n\nA sampling distribution is a theoretical probability distribution of estimates obtained from taking repeated samples of size \\(n\\) from some population\n\nA distribution of what we could have seen\n\nA standard error is simply the standard deviation (\\(\\sigma\\)) of the sampling distribution\n\nA measure of how much our estimate could have varied.\n\nLaw of Large Numbers: As \\(N \\to \\infty\\) \\(\\bar{x} \\to \\mu\\)\nCentral Limit Theorem: As \\(N \\to \\infty\\) \\(\\bar{x} \\sim \\mathcal{N}(\\mu, \\sigma^2)\\)"
   },
   {
     "objectID": "slides/11-slides.html#confidence-intervals",

@@ -76,7 +76,7 @@ library(texreg)
 - Next Tuesday, April 22, Work on Presentations/Drafts
 - [Assignment 4](https://pols1600.paultesta.org/assignments/a3) now due April 25.
 - April 29, Final Workshop 
-- May 1x``   Class Presentations
+- May 1   Class Presentations
 
 
 ## Setup: Packages for today
@@ -145,7 +145,7 @@ You should know how to:
 
 - Load, look at,and transform data into R
 - Get a [HLO](https://pols1600.paultesta.org/slides/01-slides#/hlos-allow-you-to) of the raw data:
-  - Unit of analysis
+  - Unit of observation
   - Dimensions of the data
   - Quickly summarize the distributions and values of variables
 - [Recode](https://pols1600.paultesta.org/labs/09-lab-comments#recode-the-data) the data to:
@@ -231,7 +231,7 @@ You should know:
 
   - A distribution of what we could have seen
 
-- A standard errors is simply the standard deviation ($\sigma$) of the sampling distribution
+- A standard error is simply the standard deviation ($\sigma$) of the sampling distribution
 
   - A measure of how much our estimate could have varied.
 
